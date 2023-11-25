@@ -1,6 +1,11 @@
+## Build generated
+
 *.DS_Store
 .build/
 xcshareddata/
 xcuserdata/
-## Build generated
 build/
+
+## Keys
+
+UpliftSecrets/Keys.xcconfig

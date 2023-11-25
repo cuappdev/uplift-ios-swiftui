@@ -1,0 +1,26 @@
+PODS:
+  - Apollo (1.7.0):
+    - Apollo/Core (= 1.7.0)
+  - Apollo/Core (1.7.0)
+  - Nuke (10.7.1)
+  - SwiftLint (0.54.0)
+
+DEPENDENCIES:
+  - Apollo
+  - Nuke
+  - SwiftLint
+
+SPEC REPOS:
+  trunk:
+    - Apollo
+    - Nuke
+    - SwiftLint
+
+SPEC CHECKSUMS:
+  Apollo: ce13b007f55b339493b40b5a8ef063fd2ae5c4f1
+  Nuke: 279f17a599fd1c83cf51de5e0e1f2db143a287b0
+  SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
+
+PODFILE CHECKSUM: 1bbfe607573edc8a10dafeb26803b7193c43fbf5
+
+COCOAPODS: 1.12.1
