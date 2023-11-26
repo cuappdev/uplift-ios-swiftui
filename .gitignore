@@ -1,11 +1,12 @@
 ## Build generated
-
 *.DS_Store
 .build/
 xcshareddata/
 xcuserdata/
 build/
 
-## Keys
+## Secrets
+UpliftSecrets/*
 
-UpliftSecrets/Keys.xcconfig
+## API
+UpliftAPI

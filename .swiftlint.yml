@@ -1,0 +1,31 @@
+disabled_rules:
+  - comment_spacing
+  - cyclomatic_complexity
+  - file_length
+  - function_body_length
+  - multiple_closures_with_trailing_closure
+  - type_body_length
+  - nesting
+  - indentation_width
+
+
+opt_in_rules:
+  - closure_end_indentation
+  - implicit_return
+  - literal_expression_end_indentation
+  - modifier_order
+  - multiline_function_chains
+  - multiline_literal_brackets
+  - multiline_parameters
+  - multiline_parameters_brackets
+  - multiple_closures_with_trailing_closure
+  - multiline_arguments_brackets
+  - multiline_arguments 
+  - vertical_parameter_alignment_on_call
+
+excluded:
+  - Uplift/Networking/API.swift
+  - Pods
+
+identifier_name:
+  min_length: 1

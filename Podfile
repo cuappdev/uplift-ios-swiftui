@@ -1,6 +1,9 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '17.0'
 
+# Ignore Warnings
+inhibit_all_warnings!
+
 target 'Uplift' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
@@ -8,7 +11,7 @@ target 'Uplift' do
   # Pods for Uplift
   pod 'Apollo'
   pod 'Nuke'
-  pod 'SwiftLint'
+  pod 'SwiftLint', :inhibit_warnings => false
 
 end
 

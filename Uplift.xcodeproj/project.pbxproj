@@ -13,6 +13,10 @@
 		2E8FE3942B1278B700B3DC6A /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8FE3932B1278B700B3DC6A /* Item.swift */; };
 		2E8FE3962B1278B900B3DC6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E8FE3952B1278B900B3DC6A /* Assets.xcassets */; };
 		2E8FE3992B1278B900B3DC6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E8FE3982B1278B900B3DC6A /* Preview Assets.xcassets */; };
+		2EE0C7CB2B12D6EE000D3BF6 /* GymQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */; };
+		2EE5F3C82B12E094008E0299 /* ApolloClientProtocol+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5F3C72B12E094008E0299 /* ApolloClientProtocol+Extension.swift */; };
+		2EE5F3CF2B12E741008E0299 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3CE2B12E741008E0299 /* UpliftAPI */; };
+		2EF1A2582B129EEB007A299F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1A2572B129EEB007A299F /* Network.swift */; };
 		842FB0CCD71C3202DE5836F1 /* Pods_Uplift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E86AC23F1B9AFB11552390BF /* Pods_Uplift.framework */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +30,10 @@
 		2E8FE3932B1278B700B3DC6A /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		2E8FE3952B1278B900B3DC6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2E8FE3982B1278B900B3DC6A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GymQueries.graphql; sourceTree = "<group>"; };
+		2EE5F3C72B12E094008E0299 /* ApolloClientProtocol+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApolloClientProtocol+Extension.swift"; sourceTree = "<group>"; };
+		2EE5F3C92B12E34D008E0299 /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2EF1A2572B129EEB007A299F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		61B508C772C15943F0FDB2E8 /* Pods-Uplift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.debug.xcconfig"; path = "Target Support Files/Pods-Uplift/Pods-Uplift.debug.xcconfig"; sourceTree = "<group>"; };
 		D6EB08EC41E957E55D918532 /* Pods-Uplift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.release.xcconfig"; path = "Target Support Files/Pods-Uplift/Pods-Uplift.release.xcconfig"; sourceTree = "<group>"; };
 		E86AC23F1B9AFB11552390BF /* Pods_Uplift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Uplift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -37,6 +45,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				842FB0CCD71C3202DE5836F1 /* Pods_Uplift.framework in Frameworks */,
+				2EE5F3CF2B12E741008E0299 /* UpliftAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +55,7 @@
 		1E73905287F565F00258C43E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2EE5F3C92B12E34D008E0299 /* Apollo.framework */,
 				E86AC23F1B9AFB11552390BF /* Pods_Uplift.framework */,
 			);
 			name = Frameworks;
@@ -94,6 +104,7 @@
 				2E8FE38F2B1278B700B3DC6A /* UpliftApp.swift */,
 				2E8FE3912B1278B700B3DC6A /* ContentView.swift */,
 				2E8FE3932B1278B700B3DC6A /* Item.swift */,
+				2EF1A2562B129ACB007A299F /* Networking */,
 				2E8FE3972B1278B900B3DC6A /* Preview Content */,
 				2E3D6C1E2B12842A00B51BB2 /* Supporting */,
 			);
@@ -106,6 +117,16 @@
 				2E8FE3982B1278B900B3DC6A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		2EF1A2562B129ACB007A299F /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				2EE5F3C72B12E094008E0299 /* ApolloClientProtocol+Extension.swift */,
+				2EF1A2572B129EEB007A299F /* Network.swift */,
+				2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		C8C3750BDACD45633415D75C /* Pods */ = {
@@ -129,13 +150,17 @@
 				2E8FE3892B1278B700B3DC6A /* Frameworks */,
 				2E8FE38A2B1278B700B3DC6A /* Resources */,
 				F9E781729A5F6FA3D410B261 /* [CP] Embed Pods Frameworks */,
+				2EF1A2542B1299FB007A299F /* SwiftLint */,
+				2EF1A2552B129A77007A299F /* Generate API */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				2E3D6C222B1289C400B51BB2 /* PBXTargetDependency */,
 			);
 			name = Uplift;
+			packageProductDependencies = (
+				2EE5F3CE2B12E741008E0299 /* UpliftAPI */,
+			);
 			productName = Uplift;
 			productReference = 2E8FE38C2B1278B700B3DC6A /* Uplift.app */;
 			productType = "com.apple.product-type.application";
@@ -164,6 +189,8 @@
 				Base,
 			);
 			mainGroup = 2E8FE3832B1278B700B3DC6A;
+			packageReferences = (
+			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -178,6 +205,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EE0C7CB2B12D6EE000D3BF6 /* GymQueries.graphql in Resources */,
 				2E8FE3992B1278B900B3DC6A /* Preview Assets.xcassets in Resources */,
 				2E8FE3962B1278B900B3DC6A /* Assets.xcassets in Resources */,
 			);
@@ -186,6 +214,44 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2EF1A2542B1299FB007A299F /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n\nif which swiftlint >/dev/null; then\n    swiftlint --fix && swiftlint\nelse\n    echo \"WARNING: SwiftLint not installed\"\nfi\n";
+		};
+		2EF1A2552B129A77007A299F /* Generate API */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Generate API";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "CLI_PATH=\"${PODS_ROOT}/Apollo/apollo-ios-cli\"\nSECRETS_PATH=\"${SRCROOT}/UpliftSecrets\"\n\nif [ \"${CONFIGURATION}\" != \"Release\" ]; then\n  CONFIG_PATH=\"${SECRETS_PATH}/apollo-codegen-config-dev.json\"\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n  CONFIG_PATH=\"${SECRETS_PATH}/apollo-codegen-config-prod.json\"\nfi\n\n\"${CLI_PATH}\" generate -p \"${CONFIG_PATH}\" -f\n";
+		};
 		E5FB13433826A5050DAED752 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -232,21 +298,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EF1A2582B129EEB007A299F /* Network.swift in Sources */,
 				2E8FE3922B1278B700B3DC6A /* ContentView.swift in Sources */,
 				2E3D6C202B1285D200B51BB2 /* Environment.swift in Sources */,
 				2E8FE3942B1278B700B3DC6A /* Item.swift in Sources */,
 				2E8FE3902B1278B700B3DC6A /* UpliftApp.swift in Sources */,
+				2EE5F3C82B12E094008E0299 /* ApolloClientProtocol+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		2E3D6C222B1289C400B51BB2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = 2E3D6C212B1289C400B51BB2 /* SwiftLintPlugin */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		2E8FE39A2B1278B900B3DC6A /* Debug */ = {
@@ -463,22 +524,10 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		2E3D6C082B127B2D00B51BB2 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/SwiftLint";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.54.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
-		2E3D6C212B1289C400B51BB2 /* SwiftLintPlugin */ = {
+		2EE5F3CE2B12E741008E0299 /* UpliftAPI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2E3D6C082B127B2D00B51BB2 /* XCRemoteSwiftPackageReference "SwiftLint" */;
-			productName = "plugin:SwiftLintPlugin";
+			productName = UpliftAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
