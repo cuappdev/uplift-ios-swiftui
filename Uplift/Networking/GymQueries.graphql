@@ -1,31 +1,15 @@
+fragment gymFields on Gym {
+  id
+  description
+  imageUrl
+  location
+  latitude
+  longitude
+  name
+}
+
 query GetAllGyms {
   gyms {
-    id
-    description
-    # facilities {
-    #   id
-    #   capacity {
-    #     id
-    #     count
-    #     facilityId
-    #     percent
-    #     updated
-    #   }
-    #   facilityType
-    #   gymId
-    #   name
-    #   openHours {
-    #     id
-    #     day
-    #     endTime
-    #     facilityId
-    #     startTime
-    #   }
-    # }
-    imageUrl
-    location
-    latitude
-    longitude
-    name
+    ...gymFields
   }
 }
