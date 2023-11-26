@@ -33,11 +33,12 @@ enum Environment {
      * If the scheme is set to DEBUG, the development server URL is used.
      * If the scheme is set to RELEASE, the production server URL is used.
      */
-    static let baseURL: String = {
-        guard let baseURLString = Environment.infoDict[Keys.baseURL] as? String else {
+    static let baseURL: URL = {
+        guard let baseURLString = Environment.infoDict[Keys.baseURL] as? String,
+              let baseURL = URL(string: baseURLString) else {
             fatalError("Base URL not found in Info.plist")
         }
-        return baseURLString
+        return baseURL
     }()
 
 }
