@@ -59,9 +59,9 @@ fi
 
 - **Configs**: the app environment settings, like production, staging, and development configurations, all using the .xcconfig files.
 - **Core**: the app’s entry point.
-- **Models** model objects used by the API and throughout the app.
-- **Resources** the project assets, LaunchScreen.storyboard, etc.
-- **Services** service helpers such as a Networking API service, CoreData, SwiftData, UserDefaults, etc.
-- **Utils** other helper files such as extensions, custom errors, etc.
-- **ViewModels** our app’s view models which implement properties and commands to which the view can data bind to and notify the view of any state changes.
-- **Views** the appearance and UI of the app.
+- **Models**: model objects used by the API and throughout the app.
+- **Resources**: the project assets, LaunchScreen.storyboard, etc.
+- **Services**: service helpers such as a Networking API service, CoreData, SwiftData, UserDefaults, etc.
+- **Utils**: other helper files such as constants, extensions, custom errors, etc.
+- **ViewModels**: our app’s view models which implement properties and commands to which the view can data bind to and notify the view of any state changes.
+- **Views**: the appearance and UI of the app.
