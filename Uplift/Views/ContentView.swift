@@ -10,7 +10,8 @@ import SwiftUI
 struct ContentView: View {
 
     var body: some View {
-        EmptyView()
+        Text("MINECRAFT")
+            .font(Constants.Fonts.bodyLight)
     }
 }
 

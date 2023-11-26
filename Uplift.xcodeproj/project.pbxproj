@@ -10,11 +10,18 @@
 		2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E090EC42B12EF2600BAE982 /* Publishers.swift */; };
 		2E090EC82B12FBB300BAE982 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E090EC72B12FBB300BAE982 /* Gym.swift */; };
 		2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E090ECA2B12FF5900BAE982 /* UpliftAPI */; };
+		2E090ED62B13121600BAE982 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E090ED52B13121600BAE982 /* Constants.swift */; };
 		2E3D6C202B1285D200B51BB2 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3D6C1F2B1285D200B51BB2 /* Environment.swift */; };
 		2E8FE3902B1278B700B3DC6A /* UpliftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8FE38F2B1278B700B3DC6A /* UpliftApp.swift */; };
 		2E8FE3922B1278B700B3DC6A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8FE3912B1278B700B3DC6A /* ContentView.swift */; };
 		2E8FE3962B1278B900B3DC6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E8FE3952B1278B900B3DC6A /* Assets.xcassets */; };
 		2E8FE3992B1278B900B3DC6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E8FE3982B1278B900B3DC6A /* Preview Assets.xcassets */; };
+		2EB090B42B131CA40039EB3B /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB090B22B131C9D0039EB3B /* BebasNeue-Regular.ttf */; };
+		2EB090B52B131CA80039EB3B /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB090AE2B131C9D0039EB3B /* Montserrat-Medium.ttf */; };
+		2EB090B62B131CA80039EB3B /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB090B32B131C9D0039EB3B /* Montserrat-Bold.ttf */; };
+		2EB090B72B131CA80039EB3B /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB090B12B131C9D0039EB3B /* Montserrat-Regular.ttf */; };
+		2EB090B82B131CA80039EB3B /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB090B02B131C9D0039EB3B /* Montserrat-Light.ttf */; };
+		2EB090B92B131CA80039EB3B /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB090AF2B131C9D0039EB3B /* Montserrat-SemiBold.ttf */; };
 		2EE0C7CB2B12D6EE000D3BF6 /* GymQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */; };
 		2EE5F3C82B12E094008E0299 /* ApolloClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */; };
 		2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E12B12EDB6008E0299 /* Apollo */; };
@@ -29,6 +36,7 @@
 /* Begin PBXFileReference section */
 		2E090EC42B12EF2600BAE982 /* Publishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.swift; sourceTree = "<group>"; };
 		2E090EC72B12FBB300BAE982 /* Gym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
+		2E090ED52B13121600BAE982 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2E3D6C1C2B12809900B51BB2 /* Keys.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Keys.xcconfig; sourceTree = "<group>"; };
 		2E3D6C1D2B12840C00B51BB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E3D6C1F2B1285D200B51BB2 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
@@ -37,6 +45,12 @@
 		2E8FE3912B1278B700B3DC6A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2E8FE3952B1278B900B3DC6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2E8FE3982B1278B900B3DC6A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2EB090AE2B131C9D0039EB3B /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
+		2EB090AF2B131C9D0039EB3B /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
+		2EB090B02B131C9D0039EB3B /* Montserrat-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.ttf"; sourceTree = "<group>"; };
+		2EB090B12B131C9D0039EB3B /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		2EB090B22B131C9D0039EB3B /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
+		2EB090B32B131C9D0039EB3B /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GymQueries.graphql; sourceTree = "<group>"; };
 		2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientProtocol.swift; sourceTree = "<group>"; };
 		2EE5F3C92B12E34D008E0299 /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +106,7 @@
 		2E090ECD2B13085700BAE982 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2EB090AD2B131BDC0039EB3B /* Fonts */,
 				2E8FE3952B1278B900B3DC6A /* Assets.xcassets */,
 				2E8FE3982B1278B900B3DC6A /* Preview Assets.xcassets */,
 			);
@@ -143,6 +158,7 @@
 		2E090ED32B13094D00BAE982 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2E090ED52B13121600BAE982 /* Constants.swift */,
 				2E090ED42B13096700BAE982 /* Extensions */,
 			);
 			path = Utils;
@@ -196,6 +212,19 @@
 				2E090ED02B1308C900BAE982 /* Views */,
 			);
 			path = Uplift;
+			sourceTree = "<group>";
+		};
+		2EB090AD2B131BDC0039EB3B /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				2EB090B22B131C9D0039EB3B /* BebasNeue-Regular.ttf */,
+				2EB090B32B131C9D0039EB3B /* Montserrat-Bold.ttf */,
+				2EB090B02B131C9D0039EB3B /* Montserrat-Light.ttf */,
+				2EB090AE2B131C9D0039EB3B /* Montserrat-Medium.ttf */,
+				2EB090B12B131C9D0039EB3B /* Montserrat-Regular.ttf */,
+				2EB090AF2B131C9D0039EB3B /* Montserrat-SemiBold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		C8C3750BDACD45633415D75C /* Pods */ = {
@@ -282,7 +311,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EE0C7CB2B12D6EE000D3BF6 /* GymQueries.graphql in Resources */,
+				2EB090B52B131CA80039EB3B /* Montserrat-Medium.ttf in Resources */,
+				2EB090B72B131CA80039EB3B /* Montserrat-Regular.ttf in Resources */,
+				2EB090B62B131CA80039EB3B /* Montserrat-Bold.ttf in Resources */,
+				2EB090B82B131CA80039EB3B /* Montserrat-Light.ttf in Resources */,
 				2E8FE3992B1278B900B3DC6A /* Preview Assets.xcassets in Resources */,
+				2EB090B92B131CA80039EB3B /* Montserrat-SemiBold.ttf in Resources */,
+				2EB090B42B131CA40039EB3B /* BebasNeue-Regular.ttf in Resources */,
 				2E8FE3962B1278B900B3DC6A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,6 +399,7 @@
 				2E090EC82B12FBB300BAE982 /* Gym.swift in Sources */,
 				2E8FE3902B1278B700B3DC6A /* UpliftApp.swift in Sources */,
 				2EE5F3C82B12E094008E0299 /* ApolloClientProtocol.swift in Sources */,
+				2E090ED62B13121600BAE982 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,7 +459,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -481,7 +517,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -509,7 +545,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -544,7 +580,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
