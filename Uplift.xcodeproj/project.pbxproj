@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2E090EC52B12EF2600BAE982 /* Publishers+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E090EC42B12EF2600BAE982 /* Publishers+Extension.swift */; };
+		2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E090EC42B12EF2600BAE982 /* Publishers.swift */; };
 		2E090EC82B12FBB300BAE982 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E090EC72B12FBB300BAE982 /* Gym.swift */; };
 		2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E090ECA2B12FF5900BAE982 /* UpliftAPI */; };
 		2E3D6C202B1285D200B51BB2 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3D6C1F2B1285D200B51BB2 /* Environment.swift */; };
@@ -16,7 +16,7 @@
 		2E8FE3962B1278B900B3DC6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E8FE3952B1278B900B3DC6A /* Assets.xcassets */; };
 		2E8FE3992B1278B900B3DC6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E8FE3982B1278B900B3DC6A /* Preview Assets.xcassets */; };
 		2EE0C7CB2B12D6EE000D3BF6 /* GymQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */; };
-		2EE5F3C82B12E094008E0299 /* ApolloClientProtocol+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5F3C72B12E094008E0299 /* ApolloClientProtocol+Extension.swift */; };
+		2EE5F3C82B12E094008E0299 /* ApolloClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */; };
 		2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E12B12EDB6008E0299 /* Apollo */; };
 		2EE5F3E42B12EDB6008E0299 /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E32B12EDB6008E0299 /* ApolloAPI */; };
 		2EE5F3E72B12EDC1008E0299 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E62B12EDC1008E0299 /* Nuke */; };
@@ -27,7 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2E090EC42B12EF2600BAE982 /* Publishers+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publishers+Extension.swift"; sourceTree = "<group>"; };
+		2E090EC42B12EF2600BAE982 /* Publishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.swift; sourceTree = "<group>"; };
 		2E090EC72B12FBB300BAE982 /* Gym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
 		2E3D6C1C2B12809900B51BB2 /* Keys.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Keys.xcconfig; sourceTree = "<group>"; };
 		2E3D6C1D2B12840C00B51BB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -38,7 +38,7 @@
 		2E8FE3952B1278B900B3DC6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2E8FE3982B1278B900B3DC6A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GymQueries.graphql; sourceTree = "<group>"; };
-		2EE5F3C72B12E094008E0299 /* ApolloClientProtocol+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApolloClientProtocol+Extension.swift"; sourceTree = "<group>"; };
+		2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientProtocol.swift; sourceTree = "<group>"; };
 		2EE5F3C92B12E34D008E0299 /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF1A2572B129EEB007A299F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		61B508C772C15943F0FDB2E8 /* Pods-Uplift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.debug.xcconfig"; path = "Target Support Files/Pods-Uplift/Pods-Uplift.debug.xcconfig"; sourceTree = "<group>"; };
@@ -81,20 +81,86 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		2E090ECC2B13084800BAE982 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				2E8FE38F2B1278B700B3DC6A /* UpliftApp.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		2E090ECD2B13085700BAE982 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2E8FE3952B1278B900B3DC6A /* Assets.xcassets */,
+				2E8FE3982B1278B900B3DC6A /* Preview Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		2E090ECE2B13087100BAE982 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2E090ED22B13093400BAE982 /* Networking */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		2E090ECF2B13088800BAE982 /* Configs */ = {
+			isa = PBXGroup;
+			children = (
+				2E3D6C1F2B1285D200B51BB2 /* Environment.swift */,
+			);
+			path = Configs;
+			sourceTree = "<group>";
+		};
+		2E090ED02B1308C900BAE982 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2E8FE3912B1278B700B3DC6A /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2E090ED12B1308D500BAE982 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		2E090ED22B13093400BAE982 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */,
+				2EF1A2572B129EEB007A299F /* Network.swift */,
+				2E090EC42B12EF2600BAE982 /* Publishers.swift */,
+				2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		2E090ED32B13094D00BAE982 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				2E090ED42B13096700BAE982 /* Extensions */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		2E090ED42B13096700BAE982 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		2E3D6C1B2B127FDA00B51BB2 /* UpliftSecrets */ = {
 			isa = PBXGroup;
 			children = (
 				2E3D6C1C2B12809900B51BB2 /* Keys.xcconfig */,
 			);
 			path = UpliftSecrets;
-			sourceTree = "<group>";
-		};
-		2E3D6C1E2B12842A00B51BB2 /* Supporting */ = {
-			isa = PBXGroup;
-			children = (
-				2E3D6C1F2B1285D200B51BB2 /* Environment.swift */,
-			);
-			path = Supporting;
 			sourceTree = "<group>";
 		};
 		2E8FE3832B1278B700B3DC6A = {
@@ -119,35 +185,17 @@
 		2E8FE38E2B1278B700B3DC6A /* Uplift */ = {
 			isa = PBXGroup;
 			children = (
-				2E8FE3952B1278B900B3DC6A /* Assets.xcassets */,
 				2E3D6C1D2B12840C00B51BB2 /* Info.plist */,
-				2E8FE38F2B1278B700B3DC6A /* UpliftApp.swift */,
-				2E8FE3912B1278B700B3DC6A /* ContentView.swift */,
+				2E090ECF2B13088800BAE982 /* Configs */,
+				2E090ECC2B13084800BAE982 /* Core */,
 				2E090EC62B12FB9F00BAE982 /* Models */,
-				2EF1A2562B129ACB007A299F /* Networking */,
-				2E8FE3972B1278B900B3DC6A /* Preview Content */,
-				2E3D6C1E2B12842A00B51BB2 /* Supporting */,
+				2E090ECD2B13085700BAE982 /* Resources */,
+				2E090ECE2B13087100BAE982 /* Services */,
+				2E090ED32B13094D00BAE982 /* Utils */,
+				2E090ED12B1308D500BAE982 /* ViewModels */,
+				2E090ED02B1308C900BAE982 /* Views */,
 			);
 			path = Uplift;
-			sourceTree = "<group>";
-		};
-		2E8FE3972B1278B900B3DC6A /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				2E8FE3982B1278B900B3DC6A /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		2EF1A2562B129ACB007A299F /* Networking */ = {
-			isa = PBXGroup;
-			children = (
-				2EE5F3C72B12E094008E0299 /* ApolloClientProtocol+Extension.swift */,
-				2EF1A2572B129EEB007A299F /* Network.swift */,
-				2E090EC42B12EF2600BAE982 /* Publishers+Extension.swift */,
-				2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */,
-			);
-			path = Networking;
 			sourceTree = "<group>";
 		};
 		C8C3750BDACD45633415D75C /* Pods */ = {
@@ -311,11 +359,11 @@
 			files = (
 				2EF1A2582B129EEB007A299F /* Network.swift in Sources */,
 				2E8FE3922B1278B700B3DC6A /* ContentView.swift in Sources */,
-				2E090EC52B12EF2600BAE982 /* Publishers+Extension.swift in Sources */,
+				2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */,
 				2E3D6C202B1285D200B51BB2 /* Environment.swift in Sources */,
 				2E090EC82B12FBB300BAE982 /* Gym.swift in Sources */,
 				2E8FE3902B1278B700B3DC6A /* UpliftApp.swift in Sources */,
-				2EE5F3C82B12E094008E0299 /* ApolloClientProtocol+Extension.swift in Sources */,
+				2EE5F3C82B12E094008E0299 /* ApolloClientProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,7 +499,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Uplift/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Uplift/Resources\"";
 				DEVELOPMENT_TEAM = ZGMCXU7X3U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -486,7 +534,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Uplift/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Uplift/Resources\"";
 				DEVELOPMENT_TEAM = ZGMCXU7X3U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

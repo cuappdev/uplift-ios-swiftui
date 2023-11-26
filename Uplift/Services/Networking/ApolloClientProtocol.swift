@@ -1,5 +1,5 @@
 //
-//  ApolloClientProtocol+Extension.swift
+//  ApolloClientProtocol.swift
 //  Uplift
 //
 //  Created by Vin Bui on 11/25/23.

@@ -1,5 +1,5 @@
 //
-//  Publishers+Extension.swift
+//  Publishers.swift
 //  Uplift
 //
 //  Created by Vin Bui on 11/25/23.
