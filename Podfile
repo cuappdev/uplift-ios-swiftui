@@ -9,8 +9,6 @@ target 'Uplift' do
   use_frameworks!
 
   # Pods for Uplift
-  pod 'Apollo'
-  pod 'Nuke'
   pod 'SwiftLint', :inhibit_warnings => false
 
 end
