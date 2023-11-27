@@ -8,7 +8,7 @@
 import Foundation
 import UpliftAPI
 
-/// Model representing a Gym.
+/// Model representing a gym.
 struct Gym: Hashable {
 
     // MARK: - Properties
@@ -18,6 +18,9 @@ struct Gym: Hashable {
 
     /// This gym's description.
     let description: String
+
+    /// This gym's facilities.
+    let facilities: [Facility]
 
     /// The URL of the image of this gym.
     let imageUrl: URL?
@@ -34,8 +37,12 @@ struct Gym: Hashable {
     /// The name of this gym.
     let name: String
 
-    // MARK: - Initializer
+    /// The status of this gym.
+    let status: Status
 
+    // MARK: - init
+
+    /// Initializes this object given a `GymFields` type.
     init(from gym: GymFields) {
         self.id = gym.id
         self.description = gym.description
@@ -47,6 +54,34 @@ struct Gym: Hashable {
         self.latitude = gym.latitude
         self.longitude = gym.longitude
         self.name = gym.name
+
+        let facilities = [Facility](gym.facilities?.compactMap(\.?.fragments.facilityFields) ?? [])
+        self.facilities = facilities
+
+        self.status = {
+            let lastHours: [Date] = facilities.map { facility in
+                let todayHours = facility.openHours.filter {
+                    // Filter hours that belong to today
+                    $0.day == Date.now.dayNumberOfWeek
+                }
+
+                // Get the last hour for today in this facility. Ignores empty arrays.
+                return todayHours.map(\.endTime).max() ?? Date.distantPast
+            }
+
+            // Get the last hour from all facilities
+            if let closingTime = lastHours.max() {
+                // Compare with current time's hours and minutes
+                if closingTime.timeLessThan(other: Date.now) {
+                    return .closed(closeTime: closingTime)
+                } else {
+                    return .open(closeTime: closingTime)
+                }
+            } else {
+                // Should never happen
+                return .closed(closeTime: Date.distantPast)
+            }
+        }()
     }
 
 }

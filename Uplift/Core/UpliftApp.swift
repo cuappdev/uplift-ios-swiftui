@@ -6,13 +6,12 @@
 //
 
 import SwiftUI
-import SwiftData
 
 @main
 struct UpliftApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
         }
     }
 }

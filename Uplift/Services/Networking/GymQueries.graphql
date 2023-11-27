@@ -1,6 +1,33 @@
+fragment capacityFields on Capacity {
+  count
+  percent
+  updated
+}
+
+fragment openHoursFields on OpenHours {
+  day
+  endTime
+  startTime
+}
+
+fragment facilityFields on Facility {
+  id
+  capacity {
+    ...capacityFields
+  }
+  facilityType
+  name
+  openHours {
+    ...openHoursFields
+  }
+}
+
 fragment gymFields on Gym {
   id
   description
+  facilities {
+    ...facilityFields
+  }
   imageUrl
   location
   latitude
