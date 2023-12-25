@@ -48,7 +48,7 @@ extension ApolloClientProtocol {
 
     // MARK: - Mutations
 
-    // As of 11/25/23, Uplift does not contain any mutations (perform operations).
+    // As of 12/24/23, Uplift does not contain any mutations (perform operations).
     // However, this may be needed in the future. - Vin
 
     /**

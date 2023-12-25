@@ -16,9 +16,7 @@ struct HomeView: View {
     // MARK: - UI
 
     var body: some View {
-//        Text(viewModel.headingText)
-//            .font(Constants.Fonts.h1)
-        HomeGymCell(gym: DummyData.default.getGym(data: DummyData.DummyGym.helenNewman))
+        EmptyView()
     }
 }
 

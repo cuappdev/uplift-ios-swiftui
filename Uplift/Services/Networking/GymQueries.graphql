@@ -5,8 +5,10 @@ fragment capacityFields on Capacity {
 }
 
 fragment openHoursFields on OpenHours {
-  day
+  courtType
   endTime
+  isShallow
+  isWomen
   startTime
 }
 
@@ -16,20 +18,29 @@ fragment facilityFields on Facility {
     ...capacityFields
   }
   facilityType
-  name
-  openHours {
+  hours {
     ...openHoursFields
   }
+  name
+}
+
+fragment amenityFields on Amenity {
+  type
 }
 
 fragment gymFields on Gym {
   id
-  description
+  address
+  amenities {
+    type
+  }
   facilities {
     ...facilityFields
   }
+  hours {
+    ...openHoursFields
+  }
   imageUrl
-  location
   latitude
   longitude
   name

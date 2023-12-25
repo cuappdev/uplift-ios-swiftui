@@ -8,17 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E090EC42B12EF2600BAE982 /* Publishers.swift */; };
-		2E090EC82B12FBB300BAE982 /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E090EC72B12FBB300BAE982 /* Gym.swift */; };
 		2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E090ECA2B12FF5900BAE982 /* UpliftAPI */; };
 		2E090ED62B13121600BAE982 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E090ED52B13121600BAE982 /* Constants.swift */; };
 		2E1105BF2B13B0E100119F5B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1105BE2B13B0E100119F5B /* HomeViewModel.swift */; };
 		2E1105C22B13D15100119F5B /* HomeGymCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1105C12B13D15100119F5B /* HomeGymCell.swift */; };
 		2E1105C42B13D1B000119F5B /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1105C32B13D1B000119F5B /* DummyData.swift */; };
-		2E1105C62B13D7B000119F5B /* Capacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1105C52B13D7B000119F5B /* Capacity.swift */; };
+		2E15F4D82B390EBC00414BEC /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E15F4D72B390EBC00414BEC /* UpliftAPI */; };
+		2E15F4DA2B39102A00414BEC /* Capacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F4D92B39102A00414BEC /* Capacity.swift */; };
+		2E15F4DC2B39117300414BEC /* OpenHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F4DB2B39117300414BEC /* OpenHours.swift */; };
+		2E15F4DE2B3912C700414BEC /* Facility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F4DD2B3912C700414BEC /* Facility.swift */; };
+		2E15F4E02B39143700414BEC /* Gym.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F4DF2B39143700414BEC /* Gym.swift */; };
+		2E15F4E22B3917B200414BEC /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F4E12B3917B200414BEC /* Status.swift */; };
+		2E15F4E62B391E5300414BEC /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F4E52B391E5300414BEC /* Array+Extension.swift */; };
+		2E15F4EE2B39255B00414BEC /* UpliftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F4ED2B39255B00414BEC /* UpliftTests.swift */; };
 		2E3D6C202B1285D200B51BB2 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3D6C1F2B1285D200B51BB2 /* Environment.swift */; };
-		2E4E149C2B13DBA100BADCA7 /* OpenHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4E149B2B13DBA100BADCA7 /* OpenHours.swift */; };
-		2E4E149E2B13DD1C00BADCA7 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4E149D2B13DD1C00BADCA7 /* String+Extension.swift */; };
-		2E4E14A02B13E11300BADCA7 /* Facility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4E149F2B13E11300BADCA7 /* Facility.swift */; };
 		2E8FE3902B1278B700B3DC6A /* UpliftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8FE38F2B1278B700B3DC6A /* UpliftApp.swift */; };
 		2E8FE3922B1278B700B3DC6A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8FE3912B1278B700B3DC6A /* HomeView.swift */; };
 		2E8FE3962B1278B900B3DC6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E8FE3952B1278B900B3DC6A /* Assets.xcassets */; };
@@ -29,8 +32,6 @@
 		2EB090B72B131CA80039EB3B /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB090B12B131C9D0039EB3B /* Montserrat-Regular.ttf */; };
 		2EB090B82B131CA80039EB3B /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB090B02B131C9D0039EB3B /* Montserrat-Light.ttf */; };
 		2EB090B92B131CA80039EB3B /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB090AF2B131C9D0039EB3B /* Montserrat-SemiBold.ttf */; };
-		2ED78B222B14385200F15371 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED78B212B14385200F15371 /* Date+Extension.swift */; };
-		2ED78B242B14402800F15371 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED78B232B14402800F15371 /* Status.swift */; };
 		2EE0C7CB2B12D6EE000D3BF6 /* GymQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */; };
 		2EE5F3C82B12E094008E0299 /* ApolloClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */; };
 		2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E12B12EDB6008E0299 /* Apollo */; };
@@ -42,20 +43,33 @@
 		842FB0CCD71C3202DE5836F1 /* Pods_Uplift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E86AC23F1B9AFB11552390BF /* Pods_Uplift.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		2E15F4EF2B39255B00414BEC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E8FE3842B1278B700B3DC6A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2E8FE38B2B1278B700B3DC6A;
+			remoteInfo = Uplift;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		2E090EC42B12EF2600BAE982 /* Publishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.swift; sourceTree = "<group>"; };
-		2E090EC72B12FBB300BAE982 /* Gym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
 		2E090ED52B13121600BAE982 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2E1105BE2B13B0E100119F5B /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		2E1105C12B13D15100119F5B /* HomeGymCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGymCell.swift; sourceTree = "<group>"; };
 		2E1105C32B13D1B000119F5B /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
-		2E1105C52B13D7B000119F5B /* Capacity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Capacity.swift; sourceTree = "<group>"; };
+		2E15F4D92B39102A00414BEC /* Capacity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Capacity.swift; sourceTree = "<group>"; };
+		2E15F4DB2B39117300414BEC /* OpenHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenHours.swift; sourceTree = "<group>"; };
+		2E15F4DD2B3912C700414BEC /* Facility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Facility.swift; sourceTree = "<group>"; };
+		2E15F4DF2B39143700414BEC /* Gym.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gym.swift; sourceTree = "<group>"; };
+		2E15F4E12B3917B200414BEC /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		2E15F4E52B391E5300414BEC /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		2E15F4EB2B39255B00414BEC /* UpliftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UpliftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E15F4ED2B39255B00414BEC /* UpliftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpliftTests.swift; sourceTree = "<group>"; };
 		2E3D6C1C2B12809900B51BB2 /* Keys.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Keys.xcconfig; sourceTree = "<group>"; };
 		2E3D6C1D2B12840C00B51BB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E3D6C1F2B1285D200B51BB2 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
-		2E4E149B2B13DBA100BADCA7 /* OpenHours.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenHours.swift; sourceTree = "<group>"; };
-		2E4E149D2B13DD1C00BADCA7 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		2E4E149F2B13E11300BADCA7 /* Facility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Facility.swift; sourceTree = "<group>"; };
 		2E8FE38C2B1278B700B3DC6A /* Uplift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Uplift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E8FE38F2B1278B700B3DC6A /* UpliftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpliftApp.swift; sourceTree = "<group>"; };
 		2E8FE3912B1278B700B3DC6A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -67,8 +81,6 @@
 		2EB090B12B131C9D0039EB3B /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		2EB090B22B131C9D0039EB3B /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
 		2EB090B32B131C9D0039EB3B /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
-		2ED78B212B14385200F15371 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
-		2ED78B232B14402800F15371 /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GymQueries.graphql; sourceTree = "<group>"; };
 		2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientProtocol.swift; sourceTree = "<group>"; };
 		2EE5F3C92B12E34D008E0299 /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +91,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2E15F4E82B39255B00414BEC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2E8FE3892B1278B700B3DC6A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -90,6 +109,7 @@
 				2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */,
 				2EE5F3E72B12EDC1008E0299 /* Nuke in Frameworks */,
 				2EE5F3E92B12EDC1008E0299 /* NukeExtensions in Frameworks */,
+				2E15F4D82B390EBC00414BEC /* UpliftAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,11 +128,11 @@
 		2E090EC62B12FB9F00BAE982 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				2E1105C52B13D7B000119F5B /* Capacity.swift */,
-				2E4E149F2B13E11300BADCA7 /* Facility.swift */,
-				2E090EC72B12FBB300BAE982 /* Gym.swift */,
-				2E4E149B2B13DBA100BADCA7 /* OpenHours.swift */,
-				2ED78B232B14402800F15371 /* Status.swift */,
+				2E15F4D92B39102A00414BEC /* Capacity.swift */,
+				2E15F4DD2B3912C700414BEC /* Facility.swift */,
+				2E15F4DF2B39143700414BEC /* Gym.swift */,
+				2E15F4DB2B39117300414BEC /* OpenHours.swift */,
+				2E15F4E12B3917B200414BEC /* Status.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -192,8 +212,7 @@
 		2E090ED42B13096700BAE982 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				2ED78B212B14385200F15371 /* Date+Extension.swift */,
-				2E4E149D2B13DD1C00BADCA7 /* String+Extension.swift */,
+				2E15F4E52B391E5300414BEC /* Array+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -204,6 +223,14 @@
 				2E1105C12B13D15100119F5B /* HomeGymCell.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		2E15F4EC2B39255B00414BEC /* UpliftTests */ = {
+			isa = PBXGroup;
+			children = (
+				2E15F4ED2B39255B00414BEC /* UpliftTests.swift */,
+			);
+			path = UpliftTests;
 			sourceTree = "<group>";
 		};
 		2E3D6C1B2B127FDA00B51BB2 /* UpliftSecrets */ = {
@@ -219,6 +246,7 @@
 			children = (
 				2E8FE38E2B1278B700B3DC6A /* Uplift */,
 				2E3D6C1B2B127FDA00B51BB2 /* UpliftSecrets */,
+				2E15F4EC2B39255B00414BEC /* UpliftTests */,
 				2E8FE38D2B1278B700B3DC6A /* Products */,
 				C8C3750BDACD45633415D75C /* Pods */,
 				1E73905287F565F00258C43E /* Frameworks */,
@@ -229,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				2E8FE38C2B1278B700B3DC6A /* Uplift.app */,
+				2E15F4EB2B39255B00414BEC /* UpliftTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -274,6 +303,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		2E15F4EA2B39255B00414BEC /* UpliftTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2E15F4F12B39255B00414BEC /* Build configuration list for PBXNativeTarget "UpliftTests" */;
+			buildPhases = (
+				2E15F4E72B39255B00414BEC /* Sources */,
+				2E15F4E82B39255B00414BEC /* Frameworks */,
+				2E15F4E92B39255B00414BEC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2E15F4F02B39255B00414BEC /* PBXTargetDependency */,
+			);
+			name = UpliftTests;
+			productName = UpliftTests;
+			productReference = 2E15F4EB2B39255B00414BEC /* UpliftTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		2E8FE38B2B1278B700B3DC6A /* Uplift */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2E8FE39C2B1278B900B3DC6A /* Build configuration list for PBXNativeTarget "Uplift" */;
@@ -297,6 +344,7 @@
 				2EE5F3E82B12EDC1008E0299 /* NukeExtensions */,
 				2EE5F3EA2B12EDC1008E0299 /* NukeUI */,
 				2E090ECA2B12FF5900BAE982 /* UpliftAPI */,
+				2E15F4D72B390EBC00414BEC /* UpliftAPI */,
 			);
 			productName = Uplift;
 			productReference = 2E8FE38C2B1278B700B3DC6A /* Uplift.app */;
@@ -312,6 +360,10 @@
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					2E15F4EA2B39255B00414BEC = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = 2E8FE38B2B1278B700B3DC6A;
+					};
 					2E8FE38B2B1278B700B3DC6A = {
 						CreatedOnToolsVersion = 15.0;
 					};
@@ -329,18 +381,26 @@
 			packageReferences = (
 				2EE5F3E02B12EDB6008E0299 /* XCRemoteSwiftPackageReference "apollo-ios" */,
 				2EE5F3E52B12EDC1008E0299 /* XCRemoteSwiftPackageReference "Nuke" */,
-				2E090EC92B12FF5900BAE982 /* XCLocalSwiftPackageReference "UpliftAPI" */,
+				2E15F4D62B390EBC00414BEC /* XCLocalSwiftPackageReference "UpliftAPI" */,
 			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				2E8FE38B2B1278B700B3DC6A /* Uplift */,
+				2E15F4EA2B39255B00414BEC /* UpliftTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2E15F4E92B39255B00414BEC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2E8FE38A2B1278B700B3DC6A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -423,33 +483,88 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2E15F4E72B39255B00414BEC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E15F4EE2B39255B00414BEC /* UpliftTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2E8FE3882B1278B700B3DC6A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				2EF1A2582B129EEB007A299F /* Network.swift in Sources */,
+				2E15F4E02B39143700414BEC /* Gym.swift in Sources */,
 				2E1105BF2B13B0E100119F5B /* HomeViewModel.swift in Sources */,
 				2E8FE3922B1278B700B3DC6A /* HomeView.swift in Sources */,
-				2ED78B242B14402800F15371 /* Status.swift in Sources */,
-				2E1105C62B13D7B000119F5B /* Capacity.swift in Sources */,
 				2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */,
-				2ED78B222B14385200F15371 /* Date+Extension.swift in Sources */,
 				2E3D6C202B1285D200B51BB2 /* Environment.swift in Sources */,
-				2E090EC82B12FBB300BAE982 /* Gym.swift in Sources */,
+				2E15F4DA2B39102A00414BEC /* Capacity.swift in Sources */,
+				2E15F4E62B391E5300414BEC /* Array+Extension.swift in Sources */,
 				2E1105C22B13D15100119F5B /* HomeGymCell.swift in Sources */,
 				2E8FE3902B1278B700B3DC6A /* UpliftApp.swift in Sources */,
 				2EE5F3C82B12E094008E0299 /* ApolloClientProtocol.swift in Sources */,
 				2E1105C42B13D1B000119F5B /* DummyData.swift in Sources */,
-				2E4E149E2B13DD1C00BADCA7 /* String+Extension.swift in Sources */,
-				2E4E14A02B13E11300BADCA7 /* Facility.swift in Sources */,
+				2E15F4E22B3917B200414BEC /* Status.swift in Sources */,
+				2E15F4DC2B39117300414BEC /* OpenHours.swift in Sources */,
 				2E090ED62B13121600BAE982 /* Constants.swift in Sources */,
-				2E4E149C2B13DBA100BADCA7 /* OpenHours.swift in Sources */,
+				2E15F4DE2B3912C700414BEC /* Facility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		2E15F4F02B39255B00414BEC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2E8FE38B2B1278B700B3DC6A /* Uplift */;
+			targetProxy = 2E15F4EF2B39255B00414BEC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		2E15F4F22B39255B00414BEC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZGMCXU7X3U;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.appdev.UpliftTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Uplift.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Uplift";
+			};
+			name = Debug;
+		};
+		2E15F4F32B39255B00414BEC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZGMCXU7X3U;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.appdev.UpliftTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Uplift.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Uplift";
+			};
+			name = Release;
+		};
 		2E8FE39A2B1278B900B3DC6A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2E3D6C1C2B12809900B51BB2 /* Keys.xcconfig */;
@@ -644,6 +759,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2E15F4F12B39255B00414BEC /* Build configuration list for PBXNativeTarget "UpliftTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E15F4F22B39255B00414BEC /* Debug */,
+				2E15F4F32B39255B00414BEC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2E8FE3872B1278B700B3DC6A /* Build configuration list for PBXProject "Uplift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -665,7 +789,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		2E090EC92B12FF5900BAE982 /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
+		2E15F4D62B390EBC00414BEC /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = UpliftAPI;
 		};
@@ -692,6 +816,10 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		2E090ECA2B12FF5900BAE982 /* UpliftAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UpliftAPI;
+		};
+		2E15F4D72B390EBC00414BEC /* UpliftAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UpliftAPI;
 		};

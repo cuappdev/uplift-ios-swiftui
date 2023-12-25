@@ -2,7 +2,7 @@
 //  Facility.swift
 //  Uplift
 //
-//  Created by Vin Bui on 11/26/23.
+//  Created by Vin Bui on 12/24/23.
 //
 
 import Foundation
@@ -22,13 +22,13 @@ struct Facility: Hashable {
     /// The type of this facility.
     let facilityType: FacilityType?
 
+    /// The hours of this facility.
+    let hours: [OpenHours]
+
     /// The name of this facility.
     let name: String
 
-    /// The open hours of this facility.
-    let openHours: [OpenHours]
-
-    // MARK: - init
+    // MARK: - Functions
 
     /// Initializes this object given a `FacilityFields` type.
     init(from facility: FacilityFields) {
@@ -40,24 +40,9 @@ struct Facility: Hashable {
             self.capacity = nil
         }
 
-        self.facilityType = FacilityType(rawValue: facility.facilityType.rawValue)
+        self.facilityType = facility.facilityType.value
+        self.hours = [OpenHours](facility.hours?.compactMap(\.?.fragments.openHoursFields) ?? [])
         self.name = facility.name
-        self.openHours = [OpenHours](facility.openHours?.compactMap(\.?.fragments.openHoursFields) ?? [])
-    }
-
-}
-
-/// The type of a facility.
-enum FacilityType: String {
-    case fitness = "FITNESS"
-    case pool = "POOL"
-}
-
-extension Array where Element == Facility {
-
-    /// Map an array of `FacilityFields` to an array of `Facility` objects.
-    init(_ facilities: [FacilityFields]) {
-        self.init(facilities.map(Facility.init))
     }
 
 }

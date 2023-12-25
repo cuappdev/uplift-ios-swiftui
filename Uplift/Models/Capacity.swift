@@ -2,7 +2,7 @@
 //  Capacity.swift
 //  Uplift
 //
-//  Created by Vin Bui on 11/26/23.
+//  Created by Vin Bui on 12/24/23.
 //
 
 import Foundation
@@ -13,22 +13,22 @@ struct Capacity: Hashable {
 
     // MARK: - Properties
 
-    /// The amount of people currently in the facility.
+    /// The number of people in this facility.
     let count: Int
 
-    /// The percent of the current capacity with respect to the the max capacity.
+    /// The percent filled between 0.0 and 1.0.
     let percent: Double
 
     /// The date in which this capacity was last updated.
     let updated: Date
 
-    // MARK: - init
+    // MARK: - Functions
 
     /// Initializes this object given a `CapacityFields` type.
     init(from capacity: CapacityFields) {
         self.count = capacity.count
         self.percent = capacity.percent
-        self.updated = capacity.updated.date(format: "yyyy-MM-dd'T'HH:mm:ss", timezone: "EST")
+        self.updated = Date(timeIntervalSince1970: TimeInterval(capacity.updated))
     }
 
 }
