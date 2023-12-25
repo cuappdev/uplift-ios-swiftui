@@ -435,6 +435,11 @@ struct DummyData {
             "__typename": "OpenHours",
             "endTime": 1703610000, // Tue Dec 26 2023 17:00 UTC
             "startTime": 1703602800 // Tue Dec 26 2023 15:00 UTC
+        ],
+        [
+            "__typename": "OpenHours",
+            "endTime": 1703617200, // Tue Dec 26 2023 19:00 UTC
+            "startTime": 1703613600 // Tue Dec 26 2023 18:00 UTC
         ]
     ]
 

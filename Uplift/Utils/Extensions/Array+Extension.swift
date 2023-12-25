@@ -37,6 +37,26 @@ extension Array where Element == Gym {
         self.init(gyms.map(Gym.init))
     }
 
+    /// Returns the facility given an ID.
+    func facilityWithID(id: String) -> Facility? {
+        for gym in self {
+            if let facility = gym.facilities.first(where: { $0.id == id }) {
+                return facility
+            }
+        }
+        return nil
+    }
+
+    /// Returns an array of all facilities.
+    func getAllFacilities() -> [Facility] {
+        self.flatMap(\.facilities)
+    }
+
+    /// Returns an array of all fitness centers.
+    func getAllFitnessCenters() -> [Facility] {
+        self.flatMap(\.facilities).filter { $0.facilityType == .fitness }
+    }
+
 }
 
 extension Array where Element == OpenHours {
@@ -55,10 +75,11 @@ extension Array where Element == OpenHours {
      - Returns: A `Status` object based on its hours.
      */
     func getStatus(currentTime: Date = Date.now) -> Status? {
-        // Get earliest dates
-        guard let earliest = self.min() else { return nil }
-        let earliestRemoved = self.filter { $0 != earliest }
-        guard let secondEarliest = earliestRemoved.min() else { return nil }
+        // Remove dates in the past
+        var filtered = self.sorted().filter { $0.endTime > currentTime }
+
+        // Get earliest date
+        guard let earliest = filtered.min() else { return nil }
 
         if currentTime < earliest.startTime {
             // Not open yet
@@ -68,6 +89,11 @@ extension Array where Element == OpenHours {
             return .open(closeTime: earliest.endTime)
         } else {
             // Current closed
+            guard let secondEarliest = filtered.sorted().first(where: {
+                $0.startTime > currentTime
+            }) else {
+                return nil
+            }
             return .closed(openTime: secondEarliest.startTime)
         }
     }

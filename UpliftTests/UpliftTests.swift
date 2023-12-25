@@ -49,6 +49,12 @@ final class UpliftTests: XCTestCase {
         hours.removeFirst() // Remove this since there shouldn't be a time before today
         result = hours.getStatus(currentTime: current)
         XCTAssertEqual(expected, result)
+
+        // Currently closed, opens later today, with 3 in same day (exclusive)
+        current = formatter.date(from: "12/26/2023 5:30 PM")!
+        expected = Status.closed(openTime: hours[2].startTime)
+        result = hours.getStatus(currentTime: current)
+        XCTAssertEqual(expected, result)
     }
 
 }

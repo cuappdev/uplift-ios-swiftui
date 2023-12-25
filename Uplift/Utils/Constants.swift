@@ -36,6 +36,21 @@ struct Constants {
         static let gray05 = Color(red: 115/255, green: 131/255, blue: 144/255)
     }
 
+    /// Facility IDs in Uplift.
+    enum FacilityIDs {
+        static let hnhFitness = Environment.idsDict["hnh_fitness"] as? String ?? ""
+        static let hnhPool = Environment.idsDict["hnh_pool"] as? String ?? ""
+        static let hnhBowling = Environment.idsDict["hnh_bowling"] as? String ?? ""
+        static let hnhCourt1 = Environment.idsDict["hnh_court1"] as? String ?? ""
+        static let hnhCourt2 = Environment.idsDict["hnh_court2"] as? String ?? ""
+        static let morrFitness = Environment.idsDict["morr_fitness"] as? String ?? ""
+        static let noyesFitness = Environment.idsDict["noyes_fitness"] as? String ?? ""
+        static let noyesCourt = Environment.idsDict["noyes_court"] as? String ?? ""
+        static let teagleDown = Environment.idsDict["tgl_down"] as? String ?? ""
+        static let teagleUp = Environment.idsDict["tgl_up"] as? String ?? ""
+        static let teaglePool = Environment.idsDict["tgl_pool"] as? String ?? ""
+    }
+
     /// Fonts used in Uplift's design system.
     enum Fonts {
         // H Headers

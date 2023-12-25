@@ -72,6 +72,32 @@ struct CapacityCircleView: View {
 
 }
 
+extension CapacityCircleView {
+
+    /// Skeleton view for a capacity circle.
+    struct Skeleton: View {
+        var body: some View {
+            ZStack(alignment: .center) {
+                Circle()
+                    .stroke(Constants.Colors.gray02, lineWidth: 4)
+
+                Circle()
+                    .trim(from: 0.0, to: CGFloat(min(0.8, 1.0)))
+                    .stroke(
+                        style: StrokeStyle(
+                            lineWidth: 4,
+                            lineCap: .round,
+                            lineJoin: .round
+                        )
+                    )
+                    .foregroundStyle(Constants.Colors.orange)
+                    .rotationEffect(Angle(degrees: 270))
+            }
+        }
+    }
+
+}
+
 #Preview {
     CapacityCircleView(
         circleWidth: 9,

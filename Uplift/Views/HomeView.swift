@@ -19,7 +19,6 @@ struct HomeView: View {
     var body: some View {
         VStack {
             header
-            capacitiesView
             scrollContent
         }
         .onAppear {
@@ -58,39 +57,57 @@ struct HomeView: View {
     }
 
     private var capacitiesView: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 12) {
             Text("GYM CAPACITIES")
                 .foregroundStyle(Constants.Colors.gray03)
                 .font(Constants.Fonts.h3)
 
-            HStack {
-                capacityCircle(facility: gym.facilityWithName(name: "Teagle "))
+            if let gyms = viewModel.gyms {
+                VStack(spacing: 12) {
+                    HStack(spacing: 12) {
+                        capacityCircle(facility: gyms.facilityWithID(id: Constants.FacilityIDs.hnhFitness))
+
+                        capacityCircle(facility: gyms.facilityWithID(id: Constants.FacilityIDs.teagleUp))
+                    }
+
+                    HStack(spacing: 12) {
+                        capacityCircle(facility: gyms.facilityWithID(id: Constants.FacilityIDs.teagleDown))
+
+                        capacityCircle(facility: gyms.facilityWithID(id: Constants.FacilityIDs.noyesFitness))
+                    }
+
+                    capacityCircle(facility: gyms.facilityWithID(id: Constants.FacilityIDs.morrFitness))
+                }
             }
-
-            HStack {
-
-            }
-
-
         }
+        .transition(.move(edge: .top))
     }
 
-    @ViewBuilder
     private func capacityCircle(facility: Facility?) -> some View {
-        if let facility {
-            CapacityCircleView(
-                circleWidth: 9,
-                closeStatus: facility.status,
-                status: facility.capacity?.status,
-                textFont: Constants.Fonts.labelBold
-            )
-            .frame(width: 72, height: 72)
+        VStack(spacing: 12) {
+            if let facility {
+                CapacityCircleView(
+                    circleWidth: 9,
+                    closeStatus: facility.status,
+                    status: facility.capacity?.status,
+                    textFont: Constants.Fonts.labelBold
+                )
+                .frame(width: 72, height: 72)
+
+                Text(facility.name)
+                    .font(Constants.Fonts.bodyMedium)
+                    .foregroundStyle(Constants.Colors.black)
+            }
         }
+        .padding(12)
+        .frame(maxWidth: .infinity)
     }
 
     private var scrollContent: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading, spacing: 12) {
+                viewModel.showCapacities ? capacitiesView : nil
+
                 Text("GYMS")
                     .foregroundStyle(Constants.Colors.gray03)
                     .font(Constants.Fonts.h3)
@@ -118,12 +135,27 @@ struct HomeView: View {
 
     private var filterButton: some View {
         Button {
-
+            // Only toggle if gyms are loaded
+            guard viewModel.gyms != nil else { return }
+            withAnimation(.easeOut) {
+                viewModel.showCapacities.toggle()
+            }
         } label: {
+            HStack(spacing: 12) {
+                CapacityCircleView.Skeleton()
+                    .frame(width: 24, height: 24)
+
+                Triangle()
+                    .fill(Constants.Colors.black)
+                    .rotationEffect(Angle(degrees: viewModel.showCapacities ? 180 : 90))
+                    .frame(width: 8, height: 8)
+            }
+        }
+        .padding(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
+        .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Constants.Colors.gray01, lineWidth: 1)
-        }
-        .frame(width: 68, height: 40)
+        )
     }
 
 }

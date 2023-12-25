@@ -76,8 +76,8 @@ struct Gym: Hashable {
     }
 
     /// Returns the facility given an ID.
-    func facilityWithName(name: String) -> Facility? {
-        facilities.first { $0.name == name }
+    func facilityWithID(id: String) -> Facility? {
+        facilities.first { $0.id == id }
     }
 
 }

@@ -19,8 +19,14 @@ enum Environment {
 #endif
     }
 
-    /// IDs from IDs.plist.
-    
+    /// A dictionary storing key-value pairs from IDs.plist.
+    static let idsDict: NSDictionary = {
+        guard let path = Bundle.main.path(forResource: "IDs", ofType: "plist"),
+              let dict = NSDictionary(contentsOfFile: path) else {
+            fatalError("IDs.plist not found")
+        }
+        return dict
+    }()
 
     /// A dictionary storing key-value pairs from Info.plist.
     private static let infoDict: [String: Any] = {

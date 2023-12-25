@@ -18,6 +18,7 @@ extension HomeView {
         // MARK: - Properties
 
         @Published var gyms: [Gym]?
+        @Published var showCapacities: Bool = false
 
         private var queryBag = Set<AnyCancellable>()
 
