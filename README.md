@@ -19,6 +19,7 @@ This app uses CocoaPods and Swift Package Manager for dependencies.
 1. Clone the repository.
 2. Go to `UpliftSecrets/` and drag the following four files into **FINDER (NOT Xcode).** For AppDev members, you can find these pinned in the `#uplift-ios` Slack channel.
     - `GoogleService-Info.plist`
+    - `IDs.plist`
     - `Keys.xcconfig`
     - `apollo-codegen-config-dev.json`
     - `apollo-codegen-config-prod.json`

@@ -31,9 +31,9 @@ struct DummyData {
             let gymFields = try GymFields(data: data)
             return Gym(from: gymFields)
         } catch {
-            #if DEBUG
+#if DEBUG
             print("Error creating gym dummy data: \(error)")
-            #endif
+#endif
             return nil
         }
     }
@@ -51,9 +51,9 @@ struct DummyData {
             let openHoursFields = try OpenHoursFields(data: data)
             return OpenHours(from: openHoursFields)
         } catch {
-            #if DEBUG
+#if DEBUG
             print("Error creating open hours dummy data: \(error)")
-            #endif
+#endif
             return nil
         }
     }

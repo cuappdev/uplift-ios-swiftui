@@ -30,7 +30,7 @@ struct Constants {
 
         // Gray
         static let gray01 = Color(red: 229/255, green: 236/255, blue: 237/255)
-        static let gray02 = Color(red: 165/255, green: 165/255, blue: 165/255)
+        static let gray02 = Color(red: 209/255, green: 213/255, blue: 218/255)
         static let gray03 = Color(red: 161/255, green: 165/255, blue: 166/255)
         static let gray04 = Color(red: 112/255, green: 112/255, blue: 112/255)
         static let gray05 = Color(red: 115/255, green: 131/255, blue: 144/255)
@@ -72,7 +72,44 @@ struct Constants {
 
     /// Image components used in Uplift.
     enum Images {
+        static let basketball = Image("basketball")
+        static let bowling = Image("bowling")
+        static let dumbbellLarge = Image("dumbbell_large")
+        static let dumbbellSmall = Image("dumbbell_small")
+        static let pool = Image("pool")
+    }
 
+    /// Padding amounts used in Uplift.
+    enum Padding {
+        static let horizontal: CGFloat = 16
+    }
+
+    /// Shadows usde in Uplift's design system.
+    enum Shadows {
+        static let normalDark = ShadowConfig(
+            color: Constants.Colors.black,
+            radius: 14,
+            x: 0,
+            y: 11
+        )
+        static let normalLight = ShadowConfig(
+            color: Constants.Colors.gray01,
+            radius: 40,
+            x: 0,
+            y: 10
+        )
+        static let smallDark = ShadowConfig(
+            color: Constants.Colors.black,
+            radius: 20,
+            x: 0,
+            y: 4
+        )
+        static let smallLight = ShadowConfig(
+            color: Constants.Colors.gray01,
+            radius: 20,
+            x: 0,
+            y: 4
+        )
     }
 
 }

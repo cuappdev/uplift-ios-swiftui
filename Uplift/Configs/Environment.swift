@@ -12,12 +12,15 @@ enum Environment {
 
     /// Keys from Info.plist.
     enum Keys {
-        #if DEBUG
+#if DEBUG
         static let baseURL: String = "DEV_URL"
-        #else
+#else
         static let baseURL: String = "PROD_URL"
-        #endif
+#endif
     }
+
+    /// IDs from IDs.plist.
+    
 
     /// A dictionary storing key-value pairs from Info.plist.
     private static let infoDict: [String: Any] = {

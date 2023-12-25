@@ -15,6 +15,19 @@ extension Array where Element == Facility {
         self.init(facilities.map(Facility.init))
     }
 
+    /// Returns a copy of this array with duplicate facility types removed.
+    func duplicatesRemoved() -> [Facility] {
+        var unique = [FacilityType]()
+        var result = [Facility]()
+        for facility in self where !unique.contains(where: { $0 == facility.facilityType }) {
+            if let facilityType = facility.facilityType {
+                unique.append(facilityType)
+            }
+            result.append(facility)
+        }
+        return result
+    }
+
 }
 
 extension Array where Element == Gym {

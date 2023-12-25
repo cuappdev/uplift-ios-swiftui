@@ -25,6 +25,11 @@ struct Gym: Hashable {
     /// This gym's facilities.
     let facilities: [Facility]
 
+    /// This gym's fitness centers.
+    var fitnessCenters: [Facility] {
+        facilities.filter { $0.facilityType == .fitness }
+    }
+
     /// This gym's building hours.
     let hours: [OpenHours]
 
@@ -60,6 +65,19 @@ struct Gym: Hashable {
         self.longitude = gym.longitude
         self.name = gym.name
         self.status = self.hours.getStatus()
+    }
+
+    /// Returns the highest capacity fitness center for this gym (Teagle).
+    func highestCapacityFC() -> Facility? {
+        let defaultPercent = Double.leastNormalMagnitude
+        return fitnessCenters.max {
+            $0.capacity?.percent ?? defaultPercent > $1.capacity?.percent ?? defaultPercent
+        }
+    }
+
+    /// Returns the facility given an ID.
+    func facilityWithName(name: String) -> Facility? {
+        facilities.first { $0.name == name }
     }
 
 }
