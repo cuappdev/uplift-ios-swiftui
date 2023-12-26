@@ -44,4 +44,17 @@ struct OpenHours: Comparable, Hashable {
         lhs.startTime < rhs.startTime
     }
 
+    /**
+     Format these hours into a string representing open and close times.
+
+     An example format is '6:00 AM - 9:00 PM'.
+
+     - Returns: A formatted string containing open and close times.
+     */
+    func formatOpenCloseHours() -> String {
+        let openString = self.startTime.timeStringTrailingZeros
+        let closeString = self.endTime.timeStringTrailingZeros
+        return "\(openString) - \(closeString)"
+    }
+
 }

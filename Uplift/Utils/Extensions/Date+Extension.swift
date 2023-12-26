@@ -10,10 +10,20 @@ import Foundation
 extension Date {
 
     /**
+     This `Date` in the format "h:mm a".
+     For example, 12/25/23 8:00 PM is 8:00 PM.
+     */
+    var timeStringTrailingZeros: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
+        return formatter.string(from: self)
+    }
+
+    /**
      This `Date` in the format "h:mm a" with trailing 00 removed.
      For example, 8:00 PM is 8 PM.
      */
-    var timeString: String {
+    var timeStringNoTrailingZeros: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "h:mm a"
 
@@ -29,6 +39,11 @@ extension Date {
         }
 
         return formatted
+    }
+
+    /// Returns the `DayOfWeek` for this date.
+    func getDayOfWeek() -> DayOfWeek {
+        DayOfWeek(rawValue: Calendar.current.dateComponents([.weekday], from: self).weekday!)!
     }
 
 }

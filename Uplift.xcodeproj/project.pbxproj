@@ -31,6 +31,12 @@
 		2E15F5102B3A15F400414BEC /* IDs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2E15F50F2B3A15F400414BEC /* IDs.plist */; };
 		2E15F5122B3A3D0000414BEC /* TriangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F5112B3A3D0000414BEC /* TriangleShape.swift */; };
 		2E3D6C202B1285D200B51BB2 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3D6C1F2B1285D200B51BB2 /* Environment.swift */; };
+		2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6785B82B3A425E00DD3ADA /* GymDetailView.swift */; };
+		2E6785BC2B3A48D700DD3ADA /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 2E6785BB2B3A48D700DD3ADA /* WrappingHStack */; };
+		2E6785BE2B3A513000DD3ADA /* SemiCircleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6785BD2B3A513000DD3ADA /* SemiCircleShape.swift */; };
+		2E6785C02B3A5CA300DD3ADA /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6785BF2B3A5CA300DD3ADA /* Haptics.swift */; };
+		2E6785C22B3A5CE000DD3ADA /* GymDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6785C12B3A5CE000DD3ADA /* GymDetailViewModel.swift */; };
+		2E6785C42B3A780600DD3ADA /* DayOfWeek.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6785C32B3A780600DD3ADA /* DayOfWeek.swift */; };
 		2E8FE3902B1278B700B3DC6A /* UpliftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8FE38F2B1278B700B3DC6A /* UpliftApp.swift */; };
 		2E8FE3922B1278B700B3DC6A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8FE3912B1278B700B3DC6A /* HomeView.swift */; };
 		2E8FE3962B1278B900B3DC6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E8FE3952B1278B900B3DC6A /* Assets.xcassets */; };
@@ -88,6 +94,11 @@
 		2E3D6C1C2B12809900B51BB2 /* Keys.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Keys.xcconfig; sourceTree = "<group>"; };
 		2E3D6C1D2B12840C00B51BB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E3D6C1F2B1285D200B51BB2 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		2E6785B82B3A425E00DD3ADA /* GymDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailView.swift; sourceTree = "<group>"; };
+		2E6785BD2B3A513000DD3ADA /* SemiCircleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiCircleShape.swift; sourceTree = "<group>"; };
+		2E6785BF2B3A5CA300DD3ADA /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
+		2E6785C12B3A5CE000DD3ADA /* GymDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailViewModel.swift; sourceTree = "<group>"; };
+		2E6785C32B3A780600DD3ADA /* DayOfWeek.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfWeek.swift; sourceTree = "<group>"; };
 		2E8FE38C2B1278B700B3DC6A /* Uplift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Uplift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E8FE38F2B1278B700B3DC6A /* UpliftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpliftApp.swift; sourceTree = "<group>"; };
 		2E8FE3912B1278B700B3DC6A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -124,6 +135,7 @@
 				842FB0CCD71C3202DE5836F1 /* Pods_Uplift.framework in Frameworks */,
 				2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */,
 				2EE5F3EB2B12EDC1008E0299 /* NukeUI in Frameworks */,
+				2E6785BC2B3A48D700DD3ADA /* WrappingHStack in Frameworks */,
 				2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */,
 				2EE5F3E72B12EDC1008E0299 /* Nuke in Frameworks */,
 				2EE5F3E92B12EDC1008E0299 /* NukeExtensions in Frameworks */,
@@ -147,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				2E15F4D92B39102A00414BEC /* Capacity.swift */,
+				2E6785C32B3A780600DD3ADA /* DayOfWeek.swift */,
 				2E15F4DD2B3912C700414BEC /* Facility.swift */,
 				2E15F4DF2B39143700414BEC /* Gym.swift */,
 				2E15F4DB2B39117300414BEC /* OpenHours.swift */,
@@ -204,6 +217,7 @@
 		2E090ED12B1308D500BAE982 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				2E6785C12B3A5CE000DD3ADA /* GymDetailViewModel.swift */,
 				2E1105BE2B13B0E100119F5B /* HomeViewModel.swift */,
 			);
 			path = ViewModels;
@@ -225,6 +239,7 @@
 			children = (
 				2E090ED52B13121600BAE982 /* Constants.swift */,
 				2E1105C32B13D1B000119F5B /* DummyData.swift */,
+				2E6785BF2B3A5CA300DD3ADA /* Haptics.swift */,
 				2E090ED42B13096700BAE982 /* Extensions */,
 				2E15F5002B396E9700414BEC /* Modifiers */,
 			);
@@ -245,6 +260,7 @@
 		2E1105C02B13D11E00119F5B /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				2E6785B82B3A425E00DD3ADA /* GymDetailView.swift */,
 				2E1105C12B13D15100119F5B /* HomeGymCell.swift */,
 			);
 			path = Home;
@@ -270,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				2E15F50B2B3A0B2100414BEC /* CapacityCircleView.swift */,
+				2E6785BD2B3A513000DD3ADA /* SemiCircleShape.swift */,
 				2E15F5112B3A3D0000414BEC /* TriangleShape.swift */,
 			);
 			path = Supporting;
@@ -388,6 +405,7 @@
 				2EE5F3EA2B12EDC1008E0299 /* NukeUI */,
 				2E090ECA2B12FF5900BAE982 /* UpliftAPI */,
 				2E15F4D72B390EBC00414BEC /* UpliftAPI */,
+				2E6785BB2B3A48D700DD3ADA /* WrappingHStack */,
 			);
 			productName = Uplift;
 			productReference = 2E8FE38C2B1278B700B3DC6A /* Uplift.app */;
@@ -425,6 +443,7 @@
 				2EE5F3E02B12EDB6008E0299 /* XCRemoteSwiftPackageReference "apollo-ios" */,
 				2EE5F3E52B12EDC1008E0299 /* XCRemoteSwiftPackageReference "Nuke" */,
 				2E15F4D62B390EBC00414BEC /* XCLocalSwiftPackageReference "UpliftAPI" */,
+				2E6785BA2B3A48D700DD3ADA /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
 			projectDirPath = "";
@@ -542,10 +561,14 @@
 				2E15F4FD2B396A2200414BEC /* Image+Extension.swift in Sources */,
 				2EF1A2582B129EEB007A299F /* Network.swift in Sources */,
 				2E15F4E02B39143700414BEC /* Gym.swift in Sources */,
+				2E6785C42B3A780600DD3ADA /* DayOfWeek.swift in Sources */,
+				2E6785BE2B3A513000DD3ADA /* SemiCircleShape.swift in Sources */,
 				2E15F4FB2B39573C00414BEC /* Double+Extension.swift in Sources */,
+				2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */,
 				2E1105BF2B13B0E100119F5B /* HomeViewModel.swift in Sources */,
 				2E15F5122B3A3D0000414BEC /* TriangleShape.swift in Sources */,
 				2E8FE3922B1278B700B3DC6A /* HomeView.swift in Sources */,
+				2E6785C02B3A5CA300DD3ADA /* Haptics.swift in Sources */,
 				2E15F50C2B3A0B2100414BEC /* CapacityCircleView.swift in Sources */,
 				2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */,
 				2E15F5062B39F81B00414BEC /* MainView.swift in Sources */,
@@ -563,6 +586,7 @@
 				2E15F4DC2B39117300414BEC /* OpenHours.swift in Sources */,
 				2E090ED62B13121600BAE982 /* Constants.swift in Sources */,
 				2E15F4DE2B3912C700414BEC /* Facility.swift in Sources */,
+				2E6785C22B3A5CE000DD3ADA /* GymDetailViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -848,6 +872,14 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2E6785BA2B3A48D700DD3ADA /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dkk/WrappingHStack";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.11;
+			};
+		};
 		2EE5F3E02B12EDB6008E0299 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
@@ -874,6 +906,11 @@
 		2E15F4D72B390EBC00414BEC /* UpliftAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UpliftAPI;
+		};
+		2E6785BB2B3A48D700DD3ADA /* WrappingHStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E6785BA2B3A48D700DD3ADA /* XCRemoteSwiftPackageReference "WrappingHStack" */;
+			productName = WrappingHStack;
 		};
 		2EE5F3E12B12EDB6008E0299 /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -76,7 +76,7 @@ extension Array where Element == OpenHours {
      */
     func getStatus(currentTime: Date = Date.now) -> Status? {
         // Remove dates in the past
-        var filtered = self.sorted().filter { $0.endTime > currentTime }
+        let filtered = self.sorted().filter { $0.endTime > currentTime }
 
         // Get earliest date
         guard let earliest = filtered.min() else { return nil }
@@ -96,6 +96,33 @@ extension Array where Element == OpenHours {
             }
             return .closed(openTime: secondEarliest.startTime)
         }
+    }
+
+    /**
+     Retrieve hours that share the same day as the given date.
+
+     Comparison is based on local time.
+
+     - Parameters:
+        - date: The date to compare with.
+
+     - Returns: An array of hours that are in the same day.
+     */
+    func getHoursInDate(date: Date) -> [OpenHours] {
+        // TODO: Delete this function
+        self.filter { Calendar.current.isDate(date, equalTo: $0.startTime, toGranularity: .day) }
+    }
+
+    /**
+     Retrieve hours that are in the given day of the week.
+
+     - Parameters:
+        - dayOfWeek: The day of the week.
+
+     - Returns: An array of hours that are in that day of week.
+     */
+    func getHoursInDayOfWeek(dayOfWeek: DayOfWeek) -> [OpenHours] {
+        self.filter { $0.startTime.getDayOfWeek() == dayOfWeek }
     }
 
 }

@@ -57,4 +57,32 @@ final class UpliftTests: XCTestCase {
         XCTAssertEqual(expected, result)
     }
 
+    /// Test procedure for fetching hours in a given date.
+    func testGetHoursInDate() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy h:mm a"
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+
+        let hours = DummyData.uplift.openHours.compactMap { DummyData.uplift.getOpenHours(data: $0) }
+
+        // Hours in current with no timezone difference
+        var current = formatter.date(from: "12/25/2023 10:00 AM")!
+        var expected = Array(hours[0..<1])
+        var result = hours.getHoursInDate(date: current)
+        XCTAssertEqual(expected, result)
+
+        // Hours in current with timezone difference
+        formatter.timeZone = TimeZone(abbreviation: "EST")
+        current = formatter.date(from: "12/25/2023 10:00 PM")!
+        expected = Array(hours[0..<1])
+        result = hours.getHoursInDate(date: current)
+        XCTAssertEqual(expected, result)
+
+        // No hours
+        current = formatter.date(from: "12/22/2023 10:00 PM")!
+        expected = []
+        result = hours.getHoursInDate(date: current)
+        XCTAssertEqual(expected, result)
+    }
+
 }

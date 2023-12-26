@@ -54,6 +54,7 @@ struct Constants {
     /// Fonts used in Uplift's design system.
     enum Fonts {
         // H Headers
+        static let h0 = Font.custom("Montserrat-Bold", size: 36)
         static let h1 = Font.custom("Montserrat-Bold", size: 24)
         static let h2 = Font.custom("Montserrat-Bold", size: 16)
         static let h3 = Font.custom("Montserrat-Bold", size: 14)
@@ -62,6 +63,7 @@ struct Constants {
         // F Headers
         static let f1 = Font.custom("Montserrat-Medium", size: 24)
         static let f2 = Font.custom("Montserrat-Medium", size: 16)
+        static let f2Regular = Font.custom("Montserrat-Regular", size: 16)
         static let f3 = Font.custom("Montserrat-Medium", size: 14)
         static let f4 = Font.custom("Montserrat-Medium", size: 12)
 
@@ -91,12 +93,18 @@ struct Constants {
         static let bowling = Image("bowling")
         static let dumbbellLarge = Image("dumbbell_large")
         static let dumbbellSmall = Image("dumbbell_small")
+        static let elevator = Image("elevator")
+        static let lock = Image("lock")
+        static let parking = Image("parking")
         static let pool = Image("pool")
+        static let shower = Image("shower")
     }
 
     /// Padding amounts used in Uplift.
     enum Padding {
-        static let horizontal: CGFloat = 16
+        static let gymDetailHorizontal: CGFloat = 24
+        static let gymDetailSpacing: CGFloat = 20
+        static let homeHorizontal: CGFloat = 16
     }
 
     /// Shadows usde in Uplift's design system.

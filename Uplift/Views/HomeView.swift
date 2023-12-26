@@ -17,9 +17,11 @@ struct HomeView: View {
     // MARK: - UI
 
     var body: some View {
-        VStack {
-            header
-            scrollContent
+        NavigationStack {
+            VStack {
+                header
+                scrollContent
+            }
         }
         .onAppear {
             viewModel.fetchAllGyms()
@@ -43,9 +45,9 @@ struct HomeView: View {
         .padding(
             EdgeInsets(
                 top: 0,
-                leading: Constants.Padding.horizontal,
+                leading: Constants.Padding.homeHorizontal,
                 bottom: 12,
-                trailing: Constants.Padding.horizontal
+                trailing: Constants.Padding.homeHorizontal
             )
         )
         .background(
@@ -118,16 +120,22 @@ struct HomeView: View {
                     EmptyView()
                 case .some(let gyms):
                     ForEach(gyms, id: \.self) { gym in
-                        HomeGymCell(gym: gym)
+                        // TODO: Fix navigation link style
+                        NavigationLink {
+                            GymDetailView(gym: gym)
+                        } label: {
+                            HomeGymCell(gym: gym)
+                        }
+                        .buttonStyle(.plain)
                     }
                 }
             }
             .padding(
                 EdgeInsets(
                     top: 12,
-                    leading: Constants.Padding.horizontal,
+                    leading: Constants.Padding.homeHorizontal,
                     bottom: 32,
-                    trailing: Constants.Padding.horizontal
+                    trailing: Constants.Padding.homeHorizontal
                 )
             )
         }

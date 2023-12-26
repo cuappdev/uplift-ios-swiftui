@@ -81,13 +81,13 @@ struct HomeGymCell: View {
                 Text("Closed")
                     .foregroundStyle(Constants.Colors.closed)
 
-                Text("Opens at \(openTime.timeString)")
+                Text("Opens at \(openTime.timeStringNoTrailingZeros)")
                     .foregroundStyle(Constants.Colors.gray03)
             case .open(let closeTime):
                 Text("Open")
                     .foregroundStyle(Constants.Colors.open)
 
-                Text("Closes at \(closeTime.timeString)")
+                Text("Closes at \(closeTime.timeStringNoTrailingZeros)")
                     .foregroundStyle(Constants.Colors.gray03)
             case .none:
                 EmptyView()

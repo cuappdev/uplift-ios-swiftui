@@ -40,6 +40,7 @@ struct MainView: View {
         .ignoresSafeArea(.all)
     }
 
+    @ViewBuilder
     private func tabItem(for screen: Screen) -> some View {
         switch screen {
         case .home:
