@@ -24,7 +24,6 @@ struct UpliftApp: App {
                 .environmentObject(locationManager)
                 .onAppear {
                     locationManager.requestLocation()
-                    ImagePipeline.shared = ImagePipeline(configuration: .withDataCache)
                 }
         }
     }

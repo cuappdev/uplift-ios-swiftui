@@ -5,7 +5,7 @@
 //  Created by Vin Bui on 12/25/23.
 //
 
-import NukeUI
+import Kingfisher
 import SwiftUI
 import UpliftAPI
 import WrappingHStack
@@ -78,16 +78,14 @@ struct GymDetailView: View {
     @MainActor
     private var heroSection: some View {
         ZStack(alignment: .center) {
-            LazyImage(url: gym.imageUrl) { state in
-                if let image = state.image {
-                    image.centerCropped()
-                } else {
-                    // Placeholder
+            KFImage(gym.imageUrl)
+                .placeholder {
                     Constants.Colors.gray01
                 }
-            }
-            .priority(.high)
-            .pipeline(.shared)
+                .resizable()
+                .scaledToFill()
+                .frame(height: 330)
+                .clipped()
 
             if viewModel.showHours {
                 hoursView

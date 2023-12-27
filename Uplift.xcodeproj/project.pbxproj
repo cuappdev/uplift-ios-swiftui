@@ -23,7 +23,6 @@
 		2E15F4EE2B39255B00414BEC /* UpliftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F4ED2B39255B00414BEC /* UpliftTests.swift */; };
 		2E15F4F92B3950F800414BEC /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F4F82B3950F800414BEC /* Date+Extension.swift */; };
 		2E15F4FB2B39573C00414BEC /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F4FA2B39573C00414BEC /* Double+Extension.swift */; };
-		2E15F4FD2B396A2200414BEC /* Image+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F4FC2B396A2200414BEC /* Image+Extension.swift */; };
 		2E15F5022B396EC500414BEC /* ShadowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F5012B396EC500414BEC /* ShadowModifier.swift */; };
 		2E15F5042B39E54700414BEC /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F5032B39E54700414BEC /* LocationManager.swift */; };
 		2E15F5062B39F81B00414BEC /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F5052B39F81B00414BEC /* MainView.swift */; };
@@ -59,13 +58,11 @@
 		2EB090B72B131CA80039EB3B /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB090B12B131C9D0039EB3B /* Montserrat-Regular.ttf */; };
 		2EB090B82B131CA80039EB3B /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB090B02B131C9D0039EB3B /* Montserrat-Light.ttf */; };
 		2EB090B92B131CA80039EB3B /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB090AF2B131C9D0039EB3B /* Montserrat-SemiBold.ttf */; };
+		2EC3EE662B3C000E00E927BF /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 2EC3EE652B3C000E00E927BF /* Kingfisher */; };
 		2EE0C7CB2B12D6EE000D3BF6 /* GymQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */; };
 		2EE5F3C82B12E094008E0299 /* ApolloClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */; };
 		2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E12B12EDB6008E0299 /* Apollo */; };
 		2EE5F3E42B12EDB6008E0299 /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E32B12EDB6008E0299 /* ApolloAPI */; };
-		2EE5F3E72B12EDC1008E0299 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E62B12EDC1008E0299 /* Nuke */; };
-		2EE5F3E92B12EDC1008E0299 /* NukeExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E82B12EDC1008E0299 /* NukeExtensions */; };
-		2EE5F3EB2B12EDC1008E0299 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3EA2B12EDC1008E0299 /* NukeUI */; };
 		2EF1A2582B129EEB007A299F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1A2572B129EEB007A299F /* Network.swift */; };
 		842FB0CCD71C3202DE5836F1 /* Pods_Uplift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E86AC23F1B9AFB11552390BF /* Pods_Uplift.framework */; };
 /* End PBXBuildFile section */
@@ -96,7 +93,6 @@
 		2E15F4ED2B39255B00414BEC /* UpliftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpliftTests.swift; sourceTree = "<group>"; };
 		2E15F4F82B3950F800414BEC /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		2E15F4FA2B39573C00414BEC /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
-		2E15F4FC2B396A2200414BEC /* Image+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Extension.swift"; sourceTree = "<group>"; };
 		2E15F5012B396EC500414BEC /* ShadowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowModifier.swift; sourceTree = "<group>"; };
 		2E15F5032B39E54700414BEC /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		2E15F5052B39F81B00414BEC /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -157,12 +153,10 @@
 				2EE5F3E42B12EDB6008E0299 /* ApolloAPI in Frameworks */,
 				842FB0CCD71C3202DE5836F1 /* Pods_Uplift.framework in Frameworks */,
 				2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */,
-				2EE5F3EB2B12EDC1008E0299 /* NukeUI in Frameworks */,
 				2E6785BC2B3A48D700DD3ADA /* WrappingHStack in Frameworks */,
 				2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */,
-				2EE5F3E72B12EDC1008E0299 /* Nuke in Frameworks */,
 				2E39D82F2B3BCBA400AD238B /* UpliftAPI in Frameworks */,
-				2EE5F3E92B12EDC1008E0299 /* NukeExtensions in Frameworks */,
+				2EC3EE662B3C000E00E927BF /* Kingfisher in Frameworks */,
 				2E15F4D82B390EBC00414BEC /* UpliftAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -279,7 +273,6 @@
 				2E15F4E52B391E5300414BEC /* Array+Extension.swift */,
 				2E15F4F82B3950F800414BEC /* Date+Extension.swift */,
 				2E15F4FA2B39573C00414BEC /* Double+Extension.swift */,
-				2E15F4FC2B396A2200414BEC /* Image+Extension.swift */,
 				2E39D81D2B3B610200AD238B /* UINavigationController+Extension.swift */,
 			);
 			path = Extensions;
@@ -435,13 +428,11 @@
 			packageProductDependencies = (
 				2EE5F3E12B12EDB6008E0299 /* Apollo */,
 				2EE5F3E32B12EDB6008E0299 /* ApolloAPI */,
-				2EE5F3E62B12EDC1008E0299 /* Nuke */,
-				2EE5F3E82B12EDC1008E0299 /* NukeExtensions */,
-				2EE5F3EA2B12EDC1008E0299 /* NukeUI */,
 				2E090ECA2B12FF5900BAE982 /* UpliftAPI */,
 				2E15F4D72B390EBC00414BEC /* UpliftAPI */,
 				2E6785BB2B3A48D700DD3ADA /* WrappingHStack */,
 				2E39D82E2B3BCBA400AD238B /* UpliftAPI */,
+				2EC3EE652B3C000E00E927BF /* Kingfisher */,
 			);
 			productName = Uplift;
 			productReference = 2E8FE38C2B1278B700B3DC6A /* Uplift.app */;
@@ -478,9 +469,9 @@
 			mainGroup = 2E8FE3832B1278B700B3DC6A;
 			packageReferences = (
 				2EE5F3E02B12EDB6008E0299 /* XCRemoteSwiftPackageReference "apollo-ios" */,
-				2EE5F3E52B12EDC1008E0299 /* XCRemoteSwiftPackageReference "Nuke" */,
 				2E6785BA2B3A48D700DD3ADA /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				2E39D82D2B3BCBA400AD238B /* XCLocalSwiftPackageReference "UpliftAPI" */,
+				2EC3EE642B3C000E00E927BF /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
 			projectDirPath = "";
@@ -596,7 +587,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E15F4FD2B396A2200414BEC /* Image+Extension.swift in Sources */,
 				2EF1A2582B129EEB007A299F /* Network.swift in Sources */,
 				2E39D81C2B3B5F3700AD238B /* NavBackButton.swift in Sources */,
 				2E15F4E02B39143700414BEC /* Gym.swift in Sources */,
@@ -938,20 +928,20 @@
 				minimumVersion = 2.2.11;
 			};
 		};
+		2EC3EE642B3C000E00E927BF /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.10.1;
+			};
+		};
 		2EE5F3E02B12EDB6008E0299 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.7.1;
-			};
-		};
-		2EE5F3E52B12EDC1008E0299 /* XCRemoteSwiftPackageReference "Nuke" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kean/Nuke";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 12.2.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -974,6 +964,11 @@
 			package = 2E6785BA2B3A48D700DD3ADA /* XCRemoteSwiftPackageReference "WrappingHStack" */;
 			productName = WrappingHStack;
 		};
+		2EC3EE652B3C000E00E927BF /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2EC3EE642B3C000E00E927BF /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		2EE5F3E12B12EDB6008E0299 /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2EE5F3E02B12EDB6008E0299 /* XCRemoteSwiftPackageReference "apollo-ios" */;
@@ -983,21 +978,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2EE5F3E02B12EDB6008E0299 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = ApolloAPI;
-		};
-		2EE5F3E62B12EDC1008E0299 /* Nuke */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2EE5F3E52B12EDC1008E0299 /* XCRemoteSwiftPackageReference "Nuke" */;
-			productName = Nuke;
-		};
-		2EE5F3E82B12EDC1008E0299 /* NukeExtensions */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2EE5F3E52B12EDC1008E0299 /* XCRemoteSwiftPackageReference "Nuke" */;
-			productName = NukeExtensions;
-		};
-		2EE5F3EA2B12EDC1008E0299 /* NukeUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2EE5F3E52B12EDC1008E0299 /* XCRemoteSwiftPackageReference "Nuke" */;
-			productName = NukeUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

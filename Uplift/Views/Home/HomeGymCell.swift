@@ -5,7 +5,7 @@
 //  Created by Vin Bui on 11/26/23.
 //
 
-import NukeUI
+import Kingfisher
 import SwiftUI
 
 /// The cell representing a Gym used in the home page.
@@ -22,17 +22,15 @@ struct HomeGymCell: View {
 
     var body: some View {
         ZStack {
-            LazyImage(url: gym.imageUrl) { state in
-                if let image = state.image {
-                    image.centerCropped()
-                } else {
-                    // Placeholder
+            KFImage(gym.imageUrl)
+                .placeholder {
                     Constants.Colors.gray01
                 }
-            }
-            .priority(.high)
-            .pipeline(.shared)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+                .resizable()
+                .scaledToFill()
+                .frame(height: 180)
+                .clipped()
+                .clipShape(RoundedRectangle(cornerRadius: 12))
 
             VStack {
                 Spacer()
