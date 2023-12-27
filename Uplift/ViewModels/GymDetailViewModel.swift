@@ -3,6 +3,7 @@
 //  Uplift
 //
 //  Created by Vin Bui on 12/25/23.
+//  Copyright © 2023 Cornell AppDev. All rights reserved.
 //
 
 import Foundation
@@ -17,9 +18,26 @@ extension GymDetailView {
 
         @Published var buildingHours: [String] = []
         @Published var daysOfWeek: [String] = []
+        @Published var selectedTab: GymTabType?
         @Published var showHours: Bool = false
 
+        /// An enumeration representing different gyms used for sliding tab bar purposes.
+        enum GymName {
+            case morrison
+            case teagle
+            case other
+        }
+
         // MARK: - Helpers
+
+        /// Determine selected tab.
+        func determineSelectedTab(gym: Gym) {
+            if gym.facilityWithID(id: Constants.FacilityIDs.teagleDown) != nil {
+                selectedTab = .teagleDown
+            } else {
+                selectedTab = .fitnessCenter
+            }
+        }
 
         /// Fetch a sorted array of strings for building hours.
         func fetchBuildingHours(for gym: Gym) {
@@ -38,7 +56,7 @@ extension GymDetailView {
         }
 
         /// Fetch a sorted array of strings for days of the week.
-        func fetchDaysOfWeek(for gym: Gym) {
+        func fetchDaysOfWeek() {
             daysOfWeek = []
             for day in DayOfWeek.sortedDaysOfWeek() {
                 if day == Date.now.getDayOfWeek() {
@@ -46,6 +64,17 @@ extension GymDetailView {
                 } else {
                     daysOfWeek.append(day.dayOfWeekAbbreviation())
                 }
+            }
+        }
+
+        /// Determine the gym name enumeration value given a `Gym` object.
+        func determineGymNameEnum(gym: Gym) -> GymName {
+            if gym.facilityWithID(id: Constants.FacilityIDs.teagleDown) != nil {
+                return .teagle
+            } else if gym.facilityWithID(id: Constants.FacilityIDs.morrFitness) != nil {
+                return .morrison
+            } else {
+                return .other
             }
         }
 

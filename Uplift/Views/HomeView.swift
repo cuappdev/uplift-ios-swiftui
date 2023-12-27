@@ -3,6 +3,7 @@
 //  Uplift
 //
 //  Created by Vin Bui on 11/25/23.
+//  Copyright © 2023 Cornell AppDev. All rights reserved.
 //
 
 import SwiftUI
@@ -110,9 +111,13 @@ struct HomeView: View {
             VStack(alignment: .leading, spacing: 12) {
                 viewModel.showCapacities ? capacitiesView : nil
 
-                Text("GYMS")
-                    .foregroundStyle(Constants.Colors.gray03)
-                    .font(Constants.Fonts.h3)
+                HStack {
+                    Text("GYMS")
+                        .foregroundStyle(Constants.Colors.gray03)
+                        .font(Constants.Fonts.h3)
+
+                    Spacer()
+                }
 
                 switch viewModel.gyms {
                 case .none:
@@ -120,13 +125,13 @@ struct HomeView: View {
                     EmptyView()
                 case .some(let gyms):
                     ForEach(gyms, id: \.self) { gym in
-                        // TODO: Fix navigation link style
                         NavigationLink {
                             GymDetailView(gym: gym)
                         } label: {
                             HomeGymCell(gym: gym)
                         }
-                        .buttonStyle(.plain)
+                        .contentShape(Rectangle()) // Fixes navigation link tap area
+                        .buttonStyle(ScaleButtonStyle())
                     }
                 }
             }

@@ -3,6 +3,7 @@
 //  Uplift
 //
 //  Created by Vin Bui on 11/25/23.
+//  Copyright © 2023 Cornell AppDev. All rights reserved.
 //
 
 import Apollo
@@ -12,6 +13,6 @@ import Foundation
 final class Network {
 
     /// The Apollo client.
-    static let client = ApolloClient(url: Environment.baseURL)
+    static let client = ApolloClient(url: UpliftEnvironment.baseURL)
 
 }

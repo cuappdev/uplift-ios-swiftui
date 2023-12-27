@@ -3,6 +3,7 @@
 //  Uplift
 //
 //  Created by Vin Bui on 12/24/23.
+//  Copyright © 2023 Cornell AppDev. All rights reserved.
 //
 
 import Foundation
@@ -96,21 +97,6 @@ extension Array where Element == OpenHours {
             }
             return .closed(openTime: secondEarliest.startTime)
         }
-    }
-
-    /**
-     Retrieve hours that share the same day as the given date.
-
-     Comparison is based on local time.
-
-     - Parameters:
-        - date: The date to compare with.
-
-     - Returns: An array of hours that are in the same day.
-     */
-    func getHoursInDate(date: Date) -> [OpenHours] {
-        // TODO: Delete this function
-        self.filter { Calendar.current.isDate(date, equalTo: $0.startTime, toGranularity: .day) }
     }
 
     /**

@@ -3,6 +3,7 @@
 //  Uplift
 //
 //  Created by Vin Bui on 12/24/23.
+//  Copyright © 2023 Cornell AppDev. All rights reserved.
 //
 
 import Foundation
@@ -78,6 +79,11 @@ struct Gym: Hashable {
     /// Returns the facility given an ID.
     func facilityWithID(id: String) -> Facility? {
         facilities.first { $0.id == id }
+    }
+
+    /// Returns all facilities that are not fitness centers.
+    func nonFCFacilities() -> [Facility] {
+        facilities.filter { $0.facilityType != .fitness }
     }
 
 }

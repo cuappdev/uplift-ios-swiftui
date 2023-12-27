@@ -21,18 +21,26 @@ struct HomeGymCell: View {
     // MARK: - UI
 
     var body: some View {
-        ZStack(alignment: .centerLastTextBaseline) {
+        ZStack {
             LazyImage(url: gym.imageUrl) { state in
                 if let image = state.image {
                     image.centerCropped()
+                } else {
+                    // Placeholder
+                    Constants.Colors.gray01
                 }
-
             }
+            .priority(.high)
+            .pipeline(.shared)
             .clipShape(RoundedRectangle(cornerRadius: 12))
-            .frame(height: 180)
 
-            gymInfoView
+            VStack {
+                Spacer()
+
+                gymInfoView
+            }
         }
+        .frame(height: 180)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Constants.Colors.gray01, lineWidth: 1)

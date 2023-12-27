@@ -58,6 +58,10 @@ fi
 5. Download and install [Apollo](https://www.apollographql.com/docs/devtools/cli/) and GraphQL with the following commands. You will need to have Node’s NPM installed on your device.
     - `npm install -g apollo`
     - `npm install -g graphql`
+    
+## Common Issues
+
+If you are unable to reproduce a new Apollo generated API file, go to **Project > Package Dependencies** and remove `UpliftAPI`. Then, add a new **Local** package dependency that points to the `UpliftAPI` folder in the project directory.
 
 ## Codebase Outline
 

@@ -3,6 +3,7 @@
 //  Uplift
 //
 //  Created by Vin Bui on 12/25/23.
+//  Copyright © 2023 Cornell AppDev. All rights reserved.
 //
 
 import Foundation
@@ -24,7 +25,7 @@ extension DayOfWeek {
     func dayOfWeekAbbreviation() -> String {
         switch self {
         case .sunday:
-            return "Sun"
+            return "Su"
         case .monday:
             return "M"
         case .tuesday:
@@ -36,21 +37,27 @@ extension DayOfWeek {
         case .friday:
             return "F"
         case .saturday:
-            return "Sat"
+            return "Sa"
         }
     }
 
-    /// Returns an array of all days of the week sorted with today first.
-    static func sortedDaysOfWeek() -> [DayOfWeek] {
-        // Determine current day
-        let today = Date.now.getDayOfWeek()
+    /**
+     Returns an array of all days of the week sorted with the given day first.
 
+     Once Sunday is reached, the array is wrapped around.
+
+     - Parameters:
+        - start: The starting day of the week. Default is today.
+
+     - Returns: A sorted array of the days of the week.
+     */
+    static func sortedDaysOfWeek(start: DayOfWeek = Date.now.getDayOfWeek()) -> [DayOfWeek] {
         var result = [DayOfWeek]()
         for i in 0..<7 {
-            var val = (today.rawValue + i) % 7
+            var val = (start.rawValue + i) % 7
             if val == 0 { val = 7 }
             if let day = DayOfWeek(rawValue: val) {
-                result.append(DayOfWeek(rawValue: val) ?? .monday)
+                result.append(day)
             }
         }
         return result

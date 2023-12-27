@@ -3,6 +3,7 @@
 //  Uplift
 //
 //  Created by Vin Bui on 11/26/23.
+//  Copyright © 2023 Cornell AppDev. All rights reserved.
 //
 
 import SwiftUI
@@ -38,17 +39,17 @@ struct Constants {
 
     /// Facility IDs in Uplift.
     enum FacilityIDs {
-        static let hnhFitness = Environment.idsDict["hnh_fitness"] as? String ?? ""
-        static let hnhPool = Environment.idsDict["hnh_pool"] as? String ?? ""
-        static let hnhBowling = Environment.idsDict["hnh_bowling"] as? String ?? ""
-        static let hnhCourt1 = Environment.idsDict["hnh_court1"] as? String ?? ""
-        static let hnhCourt2 = Environment.idsDict["hnh_court2"] as? String ?? ""
-        static let morrFitness = Environment.idsDict["morr_fitness"] as? String ?? ""
-        static let noyesFitness = Environment.idsDict["noyes_fitness"] as? String ?? ""
-        static let noyesCourt = Environment.idsDict["noyes_court"] as? String ?? ""
-        static let teagleDown = Environment.idsDict["tgl_down"] as? String ?? ""
-        static let teagleUp = Environment.idsDict["tgl_up"] as? String ?? ""
-        static let teaglePool = Environment.idsDict["tgl_pool"] as? String ?? ""
+        static let hnhFitness = UpliftEnvironment.idsDict["hnh_fitness"] as? String ?? ""
+        static let hnhPool = UpliftEnvironment.idsDict["hnh_pool"] as? String ?? ""
+        static let hnhBowling = UpliftEnvironment.idsDict["hnh_bowling"] as? String ?? ""
+        static let hnhCourt1 = UpliftEnvironment.idsDict["hnh_court1"] as? String ?? ""
+        static let hnhCourt2 = UpliftEnvironment.idsDict["hnh_court2"] as? String ?? ""
+        static let morrFitness = UpliftEnvironment.idsDict["morr_fitness"] as? String ?? ""
+        static let noyesFitness = UpliftEnvironment.idsDict["noyes_fitness"] as? String ?? ""
+        static let noyesCourt = UpliftEnvironment.idsDict["noyes_court"] as? String ?? ""
+        static let teagleDown = UpliftEnvironment.idsDict["tgl_down"] as? String ?? ""
+        static let teagleUp = UpliftEnvironment.idsDict["tgl_up"] as? String ?? ""
+        static let teaglePool = UpliftEnvironment.idsDict["tgl_pool"] as? String ?? ""
     }
 
     /// Fonts used in Uplift's design system.
@@ -89,8 +90,10 @@ struct Constants {
 
     /// Image components used in Uplift.
     enum Images {
+        static let arrowLeft = Image("arrow_left")
         static let basketball = Image("basketball")
         static let bowling = Image("bowling")
+        static let clock = Image("clock")
         static let dumbbellLarge = Image("dumbbell_large")
         static let dumbbellSmall = Image("dumbbell_small")
         static let elevator = Image("elevator")

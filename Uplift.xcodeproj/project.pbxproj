@@ -30,7 +30,18 @@
 		2E15F50C2B3A0B2100414BEC /* CapacityCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F50B2B3A0B2100414BEC /* CapacityCircleView.swift */; };
 		2E15F5102B3A15F400414BEC /* IDs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2E15F50F2B3A15F400414BEC /* IDs.plist */; };
 		2E15F5122B3A3D0000414BEC /* TriangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F5112B3A3D0000414BEC /* TriangleShape.swift */; };
-		2E3D6C202B1285D200B51BB2 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3D6C1F2B1285D200B51BB2 /* Environment.swift */; };
+		2E39D8162B3B3AD600AD238B /* ScaleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D8152B3B3AD600AD238B /* ScaleButtonStyle.swift */; };
+		2E39D81C2B3B5F3700AD238B /* NavBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D81B2B3B5F3700AD238B /* NavBackButton.swift */; };
+		2E39D81E2B3B610200AD238B /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D81D2B3B610200AD238B /* UINavigationController+Extension.swift */; };
+		2E39D8202B3B623B00AD238B /* FitnessCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D81F2B3B623B00AD238B /* FitnessCenterView.swift */; };
+		2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D8212B3B631200AD238B /* DividerLine.swift */; };
+		2E39D8242B3B66FD00AD238B /* FitnessCenterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D8232B3B66FD00AD238B /* FitnessCenterViewModel.swift */; };
+		2E39D8262B3B6C6500AD238B /* SlidingTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D8252B3B6C6500AD238B /* SlidingTabBarView.swift */; };
+		2E39D8282B3B726D00AD238B /* GymTabType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D8272B3B726D00AD238B /* GymTabType.swift */; };
+		2E39D82A2B3B9F3D00AD238B /* FacilityExpandedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D8292B3B9F3D00AD238B /* FacilityExpandedView.swift */; };
+		2E39D82C2B3BB35000AD238B /* FacilityExpandedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D82B2B3BB35000AD238B /* FacilityExpandedViewModel.swift */; };
+		2E39D82F2B3BCBA400AD238B /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E39D82E2B3BCBA400AD238B /* UpliftAPI */; };
+		2E3D6C202B1285D200B51BB2 /* UpliftEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3D6C1F2B1285D200B51BB2 /* UpliftEnvironment.swift */; };
 		2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6785B82B3A425E00DD3ADA /* GymDetailView.swift */; };
 		2E6785BC2B3A48D700DD3ADA /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 2E6785BB2B3A48D700DD3ADA /* WrappingHStack */; };
 		2E6785BE2B3A513000DD3ADA /* SemiCircleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6785BD2B3A513000DD3ADA /* SemiCircleShape.swift */; };
@@ -91,9 +102,19 @@
 		2E15F50B2B3A0B2100414BEC /* CapacityCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityCircleView.swift; sourceTree = "<group>"; };
 		2E15F50F2B3A15F400414BEC /* IDs.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = IDs.plist; sourceTree = "<group>"; };
 		2E15F5112B3A3D0000414BEC /* TriangleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleShape.swift; sourceTree = "<group>"; };
+		2E39D8152B3B3AD600AD238B /* ScaleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleButtonStyle.swift; sourceTree = "<group>"; };
+		2E39D81B2B3B5F3700AD238B /* NavBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBackButton.swift; sourceTree = "<group>"; };
+		2E39D81D2B3B610200AD238B /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
+		2E39D81F2B3B623B00AD238B /* FitnessCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessCenterView.swift; sourceTree = "<group>"; };
+		2E39D8212B3B631200AD238B /* DividerLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerLine.swift; sourceTree = "<group>"; };
+		2E39D8232B3B66FD00AD238B /* FitnessCenterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessCenterViewModel.swift; sourceTree = "<group>"; };
+		2E39D8252B3B6C6500AD238B /* SlidingTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingTabBarView.swift; sourceTree = "<group>"; };
+		2E39D8272B3B726D00AD238B /* GymTabType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymTabType.swift; sourceTree = "<group>"; };
+		2E39D8292B3B9F3D00AD238B /* FacilityExpandedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilityExpandedView.swift; sourceTree = "<group>"; };
+		2E39D82B2B3BB35000AD238B /* FacilityExpandedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilityExpandedViewModel.swift; sourceTree = "<group>"; };
 		2E3D6C1C2B12809900B51BB2 /* Keys.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Keys.xcconfig; sourceTree = "<group>"; };
 		2E3D6C1D2B12840C00B51BB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2E3D6C1F2B1285D200B51BB2 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		2E3D6C1F2B1285D200B51BB2 /* UpliftEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpliftEnvironment.swift; sourceTree = "<group>"; };
 		2E6785B82B3A425E00DD3ADA /* GymDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailView.swift; sourceTree = "<group>"; };
 		2E6785BD2B3A513000DD3ADA /* SemiCircleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiCircleShape.swift; sourceTree = "<group>"; };
 		2E6785BF2B3A5CA300DD3ADA /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
@@ -138,6 +159,7 @@
 				2E6785BC2B3A48D700DD3ADA /* WrappingHStack in Frameworks */,
 				2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */,
 				2EE5F3E72B12EDC1008E0299 /* Nuke in Frameworks */,
+				2E39D82F2B3BCBA400AD238B /* UpliftAPI in Frameworks */,
 				2EE5F3E92B12EDC1008E0299 /* NukeExtensions in Frameworks */,
 				2E15F4D82B390EBC00414BEC /* UpliftAPI in Frameworks */,
 			);
@@ -162,6 +184,7 @@
 				2E6785C32B3A780600DD3ADA /* DayOfWeek.swift */,
 				2E15F4DD2B3912C700414BEC /* Facility.swift */,
 				2E15F4DF2B39143700414BEC /* Gym.swift */,
+				2E39D8272B3B726D00AD238B /* GymTabType.swift */,
 				2E15F4DB2B39117300414BEC /* OpenHours.swift */,
 				2E15F4E12B3917B200414BEC /* Status.swift */,
 			);
@@ -198,7 +221,7 @@
 		2E090ECF2B13088800BAE982 /* Configs */ = {
 			isa = PBXGroup;
 			children = (
-				2E3D6C1F2B1285D200B51BB2 /* Environment.swift */,
+				2E3D6C1F2B1285D200B51BB2 /* UpliftEnvironment.swift */,
 			);
 			path = Configs;
 			sourceTree = "<group>";
@@ -217,6 +240,8 @@
 		2E090ED12B1308D500BAE982 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				2E39D82B2B3BB35000AD238B /* FacilityExpandedViewModel.swift */,
+				2E39D8232B3B66FD00AD238B /* FitnessCenterViewModel.swift */,
 				2E6785C12B3A5CE000DD3ADA /* GymDetailViewModel.swift */,
 				2E1105BE2B13B0E100119F5B /* HomeViewModel.swift */,
 			);
@@ -239,9 +264,8 @@
 			children = (
 				2E090ED52B13121600BAE982 /* Constants.swift */,
 				2E1105C32B13D1B000119F5B /* DummyData.swift */,
-				2E6785BF2B3A5CA300DD3ADA /* Haptics.swift */,
+				2E39D8192B3B5EFB00AD238B /* Custom */,
 				2E090ED42B13096700BAE982 /* Extensions */,
-				2E15F5002B396E9700414BEC /* Modifiers */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -253,6 +277,7 @@
 				2E15F4F82B3950F800414BEC /* Date+Extension.swift */,
 				2E15F4FA2B39573C00414BEC /* Double+Extension.swift */,
 				2E15F4FC2B396A2200414BEC /* Image+Extension.swift */,
+				2E39D81D2B3B610200AD238B /* UINavigationController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -260,6 +285,8 @@
 		2E1105C02B13D11E00119F5B /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				2E39D8292B3B9F3D00AD238B /* FacilityExpandedView.swift */,
+				2E39D81F2B3B623B00AD238B /* FitnessCenterView.swift */,
 				2E6785B82B3A425E00DD3ADA /* GymDetailView.swift */,
 				2E1105C12B13D15100119F5B /* HomeGymCell.swift */,
 			);
@@ -274,22 +301,27 @@
 			path = UpliftTests;
 			sourceTree = "<group>";
 		};
-		2E15F5002B396E9700414BEC /* Modifiers */ = {
-			isa = PBXGroup;
-			children = (
-				2E15F5012B396EC500414BEC /* ShadowModifier.swift */,
-			);
-			path = Modifiers;
-			sourceTree = "<group>";
-		};
 		2E15F50A2B3A0AF700414BEC /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
 				2E15F50B2B3A0B2100414BEC /* CapacityCircleView.swift */,
-				2E6785BD2B3A513000DD3ADA /* SemiCircleShape.swift */,
-				2E15F5112B3A3D0000414BEC /* TriangleShape.swift */,
+				2E39D81B2B3B5F3700AD238B /* NavBackButton.swift */,
+				2E39D8212B3B631200AD238B /* DividerLine.swift */,
+				2E39D8252B3B6C6500AD238B /* SlidingTabBarView.swift */,
 			);
 			path = Supporting;
+			sourceTree = "<group>";
+		};
+		2E39D8192B3B5EFB00AD238B /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				2E6785BF2B3A5CA300DD3ADA /* Haptics.swift */,
+				2E39D8152B3B3AD600AD238B /* ScaleButtonStyle.swift */,
+				2E6785BD2B3A513000DD3ADA /* SemiCircleShape.swift */,
+				2E15F5012B396EC500414BEC /* ShadowModifier.swift */,
+				2E15F5112B3A3D0000414BEC /* TriangleShape.swift */,
+			);
+			path = Custom;
 			sourceTree = "<group>";
 		};
 		2E3D6C1B2B127FDA00B51BB2 /* UpliftSecrets */ = {
@@ -406,6 +438,7 @@
 				2E090ECA2B12FF5900BAE982 /* UpliftAPI */,
 				2E15F4D72B390EBC00414BEC /* UpliftAPI */,
 				2E6785BB2B3A48D700DD3ADA /* WrappingHStack */,
+				2E39D82E2B3BCBA400AD238B /* UpliftAPI */,
 			);
 			productName = Uplift;
 			productReference = 2E8FE38C2B1278B700B3DC6A /* Uplift.app */;
@@ -420,6 +453,7 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
+				ORGANIZATIONNAME = "Cornell AppDev";
 				TargetAttributes = {
 					2E15F4EA2B39255B00414BEC = {
 						CreatedOnToolsVersion = 15.0.1;
@@ -442,8 +476,8 @@
 			packageReferences = (
 				2EE5F3E02B12EDB6008E0299 /* XCRemoteSwiftPackageReference "apollo-ios" */,
 				2EE5F3E52B12EDC1008E0299 /* XCRemoteSwiftPackageReference "Nuke" */,
-				2E15F4D62B390EBC00414BEC /* XCLocalSwiftPackageReference "UpliftAPI" */,
 				2E6785BA2B3A48D700DD3ADA /* XCRemoteSwiftPackageReference "WrappingHStack" */,
+				2E39D82D2B3BCBA400AD238B /* XCLocalSwiftPackageReference "UpliftAPI" */,
 			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
 			projectDirPath = "";
@@ -560,10 +594,13 @@
 			files = (
 				2E15F4FD2B396A2200414BEC /* Image+Extension.swift in Sources */,
 				2EF1A2582B129EEB007A299F /* Network.swift in Sources */,
+				2E39D81C2B3B5F3700AD238B /* NavBackButton.swift in Sources */,
 				2E15F4E02B39143700414BEC /* Gym.swift in Sources */,
+				2E39D8242B3B66FD00AD238B /* FitnessCenterViewModel.swift in Sources */,
 				2E6785C42B3A780600DD3ADA /* DayOfWeek.swift in Sources */,
 				2E6785BE2B3A513000DD3ADA /* SemiCircleShape.swift in Sources */,
 				2E15F4FB2B39573C00414BEC /* Double+Extension.swift in Sources */,
+				2E39D8162B3B3AD600AD238B /* ScaleButtonStyle.swift in Sources */,
 				2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */,
 				2E1105BF2B13B0E100119F5B /* HomeViewModel.swift in Sources */,
 				2E15F5122B3A3D0000414BEC /* TriangleShape.swift in Sources */,
@@ -571,20 +608,27 @@
 				2E6785C02B3A5CA300DD3ADA /* Haptics.swift in Sources */,
 				2E15F50C2B3A0B2100414BEC /* CapacityCircleView.swift in Sources */,
 				2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */,
+				2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */,
 				2E15F5062B39F81B00414BEC /* MainView.swift in Sources */,
-				2E3D6C202B1285D200B51BB2 /* Environment.swift in Sources */,
+				2E39D82A2B3B9F3D00AD238B /* FacilityExpandedView.swift in Sources */,
+				2E39D82C2B3BB35000AD238B /* FacilityExpandedViewModel.swift in Sources */,
+				2E3D6C202B1285D200B51BB2 /* UpliftEnvironment.swift in Sources */,
 				2E15F5022B396EC500414BEC /* ShadowModifier.swift in Sources */,
 				2E15F4DA2B39102A00414BEC /* Capacity.swift in Sources */,
 				2E15F4E62B391E5300414BEC /* Array+Extension.swift in Sources */,
+				2E39D8202B3B623B00AD238B /* FitnessCenterView.swift in Sources */,
 				2E1105C22B13D15100119F5B /* HomeGymCell.swift in Sources */,
 				2E15F4F92B3950F800414BEC /* Date+Extension.swift in Sources */,
 				2E8FE3902B1278B700B3DC6A /* UpliftApp.swift in Sources */,
 				2EE5F3C82B12E094008E0299 /* ApolloClientProtocol.swift in Sources */,
+				2E39D8262B3B6C6500AD238B /* SlidingTabBarView.swift in Sources */,
 				2E1105C42B13D1B000119F5B /* DummyData.swift in Sources */,
 				2E15F4E22B3917B200414BEC /* Status.swift in Sources */,
 				2E15F5042B39E54700414BEC /* LocationManager.swift in Sources */,
+				2E39D81E2B3B610200AD238B /* UINavigationController+Extension.swift in Sources */,
 				2E15F4DC2B39117300414BEC /* OpenHours.swift in Sources */,
 				2E090ED62B13121600BAE982 /* Constants.swift in Sources */,
+				2E39D8282B3B726D00AD238B /* GymTabType.swift in Sources */,
 				2E15F4DE2B3912C700414BEC /* Facility.swift in Sources */,
 				2E6785C22B3A5CE000DD3ADA /* GymDetailViewModel.swift in Sources */,
 			);
@@ -775,6 +819,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Uplift/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Uplift;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -810,6 +856,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Uplift/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Uplift;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -865,7 +913,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		2E15F4D62B390EBC00414BEC /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
+		2E39D82D2B3BCBA400AD238B /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = UpliftAPI;
 		};
@@ -904,6 +952,10 @@
 			productName = UpliftAPI;
 		};
 		2E15F4D72B390EBC00414BEC /* UpliftAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UpliftAPI;
+		};
+		2E39D82E2B3BCBA400AD238B /* UpliftAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UpliftAPI;
 		};

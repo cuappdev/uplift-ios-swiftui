@@ -3,6 +3,7 @@
 //  Uplift
 //
 //  Created by Vin Bui on 12/24/23.
+//  Copyright © 2023 Cornell AppDev. All rights reserved.
 //
 
 import Foundation

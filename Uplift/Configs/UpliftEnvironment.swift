@@ -1,14 +1,15 @@
 //
-//  Environment.swift
+//  UpliftEnvironment.swift
 //  Uplift
 //
 //  Created by Vin Bui on 11/25/23.
+//  Copyright © 2023 Cornell AppDev. All rights reserved.
 //
 
 import Foundation
 
 /// Data from Info.plist stored as environment variables.
-enum Environment {
+enum UpliftEnvironment {
 
     /// Keys from Info.plist.
     enum Keys {
@@ -43,7 +44,7 @@ enum Environment {
      * If the scheme is set to RELEASE, the production server URL is used.
      */
     static let baseURL: URL = {
-        guard let baseURLString = Environment.infoDict[Keys.baseURL] as? String,
+        guard let baseURLString = UpliftEnvironment.infoDict[Keys.baseURL] as? String,
               let baseURL = URL(string: baseURLString) else {
             fatalError("Base URL not found in Info.plist")
         }

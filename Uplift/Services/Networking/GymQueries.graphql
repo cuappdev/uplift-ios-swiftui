@@ -24,10 +24,6 @@ fragment facilityFields on Facility {
   name
 }
 
-fragment amenityFields on Amenity {
-  type
-}
-
 fragment gymFields on Gym {
   id
   address

@@ -3,11 +3,22 @@
 //  Uplift
 //
 //  Created by Vin Bui on 12/24/23.
+//  Copyright © 2023 Cornell AppDev. All rights reserved.
 //
 
 import Foundation
 
 extension Date {
+
+    /**
+     This `Date` in the format "MM/dd h:mm a".
+     For example, 12/25/23 8:00 PM is 12/25 8:00 PM.
+     */
+    var dateStringTrailingZeros: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd h:mm a"
+        return formatter.string(from: self)
+    }
 
     /**
      This `Date` in the format "h:mm a".

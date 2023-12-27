@@ -3,6 +3,7 @@
 //  Uplift
 //
 //  Created by Vin Bui on 11/26/23.
+//  Copyright © 2023 Cornell AppDev. All rights reserved.
 //
 
 import Combine

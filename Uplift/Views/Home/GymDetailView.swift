@@ -17,6 +17,7 @@ struct GymDetailView: View {
 
     let gym: Gym
 
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = ViewModel()
 
     // MARK: - Constants
@@ -31,16 +32,45 @@ struct GymDetailView: View {
     // MARK: - UI
 
     var body: some View {
-        VStack(spacing: 0) {
-            heroSection
-            amenitiesSection
-
-            Spacer()
+        ScrollView(.vertical, showsIndicators: false) {
+            scrollContent
+        }
+        .ignoresSafeArea(.all)
+        .padding(.bottom)
+        .navigationBarBackButtonHidden(true)
+        .toolbarBackground(.hidden, for: .navigationBar)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                NavBackButton(dismiss: dismiss)
+            }
         }
         .onAppear {
-            viewModel.fetchDaysOfWeek(for: gym)
+            viewModel.fetchDaysOfWeek()
             viewModel.fetchBuildingHours(for: gym)
+            viewModel.determineSelectedTab(gym: gym)
         }
+    }
+
+    private var scrollContent: some View {
+        VStack(spacing: 0) {
+            heroSection
+            !gym.amenities.isEmpty ? amenitiesSection : nil
+            slidingTabBar(gymName: viewModel.determineGymNameEnum(gym: gym))
+
+            Group {
+                if viewModel.selectedTab == .fitnessCenter {
+                    FitnessCenterView(fc: gym.fitnessCenters.first)
+                } else if viewModel.selectedTab == .teagleDown {
+                    FitnessCenterView(fc: gym.facilityWithID(id: Constants.FacilityIDs.teagleDown))
+                } else if viewModel.selectedTab == .teagleUp {
+                    FitnessCenterView(fc: gym.facilityWithID(id: Constants.FacilityIDs.teagleUp))
+                } else {
+                    facilitiesView
+                }
+            }
+            .padding(.horizontal, Constants.Padding.gymDetailHorizontal)
+        }
+        .padding(.bottom)
     }
 
     // MARK: - Hero
@@ -51,8 +81,13 @@ struct GymDetailView: View {
             LazyImage(url: gym.imageUrl) { state in
                 if let image = state.image {
                     image.centerCropped()
+                } else {
+                    // Placeholder
+                    Constants.Colors.gray01
                 }
             }
+            .priority(.high)
+            .pipeline(.shared)
 
             if viewModel.showHours {
                 hoursView
@@ -70,8 +105,7 @@ struct GymDetailView: View {
                 viewHoursCircle
             }
         }
-        .ignoresSafeArea(.all)
-        .frame(height: 276)
+        .frame(height: 330)
     }
 
     private var viewHoursCircle: some View {
@@ -190,6 +224,71 @@ struct GymDetailView: View {
         .background(Constants.Colors.gray01)
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .padding(4)
+    }
+
+    // MARK: - Facilities
+
+    private func slidingTabBar(gymName: ViewModel.GymName) -> some View {
+        switch gymName {
+        case .teagle:
+            SlidingTabBarView(
+                config: SlidingTabBarView.TabBarConfig(),
+                items: [
+                    SlidingTabBarView.Item(
+                        tab: GymTabType.teagleDown,
+                        title: "TEAGLE DOWN"
+                    ),
+                    SlidingTabBarView.Item(
+                        tab: GymTabType.teagleUp,
+                        title: "TEAGLE UP"
+                    ),
+                    SlidingTabBarView.Item(
+                        tab: GymTabType.facilities,
+                        title: "FACILITIES"
+                    )
+                ],
+                selectedTab: $viewModel.selectedTab
+            )
+        case .morrison:
+            // TODO: Remove this logic once we figure out what 'Miscellaneous' means
+            SlidingTabBarView(
+                config: SlidingTabBarView.TabBarConfig(),
+                items: [
+                    SlidingTabBarView.Item(
+                        tab: GymTabType.fitnessCenter,
+                        title: "FITNESS CENTER"
+                    )
+                ],
+                selectedTab: $viewModel.selectedTab
+            )
+        case .other:
+            SlidingTabBarView(
+                config: SlidingTabBarView.TabBarConfig(),
+                items: [
+                    SlidingTabBarView.Item(
+                        tab: GymTabType.fitnessCenter,
+                        title: "FITNESS CENTER"
+                    ),
+                    SlidingTabBarView.Item(
+                        tab: GymTabType.facilities,
+                        title: "FACILITIES"
+                    )
+                ],
+                selectedTab: $viewModel.selectedTab
+            )
+        }
+    }
+
+    private var facilitiesView: some View {
+        VStack(spacing: 0) {
+            ForEach(gym.nonFCFacilities().indices, id: \.self) { index in
+                FacilityExpandedView(facility: gym.nonFCFacilities()[index])
+                    .padding(.vertical, 14)
+
+                // Add a divider line if not the last one
+                index != gym.nonFCFacilities().count - 1 ? DividerLine() : nil
+            }
+        }
     }
 
 }
