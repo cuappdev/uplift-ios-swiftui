@@ -8,6 +8,7 @@ fragment openHoursFields on OpenHours {
   courtType
   endTime
   isShallow
+  isSpecial
   isWomen
   startTime
 }

@@ -23,6 +23,9 @@ struct OpenHours: Comparable, Hashable {
     /// Whether the pool hours is shallow waters only.
     let isShallow: Bool?
 
+    /// Whether these hours are special (non-regular).
+    let isSpecial: Bool
+
     /// Whether the pool hours is women only.
     let isWomen: Bool?
 
@@ -36,6 +39,7 @@ struct OpenHours: Comparable, Hashable {
         self.courtType = openHours.courtType?.value
         self.endTime = Date(timeIntervalSince1970: TimeInterval(openHours.endTime))
         self.isShallow = openHours.isShallow
+        self.isSpecial = openHours.isSpecial
         self.isWomen = openHours.isWomen
         self.startTime = Date(timeIntervalSince1970: TimeInterval(openHours.startTime))
     }
