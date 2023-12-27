@@ -41,6 +41,7 @@
 		2E39D82A2B3B9F3D00AD238B /* FacilityExpandedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D8292B3B9F3D00AD238B /* FacilityExpandedView.swift */; };
 		2E39D82C2B3BB35000AD238B /* FacilityExpandedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D82B2B3BB35000AD238B /* FacilityExpandedViewModel.swift */; };
 		2E39D82F2B3BCBA400AD238B /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E39D82E2B3BCBA400AD238B /* UpliftAPI */; };
+		2E39D8312B3BEE5900AD238B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E39D8302B3BEE5900AD238B /* LaunchScreen.storyboard */; };
 		2E3D6C202B1285D200B51BB2 /* UpliftEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3D6C1F2B1285D200B51BB2 /* UpliftEnvironment.swift */; };
 		2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6785B82B3A425E00DD3ADA /* GymDetailView.swift */; };
 		2E6785BC2B3A48D700DD3ADA /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 2E6785BB2B3A48D700DD3ADA /* WrappingHStack */; };
@@ -112,6 +113,7 @@
 		2E39D8272B3B726D00AD238B /* GymTabType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymTabType.swift; sourceTree = "<group>"; };
 		2E39D8292B3B9F3D00AD238B /* FacilityExpandedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilityExpandedView.swift; sourceTree = "<group>"; };
 		2E39D82B2B3BB35000AD238B /* FacilityExpandedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilityExpandedViewModel.swift; sourceTree = "<group>"; };
+		2E39D8302B3BEE5900AD238B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2E3D6C1C2B12809900B51BB2 /* Keys.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Keys.xcconfig; sourceTree = "<group>"; };
 		2E3D6C1D2B12840C00B51BB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E3D6C1F2B1285D200B51BB2 /* UpliftEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpliftEnvironment.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 		2E090ECC2B13084800BAE982 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				2E39D8302B3BEE5900AD238B /* LaunchScreen.storyboard */,
 				2E8FE38F2B1278B700B3DC6A /* UpliftApp.swift */,
 			);
 			path = Core;
@@ -510,6 +513,7 @@
 				2E8FE3992B1278B900B3DC6A /* Preview Assets.xcassets in Resources */,
 				2EB090B92B131CA80039EB3B /* Montserrat-SemiBold.ttf in Resources */,
 				2EB090B42B131CA40039EB3B /* BebasNeue-Regular.ttf in Resources */,
+				2E39D8312B3BEE5900AD238B /* LaunchScreen.storyboard in Resources */,
 				2E8FE3962B1278B900B3DC6A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -821,9 +825,12 @@
 				INFOPLIST_FILE = Uplift/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Uplift;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We want to help you find your nearest gym.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We want to help you find your nearest gym.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -858,9 +865,12 @@
 				INFOPLIST_FILE = Uplift/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Uplift;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We want to help you find your nearest gym.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We want to help you find your nearest gym.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;

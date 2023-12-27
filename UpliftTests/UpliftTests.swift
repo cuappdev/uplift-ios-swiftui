@@ -58,4 +58,17 @@ final class UpliftTests: XCTestCase {
         XCTAssertEqual(expected, result)
     }
 
+    /// Test procedure for computing next 7 days of `DayOfWeek`.
+    func testNextSevenDays() {
+        // No wrapping
+        var expected: [DayOfWeek] = [.monday, .tuesday, .wednesday, .thursday, .friday, .saturday, .sunday]
+        var result = DayOfWeek.sortedDaysOfWeek(start: .monday)
+        XCTAssertEqual(expected, result)
+
+        // Wrapping
+        expected = [.wednesday, .thursday, .friday, .saturday, .sunday, .monday, .tuesday]
+        result = DayOfWeek.sortedDaysOfWeek(start: .wednesday)
+        XCTAssertEqual(expected, result)
+    }
+
 }

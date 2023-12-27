@@ -90,6 +90,7 @@ struct Constants {
 
     /// Image components used in Uplift.
     enum Images {
+        static let appdevLogo = Image("appdev-logo")
         static let arrowLeft = Image("arrow_left")
         static let basketball = Image("basketball")
         static let bowling = Image("bowling")
@@ -98,6 +99,7 @@ struct Constants {
         static let dumbbellSmall = Image("dumbbell_small")
         static let elevator = Image("elevator")
         static let lock = Image("lock")
+        static let logo = Image("logo")
         static let parking = Image("parking")
         static let pool = Image("pool")
         static let shower = Image("shower")

@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We want to help you find your nearest gym.</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>We want to help you find your nearest gym.</string>
 	<key>DEV_URL</key>
 	<string>$(DEV_URL)</string>
 	<key>PROD_URL</key>
