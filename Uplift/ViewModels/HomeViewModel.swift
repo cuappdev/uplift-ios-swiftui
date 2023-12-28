@@ -7,6 +7,7 @@
 //
 
 import Combine
+import OSLog
 import SwiftUI
 import UpliftAPI
 
@@ -33,9 +34,7 @@ extension HomeView {
             .compactMap { $0.data?.gyms?.compactMap(\.?.fragments.gymFields) }
             .sink { completion in
                 if case let .failure(error) = completion {
-#if DEBUG
-                    print("Error in HomeViewModel.fetchAllGyms: \(error)")
-#endif
+                    Logger.data.error("Error in HomeViewModel.fetchAllGyms: \(error)")
                 }
             } receiveValue: { [weak self] gymFields in
                 let gyms = [Gym](gymFields)
