@@ -77,6 +77,7 @@ struct HomeGymCell: View {
     private var gymNameText: some View {
         Text(gym.name)
             .font(Constants.Fonts.f2)
+            .foregroundStyle(Constants.Colors.black)
             .padding(.bottom, 2)
     }
 

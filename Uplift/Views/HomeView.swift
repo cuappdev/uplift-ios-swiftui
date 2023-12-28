@@ -23,6 +23,7 @@ struct HomeView: View {
                 header
                 scrollContent
             }
+            .background(Constants.Colors.white)
         }
         .onAppear {
             viewModel.fetchAllGyms()
@@ -122,7 +123,11 @@ struct HomeView: View {
                 switch viewModel.gyms {
                 case .none:
                     // TODO: Shimmer Load
-                    EmptyView()
+                    ForEach(0..<4) { _ in
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Constants.Colors.gray01)
+                            .frame(height: 180)
+                    }
                 case .some(let gyms):
                     ForEach(gyms, id: \.self) { gym in
                         NavigationLink {

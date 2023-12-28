@@ -60,18 +60,21 @@ struct FacilityExpandedView: View {
 
     @ViewBuilder
     private var facilityIcon: some View {
-        if let facilityType = facility.facilityType {
-            switch facilityType {
-            case .pool:
-                Constants.Images.pool
-            case .bowling:
-                Constants.Images.bowling
-            case .court:
-                Constants.Images.basketball
-            default:
-                EmptyView()
+        Group {
+            if let facilityType = facility.facilityType {
+                switch facilityType {
+                case .pool:
+                    Constants.Images.pool
+                case .bowling:
+                    Constants.Images.bowling
+                case .court:
+                    Constants.Images.basketball
+                default:
+                    EmptyView()
+                }
             }
         }
+        .foregroundStyle(Constants.Colors.black)
     }
 
     private var facilityStatus: some View {

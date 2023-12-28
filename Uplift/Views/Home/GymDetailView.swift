@@ -49,6 +49,7 @@ struct GymDetailView: View {
             viewModel.fetchBuildingHours(for: gym)
             viewModel.determineSelectedTab(gym: gym)
         }
+        .background(Constants.Colors.white)
     }
 
     private var scrollContent: some View {
