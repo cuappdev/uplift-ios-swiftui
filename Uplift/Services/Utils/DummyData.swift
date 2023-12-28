@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import OSLog
 import UpliftAPI
 
 /// Dummy data for the app's model objects.
@@ -33,7 +34,7 @@ struct DummyData {
             return Gym(from: gymFields)
         } catch {
 #if DEBUG
-            print("Error creating gym dummy data: \(error)")
+            Logger.data.error("Error creating gym dummy data: \(error)")
 #endif
             return nil
         }
@@ -53,7 +54,7 @@ struct DummyData {
             return OpenHours(from: openHoursFields)
         } catch {
 #if DEBUG
-            print("Error creating open hours dummy data: \(error)")
+            Logger.data.error("Error creating open hours dummy data: \(error)")
 #endif
             return nil
         }

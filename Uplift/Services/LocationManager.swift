@@ -7,6 +7,7 @@
 //
 
 import CoreLocation
+import OSLog
 
 /// Manage a user's location.
 class LocationManager: NSObject, ObservableObject {
@@ -58,15 +59,15 @@ extension LocationManager: CLLocationManagerDelegate {
 #if DEBUG
         switch manager.authorizationStatus {
         case .notDetermined:
-            print("DEBUG: Location not determined")
+            Logger.services.info("Location not determined")
         case .restricted:
-            print("DEBUG: Location restricted")
+            Logger.services.info("Location restricted")
         case .denied:
-            print("DEBUG: Location denied")
+            Logger.services.info("Location denied")
         case .authorizedAlways:
-            print("DEBUG: Location authorized always")
+            Logger.services.info("Location authorized always")
         case .authorizedWhenInUse:
-            print("DEBUG: Location authorized when in use")
+            Logger.services.info("Location authorized when in use")
         @unknown default:
             break
         }
@@ -79,9 +80,7 @@ extension LocationManager: CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-#if DEBUG
-        print("Error requesting location: \(error)")
-#endif
+        Logger.services.error("Error requestion location: \(error)")
     }
 
 }

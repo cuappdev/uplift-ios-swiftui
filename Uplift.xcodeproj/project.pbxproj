@@ -59,6 +59,7 @@
 		2EB090B82B131CA80039EB3B /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB090B02B131C9D0039EB3B /* Montserrat-Light.ttf */; };
 		2EB090B92B131CA80039EB3B /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB090AF2B131C9D0039EB3B /* Montserrat-SemiBold.ttf */; };
 		2EC3EE662B3C000E00E927BF /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 2EC3EE652B3C000E00E927BF /* Kingfisher */; };
+		2ED53DCF2B3E06DC00FBDEAB /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED53DCE2B3E06DC00FBDEAB /* Logger.swift */; };
 		2EE0C7CB2B12D6EE000D3BF6 /* GymQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */; };
 		2EE5F3C82B12E094008E0299 /* ApolloClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */; };
 		2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E12B12EDB6008E0299 /* Apollo */; };
@@ -129,6 +130,7 @@
 		2EB090B12B131C9D0039EB3B /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		2EB090B22B131C9D0039EB3B /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
 		2EB090B32B131C9D0039EB3B /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		2ED53DCE2B3E06DC00FBDEAB /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GymQueries.graphql; sourceTree = "<group>"; };
 		2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientProtocol.swift; sourceTree = "<group>"; };
 		2EE5F3C92B12E34D008E0299 /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -210,6 +212,8 @@
 			isa = PBXGroup;
 			children = (
 				2E15F5032B39E54700414BEC /* LocationManager.swift */,
+				2ED53DCE2B3E06DC00FBDEAB /* Logger.swift */,
+				2E090ED32B13094D00BAE982 /* Utils */,
 				2E090ED22B13093400BAE982 /* Networking */,
 			);
 			path = Services;
@@ -359,7 +363,6 @@
 				2E090EC62B12FB9F00BAE982 /* Models */,
 				2E090ECD2B13085700BAE982 /* Resources */,
 				2E090ECE2B13087100BAE982 /* Services */,
-				2E090ED32B13094D00BAE982 /* Utils */,
 				2E090ED12B1308D500BAE982 /* ViewModels */,
 				2E090ED02B1308C900BAE982 /* Views */,
 			);
@@ -609,6 +612,7 @@
 				2E3D6C202B1285D200B51BB2 /* UpliftEnvironment.swift in Sources */,
 				2E15F5022B396EC500414BEC /* ShadowModifier.swift in Sources */,
 				2E15F4DA2B39102A00414BEC /* Capacity.swift in Sources */,
+				2ED53DCF2B3E06DC00FBDEAB /* Logger.swift in Sources */,
 				2E15F4E62B391E5300414BEC /* Array+Extension.swift in Sources */,
 				2E39D8202B3B623B00AD238B /* FitnessCenterView.swift in Sources */,
 				2E1105C22B13D15100119F5B /* HomeGymCell.swift in Sources */,
