@@ -38,10 +38,10 @@ extension Array where Element == Gym {
         self.init(gyms.map(Gym.init))
     }
 
-    /// Returns the facility given an ID.
-    func facilityWithID(id: String) -> Facility? {
+    /// Returns the facility given a unique name.
+    func facilityWithName(name: String) -> Facility? {
         for gym in self {
-            if let facility = gym.facilities.first(where: { $0.id == id }) {
+            if let facility = gym.facilities.first(where: { $0.name == name }) {
                 return facility
             }
         }

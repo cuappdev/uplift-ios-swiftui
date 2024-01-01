@@ -37,19 +37,19 @@ struct Constants {
         static let gray05 = Color(red: 115/255, green: 131/255, blue: 144/255)
     }
 
-    /// Facility IDs in Uplift.
-    enum FacilityIDs {
-        static let hnhFitness = UpliftEnvironment.idsDict["hnh_fitness"] as? String ?? ""
-        static let hnhPool = UpliftEnvironment.idsDict["hnh_pool"] as? String ?? ""
-        static let hnhBowling = UpliftEnvironment.idsDict["hnh_bowling"] as? String ?? ""
-        static let hnhCourt1 = UpliftEnvironment.idsDict["hnh_court1"] as? String ?? ""
-        static let hnhCourt2 = UpliftEnvironment.idsDict["hnh_court2"] as? String ?? ""
-        static let morrFitness = UpliftEnvironment.idsDict["morr_fitness"] as? String ?? ""
-        static let noyesFitness = UpliftEnvironment.idsDict["noyes_fitness"] as? String ?? ""
-        static let noyesCourt = UpliftEnvironment.idsDict["noyes_court"] as? String ?? ""
-        static let teagleDown = UpliftEnvironment.idsDict["tgl_down"] as? String ?? ""
-        static let teagleUp = UpliftEnvironment.idsDict["tgl_up"] as? String ?? ""
-        static let teaglePool = UpliftEnvironment.idsDict["tgl_pool"] as? String ?? ""
+    /// Facility names in Uplift.
+    enum FacilityNames {
+        static let hnhFitness = "HNH Fitness Center"
+        static let hnhPool = "HNH Pool"
+        static let hnhBowling = "HNH Bowling"
+        static let hnhCourt1 = "HNH Court 1"
+        static let hnhCourt2 = "HNH Court 2"
+        static let morrFitness = "Morrison Fitness Center"
+        static let noyesFitness = "Noyes Fitness Center"
+        static let noyesCourt = "Noyes Court"
+        static let teagleDown = "Teagle Down Fitness Center"
+        static let teagleUp = "Teagle Up Fitness Center"
+        static let teaglePool = "Teagle Pool"
     }
 
     /// Fonts used in Uplift's design system.

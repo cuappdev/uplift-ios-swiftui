@@ -32,7 +32,7 @@ extension GymDetailView {
 
         /// Determine selected tab.
         func determineSelectedTab(gym: Gym) {
-            if gym.facilityWithID(id: Constants.FacilityIDs.teagleDown) != nil {
+            if gym.facilityWithName(name: Constants.FacilityNames.teagleDown) != nil {
                 selectedTab = .teagleDown
             } else {
                 selectedTab = .fitnessCenter
@@ -69,9 +69,9 @@ extension GymDetailView {
 
         /// Determine the gym name enumeration value given a `Gym` object.
         func determineGymNameEnum(gym: Gym) -> GymName {
-            if gym.facilityWithID(id: Constants.FacilityIDs.teagleDown) != nil {
+            if gym.facilityWithName(name: Constants.FacilityNames.teagleDown) != nil {
                 return .teagle
-            } else if gym.facilityWithID(id: Constants.FacilityIDs.morrFitness) != nil {
+            } else if gym.facilityWithName(name: Constants.FacilityNames.morrFitness) != nil {
                 return .morrison
             } else {
                 return .other

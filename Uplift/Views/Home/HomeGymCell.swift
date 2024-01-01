@@ -155,7 +155,7 @@ struct HomeGymCell: View {
 
         Text(
             // swiftlint:disable:next line_length
-            "Up \(gym.facilityWithID(id: Constants.FacilityIDs.teagleUp)?.capacity?.percent.percentString ?? "0%") • Down \(gym.facilityWithID(id: Constants.FacilityIDs.teagleDown)?.capacity?.percent.percentString ?? "0%")"
+            "Up \(gym.facilityWithName(name: Constants.FacilityNames.teagleUp)?.capacity?.percent.percentString ?? "0%") • Down \(gym.facilityWithName(name: Constants.FacilityNames.teagleDown)?.capacity?.percent.percentString ?? "0%")"
         )
         .foregroundStyle(Constants.Colors.gray03)
     }

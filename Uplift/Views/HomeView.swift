@@ -69,18 +69,18 @@ struct HomeView: View {
             if let gyms = viewModel.gyms {
                 VStack(spacing: 12) {
                     HStack(spacing: 12) {
-                        capacityCircle(facility: gyms.facilityWithID(id: Constants.FacilityIDs.hnhFitness))
+                        capacityCircle(facility: gyms.facilityWithName(name: Constants.FacilityNames.hnhFitness))
 
-                        capacityCircle(facility: gyms.facilityWithID(id: Constants.FacilityIDs.teagleUp))
+                        capacityCircle(facility: gyms.facilityWithName(name: Constants.FacilityNames.teagleUp))
                     }
 
                     HStack(spacing: 12) {
-                        capacityCircle(facility: gyms.facilityWithID(id: Constants.FacilityIDs.teagleDown))
+                        capacityCircle(facility: gyms.facilityWithName(name: Constants.FacilityNames.teagleDown))
 
-                        capacityCircle(facility: gyms.facilityWithID(id: Constants.FacilityIDs.noyesFitness))
+                        capacityCircle(facility: gyms.facilityWithName(name: Constants.FacilityNames.noyesFitness))
                     }
 
-                    capacityCircle(facility: gyms.facilityWithID(id: Constants.FacilityIDs.morrFitness))
+                    capacityCircle(facility: gyms.facilityWithName(name: Constants.FacilityNames.morrFitness))
                 }
             }
         }
@@ -98,7 +98,7 @@ struct HomeView: View {
                 )
                 .frame(width: 72, height: 72)
 
-                Text(facility.name)
+                Text(facility.name.replacing("Fitness Center", with: ""))
                     .font(Constants.Fonts.bodyMedium)
                     .foregroundStyle(Constants.Colors.black)
             }

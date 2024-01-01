@@ -62,9 +62,9 @@ struct GymDetailView: View {
                 if viewModel.selectedTab == .fitnessCenter {
                     FitnessCenterView(fc: gym.fitnessCenters.first)
                 } else if viewModel.selectedTab == .teagleDown {
-                    FitnessCenterView(fc: gym.facilityWithID(id: Constants.FacilityIDs.teagleDown))
+                    FitnessCenterView(fc: gym.facilityWithName(name: Constants.FacilityNames.teagleDown))
                 } else if viewModel.selectedTab == .teagleUp {
-                    FitnessCenterView(fc: gym.facilityWithID(id: Constants.FacilityIDs.teagleUp))
+                    FitnessCenterView(fc: gym.facilityWithName(name: Constants.FacilityNames.teagleUp))
                 } else {
                     facilitiesView
                 }

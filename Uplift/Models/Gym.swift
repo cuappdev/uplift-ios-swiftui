@@ -76,9 +76,13 @@ struct Gym: Hashable {
         }
     }
 
-    /// Returns the facility given an ID.
-    func facilityWithID(id: String) -> Facility? {
-        facilities.first { $0.id == id }
+    /**
+     Returns the facility given a name.
+
+     Facility names are unique.
+     */
+    func facilityWithName(name: String) -> Facility? {
+        facilities.first { $0.name == name }
     }
 
     /// Returns all facilities that are not fitness centers.
