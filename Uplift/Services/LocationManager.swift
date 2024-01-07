@@ -80,7 +80,7 @@ extension LocationManager: CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        Logger.services.error("Error requestion location: \(error)")
+        Logger.services.error("Error requesting location: \(error)")
     }
 
 }
