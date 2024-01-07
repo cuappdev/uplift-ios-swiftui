@@ -26,6 +26,7 @@ extension HomeView {
 
         // MARK: - Requests
 
+        /// Fetch all gyms from the backend.
         func fetchAllGyms() {
             Network.client.queryPublisher(
                 query: GetAllGymsQuery(),
@@ -34,13 +35,19 @@ extension HomeView {
             .compactMap { $0.data?.gyms?.compactMap(\.?.fragments.gymFields) }
             .sink { completion in
                 if case let .failure(error) = completion {
-                    Logger.data.error("Error in HomeViewModel.fetchAllGyms: \(error)")
+                    Logger.data.critical("Error in HomeViewModel.fetchAllGyms: \(error)")
                 }
             } receiveValue: { [weak self] gymFields in
                 let gyms = [Gym](gymFields)
                 self?.gyms = gyms
             }
             .store(in: &queryBag)
+        }
+
+        /// Refresh gym data from the backend.
+        func refreshGyms() {
+            gyms = nil
+            fetchAllGyms()
         }
 
         // MARK: - Helpers

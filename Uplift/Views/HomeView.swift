@@ -122,11 +122,11 @@ struct HomeView: View {
 
                 switch viewModel.gyms {
                 case .none:
-                    // TODO: Shimmer Load
                     ForEach(0..<4) { _ in
                         RoundedRectangle(cornerRadius: 12)
                             .fill(Constants.Colors.gray01)
                             .frame(height: 180)
+                            .shimmer(.large)
                     }
                 case .some(let gyms):
                     ForEach(gyms, id: \.self) { gym in
@@ -148,6 +148,9 @@ struct HomeView: View {
                     trailing: Constants.Padding.homeHorizontal
                 )
             )
+        }
+        .refreshable {
+            viewModel.refreshGyms()
         }
     }
 
