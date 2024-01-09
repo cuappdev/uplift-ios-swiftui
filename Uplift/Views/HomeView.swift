@@ -98,13 +98,32 @@ struct HomeView: View {
                 )
                 .frame(width: 72, height: 72)
 
-                Text(facility.name.replacing("Fitness Center", with: ""))
-                    .font(Constants.Fonts.bodyMedium)
-                    .foregroundStyle(Constants.Colors.black)
+                VStack(spacing: 4) {
+                    Text(facility.name.replacing("Fitness Center", with: ""))
+                        .font(Constants.Fonts.bodyMedium)
+                        .foregroundStyle(Constants.Colors.black)
+
+                    capacityDescription(facility: facility)
+                }
             }
         }
         .padding(12)
         .frame(maxWidth: .infinity)
+    }
+
+    private func capacityDescription(facility: Facility) -> some View {
+        Group {
+            switch facility.status {
+            case .closed:
+                Text("Closed")
+            case .open:
+                Text("Updated \(facility.capacity?.updated.timeStringTrailingZeros ?? "")")
+            case .none:
+                Text("No Data")
+            }
+        }
+        .foregroundStyle(Constants.Colors.gray04)
+        .font(Constants.Fonts.bodyLight)
     }
 
     private var scrollContent: some View {

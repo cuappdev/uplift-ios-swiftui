@@ -56,13 +56,13 @@ struct CapacityCircleView: View {
         }
         .onAppear {
             switch status {
-            case .light(let double):
+            case .notBusy(let double):
                 color = Constants.Colors.open
                 progress = double
-            case .cramped(let double):
+            case .slightlyBusy(let double):
                 color = Constants.Colors.orange
                 progress = double
-            case .full(let double):
+            case .veryBusy(let double):
                 color = Constants.Colors.red
                 progress = double
             case nil:
@@ -103,7 +103,7 @@ extension CapacityCircleView {
     CapacityCircleView(
         circleWidth: 9,
         closeStatus: .closed(openTime: Date()),
-        status: .light(0.2),
+        status: .notBusy(0.2),
         textFont: Constants.Fonts.labelBold
     )
 }

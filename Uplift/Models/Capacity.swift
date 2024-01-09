@@ -34,11 +34,11 @@ struct Capacity: Hashable {
         self.percent = capacity.percent
 
         if capacity.percent < 0.5 {
-            self.status = .light(capacity.percent)
+            self.status = .notBusy(capacity.percent)
         } else if capacity.percent < 0.8 {
-            self.status = .cramped(capacity.percent)
+            self.status = .slightlyBusy(capacity.percent)
         } else {
-            self.status = .full(capacity.percent)
+            self.status = .veryBusy(capacity.percent)
         }
 
         self.updated = Date(timeIntervalSince1970: TimeInterval(capacity.updated))
@@ -50,12 +50,12 @@ struct Capacity: Hashable {
 enum CapacityStatus: Hashable {
 
     /// The percent is between 0.0 and 0.5.
-    case light(Double)
+    case notBusy(Double)
 
     /// The percent is between 0.5 and 0.8.
-    case cramped(Double)
+    case slightlyBusy(Double)
 
     /// The percent is between 0.8 and 1.0.
-    case full(Double)
+    case veryBusy(Double)
 
 }
