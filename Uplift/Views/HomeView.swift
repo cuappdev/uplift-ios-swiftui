@@ -182,7 +182,7 @@ struct HomeView: View {
             }
         } label: {
             HStack(spacing: 12) {
-                CapacityCircleView.Skeleton()
+                CapacityCircleView.Skeleton(progress: viewModel.calculateAverageCapacity())
                     .frame(width: 24, height: 24)
 
                 Triangle()
