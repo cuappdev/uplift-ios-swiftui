@@ -13,6 +13,7 @@ struct HomeView: View {
 
     // MARK: - Properties
 
+    @EnvironmentObject var locationManager: LocationManager
     @StateObject private var viewModel = ViewModel()
 
     // MARK: - UI
@@ -26,6 +27,7 @@ struct HomeView: View {
             .background(Constants.Colors.white)
         }
         .onAppear {
+            viewModel.setupEnvironment(with: locationManager)
             viewModel.fetchAllGyms()
         }
     }
