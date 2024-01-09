@@ -100,7 +100,7 @@ struct FitnessCenterView: View {
                 }
             }
         }
-        .frame(width: 220)
+        .frame(width: 230)
         .foregroundStyle(Constants.Colors.black)
     }
 

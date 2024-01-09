@@ -71,6 +71,21 @@ extension HomeView {
             }
         }
 
+        /// Calculates the average capacity amount of all fitness centers.
+        func calculateAverageCapacity() -> Double {
+            let val = gyms?.getAllFitnessCenters()
+                .compactMap { facility in
+                    switch facility.status {
+                    case .open:
+                        return facility.capacity?.percent
+                    default:
+                        return 0
+                    }
+                }
+                .reduce(0, +)
+            return val ?? 0.0 / Double(gyms?.getAllFitnessCenters().count ?? 1)
+        }
+
     }
 
 }
