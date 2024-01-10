@@ -114,8 +114,9 @@ extension HomeView {
                 default:
                     return false
                 }
-            }.count ?? 1
+            }.count ?? 0
 
+            if openCount == 0 { return 0.0 }
             return val / Double(openCount)
         }
 
