@@ -101,7 +101,7 @@ struct HomeView: View {
                 .frame(width: 72, height: 72)
 
                 VStack(spacing: 4) {
-                    Text(facility.name.replacing("Fitness Center", with: ""))
+                    Text(facility.name.replacing(" Fitness Center", with: ""))
                         .font(Constants.Fonts.bodyMedium)
                         .foregroundStyle(Constants.Colors.black)
 
@@ -158,6 +158,13 @@ struct HomeView: View {
                         }
                         .contentShape(Rectangle()) // Fixes navigation link tap area
                         .buttonStyle(ScaleButtonStyle())
+                        .simultaneousGesture(
+                            TapGesture().onEnded {
+                                AnalyticsManager.shared.log(
+                                    UpliftEvent.tapGymCell.toEvent(type: .gym, value: gym.name)
+                                )
+                            }
+                        )
                     }
                 }
             }
@@ -182,6 +189,9 @@ struct HomeView: View {
             withAnimation(.easeOut) {
                 viewModel.showCapacities.toggle()
             }
+            AnalyticsManager.shared.log(
+                UpliftEvent.tapCapacityToggle.toEvent()
+            )
         } label: {
             HStack(spacing: 12) {
                 CapacityCircleView.Skeleton(progress: viewModel.calculateAverageCapacity())

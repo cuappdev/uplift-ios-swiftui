@@ -41,6 +41,10 @@
 		2E39D82F2B3BCBA400AD238B /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E39D82E2B3BCBA400AD238B /* UpliftAPI */; };
 		2E39D8312B3BEE5900AD238B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E39D8302B3BEE5900AD238B /* LaunchScreen.storyboard */; };
 		2E3D6C202B1285D200B51BB2 /* UpliftEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3D6C1F2B1285D200B51BB2 /* UpliftEnvironment.swift */; };
+		2E45B2402B4E361100FB83B7 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2E45B23F2B4E361100FB83B7 /* FirebaseCrashlytics */; };
+		2E45B2422B4E5CE100FB83B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2E45B2412B4E5CE100FB83B7 /* GoogleService-Info.plist */; };
+		2E45B2452B4F632700FB83B7 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2E45B2442B4F632700FB83B7 /* FirebaseAnalytics */; };
+		2E45B2472B4F643500FB83B7 /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E45B2462B4F643500FB83B7 /* AnalyticsManager.swift */; };
 		2E4F06DC2B4B48DC008905C8 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E4F06DB2B4B48DC008905C8 /* UpliftAPI */; };
 		2E5726C72B4A63AE00D3DB36 /* ShimmerModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5726C62B4A63AE00D3DB36 /* ShimmerModifier.swift */; };
 		2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6785B82B3A425E00DD3ADA /* GymDetailView.swift */; };
@@ -114,6 +118,8 @@
 		2E3D6C1C2B12809900B51BB2 /* Keys.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Keys.xcconfig; sourceTree = "<group>"; };
 		2E3D6C1D2B12840C00B51BB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E3D6C1F2B1285D200B51BB2 /* UpliftEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpliftEnvironment.swift; sourceTree = "<group>"; };
+		2E45B2412B4E5CE100FB83B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2E45B2462B4F643500FB83B7 /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		2E5726C62B4A63AE00D3DB36 /* ShimmerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerModifier.swift; sourceTree = "<group>"; };
 		2E5726CA2B4A68CC00D3DB36 /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 		2E6785B82B3A425E00DD3ADA /* GymDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailView.swift; sourceTree = "<group>"; };
@@ -160,7 +166,9 @@
 				2E6785BC2B3A48D700DD3ADA /* WrappingHStack in Frameworks */,
 				2E4F06DC2B4B48DC008905C8 /* UpliftAPI in Frameworks */,
 				2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */,
+				2E45B2452B4F632700FB83B7 /* FirebaseAnalytics in Frameworks */,
 				2E39D82F2B3BCBA400AD238B /* UpliftAPI in Frameworks */,
+				2E45B2402B4E361100FB83B7 /* FirebaseCrashlytics in Frameworks */,
 				2EC3EE662B3C000E00E927BF /* Kingfisher in Frameworks */,
 				2E15F4D82B390EBC00414BEC /* UpliftAPI in Frameworks */,
 			);
@@ -214,6 +222,7 @@
 		2E090ECE2B13087100BAE982 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				2E45B2462B4F643500FB83B7 /* AnalyticsManager.swift */,
 				2E15F5032B39E54700414BEC /* LocationManager.swift */,
 				2ED53DCE2B3E06DC00FBDEAB /* Logger.swift */,
 				2E090ED32B13094D00BAE982 /* Utils */,
@@ -331,6 +340,7 @@
 		2E3D6C1B2B127FDA00B51BB2 /* UpliftSecrets */ = {
 			isa = PBXGroup;
 			children = (
+				2E45B2412B4E5CE100FB83B7 /* GoogleService-Info.plist */,
 				2E3D6C1C2B12809900B51BB2 /* Keys.xcconfig */,
 			);
 			path = UpliftSecrets;
@@ -442,6 +452,7 @@
 				2E8FE38A2B1278B700B3DC6A /* Resources */,
 				2EF1A2542B1299FB007A299F /* SwiftLint */,
 				2EF1A2552B129A77007A299F /* Generate API */,
+				2E45B2432B4E655D00FB83B7 /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -457,6 +468,8 @@
 				2E39D82E2B3BCBA400AD238B /* UpliftAPI */,
 				2EC3EE652B3C000E00E927BF /* Kingfisher */,
 				2E4F06DB2B4B48DC008905C8 /* UpliftAPI */,
+				2E45B23F2B4E361100FB83B7 /* FirebaseCrashlytics */,
+				2E45B2442B4F632700FB83B7 /* FirebaseAnalytics */,
 			);
 			productName = Uplift;
 			productReference = 2E8FE38C2B1278B700B3DC6A /* Uplift.app */;
@@ -496,6 +509,7 @@
 				2E6785BA2B3A48D700DD3ADA /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				2EC3EE642B3C000E00E927BF /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				2E4F06DA2B4B48DC008905C8 /* XCLocalSwiftPackageReference "UpliftAPI" */,
+				2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
 			projectDirPath = "";
@@ -527,6 +541,7 @@
 				2E8FE3992B1278B900B3DC6A /* Preview Assets.xcassets in Resources */,
 				2EB090B92B131CA80039EB3B /* Montserrat-SemiBold.ttf in Resources */,
 				2EB090B42B131CA40039EB3B /* BebasNeue-Regular.ttf in Resources */,
+				2E45B2422B4E5CE100FB83B7 /* GoogleService-Info.plist in Resources */,
 				2E39D8312B3BEE5900AD238B /* LaunchScreen.storyboard in Resources */,
 				2E8FE3962B1278B900B3DC6A /* Assets.xcassets in Resources */,
 			);
@@ -535,6 +550,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2E45B2432B4E655D00FB83B7 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
 		2EF1A2542B1299FB007A299F /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -635,6 +673,7 @@
 				2E15F4DA2B39102A00414BEC /* Capacity.swift in Sources */,
 				2ED53DCF2B3E06DC00FBDEAB /* Logger.swift in Sources */,
 				2E15F4E62B391E5300414BEC /* Array+Extension.swift in Sources */,
+				2E45B2472B4F643500FB83B7 /* AnalyticsManager.swift in Sources */,
 				2E39D8202B3B623B00AD238B /* FitnessCenterView.swift in Sources */,
 				2E1105C22B13D15100119F5B /* HomeGymCell.swift in Sources */,
 				2E15F4F92B3950F800414BEC /* Date+Extension.swift in Sources */,
@@ -835,7 +874,8 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZGMCXU7X3U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -856,6 +896,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.5.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.uplift.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -878,7 +919,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = ZGMCXU7X3U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -899,6 +940,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.5.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.uplift.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -951,6 +993,14 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.19.1;
+			};
+		};
 		2E6785BA2B3A48D700DD3ADA /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dkk/WrappingHStack";
@@ -989,6 +1039,16 @@
 		2E39D82E2B3BCBA400AD238B /* UpliftAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UpliftAPI;
+		};
+		2E45B23F2B4E361100FB83B7 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		2E45B2442B4F632700FB83B7 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
 		};
 		2E4F06DB2B4B48DC008905C8 /* UpliftAPI */ = {
 			isa = XCSwiftPackageProductDependency;
