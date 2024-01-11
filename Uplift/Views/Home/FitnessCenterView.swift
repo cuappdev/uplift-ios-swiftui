@@ -109,6 +109,9 @@ struct FitnessCenterView: View {
             withAnimation(.easeOut) {
                 viewModel.expandHours.toggle()
             }
+            AnalyticsManager.shared.log(
+                UpliftEvent.expandFitnessHours.toEvent(type: .facility, value: fc?.name)
+            )
         } label: {
             HStack(spacing: 8) {
                 Text(viewModel.fitnessCenterHours.first ?? "")

@@ -141,6 +141,9 @@ struct GymDetailView: View {
             withAnimation {
                 viewModel.showHours.toggle()
             }
+            AnalyticsManager.shared.log(
+                UpliftEvent.tapViewHoursGym.toEvent(type: .gym, value: gym.name)
+            )
         } label: {
             Text(viewModel.showHours ? "Close Hours" : "View Hours")
                 .font(Constants.Fonts.labelSemibold)

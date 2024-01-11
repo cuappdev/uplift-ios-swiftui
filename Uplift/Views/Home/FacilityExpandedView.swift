@@ -64,6 +64,9 @@ struct FacilityExpandedView: View {
             withAnimation {
                 viewModel.isExpanded.toggle()
             }
+            AnalyticsManager.shared.log(
+                UpliftEvent.expandFacilityView.toEvent(type: .facility, value: facility.name)
+            )
         }
     }
 
