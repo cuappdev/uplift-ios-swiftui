@@ -46,7 +46,7 @@ extension HomeView {
             } receiveValue: { [weak self] gymFields in
                 guard let self else { return }
 
-                var gyms = [Gym](gymFields)
+                let gyms = [Gym](gymFields)
 
                 // Sort gyms by nearest first with open gyms at the top
                 self.gyms = gyms
