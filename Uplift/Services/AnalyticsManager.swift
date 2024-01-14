@@ -23,7 +23,9 @@ class AnalyticsManager {
         Analytics.logEvent(event.name, parameters: event.parameters)
         #else
         // Uncomment below to debug
-//        Logger.statistics.info("[DEBUG] Logged event: \(event.name), params: \(event.parameters?.description ?? "nil")")
+//        Logger.statistics.info(
+//            "[DEBUG] Logged event: \(event.name), params: \(event.parameters?.description ?? "nil")"
+//        )
         #endif
     }
 

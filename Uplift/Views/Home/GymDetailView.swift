@@ -36,7 +36,8 @@ struct GymDetailView: View {
             scrollContent
         }
         .ignoresSafeArea(.all)
-        .padding(.bottom)
+        // TODO: Uncomment to add tab bar
+//        .padding(.bottom)
         .navigationBarBackButtonHidden(true)
         .toolbarBackground(.hidden, for: .navigationBar)
         .toolbar {

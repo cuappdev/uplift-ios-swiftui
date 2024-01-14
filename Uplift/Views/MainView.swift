@@ -18,14 +18,16 @@ struct MainView: View {
     // MARK: - UI
 
     var body: some View {
-        ZStack(alignment: .bottom) {
-            TabView(selection: $selectedTab) {
-                HomeView()
-                    .tag(Screen.home)
-            }
-
-            tabBar
-        }
+        HomeView()
+        // TODO: Temporarily remove tab bar for release
+//        ZStack(alignment: .bottom) {
+//            TabView(selection: $selectedTab) {
+//                HomeView()
+//                    .tag(Screen.home)
+//            }
+//
+//            tabBar
+//        }
     }
 
     private var tabBar: some View {
