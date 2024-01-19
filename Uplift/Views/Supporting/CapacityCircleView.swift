@@ -99,7 +99,7 @@ extension CapacityCircleView {
                     .foregroundStyle(color)
                     .rotationEffect(Angle(degrees: 270))
             }
-            .onAppear {
+            .onChange(of: progress) { progress in
                 if progress < 0.5 {
                     color = Constants.Colors.open
                 } else if progress < 0.8 {
