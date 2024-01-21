@@ -225,7 +225,6 @@
 				2E45B2462B4F643500FB83B7 /* AnalyticsManager.swift */,
 				2E15F5032B39E54700414BEC /* LocationManager.swift */,
 				2ED53DCE2B3E06DC00FBDEAB /* Logger.swift */,
-				2E090ED32B13094D00BAE982 /* Utils */,
 				2E090ED22B13093400BAE982 /* Networking */,
 			);
 			path = Services;
@@ -393,6 +392,7 @@
 				2E090EC62B12FB9F00BAE982 /* Models */,
 				2E090ECD2B13085700BAE982 /* Resources */,
 				2E090ECE2B13087100BAE982 /* Services */,
+				2E090ED32B13094D00BAE982 /* Utils */,
 				2E090ED12B1308D500BAE982 /* ViewModels */,
 				2E090ED02B1308C900BAE982 /* Views */,
 			);
