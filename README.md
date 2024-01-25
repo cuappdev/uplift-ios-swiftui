@@ -17,7 +17,7 @@ This app uses CocoaPods and Swift Package Manager for dependencies.
 ## Getting Started
 
 1. Clone the repository.
-2. Go to `UpliftSecrets/` and drag the following four files into **FINDER (NOT Xcode).** For AppDev members, you can find these pinned in the `#uplift-ios` Slack channel.
+2. Go to `UpliftSecrets/` and drag the following four files into **FINDER (NOT Xcode). You must create this folder through Finder.** For AppDev members, you can find these pinned in the `#uplift-ios` Slack channel.
     - `GoogleService-Info.plist`
     - `Keys.xcconfig`
     - `apollo-codegen-config-dev.json`
@@ -59,6 +59,8 @@ fi
     - `npm install -g graphql`
 
 6. Select the `Uplift` schema to use our development server and `Uplift-Prod` to use our production server.
+7. Run the following code: `./apollo-ios-cli generate -p "UpliftSecrets/apollo-codegen-config-dev.json" -f`
+8. Build the project and you should be good to go.
     
 ## Common Issues
 
