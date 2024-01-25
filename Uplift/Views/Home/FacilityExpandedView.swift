@@ -36,9 +36,18 @@ struct FacilityExpandedView: View {
             facilityIcon
                 .padding(.trailing, 8)
 
-            Text(facility.name.uppercased())
-                .font(Constants.Fonts.f2)
-                .foregroundStyle(Constants.Colors.black)
+            Group {
+                switch facility.facilityType {
+                case .pool:
+                    Text("SWIMMING POOL")
+                case .bowling:
+                    Text("BOWLING")
+                default:
+                    Text(facility.name.uppercased())
+                }
+            }
+            .font(Constants.Fonts.f2)
+            .foregroundStyle(Constants.Colors.black)
 
             Spacer()
 
@@ -55,6 +64,9 @@ struct FacilityExpandedView: View {
             withAnimation {
                 viewModel.isExpanded.toggle()
             }
+            AnalyticsManager.shared.log(
+                UpliftEvent.expandFacilityView.toEvent(type: .facility, value: facility.name)
+            )
         }
     }
 

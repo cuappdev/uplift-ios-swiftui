@@ -8,6 +8,7 @@
 
 import OSLog
 
+/// Manage Uplift's logging system.
 extension Logger {
 
     /// The logger's subsystem.

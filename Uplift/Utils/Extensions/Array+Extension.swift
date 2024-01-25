@@ -76,6 +76,9 @@ extension Array where Element == OpenHours {
      - Returns: A `Status` object based on its hours.
      */
     func getStatus(currentTime: Date = Date.now) -> Status? {
+        // If facility is closed for an entire week
+        if self.isEmpty { return .closed(openTime: .distantFuture) }
+
         // Remove dates in the past
         let filtered = self.sorted().filter { $0.endTime > currentTime }
 

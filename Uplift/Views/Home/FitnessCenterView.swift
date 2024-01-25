@@ -78,27 +78,29 @@ struct FitnessCenterView: View {
                     .frame(width: 32, height: 16, alignment: .trailing)
 
                 expandHoursButton
-                    .frame(maxWidth: 180, alignment: .leading)
+
+                // Fix alignment issues
+                viewModel.fitnessCenterHours.first != "Closed" ? Spacer() : nil
             }
 
             if viewModel.expandHours {
                 ForEach(viewModel.daysOfWeek.dropFirst().indices, id: \.self) { index in
                     HStack(spacing: 8) {
-                        Spacer()
-
                         Text(viewModel.daysOfWeek[index])
                             .font(Constants.Fonts.f2)
                             .frame(width: 32, alignment: .trailing)
 
                         Text(viewModel.fitnessCenterHours[index])
                             .font(Constants.Fonts.f2Regular)
-                            .frame(maxWidth: 180, alignment: .leading)
+                            .frame(minWidth: 84, alignment: .leading)
 
-                        Spacer()
+                        // Fix alignment issues
+                        viewModel.fitnessCenterHours.first != "Closed" ? Spacer() : nil
                     }
                 }
             }
         }
+        .frame(width: 230)
         .foregroundStyle(Constants.Colors.black)
     }
 
@@ -107,6 +109,9 @@ struct FitnessCenterView: View {
             withAnimation(.easeOut) {
                 viewModel.expandHours.toggle()
             }
+            AnalyticsManager.shared.log(
+                UpliftEvent.expandFitnessHours.toEvent(type: .facility, value: fc?.name)
+            )
         } label: {
             HStack(spacing: 8) {
                 Text(viewModel.fitnessCenterHours.first ?? "")
@@ -118,6 +123,7 @@ struct FitnessCenterView: View {
                     .frame(width: 8, height: 8)
             }
         }
+        .frame(minWidth: 84, alignment: .leading)
     }
 
     // MARK: - Supporting

@@ -13,6 +13,7 @@ struct HomeView: View {
 
     // MARK: - Properties
 
+    @EnvironmentObject var locationManager: LocationManager
     @StateObject private var viewModel = ViewModel()
 
     // MARK: - UI
@@ -26,6 +27,7 @@ struct HomeView: View {
             .background(Constants.Colors.white)
         }
         .onAppear {
+            viewModel.setupEnvironment(with: locationManager)
             viewModel.fetchAllGyms()
         }
     }
@@ -98,13 +100,32 @@ struct HomeView: View {
                 )
                 .frame(width: 72, height: 72)
 
-                Text(facility.name.replacing("Fitness Center", with: ""))
-                    .font(Constants.Fonts.bodyMedium)
-                    .foregroundStyle(Constants.Colors.black)
+                VStack(spacing: 4) {
+                    Text(facility.name.replacing(" Fitness Center", with: ""))
+                        .font(Constants.Fonts.bodyMedium)
+                        .foregroundStyle(Constants.Colors.black)
+
+                    capacityDescription(facility: facility)
+                }
             }
         }
         .padding(12)
         .frame(maxWidth: .infinity)
+    }
+
+    private func capacityDescription(facility: Facility) -> some View {
+        Group {
+            switch facility.status {
+            case .closed:
+                Text("Closed")
+            case .open:
+                Text("Updated \(facility.capacity?.updated.timeStringTrailingZeros ?? "")")
+            case .none:
+                Text("No Data")
+            }
+        }
+        .foregroundStyle(Constants.Colors.gray04)
+        .font(Constants.Fonts.bodyLight)
     }
 
     private var scrollContent: some View {
@@ -137,6 +158,13 @@ struct HomeView: View {
                         }
                         .contentShape(Rectangle()) // Fixes navigation link tap area
                         .buttonStyle(ScaleButtonStyle())
+                        .simultaneousGesture(
+                            TapGesture().onEnded {
+                                AnalyticsManager.shared.log(
+                                    UpliftEvent.tapGymCell.toEvent(type: .gym, value: gym.name)
+                                )
+                            }
+                        )
                     }
                 }
             }
@@ -161,9 +189,12 @@ struct HomeView: View {
             withAnimation(.easeOut) {
                 viewModel.showCapacities.toggle()
             }
+            AnalyticsManager.shared.log(
+                UpliftEvent.tapCapacityToggle.toEvent()
+            )
         } label: {
             HStack(spacing: 12) {
-                CapacityCircleView.Skeleton()
+                CapacityCircleView.Skeleton(progress: viewModel.calculateAverageCapacity())
                     .frame(width: 24, height: 24)
 
                 Triangle()

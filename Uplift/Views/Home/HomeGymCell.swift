@@ -18,6 +18,12 @@ struct HomeGymCell: View {
     @State private var distance: String = "0.0"
     @EnvironmentObject var locationManager: LocationManager
 
+    // MARK: - Constants
+
+    private let notBusyText: String = "Not Busy"
+    private let slightlyBusyText: String = "Slightly Busy"
+    private let veryBusyText: String = "Very Busy"
+
     // MARK: - UI
 
     var body: some View {
@@ -56,7 +62,22 @@ struct HomeGymCell: View {
             VStack(alignment: .leading, spacing: 2) {
                 gymNameText
                 statusText
-                capacityText
+
+                if gym.fitnessCenters.allSatisfy({
+                    switch $0.status {
+                    case .closed:
+                        return true
+                    default:
+                        return false
+                    }
+                }) {
+                    // All fitness centers are closed
+                    Text("Fitness Centers Closed")
+                        .font(Constants.Fonts.labelMedium)
+                        .foregroundStyle(Constants.Colors.gray03)
+                } else {
+                    capacityText
+                }
             }
 
             Spacer()
@@ -70,8 +91,16 @@ struct HomeGymCell: View {
             }
         }
         .padding(EdgeInsets(top: 8, leading: 12, bottom: 12, trailing: 12))
-        .frame(height: 76)
         .background(Constants.Colors.white)
+        .frame(height: 76)
+        .clipShape(
+            .rect(
+                topLeadingRadius: 0,
+                bottomLeadingRadius: 12,
+                bottomTrailingRadius: 12,
+                topTrailingRadius: 0
+            )
+        )
     }
 
     private var gymNameText: some View {
@@ -109,18 +138,18 @@ struct HomeGymCell: View {
                 teagleCapacityView
             } else {
                 switch gym.fitnessCenters.first?.capacity?.status {
-                case .light(let double):
-                    Text("Light")
+                case .notBusy(let double):
+                    Text(notBusyText)
                         .foregroundStyle(Constants.Colors.open)
 
                     percentFullText(double)
-                case .cramped(let double):
-                    Text("Cramped")
+                case .slightlyBusy(let double):
+                    Text(slightlyBusyText)
                         .foregroundStyle(Constants.Colors.orange)
 
                     percentFullText(double)
-                case .full(let double):
-                    Text("Full")
+                case .veryBusy(let double):
+                    Text(veryBusyText)
                         .foregroundStyle(Constants.Colors.closed)
 
                     percentFullText(double)
@@ -140,14 +169,14 @@ struct HomeGymCell: View {
     @ViewBuilder
     private var teagleCapacityView: some View {
         switch gym.highestCapacityFC()?.capacity?.status {
-        case .light:
-            Text("Light")
+        case .notBusy:
+            Text(notBusyText)
                 .foregroundStyle(Constants.Colors.open)
-        case .cramped:
-            Text("Cramped")
+        case .slightlyBusy:
+            Text(slightlyBusyText)
                 .foregroundStyle(Constants.Colors.orange)
-        case .full:
-            Text("Full")
+        case .veryBusy:
+            Text(veryBusyText)
                 .foregroundStyle(Constants.Colors.closed)
         case nil:
             EmptyView()
