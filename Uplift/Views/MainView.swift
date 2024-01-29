@@ -6,6 +6,7 @@
 //  Copyright © 2023 Cornell AppDev. All rights reserved.
 //
 
+import AppDevAnnouncements
 import SwiftUI
 
 /// The app's entry point view.
@@ -18,16 +19,21 @@ struct MainView: View {
     // MARK: - UI
 
     var body: some View {
-        HomeView()
-        // TODO: Temporarily remove tab bar for release
-//        ZStack(alignment: .bottom) {
-//            TabView(selection: $selectedTab) {
-//                HomeView()
-//                    .tag(Screen.home)
-//            }
-//
-//            tabBar
-//        }
+        ZStack {
+            HomeView()
+            // TODO: Temporarily remove tab bar for release
+            //        ZStack(alignment: .bottom) {
+            //            TabView(selection: $selectedTab) {
+            //                HomeView()
+            //                    .tag(Screen.home)
+            //            }
+            //
+            //            tabBar
+            //        }
+        }
+        .onAppear {
+            SwiftUIAnnounce.presentAnnouncement { _ in }
+        }
     }
 
     private var tabBar: some View {
