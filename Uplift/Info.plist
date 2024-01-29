@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ANNOUNCEMENTS_PATH</key>
+	<string>$(ANNOUNCEMENTS_PATH)</string>
+	<key>ANNOUNCEMENTS_HOST</key>
+	<string>$(ANNOUNCEMENTS_HOST)</string>
+	<key>ANNOUNCEMENTS_COMMON_PATH</key>
+	<string>$(ANNOUNCEMENTS_COMMON_PATH)</string>
+	<key>ANNOUNCEMENTS_SCHEME</key>
+	<string>$(ANNOUNCEMENTS_SCHEME)</string>
 	<key>CFBundleIconName</key>
 	<string>AppIcon</string>
 	<key>DEV_URL</key>
