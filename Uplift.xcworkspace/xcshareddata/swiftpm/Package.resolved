@@ -28,6 +28,15 @@
       }
     },
     {
+      "identity" : "appdev-announcements",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/cuappdev/appdev-announcements",
+      "state" : {
+        "branch" : "master",
+        "revision" : "13a490d0982b02f489c7a76e3f03248de4c08e2c"
+      }
+    },
+    {
       "identity" : "firebase-ios-sdk",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/firebase-ios-sdk",
