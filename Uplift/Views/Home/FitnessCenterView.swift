@@ -100,7 +100,7 @@ struct FitnessCenterView: View {
                 }
             }
         }
-        .frame(width: 230)
+        .frame(width: 232)
         .foregroundStyle(Constants.Colors.black)
     }
 
@@ -116,6 +116,7 @@ struct FitnessCenterView: View {
             HStack(spacing: 8) {
                 Text(viewModel.fitnessCenterHours.first ?? "")
                     .font(Constants.Fonts.f2)
+                    .multilineTextAlignment(.leading)
 
                 Triangle()
                     .fill(Constants.Colors.black)

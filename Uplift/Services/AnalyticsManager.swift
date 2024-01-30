@@ -56,6 +56,9 @@ enum UpliftEvent: String {
     /// Taps on a the button to toggle capacities into view on the home page.
     case tapCapacityToggle = "tap_capacity_toggle"
 
+    /// Taps on a gym capacity circle under toggle capacities on the home page.
+    case tapCapacityCircle = "tap_capacity_circle"
+
     /// Taps on a gym cell on the home page.
     case tapGymCell = "tap_gym_cell"
 

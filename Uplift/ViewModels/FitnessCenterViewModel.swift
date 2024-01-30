@@ -26,7 +26,7 @@ extension FitnessCenterView {
         func fetchFitnessCenterHours(for fc: Facility) {
             fitnessCenterHours = []
             for day in DayOfWeek.sortedDaysOfWeek() {
-                let hours = fc.hours.getHoursInDayOfWeek(dayOfWeek: day)
+                let hours = fc.hours.getHoursInDayOfWeek(dayOfWeek: day).sorted()
 
                 if hours.isEmpty {
                     fitnessCenterHours.append("Closed")

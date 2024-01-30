@@ -43,7 +43,7 @@ extension GymDetailView {
         func fetchBuildingHours(for gym: Gym) {
             buildingHours = []
             for day in DayOfWeek.sortedDaysOfWeek() {
-                let hours = gym.hours.getHoursInDayOfWeek(dayOfWeek: day)
+                let hours = gym.hours.getHoursInDayOfWeek(dayOfWeek: day).sorted()
 
                 if hours.isEmpty {
                     buildingHours.append("Closed")

@@ -63,6 +63,23 @@ extension HomeView {
                               let rhsStatus = $1.status else { return false }
                         return lhsStatus < rhsStatus
                     }
+                    .sorted {
+                        ($0.fitnessCenters.contains { fc in
+                            switch fc.status {
+                            case .open:
+                                return true
+                            default:
+                                return false
+                            }
+                        } ? 0 : 1) < ($1.fitnessCenters.contains { fc in
+                            switch fc.status {
+                            case .open:
+                                return true
+                            default:
+                                return false
+                            }
+                        } ? 0 : 1)
+                    }
             }
             .store(in: &queryBag)
         }
@@ -118,6 +135,13 @@ extension HomeView {
 
             if openCount == 0 { return 0.0 }
             return val / Double(openCount)
+        }
+
+        /// Returns the gym given the facility.
+        func gymWithFacility(_ facility: Facility?) -> Gym? {
+            gyms?.first(
+                where: { $0.fitnessCenters.contains { $0 == facility } }
+            )
         }
 
     }

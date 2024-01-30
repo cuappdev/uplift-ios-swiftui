@@ -45,7 +45,6 @@
 		2E45B2422B4E5CE100FB83B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2E45B2412B4E5CE100FB83B7 /* GoogleService-Info.plist */; };
 		2E45B2452B4F632700FB83B7 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2E45B2442B4F632700FB83B7 /* FirebaseAnalytics */; };
 		2E45B2472B4F643500FB83B7 /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E45B2462B4F643500FB83B7 /* AnalyticsManager.swift */; };
-		2E4F06DC2B4B48DC008905C8 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E4F06DB2B4B48DC008905C8 /* UpliftAPI */; };
 		2E5726C72B4A63AE00D3DB36 /* ShimmerModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5726C62B4A63AE00D3DB36 /* ShimmerModifier.swift */; };
 		2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6785B82B3A425E00DD3ADA /* GymDetailView.swift */; };
 		2E6785BC2B3A48D700DD3ADA /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 2E6785BB2B3A48D700DD3ADA /* WrappingHStack */; };
@@ -71,6 +70,7 @@
 		2EE5F3E42B12EDB6008E0299 /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E32B12EDB6008E0299 /* ApolloAPI */; };
 		2EF1A2582B129EEB007A299F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1A2572B129EEB007A299F /* Network.swift */; };
 		842FB0CCD71C3202DE5836F1 /* Pods_Uplift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E86AC23F1B9AFB11552390BF /* Pods_Uplift.framework */; };
+		89CFD8472B605785004E8065 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 89CFD8462B605785004E8065 /* UpliftAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -164,7 +164,7 @@
 				842FB0CCD71C3202DE5836F1 /* Pods_Uplift.framework in Frameworks */,
 				2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */,
 				2E6785BC2B3A48D700DD3ADA /* WrappingHStack in Frameworks */,
-				2E4F06DC2B4B48DC008905C8 /* UpliftAPI in Frameworks */,
+				89CFD8472B605785004E8065 /* UpliftAPI in Frameworks */,
 				2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */,
 				2E45B2452B4F632700FB83B7 /* FirebaseAnalytics in Frameworks */,
 				2E39D82F2B3BCBA400AD238B /* UpliftAPI in Frameworks */,
@@ -467,9 +467,9 @@
 				2E6785BB2B3A48D700DD3ADA /* WrappingHStack */,
 				2E39D82E2B3BCBA400AD238B /* UpliftAPI */,
 				2EC3EE652B3C000E00E927BF /* Kingfisher */,
-				2E4F06DB2B4B48DC008905C8 /* UpliftAPI */,
 				2E45B23F2B4E361100FB83B7 /* FirebaseCrashlytics */,
 				2E45B2442B4F632700FB83B7 /* FirebaseAnalytics */,
+				89CFD8462B605785004E8065 /* UpliftAPI */,
 			);
 			productName = Uplift;
 			productReference = 2E8FE38C2B1278B700B3DC6A /* Uplift.app */;
@@ -508,8 +508,8 @@
 				2EE5F3E02B12EDB6008E0299 /* XCRemoteSwiftPackageReference "apollo-ios" */,
 				2E6785BA2B3A48D700DD3ADA /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				2EC3EE642B3C000E00E927BF /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				2E4F06DA2B4B48DC008905C8 /* XCLocalSwiftPackageReference "UpliftAPI" */,
 				2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				89CFD8452B605785004E8065 /* XCLocalSwiftPackageReference "UpliftAPI" */,
 			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
 			projectDirPath = "";
@@ -987,7 +987,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		2E4F06DA2B4B48DC008905C8 /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
+		89CFD8452B605785004E8065 /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = UpliftAPI;
 		};
@@ -1051,10 +1051,6 @@
 			package = 2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
 		};
-		2E4F06DB2B4B48DC008905C8 /* UpliftAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = UpliftAPI;
-		};
 		2E6785BB2B3A48D700DD3ADA /* WrappingHStack */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2E6785BA2B3A48D700DD3ADA /* XCRemoteSwiftPackageReference "WrappingHStack" */;
@@ -1074,6 +1070,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2EE5F3E02B12EDB6008E0299 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = ApolloAPI;
+		};
+		89CFD8462B605785004E8065 /* UpliftAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UpliftAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

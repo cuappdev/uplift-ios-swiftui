@@ -71,18 +71,108 @@ struct HomeView: View {
             if let gyms = viewModel.gyms {
                 VStack(spacing: 12) {
                     HStack(spacing: 12) {
-                        capacityCircle(facility: gyms.facilityWithName(name: Constants.FacilityNames.hnhFitness))
+                        NavigationLink {
+                            if let helenNewmanGym = viewModel.gymWithFacility(
+                                gyms.facilityWithName(name: Constants.FacilityNames.hnhFitness)
+                            ) {
+                                GymDetailView(gym: helenNewmanGym)
+                            }
+                        } label: {
+                            capacityCircle(facility: gyms.facilityWithName(name: Constants.FacilityNames.hnhFitness))
+                        }
+                        .simultaneousGesture(
+                            TapGesture().onEnded {
+                                AnalyticsManager.shared.log(
+                                    UpliftEvent.tapCapacityCircle.toEvent(
+                                        type: .facility,
+                                        value: Constants.FacilityNames.hnhFitness
+                                    )
+                                )
+                            }
+                        )
 
-                        capacityCircle(facility: gyms.facilityWithName(name: Constants.FacilityNames.teagleUp))
+                        NavigationLink {
+                            if let teagleGym = viewModel.gymWithFacility(
+                                gyms.facilityWithName(name: Constants.FacilityNames.teagleUp)
+                            ) {
+                                GymDetailView(gym: teagleGym)
+                            }
+                        } label: {
+                            capacityCircle(facility: gyms.facilityWithName(name: Constants.FacilityNames.teagleUp))
+                        }
+                        .simultaneousGesture(
+                            TapGesture().onEnded {
+                                AnalyticsManager.shared.log(
+                                    UpliftEvent.tapCapacityCircle.toEvent(
+                                        type: .facility,
+                                        value: Constants.FacilityNames.teagleUp
+                                    )
+                                )
+                            }
+                        )
                     }
 
                     HStack(spacing: 12) {
-                        capacityCircle(facility: gyms.facilityWithName(name: Constants.FacilityNames.teagleDown))
+                        NavigationLink {
+                            if let teagleGym = viewModel.gymWithFacility(
+                                gyms.facilityWithName(name: Constants.FacilityNames.teagleDown)
+                            ) {
+                                GymDetailView(gym: teagleGym)
+                            }
+                        } label: {
+                            capacityCircle(facility: gyms.facilityWithName(name: Constants.FacilityNames.teagleDown))
+                        }
+                        .simultaneousGesture(
+                            TapGesture().onEnded {
+                                AnalyticsManager.shared.log(
+                                    UpliftEvent.tapCapacityCircle.toEvent(
+                                        type: .facility,
+                                        value: Constants.FacilityNames.teagleDown
+                                    )
+                                )
+                            }
+                        )
 
-                        capacityCircle(facility: gyms.facilityWithName(name: Constants.FacilityNames.noyesFitness))
+                        NavigationLink {
+                            if let noyesGym = viewModel.gymWithFacility(
+                                gyms.facilityWithName(name: Constants.FacilityNames.noyesFitness)
+                            ) {
+                                GymDetailView(gym: noyesGym)
+                            }
+                        } label: {
+                            capacityCircle(facility: gyms.facilityWithName(name: Constants.FacilityNames.noyesFitness))
+                        }
+                        .simultaneousGesture(
+                            TapGesture().onEnded {
+                                AnalyticsManager.shared.log(
+                                    UpliftEvent.tapCapacityCircle.toEvent(
+                                        type: .facility,
+                                        value: Constants.FacilityNames.noyesFitness
+                                    )
+                                )
+                            }
+                        )
                     }
 
-                    capacityCircle(facility: gyms.facilityWithName(name: Constants.FacilityNames.morrFitness))
+                    NavigationLink {
+                        if let morrisonGym = viewModel.gymWithFacility(
+                            gyms.facilityWithName(name: Constants.FacilityNames.morrFitness)
+                        ) {
+                            GymDetailView(gym: morrisonGym)
+                        }
+                    } label: {
+                        capacityCircle(facility: gyms.facilityWithName(name: Constants.FacilityNames.morrFitness))
+                    }
+                    .simultaneousGesture(
+                        TapGesture().onEnded {
+                            AnalyticsManager.shared.log(
+                                UpliftEvent.tapCapacityCircle.toEvent(
+                                    type: .facility,
+                                    value: Constants.FacilityNames.morrFitness
+                                )
+                            )
+                        }
+                    )
                 }
             }
         }
