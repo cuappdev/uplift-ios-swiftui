@@ -48,7 +48,7 @@ extension HomeView {
 
                 let gyms = [Gym](gymFields)
 
-                // Sort gyms by nearest first with open gyms at the top
+                // Sort gyms by nearest first, then open gym buildings, and open fitness centers at the top
                 self.gyms = gyms
                     .sorted {
                         guard let locationManager = self.locationManager else { return false }
@@ -137,11 +137,32 @@ extension HomeView {
             return val / Double(openCount)
         }
 
-        /// Returns the gym given the facility.
-        func gymWithFacility(_ facility: Facility?) -> Gym? {
-            gyms?.first(
-                where: { $0.fitnessCenters.contains { $0 == facility } }
+        /// Returns the NavigationLink for the fitness center capacity circle.
+        func capacityCircleNavLink(fitnessCenterName: String, gyms: [Gym], capacityCircle: (_ facility: Facility?) -> some View) -> some View {
+            NavigationLink {
+                if let gym = gymWithFacility(
+                    gyms.facilityWithName(name: fitnessCenterName)
+                ) {
+                    GymDetailView(gym: gym)
+                }
+            } label: {
+                capacityCircle(gyms.facilityWithName(name: fitnessCenterName))
+            }
+            .simultaneousGesture(
+                TapGesture().onEnded {
+                    AnalyticsManager.shared.log(
+                        UpliftEvent.tapCapacityCircle.toEvent(
+                            type: .facility,
+                            value: fitnessCenterName
+                        )
+                    )
+                }
             )
+        }
+
+        /// Returns the gym for a given facility or `nil` if not found.
+        func gymWithFacility(_ facility: Facility?) -> Gym? {
+            gyms?.first { $0.fitnessCenters.contains { $0 == facility } }
         }
 
     }
