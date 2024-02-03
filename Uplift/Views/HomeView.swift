@@ -71,37 +71,32 @@ struct HomeView: View {
             if let gyms = viewModel.gyms {
                 VStack(spacing: 12) {
                     HStack(spacing: 12) {
-                        viewModel.capacityCircleNavLink(
+                        capacityCircleNavLink(
                             fitnessCenterName: Constants.FacilityNames.hnhFitness,
-                            gyms: gyms,
-                            capacityCircle: capacityCircle(facility:)
+                            gyms: gyms
                         )
 
-                        viewModel.capacityCircleNavLink(
+                        capacityCircleNavLink(
                             fitnessCenterName: Constants.FacilityNames.teagleUp,
-                            gyms: gyms,
-                            capacityCircle: capacityCircle(facility:)
+                            gyms: gyms
                         )
                     }
 
                     HStack(spacing: 12) {
-                        viewModel.capacityCircleNavLink(
+                        capacityCircleNavLink(
                             fitnessCenterName: Constants.FacilityNames.teagleDown,
-                            gyms: gyms,
-                            capacityCircle: capacityCircle(facility:)
+                            gyms: gyms
                         )
 
-                        viewModel.capacityCircleNavLink(
+                        capacityCircleNavLink(
                             fitnessCenterName: Constants.FacilityNames.noyesFitness,
-                            gyms: gyms,
-                            capacityCircle: capacityCircle(facility:)
+                            gyms: gyms
                         )
                     }
 
-                    viewModel.capacityCircleNavLink(
+                    capacityCircleNavLink(
                         fitnessCenterName: Constants.FacilityNames.morrFitness,
-                        gyms: gyms,
-                        capacityCircle: capacityCircle(facility:)
+                        gyms: gyms
                     )
                 }
             }
@@ -227,6 +222,33 @@ struct HomeView: View {
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Constants.Colors.gray01, lineWidth: 1)
+        )
+    }
+
+    // MARK: - Supporting
+
+    private func capacityCircleNavLink(fitnessCenterName: String, gyms: [Gym]) -> some View {
+        NavigationLink {
+            if let gym = viewModel.gymWithFacility(
+                gyms.facilityWithName(name: fitnessCenterName)
+            ) {
+                GymDetailView(gym: gym)
+                if fitnessCenterName == Constants.FacilityNames.teagleUp {
+                    FitnessCenterView(fc: gym.facilityWithName(name: fitnessCenterName))
+                }
+            }
+        } label: {
+            capacityCircle(facility: gyms.facilityWithName(name: fitnessCenterName))
+        }
+        .simultaneousGesture(
+            TapGesture().onEnded {
+                AnalyticsManager.shared.log(
+                    UpliftEvent.tapCapacityCircle.toEvent(
+                        type: .facility,
+                        value: fitnessCenterName
+                    )
+                )
+            }
         )
     }
 

@@ -137,29 +137,6 @@ extension HomeView {
             return val / Double(openCount)
         }
 
-        /// Returns the NavigationLink for the fitness center capacity circle.
-        func capacityCircleNavLink(fitnessCenterName: String, gyms: [Gym], capacityCircle: (_ facility: Facility?) -> some View) -> some View {
-            NavigationLink {
-                if let gym = gymWithFacility(
-                    gyms.facilityWithName(name: fitnessCenterName)
-                ) {
-                    GymDetailView(gym: gym)
-                }
-            } label: {
-                capacityCircle(gyms.facilityWithName(name: fitnessCenterName))
-            }
-            .simultaneousGesture(
-                TapGesture().onEnded {
-                    AnalyticsManager.shared.log(
-                        UpliftEvent.tapCapacityCircle.toEvent(
-                            type: .facility,
-                            value: fitnessCenterName
-                        )
-                    )
-                }
-            )
-        }
-
         /// Returns the gym for a given facility or `nil` if not found.
         func gymWithFacility(_ facility: Facility?) -> Gym? {
             gyms?.first { $0.fitnessCenters.contains { $0 == facility } }
