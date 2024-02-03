@@ -215,7 +215,7 @@ struct HomeView: View {
             if let gym = viewModel.gymWithFacility(
                 viewModel.gyms?.facilityWithName(name: fitnessCenterName)
             ) {
-                GymDetailView(gym: gym)
+                GymDetailView(gym: gym, isTeagleUpSelected: fitnessCenterName == Constants.FacilityNames.teagleUp)
             }
         } label: {
             capacityCircle(facility: viewModel.gyms?.facilityWithName(name: fitnessCenterName))
