@@ -68,37 +68,20 @@ struct HomeView: View {
                 .foregroundStyle(Constants.Colors.gray03)
                 .font(Constants.Fonts.h3)
 
-            if let gyms = viewModel.gyms {
-                VStack(spacing: 12) {
-                    HStack(spacing: 12) {
-                        capacityCircleNavLink(
-                            fitnessCenterName: Constants.FacilityNames.hnhFitness,
-                            gyms: gyms
-                        )
+            VStack(spacing: 12) {
+                HStack(spacing: 12) {
+                    capacityCircleNavLink(fitnessCenterName: Constants.FacilityNames.hnhFitness)
 
-                        capacityCircleNavLink(
-                            fitnessCenterName: Constants.FacilityNames.teagleUp,
-                            gyms: gyms
-                        )
-                    }
-
-                    HStack(spacing: 12) {
-                        capacityCircleNavLink(
-                            fitnessCenterName: Constants.FacilityNames.teagleDown,
-                            gyms: gyms
-                        )
-
-                        capacityCircleNavLink(
-                            fitnessCenterName: Constants.FacilityNames.noyesFitness,
-                            gyms: gyms
-                        )
-                    }
-
-                    capacityCircleNavLink(
-                        fitnessCenterName: Constants.FacilityNames.morrFitness,
-                        gyms: gyms
-                    )
+                    capacityCircleNavLink(fitnessCenterName: Constants.FacilityNames.teagleUp)
                 }
+
+                HStack(spacing: 12) {
+                    capacityCircleNavLink(fitnessCenterName: Constants.FacilityNames.teagleDown)
+
+                    capacityCircleNavLink(fitnessCenterName: Constants.FacilityNames.noyesFitness)
+                }
+
+                capacityCircleNavLink(fitnessCenterName: Constants.FacilityNames.morrFitness)
             }
         }
         .transition(.move(edge: .top))
@@ -227,18 +210,15 @@ struct HomeView: View {
 
     // MARK: - Supporting
 
-    private func capacityCircleNavLink(fitnessCenterName: String, gyms: [Gym]) -> some View {
+    private func capacityCircleNavLink(fitnessCenterName: String) -> some View {
         NavigationLink {
             if let gym = viewModel.gymWithFacility(
-                gyms.facilityWithName(name: fitnessCenterName)
+                viewModel.gyms?.facilityWithName(name: fitnessCenterName)
             ) {
                 GymDetailView(gym: gym)
-                if fitnessCenterName == Constants.FacilityNames.teagleUp {
-                    FitnessCenterView(fc: gym.facilityWithName(name: fitnessCenterName))
-                }
             }
         } label: {
-            capacityCircle(facility: gyms.facilityWithName(name: fitnessCenterName))
+            capacityCircle(facility: viewModel.gyms?.facilityWithName(name: fitnessCenterName))
         }
         .simultaneousGesture(
             TapGesture().onEnded {
