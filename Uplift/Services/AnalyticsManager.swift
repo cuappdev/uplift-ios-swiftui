@@ -53,6 +53,9 @@ enum UpliftEvent: String {
     /// Taps on the button to view fitness center hours.
     case expandFitnessHours = "expand_fitness_hours"
 
+    /// Taps on a gym capacity circle under toggle capacities on the home page.
+    case tapCapacityCircle = "tap_capacity_circle"
+
     /// Taps on a the button to toggle capacities into view on the home page.
     case tapCapacityToggle = "tap_capacity_toggle"
 

@@ -68,22 +68,20 @@ struct HomeView: View {
                 .foregroundStyle(Constants.Colors.gray03)
                 .font(Constants.Fonts.h3)
 
-            if let gyms = viewModel.gyms {
-                VStack(spacing: 12) {
-                    HStack(spacing: 12) {
-                        capacityCircle(facility: gyms.facilityWithName(name: Constants.FacilityNames.hnhFitness))
+            VStack(spacing: 12) {
+                HStack(spacing: 12) {
+                    capacityCircleNavLink(fitnessCenterName: Constants.FacilityNames.hnhFitness)
 
-                        capacityCircle(facility: gyms.facilityWithName(name: Constants.FacilityNames.teagleUp))
-                    }
-
-                    HStack(spacing: 12) {
-                        capacityCircle(facility: gyms.facilityWithName(name: Constants.FacilityNames.teagleDown))
-
-                        capacityCircle(facility: gyms.facilityWithName(name: Constants.FacilityNames.noyesFitness))
-                    }
-
-                    capacityCircle(facility: gyms.facilityWithName(name: Constants.FacilityNames.morrFitness))
+                    capacityCircleNavLink(fitnessCenterName: Constants.FacilityNames.teagleUp)
                 }
+
+                HStack(spacing: 12) {
+                    capacityCircleNavLink(fitnessCenterName: Constants.FacilityNames.teagleDown)
+
+                    capacityCircleNavLink(fitnessCenterName: Constants.FacilityNames.noyesFitness)
+                }
+
+                capacityCircleNavLink(fitnessCenterName: Constants.FacilityNames.morrFitness)
             }
         }
         .transition(.move(edge: .top))
@@ -207,6 +205,30 @@ struct HomeView: View {
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Constants.Colors.gray01, lineWidth: 1)
+        )
+    }
+
+    // MARK: - Supporting
+
+    private func capacityCircleNavLink(fitnessCenterName: String) -> some View {
+        NavigationLink {
+            if let gym = viewModel.gymWithFacility(
+                viewModel.gyms?.facilityWithName(name: fitnessCenterName)
+            ) {
+                GymDetailView(gym: gym, isTeagleUpSelected: fitnessCenterName == Constants.FacilityNames.teagleUp)
+            }
+        } label: {
+            capacityCircle(facility: viewModel.gyms?.facilityWithName(name: fitnessCenterName))
+        }
+        .simultaneousGesture(
+            TapGesture().onEnded {
+                AnalyticsManager.shared.log(
+                    UpliftEvent.tapCapacityCircle.toEvent(
+                        type: .facility,
+                        value: fitnessCenterName
+                    )
+                )
+            }
         )
     }
 
