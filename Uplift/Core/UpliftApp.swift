@@ -6,6 +6,7 @@
 //  Copyright © 2023 Cornell AppDev. All rights reserved.
 //
 
+import AppDevAnnouncements
 import FirebaseCore
 import SwiftUI
 
@@ -37,6 +38,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
         FirebaseApp.configure()
+        AnnouncementNetworking.setupConfig(
+            scheme: UpliftEnvironment.announcementsScheme,
+            host: UpliftEnvironment.announcementsHost,
+            commonPath: UpliftEnvironment.announcementsCommonPath,
+            announcementPath: UpliftEnvironment.announcementsPath
+        )
         return true
     }
 }

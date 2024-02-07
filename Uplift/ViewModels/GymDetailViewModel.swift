@@ -31,8 +31,10 @@ extension GymDetailView {
         // MARK: - Helpers
 
         /// Determine selected tab.
-        func determineSelectedTab(gym: Gym) {
-            if gym.facilityWithName(name: Constants.FacilityNames.teagleDown) != nil {
+        func determineSelectedTab(gym: Gym, isTeagleUpSelected: Bool) {
+            if isTeagleUpSelected {
+                selectedTab = .teagleUp
+            } else if gym.facilityWithName(name: Constants.FacilityNames.teagleDown) != nil {
                 selectedTab = .teagleDown
             } else {
                 selectedTab = .fitnessCenter
@@ -43,7 +45,7 @@ extension GymDetailView {
         func fetchBuildingHours(for gym: Gym) {
             buildingHours = []
             for day in DayOfWeek.sortedDaysOfWeek() {
-                let hours = gym.hours.getHoursInDayOfWeek(dayOfWeek: day)
+                let hours = gym.hours.getHoursInDayOfWeek(dayOfWeek: day).sorted()
 
                 if hours.isEmpty {
                     buildingHours.append("Closed")

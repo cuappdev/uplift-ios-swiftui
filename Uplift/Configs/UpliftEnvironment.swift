@@ -18,6 +18,10 @@ enum UpliftEnvironment {
 #else
         static let baseURL: String = "PROD_URL"
 #endif
+        static let announcementsCommonPath = "ANNOUNCEMENTS_COMMON_PATH"
+        static let announcementsHost = "ANNOUNCEMENTS_HOST"
+        static let announcementsPath = "ANNOUNCEMENTS_PATH"
+        static let announcementsScheme = "ANNOUNCEMENTS_SCHEME"
     }
 
     /// A dictionary storing key-value pairs from Info.plist.
@@ -37,9 +41,45 @@ enum UpliftEnvironment {
     static let baseURL: URL = {
         guard let baseURLString = UpliftEnvironment.infoDict[Keys.baseURL] as? String,
               let baseURL = URL(string: baseURLString) else {
-            fatalError("Base URL not found in Info.plist")
+#if DEBUG
+            fatalError("DEV_URL not found in Info.plist")
+#else
+            fatalError("PROD_URL not found in Info.plist")
+#endif
         }
         return baseURL
+    }()
+
+    /// The common path for AppDev Announcements.
+    static let announcementsCommonPath: String = {
+        guard let value = UpliftEnvironment.infoDict[Keys.announcementsCommonPath] as? String else {
+            fatalError("ANNOUNCEMENTS_COMMON_PATH not found in Info.plist")
+        }
+        return value
+    }()
+
+    /// The host AppDev Announcements.
+    static let announcementsHost: String = {
+        guard let value = UpliftEnvironment.infoDict[Keys.announcementsHost] as? String else {
+            fatalError("ANNOUNCEMENTS_HOST not found in Info.plist")
+        }
+        return value
+    }()
+
+    /// The path for AppDev Announcements.
+    static let announcementsPath: String = {
+        guard let value = UpliftEnvironment.infoDict[Keys.announcementsPath] as? String else {
+            fatalError("ANNOUNCEMENTS_PATH not found in Info.plist")
+        }
+        return value
+    }()
+
+    /// The scheme for AppDev Announcements.
+    static let announcementsScheme: String = {
+        guard let value = UpliftEnvironment.infoDict[Keys.announcementsScheme] as? String else {
+            fatalError("ANNOUNCEMENTS_SCHEME not found in Info.plist")
+        }
+        return value
     }()
 
 }

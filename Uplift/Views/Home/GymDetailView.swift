@@ -16,6 +16,7 @@ struct GymDetailView: View {
     // MARK: - Properties
 
     let gym: Gym
+    var isTeagleUpSelected: Bool = false
 
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = ViewModel()
@@ -48,7 +49,7 @@ struct GymDetailView: View {
         .onAppear {
             viewModel.fetchDaysOfWeek()
             viewModel.fetchBuildingHours(for: gym)
-            viewModel.determineSelectedTab(gym: gym)
+            viewModel.determineSelectedTab(gym: gym, isTeagleUpSelected: isTeagleUpSelected)
         }
         .background(Constants.Colors.white)
     }
