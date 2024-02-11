@@ -72,6 +72,7 @@
 		2EE5F3E42B12EDB6008E0299 /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E32B12EDB6008E0299 /* ApolloAPI */; };
 		2EF1A2582B129EEB007A299F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1A2572B129EEB007A299F /* Network.swift */; };
 		842FB0CCD71C3202DE5836F1 /* Pods_Uplift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E86AC23F1B9AFB11552390BF /* Pods_Uplift.framework */; };
+		89ECDA892B79885C0006A160 /* StretchyModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89ECDA882B79885C0006A160 /* StretchyModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +146,7 @@
 		2EE5F3C92B12E34D008E0299 /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF1A2572B129EEB007A299F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		61B508C772C15943F0FDB2E8 /* Pods-Uplift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.debug.xcconfig"; path = "Target Support Files/Pods-Uplift/Pods-Uplift.debug.xcconfig"; sourceTree = "<group>"; };
+		89ECDA882B79885C0006A160 /* StretchyModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyModifier.swift; sourceTree = "<group>"; };
 		D6EB08EC41E957E55D918532 /* Pods-Uplift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.release.xcconfig"; path = "Target Support Files/Pods-Uplift/Pods-Uplift.release.xcconfig"; sourceTree = "<group>"; };
 		E86AC23F1B9AFB11552390BF /* Pods_Uplift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Uplift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -333,6 +335,7 @@
 				2E6785BD2B3A513000DD3ADA /* SemiCircleShape.swift */,
 				2E15F5012B396EC500414BEC /* ShadowModifier.swift */,
 				2E5726C62B4A63AE00D3DB36 /* ShimmerModifier.swift */,
+				89ECDA882B79885C0006A160 /* StretchyModifier.swift */,
 				2E15F5112B3A3D0000414BEC /* TriangleShape.swift */,
 			);
 			path = Custom;
@@ -670,6 +673,7 @@
 				2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */,
 				2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */,
 				2E15F5062B39F81B00414BEC /* MainView.swift in Sources */,
+				89ECDA892B79885C0006A160 /* StretchyModifier.swift in Sources */,
 				2E39D82A2B3B9F3D00AD238B /* FacilityExpandedView.swift in Sources */,
 				2E39D82C2B3BB35000AD238B /* FacilityExpandedViewModel.swift in Sources */,
 				2E3D6C202B1285D200B51BB2 /* UpliftEnvironment.swift in Sources */,
