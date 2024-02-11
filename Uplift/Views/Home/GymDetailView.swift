@@ -81,14 +81,16 @@ struct GymDetailView: View {
     @MainActor
     private var heroSection: some View {
         ZStack(alignment: .center) {
-            KFImage(gym.imageUrl)
-                .placeholder {
-                    Constants.Colors.gray01
-                }
-                .resizable()
-                .scaledToFill()
-                .frame(height: 330)
-                .clipped()
+            GeometryReader { geometryProxy in
+                KFImage(gym.imageUrl)
+                    .placeholder {
+                        Constants.Colors.gray01
+                    }
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .stretchy(geometryProxy)
+            }
+            .frame(height: 330)
 
             if viewModel.showHours {
                 hoursView
