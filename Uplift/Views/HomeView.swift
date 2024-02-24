@@ -132,7 +132,7 @@ struct HomeView: View {
                 viewModel.showCapacities ? capacitiesView : nil
 
                 HStack {
-                    Text("GYMS")
+                    Text("RECREATION CENTERS")
                         .foregroundStyle(Constants.Colors.gray03)
                         .font(Constants.Fonts.h3)
 
