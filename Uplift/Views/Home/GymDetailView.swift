@@ -59,6 +59,7 @@ struct GymDetailView: View {
             heroSection
             !gym.amenities.isEmpty ? amenitiesSection : nil
             slidingTabBar(gymName: viewModel.determineGymNameEnum(gym: gym))
+            DividerLine()
 
             Group {
                 if viewModel.selectedTab == .fitnessCenter {
