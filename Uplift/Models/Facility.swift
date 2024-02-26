@@ -32,6 +32,9 @@ struct Facility: Hashable {
 
     /// The status of this facility.
     let status: Status?
+    
+    /// The equipments of this facility.
+    let equipment: [Equipment]
 
     // MARK: - Functions
 
@@ -47,6 +50,7 @@ struct Facility: Hashable {
 
         self.facilityType = facility.facilityType.value
         self.hours = [OpenHours](facility.hours?.compactMap(\.?.fragments.openHoursFields) ?? [])
+        self.equipment = [Equipment](facility.equipment?.compactMap(\.?.fragments.equipmentFields) ?? [])
         self.name = facility.name
         self.status = self.hours.getStatus()
     }
