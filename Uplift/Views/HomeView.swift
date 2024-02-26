@@ -64,7 +64,7 @@ struct HomeView: View {
 
     private var capacitiesView: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("GYM CAPACITIES")
+            Text("FITNESS CENTER CAPACITIES")
                 .foregroundStyle(Constants.Colors.gray03)
                 .font(Constants.Fonts.h3)
 
@@ -132,7 +132,7 @@ struct HomeView: View {
                 viewModel.showCapacities ? capacitiesView : nil
 
                 HStack {
-                    Text("GYMS")
+                    Text("RECREATION CENTERS")
                         .foregroundStyle(Constants.Colors.gray03)
                         .font(Constants.Fonts.h3)
 

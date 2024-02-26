@@ -82,14 +82,16 @@ struct GymDetailView: View {
     @MainActor
     private var heroSection: some View {
         ZStack(alignment: .center) {
-            KFImage(gym.imageUrl)
-                .placeholder {
-                    Constants.Colors.gray01
-                }
-                .resizable()
-                .scaledToFill()
-                .frame(height: 330)
-                .clipped()
+            GeometryReader { geometryProxy in
+                KFImage(gym.imageUrl)
+                    .placeholder {
+                        Constants.Colors.gray01
+                    }
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .stretchy(geometryProxy)
+            }
+            .frame(height: 330)
 
             if viewModel.showHours {
                 hoursView
@@ -119,20 +121,33 @@ struct GymDetailView: View {
             VStack(spacing: 4) {
                 Spacer()
 
-                switch gym.status {
-                case .closed:
-                    Text("CLOSED")
-                        .font(Constants.Fonts.h3)
-                        .foregroundStyle(Constants.Colors.closed)
-                case .open:
+                if viewModel.fitnessCenterIsOpen(gym: gym) {
                     Text("OPEN")
                         .font(Constants.Fonts.h3)
                         .foregroundStyle(Constants.Colors.open)
-                case .none:
-                    EmptyView()
+                        .padding(12)
+                } else {
+                    Text("CLOSED")
+                        .font(Constants.Fonts.h3)
+                        .foregroundStyle(Constants.Colors.closed)
+                        .padding(12)
                 }
 
-                viewHoursButton
+                // TODO: Removed building hours. Determine what should be displayed here.
+//                switch gym.status {
+//                case .closed:
+//                    Text("CLOSED")
+//                        .font(Constants.Fonts.h3)
+//                        .foregroundStyle(Constants.Colors.closed)
+//                case .open:
+//                    Text("OPEN")
+//                        .font(Constants.Fonts.h3)
+//                        .foregroundStyle(Constants.Colors.open)
+//                case .none:
+//                    EmptyView()
+//                }
+//
+//                viewHoursButton
             }
             .frame(height: 120)
         }

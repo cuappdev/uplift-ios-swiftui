@@ -80,6 +80,18 @@ extension GymDetailView {
             }
         }
 
+        /// Determine whether at least one fitness center is open at this `Gym`.
+        func fitnessCenterIsOpen(gym: Gym) -> Bool {
+            gym.fitnessCenters.allSatisfy {
+                switch $0.status {
+                case .closed:
+                    return false
+                default:
+                    return true
+                }
+            }
+        }
+
     }
 
 }
