@@ -73,6 +73,7 @@
 		2EF1A2582B129EEB007A299F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1A2572B129EEB007A299F /* Network.swift */; };
 		842FB0CCD71C3202DE5836F1 /* Pods_Uplift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E86AC23F1B9AFB11552390BF /* Pods_Uplift.framework */; };
 		89ECDA892B79885C0006A160 /* StretchyModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89ECDA882B79885C0006A160 /* StretchyModifier.swift */; };
+		89921C392B8A98BA00364400 /* HomeGymCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89921C382B8A98BA00364400 /* HomeGymCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +148,7 @@
 		2EF1A2572B129EEB007A299F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		61B508C772C15943F0FDB2E8 /* Pods-Uplift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.debug.xcconfig"; path = "Target Support Files/Pods-Uplift/Pods-Uplift.debug.xcconfig"; sourceTree = "<group>"; };
 		89ECDA882B79885C0006A160 /* StretchyModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyModifier.swift; sourceTree = "<group>"; };
+		89921C382B8A98BA00364400 /* HomeGymCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGymCellViewModel.swift; sourceTree = "<group>"; };
 		D6EB08EC41E957E55D918532 /* Pods-Uplift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.release.xcconfig"; path = "Target Support Files/Pods-Uplift/Pods-Uplift.release.xcconfig"; sourceTree = "<group>"; };
 		E86AC23F1B9AFB11552390BF /* Pods_Uplift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Uplift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -259,6 +261,7 @@
 				2E39D82B2B3BB35000AD238B /* FacilityExpandedViewModel.swift */,
 				2E39D8232B3B66FD00AD238B /* FitnessCenterViewModel.swift */,
 				2E6785C12B3A5CE000DD3ADA /* GymDetailViewModel.swift */,
+				89921C382B8A98BA00364400 /* HomeGymCellViewModel.swift */,
 				2E1105BE2B13B0E100119F5B /* HomeViewModel.swift */,
 			);
 			path = ViewModels;
@@ -684,6 +687,7 @@
 				2E15F4E62B391E5300414BEC /* Array+Extension.swift in Sources */,
 				2E45B2472B4F643500FB83B7 /* AnalyticsManager.swift in Sources */,
 				2E39D8202B3B623B00AD238B /* FitnessCenterView.swift in Sources */,
+				89921C392B8A98BA00364400 /* HomeGymCellViewModel.swift in Sources */,
 				2E1105C22B13D15100119F5B /* HomeGymCell.swift in Sources */,
 				2E15F4F92B3950F800414BEC /* Date+Extension.swift in Sources */,
 				2E8FE3902B1278B700B3DC6A /* UpliftApp.swift in Sources */,
