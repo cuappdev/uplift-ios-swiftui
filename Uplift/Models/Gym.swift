@@ -90,4 +90,66 @@ struct Gym: Hashable {
         facilities.filter { $0.facilityType != .fitness }
     }
 
+    /**
+     Determine whether at least one fitness center is open at this `Gym` depending on its fitness centers' hours.
+
+     - Parameters:
+        - currentTime: The current time to compare determine the status. Default is now.
+
+     - Returns: A `Bool` representing whether at least one of its fitness centers is open.
+     */
+    func fitnessCenterIsOpen(currentTime: Date = Date.now) -> Bool {
+        fitnessCenters.contains {
+            switch $0.hours.getStatus(currentTime: currentTime) {
+            case .open:
+                return true
+            default:
+                return false
+            }
+        }
+    }
+
+    /**
+     Retrieve the status of the `Gym` depending on the fitness centers' hours.
+
+     - Parameters:
+        - currentTime: The current time to compare determine the status. Default is now.
+
+     - Returns: A `Status` object based on its fitness centers' hours. `nil`if there are no open or close hours in the future.
+     */
+    func determineStatus(currentTime: Date = Date.now) -> Status? {
+        if fitnessCenterIsOpen(currentTime: currentTime) {
+            // Get all possible close times
+            let closeTimes = fitnessCenters.compactMap {
+                switch $0.hours.getStatus(currentTime: currentTime) {
+                case .open(let closeTime):
+                    return closeTime
+                default:
+                    return nil
+                }
+            }
+
+            // Get the latest closing time
+            if let closeTime = closeTimes.max() {
+                return Status.open(closeTime: closeTime)
+            }
+        } else {
+            // Get all possible open times
+            let openTimes = fitnessCenters.compactMap {
+                switch $0.hours.getStatus(currentTime: currentTime) {
+                case .closed(let openTime):
+                    return openTime
+                default:
+                    return nil
+                }
+            }
+
+            // Get the earliest open time
+            if let openTime = openTimes.min() {
+                return Status.closed(openTime: openTime)
+            }
+        }
+        return nil
+    }
+
 }

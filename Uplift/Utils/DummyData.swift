@@ -421,6 +421,219 @@ struct DummyData {
         "name": "Helen Newman"
     ]
 
+    /// Dummy data for Teagle.
+    let teagle: [String: Any] = [
+        "__typename": "Gym",
+        "id": "2",
+        "address": "512 Campus Rd",
+        "amenities": [
+            [
+                "__typename": "Amenity",
+                "type": "SHOWERS"
+            ],
+            [
+                "__typename": "Amenity",
+                "type": "LOCKERS"
+            ],
+            [
+                "__typename": "Amenity",
+                "type": "PARKING"
+            ]
+        ],
+        "facilities": [
+            [
+                "__typename": "Facility",
+                "id": "1",
+                "capacity": [
+                    "__typename": "Capacity",
+                    "count": 0,
+                    "percent": 0.0,
+                    "updated": 1709155500
+                ],
+                "facilityType": "FITNESS",
+                "hours": [
+                    [
+                        "__typename": "OpenHours",
+                        "endTime": 1709418600,
+                        "isSpecial": false,
+                        "startTime": 1709398800
+                    ],
+                    [
+                        "__typename": "OpenHours",
+                        "endTime": 1709505000,
+                        "isSpecial": false,
+                        "startTime": 1709485200
+                    ],
+                    [
+                        "__typename": "OpenHours",
+                        "endTime": 1709610300,
+                        "isSpecial": false,
+                        "startTime": 1709553600
+                    ],
+                    [
+                        "__typename": "OpenHours",
+                        "endTime": 1709696700,
+                        "isSpecial": false,
+                        "startTime": 1709640000
+                    ],
+                    [
+                        "__typename": "OpenHours",
+                        "endTime": 1709178300,
+                        "isSpecial": false,
+                        "startTime": 1709121600
+                    ],
+                    [
+                        "__typename": "OpenHours",
+                        "endTime": 1709264700,
+                        "isSpecial": false,
+                        "startTime": 1709208000
+                    ],
+                    [
+                        "__typename": "OpenHours",
+                        "endTime": 1709351100,
+                        "isSpecial": false,
+                        "startTime": 1709294400
+                    ]
+                ],
+                "name": "Teagle Up Fitness Center"
+            ],
+            [
+                "__typename": "Facility",
+                "id": "2",
+                "capacity": [
+                    "__typename": "Capacity",
+                    "count": 0,
+                    "percent": 0.0,
+                    "updated": 1709155320
+                ],
+                "facilityType": "FITNESS",
+                "hours": [
+                    [
+                        "__typename": "OpenHours",
+                        "endTime": 1709418600,
+                        "isSpecial": false,
+                        "startTime": 1709398800
+                    ],
+                    [
+                        "__typename": "OpenHours",
+                        "endTime": 1709505000,
+                        "isSpecial": false,
+                        "startTime": 1709485200
+                    ],
+                    [
+                        "__typename": "OpenHours",
+                        "endTime": 1709559000,
+                        "isSpecial": false,
+                        "startTime": 1709553600
+                    ],
+                    [
+                        "__typename": "OpenHours",
+                        "endTime": 1709610300,
+                        "isSpecial": false,
+                        "startTime": 1709564400
+                    ],
+                    [
+                        "__typename": "OpenHours",
+                        "endTime": 1709645400,
+                        "isSpecial": false,
+                        "startTime": 1709640000
+                    ],
+                    [
+                        "__typename": "OpenHours",
+                        "endTime": 1709696700,
+                        "isSpecial": false,
+                        "startTime": 1709650800
+                    ],
+                    [
+                        "__typename": "OpenHours",
+                        "endTime": 1709127000,
+                        "isSpecial": false,
+                        "startTime": 1709121600
+                    ],
+                    [
+                        "__typename": "OpenHours",
+                        "endTime": 1709178300,
+                        "isSpecial": false,
+                        "startTime": 1709132400
+                    ],
+                    [
+                        "__typename": "OpenHours",
+                        "endTime": 1709213400,
+                        "isSpecial": false,
+                        "startTime": 1709208000
+                    ],
+                    [
+                        "__typename": "OpenHours",
+                        "endTime": 1709264700,
+                        "isSpecial": false,
+                        "startTime": 1709218800
+                    ],
+                    [
+                        "__typename": "OpenHours",
+                        "endTime": 1709299800,
+                        "isSpecial": false,
+                        "startTime": 1709294400
+                    ],
+                    [
+                        "__typename": "OpenHours",
+                        "endTime": 1709351100,
+                        "isSpecial": false,
+                        "startTime": 1709305200
+                    ]
+                ],
+                "name": "Teagle Down Fitness Center"
+            ]
+        ],
+        "hours": [
+            [
+                "__typename": "OpenHours",
+                "endTime": 1709179200,
+                "isSpecial": false,
+                "startTime": 1709121600
+            ],
+            [
+                "__typename": "OpenHours",
+                "endTime": 1709265600,
+                "isSpecial": false,
+                "startTime": 1709208000
+            ],
+            [
+                "__typename": "OpenHours",
+                "endTime": 1709352000,
+                "isSpecial": false,
+                "startTime": 1709294400
+            ],
+            [
+                "__typename": "OpenHours",
+                "endTime": 1709420400,
+                "isSpecial": false,
+                "startTime": 1709391600
+            ],
+            [
+                "__typename": "OpenHours",
+                "endTime": 1709506800,
+                "isSpecial": false,
+                "startTime": 1709485200
+            ],
+            [
+                "__typename": "OpenHours",
+                "endTime": 1709611200,
+                "isSpecial": false,
+                "startTime": 1709553600
+            ],
+            [
+                "__typename": "OpenHours",
+                "endTime": 1709697600,
+                "isSpecial": false,
+                "startTime": 1709640000
+            ]
+        ],
+        "imageUrl": "https://raw.githubusercontent.com/cuappdev/assets/master/uplift/gyms/teagle.jpg",
+        "latitude": 42.4459926380709,
+        "longitude": -76.47915389837931,
+        "name": "Teagle"
+    ]
+
     /// Dummy data for open hours.
     let openHours: [[String: Any]] = [
         [

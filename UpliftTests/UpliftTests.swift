@@ -71,4 +71,64 @@ final class UpliftTests: XCTestCase {
         XCTAssertEqual(expected, result)
     }
 
+    /// Test procedure for computing whether at least one fitness center is open at a `Gym`.
+    @MainActor func testFitnessCenterIsOpen() {
+        let gym = DummyData.uplift.getGym(data: DummyData.uplift.teagle)!
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy h:mm a"
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+
+        // Both fitness centers are open
+        var current = formatter.date(from: "3/5/2024 12:00 PM")!
+        var expected = true
+        var result = gym.fitnessCenterIsOpen(currentTime: current)
+        XCTAssertEqual(expected, result)
+
+        // One fitness center is open
+        current = formatter.date(from: "3/5/2024 2:00 PM")!
+        expected = true
+        result = gym.fitnessCenterIsOpen(currentTime: current)
+        XCTAssertEqual(expected, result)
+
+        // Neither fitness centers are open
+        current = formatter.date(from: "3/5/2024 4:00 AM")!
+        expected = false
+        result = gym.fitnessCenterIsOpen(currentTime: current)
+        XCTAssertEqual(expected, result)
+    }
+
+    /// Test procedure for computing the status of the `Gym` based its fitness centers' hours.
+    @MainActor func testDetermineStatus() {
+        let gym = DummyData.uplift.getGym(data: DummyData.uplift.teagle)!
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy h:mm a"
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+
+        // Both fitness centers are open, close times are the same
+        var current = formatter.date(from: "3/3/2024 7:00 PM")!
+        var expected = Status.open(closeTime: formatter.date(from: "3/3/2024 10:30 PM")!)
+        var result = gym.determineStatus(currentTime: current)
+        XCTAssertEqual(expected, result)
+
+        // Both fitness centers are open, close times are different
+        current = formatter.date(from: "3/5/2024 12:00 PM")!
+        expected = Status.open(closeTime: formatter.date(from: "3/6/2024 3:45 AM")!)
+        result = gym.determineStatus(currentTime: current)
+        XCTAssertEqual(expected, result)
+
+        // One fitness center is open, close time is of current fitness center open
+        current = formatter.date(from: "3/5/2024 2:00 PM")!
+        expected = Status.open(closeTime: formatter.date(from: "3/6/2024 3:45 AM")!)
+        result = gym.determineStatus(currentTime: current)
+        XCTAssertEqual(expected, result)
+
+        // Neither fitness center is open
+        current = formatter.date(from: "3/5/2024 4:00 AM")!
+        expected = Status.closed(openTime: formatter.date(from: "3/5/2024 12:00 PM")!)
+        result = gym.determineStatus(currentTime: current)
+        XCTAssertEqual(expected, result)
+    }
+
 }
