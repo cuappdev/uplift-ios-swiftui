@@ -72,7 +72,7 @@ final class UpliftTests: XCTestCase {
     }
 
     /// Test procedure for computing whether at least one fitness center is open at a `Gym`.
-    @MainActor func testFitnessCenterIsOpen() {
+    func testFitnessCenterIsOpen() {
         let gym = DummyData.uplift.getGym(data: DummyData.uplift.teagle)!
 
         let formatter = DateFormatter()
@@ -99,7 +99,7 @@ final class UpliftTests: XCTestCase {
     }
 
     /// Test procedure for computing the status of the `Gym` based its fitness centers' hours.
-    @MainActor func testDetermineStatus() {
+    func testDetermineStatus() {
         let gym = DummyData.uplift.getGym(data: DummyData.uplift.teagle)!
 
         let formatter = DateFormatter()
