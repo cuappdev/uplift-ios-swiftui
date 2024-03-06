@@ -11,12 +11,12 @@ import SwiftUI
 /// A view modifier that applies a stretchy effect to the header image.
 struct StretchyModifier: ViewModifier {
 
-    var geometryProxy: GeometryProxy
+    var geometry: GeometryProxy
 
     func body(content: Content) -> some View {
-        let minY = geometryProxy.frame(in: .global).minY
-        let originY = geometryProxy.frame(in: .global).origin.y
-        let height = geometryProxy.size.height
+        let minY = geometry.frame(in: .global).minY
+        let originY = geometry.frame(in: .global).origin.y
+        let height = geometry.size.height
 
         content
             .frame(height: minY > 0 ? height + originY : height)
@@ -29,9 +29,9 @@ struct StretchyModifier: ViewModifier {
 extension View {
 
     @ViewBuilder
-    func stretchy(_ gp: GeometryProxy) -> some View {
+    func stretchy(_ geometry: GeometryProxy) -> some View {
         self
-            .modifier(StretchyModifier(geometryProxy: gp))
+            .modifier(StretchyModifier(geometry: geometry))
     }
 
 }

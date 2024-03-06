@@ -81,14 +81,14 @@ struct GymDetailView: View {
     @MainActor
     private var heroSection: some View {
         ZStack(alignment: .center) {
-            GeometryReader { geometryProxy in
+            GeometryReader { geometry in
                 KFImage(gym.imageUrl)
                     .placeholder {
                         Constants.Colors.gray01
                     }
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .stretchy(geometryProxy)
+                    .stretchy(geometry)
             }
             .frame(height: 330)
 
