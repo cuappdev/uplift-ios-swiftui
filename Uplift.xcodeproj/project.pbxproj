@@ -511,9 +511,9 @@
 				2EE5F3E02B12EDB6008E0299 /* XCRemoteSwiftPackageReference "apollo-ios" */,
 				2E6785BA2B3A48D700DD3ADA /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				2EC3EE642B3C000E00E927BF /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				2E4F06DA2B4B48DC008905C8 /* XCLocalSwiftPackageReference "UpliftAPI" */,
 				2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				2EE5D6512B65E7DC004BB8F5 /* XCRemoteSwiftPackageReference "appdev-announcements" */,
+				89ED9AE92B9D76EA00995941 /* XCLocalSwiftPackageReference "UpliftAPI" */,
 			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
 			projectDirPath = "";
@@ -991,7 +991,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		2E4F06DA2B4B48DC008905C8 /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
+		89ED9AE92B9D76EA00995941 /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = UpliftAPI;
 		};

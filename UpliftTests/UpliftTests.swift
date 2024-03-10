@@ -81,21 +81,18 @@ final class UpliftTests: XCTestCase {
 
         // Both fitness centers are open
         var current = formatter.date(from: "3/5/2024 12:00 PM")!
-        var expected = true
         var result = gym.fitnessCenterIsOpen(currentTime: current)
-        XCTAssertEqual(expected, result)
+        XCTAssertTrue(result)
 
         // One fitness center is open
         current = formatter.date(from: "3/5/2024 2:00 PM")!
-        expected = true
         result = gym.fitnessCenterIsOpen(currentTime: current)
-        XCTAssertEqual(expected, result)
+        XCTAssertTrue(result)
 
         // Neither fitness centers are open
         current = formatter.date(from: "3/5/2024 4:00 AM")!
-        expected = false
         result = gym.fitnessCenterIsOpen(currentTime: current)
-        XCTAssertEqual(expected, result)
+        XCTAssertFalse(result)
     }
 
     /// Test procedure for computing the status of the `Gym` based its fitness centers' hours.

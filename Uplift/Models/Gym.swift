@@ -94,7 +94,7 @@ struct Gym: Hashable {
      Determine whether at least one fitness center is open at this `Gym` depending on its fitness centers' hours.
 
      - Parameters:
-        - currentTime: The current time to compare determine the status. Default is now.
+        - currentTime: The current time to compare with and determine the status. Default is now.
 
      - Returns: A `Bool` representing whether at least one of its fitness centers is open.
      */
@@ -113,9 +113,9 @@ struct Gym: Hashable {
      Retrieve the status of the `Gym` depending on the fitness centers' hours.
 
      - Parameters:
-        - currentTime: The current time to compare determine the status. Default is now.
+        - currentTime: The current time to compare with and determine the status. Default is now.
 
-     - Returns: A `Status` object based on its fitness centers' hours. `nil`if there are no open or close hours in the future.
+     - Returns: A `Status` object based on its fitness centers' hours. `nil` if there are no open or close hours in the future.
      */
     func determineStatus(currentTime: Date = Date.now) -> Status? {
         if fitnessCenterIsOpen(currentTime: currentTime) {
