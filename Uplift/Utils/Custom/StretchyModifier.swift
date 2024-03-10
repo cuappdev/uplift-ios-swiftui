@@ -1,5 +1,5 @@
 //
-//  StretchyHeaderModifier.swift
+//  StretchyModifier.swift
 //  Uplift
 //
 //  Created by Caitlyn Jin on 2/11/24.
