@@ -71,7 +71,7 @@ extension Array where Element == OpenHours {
      Retrieve the status of the `Gym` or `Facility` depending on its hours.
 
      - Parameters:
-        - currentTime: The current time to compare determine the status. Default is now.
+        - currentTime: The current time to compare with and determine the status. Default is now.
 
      - Returns: A `Status` object based on its hours.
      */
