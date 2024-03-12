@@ -103,6 +103,7 @@ struct Constants {
         static let parking = Image("parking")
         static let pool = Image("pool")
         static let shower = Image("shower")
+        static let whistle = Image("whistle")
     }
 
     /// Padding amounts used in Uplift.

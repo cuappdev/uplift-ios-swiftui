@@ -21,15 +21,18 @@ struct MainView: View {
     var body: some View {
         ZStack {
             HomeView()
-            // TODO: Temporarily remove tab bar for release
-            //        ZStack(alignment: .bottom) {
-            //            TabView(selection: $selectedTab) {
-            //                HomeView()
-            //                    .tag(Screen.home)
-            //            }
-            //
-            //            tabBar
-            //        }
+
+            ZStack(alignment: .bottom) {
+                TabView(selection: $selectedTab) {
+                    HomeView()
+                        .tag(Screen.home)
+
+                    ClassesView()
+                        .tag(Screen.classes)
+                }
+
+                tabBar
+            }
         }
         .onAppear {
             SwiftUIAnnounce.presentAnnouncement { _ in }
@@ -41,6 +44,10 @@ struct MainView: View {
             Spacer()
 
             tabItem(for: .home)
+
+            Spacer()
+
+            tabItem(for: .classes)
 
             Spacer()
         }
@@ -59,6 +66,12 @@ struct MainView: View {
                 tabItemView(icon: Constants.Images.dumbbellSmall, name: "Home")
             }
             .buttonStyle(.plain)
+        case .classes:
+            Button {
+                selectedTab = .classes
+            } label: {
+                tabItemView(icon: Constants.Images.whistle, name: "Classes")
+            }
         }
     }
 
@@ -82,6 +95,7 @@ extension MainView {
     /// An enumeration to keep track of which tab the user is currently on.
     private enum Screen {
         case home
+        case classes
     }
 
 }
