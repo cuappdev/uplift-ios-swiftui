@@ -118,20 +118,35 @@ struct GymDetailView: View {
             VStack(spacing: 4) {
                 Spacer()
 
-                switch gym.status {
-                case .closed:
-                    Text("CLOSED")
-                        .font(Constants.Fonts.h3)
-                        .foregroundStyle(Constants.Colors.closed)
-                case .open:
+                if gym.fitnessCenterIsOpen() {
                     Text("OPEN")
                         .font(Constants.Fonts.h3)
                         .foregroundStyle(Constants.Colors.open)
-                case .none:
-                    EmptyView()
+                        // Temporary padding to center status text while `viewHoursButton` is removed
+                        .padding(12)
+                } else {
+                    Text("CLOSED")
+                        .font(Constants.Fonts.h3)
+                        .foregroundStyle(Constants.Colors.closed)
+                        // Temporary padding to center status text while `viewHoursButton` is removed
+                        .padding(12)
                 }
 
-                viewHoursButton
+                // TODO: Removed building hours. Determine what should be displayed here.
+//                switch gym.status {
+//                case .closed:
+//                    Text("CLOSED")
+//                        .font(Constants.Fonts.h3)
+//                        .foregroundStyle(Constants.Colors.closed)
+//                case .open:
+//                    Text("OPEN")
+//                        .font(Constants.Fonts.h3)
+//                        .foregroundStyle(Constants.Colors.open)
+//                case .none:
+//                    EmptyView()
+//                }
+//
+//                viewHoursButton
             }
             .frame(height: 120)
         }
