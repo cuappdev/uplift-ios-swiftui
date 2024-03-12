@@ -82,14 +82,14 @@ struct GymDetailView: View {
     @MainActor
     private var heroSection: some View {
         ZStack(alignment: .center) {
-            GeometryReader { geometryProxy in
+            GeometryReader { geometry in
                 KFImage(gym.imageUrl)
                     .placeholder {
                         Constants.Colors.gray01
                     }
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .stretchy(geometryProxy)
+                    .stretchy(geometry)
             }
             .frame(height: 330)
 
@@ -121,15 +121,17 @@ struct GymDetailView: View {
             VStack(spacing: 4) {
                 Spacer()
 
-                if viewModel.fitnessCenterIsOpen(gym: gym) {
+                if gym.fitnessCenterIsOpen() {
                     Text("OPEN")
                         .font(Constants.Fonts.h3)
                         .foregroundStyle(Constants.Colors.open)
+                        // Temporary padding to center status text while `viewHoursButton` is removed
                         .padding(12)
                 } else {
                     Text("CLOSED")
                         .font(Constants.Fonts.h3)
                         .foregroundStyle(Constants.Colors.closed)
+                        // Temporary padding to center status text while `viewHoursButton` is removed
                         .padding(12)
                 }
 
