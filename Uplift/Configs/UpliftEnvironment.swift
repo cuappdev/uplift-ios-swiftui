@@ -58,7 +58,7 @@ enum UpliftEnvironment {
         return value
     }()
 
-    /// The host AppDev Announcements.
+    /// The host for AppDev Announcements.
     static let announcementsHost: String = {
         guard let value = UpliftEnvironment.infoDict[Keys.announcementsHost] as? String else {
             fatalError("ANNOUNCEMENTS_HOST not found in Info.plist")
