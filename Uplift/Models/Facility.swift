@@ -32,8 +32,9 @@ struct Facility: Hashable {
 
     /// The status of this facility.
     let status: Status?
-    
+
     /// The equipments of this facility.
+
     let equipment: [Equipment]
 
     // MARK: - Functions

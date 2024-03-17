@@ -9,6 +9,13 @@
 import Foundation
 import UpliftAPI
 
+extension Array where Element == Equipment {
+    /// Map an array of `EquipmentFields` to an array of `Equipment` objects.
+    init(_ equipments: [EquipmentFields]) {
+        self.init(equipments.map(Equipment.init))
+    }
+}
+
 extension Array where Element == Facility {
 
     /// Map an array of `FacilityFields` to an array of `Facility` objects.
