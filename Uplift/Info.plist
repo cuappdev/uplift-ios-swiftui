@@ -12,10 +12,10 @@
 	<string>$(ANNOUNCEMENTS_SCHEME)</string>
 	<key>CFBundleIconName</key>
 	<string>AppIcon</string>
-	<key>DEV_URL</key>
-	<string>$(DEV_URL)</string>
-	<key>PROD_URL</key>
-	<string>$(PROD_URL)</string>
+	<key>UPLIFT_DEV_URL</key>
+	<string>$(UPLIFT_DEV_URL)</string>
+	<key>UPLIFT_PROD_URL</key>
+	<string>$(UPLIFT_PROD_URL)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>BebasNeue-Regular.ttf</string>
