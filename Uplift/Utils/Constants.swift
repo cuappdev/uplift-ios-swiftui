@@ -96,14 +96,16 @@ struct Constants {
         static let bowling = Image("bowling")
         static let clock = Image("clock")
         static let dumbbellLarge = Image("dumbbell_large")
-        static let dumbbellSmall = Image("dumbbell_small")
+        static let dumbbellOutline = Image("dumbbell_outline")
+        static let dumbbellSolid = Image("dumbbell_solid")
         static let elevator = Image("elevator")
         static let lock = Image("lock")
         static let logo = Image("logo")
         static let parking = Image("parking")
         static let pool = Image("pool")
         static let shower = Image("shower")
-        static let whistle = Image("whistle")
+        static let whistleOutline = Image("whistle_outline")
+        static let whistleSolid = Image("whistle_solid")
     }
 
     /// Padding amounts used in Uplift.

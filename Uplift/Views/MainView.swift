@@ -31,6 +31,8 @@ struct MainView: View {
                         .tag(Screen.classes)
                 }
 
+                Spacer()
+
                 tabBar
             }
         }
@@ -63,14 +65,20 @@ struct MainView: View {
             Button {
                 selectedTab = .home
             } label: {
-                tabItemView(icon: Constants.Images.dumbbellSmall, name: "Home")
+                tabItemView(
+                    icon: selectedTab == .home ? Constants.Images.dumbbellSolid : Constants.Images.dumbbellOutline,
+                    name: "Home"
+                )
             }
             .buttonStyle(.plain)
         case .classes:
             Button {
                 selectedTab = .classes
             } label: {
-                tabItemView(icon: Constants.Images.whistle, name: "Classes")
+                tabItemView(
+                    icon: selectedTab == .classes ? Constants.Images.whistleSolid : Constants.Images.whistleOutline,
+                    name: "Classes"
+                )
             }
         }
     }
