@@ -32,7 +32,8 @@ extension ClassesView {
                     weekday.rawValue - Date.now.getDayOfWeek().rawValue
                 }
             }
-            return Calendar.current.date(byAdding: .day, value: weekdayValue, to: .now)?.formatted(.dateTime.day()) ?? ""
+            return Calendar.current.date(byAdding: .day, value: weekdayValue, to: .now)?
+                .formatted(.dateTime.day()) ?? ""
         }
 
     }

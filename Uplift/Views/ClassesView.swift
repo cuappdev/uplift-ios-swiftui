@@ -18,7 +18,7 @@ struct ClassesView: View {
     var body: some View {
         VStack {
             header
-            weekCalendar
+            scrollContent
         }
         .background(Constants.Colors.white)
     }
@@ -49,6 +49,14 @@ struct ClassesView: View {
         )
         .ignoresSafeArea(.all)
         .frame(height: 64)
+    }
+
+    private var scrollContent: some View {
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack {
+                weekCalendar
+            }
+        }
     }
 
     private var weekCalendar: some View {
