@@ -1,0 +1,112 @@
+"""
+A directive used by the Apollo iOS client to annotate operations or fragments that should be used exclusively for generating local cache mutations instead of as standard operations.
+"""
+directive @apollo_client_ios_localCacheMutation on QUERY | MUTATION | SUBSCRIPTION | FRAGMENT_DEFINITION
+
+"""
+A directive used by the Apollo iOS code generation engine to generate custom import statements in operation or fragment definition files. An import statement to import a module with the name provided in the `module` argument will be added to the generated definition file.
+"""
+directive @import(
+  """The name of the module to import."""
+  module: String!
+) repeatable on QUERY | MUTATION | SUBSCRIPTION | FRAGMENT_DEFINITION
+
+type Query {
+  gyms: [Gym]
+}
+
+type Gym {
+  id: ID!
+  address: String!
+  imageUrl: String
+  latitude: Float!
+  longitude: Float!
+  name: String!
+  amenities: [Amenity]
+  facilities: [Facility]
+  hours: [OpenHours]
+}
+
+type Amenity {
+  id: ID!
+  gymId: Int!
+  type: AmenityType!
+}
+
+"""An enumeration."""
+enum AmenityType {
+  SHOWERS
+  LOCKERS
+  PARKING
+  ELEVATORS
+}
+
+type Facility {
+  id: ID!
+  facilityType: FacilityType!
+  gymId: Int!
+  name: String!
+  capacity: Capacity
+  hours: [OpenHours]
+  equipment: [Equipment]
+}
+
+"""An enumeration."""
+enum FacilityType {
+  FITNESS
+  POOL
+  BOWLING
+  COURT
+}
+
+type Capacity {
+  id: ID!
+  count: Int!
+  facilityId: Int!
+  percent: Float!
+  updated: Int!
+}
+
+type OpenHours {
+  id: ID!
+  courtType: CourtType
+  endTime: Int!
+  facilityId: Int
+  gymId: Int
+  isShallow: Boolean
+  isSpecial: Boolean!
+  isWomen: Boolean
+  startTime: Int!
+}
+
+"""An enumeration."""
+enum CourtType {
+  BASKETBALL
+  VOLLEYBALL
+  BADMINTON
+}
+
+type Equipment {
+  id: ID!
+  name: String!
+  equipmentType: EquipmentType!
+  facilityId: Int!
+  quantity: Int
+  accessibility: AccessibilityType
+}
+
+"""An enumeration."""
+enum EquipmentType {
+  CARDIO
+  RACKS_AND_BENCHES
+  SELECTORIZED
+  MULTI_CABLE
+  FREE_WEIGHTS
+  MISCELLANEOUS
+  PLATE_LOADED
+}
+
+"""An enumeration."""
+enum AccessibilityType {
+  WHEELCHAIR
+}

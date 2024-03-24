@@ -1,0 +1,19 @@
+//
+//  Keys.xcconfig
+//  Uplift
+//
+//  Created by Vin Bui on 11/25/23.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+// SERVER URL
+UPLIFT_DEV_URL = https:/$()/uplift-dev.cornellappdev.com/graphql
+UPLIFT_PROD_URL = https:/$()/uplift-backend.cornellappdev.com/graphql
+
+// AppDev Announcements
+ANNOUNCEMENTS_COMMON_PATH = /active
+ANNOUNCEMENTS_HOST = announcements-backend.cornellappdev.com
+ANNOUNCEMENTS_PATH = /uplift/
+ANNOUNCEMENTS_SCHEME = https

@@ -16,10 +16,10 @@ extension FitnessCenterView {
 
         // MARK: - Properties
 
+        @Published var fetchedEquipments: [Equipment] = []
         @Published var fitnessCenterHours: [String] = []
         @Published var daysOfWeek: [String] = []
         @Published var expandHours: Bool = false
-        @Published var fetchedEquipments: [Equipment] = []
 
         // MARK: - Helpers
 
