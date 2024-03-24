@@ -18,26 +18,30 @@ This app uses CocoaPods and Swift Package Manager for dependencies.
 
 1. Clone the repository.
 2. Go to `UpliftSecrets/` and drag the following four files into **FINDER (NOT Xcode). You must create this folder through Finder.** For AppDev members, you can find these pinned in the `#uplift-ios` Slack channel.
-    - `GoogleService-Info.plist`
-    - `Keys.xcconfig`
-    - `apollo-codegen-config-dev.json`
-    - `apollo-codegen-config-prod.json`
-3. Run `pod install` to install dependencies via CocoaPods. If you do not have CocoaPods installed, you can install it using `sudo gem install cocoapods`.
-4. Open the **Workspace**, select **Uplift** under Targets, then choose the **Build Phases** tab.
+   - `GoogleService-Info.plist`
+   - `Keys.xcconfig`
+   - `apollo-codegen-config-dev.json`
+   - `apollo-codegen-config-prod.json`
+3. Install Swiftlint with `brew install swiftlint`. As of SP24, there is a bug with SPM involving incompatible OS versions with package dependencies. Because the codebase uses SPM, we don't want to introduce CocoaPods, so Swiftlint will be installed via Homebrew.
+4. Open the **Project**, select **Uplift** under Targets, then choose the **Build Phases** tab.
 
-  - There should be a run script labeled **SwiftLint**. If not, create a **New Run Script Phase** with the following script:
+- There should be a run script labeled **SwiftLint**. If not, create a **New Run Script Phase** with the following script:
 
 ```bash
-"${PODS_ROOT}/SwiftLint/swiftlint"
+if [[ "$(uname -m)" == arm64 ]]; then
+    export PATH="/opt/homebrew/bin:$PATH"
+fi
 
 if which swiftlint >/dev/null; then
     swiftlint --fix && swiftlint
 else
-    echo "WARNING: SwiftLint not installed"
+    echo "ERROR: SwiftLint not installed"
+    exit 1
 fi
+
 ```
 
-  - There should also be another run script labeled **Generate API** If not, create a **New Run Script Phase** with the following script:
+- There should also be another run script labeled **Generate API** If not, create a **New Run Script Phase** with the following script:
 
 ```bash
 CLI_PATH="./apollo-ios-cli"
@@ -52,16 +56,18 @@ if [ "${CONFIGURATION}" = "Release" ]; then
 fi
 
 "${CLI_PATH}" generate -p "${CONFIG_PATH}" -f
+
 ```
 
 5. Download and install [Apollo](https://www.apollographql.com/docs/devtools/cli/) and GraphQL with the following commands. You will need to have Node’s NPM installed on your device.
-    - `npm install -g apollo`
-    - `npm install -g graphql`
+
+   - `npm install -g apollo`
+   - `npm install -g graphql`
 
 6. Select the `Uplift` schema to use our development server and `Uplift-Prod` to use our production server.
 7. Run the following code: `./apollo-ios-cli generate -p "UpliftSecrets/apollo-codegen-config-dev.json" -f`
 8. Build the project and you should be good to go.
-    
+
 ## Common Issues
 
 If you are unable to reproduce a new Apollo generated API file, go to **Project > Package Dependencies** and remove `UpliftAPI`. Then, add a new **Local** package dependency that points to the `UpliftAPI` folder in the project directory.
