@@ -32,8 +32,8 @@ struct SlidingTabBarView<T: Hashable>: View {
     private func tab(for item: Item) -> some View {
         VStack(alignment: .center, spacing: 16) {
             Text(item.title)
-                .font(selectedTab == item.tab ? config.selectedFont : config.unselectedFont)
-                .foregroundStyle(config.color)
+                .font(config.font)
+                .foregroundStyle(selectedTab == item.tab ? config.selectedFontColor : config.unselectedFontColor)
                 .padding(.top)
 
             if selectedTab == item.tab {
@@ -68,10 +68,10 @@ extension SlidingTabBarView {
 
     /// Configuration for a tab bar.
     struct TabBarConfig {
-        var color: Color = Constants.Colors.black
-        var selectedFont: Font = Constants.Fonts.labelBold
+        var font: Font = Constants.Fonts.labelBold
+        var selectedFontColor: Color = Constants.Colors.black
         var selectedUnderlineColor: Color = Constants.Colors.yellow
-        var unselectedFont: Font = Constants.Fonts.labelMedium
+        var unselectedFontColor: Color = Constants.Colors.gray04
         var unselectedUnderlineColor: Color = Constants.Colors.white
     }
 
