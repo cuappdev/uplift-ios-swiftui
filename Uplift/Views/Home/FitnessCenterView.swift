@@ -161,7 +161,7 @@ struct FitnessCenterView: View {
         .padding(.vertical, vertPadding)
     }
 
-    func equipmentTypeCellView(eqmtType: EquipmentType) -> some View {
+    private func equipmentTypeCellView(eqmtType: EquipmentType) -> some View {
         ForEach(fc?.equipment.filter({$0.equipmentType == eqmtType}) ?? [], id: \.self) { eqmt in
             HStack {
                 Text(eqmt.name)
