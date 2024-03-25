@@ -16,7 +16,7 @@ npm install -g graphql
 
 echo "Downloading Secrets"
 brew install wget
-cd $CI_WORKSPACE/ci_scripts
+cd $CI_PRIMARY_REPOSITORY_PATH/ci_scripts
 mkdir ../UpliftSecrets
 wget -O ../UpliftSecrets/apollo-codegen-config-dev.json "$CODEGEN_DEV"
 wget -O ../UpliftSecrets/apollo-codegen-config-prod.json "$CODEGEN_PROD"
