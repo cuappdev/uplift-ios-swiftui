@@ -9,11 +9,6 @@
 echo "Installing Swiftlint via Homebrew"
 brew install swiftlint
 
-echo "Installing Apollo Client Dependencies"
-brew install node
-npm install -g apollo
-npm install -g graphql
-
 echo "Downloading Secrets"
 brew install wget
 cd $CI_PRIMARY_REPOSITORY_PATH/ci_scripts
