@@ -1,5 +1,5 @@
 {
-  "originHash" : "a2e067feeae8a29b09e602cfe4daebae519b1ec63181f605a8a6081c7af25a52",
+  "originHash" : "714cefd92745f643686cd9208941b4f8d3a95e0b976862b83c3e87622e21f45c",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -26,15 +26,6 @@
       "state" : {
         "revision" : "3e464dad87dad2d29bb29a97836789bf0f8f67d2",
         "version" : "10.18.1"
-      }
-    },
-    {
-      "identity" : "appdev-announcements",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/cuappdev/appdev-announcements",
-      "state" : {
-        "branch" : "master",
-        "revision" : "13a490d0982b02f489c7a76e3f03248de4c08e2c"
       }
     },
     {
