@@ -67,7 +67,6 @@
 		2EC3EE662B3C000E00E927BF /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 2EC3EE652B3C000E00E927BF /* Kingfisher */; };
 		2ED53DCF2B3E06DC00FBDEAB /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED53DCE2B3E06DC00FBDEAB /* Logger.swift */; };
 		2EE0C7CB2B12D6EE000D3BF6 /* GymQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */; };
-		2EE5D6532B65E7DC004BB8F5 /* AppDevAnnouncements in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5D6522B65E7DC004BB8F5 /* AppDevAnnouncements */; };
 		2EE5F3C82B12E094008E0299 /* ApolloClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */; };
 		2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E12B12EDB6008E0299 /* Apollo */; };
 		2EE5F3E42B12EDB6008E0299 /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E32B12EDB6008E0299 /* ApolloAPI */; };
@@ -164,7 +163,6 @@
 				2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */,
 				2E6785BC2B3A48D700DD3ADA /* WrappingHStack in Frameworks */,
 				2E4F06DC2B4B48DC008905C8 /* UpliftAPI in Frameworks */,
-				2EE5D6532B65E7DC004BB8F5 /* AppDevAnnouncements in Frameworks */,
 				2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */,
 				2E45B2452B4F632700FB83B7 /* FirebaseAnalytics in Frameworks */,
 				2E39D82F2B3BCBA400AD238B /* UpliftAPI in Frameworks */,
@@ -460,7 +458,6 @@
 				2E4F06DB2B4B48DC008905C8 /* UpliftAPI */,
 				2E45B23F2B4E361100FB83B7 /* FirebaseCrashlytics */,
 				2E45B2442B4F632700FB83B7 /* FirebaseAnalytics */,
-				2EE5D6522B65E7DC004BB8F5 /* AppDevAnnouncements */,
 				2E2932C52BA2B9B5008445CE /* UpliftAPI */,
 			);
 			productName = Uplift;
@@ -501,7 +498,6 @@
 				2E6785BA2B3A48D700DD3ADA /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				2EC3EE642B3C000E00E927BF /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				2EE5D6512B65E7DC004BB8F5 /* XCRemoteSwiftPackageReference "appdev-announcements" */,
 				2E2932C42BA2B9B5008445CE /* XCLocalSwiftPackageReference "UpliftAPI" */,
 			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
@@ -988,14 +984,6 @@
 				minimumVersion = 7.10.1;
 			};
 		};
-		2EE5D6512B65E7DC004BB8F5 /* XCRemoteSwiftPackageReference "appdev-announcements" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/cuappdev/appdev-announcements";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		2EE5F3E02B12EDB6008E0299 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
@@ -1046,11 +1034,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2EC3EE642B3C000E00E927BF /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
-		};
-		2EE5D6522B65E7DC004BB8F5 /* AppDevAnnouncements */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2EE5D6512B65E7DC004BB8F5 /* XCRemoteSwiftPackageReference "appdev-announcements" */;
-			productName = AppDevAnnouncements;
 		};
 		2EE5F3E12B12EDB6008E0299 /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
