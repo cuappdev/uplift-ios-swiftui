@@ -6,10 +6,8 @@
 #  Created by Vin Bui on 1/6/24.
 #  Copyright © 2024 Cornell AppDev. All rights reserved.
 
-echo "Installing Cocoapods Dependencies"
-brew install cocoapods
-pod deintegrate
-pod install
+echo "Installing Swiftlint via Homebrew"
+brew install swiftlint
 
 echo "Installing Apollo Client Dependencies"
 brew install node
@@ -18,7 +16,7 @@ npm install -g graphql
 
 echo "Downloading Secrets"
 brew install wget
-cd $CI_WORKSPACE/ci_scripts
+cd $CI_PRIMARY_REPOSITORY_PATH/ci_scripts
 mkdir ../UpliftSecrets
 wget -O ../UpliftSecrets/apollo-codegen-config-dev.json "$CODEGEN_DEV"
 wget -O ../UpliftSecrets/apollo-codegen-config-prod.json "$CODEGEN_PROD"

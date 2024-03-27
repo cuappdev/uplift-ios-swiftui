@@ -13,7 +13,6 @@ struct HomeGymCell: View {
 
     // MARK: - Properties
 
-    @StateObject private var viewModel = ViewModel()
     let gym: Gym
 
     @State private var distance: String = "0.0"
@@ -64,7 +63,7 @@ struct HomeGymCell: View {
                 gymNameText
                 statusText
 
-                if viewModel.fitnessCenterIsOpen(gym: gym) {
+                if gym.fitnessCenterIsOpen() {
                     capacityText
                 } else {
                     // All fitness centers are closed
@@ -106,28 +105,21 @@ struct HomeGymCell: View {
 
     private var statusText: some View {
         HStack(spacing: 8) {
-            if viewModel.fitnessCenterIsOpen(gym: gym) {
-                // Currently open, determine close time
-                if let closeTime = viewModel.determineCloseTime(gym: gym) {
-                    Text("Open")
-                        .foregroundStyle(Constants.Colors.open)
+            switch gym.determineStatus() {
+            case .closed(let openTime):
+                Text("Closed")
+                    .foregroundStyle(Constants.Colors.closed)
 
-                    Text("Closes at \(closeTime.timeStringNoTrailingZeros)")
-                        .foregroundStyle(Constants.Colors.gray03)
-                } else {
-                    EmptyView()
-                }
-            } else {
-                // Currently closed, determine open time
-                if let openTime = viewModel.determineOpenTime(gym: gym) {
-                    Text("Closed")
-                        .foregroundStyle(Constants.Colors.closed)
+                Text("Opens at \(openTime.timeStringNoTrailingZeros)")
+                    .foregroundStyle(Constants.Colors.gray03)
+            case .open(let closeTime):
+                Text("Open")
+                    .foregroundStyle(Constants.Colors.open)
 
-                    Text("Opens at \(openTime.timeStringNoTrailingZeros)")
-                        .foregroundStyle(Constants.Colors.gray03)
-                } else {
-                    EmptyView()
-                }
+                Text("Closes at \(closeTime.timeStringNoTrailingZeros)")
+                    .foregroundStyle(Constants.Colors.gray03)
+            case .none:
+                EmptyView()
             }
         }
         .font(Constants.Fonts.labelMedium)
