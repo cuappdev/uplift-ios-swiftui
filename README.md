@@ -59,14 +59,9 @@ fi
 
 ```
 
-5. Download and install [Apollo](https://www.apollographql.com/docs/devtools/cli/) and GraphQL with the following commands. You will need to have Node’s NPM installed on your device.
-
-   - `npm install -g apollo`
-   - `npm install -g graphql`
-
-6. Select the `Uplift` schema to use our development server and `Uplift-Prod` to use our production server.
-7. Run the following code: `./apollo-ios-cli generate -p "UpliftSecrets/apollo-codegen-config-dev.json" -f`
-8. Build the project and you should be good to go.
+5. Select the `Uplift` schema to use our development server and `Uplift-Prod` to use our production server.
+6. Run the following code: `./apollo-ios-cli generate -p "UpliftSecrets/apollo-codegen-config-dev.json" -f`
+7. Build the project and you should be good to go.
 
 ## Common Issues
 
