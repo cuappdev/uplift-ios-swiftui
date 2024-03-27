@@ -21,7 +21,6 @@ mkdir ../UpliftSecrets
 wget -O ../UpliftSecrets/apollo-codegen-config-dev.json "$CODEGEN_DEV"
 wget -O ../UpliftSecrets/apollo-codegen-config-prod.json "$CODEGEN_PROD"
 wget -O ../UpliftSecrets/Keys.xcconfig "$KEYS"
-wget -O ../UpliftSecrets/schema.graphqls "$SCHEMA"
 wget -O ../UpliftSecrets/GoogleService-Info.plist "$GOOGLE_PLIST"
 
 echo "Generating API file"
