@@ -55,6 +55,15 @@ struct ClassesView: View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
                 weekCalendar
+
+                VStack(spacing: 12) {
+                    // TODO: Temporary hardcoded class cells
+                    ClassCell()
+                    ClassCell()
+                    ClassCell()
+                    ClassCell()
+                }
+                .padding(.horizontal, 16)
             }
         }
     }
