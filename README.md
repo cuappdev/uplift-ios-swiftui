@@ -12,7 +12,7 @@ You must have at least Xcode 15.0, iOS 16.0, and Swift 5.5 to run this app.
 
 ## Dependencies
 
-This app uses CocoaPods and Swift Package Manager for dependencies.
+This app uses Swift Package Manager for dependencies.
 
 ## Getting Started
 
@@ -65,14 +65,15 @@ fi
 
 ## Common Issues
 
-If you are unable to reproduce a new Apollo generated API file, go to **Project > Package Dependencies** and remove `UpliftAPI`. Then, add a new **Local** package dependency that points to the `UpliftAPI` folder in the project directory.
+- If you are unable to reproduce a new Apollo generated API folder, go to **Project > Package Dependencies** and remove `UpliftAPI`. Then, add a new **Local** package dependency that points to the `UpliftAPI` folder in the project directory.
+- If the build script for generating the API folder doesn't work, you can manually generate the API via `./apollo-ios-cli generate -p "UpliftSecrets/apollo-codegen-config-dev.json" -f`
 
 ## Codebase Outline
 
-- **Configs**: the app environment settings, like production, staging, and development configurations, all using the .xcconfig files.
-- **Core**: the app’s entry point.
+- **Configs**: the app environment settings, like production, staging, and development configurations.
+- **Core**: the app’s entry point and LaunchScreen.
 - **Models**: model objects used by the API and throughout the app.
-- **Resources**: the project assets, LaunchScreen.storyboard, etc.
+- **Resources**: the project assets, such as fonts.
 - **Services**: service helpers such as a Networking API service, CoreData, SwiftData, UserDefaults, etc.
 - **Utils**: other helper files such as constants, extensions, custom errors, etc.
 - **ViewModels**: our app’s view models which implement properties and commands to which the view can data bind to and notify the view of any state changes.
