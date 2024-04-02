@@ -9,19 +9,13 @@
 echo "Installing Swiftlint via Homebrew"
 brew install swiftlint
 
-echo "Installing Apollo Client Dependencies"
-brew install node
-npm install -g apollo
-npm install -g graphql
-
 echo "Downloading Secrets"
 brew install wget
-cd $CI_WORKSPACE/ci_scripts
+cd $CI_PRIMARY_REPOSITORY_PATH/ci_scripts
 mkdir ../UpliftSecrets
 wget -O ../UpliftSecrets/apollo-codegen-config-dev.json "$CODEGEN_DEV"
 wget -O ../UpliftSecrets/apollo-codegen-config-prod.json "$CODEGEN_PROD"
 wget -O ../UpliftSecrets/Keys.xcconfig "$KEYS"
-wget -O ../UpliftSecrets/schema.graphqls "$SCHEMA"
 wget -O ../UpliftSecrets/GoogleService-Info.plist "$GOOGLE_PLIST"
 
 echo "Generating API file"
