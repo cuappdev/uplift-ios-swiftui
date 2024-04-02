@@ -59,6 +59,7 @@ struct GymDetailView: View {
             heroSection
             !gym.amenities.isEmpty ? amenitiesSection : nil
             slidingTabBar(gymName: viewModel.determineGymNameEnum(gym: gym))
+            DividerLine()
 
             Group {
                 if viewModel.selectedTab == .fitnessCenter {
@@ -81,14 +82,16 @@ struct GymDetailView: View {
     @MainActor
     private var heroSection: some View {
         ZStack(alignment: .center) {
-            KFImage(gym.imageUrl)
-                .placeholder {
-                    Constants.Colors.gray01
-                }
-                .resizable()
-                .scaledToFill()
-                .frame(height: 330)
-                .clipped()
+            GeometryReader { geometry in
+                KFImage(gym.imageUrl)
+                    .placeholder {
+                        Constants.Colors.gray01
+                    }
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .stretchy(geometry)
+            }
+            .frame(height: 330)
 
             if viewModel.showHours {
                 hoursView
@@ -118,20 +121,35 @@ struct GymDetailView: View {
             VStack(spacing: 4) {
                 Spacer()
 
-                switch gym.status {
-                case .closed:
-                    Text("CLOSED")
-                        .font(Constants.Fonts.h3)
-                        .foregroundStyle(Constants.Colors.closed)
-                case .open:
+                if gym.fitnessCenterIsOpen() {
                     Text("OPEN")
                         .font(Constants.Fonts.h3)
                         .foregroundStyle(Constants.Colors.open)
-                case .none:
-                    EmptyView()
+                        // Temporary padding to center status text while `viewHoursButton` is removed
+                        .padding(12)
+                } else {
+                    Text("CLOSED")
+                        .font(Constants.Fonts.h3)
+                        .foregroundStyle(Constants.Colors.closed)
+                        // Temporary padding to center status text while `viewHoursButton` is removed
+                        .padding(12)
                 }
 
-                viewHoursButton
+                // TODO: Removed building hours. Determine what should be displayed here.
+//                switch gym.status {
+//                case .closed:
+//                    Text("CLOSED")
+//                        .font(Constants.Fonts.h3)
+//                        .foregroundStyle(Constants.Colors.closed)
+//                case .open:
+//                    Text("OPEN")
+//                        .font(Constants.Fonts.h3)
+//                        .foregroundStyle(Constants.Colors.open)
+//                case .none:
+//                    EmptyView()
+//                }
+//
+//                viewHoursButton
             }
             .frame(height: 120)
         }

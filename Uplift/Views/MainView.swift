@@ -6,7 +6,6 @@
 //  Copyright © 2023 Cornell AppDev. All rights reserved.
 //
 
-import AppDevAnnouncements
 import SwiftUI
 
 /// The app's entry point view.
@@ -30,9 +29,6 @@ struct MainView: View {
             //
             //            tabBar
             //        }
-        }
-        .onAppear {
-            SwiftUIAnnounce.presentAnnouncement { _ in }
         }
     }
 

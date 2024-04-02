@@ -6,10 +6,8 @@
 #  Created by Vin Bui on 1/6/24.
 #  Copyright © 2024 Cornell AppDev. All rights reserved.
 
-echo "Installing Cocoapods Dependencies"
-brew install cocoapods
-pod deintegrate
-pod install
+echo "Installing Swiftlint via Homebrew"
+brew install swiftlint
 
 echo "Installing Apollo Client Dependencies"
 brew install node

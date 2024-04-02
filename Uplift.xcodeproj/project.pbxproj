@@ -47,6 +47,7 @@
 		2E45B2472B4F643500FB83B7 /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E45B2462B4F643500FB83B7 /* AnalyticsManager.swift */; };
 		2E4F06DC2B4B48DC008905C8 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E4F06DB2B4B48DC008905C8 /* UpliftAPI */; };
 		2E5726C72B4A63AE00D3DB36 /* ShimmerModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5726C62B4A63AE00D3DB36 /* ShimmerModifier.swift */; };
+		2E5F33422BBC9A5600AA76B8 /* StretchyModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5F33412BBC9A5600AA76B8 /* StretchyModifier.swift */; };
 		2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6785B82B3A425E00DD3ADA /* GymDetailView.swift */; };
 		2E6785BC2B3A48D700DD3ADA /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 2E6785BB2B3A48D700DD3ADA /* WrappingHStack */; };
 		2E6785BE2B3A513000DD3ADA /* SemiCircleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6785BD2B3A513000DD3ADA /* SemiCircleShape.swift */; };
@@ -66,14 +67,12 @@
 		2EC3EE662B3C000E00E927BF /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 2EC3EE652B3C000E00E927BF /* Kingfisher */; };
 		2ED53DCF2B3E06DC00FBDEAB /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED53DCE2B3E06DC00FBDEAB /* Logger.swift */; };
 		2EE0C7CB2B12D6EE000D3BF6 /* GymQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */; };
-		2EE5D6532B65E7DC004BB8F5 /* AppDevAnnouncements in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5D6522B65E7DC004BB8F5 /* AppDevAnnouncements */; };
 		2EE5F3C82B12E094008E0299 /* ApolloClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */; };
 		2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E12B12EDB6008E0299 /* Apollo */; };
 		2EE5F3E42B12EDB6008E0299 /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E32B12EDB6008E0299 /* ApolloAPI */; };
 		2EF1A2582B129EEB007A299F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1A2572B129EEB007A299F /* Network.swift */; };
 		63A7ABCD2B86B971008D58FB /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 63A7ABCC2B86B971008D58FB /* UpliftAPI */; };
 		63A7ABCF2B8C119A008D58FB /* Equipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7ABCE2B8C119A008D58FB /* Equipment.swift */; };
-		842FB0CCD71C3202DE5836F1 /* Pods_Uplift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E86AC23F1B9AFB11552390BF /* Pods_Uplift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +124,7 @@
 		2E45B2462B4F643500FB83B7 /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		2E5726C62B4A63AE00D3DB36 /* ShimmerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerModifier.swift; sourceTree = "<group>"; };
 		2E5726CA2B4A68CC00D3DB36 /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
+		2E5F33412BBC9A5600AA76B8 /* StretchyModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StretchyModifier.swift; sourceTree = "<group>"; };
 		2E6785B82B3A425E00DD3ADA /* GymDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailView.swift; sourceTree = "<group>"; };
 		2E6785BD2B3A513000DD3ADA /* SemiCircleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiCircleShape.swift; sourceTree = "<group>"; };
 		2E6785BF2B3A5CA300DD3ADA /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
@@ -144,12 +144,8 @@
 		2ED53DCE2B3E06DC00FBDEAB /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GymQueries.graphql; sourceTree = "<group>"; };
 		2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientProtocol.swift; sourceTree = "<group>"; };
-		2EE5F3C92B12E34D008E0299 /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF1A2572B129EEB007A299F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
-		61B508C772C15943F0FDB2E8 /* Pods-Uplift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.debug.xcconfig"; path = "Target Support Files/Pods-Uplift/Pods-Uplift.debug.xcconfig"; sourceTree = "<group>"; };
 		63A7ABCE2B8C119A008D58FB /* Equipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipment.swift; sourceTree = "<group>"; };
-		D6EB08EC41E957E55D918532 /* Pods-Uplift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Uplift.release.xcconfig"; path = "Target Support Files/Pods-Uplift/Pods-Uplift.release.xcconfig"; sourceTree = "<group>"; };
-		E86AC23F1B9AFB11552390BF /* Pods_Uplift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Uplift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,11 +161,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EE5F3E42B12EDB6008E0299 /* ApolloAPI in Frameworks */,
-				842FB0CCD71C3202DE5836F1 /* Pods_Uplift.framework in Frameworks */,
 				2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */,
 				2E6785BC2B3A48D700DD3ADA /* WrappingHStack in Frameworks */,
 				2E4F06DC2B4B48DC008905C8 /* UpliftAPI in Frameworks */,
-				2EE5D6532B65E7DC004BB8F5 /* AppDevAnnouncements in Frameworks */,
 				2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */,
 				2E45B2452B4F632700FB83B7 /* FirebaseAnalytics in Frameworks */,
 				2E39D82F2B3BCBA400AD238B /* UpliftAPI in Frameworks */,
@@ -183,15 +177,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1E73905287F565F00258C43E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				2EE5F3C92B12E34D008E0299 /* Apollo.framework */,
-				E86AC23F1B9AFB11552390BF /* Pods_Uplift.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		2E090EC62B12FB9F00BAE982 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -338,6 +323,7 @@
 				2E6785BD2B3A513000DD3ADA /* SemiCircleShape.swift */,
 				2E15F5012B396EC500414BEC /* ShadowModifier.swift */,
 				2E5726C62B4A63AE00D3DB36 /* ShimmerModifier.swift */,
+				2E5F33412BBC9A5600AA76B8 /* StretchyModifier.swift */,
 				2E15F5112B3A3D0000414BEC /* TriangleShape.swift */,
 			);
 			path = Custom;
@@ -376,8 +362,6 @@
 				2E3D6C1B2B127FDA00B51BB2 /* UpliftSecrets */,
 				2E15F4EC2B39255B00414BEC /* UpliftTests */,
 				2E8FE38D2B1278B700B3DC6A /* Products */,
-				C8C3750BDACD45633415D75C /* Pods */,
-				1E73905287F565F00258C43E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -419,15 +403,6 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		C8C3750BDACD45633415D75C /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				61B508C772C15943F0FDB2E8 /* Pods-Uplift.debug.xcconfig */,
-				D6EB08EC41E957E55D918532 /* Pods-Uplift.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -453,7 +428,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2E8FE39C2B1278B900B3DC6A /* Build configuration list for PBXNativeTarget "Uplift" */;
 			buildPhases = (
-				E5FB13433826A5050DAED752 /* [CP] Check Pods Manifest.lock */,
 				2E8FE3882B1278B700B3DC6A /* Sources */,
 				2E8FE3892B1278B700B3DC6A /* Frameworks */,
 				2E8FE38A2B1278B700B3DC6A /* Resources */,
@@ -477,7 +451,6 @@
 				2E4F06DB2B4B48DC008905C8 /* UpliftAPI */,
 				2E45B23F2B4E361100FB83B7 /* FirebaseCrashlytics */,
 				2E45B2442B4F632700FB83B7 /* FirebaseAnalytics */,
-				2EE5D6522B65E7DC004BB8F5 /* AppDevAnnouncements */,
 				63A7ABCC2B86B971008D58FB /* UpliftAPI */,
 			);
 			productName = Uplift;
@@ -518,7 +491,6 @@
 				2E6785BA2B3A48D700DD3ADA /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				2EC3EE642B3C000E00E927BF /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				2EE5D6512B65E7DC004BB8F5 /* XCRemoteSwiftPackageReference "appdev-announcements" */,
 				63A7ABCB2B86B971008D58FB /* XCLocalSwiftPackageReference "UpliftAPI" */,
 			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
@@ -622,28 +594,6 @@
 			shellPath = /bin/sh;
 			shellScript = "CLI_PATH=\"./apollo-ios-cli\"\nSECRETS_PATH=\"${SRCROOT}/UpliftSecrets\"\n\nif [ \"${CONFIGURATION}\" != \"Release\" ]; then\n  CONFIG_PATH=\"${SECRETS_PATH}/apollo-codegen-config-dev.json\"\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n  CONFIG_PATH=\"${SECRETS_PATH}/apollo-codegen-config-prod.json\"\nfi\n\n\"${CLI_PATH}\" generate -p \"${CONFIG_PATH}\" -f\n";
 		};
-		E5FB13433826A5050DAED752 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Uplift-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -692,6 +642,7 @@
 				2E8FE3902B1278B700B3DC6A /* UpliftApp.swift in Sources */,
 				2EE5F3C82B12E094008E0299 /* ApolloClientProtocol.swift in Sources */,
 				2E39D8262B3B6C6500AD238B /* SlidingTabBarView.swift in Sources */,
+				2E5F33422BBC9A5600AA76B8 /* StretchyModifier.swift in Sources */,
 				2E1105C42B13D1B000119F5B /* DummyData.swift in Sources */,
 				2E15F4E22B3917B200414BEC /* Status.swift in Sources */,
 				2E15F5042B39E54700414BEC /* LocationManager.swift in Sources */,
@@ -878,7 +829,6 @@
 		};
 		2E8FE39D2B1278B900B3DC6A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 61B508C772C15943F0FDB2E8 /* Pods-Uplift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -923,7 +873,6 @@
 		};
 		2E8FE39E2B1278B900B3DC6A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D6EB08EC41E957E55D918532 /* Pods-Uplift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1029,14 +978,6 @@
 				minimumVersion = 7.10.1;
 			};
 		};
-		2EE5D6512B65E7DC004BB8F5 /* XCRemoteSwiftPackageReference "appdev-announcements" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/cuappdev/appdev-announcements";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		2EE5F3E02B12EDB6008E0299 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
@@ -1083,11 +1024,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2EC3EE642B3C000E00E927BF /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
-		};
-		2EE5D6522B65E7DC004BB8F5 /* AppDevAnnouncements */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2EE5D6512B65E7DC004BB8F5 /* XCRemoteSwiftPackageReference "appdev-announcements" */;
-			productName = AppDevAnnouncements;
 		};
 		2EE5F3E12B12EDB6008E0299 /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;

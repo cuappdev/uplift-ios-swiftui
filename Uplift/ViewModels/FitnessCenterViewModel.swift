@@ -19,7 +19,6 @@ extension FitnessCenterView {
         @Published var fitnessCenterHours: [String] = []
         @Published var daysOfWeek: [String] = []
         @Published var expandHours: Bool = false
-        @Published var fetchedEquipments: [Equipment] = []
 
         // MARK: - Helpers
 

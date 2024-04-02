@@ -10,10 +10,21 @@ import Foundation
 import UpliftAPI
 
 extension Array where Element == Equipment {
+
     /// Map an array of `EquipmentFields` to an array of `Equipment` objects.
     init(_ equipments: [EquipmentFields]) {
         self.init(equipments.map(Equipment.init))
     }
+
+    /// Returns all equipment types in this array.
+    func allTypes() -> [EquipmentType] {
+        var unique = [EquipmentType]()
+        for eqmt in self where !unique.contains(where: { $0 == eqmt.equipmentType }) {
+            unique.append(eqmt.equipmentType)
+        }
+        return unique
+    }
+
 }
 
 extension Array where Element == Facility {
@@ -78,7 +89,7 @@ extension Array where Element == OpenHours {
      Retrieve the status of the `Gym` or `Facility` depending on its hours.
 
      - Parameters:
-        - currentTime: The current time to compare determine the status. Default is now.
+        - currentTime: The current time to compare with and determine the status. Default is now.
 
      - Returns: A `Status` object based on its hours.
      */

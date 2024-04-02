@@ -63,20 +63,13 @@ struct HomeGymCell: View {
                 gymNameText
                 statusText
 
-                if gym.fitnessCenters.allSatisfy({
-                    switch $0.status {
-                    case .closed:
-                        return true
-                    default:
-                        return false
-                    }
-                }) {
+                if gym.fitnessCenterIsOpen() {
+                    capacityText
+                } else {
                     // All fitness centers are closed
                     Text("Fitness Centers Closed")
                         .font(Constants.Fonts.labelMedium)
                         .foregroundStyle(Constants.Colors.gray03)
-                } else {
-                    capacityText
                 }
             }
 
@@ -112,7 +105,7 @@ struct HomeGymCell: View {
 
     private var statusText: some View {
         HStack(spacing: 8) {
-            switch gym.status {
+            switch gym.determineStatus() {
             case .closed(let openTime):
                 Text("Closed")
                     .foregroundStyle(Constants.Colors.closed)
