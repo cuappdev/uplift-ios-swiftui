@@ -49,7 +49,6 @@
 		2E45B2472B4F643500FB83B7 /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E45B2462B4F643500FB83B7 /* AnalyticsManager.swift */; };
 		2E4F06DC2B4B48DC008905C8 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E4F06DB2B4B48DC008905C8 /* UpliftAPI */; };
 		2E5726C72B4A63AE00D3DB36 /* ShimmerModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5726C62B4A63AE00D3DB36 /* ShimmerModifier.swift */; };
-		2E5F33422BBC9A5600AA76B8 /* StretchyModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5F33412BBC9A5600AA76B8 /* StretchyModifier.swift */; };
 		2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6785B82B3A425E00DD3ADA /* GymDetailView.swift */; };
 		2E6785BC2B3A48D700DD3ADA /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 2E6785BB2B3A48D700DD3ADA /* WrappingHStack */; };
 		2E6785BE2B3A513000DD3ADA /* SemiCircleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6785BD2B3A513000DD3ADA /* SemiCircleShape.swift */; };
@@ -66,6 +65,7 @@
 		2EB090B72B131CA80039EB3B /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB090B12B131C9D0039EB3B /* Montserrat-Regular.ttf */; };
 		2EB090B82B131CA80039EB3B /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB090B02B131C9D0039EB3B /* Montserrat-Light.ttf */; };
 		2EB090B92B131CA80039EB3B /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB090AF2B131C9D0039EB3B /* Montserrat-SemiBold.ttf */; };
+		2EB161C92BBC9C3100493B71 /* StretchyModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB161C82BBC9C3100493B71 /* StretchyModifier.swift */; };
 		2EC3EE662B3C000E00E927BF /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 2EC3EE652B3C000E00E927BF /* Kingfisher */; };
 		2ED53DCF2B3E06DC00FBDEAB /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED53DCE2B3E06DC00FBDEAB /* Logger.swift */; };
 		2EE0C7CB2B12D6EE000D3BF6 /* GymQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */; };
@@ -75,7 +75,6 @@
 		2EF1A2582B129EEB007A299F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1A2572B129EEB007A299F /* Network.swift */; };
 		63A7ABCD2B86B971008D58FB /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 63A7ABCC2B86B971008D58FB /* UpliftAPI */; };
 		63A7ABCF2B8C119A008D58FB /* Equipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7ABCE2B8C119A008D58FB /* Equipment.swift */; };
-		89ECDA892B79885C0006A160 /* StretchyModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89ECDA882B79885C0006A160 /* StretchyModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,12 +144,12 @@
 		2EB090B12B131C9D0039EB3B /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		2EB090B22B131C9D0039EB3B /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
 		2EB090B32B131C9D0039EB3B /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		2EB161C82BBC9C3100493B71 /* StretchyModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StretchyModifier.swift; sourceTree = "<group>"; };
 		2ED53DCE2B3E06DC00FBDEAB /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GymQueries.graphql; sourceTree = "<group>"; };
 		2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientProtocol.swift; sourceTree = "<group>"; };
 		2EF1A2572B129EEB007A299F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		63A7ABCE2B8C119A008D58FB /* Equipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipment.swift; sourceTree = "<group>"; };
-		89ECDA882B79885C0006A160 /* StretchyModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,7 +185,6 @@
 		1E73905287F565F00258C43E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2EE5F3C92B12E34D008E0299 /* Apollo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -337,7 +335,7 @@
 				2E6785BD2B3A513000DD3ADA /* SemiCircleShape.swift */,
 				2E15F5012B396EC500414BEC /* ShadowModifier.swift */,
 				2E5726C62B4A63AE00D3DB36 /* ShimmerModifier.swift */,
-				89ECDA882B79885C0006A160 /* StretchyModifier.swift */,
+				2EB161C82BBC9C3100493B71 /* StretchyModifier.swift */,
 				2E15F5112B3A3D0000414BEC /* TriangleShape.swift */,
 			);
 			path = Custom;
@@ -377,6 +375,7 @@
 				2E15F4EC2B39255B00414BEC /* UpliftTests */,
 				2E8FE38D2B1278B700B3DC6A /* Products */,
 				1E73905287F565F00258C43E /* Frameworks */,
+				2EB161C72BBC9BEF00493B71 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -417,6 +416,14 @@
 				2EB090AF2B131C9D0039EB3B /* Montserrat-SemiBold.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		2EB161C72BBC9BEF00493B71 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				2E5F33412BBC9A5600AA76B8 /* StretchyModifier.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -643,8 +650,8 @@
 				2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */,
 				2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */,
 				2E15F5062B39F81B00414BEC /* MainView.swift in Sources */,
-				89ECDA892B79885C0006A160 /* StretchyModifier.swift in Sources */,
 				2E39D82A2B3B9F3D00AD238B /* FacilityExpandedView.swift in Sources */,
+				2EB161C92BBC9C3100493B71 /* StretchyModifier.swift in Sources */,
 				2E39D82C2B3BB35000AD238B /* FacilityExpandedViewModel.swift in Sources */,
 				2E3D6C202B1285D200B51BB2 /* UpliftEnvironment.swift in Sources */,
 				2E5726C72B4A63AE00D3DB36 /* ShimmerModifier.swift in Sources */,
@@ -660,7 +667,6 @@
 				2E8FE3902B1278B700B3DC6A /* UpliftApp.swift in Sources */,
 				2EE5F3C82B12E094008E0299 /* ApolloClientProtocol.swift in Sources */,
 				2E39D8262B3B6C6500AD238B /* SlidingTabBarView.swift in Sources */,
-				2E5F33422BBC9A5600AA76B8 /* StretchyModifier.swift in Sources */,
 				2E1105C42B13D1B000119F5B /* DummyData.swift in Sources */,
 				2E15F4E22B3917B200414BEC /* Status.swift in Sources */,
 				2E15F5042B39E54700414BEC /* LocationManager.swift in Sources */,
