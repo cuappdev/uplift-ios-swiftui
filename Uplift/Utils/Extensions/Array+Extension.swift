@@ -18,11 +18,12 @@ extension Array where Element == Equipment {
 
     /// Returns all equipment types in this array.
     func allTypes() -> [EquipmentType] {
-        var unique = [EquipmentType]()
-        for eqmt in self where !unique.contains(where: { $0 == eqmt.equipmentType }) {
-            unique.append(eqmt.equipmentType)
+        let allTypes = self.compactMap(\.equipmentType)
+        var uniqueTypes = [EquipmentType]()
+        for eqType in allTypes where !uniqueTypes.contains(eqType) {
+            uniqueTypes.append(eqType)
         }
-        return unique
+        return uniqueTypes
     }
 
 }

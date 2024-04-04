@@ -18,7 +18,7 @@ struct Equipment: Hashable {
     let accessibility: AccessibilityType?
 
     /// The type of this equipment.
-    let equipmentType: EquipmentType
+    let equipmentType: EquipmentType?
 
     /// The ID of the facility in which this equipment belongs to.
     let facilityId: Int
@@ -35,13 +35,7 @@ struct Equipment: Hashable {
     init(from equipment: EquipmentFields) {
         // Unwrap and convert GraphQL enum value to Swift enum value
         self.accessibility = equipment.accessibility?.value
-
-        if let equipmentType = EquipmentType(rawValue: equipment.equipmentType.rawValue) {
-            self.equipmentType = equipmentType
-        } else {
-            self.equipmentType = EquipmentType.defaultEquipmentType
-        }
-
+        self.equipmentType = equipment.equipmentType.value
         self.facilityId = equipment.facilityId
         self.name = equipment.name
         self.quantity = equipment.quantity ?? 0
@@ -50,8 +44,6 @@ struct Equipment: Hashable {
 }
 
 extension EquipmentType: CustomStringConvertible {
-
-    static var defaultEquipmentType = EquipmentType(rawValue: "Miscellaneous")!
 
     public var description: String {
         switch self {
