@@ -1,3 +1,11 @@
+fragment equipmentFields on Equipment {
+  accessibility
+  equipmentType
+  facilityId
+  name
+  quantity
+}
+
 fragment capacityFields on Capacity {
   count
   percent
@@ -17,6 +25,9 @@ fragment facilityFields on Facility {
   id
   capacity {
     ...capacityFields
+  }
+  equipment {
+    ...equipmentFields
   }
   facilityType
   hours {

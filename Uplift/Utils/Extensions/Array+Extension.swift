@@ -9,6 +9,25 @@
 import Foundation
 import UpliftAPI
 
+extension Array where Element == Equipment {
+
+    /// Map an array of `EquipmentFields` to an array of `Equipment` objects.
+    init(_ equipments: [EquipmentFields]) {
+        self.init(equipments.map(Equipment.init))
+    }
+
+    /// Returns all equipment types in this array.
+    func allTypes() -> [EquipmentType] {
+        let allTypes = self.compactMap(\.equipmentType)
+        var uniqueTypes = [EquipmentType]()
+        for eqType in allTypes where !uniqueTypes.contains(eqType) {
+            uniqueTypes.append(eqType)
+        }
+        return uniqueTypes
+    }
+
+}
+
 extension Array where Element == Facility {
 
     /// Map an array of `FacilityFields` to an array of `Facility` objects.
