@@ -144,18 +144,19 @@ struct FitnessCenterView: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(equipmentType.description)
                             .lineLimit(1)
-                            .font(Constants.Fonts.bodySemibold)
-                            .padding(EdgeInsets(top: 16, leading: 16, bottom: 2, trailing: 16))
+                            .foregroundStyle(Constants.Colors.black)
+                            .font(Constants.Fonts.h3)
+                            .padding(.bottom, 2)
 
                         equipmentTypeCellView(eqmtType: equipmentType)
                             .frame(alignment: .leading)
 
                         Spacer()
                     }
+                    .padding(16)
                     .frame(width: 247)
-                    .fixedSize(horizontal: true, vertical: false)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 12)
+                        RoundedRectangle(cornerRadius: 4)
                             .stroke(Constants.Colors.gray01, lineWidth: 1)
                             .upliftShadow(Constants.Shadows.smallLight)
                     )
@@ -167,18 +168,18 @@ struct FitnessCenterView: View {
 
     private func equipmentTypeCellView(eqmtType: EquipmentType) -> some View {
         ForEach(fc?.equipment.filter({$0.equipmentType == eqmtType}) ?? [], id: \.self) { eqmt in
-            HStack {
+            HStack(spacing: 12) {
                 Text(eqmt.name)
+                    .foregroundStyle(Constants.Colors.black)
                     .font(Constants.Fonts.labelLight)
                     .multilineTextAlignment(.leading)
-                    .padding(.trailing, 20)
+                    .frame(width: 190, alignment: .leading)
 
-                Spacer()
-
-                Text(String(eqmt.quantity))
+                Text(eqmt.quantity == nil ? "" : String(eqmt.quantity ?? 0))
+                    .foregroundStyle(Constants.Colors.black)
                     .font(Constants.Fonts.labelLight)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
             }
-            .padding(.horizontal, 16)
         }
     }
 
