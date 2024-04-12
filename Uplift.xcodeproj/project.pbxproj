@@ -65,6 +65,7 @@
 		2EB090B72B131CA80039EB3B /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB090B12B131C9D0039EB3B /* Montserrat-Regular.ttf */; };
 		2EB090B82B131CA80039EB3B /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB090B02B131C9D0039EB3B /* Montserrat-Light.ttf */; };
 		2EB090B92B131CA80039EB3B /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2EB090AF2B131C9D0039EB3B /* Montserrat-SemiBold.ttf */; };
+		2EB161C92BBC9C3100493B71 /* StretchyModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB161C82BBC9C3100493B71 /* StretchyModifier.swift */; };
 		2EC3EE662B3C000E00E927BF /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 2EC3EE652B3C000E00E927BF /* Kingfisher */; };
 		2ED53DCF2B3E06DC00FBDEAB /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED53DCE2B3E06DC00FBDEAB /* Logger.swift */; };
 		2EE0C7CB2B12D6EE000D3BF6 /* GymQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */; };
@@ -72,7 +73,10 @@
 		2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E12B12EDB6008E0299 /* Apollo */; };
 		2EE5F3E42B12EDB6008E0299 /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E32B12EDB6008E0299 /* ApolloAPI */; };
 		2EF1A2582B129EEB007A299F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1A2572B129EEB007A299F /* Network.swift */; };
-		89ECDA892B79885C0006A160 /* StretchyModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89ECDA882B79885C0006A160 /* StretchyModifier.swift */; };
+		636E3D412BBE1EB100B6EFFC /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 636E3D402BBE1EB100B6EFFC /* UpliftAPI */; };
+		636E3D442BBE1F3800B6EFFC /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 636E3D432BBE1F3800B6EFFC /* UpliftAPI */; };
+		63A7ABCD2B86B971008D58FB /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 63A7ABCC2B86B971008D58FB /* UpliftAPI */; };
+		63A7ABCF2B8C119A008D58FB /* Equipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7ABCE2B8C119A008D58FB /* Equipment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +129,7 @@
 		2E45B2462B4F643500FB83B7 /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		2E5726C62B4A63AE00D3DB36 /* ShimmerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerModifier.swift; sourceTree = "<group>"; };
 		2E5726CA2B4A68CC00D3DB36 /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
+		2E5F33412BBC9A5600AA76B8 /* StretchyModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StretchyModifier.swift; sourceTree = "<group>"; };
 		2E6785B82B3A425E00DD3ADA /* GymDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailView.swift; sourceTree = "<group>"; };
 		2E6785BD2B3A513000DD3ADA /* SemiCircleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiCircleShape.swift; sourceTree = "<group>"; };
 		2E6785BF2B3A5CA300DD3ADA /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
@@ -141,12 +146,12 @@
 		2EB090B12B131C9D0039EB3B /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		2EB090B22B131C9D0039EB3B /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
 		2EB090B32B131C9D0039EB3B /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		2EB161C82BBC9C3100493B71 /* StretchyModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StretchyModifier.swift; sourceTree = "<group>"; };
 		2ED53DCE2B3E06DC00FBDEAB /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GymQueries.graphql; sourceTree = "<group>"; };
 		2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientProtocol.swift; sourceTree = "<group>"; };
-		2EE5F3C92B12E34D008E0299 /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF1A2572B129EEB007A299F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
-		89ECDA882B79885C0006A160 /* StretchyModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyModifier.swift; sourceTree = "<group>"; };
+		63A7ABCE2B8C119A008D58FB /* Equipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,8 +173,11 @@
 				2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */,
 				2E45B2452B4F632700FB83B7 /* FirebaseAnalytics in Frameworks */,
 				2E39D82F2B3BCBA400AD238B /* UpliftAPI in Frameworks */,
+				63A7ABCD2B86B971008D58FB /* UpliftAPI in Frameworks */,
 				2E45B2402B4E361100FB83B7 /* FirebaseCrashlytics in Frameworks */,
+				636E3D412BBE1EB100B6EFFC /* UpliftAPI in Frameworks */,
 				2E2932C62BA2B9B5008445CE /* UpliftAPI in Frameworks */,
+				636E3D442BBE1F3800B6EFFC /* UpliftAPI in Frameworks */,
 				2EC3EE662B3C000E00E927BF /* Kingfisher in Frameworks */,
 				2E15F4D82B390EBC00414BEC /* UpliftAPI in Frameworks */,
 			);
@@ -181,7 +189,6 @@
 		1E73905287F565F00258C43E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2EE5F3C92B12E34D008E0299 /* Apollo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -196,6 +203,7 @@
 				2E39D8272B3B726D00AD238B /* GymTabType.swift */,
 				2E15F4DB2B39117300414BEC /* OpenHours.swift */,
 				2E15F4E12B3917B200414BEC /* Status.swift */,
+				63A7ABCE2B8C119A008D58FB /* Equipment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -331,7 +339,7 @@
 				2E6785BD2B3A513000DD3ADA /* SemiCircleShape.swift */,
 				2E15F5012B396EC500414BEC /* ShadowModifier.swift */,
 				2E5726C62B4A63AE00D3DB36 /* ShimmerModifier.swift */,
-				89ECDA882B79885C0006A160 /* StretchyModifier.swift */,
+				2EB161C82BBC9C3100493B71 /* StretchyModifier.swift */,
 				2E15F5112B3A3D0000414BEC /* TriangleShape.swift */,
 			);
 			path = Custom;
@@ -371,6 +379,7 @@
 				2E15F4EC2B39255B00414BEC /* UpliftTests */,
 				2E8FE38D2B1278B700B3DC6A /* Products */,
 				1E73905287F565F00258C43E /* Frameworks */,
+				2EB161C72BBC9BEF00493B71 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -411,6 +420,14 @@
 				2EB090AF2B131C9D0039EB3B /* Montserrat-SemiBold.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		2EB161C72BBC9BEF00493B71 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				2E5F33412BBC9A5600AA76B8 /* StretchyModifier.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -462,6 +479,8 @@
 				2E45B23F2B4E361100FB83B7 /* FirebaseCrashlytics */,
 				2E45B2442B4F632700FB83B7 /* FirebaseAnalytics */,
 				2E2932C52BA2B9B5008445CE /* UpliftAPI */,
+				636E3D402BBE1EB100B6EFFC /* UpliftAPI */,
+				636E3D432BBE1F3800B6EFFC /* UpliftAPI */,
 			);
 			productName = Uplift;
 			productReference = 2E8FE38C2B1278B700B3DC6A /* Uplift.app */;
@@ -501,7 +520,7 @@
 				2E6785BA2B3A48D700DD3ADA /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				2EC3EE642B3C000E00E927BF /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				2E2932C42BA2B9B5008445CE /* XCLocalSwiftPackageReference "UpliftAPI" */,
+				636E3D422BBE1F3800B6EFFC /* XCLocalSwiftPackageReference "UpliftAPI" */,
 			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
 			projectDirPath = "";
@@ -589,7 +608,7 @@
 		2EF1A2552B129A77007A299F /* Generate API */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -637,8 +656,8 @@
 				2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */,
 				2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */,
 				2E15F5062B39F81B00414BEC /* MainView.swift in Sources */,
-				89ECDA892B79885C0006A160 /* StretchyModifier.swift in Sources */,
 				2E39D82A2B3B9F3D00AD238B /* FacilityExpandedView.swift in Sources */,
+				2EB161C92BBC9C3100493B71 /* StretchyModifier.swift in Sources */,
 				2E39D82C2B3BB35000AD238B /* FacilityExpandedViewModel.swift in Sources */,
 				2E3D6C202B1285D200B51BB2 /* UpliftEnvironment.swift in Sources */,
 				2E5726C72B4A63AE00D3DB36 /* ShimmerModifier.swift in Sources */,
@@ -647,6 +666,7 @@
 				2ED53DCF2B3E06DC00FBDEAB /* Logger.swift in Sources */,
 				2E15F4E62B391E5300414BEC /* Array+Extension.swift in Sources */,
 				2E45B2472B4F643500FB83B7 /* AnalyticsManager.swift in Sources */,
+				63A7ABCF2B8C119A008D58FB /* Equipment.swift in Sources */,
 				2E39D8202B3B623B00AD238B /* FitnessCenterView.swift in Sources */,
 				2E1105C22B13D15100119F5B /* HomeGymCell.swift in Sources */,
 				2E15F4F92B3950F800414BEC /* Date+Extension.swift in Sources */,
@@ -846,7 +866,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZGMCXU7X3U;
 				ENABLE_PREVIEWS = YES;
@@ -867,7 +887,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.3;
+				MARKETING_VERSION = 2.5.4;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.uplift.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -890,7 +910,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = ZGMCXU7X3U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -910,7 +930,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.3;
+				MARKETING_VERSION = 2.5.4;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.uplift.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -957,7 +977,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		2E2932C42BA2B9B5008445CE /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
+		636E3D422BBE1F3800B6EFFC /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = UpliftAPI;
 		};
@@ -1048,6 +1068,18 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2EE5F3E02B12EDB6008E0299 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = ApolloAPI;
+		};
+		636E3D402BBE1EB100B6EFFC /* UpliftAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UpliftAPI;
+		};
+		636E3D432BBE1F3800B6EFFC /* UpliftAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UpliftAPI;
+		};
+		63A7ABCC2B86B971008D58FB /* UpliftAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UpliftAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
