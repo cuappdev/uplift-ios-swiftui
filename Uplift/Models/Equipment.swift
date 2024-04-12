@@ -26,8 +26,8 @@ struct Equipment: Hashable {
     /// The name of this equipment.
     let name: String
 
-    /// The amount of this equipment in the given facility.
-    let quantity: Int
+    /// The amount of this equipment in the given facility,`nil` if it cannot be quantified.
+    let quantity: Int?
 
     // MARK: - Functions
 
@@ -38,7 +38,7 @@ struct Equipment: Hashable {
         self.equipmentType = equipment.equipmentType.value
         self.facilityId = equipment.facilityId
         self.name = equipment.name
-        self.quantity = equipment.quantity ?? 0
+        self.quantity = equipment.quantity
     }
 
 }
