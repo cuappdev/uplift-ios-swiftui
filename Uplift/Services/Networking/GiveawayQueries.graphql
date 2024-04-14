@@ -1,0 +1,22 @@
+fragment userFields on User {
+  id
+  netId
+  giveaways {
+    id
+    name
+  }
+}
+
+fragment giveawayFields on Giveaway {
+  id
+  name
+  users {
+    ...userFields
+  }
+}
+
+query GetUsersByGiveawayId($id: Int) {
+  getUsersByGiveawayId(id: $id) {
+    ...userFields
+  }
+}

@@ -31,6 +31,14 @@ extension Array where Element == Facility {
 
 }
 
+extension Array where Element == Giveaway {
+
+    init(_ giveaways: [GiveawayFields]) {
+        self.init(giveaways.map(Giveaway.init))
+    }
+
+}
+
 extension Array where Element == Gym {
 
     /// Map an array of `GymFields` to an array of `Gym` objects.
@@ -112,6 +120,14 @@ extension Array where Element == OpenHours {
      */
     func getHoursInDayOfWeek(dayOfWeek: DayOfWeek) -> [OpenHours] {
         self.filter { $0.startTime.getDayOfWeek() == dayOfWeek }
+    }
+
+}
+
+extension Array where Element == User {
+
+    init(_ users: [UserFields]) {
+        self.init(users.map(User.init))
     }
 
 }

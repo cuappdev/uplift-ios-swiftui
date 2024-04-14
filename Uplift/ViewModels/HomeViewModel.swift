@@ -23,6 +23,7 @@ extension HomeView {
         @Published var showCapacities: Bool = false
 
         private var locationManager: LocationManager?
+        private var networkState: NetworkState?
         private var queryBag = Set<AnyCancellable>()
 
         // MARK: - Requests
@@ -140,6 +141,19 @@ extension HomeView {
         /// Returns the gym for a given facility or `nil` if not found.
         func gymWithFacility(_ facility: Facility?) -> Gym? {
             gyms?.first { $0.fitnessCenters.contains { $0 == facility } }
+        }
+
+        /// Creates a user.
+        func createUser(_ user: User) async {
+            Network.client.mutationPublisher(mutation: UpliftAPI.CreateUserMutation(netId: user.netId))
+                .sink { [weak self] completion in
+                    self?.networkState?.handleCompletion(completion)
+                } receiveValue: { _ in
+#if DEBUG
+                    Logger.services.log("Created user: \(user.netId)")
+#endif
+                }
+                .store(in: &queryBag)
         }
 
     }

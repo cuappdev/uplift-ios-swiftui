@@ -72,6 +72,14 @@
 		2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E12B12EDB6008E0299 /* Apollo */; };
 		2EE5F3E42B12EDB6008E0299 /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E32B12EDB6008E0299 /* ApolloAPI */; };
 		2EF1A2582B129EEB007A299F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1A2572B129EEB007A299F /* Network.swift */; };
+		633107D62BCB50320037AD26 /* GiveawayResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633107D52BCB50320037AD26 /* GiveawayResponse.swift */; };
+		633107DA2BCB7ABD0037AD26 /* GiveawayQueries.graphql in Sources */ = {isa = PBXBuildFile; fileRef = 633107D92BCB7ABD0037AD26 /* GiveawayQueries.graphql */; };
+		633107DC2BCB7F8A0037AD26 /* GiveawayMutations.graphql in Sources */ = {isa = PBXBuildFile; fileRef = 633107DB2BCB7F8A0037AD26 /* GiveawayMutations.graphql */; };
+		633107DE2BCB84AF0037AD26 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633107DD2BCB84AF0037AD26 /* User.swift */; };
+		633107E02BCB85610037AD26 /* Giveaway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633107DF2BCB85610037AD26 /* Giveaway.swift */; };
+		633107E32BCB87330037AD26 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 633107E22BCB87330037AD26 /* UpliftAPI */; };
+		633107E62BCB9B450037AD26 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 633107E52BCB9B450037AD26 /* UpliftAPI */; };
+		6388DF652BC106F000D1E969 /* GiveawayPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6388DF642BC106F000D1E969 /* GiveawayPopup.swift */; };
 		89ECDA892B79885C0006A160 /* StretchyModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89ECDA882B79885C0006A160 /* StretchyModifier.swift */; };
 /* End PBXBuildFile section */
 
@@ -146,6 +154,12 @@
 		2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientProtocol.swift; sourceTree = "<group>"; };
 		2EE5F3C92B12E34D008E0299 /* Apollo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Apollo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF1A2572B129EEB007A299F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		633107D52BCB50320037AD26 /* GiveawayResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiveawayResponse.swift; sourceTree = "<group>"; };
+		633107D92BCB7ABD0037AD26 /* GiveawayQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GiveawayQueries.graphql; sourceTree = "<group>"; };
+		633107DB2BCB7F8A0037AD26 /* GiveawayMutations.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GiveawayMutations.graphql; sourceTree = "<group>"; };
+		633107DD2BCB84AF0037AD26 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		633107DF2BCB85610037AD26 /* Giveaway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Giveaway.swift; sourceTree = "<group>"; };
+		6388DF642BC106F000D1E969 /* GiveawayPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiveawayPopup.swift; sourceTree = "<group>"; };
 		89ECDA882B79885C0006A160 /* StretchyModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -168,7 +182,9 @@
 				2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */,
 				2E45B2452B4F632700FB83B7 /* FirebaseAnalytics in Frameworks */,
 				2E39D82F2B3BCBA400AD238B /* UpliftAPI in Frameworks */,
+				633107E32BCB87330037AD26 /* UpliftAPI in Frameworks */,
 				2E45B2402B4E361100FB83B7 /* FirebaseCrashlytics in Frameworks */,
+				633107E62BCB9B450037AD26 /* UpliftAPI in Frameworks */,
 				2E2932C62BA2B9B5008445CE /* UpliftAPI in Frameworks */,
 				2EC3EE662B3C000E00E927BF /* Kingfisher in Frameworks */,
 				2E15F4D82B390EBC00414BEC /* UpliftAPI in Frameworks */,
@@ -196,6 +212,8 @@
 				2E39D8272B3B726D00AD238B /* GymTabType.swift */,
 				2E15F4DB2B39117300414BEC /* OpenHours.swift */,
 				2E15F4E12B3917B200414BEC /* Status.swift */,
+				633107DD2BCB84AF0037AD26 /* User.swift */,
+				633107DF2BCB85610037AD26 /* Giveaway.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -267,6 +285,8 @@
 				2EF1A2572B129EEB007A299F /* Network.swift */,
 				2E090EC42B12EF2600BAE982 /* Publishers.swift */,
 				2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */,
+				633107D92BCB7ABD0037AD26 /* GiveawayQueries.graphql */,
+				633107DB2BCB7F8A0037AD26 /* GiveawayMutations.graphql */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -319,6 +339,8 @@
 				2E39D81B2B3B5F3700AD238B /* NavBackButton.swift */,
 				2E39D8212B3B631200AD238B /* DividerLine.swift */,
 				2E39D8252B3B6C6500AD238B /* SlidingTabBarView.swift */,
+				6388DF642BC106F000D1E969 /* GiveawayPopup.swift */,
+				633107D52BCB50320037AD26 /* GiveawayResponse.swift */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";
@@ -462,6 +484,8 @@
 				2E45B23F2B4E361100FB83B7 /* FirebaseCrashlytics */,
 				2E45B2442B4F632700FB83B7 /* FirebaseAnalytics */,
 				2E2932C52BA2B9B5008445CE /* UpliftAPI */,
+				633107E22BCB87330037AD26 /* UpliftAPI */,
+				633107E52BCB9B450037AD26 /* UpliftAPI */,
 			);
 			productName = Uplift;
 			productReference = 2E8FE38C2B1278B700B3DC6A /* Uplift.app */;
@@ -501,7 +525,7 @@
 				2E6785BA2B3A48D700DD3ADA /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				2EC3EE642B3C000E00E927BF /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				2E2932C42BA2B9B5008445CE /* XCLocalSwiftPackageReference "UpliftAPI" */,
+				633107E42BCB9B450037AD26 /* XCLocalSwiftPackageReference "UpliftAPI" */,
 			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
 			projectDirPath = "";
@@ -622,9 +646,11 @@
 			files = (
 				2EF1A2582B129EEB007A299F /* Network.swift in Sources */,
 				2E39D81C2B3B5F3700AD238B /* NavBackButton.swift in Sources */,
+				633107DE2BCB84AF0037AD26 /* User.swift in Sources */,
 				2E15F4E02B39143700414BEC /* Gym.swift in Sources */,
 				2E39D8242B3B66FD00AD238B /* FitnessCenterViewModel.swift in Sources */,
 				2E6785C42B3A780600DD3ADA /* DayOfWeek.swift in Sources */,
+				633107E02BCB85610037AD26 /* Giveaway.swift in Sources */,
 				2E6785BE2B3A513000DD3ADA /* SemiCircleShape.swift in Sources */,
 				2E15F4FB2B39573C00414BEC /* Double+Extension.swift in Sources */,
 				2E39D8162B3B3AD600AD238B /* ScaleButtonStyle.swift in Sources */,
@@ -635,6 +661,7 @@
 				2E6785C02B3A5CA300DD3ADA /* Haptics.swift in Sources */,
 				2E15F50C2B3A0B2100414BEC /* CapacityCircleView.swift in Sources */,
 				2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */,
+				633107DC2BCB7F8A0037AD26 /* GiveawayMutations.graphql in Sources */,
 				2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */,
 				2E15F5062B39F81B00414BEC /* MainView.swift in Sources */,
 				89ECDA892B79885C0006A160 /* StretchyModifier.swift in Sources */,
@@ -645,13 +672,16 @@
 				2E15F5022B396EC500414BEC /* ShadowModifier.swift in Sources */,
 				2E15F4DA2B39102A00414BEC /* Capacity.swift in Sources */,
 				2ED53DCF2B3E06DC00FBDEAB /* Logger.swift in Sources */,
+				6388DF652BC106F000D1E969 /* GiveawayPopup.swift in Sources */,
 				2E15F4E62B391E5300414BEC /* Array+Extension.swift in Sources */,
 				2E45B2472B4F643500FB83B7 /* AnalyticsManager.swift in Sources */,
 				2E39D8202B3B623B00AD238B /* FitnessCenterView.swift in Sources */,
 				2E1105C22B13D15100119F5B /* HomeGymCell.swift in Sources */,
+				633107DA2BCB7ABD0037AD26 /* GiveawayQueries.graphql in Sources */,
 				2E15F4F92B3950F800414BEC /* Date+Extension.swift in Sources */,
 				2E8FE3902B1278B700B3DC6A /* UpliftApp.swift in Sources */,
 				2EE5F3C82B12E094008E0299 /* ApolloClientProtocol.swift in Sources */,
+				633107D62BCB50320037AD26 /* GiveawayResponse.swift in Sources */,
 				2E39D8262B3B6C6500AD238B /* SlidingTabBarView.swift in Sources */,
 				2E1105C42B13D1B000119F5B /* DummyData.swift in Sources */,
 				2E15F4E22B3917B200414BEC /* Status.swift in Sources */,
@@ -957,7 +987,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		2E2932C42BA2B9B5008445CE /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
+		633107E42BCB9B450037AD26 /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = UpliftAPI;
 		};
@@ -1048,6 +1078,14 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2EE5F3E02B12EDB6008E0299 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = ApolloAPI;
+		};
+		633107E22BCB87330037AD26 /* UpliftAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UpliftAPI;
+		};
+		633107E52BCB9B450037AD26 /* UpliftAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UpliftAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

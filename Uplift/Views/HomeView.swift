@@ -13,8 +13,10 @@ struct HomeView: View {
 
     // MARK: - Properties
 
+    @State var popupIsPresented: Bool = false
     @EnvironmentObject var locationManager: LocationManager
     @StateObject private var viewModel = ViewModel()
+    @State var popupSubmitted: Bool = false
 
     // MARK: - UI
 
@@ -29,6 +31,19 @@ struct HomeView: View {
         .onAppear {
             viewModel.setupEnvironment(with: locationManager)
             viewModel.fetchAllGyms()
+        }
+        .blur(radius: popupIsPresented ? 0.4 : 0)
+        .disabled(popupIsPresented)
+        if popupIsPresented {
+            Rectangle()
+                .ignoresSafeArea()
+                .foregroundColor(Constants.Colors.gray04.opacity(0.5))
+            if !popupSubmitted {
+                GiveawayPopup(popupSubmitted: $popupSubmitted, popupIsPresented: $popupIsPresented)
+                    .shadow(radius: 10)
+            } else {
+                GiveawayResponse(popupIsPresented: $popupIsPresented)
+            }
         }
     }
 
@@ -126,11 +141,24 @@ struct HomeView: View {
         .font(Constants.Fonts.bodyLight)
     }
 
+    private var giveawayButton: some View {
+        VStack {
+            Button {
+                self.popupIsPresented = true
+            } label: {
+                Constants.Images.giveawayButton
+                    .frame(width: 361, height: 102, alignment: .center)
+            }
+        }
+
+    }
+
     private var scrollContent: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading, spacing: 12) {
                 viewModel.showCapacities ? capacitiesView : nil
 
+                giveawayButton
                 HStack {
                     Text("GYMS")
                         .foregroundStyle(Constants.Colors.gray03)
@@ -233,7 +261,7 @@ struct HomeView: View {
     }
 
 }
-
-#Preview {
-    HomeView()
-}
+//
+//#Preview {
+//    HomeView()
+//}
