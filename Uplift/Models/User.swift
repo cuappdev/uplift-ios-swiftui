@@ -15,7 +15,7 @@ struct User: Hashable {
     // MARK: - Properties
 
     /// The unique identifier of this user.
-    let id: String!
+    let id: Int!
 
     /// The unique netId of this user.
     let netId: String!
@@ -23,7 +23,7 @@ struct User: Hashable {
     /// The list of giveaways this user is in.
     let giveaways: [Giveaway]?
 
-    struct Giveaway: Equatable, Hashable {
+    struct GiveawayTrunc: Equatable, Hashable {
         let id: String
         let name: String
     }
@@ -32,7 +32,7 @@ struct User: Hashable {
         self.id = user.id
         self.netId = user.netId
         self.giveaways = [Giveaway](user.giveaways?.compactMap {
-            return Giveaway(id: $0, name: $1)
+            return GiveawayTrunc(id: $0.id, name: $0.name)
         } ?? [])
     }
 }

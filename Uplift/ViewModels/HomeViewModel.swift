@@ -156,6 +156,32 @@ extension HomeView {
                 .store(in: &queryBag)
         }
 
+        /// Creates a giveaway.
+        func createGiveaway(_ giveaway: Giveaway) async {
+            Network.client.queryPublisher(query: UpliftAPI.GetUsersByGiveawayIdQuery(id: giveaway.id))
+                .sink { [weak self] completion in
+                    self?.networkState?.handleCompletion(completion)
+                } receiveValue: { _ in
+#if DEBUG
+                    Logger.services.log("Created giveaway: \(giveaway.id)")
+#endif
+                }
+                .store(in: &queryBag)
+        }
+
+        /// Enters a user into a giveaway.
+        func enterGiveaway(_ giveawayId: Int, _ userNetId: Int) async {
+            Network.client.mutationPublisher(mutation: <#T##GraphQLMutation#>)
+                .sink { [weak self] completion in
+                    self?.networkState?.handleCompletion(completion)
+                } receiveValue: { _ in
+#if DEBUG
+                    Logger.services.log("Entered user, \(userNetId), into giveaway \(giveawayId)")
+#endif
+                }
+                .store(in: &queryBag)
+        }
+
     }
 
 }

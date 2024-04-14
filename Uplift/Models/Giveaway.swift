@@ -15,7 +15,7 @@ struct Giveaway: Hashable {
     // MARK: - Properties
 
     /// The unique identifier of this giveaway.
-    let id: String!
+    let id: Int!
 
     /// The name of this giveaway.
     let name: String!
