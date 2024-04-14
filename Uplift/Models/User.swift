@@ -15,7 +15,7 @@ struct User: Hashable {
     // MARK: - Properties
 
     /// The unique identifier of this user.
-    let id: Int!
+    let id: String!
 
     /// The unique netId of this user.
     let netId: String!

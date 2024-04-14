@@ -158,7 +158,7 @@ extension HomeView {
 
         /// Creates a giveaway.
         func createGiveaway(_ giveaway: Giveaway) async {
-            Network.client.queryPublisher(query: UpliftAPI.GetUsersByGiveawayIdQuery(id: giveaway.id))
+            Network.client.queryPublisher(query: UpliftAPI.GetUsersByGiveawayIdQuery(id: giveaway.id as Int))
                 .sink { [weak self] completion in
                     self?.networkState?.handleCompletion(completion)
                 } receiveValue: { _ in
@@ -171,7 +171,7 @@ extension HomeView {
 
         /// Enters a user into a giveaway.
         func enterGiveaway(_ giveawayId: Int, _ userNetId: Int) async {
-            Network.client.mutationPublisher(mutation: <#T##GraphQLMutation#>)
+            Network.client.mutationPublisher(mutation: UpliftAPI.EnterGiveawayMutation(giveawayId: giveawayId, userNetId: userNetId as Int))
                 .sink { [weak self] completion in
                     self?.networkState?.handleCompletion(completion)
                 } receiveValue: { _ in
