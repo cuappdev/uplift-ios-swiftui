@@ -47,9 +47,5 @@
 			<string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
 		</dict>
 	</array>
-	<key>NSPrivacyTrackingDomains</key>
-	<array/>
-	<key>NSPrivacyTracking</key>
-	<true/>
 </dict>
 </plist>
