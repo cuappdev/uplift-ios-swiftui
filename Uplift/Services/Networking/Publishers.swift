@@ -11,6 +11,11 @@ import ApolloAPI
 import Combine
 import Foundation
 
+/// A structure that represents a custom error from GraphQL.
+struct GraphQLErrorWrapper: Error {
+    let msg: String
+}
+
 extension Publishers {
 
     // MARK: - Queries
@@ -86,9 +91,6 @@ extension Publishers {
 
     // MARK: - Mutations
 
-    // As of 11/25/23, Uplift does not contain any mutations (perform operations).
-    // However, this may be needed in the future. - Vin
-
     /// A configuration for an a GraphQL Mutation used by Apollo.
     struct ApolloMutationConfiguration<Mutation: GraphQLMutation> {
         let client: ApolloClientProtocol
@@ -136,8 +138,13 @@ extension Publishers {
             ) { [weak self] result in
                 switch result {
                 case .success(let data):
-                    _ = self?.subscriber?.receive(data)
-                    self?.subscriber?.receive(completion: .finished)
+                    if let graphQLError = data.errors?.first {
+                        let error = GraphQLErrorWrapper(msg: graphQLError.description)
+                        self?.subscriber?.receive(completion: .failure(error))
+                    } else {
+                        _ = self?.subscriber?.receive(data)
+                        self?.subscriber?.receive(completion: .finished)
+                    }
 
                 case .failure(let error):
                     self?.subscriber?.receive(completion: .failure(error))
