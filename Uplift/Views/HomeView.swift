@@ -14,6 +14,8 @@ struct HomeView: View {
     // MARK: - Properties
 
     @EnvironmentObject var locationManager: LocationManager
+    @Binding var popUpGiveaway: Bool
+    @AppStorage(Constants.UserDefaultsKeys.didEnterGiveaway) var didEnterGiveaway: Bool = false
     @StateObject private var viewModel = ViewModel()
 
     // MARK: - UI
@@ -131,6 +133,8 @@ struct HomeView: View {
             VStack(alignment: .leading, spacing: 12) {
                 viewModel.showCapacities ? capacitiesView : nil
 
+                !didEnterGiveaway ? giveawayModalCell : nil
+
                 HStack {
                     Text("GYMS")
                         .foregroundStyle(Constants.Colors.gray03)
@@ -184,7 +188,8 @@ struct HomeView: View {
         Button {
             // Only toggle if gyms are loaded
             guard viewModel.gyms != nil else { return }
-            withAnimation(.easeOut) {
+
+            withAnimation {
                 viewModel.showCapacities.toggle()
             }
             AnalyticsManager.shared.log(
@@ -206,6 +211,16 @@ struct HomeView: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Constants.Colors.gray01, lineWidth: 1)
         )
+    }
+
+    private var giveawayModalCell: some View {
+        Button {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                popUpGiveaway = true
+            }
+        } label: {
+            GiveawayModal()
+        }
     }
 
     // MARK: - Supporting
@@ -235,5 +250,5 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
+    HomeView(popUpGiveaway: .constant(false))
 }

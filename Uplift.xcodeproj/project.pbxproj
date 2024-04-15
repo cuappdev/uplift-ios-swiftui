@@ -28,6 +28,10 @@
 		2E15F5062B39F81B00414BEC /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F5052B39F81B00414BEC /* MainView.swift */; };
 		2E15F50C2B3A0B2100414BEC /* CapacityCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F50B2B3A0B2100414BEC /* CapacityCircleView.swift */; };
 		2E15F5122B3A3D0000414BEC /* TriangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F5112B3A3D0000414BEC /* TriangleShape.swift */; };
+		2E2748CB2BCD37810023882E /* GiveawayPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2748CA2BCD37810023882E /* GiveawayPopup.swift */; };
+		2E2748CD2BCD4C300023882E /* UserMutations.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 2E2748CC2BCD4C300023882E /* UserMutations.graphql */; };
+		2E2748CF2BCD4D1F0023882E /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2748CE2BCD4D1F0023882E /* MainViewModel.swift */; };
+		2E2748D22BCD4EC00023882E /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E2748D12BCD4EC00023882E /* UpliftAPI */; };
 		2E2932C62BA2B9B5008445CE /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E2932C52BA2B9B5008445CE /* UpliftAPI */; };
 		2E3838412BB7536700AE15DC /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 2E3838402BB7536700AE15DC /* PrivacyInfo.xcprivacy */; };
 		2E39D8162B3B3AD600AD238B /* ScaleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D8152B3B3AD600AD238B /* ScaleButtonStyle.swift */; };
@@ -43,6 +47,7 @@
 		2E39D82F2B3BCBA400AD238B /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E39D82E2B3BCBA400AD238B /* UpliftAPI */; };
 		2E39D8312B3BEE5900AD238B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E39D8302B3BEE5900AD238B /* LaunchScreen.storyboard */; };
 		2E3D6C202B1285D200B51BB2 /* UpliftEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3D6C1F2B1285D200B51BB2 /* UpliftEnvironment.swift */; };
+		2E3DC2432BCD2F1D0063B369 /* GiveawayModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3DC2422BCD2F1D0063B369 /* GiveawayModal.swift */; };
 		2E45B2402B4E361100FB83B7 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2E45B23F2B4E361100FB83B7 /* FirebaseCrashlytics */; };
 		2E45B2422B4E5CE100FB83B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2E45B2412B4E5CE100FB83B7 /* GoogleService-Info.plist */; };
 		2E45B2452B4F632700FB83B7 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2E45B2442B4F632700FB83B7 /* FirebaseAnalytics */; };
@@ -110,6 +115,9 @@
 		2E15F5052B39F81B00414BEC /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		2E15F50B2B3A0B2100414BEC /* CapacityCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityCircleView.swift; sourceTree = "<group>"; };
 		2E15F5112B3A3D0000414BEC /* TriangleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleShape.swift; sourceTree = "<group>"; };
+		2E2748CA2BCD37810023882E /* GiveawayPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiveawayPopup.swift; sourceTree = "<group>"; };
+		2E2748CC2BCD4C300023882E /* UserMutations.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = UserMutations.graphql; sourceTree = "<group>"; };
+		2E2748CE2BCD4D1F0023882E /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		2E3838402BB7536700AE15DC /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		2E39D8152B3B3AD600AD238B /* ScaleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleButtonStyle.swift; sourceTree = "<group>"; };
 		2E39D81B2B3B5F3700AD238B /* NavBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBackButton.swift; sourceTree = "<group>"; };
@@ -125,6 +133,7 @@
 		2E3D6C1C2B12809900B51BB2 /* Keys.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Keys.xcconfig; sourceTree = "<group>"; };
 		2E3D6C1D2B12840C00B51BB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E3D6C1F2B1285D200B51BB2 /* UpliftEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpliftEnvironment.swift; sourceTree = "<group>"; };
+		2E3DC2422BCD2F1D0063B369 /* GiveawayModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiveawayModal.swift; sourceTree = "<group>"; };
 		2E45B2412B4E5CE100FB83B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2E45B2462B4F643500FB83B7 /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		2E5726C62B4A63AE00D3DB36 /* ShimmerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerModifier.swift; sourceTree = "<group>"; };
@@ -173,6 +182,7 @@
 				2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */,
 				2E45B2452B4F632700FB83B7 /* FirebaseAnalytics in Frameworks */,
 				2E39D82F2B3BCBA400AD238B /* UpliftAPI in Frameworks */,
+				2E2748D22BCD4EC00023882E /* UpliftAPI in Frameworks */,
 				63A7ABCD2B86B971008D58FB /* UpliftAPI in Frameworks */,
 				2E45B2402B4E361100FB83B7 /* FirebaseCrashlytics in Frameworks */,
 				636E3D412BBE1EB100B6EFFC /* UpliftAPI in Frameworks */,
@@ -264,6 +274,7 @@
 				2E39D8232B3B66FD00AD238B /* FitnessCenterViewModel.swift */,
 				2E6785C12B3A5CE000DD3ADA /* GymDetailViewModel.swift */,
 				2E1105BE2B13B0E100119F5B /* HomeViewModel.swift */,
+				2E2748CE2BCD4D1F0023882E /* MainViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -275,6 +286,7 @@
 				2EF1A2572B129EEB007A299F /* Network.swift */,
 				2E090EC42B12EF2600BAE982 /* Publishers.swift */,
 				2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */,
+				2E2748CC2BCD4C300023882E /* UserMutations.graphql */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -327,6 +339,7 @@
 				2E39D81B2B3B5F3700AD238B /* NavBackButton.swift */,
 				2E39D8212B3B631200AD238B /* DividerLine.swift */,
 				2E39D8252B3B6C6500AD238B /* SlidingTabBarView.swift */,
+				2E3DC2412BCD2EDF0063B369 /* Giveaway */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";
@@ -352,6 +365,15 @@
 				2E3D6C1C2B12809900B51BB2 /* Keys.xcconfig */,
 			);
 			path = UpliftSecrets;
+			sourceTree = "<group>";
+		};
+		2E3DC2412BCD2EDF0063B369 /* Giveaway */ = {
+			isa = PBXGroup;
+			children = (
+				2E3DC2422BCD2F1D0063B369 /* GiveawayModal.swift */,
+				2E2748CA2BCD37810023882E /* GiveawayPopup.swift */,
+			);
+			path = Giveaway;
 			sourceTree = "<group>";
 		};
 		2E5726C92B4A68BD00D3DB36 /* ci_scripts */ = {
@@ -481,6 +503,7 @@
 				2E2932C52BA2B9B5008445CE /* UpliftAPI */,
 				636E3D402BBE1EB100B6EFFC /* UpliftAPI */,
 				636E3D432BBE1F3800B6EFFC /* UpliftAPI */,
+				2E2748D12BCD4EC00023882E /* UpliftAPI */,
 			);
 			productName = Uplift;
 			productReference = 2E8FE38C2B1278B700B3DC6A /* Uplift.app */;
@@ -520,7 +543,7 @@
 				2E6785BA2B3A48D700DD3ADA /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				2EC3EE642B3C000E00E927BF /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				636E3D422BBE1F3800B6EFFC /* XCLocalSwiftPackageReference "UpliftAPI" */,
+				2E2748D02BCD4EC00023882E /* XCLocalSwiftPackageReference "UpliftAPI" */,
 			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
 			projectDirPath = "";
@@ -547,6 +570,7 @@
 				2EE0C7CB2B12D6EE000D3BF6 /* GymQueries.graphql in Resources */,
 				2EB090B52B131CA80039EB3B /* Montserrat-Medium.ttf in Resources */,
 				2EB090B72B131CA80039EB3B /* Montserrat-Regular.ttf in Resources */,
+				2E2748CD2BCD4C300023882E /* UserMutations.graphql in Resources */,
 				2EB090B62B131CA80039EB3B /* Montserrat-Bold.ttf in Resources */,
 				2EB090B82B131CA80039EB3B /* Montserrat-Light.ttf in Resources */,
 				2E8FE3992B1278B900B3DC6A /* Preview Assets.xcassets in Resources */,
@@ -660,6 +684,7 @@
 				2EB161C92BBC9C3100493B71 /* StretchyModifier.swift in Sources */,
 				2E39D82C2B3BB35000AD238B /* FacilityExpandedViewModel.swift in Sources */,
 				2E3D6C202B1285D200B51BB2 /* UpliftEnvironment.swift in Sources */,
+				2E2748CF2BCD4D1F0023882E /* MainViewModel.swift in Sources */,
 				2E5726C72B4A63AE00D3DB36 /* ShimmerModifier.swift in Sources */,
 				2E15F5022B396EC500414BEC /* ShadowModifier.swift in Sources */,
 				2E15F4DA2B39102A00414BEC /* Capacity.swift in Sources */,
@@ -675,11 +700,13 @@
 				2E39D8262B3B6C6500AD238B /* SlidingTabBarView.swift in Sources */,
 				2E1105C42B13D1B000119F5B /* DummyData.swift in Sources */,
 				2E15F4E22B3917B200414BEC /* Status.swift in Sources */,
+				2E3DC2432BCD2F1D0063B369 /* GiveawayModal.swift in Sources */,
 				2E15F5042B39E54700414BEC /* LocationManager.swift in Sources */,
 				2E39D81E2B3B610200AD238B /* UINavigationController+Extension.swift in Sources */,
 				2E15F4DC2B39117300414BEC /* OpenHours.swift in Sources */,
 				2E090ED62B13121600BAE982 /* Constants.swift in Sources */,
 				2E39D8282B3B726D00AD238B /* GymTabType.swift in Sources */,
+				2E2748CB2BCD37810023882E /* GiveawayPopup.swift in Sources */,
 				2E15F4DE2B3912C700414BEC /* Facility.swift in Sources */,
 				2E6785C22B3A5CE000DD3ADA /* GymDetailViewModel.swift in Sources */,
 			);
@@ -866,7 +893,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZGMCXU7X3U;
 				ENABLE_PREVIEWS = YES;
@@ -910,7 +937,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = ZGMCXU7X3U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -977,7 +1004,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		636E3D422BBE1F3800B6EFFC /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
+		2E2748D02BCD4EC00023882E /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = UpliftAPI;
 		};
@@ -1024,6 +1051,10 @@
 			productName = UpliftAPI;
 		};
 		2E15F4D72B390EBC00414BEC /* UpliftAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UpliftAPI;
+		};
+		2E2748D12BCD4EC00023882E /* UpliftAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UpliftAPI;
 		};

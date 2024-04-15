@@ -1,0 +1,36 @@
+fragment userFields on User {
+  id
+  instagram
+  netId
+  giveaways {
+    id
+    name
+  }
+}
+
+
+fragment giveawayFields on Giveaway {
+  id
+  name
+  users {
+    ...userFields
+  }
+}
+
+mutation CreateUser($instagram: String, $netId: String!) {
+  createUser(instagram: $instagram, netId: $netId) {
+    user {
+      ...userFields
+    }
+  }
+}
+
+mutation EnterGiveaway($giveawayId: Int!, $userNetId: String!) {
+  enterGiveaway(giveawayId: $giveawayId, userNetId: $userNetId) {
+    giveawayInstance {
+      id
+      userId
+      numEntries
+    }
+  }
+}
