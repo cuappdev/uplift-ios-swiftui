@@ -26,5 +26,5 @@ class NetworkState: ObservableObject {
             Logger.services.critical("Error")
         }
     }
-    
+
 }

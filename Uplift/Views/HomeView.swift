@@ -39,7 +39,7 @@ struct HomeView: View {
                 .ignoresSafeArea()
                 .foregroundColor(Constants.Colors.gray04.opacity(0.5))
             if !popupSubmitted {
-                GiveawayPopup(popupSubmitted: $popupSubmitted, popupIsPresented: $popupIsPresented)
+                GiveawayPopup(popupIsPresented: $popupIsPresented, popupSubmitted: $popupSubmitted)
                     .shadow(radius: 10)
             } else {
                 GiveawayResponse(popupIsPresented: $popupIsPresented)
