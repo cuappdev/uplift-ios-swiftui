@@ -79,6 +79,7 @@
 		633107E02BCB85610037AD26 /* Giveaway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633107DF2BCB85610037AD26 /* Giveaway.swift */; };
 		633107E32BCB87330037AD26 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 633107E22BCB87330037AD26 /* UpliftAPI */; };
 		633107E62BCB9B450037AD26 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 633107E52BCB9B450037AD26 /* UpliftAPI */; };
+		633107E82BCCB7080037AD26 /* GiveawayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633107E72BCCB7080037AD26 /* GiveawayViewModel.swift */; };
 		6388DF652BC106F000D1E969 /* GiveawayPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6388DF642BC106F000D1E969 /* GiveawayPopup.swift */; };
 		89ECDA892B79885C0006A160 /* StretchyModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89ECDA882B79885C0006A160 /* StretchyModifier.swift */; };
 /* End PBXBuildFile section */
@@ -159,6 +160,7 @@
 		633107DB2BCB7F8A0037AD26 /* GiveawayMutations.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GiveawayMutations.graphql; sourceTree = "<group>"; };
 		633107DD2BCB84AF0037AD26 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		633107DF2BCB85610037AD26 /* Giveaway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Giveaway.swift; sourceTree = "<group>"; };
+		633107E72BCCB7080037AD26 /* GiveawayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiveawayViewModel.swift; sourceTree = "<group>"; };
 		6388DF642BC106F000D1E969 /* GiveawayPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiveawayPopup.swift; sourceTree = "<group>"; };
 		89ECDA882B79885C0006A160 /* StretchyModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchyModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -274,6 +276,7 @@
 				2E39D8232B3B66FD00AD238B /* FitnessCenterViewModel.swift */,
 				2E6785C12B3A5CE000DD3ADA /* GymDetailViewModel.swift */,
 				2E1105BE2B13B0E100119F5B /* HomeViewModel.swift */,
+				633107E72BCCB7080037AD26 /* GiveawayViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -670,6 +673,7 @@
 				2E3D6C202B1285D200B51BB2 /* UpliftEnvironment.swift in Sources */,
 				2E5726C72B4A63AE00D3DB36 /* ShimmerModifier.swift in Sources */,
 				2E15F5022B396EC500414BEC /* ShadowModifier.swift in Sources */,
+				633107E82BCCB7080037AD26 /* GiveawayViewModel.swift in Sources */,
 				2E15F4DA2B39102A00414BEC /* Capacity.swift in Sources */,
 				2ED53DCF2B3E06DC00FBDEAB /* Logger.swift in Sources */,
 				6388DF652BC106F000D1E969 /* GiveawayPopup.swift in Sources */,

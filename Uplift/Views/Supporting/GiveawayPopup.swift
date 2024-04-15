@@ -7,15 +7,17 @@
 //
 
 import SwiftUI
+import UpliftAPI
 
 /// View representing the giveaway popup.
 struct GiveawayPopup: View {
 
     // MARK: - Properties
-    @State var netid: String = ""
     @State var instaAcct: String = ""
-    @Binding var popupSubmitted: Bool
+    @State var netid: String = ""
     @Binding var popupIsPresented: Bool
+    @Binding var popupSubmitted: Bool
+    @StateObject private var viewModel = ViewModel()
 
     // MARK: - UI
 
@@ -49,11 +51,14 @@ struct GiveawayPopup: View {
         VStack {
             Spacer()
                 .frame(height: 21)
+
             Text("Uplift Giveaway!")
                 .font(Constants.Fonts.h1)
                 .foregroundStyle(Constants.Colors.black)
+
             Spacer()
                 .frame(height: 14)
+
             Text("Tell us who you are for a chance to \n win special prizes!!")
                 .font(Constants.Fonts.bodyNormal)
                 .foregroundStyle(Constants.Colors.black)
@@ -62,6 +67,7 @@ struct GiveawayPopup: View {
 
             Spacer()
                 .frame(height: 39)
+
             TextField("", text: $netid, prompt: placeholderText("Cornell NetID"))
                 .autocapitalization(.none)
                 .padding()
@@ -81,6 +87,7 @@ struct GiveawayPopup: View {
                         .stroke(Constants.Colors.gray02, lineWidth: 3)
                 )
                 .cornerRadius(10)
+
             Spacer()
                 .frame(height: 28)
 
@@ -88,7 +95,6 @@ struct GiveawayPopup: View {
 
             Spacer()
                 .frame(height: 19)
-
         }
     }
 
@@ -102,7 +108,11 @@ struct GiveawayPopup: View {
         Button {
             self.popupSubmitted = true
 
-//            viewModel.createUser(User(id: 1, netId: self.netid, ))
+            Task {
+                await viewModel.createUser(self.netid)
+                await viewModel.enterGiveaway(2, self.netid)
+            }
+
         } label: {
             Text("SUBMIT")
                 .font(Constants.Fonts.h3)
@@ -116,7 +126,3 @@ struct GiveawayPopup: View {
     }
 
 }
-//
-//#Preview {
-//    GiveawayPopup()
-//}

@@ -143,45 +143,6 @@ extension HomeView {
             gyms?.first { $0.fitnessCenters.contains { $0 == facility } }
         }
 
-        /// Creates a user.
-        func createUser(_ user: User) async {
-            Network.client.mutationPublisher(mutation: UpliftAPI.CreateUserMutation(netId: user.netId))
-                .sink { [weak self] completion in
-                    self?.networkState?.handleCompletion(completion)
-                } receiveValue: { _ in
-#if DEBUG
-                    Logger.services.log("Created user: \(user.netId)")
-#endif
-                }
-                .store(in: &queryBag)
-        }
-
-        /// Creates a giveaway.
-        func createGiveaway(_ giveaway: Giveaway) async {
-            Network.client.queryPublisher(query: UpliftAPI.GetUsersByGiveawayIdQuery(id: giveaway.id as Int))
-                .sink { [weak self] completion in
-                    self?.networkState?.handleCompletion(completion)
-                } receiveValue: { _ in
-#if DEBUG
-                    Logger.services.log("Created giveaway: \(giveaway.id)")
-#endif
-                }
-                .store(in: &queryBag)
-        }
-
-        /// Enters a user into a giveaway.
-        func enterGiveaway(_ giveawayId: Int, _ userNetId: Int) async {
-            Network.client.mutationPublisher(mutation: UpliftAPI.EnterGiveawayMutation(giveawayId: giveawayId, userNetId: userNetId as Int))
-                .sink { [weak self] completion in
-                    self?.networkState?.handleCompletion(completion)
-                } receiveValue: { _ in
-#if DEBUG
-                    Logger.services.log("Entered user, \(userNetId), into giveaway \(giveawayId)")
-#endif
-                }
-                .store(in: &queryBag)
-        }
-
     }
 
 }
