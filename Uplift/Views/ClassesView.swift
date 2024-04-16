@@ -16,11 +16,13 @@ struct ClassesView: View {
     @StateObject private var viewModel = ViewModel()
 
     var body: some View {
-        VStack {
-            header
-            scrollContent
+        NavigationStack {
+            VStack {
+                header
+                scrollContent
+            }
+            .background(Constants.Colors.white)
         }
-        .background(Constants.Colors.white)
     }
 
     private var header: some View {
@@ -56,12 +58,15 @@ struct ClassesView: View {
             VStack {
                 weekCalendar
 
+                // TODO: Temporary hardcoded class cells, need to implement networking
                 VStack(spacing: 12) {
-                    // TODO: Temporary hardcoded class cells
-                    ClassCell()
-                    ClassCell()
-                    ClassCell()
-                    ClassCell()
+                    NavigationLink {
+                        ClassDetailView()
+                    } label: {
+                        ClassCell()
+                    }
+                    .contentShape(Rectangle())
+                    .buttonStyle(ScaleButtonStyle())
                 }
                 .padding(.horizontal, 16)
             }

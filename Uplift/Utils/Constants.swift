@@ -64,6 +64,7 @@ struct Constants {
         // F Headers
         static let f1 = Font.custom("Montserrat-Medium", size: 24)
         static let f2 = Font.custom("Montserrat-Medium", size: 16)
+        static let f2Light = Font.custom("Montserrat-Light", size: 16)
         static let f2Regular = Font.custom("Montserrat-Regular", size: 16)
         static let f3 = Font.custom("Montserrat-Medium", size: 14)
         static let f4 = Font.custom("Montserrat-Medium", size: 12)
@@ -94,6 +95,7 @@ struct Constants {
         static let arrowLeft = Image("arrow_left")
         static let basketball = Image("basketball")
         static let bowling = Image("bowling")
+        static let calendar = Image("calendar")
         static let clock = Image("clock")
         static let dumbbellLarge = Image("dumbbell_large")
         static let dumbbellOutline = Image("dumbbell_outline")
@@ -110,6 +112,9 @@ struct Constants {
 
     /// Padding amounts used in Uplift.
     enum Padding {
+        static let classDetailSessionsHorizontal: CGFloat = 16
+        static let classDetailSpacing: CGFloat = 24
+        static let classDetailTextHorizontal: CGFloat = 48
         static let gymDetailHorizontal: CGFloat = 24
         static let gymDetailSpacing: CGFloat = 20
         static let homeHorizontal: CGFloat = 16
