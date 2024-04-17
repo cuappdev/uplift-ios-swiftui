@@ -522,7 +522,7 @@
 				2EC3EE642B3C000E00E927BF /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				2EE5D6512B65E7DC004BB8F5 /* XCRemoteSwiftPackageReference "appdev-announcements" */,
-				89B20EAD2BCC82A000B24C7E /* XCLocalSwiftPackageReference "UpliftAPI" */,
+				896531042BD0834F0097B454 /* XCLocalSwiftPackageReference "UpliftAPI" */,
 			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
 			projectDirPath = "";
@@ -981,7 +981,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		89B20EAD2BCC82A000B24C7E /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
+		896531042BD0834F0097B454 /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = UpliftAPI;
 		};
