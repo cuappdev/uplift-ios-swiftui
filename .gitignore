@@ -5,7 +5,7 @@ xcuserdata/
 build/
 
 ## Secrets
-UpliftSecrets/*
+UpliftSecrets/**
 
 ## API
-UpliftAPI
+UpliftAPI/**
