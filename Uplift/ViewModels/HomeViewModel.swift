@@ -23,6 +23,7 @@ extension HomeView {
         @Published var showCapacities: Bool = false
 
         private var locationManager: LocationManager?
+        private var networkState: NetworkState?
         private var queryBag = Set<AnyCancellable>()
 
         // MARK: - Requests

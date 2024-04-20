@@ -1,0 +1,26 @@
+mutation CreateUser($netId: String!) {
+  createUser(netId: $netId) {
+    user {
+      ...userFields
+    }
+  }
+}
+
+mutation EnterGiveaway($giveawayId: Int!, $userNetId: String!) {
+  enterGiveaway(giveawayId: $giveawayId, userNetId: $userNetId) {
+    giveawayInstance {
+      id
+      userId
+      numEntries
+    }
+  }
+}
+
+mutation CreateGiveaway($name: String!) {
+  createGiveaway(name: $name) {
+    giveaway {
+      ...giveawayFields
+    }
+  }
+}
+
