@@ -217,7 +217,7 @@ struct ClassDetailView: View {
             VStack(spacing: 12) {
                 if viewModel.nextSessions(class: `class`).isEmpty {
                     VStack {
-                        Text("No classes in the future...")
+                        Text("No sessions in the near future...")
                             .font(Constants.Fonts.bodyMedium)
                             .foregroundStyle(Constants.Colors.black)
                     }

@@ -62,7 +62,7 @@ struct NextSessionCell: View {
 
     private var dayText: some View {
         Text(
-            (viewModel.toDate(`class`.startTime)?.getDayOfWeek() == Date.now.getDayOfWeek()
+            (viewModel.toDate(`class`.startTime)?.isSameDay(Date.now) ?? false
               ? "Today"
               : viewModel.toDate(`class`.startTime)?.getDayOfWeek().dayOfWeekShortened()) ?? ""
         )

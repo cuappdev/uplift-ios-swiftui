@@ -59,11 +59,16 @@ extension ClassesView {
         /// The filtered array of classes.
         var filteredClasses: [ClassInstance] {
             guard let classes = classes,
-                  let date = determineDayOfMonth(weekday: selectedDay) else { return [] }
+                  let selectedDate = determineDayOfMonth(weekday: selectedDay) else { return [] }
 
-            return classes.filter {
-                if let startTime = toDate($0.startTime) {
-                    return startTime.isSameDay(date)
+            return classes.sorted {
+                guard let lhsDate = toDate($0.startTime),
+                      let rhsDate = toDate($1.startTime) else { return false }
+                return lhsDate < rhsDate
+            }
+            .filter {
+                if let date = toDate($0.startTime) {
+                    return date.isSameDay(selectedDate)
                 }
                 return false
             }
@@ -73,10 +78,15 @@ extension ClassesView {
         func nextSessions(`class`: ClassInstance) -> [ClassInstance] {
             guard let classes = classes else { return [] }
 
-            return classes.filter {
-                if let startTime = toDate($0.startTime),
-                   let thisStartTime = toDate(`class`.startTime) {
-                    return startTime > thisStartTime && $0.classId == `class`.classId
+            return classes.sorted {
+                guard let lhsDate = toDate($0.startTime),
+                      let rhsDate = toDate($1.startTime) else { return false }
+                return lhsDate < rhsDate
+            }
+            .filter {
+                if let date = toDate($0.startTime),
+                   let selectedDate = toDate(`class`.startTime) {
+                    return date > selectedDate && $0.classId == `class`.classId
                 }
                 return false
             }
