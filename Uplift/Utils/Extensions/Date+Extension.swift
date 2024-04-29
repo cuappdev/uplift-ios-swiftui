@@ -52,9 +52,27 @@ extension Date {
         return formatted
     }
 
+    /**
+     This `Date` in the format "EEEE, MMMM dd".
+     For example, 4/29/24 8:00 PM is Monday, April 29.
+     */
+    var dateStringDayMonth: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, MMMM dd"
+        return dateFormatter.string(from: self)
+    }
+
     /// Returns the `DayOfWeek` for this date.
     func getDayOfWeek() -> DayOfWeek {
         DayOfWeek(rawValue: Calendar.current.dateComponents([.weekday], from: self).weekday!)!
+    }
+
+    /// Returns whether this date is the same day as the given date.
+    func isSameDay(_ date: Date) -> Bool {
+        let calendar = Calendar.current
+        let thisDate = calendar.dateComponents([.year, .month, .day], from: self)
+        let otherDate = calendar.dateComponents([.year, .month, .day], from: date)
+        return thisDate.month == otherDate.month && thisDate.day == otherDate.day
     }
 
 }

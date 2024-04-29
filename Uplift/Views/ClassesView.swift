@@ -23,6 +23,9 @@ struct ClassesView: View {
             }
             .background(Constants.Colors.white)
         }
+        .onAppear {
+            viewModel.fetchAllClasses()
+        }
     }
 
     private var header: some View {
@@ -58,18 +61,42 @@ struct ClassesView: View {
             VStack {
                 weekCalendar
 
-                // TODO: Temporary hardcoded class cells, need to implement networking
-                VStack(spacing: 12) {
-                    NavigationLink {
-                        ClassDetailView()
-                    } label: {
-                        ClassCell()
+                VStack(spacing: 28) {
+                    Text(viewModel.selectedDay == Date.now.getDayOfWeek() ? "TODAY" : viewModel.selectedDay.dayOfWeekComplete().uppercased())
+                        .font(Constants.Fonts.h2)
+
+                    VStack(spacing: 12) {
+                        if viewModel.filteredClasses.isEmpty {
+                            Spacer()
+
+                            VStack {
+                                Constants.Images.greenTea
+                                    .padding(24)
+
+                                Text("No classes today")
+                                    .font(Constants.Fonts.h1)
+                                    .foregroundStyle(Constants.Colors.black)
+
+                                Text("Relax with some tea or play a sport")
+                                    .font(Constants.Fonts.bodyNormal)
+                                    .foregroundStyle(Constants.Colors.black)
+                            }
+                        } else {
+                            ForEach(viewModel.filteredClasses, id: \.self) { `class` in
+                                NavigationLink {
+                                    ClassDetailView(class: `class`, viewModel: viewModel)
+                                } label: {
+                                    ClassCell(class: `class`, viewModel: viewModel)
+                                }
+                                .contentShape(Rectangle()) // Fixes navigation link tap area
+                                .buttonStyle(ScaleButtonStyle())
+                            }
+                            .padding(.horizontal, 16)
+                        }
                     }
-                    .contentShape(Rectangle())
-                    .buttonStyle(ScaleButtonStyle())
                 }
-                .padding(.horizontal, 16)
             }
+            .padding(.bottom, 32)
         }
     }
 
@@ -79,7 +106,7 @@ struct ClassesView: View {
                 VStack {
                     Text(day.dayOfWeekAbbreviation())
 
-                    Text(viewModel.determineDayOfMonth(weekday: day))
+                    Text(viewModel.determineDayOfMonth(weekday: day)?.formatted(.dateTime.day()) ?? "")
                         .frame(width: 24, height: 24)
                         .background {
                             if Date.now.getDayOfWeek() == day || viewModel.selectedDay == day {

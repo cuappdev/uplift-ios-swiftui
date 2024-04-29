@@ -1,15 +1,15 @@
 //
-//  ClassCell.swift
+//  NextSessionCell.swift
 //  Uplift
 //
-//  Created by Caitlyn Jin on 3/27/24.
+//  Created by Caitlyn Jin on 4/28/24.
 //  Copyright © 2024 Cornell AppDev. All rights reserved.
 //
 
 import SwiftUI
 
-/// The cell representing a ClassInstance used in the classes page.
-struct ClassCell: View {
+/// The cell representing a next session of a ClassInstance used in the classes page.
+struct NextSessionCell: View {
 
     // MARK: - Properties
 
@@ -23,9 +23,7 @@ struct ClassCell: View {
         ZStack {
             HStack(alignment: .top) {
                 VStack(alignment: .trailing) {
-                    Text(viewModel.toDate(`class`.startTime)?.formatted(date: .omitted, time: .shortened) ?? "")
-                        .font(Constants.Fonts.f3)
-                        .foregroundStyle(Constants.Colors.black)
+                    dayText
 
                     Text("\(viewModel.determineDuration(`class`.startTime, `class`.endTime) ?? "") min")
                         .font(Constants.Fonts.labelNormal)
@@ -60,6 +58,16 @@ struct ClassCell: View {
                 .stroke(Constants.Colors.gray01, lineWidth: 1)
                 .upliftShadow(Constants.Shadows.smallLight)
         )
+    }
+
+    private var dayText: some View {
+        Text(
+            (viewModel.toDate(`class`.startTime)?.getDayOfWeek() == Date.now.getDayOfWeek()
+              ? "Today"
+              : viewModel.toDate(`class`.startTime)?.getDayOfWeek().dayOfWeekShortened()) ?? ""
+        )
+            .font(Constants.Fonts.f3)
+            .foregroundStyle(Constants.Colors.black)
     }
 
 }

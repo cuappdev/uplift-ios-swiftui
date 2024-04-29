@@ -7,6 +7,9 @@
 //
 
 import SwiftUI
+import UpliftAPI
+import Combine
+import OSLog
 
 extension ClassesView {
 
@@ -16,12 +19,65 @@ extension ClassesView {
 
         // MARK: - Properties
 
+        @Published var classes: [ClassInstance]?
         @Published var selectedDay: DayOfWeek = Date.now.getDayOfWeek()
+
+        private var queryBag = Set<AnyCancellable>()
+
+        // MARK: - Requests
+
+        /// Fetch all classes from the backend.
+        func fetchAllClasses() {
+            Network.client.queryPublisher(
+                query: GetAllGymsQuery(),
+                cachePolicy: .fetchIgnoringCacheCompletely
+            )
+            .compactMap { $0.data?.gyms?.compactMap(\.?.fragments.gymFields) }
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    Logger.data.critical("Error in ClassesViewModel.fetchAllClasses: \(error)")
+                }
+            } receiveValue: { [weak self] gymFields in
+                guard let self else { return }
+
+                let gyms: [Gym] = gymFields.map { Gym(from: $0) }
+                let classes: [ClassInstance] = gyms.flatMap { $0.classes }
+
+                self.classes = classes
+            }
+            .store(in: &queryBag)
+        }
 
         // MARK: - Helpers
 
-        /// Determine the day of the month for the given weekday.
-        func determineDayOfMonth(weekday: DayOfWeek) -> String {
+        /// The filtered array of classes.
+        var filteredClasses: [ClassInstance] {
+            guard let classes = classes,
+                  let date = determineDayOfMonth(weekday: selectedDay) else { return [] }
+
+            return classes.filter {
+                if let startTime = toDate($0.startTime) {
+                    return startTime.isSameDay(date)
+                }
+                return false
+            }
+        }
+
+        /// The array of next sessions for this class.
+        func nextSessions(`class`: ClassInstance) -> [ClassInstance] {
+            guard let classes = classes else { return [] }
+
+            return classes.filter {
+                if let startTime = toDate($0.startTime),
+                   let thisStartTime = toDate(`class`.startTime) {
+                    return startTime > thisStartTime && $0.classId == `class`.classId
+                }
+                return false
+            }
+        }
+
+        /// Determine the day of the month for the given weekday. `Nil` if the calendar date is invalid.
+        func determineDayOfMonth(weekday: DayOfWeek) -> Date? {
             var weekdayValue = 0
             if weekday != Date.now.getDayOfWeek() {
                 weekdayValue = switch weekday {
@@ -32,8 +88,25 @@ extension ClassesView {
                     weekday.rawValue - Date.now.getDayOfWeek().rawValue
                 }
             }
-            return Calendar.current.date(byAdding: .day, value: weekdayValue, to: .now)?
-                .formatted(.dateTime.day()) ?? ""
+            return Calendar.current.date(byAdding: .day, value: weekdayValue, to: .now)
+        }
+
+        /// Convert a string to a `Date` object. `nil` if `string` is not in the ISO8601 format.
+        func toDate(_ string: String?) -> Date? {
+            guard let string = string else { return nil }
+
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            return dateFormatter.date(from: string)
+        }
+
+        /// Determine the duration of time in minutes between the given start and end time.
+        func determineDuration(_ startTime: String?, _ endTime: String?) -> String? {
+            guard let startTime = toDate(startTime),
+                  let endTime = toDate(endTime) else { return nil }
+
+            let interval = endTime.timeIntervalSince(startTime)
+            return String(Int(interval / 60))
         }
 
     }

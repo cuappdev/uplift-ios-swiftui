@@ -13,6 +13,9 @@ struct ClassDetailView: View {
 
     // MARK: - Properties
 
+    let `class`: ClassInstance
+
+    @ObservedObject var viewModel: ClassesView.ViewModel
     @Environment(\.dismiss) private var dismiss
 
     // MARK: - Constants
@@ -34,22 +37,24 @@ struct ClassDetailView: View {
     // MARK: - UI
 
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            scrollContent
-        }
-        .ignoresSafeArea(.all)
-        .padding(.bottom)
-        .navigationBarBackButtonHidden(true)
-        .toolbarBackground(.hidden, for: .navigationBar)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                NavBackButton(dismiss: dismiss)
+        NavigationStack {
+            ScrollView(.vertical, showsIndicators: false) {
+                scrollContent
+            }
+            .ignoresSafeArea(.all)
+            .padding(.bottom)
+            .navigationBarBackButtonHidden(true)
+            .toolbarBackground(.hidden, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    NavBackButton(dismiss: dismiss)
+                }
+            }
+            .background(Constants.Colors.white)
+            .onAppear {
+                // TODO: Network requests
             }
         }
-        .onAppear {
-            // TODO: Network requests
-        }
-        .background(Constants.Colors.white)
     }
 
     private var scrollContent: some View {
@@ -57,10 +62,12 @@ struct ClassDetailView: View {
             heroSection
             dateTimeSection
             DividerLine()
-            functionSection
-            DividerLine()
-            preparationSection
-            DividerLine()
+            // TODO: Function data is not in backend
+//            functionSection
+//            DividerLine()
+            // TODO: Preparation data is not in backend
+//            preparationSection
+//            DividerLine()
             descriptionSection
             DividerLine()
             nextSessionsSection
@@ -72,11 +79,11 @@ struct ClassDetailView: View {
         ZStack(alignment: .center) {
             GeometryReader { geometry in
                 KFImage(
-                    // TODO: Networking
-                    URL(string: "https://raw.githubusercontent.com/cuappdev/assets/master/uplift/gyms/helen-newman.jpg")
+                    // TODO: Add images from the backend
+                    URL(string: "")
                 )
                     .placeholder {
-                        Constants.Colors.gray01
+                        Constants.Colors.black
                     }
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -88,20 +95,17 @@ struct ClassDetailView: View {
                 Spacer()
 
                 VStack {
-                    // TODO: Networking
-                    Text("Muscle Pump")
+                    Text(`class`.class?.name ?? "")
                         .font(Constants.Fonts.s1)
                         .foregroundStyle(Constants.Colors.white)
                         .multilineTextAlignment(.center)
 
-                    // TODO: Networking
-                    Text("Helen Newman Hall Dance Studio")
+                    Text(`class`.location)
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.white)
                         .multilineTextAlignment(.center)
 
-                    // TODO: Networking
-                    Text("Debbie".uppercased())
+                    Text(`class`.instructor.uppercased())
                         .font(Constants.Fonts.h2)
                         .foregroundStyle(Constants.Colors.white)
                         .multilineTextAlignment(.center)
@@ -124,8 +128,7 @@ struct ClassDetailView: View {
             VStack {
                 Spacer()
 
-                // TODO: Networking
-                Text("45 MIN")
+                Text("\(viewModel.determineDuration(`class`.startTime, `class`.endTime) ?? "") MIN")
                     .font(Constants.Fonts.h3)
                     .foregroundStyle(Constants.Colors.black)
                     .padding(.bottom, 4)
@@ -137,31 +140,32 @@ struct ClassDetailView: View {
     private var dateTimeSection: some View {
         VStack(spacing: 24) {
             VStack(spacing: 8) {
-                // TODO: Networking
-                Text("Tuesday, Oct 8")
+                Text(viewModel.toDate(`class`.startTime)?.dateStringDayMonth ?? "")
                     .font(Constants.Fonts.f2Light)
                     .foregroundStyle(Constants.Colors.black)
 
-                // TODO: Networking
-                Text("12:15 PM - 1:00 PM")
+                Text(
+                    (viewModel.toDate(`class`.startTime)?.formatted(date: .omitted, time: .shortened) ?? "")
+                    + " - "
+                    + (viewModel.toDate(`class`.endTime)?.formatted(date: .omitted, time: .shortened) ?? "")
+                )
                     .font(Constants.Fonts.f2)
                     .foregroundStyle(Constants.Colors.black)
             }
 
-            VStack {
-                Button {
-                    // TODO: Add to calendar functionality
-                } label: {
-                    VStack(spacing: 4) {
-                        Constants.Images.calendar
-                            .frame(width: 24, height: 24)
-
-                        Text("ADD TO CALENDAR")
-                            .font(Constants.Fonts.labelBold)
-                            .foregroundStyle(Constants.Colors.black)
-                    }
-                }
-            }
+            // TODO: Add to calendar
+//            Button {
+//
+//            } label: {
+//                VStack(spacing: 4) {
+//                    Constants.Images.calendar
+//                        .frame(width: 24, height: 24)
+//
+//                    Text("ADD TO CALENDAR")
+//                        .font(Constants.Fonts.labelBold)
+//                        .foregroundStyle(Constants.Colors.black)
+//                }
+//            }
         }
         .padding(textPadding)
     }
@@ -172,7 +176,7 @@ struct ClassDetailView: View {
                 .font(Constants.Fonts.h2)
                 .foregroundStyle(Constants.Colors.black)
 
-            // TODO: Networking
+            // TODO: Add to backend
             Text("Core · Overall Fitness · Stability")
                 .font(Constants.Fonts.bodyLight)
                 .foregroundStyle(Constants.Colors.black)
@@ -187,7 +191,7 @@ struct ClassDetailView: View {
                 .font(Constants.Fonts.h2)
                 .foregroundStyle(Constants.Colors.black)
 
-            // TODO: Networking
+            // TODO: Add to backend
             Text("Footwear appropriate for movement")
                 .font(Constants.Fonts.bodyLight)
                 .foregroundStyle(Constants.Colors.black)
@@ -197,10 +201,7 @@ struct ClassDetailView: View {
     }
 
     private var descriptionSection: some View {
-        // TODO: Networking
-        Text("Put a little muscle into your workout and join us for a class designed to build muscle endurance with low to medium weights and high repetitions. " +
-             "A variety of equipment and strength training techniques will be used in this class. " +
-             "There is no cardio portion in these sessions. Footwear that is appropriate for movement is required for this class.")
+        Text(`class`.class?.description ?? "")
             .font(Constants.Fonts.bodyLight)
             .foregroundStyle(Constants.Colors.black)
             .multilineTextAlignment(.center)
@@ -213,19 +214,27 @@ struct ClassDetailView: View {
                 .font(Constants.Fonts.h2)
                 .foregroundStyle(Constants.Colors.black)
 
-            // TODO: Networking
             VStack(spacing: 12) {
-                ClassCell()
-                ClassCell()
-                ClassCell()
-                ClassCell()
+                if viewModel.nextSessions(class: `class`).isEmpty {
+                    VStack {
+                        Text("No classes in the future...")
+                            .font(Constants.Fonts.bodyMedium)
+                            .foregroundStyle(Constants.Colors.black)
+                    }
+                } else {
+                    ForEach(viewModel.nextSessions(class: `class`), id: \.self) { `class` in
+                        NavigationLink {
+                            ClassDetailView(class: `class`, viewModel: viewModel)
+                        } label: {
+                            NextSessionCell(class: `class`, viewModel: viewModel)
+                        }
+                        .contentShape(Rectangle()) // Fixes navigation link tap area
+                        .buttonStyle(ScaleButtonStyle())
+                    }
+                }
             }
         }
         .padding(sessionsPadding)
     }
 
-}
-
-#Preview {
-    ClassDetailView()
 }
