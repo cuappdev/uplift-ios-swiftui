@@ -52,7 +52,7 @@ struct ClassDetailView: View {
             }
             .background(Constants.Colors.white)
             .onAppear {
-                // TODO: Network requests
+                viewModel.fetchAllClasses()
             }
         }
     }

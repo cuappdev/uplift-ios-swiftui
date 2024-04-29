@@ -48,6 +48,12 @@ extension ClassesView {
             .store(in: &queryBag)
         }
 
+        /// Refresh classes data from the backend.
+        func refreshClasses() {
+            classes = nil
+            fetchAllClasses()
+        }
+
         // MARK: - Helpers
 
         /// The filtered array of classes.

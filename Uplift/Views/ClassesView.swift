@@ -98,6 +98,9 @@ struct ClassesView: View {
             }
             .padding(.bottom, 32)
         }
+        .refreshable {
+            viewModel.refreshClasses()
+        }
     }
 
     private var weekCalendar: some View {
