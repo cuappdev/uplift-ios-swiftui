@@ -116,7 +116,7 @@ extension ClassesView {
             return dateFormatter.date(from: string)
         }
 
-        /// Determine the duration of time in minutes between the given start and end time.
+        /// Determine the duration of time in minutes between the given start and end time. `nil` if input strings are invalid formats.
         func determineDuration(_ startTime: String?, _ endTime: String?) -> String? {
             guard let startTime = toDate(startTime),
                   let endTime = toDate(endTime) else { return nil }
