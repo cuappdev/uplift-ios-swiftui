@@ -62,38 +62,49 @@ struct ClassesView: View {
                 weekCalendar
 
                 VStack(spacing: 28) {
-                    Text(viewModel.selectedDay == Date.now.getDayOfWeek() ? "TODAY" : viewModel.selectedDay.dayOfWeekComplete().uppercased())
+                    Text(viewModel.selectedDay == Date.now.getDayOfWeek()
+                         ? "TODAY"
+                         : viewModel.selectedDay.dayOfWeekComplete().uppercased())
                         .font(Constants.Fonts.h2)
 
                     VStack(spacing: 12) {
-                        if viewModel.filteredClasses.isEmpty {
-                            Spacer()
-
-                            VStack {
-                                Constants.Images.greenTea
-                                    .padding(24)
-
-                                Text("No classes today")
-                                    .font(Constants.Fonts.h1)
-                                    .foregroundStyle(Constants.Colors.black)
-
-                                Text("Relax with some tea or play a sport")
-                                    .font(Constants.Fonts.bodyNormal)
-                                    .foregroundStyle(Constants.Colors.black)
+                        if viewModel.classes == nil {
+                            ForEach(0..<5) { _ in
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(Constants.Colors.gray01)
+                                    .frame(height: 100)
+                                    .shimmer(.medium)
                             }
                         } else {
-                            ForEach(viewModel.filteredClasses, id: \.self) { `class` in
-                                NavigationLink {
-                                    ClassDetailView(class: `class`, viewModel: viewModel)
-                                } label: {
-                                    ClassCell(class: `class`, viewModel: viewModel)
+                            if viewModel.filteredClasses.isEmpty {
+                                Spacer()
+
+                                VStack {
+                                    Constants.Images.greenTea
+                                        .padding(24)
+
+                                    Text("No classes today")
+                                        .font(Constants.Fonts.h1)
+                                        .foregroundStyle(Constants.Colors.black)
+
+                                    Text("Relax with some tea or play a sport")
+                                        .font(Constants.Fonts.bodyNormal)
+                                        .foregroundStyle(Constants.Colors.black)
                                 }
-                                .contentShape(Rectangle()) // Fixes navigation link tap area
-                                .buttonStyle(ScaleButtonStyle())
+                            } else {
+                                ForEach(viewModel.filteredClasses, id: \.self) { `class` in
+                                    NavigationLink {
+                                        ClassDetailView(class: `class`, viewModel: viewModel)
+                                    } label: {
+                                        ClassCell(class: `class`, viewModel: viewModel)
+                                    }
+                                    .contentShape(Rectangle()) // Fixes navigation link tap area
+                                    .buttonStyle(ScaleButtonStyle())
+                                }
                             }
-                            .padding(.horizontal, 16)
                         }
                     }
+                    .padding(.horizontal, 16)
                 }
             }
             .padding(.bottom, 32)
