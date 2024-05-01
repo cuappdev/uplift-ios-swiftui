@@ -23,30 +23,18 @@ struct ClassCell: View {
         ZStack {
             HStack(alignment: .top) {
                 VStack(alignment: .trailing) {
-                    Text(viewModel.toDate(`class`.startTime)?.formatted(date: .omitted, time: .shortened) ?? "")
-                        .font(Constants.Fonts.f3)
-                        .foregroundStyle(Constants.Colors.black)
-
-                    Text("\(viewModel.determineDuration(`class`.startTime, `class`.endTime) ?? "") min")
-                        .font(Constants.Fonts.labelNormal)
-                        .foregroundStyle(Constants.Colors.black)
+                    startTimeText
+                    durationText
                 }
                 .padding(.trailing, 24)
 
                 VStack(alignment: .leading) {
-                    Text(`class`.class?.name ?? "")
-                        .font(Constants.Fonts.f2)
-                        .foregroundStyle(Constants.Colors.black)
-
-                    Text(`class`.location)
-                        .font(Constants.Fonts.labelLight)
-                        .foregroundStyle(Constants.Colors.black)
+                    classNameText
+                    locationText
 
                     Spacer()
 
-                    Text(`class`.instructor)
-                        .font(Constants.Fonts.labelLight)
-                        .foregroundStyle(Constants.Colors.gray03)
+                    instructorText
                 }
 
                 Spacer()
@@ -60,6 +48,36 @@ struct ClassCell: View {
                 .stroke(Constants.Colors.gray01, lineWidth: 1)
                 .upliftShadow(Constants.Shadows.smallLight)
         )
+    }
+
+    private var startTimeText: some View {
+        Text(viewModel.toDate(`class`.startTime)?.formatted(date: .omitted, time: .shortened) ?? "")
+            .font(Constants.Fonts.f3)
+            .foregroundStyle(Constants.Colors.black)
+    }
+
+    private var durationText: some View {
+        Text("\(viewModel.determineDuration(`class`.startTime, `class`.endTime) ?? "") min")
+            .font(Constants.Fonts.labelNormal)
+            .foregroundStyle(Constants.Colors.black)
+    }
+
+    private var classNameText: some View {
+        Text(`class`.class?.name ?? "")
+            .font(Constants.Fonts.f2)
+            .foregroundStyle(Constants.Colors.black)
+    }
+
+    private var locationText: some View {
+        Text(`class`.location)
+            .font(Constants.Fonts.labelLight)
+            .foregroundStyle(Constants.Colors.black)
+    }
+
+    private var instructorText: some View {
+        Text(`class`.instructor)
+            .font(Constants.Fonts.labelLight)
+            .foregroundStyle(Constants.Colors.gray03)
     }
 
 }
