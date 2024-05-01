@@ -147,10 +147,4 @@ struct Constants {
         )
     }
 
-    /// Keys used for UserDefaults.
-    enum UserDefaultsKeys {
-        /// Whether this user has already entered the giveaway.
-        static let didEnterGiveaway: String = "didEnterGiveaway"
-    }
-
 }

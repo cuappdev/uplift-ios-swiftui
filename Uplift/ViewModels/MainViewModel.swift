@@ -31,7 +31,7 @@ extension MainView {
         // MARK: - Constants
 
         // TODO: Change hardcoded giveaway ID if needed
-        private let giveawayID: Int = 2
+        private let giveawayID: Int = 1
 
         // MARK: - Requests
 
@@ -89,7 +89,6 @@ extension MainView {
             } receiveValue: { [weak self] _ in
                 guard let self else { return }
 
-                UserDefaults.standard.set(true, forKey: Constants.UserDefaultsKeys.didEnterGiveaway)
                 withAnimation {
                     self.submitSuccessful = true
                 }

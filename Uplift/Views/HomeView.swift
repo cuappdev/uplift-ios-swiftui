@@ -15,7 +15,6 @@ struct HomeView: View {
 
     @EnvironmentObject var locationManager: LocationManager
     @Binding var popUpGiveaway: Bool
-    @AppStorage(Constants.UserDefaultsKeys.didEnterGiveaway) var didEnterGiveaway: Bool = false
     @StateObject private var viewModel = ViewModel()
 
     // MARK: - UI
@@ -133,7 +132,7 @@ struct HomeView: View {
             VStack(alignment: .leading, spacing: 12) {
                 viewModel.showCapacities ? capacitiesView : nil
 
-                !didEnterGiveaway ? giveawayModalCell : nil
+                giveawayModalCell
 
                 HStack {
                     Text("GYMS")
