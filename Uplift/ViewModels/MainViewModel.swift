@@ -31,7 +31,7 @@ extension MainView {
         // MARK: - Constants
 
         // TODO: Change hardcoded giveaway ID if needed
-        private let giveawayID: Int = 1
+        private let giveawayID: Int = 2
 
         // MARK: - Requests
 

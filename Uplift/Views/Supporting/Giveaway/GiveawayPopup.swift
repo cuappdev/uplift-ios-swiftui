@@ -56,7 +56,7 @@ struct GiveawayPopup: View {
 
     private var bodySection: some View {
         VStack(spacing: 40) {
-            VStack(spacing: 16) {
+            VStack(spacing: 12) {
                 Text("Uplift Giveaway!")
                     .font(Constants.Fonts.h1)
 
