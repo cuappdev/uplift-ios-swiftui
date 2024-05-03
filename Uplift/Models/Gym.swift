@@ -115,7 +115,7 @@ struct Gym: Hashable {
      - Parameters:
         - currentTime: The current time to compare with and determine the status. Default is now.
 
-     - Returns: A `Status` object based on its fitness centers' hours. `nil` if there are no open or close hours in the future.
+     - Returns: A `Status` object based on its fitness centers' hours. `nil` if there are no hours in the future.
      */
     func determineStatus(currentTime: Date = Date.now) -> Status? {
         if fitnessCenterIsOpen(currentTime: currentTime) {

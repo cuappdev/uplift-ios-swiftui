@@ -35,6 +35,9 @@ struct Constants {
         static let gray03 = Color(red: 161/255, green: 165/255, blue: 166/255)
         static let gray04 = Color(red: 112/255, green: 112/255, blue: 112/255)
         static let gray05 = Color(red: 115/255, green: 131/255, blue: 144/255)
+
+        // Others
+        static let giveawayBgColor = Color(red: 34/255, green: 36/255, blue: 42/255)
     }
 
     /// Facility names in Uplift.
@@ -95,11 +98,15 @@ struct Constants {
         static let basketball = Image("basketball")
         static let bowling = Image("bowling")
         static let clock = Image("clock")
+        static let cross = Image("cross")
         static let dumbbellLarge = Image("dumbbell_large")
         static let dumbbellSmall = Image("dumbbell_small")
         static let elevator = Image("elevator")
+        static let giveawayModalBackground = Image("giveaway_modal_bg")
+        static let giveawayPopupBackground = Image("giveaway_popup_bg")
         static let lock = Image("lock")
         static let logo = Image("logo")
+        static let logoWhite = Image("logo_white")
         static let parking = Image("parking")
         static let pool = Image("pool")
         static let shower = Image("shower")
