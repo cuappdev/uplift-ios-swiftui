@@ -481,7 +481,6 @@
 				2E8FE3892B1278B700B3DC6A /* Frameworks */,
 				2E8FE38A2B1278B700B3DC6A /* Resources */,
 				2EF1A2542B1299FB007A299F /* SwiftLint */,
-				2EF1A2552B129A77007A299F /* Generate API */,
 				2E45B2432B4E655D00FB83B7 /* Crashlytics */,
 			);
 			buildRules = (
@@ -628,25 +627,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint >/dev/null; then\n    swiftlint --fix && swiftlint\nelse\n    echo \"ERROR: SwiftLint not installed\"\n    exit 1\nfi\n";
-		};
-		2EF1A2552B129A77007A299F /* Generate API */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 12;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Generate API";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "CLI_PATH=\"./apollo-ios-cli\"\nSECRETS_PATH=\"${SRCROOT}/UpliftSecrets\"\n\nif [ \"${CONFIGURATION}\" != \"Release\" ]; then\n  CONFIG_PATH=\"${SECRETS_PATH}/apollo-codegen-config-dev.json\"\nfi\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n  CONFIG_PATH=\"${SECRETS_PATH}/apollo-codegen-config-prod.json\"\nfi\n\n\"${CLI_PATH}\" generate -p \"${CONFIG_PATH}\" -f\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
