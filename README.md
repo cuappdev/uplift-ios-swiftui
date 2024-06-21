@@ -41,32 +41,18 @@ fi
 
 ```
 
-- There should also be another run script labeled **Generate API** If not, create a **New Run Script Phase** with the following script:
-
-```bash
-CLI_PATH="./apollo-ios-cli"
-SECRETS_PATH="${SRCROOT}/UpliftSecrets"
-
-if [ "${CONFIGURATION}" != "Release" ]; then
-  CONFIG_PATH="${SECRETS_PATH}/apollo-codegen-config-dev.json"
-fi
-
-if [ "${CONFIGURATION}" = "Release" ]; then
-  CONFIG_PATH="${SECRETS_PATH}/apollo-codegen-config-prod.json"
-fi
-
-"${CLI_PATH}" generate -p "${CONFIG_PATH}" -f
-
-```
-
 5. Select the `Uplift` schema to use our development server and `Uplift-Prod` to use our production server.
-6. Run the following code: `./apollo-ios-cli generate -p "UpliftSecrets/apollo-codegen-config-dev.json" -f`
+6. Generate the Apollo API:
+
+- Dev: `./apollo-ios-cli generate -p "UpliftSecrets/apollo-codegen-config-dev.json" -f`
+- Prod: `./apollo-ios-cli generate -p "UpliftSecrets/apollo-codegen-config-prod.json" -f`
+
 7. Build the project and you should be good to go.
 
 ## Common Issues
 
 - If you are unable to reproduce a new Apollo generated API folder, go to **Project > Package Dependencies** and remove `UpliftAPI`. Then, add a new **Local** package dependency that points to the `UpliftAPI` folder in the project directory.
-- If the build script for generating the API folder doesn't work, you can manually generate the API via `./apollo-ios-cli generate -p "UpliftSecrets/apollo-codegen-config-dev.json" -f`
+- If the API is not working properly, try manually generating the API with the CLI.
 
 ## Codebase Outline
 
