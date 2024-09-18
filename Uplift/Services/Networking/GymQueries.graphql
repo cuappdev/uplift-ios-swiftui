@@ -42,6 +42,21 @@ fragment gymFields on Gym {
   amenities {
     type
   }
+  classes {
+    id
+    classId
+    class_ {
+      id
+      name
+      description
+    }
+    endTime
+    instructor
+    isCanceled
+    isVirtual
+    location
+    startTime
+  }
   facilities {
     ...facilityFields
   }

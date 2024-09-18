@@ -21,15 +21,18 @@ struct MainView: View {
     var body: some View {
         ZStack {
             HomeView(popUpGiveaway: $viewModel.popUpGiveaway)
-            // TODO: Temporarily remove tab bar for release
-            //        ZStack(alignment: .bottom) {
-            //            TabView(selection: $selectedTab) {
-            //                HomeView()
-            //                    .tag(Screen.home)
-            //            }
-            //
-            //            tabBar
-            //        }
+
+            ZStack(alignment: .bottom) {
+                TabView(selection: $selectedTab) {
+                    HomeView(popUpGiveaway: $viewModel.popUpGiveaway)
+                        .tag(Screen.home)
+
+                    ClassesView()
+                        .tag(Screen.classes)
+                }
+
+                tabBar
+            }
 
             if viewModel.popUpGiveaway {
                 Constants.Colors.gray04
@@ -68,6 +71,10 @@ struct MainView: View {
             tabItem(for: .home)
 
             Spacer()
+
+            tabItem(for: .classes)
+
+            Spacer()
         }
         .frame(height: 64)
         .background(Constants.Colors.yellow)
@@ -81,9 +88,21 @@ struct MainView: View {
             Button {
                 selectedTab = .home
             } label: {
-                tabItemView(icon: Constants.Images.dumbbellSmall, name: "Home")
+                tabItemView(
+                    icon: selectedTab == .home ? Constants.Images.dumbbellSolid : Constants.Images.dumbbellOutline,
+                    name: "Home"
+                )
             }
             .buttonStyle(.plain)
+        case .classes:
+            Button {
+                selectedTab = .classes
+            } label: {
+                tabItemView(
+                    icon: selectedTab == .classes ? Constants.Images.whistleSolid : Constants.Images.whistleOutline,
+                    name: "Classes"
+                )
+            }
         }
     }
 
@@ -107,6 +126,7 @@ extension MainView {
     /// An enumeration to keep track of which tab the user is currently on.
     private enum Screen {
         case home
+        case classes
     }
 
 }
