@@ -23,6 +23,9 @@ struct Gym: Hashable {
     /// This gym's amenities.
     let amenities: [AmenityType]
 
+    /// This gym's classes.
+    var classes: [FitnessClassInstance]
+
     /// This gym's facilities.
     let facilities: [Facility]
 
@@ -56,6 +59,33 @@ struct Gym: Hashable {
         self.id = gym.id
         self.address = gym.address
         self.amenities = gym.amenities?.compactMap(\.?.type.value) ?? []
+
+        self.classes = [FitnessClassInstance](gym.classes?.compactMap {
+            if let id = $0?.id,
+               let classId = $0?.classId,
+               let fitnessClass = $0?.class_,
+               let endTime = $0?.endTime,
+               let instructor = $0?.instructor,
+               let isCanceled = $0?.isCanceled,
+               let isVirtual = $0?.isVirtual,
+               let location = $0?.location,
+               let startTime = $0?.startTime {
+                return FitnessClassInstance(
+                    id: id,
+                    classId: classId,
+                    fitnessClass: FitnessClass(id: fitnessClass.id, description: fitnessClass.description, name: fitnessClass.name),
+                    endTime: endTime,
+                    instructor: instructor,
+                    isCanceled: isCanceled,
+                    isVirtual: isVirtual,
+                    location: location,
+                    startTime: startTime
+                )
+            } else {
+                return nil
+            }
+        } ?? [])
+
         self.facilities = [Facility](gym.facilities?.compactMap(\.?.fragments.facilityFields) ?? [])
         self.hours = [OpenHours](gym.hours?.compactMap(\.?.fragments.openHoursFields) ?? [])
         self.imageUrl = {
