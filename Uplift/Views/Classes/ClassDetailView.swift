@@ -102,15 +102,13 @@ struct ClassDetailView: View {
                         .font(Constants.Fonts.s1)
                         .foregroundStyle(Constants.Colors.white)
                         .multilineTextAlignment(.center)
-                        .minimumScaleFactor(0.01)
-                        .lineLimit(2)
 
                     Text(classInstance.location)
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.white)
                         .multilineTextAlignment(.center)
 
-                    Text("INSTRUCTOR: \(classInstance.instructor.uppercased())")
+                    Text(classInstance.instructor.uppercased())
                         .font(Constants.Fonts.h2)
                         .foregroundStyle(Constants.Colors.white)
                         .multilineTextAlignment(.center)
