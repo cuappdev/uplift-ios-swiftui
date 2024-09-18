@@ -41,6 +41,46 @@ extension DayOfWeek {
         }
     }
 
+    /// Returns the shortened name for the day of the week.
+    func dayOfWeekShortened() -> String {
+        switch self {
+        case .sunday:
+            return "Sun"
+        case .monday:
+            return "Mon"
+        case .tuesday:
+            return "Tue"
+        case .wednesday:
+            return "Wed"
+        case .thursday:
+            return "Thu"
+        case .friday:
+            return "Fri"
+        case .saturday:
+            return "Sat"
+        }
+    }
+
+    /// Returns the complete name for the day of the week.
+    func dayOfWeekComplete() -> String {
+        switch self {
+        case .sunday:
+            return "Sunday"
+        case .monday:
+            return "Monday"
+        case .tuesday:
+            return "Tuesday"
+        case .wednesday:
+            return "Wednesday"
+        case .thursday:
+            return "Thursday"
+        case .friday:
+            return "Friday"
+        case .saturday:
+            return "Saturday"
+        }
+    }
+
     /**
      Returns an array of all days of the week sorted with the given day first.
 

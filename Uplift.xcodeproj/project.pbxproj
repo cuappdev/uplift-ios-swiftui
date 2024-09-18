@@ -82,6 +82,13 @@
 		636E3D442BBE1F3800B6EFFC /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 636E3D432BBE1F3800B6EFFC /* UpliftAPI */; };
 		63A7ABCD2B86B971008D58FB /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 63A7ABCC2B86B971008D58FB /* UpliftAPI */; };
 		63A7ABCF2B8C119A008D58FB /* Equipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7ABCE2B8C119A008D58FB /* Equipment.swift */; };
+		89599A4E2BD4B39B00DA44DE /* FitnessClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */; };
+		89599A502BD4B4B600DA44DE /* FitnessClassInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */; };
+		896500DC2BB4D33500D822AB /* ClassDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896500DB2BB4D33500D822AB /* ClassDetailView.swift */; };
+		897703662BA2028D00F9992F /* ClassesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897703652BA2028D00F9992F /* ClassesViewModel.swift */; };
+		89950D8A2B992E8400DFB007 /* ClassesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89950D892B992E8400DFB007 /* ClassesView.swift */; };
+		8996FEE02BDF351800F13C67 /* NextSessionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */; };
+		89C8658D2BB4779C00758337 /* ClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C8658C2BB4779C00758337 /* ClassCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,7 +145,6 @@
 		2E45B2462B4F643500FB83B7 /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		2E5726C62B4A63AE00D3DB36 /* ShimmerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerModifier.swift; sourceTree = "<group>"; };
 		2E5726CA2B4A68CC00D3DB36 /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
-		2E5F33412BBC9A5600AA76B8 /* StretchyModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StretchyModifier.swift; sourceTree = "<group>"; };
 		2E6785B82B3A425E00DD3ADA /* GymDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymDetailView.swift; sourceTree = "<group>"; };
 		2E6785BD2B3A513000DD3ADA /* SemiCircleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemiCircleShape.swift; sourceTree = "<group>"; };
 		2E6785BF2B3A5CA300DD3ADA /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
@@ -161,6 +167,13 @@
 		2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientProtocol.swift; sourceTree = "<group>"; };
 		2EF1A2572B129EEB007A299F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		63A7ABCE2B8C119A008D58FB /* Equipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipment.swift; sourceTree = "<group>"; };
+		89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessClass.swift; sourceTree = "<group>"; };
+		89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessClassInstance.swift; sourceTree = "<group>"; };
+		896500DB2BB4D33500D822AB /* ClassDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailView.swift; sourceTree = "<group>"; };
+		897703652BA2028D00F9992F /* ClassesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesViewModel.swift; sourceTree = "<group>"; };
+		89950D892B992E8400DFB007 /* ClassesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesView.swift; sourceTree = "<group>"; };
+		8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextSessionCell.swift; sourceTree = "<group>"; };
+		89C8658C2BB4779C00758337 /* ClassCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +220,8 @@
 			isa = PBXGroup;
 			children = (
 				2E15F4D92B39102A00414BEC /* Capacity.swift */,
+				89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */,
+				89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */,
 				2E6785C32B3A780600DD3ADA /* DayOfWeek.swift */,
 				2E15F4DD2B3912C700414BEC /* Facility.swift */,
 				2E15F4DF2B39143700414BEC /* Gym.swift */,
@@ -259,8 +274,10 @@
 		2E090ED02B1308C900BAE982 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				89950D892B992E8400DFB007 /* ClassesView.swift */,
 				2E8FE3912B1278B700B3DC6A /* HomeView.swift */,
 				2E15F5052B39F81B00414BEC /* MainView.swift */,
+				89C8658B2BB4778400758337 /* Classes */,
 				2E1105C02B13D11E00119F5B /* Home */,
 				2E15F50A2B3A0AF700414BEC /* Supporting */,
 			);
@@ -270,6 +287,7 @@
 		2E090ED12B1308D500BAE982 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				897703652BA2028D00F9992F /* ClassesViewModel.swift */,
 				2E39D82B2B3BB35000AD238B /* FacilityExpandedViewModel.swift */,
 				2E39D8232B3B66FD00AD238B /* FitnessCenterViewModel.swift */,
 				2E6785C12B3A5CE000DD3ADA /* GymDetailViewModel.swift */,
@@ -401,7 +419,6 @@
 				2E15F4EC2B39255B00414BEC /* UpliftTests */,
 				2E8FE38D2B1278B700B3DC6A /* Products */,
 				1E73905287F565F00258C43E /* Frameworks */,
-				2EB161C72BBC9BEF00493B71 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -444,12 +461,14 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		2EB161C72BBC9BEF00493B71 /* Recovered References */ = {
+		89C8658B2BB4778400758337 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				2E5F33412BBC9A5600AA76B8 /* StretchyModifier.swift */,
+				89C8658C2BB4779C00758337 /* ClassCell.swift */,
+				896500DB2BB4D33500D822AB /* ClassDetailView.swift */,
+				8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */,
 			);
-			name = "Recovered References";
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -542,7 +561,7 @@
 				2E6785BA2B3A48D700DD3ADA /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				2EC3EE642B3C000E00E927BF /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				8996FEE12BE1D2BB00F13C67 /* XCLocalSwiftPackageReference "UpliftAPI" */,
+				8996520A2C9A628600354E42 /* XCLocalSwiftPackageReference "UpliftAPI" */,
 			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
 			projectDirPath = "";
@@ -643,6 +662,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				896500DC2BB4D33500D822AB /* ClassDetailView.swift in Sources */,
 				2EF1A2582B129EEB007A299F /* Network.swift in Sources */,
 				2E39D81C2B3B5F3700AD238B /* NavBackButton.swift in Sources */,
 				2E15F4E02B39143700414BEC /* Gym.swift in Sources */,
@@ -652,14 +672,18 @@
 				2E15F4FB2B39573C00414BEC /* Double+Extension.swift in Sources */,
 				2E39D8162B3B3AD600AD238B /* ScaleButtonStyle.swift in Sources */,
 				2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */,
+				89C8658D2BB4779C00758337 /* ClassCell.swift in Sources */,
 				2E1105BF2B13B0E100119F5B /* HomeViewModel.swift in Sources */,
+				89599A4E2BD4B39B00DA44DE /* FitnessClass.swift in Sources */,
 				2E15F5122B3A3D0000414BEC /* TriangleShape.swift in Sources */,
 				2E8FE3922B1278B700B3DC6A /* HomeView.swift in Sources */,
 				2E6785C02B3A5CA300DD3ADA /* Haptics.swift in Sources */,
+				89950D8A2B992E8400DFB007 /* ClassesView.swift in Sources */,
 				2E15F50C2B3A0B2100414BEC /* CapacityCircleView.swift in Sources */,
 				2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */,
 				2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */,
 				2E15F5062B39F81B00414BEC /* MainView.swift in Sources */,
+				8996FEE02BDF351800F13C67 /* NextSessionCell.swift in Sources */,
 				2E39D82A2B3B9F3D00AD238B /* FacilityExpandedView.swift in Sources */,
 				2EB161C92BBC9C3100493B71 /* StretchyModifier.swift in Sources */,
 				2E39D82C2B3BB35000AD238B /* FacilityExpandedViewModel.swift in Sources */,
@@ -673,11 +697,13 @@
 				2E45B2472B4F643500FB83B7 /* AnalyticsManager.swift in Sources */,
 				63A7ABCF2B8C119A008D58FB /* Equipment.swift in Sources */,
 				2E39D8202B3B623B00AD238B /* FitnessCenterView.swift in Sources */,
+				897703662BA2028D00F9992F /* ClassesViewModel.swift in Sources */,
 				2E1105C22B13D15100119F5B /* HomeGymCell.swift in Sources */,
 				2E15F4F92B3950F800414BEC /* Date+Extension.swift in Sources */,
 				2E8FE3902B1278B700B3DC6A /* UpliftApp.swift in Sources */,
 				2EE5F3C82B12E094008E0299 /* ApolloClientProtocol.swift in Sources */,
 				2E39D8262B3B6C6500AD238B /* SlidingTabBarView.swift in Sources */,
+				89599A502BD4B4B600DA44DE /* FitnessClassInstance.swift in Sources */,
 				2E1105C42B13D1B000119F5B /* DummyData.swift in Sources */,
 				2E15F4E22B3917B200414BEC /* Status.swift in Sources */,
 				2E3DC2432BCD2F1D0063B369 /* GiveawayModal.swift in Sources */,
@@ -984,7 +1010,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		8996FEE12BE1D2BB00F13C67 /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
+		8996520A2C9A628600354E42 /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = UpliftAPI;
 		};
