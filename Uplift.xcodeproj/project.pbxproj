@@ -78,6 +78,7 @@
 		2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E12B12EDB6008E0299 /* Apollo */; };
 		2EE5F3E42B12EDB6008E0299 /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E32B12EDB6008E0299 /* ApolloAPI */; };
 		2EF1A2582B129EEB007A299F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1A2572B129EEB007A299F /* Network.swift */; };
+		6329A4462C964D0800D30A2F /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6329A4452C964D0800D30A2F /* SignInView.swift */; };
 		636E3D412BBE1EB100B6EFFC /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 636E3D402BBE1EB100B6EFFC /* UpliftAPI */; };
 		636E3D442BBE1F3800B6EFFC /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 636E3D432BBE1F3800B6EFFC /* UpliftAPI */; };
 		63A7ABCD2B86B971008D58FB /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 63A7ABCC2B86B971008D58FB /* UpliftAPI */; };
@@ -167,6 +168,7 @@
 		2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GymQueries.graphql; sourceTree = "<group>"; };
 		2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientProtocol.swift; sourceTree = "<group>"; };
 		2EF1A2572B129EEB007A299F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		6329A4452C964D0800D30A2F /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		63A7ABCE2B8C119A008D58FB /* Equipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipment.swift; sourceTree = "<group>"; };
 		89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessClass.swift; sourceTree = "<group>"; };
 		89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessClassInstance.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				89950D892B992E8400DFB007 /* ClassesView.swift */,
+				63CA15862C924B84001620B5 /* Onboarding */,
 				2E8FE3912B1278B700B3DC6A /* HomeView.swift */,
 				2E15F5052B39F81B00414BEC /* MainView.swift */,
 				89C8658B2BB4778400758337 /* Classes */,
@@ -473,6 +476,14 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		63CA15862C924B84001620B5 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				6329A4452C964D0800D30A2F /* SignInView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -667,6 +678,7 @@
 			files = (
 				896500DC2BB4D33500D822AB /* ClassDetailView.swift in Sources */,
 				2EF1A2582B129EEB007A299F /* Network.swift in Sources */,
+				6329A4462C964D0800D30A2F /* SignInView.swift in Sources */,
 				2E39D81C2B3B5F3700AD238B /* NavBackButton.swift in Sources */,
 				2E15F4E02B39143700414BEC /* Gym.swift in Sources */,
 				2E39D8242B3B66FD00AD238B /* FitnessCenterViewModel.swift in Sources */,
