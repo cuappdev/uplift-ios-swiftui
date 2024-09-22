@@ -293,6 +293,7 @@
 				89950D892B992E8400DFB007 /* ClassesView.swift */,
 				63CA15862C924B84001620B5 /* Onboarding */,
 				89950D892B992E8400DFB007 /* ClassesView.swift */,
+				63CA15862C924B84001620B5 /* Onboarding */,
 				2E8FE3912B1278B700B3DC6A /* HomeView.swift */,
 				2E15F5052B39F81B00414BEC /* MainView.swift */,
 				89C8658B2BB4778400758337 /* Classes */,
