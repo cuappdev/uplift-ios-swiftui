@@ -95,6 +95,7 @@ struct Constants {
     enum Images {
         static let appdevLogo = Image("appdev-logo")
         static let arrowLeft = Image("arrow_left")
+        static let backgroundEllipse = Image("background_ellipse")
         static let basketball = Image("basketball")
         static let bowling = Image("bowling")
         static let clock = Image("clock")
@@ -104,6 +105,9 @@ struct Constants {
         static let elevator = Image("elevator")
         static let giveawayModalBackground = Image("giveaway_modal_bg")
         static let giveawayPopupBackground = Image("giveaway_popup_bg")
+        static let goal = Image("goal")
+        static let gymSimple = Image("gym_simple")
+        static let history = Image("history")
         static let lock = Image("lock")
         static let logo = Image("logo")
         static let logoWhite = Image("logo_white")

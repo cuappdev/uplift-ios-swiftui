@@ -10,31 +10,102 @@ import SwiftUI
 
 struct SignInView: View {
     var body: some View {
+
+
         VStack {
-            ZStack {
-                Circle()
-                    .trim(from: 0, to: 0.5)
-                    .size(CGSize(width: 488, height: 488))
-                    .foregroundColor(Constants.Colors.lightYellow)
-                    .offset(x: -150, y: -100)
+            signInHeader
+            login
+            Text("Skip")
+                .font(Constants.Fonts.bodyNormal)
+                .foregroundColor(Constants.Colors.gray04)
+        }
+    }
+
+    private var login: some View {
+        Button {
+            // TODO: Action
+        } label: {
+            Text("Log in")
+                .font(Constants.Fonts.h2)
+                .foregroundColor(Constants.Colors.black)
+                .padding(.horizontal, 46)
+                .padding(.vertical, 12)
+                .background(Constants.Colors.yellow)
+                .cornerRadius(38)
+                .upliftShadow(Constants.Shadows.smallLight)
+        }
+    }
+
+    private var cards: some View {
+        VStack(spacing: 12) {
+            goals
+            gymSimple
+            history
+        }
+        .padding(.horizontal, 76)
+    }
+
+    private var goals: some View {
+        HStack {
+            Constants.Images.goal
+            Text("Create fitness goals")
+                .font(Constants.Fonts.f2)
+            Spacer()
+        }
+        .padding(12)
+        .background(.white)
+        .cornerRadius(8)
+        .upliftShadow(Constants.Shadows.smallLight)
+    }
+    private var gymSimple: some View {
+        HStack {
+            Constants.Images.gymSimple
+            Text("Track fitness goals")
+                .font(Constants.Fonts.f2)
+            Spacer()
+        }
+        .padding(12)
+        .background(.white)
+        .cornerRadius(8)
+        .upliftShadow(Constants.Shadows.smallLight)
+    }
+    private var history: some View {
+        HStack {
+            Constants.Images.history
+            Text("View workout history")
+                .font(Constants.Fonts.f2)
+            Spacer()
+        }
+        .padding(12)
+        .background(.white)
+        .cornerRadius(8)
+        .upliftShadow(Constants.Shadows.smallLight)
+    }
+    private var signInHeader: some View {
+        VStack {
+            ZStack(alignment: .bottom) {
+                Constants.Images.backgroundEllipse
+                    .padding(.trailing, 51)
                 Constants.Images.logo
                     .resizable()
                     .frame(width: 130, height: 115)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
-                    .padding(62)
+                    .padding(32)
 
             }
-            .offset(y: -145) // Might need to change TBH
-
             Text("Find what uplifts you.")
                 .font(Constants.Fonts.h1)
+                .padding(.top, 62)
+
             Text("Log in to:")
                 .font(Constants.Fonts.h2)
-                .padding(89)
+                .padding(.top, 89)
+
+            cards
+                .padding(.top, 24)
             Spacer()
         }
-        .frame(alignment: .top)
-        .edgesIgnoringSafeArea(.all)
+        .ignoresSafeArea(.all)
     }
 }
 
