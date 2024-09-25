@@ -132,7 +132,8 @@ struct HomeView: View {
             VStack(alignment: .leading, spacing: 12) {
                 viewModel.showCapacities ? capacitiesView : nil
 
-                giveawayModalCell
+                // TODO: Uncomment to display giveaway modal
+//                giveawayModalCell
 
                 HStack {
                     Text("GYMS")
