@@ -30,6 +30,7 @@ struct Constants {
         static let turquoise = Color(red: 74/255, green: 210/255, blue: 242/255)
 
         // Gray
+        static let gray00 = Color(red: 248/255, green: 250/255, blue: 250/255)
         static let gray01 = Color(red: 229/255, green: 236/255, blue: 237/255)
         static let gray02 = Color(red: 209/255, green: 213/255, blue: 218/255)
         static let gray03 = Color(red: 161/255, green: 165/255, blue: 166/255)
@@ -99,6 +100,7 @@ struct Constants {
         static let basketball = Image("basketball")
         static let bowling = Image("bowling")
         static let calendar = Image("calendar")
+        static let capacity = Image("capacity")
         static let clock = Image("clock")
         static let cross = Image("cross")
         static let dumbbellLarge = Image("dumbbell_large")
