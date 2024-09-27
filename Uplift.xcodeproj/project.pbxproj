@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -88,6 +88,7 @@
 		897703662BA2028D00F9992F /* ClassesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897703652BA2028D00F9992F /* ClassesViewModel.swift */; };
 		89950D8A2B992E8400DFB007 /* ClassesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89950D892B992E8400DFB007 /* ClassesView.swift */; };
 		8996FEE02BDF351800F13C67 /* NextSessionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */; };
+		899B186D2CA5FAFB00FAC061 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899B186C2CA5FAFB00FAC061 /* ProfileView.swift */; };
 		89C8658D2BB4779C00758337 /* ClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C8658C2BB4779C00758337 /* ClassCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -173,8 +174,13 @@
 		897703652BA2028D00F9992F /* ClassesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesViewModel.swift; sourceTree = "<group>"; };
 		89950D892B992E8400DFB007 /* ClassesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesView.swift; sourceTree = "<group>"; };
 		8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextSessionCell.swift; sourceTree = "<group>"; };
+		899B186C2CA5FAFB00FAC061 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		89C8658C2BB4779C00758337 /* ClassCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		899B18692CA5F72700FAC061 /* Profile */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Profile; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		2E15F4E82B39255B00414BEC /* Frameworks */ = {
@@ -277,8 +283,10 @@
 				89950D892B992E8400DFB007 /* ClassesView.swift */,
 				2E8FE3912B1278B700B3DC6A /* HomeView.swift */,
 				2E15F5052B39F81B00414BEC /* MainView.swift */,
+				899B186C2CA5FAFB00FAC061 /* ProfileView.swift */,
 				89C8658B2BB4778400758337 /* Classes */,
 				2E1105C02B13D11E00119F5B /* Home */,
+				899B18692CA5F72700FAC061 /* Profile */,
 				2E15F50A2B3A0AF700414BEC /* Supporting */,
 			);
 			path = Views;
@@ -506,6 +514,9 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				899B18692CA5F72700FAC061 /* Profile */,
+			);
 			name = Uplift;
 			packageProductDependencies = (
 				2EE5F3E12B12EDB6008E0299 /* Apollo */,
@@ -703,6 +714,7 @@
 				2E8FE3902B1278B700B3DC6A /* UpliftApp.swift in Sources */,
 				2EE5F3C82B12E094008E0299 /* ApolloClientProtocol.swift in Sources */,
 				2E39D8262B3B6C6500AD238B /* SlidingTabBarView.swift in Sources */,
+				899B186D2CA5FAFB00FAC061 /* ProfileView.swift in Sources */,
 				89599A502BD4B4B600DA44DE /* FitnessClassInstance.swift in Sources */,
 				2E1105C42B13D1B000119F5B /* DummyData.swift in Sources */,
 				2E15F4E22B3917B200414BEC /* Status.swift in Sources */,
