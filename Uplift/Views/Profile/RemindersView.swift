@@ -50,14 +50,14 @@ struct RemindersView: View {
             }
         }
         .padding(.bottom, 8)
-        .background(Constants.Colors.gray00)
+        .background(Constants.Colors.lightGray)
         .frame(height: 96)
     }
 
     private var content: some View {
         VStack {
             NavigationLink {
-                RemindersView()
+                CapacityRemindersView()
             } label: {
                 capacityReminders
             }
@@ -84,7 +84,7 @@ struct RemindersView: View {
                     .foregroundStyle(Constants.Colors.gray03)
                     .frame(width: 24, height: 24)
             }
-            .padding(.vertical, 24)
+            .padding(.vertical, 20)
 
             DividerLine()
         }
