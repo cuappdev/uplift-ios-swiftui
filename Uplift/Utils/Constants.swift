@@ -105,6 +105,8 @@ struct Constants {
         static let camera = Image("camera")
         static let cameraMini = Image("camera_mini")
         static let calendar = Image("calendar")
+        static let camera = Image("camera")
+        static let cameraMini = Image("camera_mini")
         static let clock = Image("clock")
         static let cross = Image("cross")
         static let dumbbellLarge = Image("dumbbell_large")
