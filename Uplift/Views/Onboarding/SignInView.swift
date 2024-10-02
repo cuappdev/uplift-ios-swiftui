@@ -11,16 +11,23 @@ import SwiftUI
 struct SignInView: View {
     var body: some View {
 
-
         VStack {
             signInHeader
             login
+            Spacer(minLength: 16)
+            skip
+        }
+    }
+
+    private var skip: some View {
+        Button {
+            // TODO: Action
+        } label: {
             Text("Skip")
                 .font(Constants.Fonts.bodyNormal)
                 .foregroundColor(Constants.Colors.gray04)
         }
     }
-
     private var login: some View {
         Button {
             // TODO: Action
