@@ -21,11 +21,12 @@ struct UpliftApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainView()
-                .environmentObject(locationManager)
-                .onAppear {
-                    locationManager.requestLocation()
-                }
+            CreateProfileView()
+//            MainView()
+//                .environmentObject(locationManager)
+//                .onAppear {
+//                    locationManager.requestLocation()
+//                }
         }
     }
 
