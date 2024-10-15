@@ -77,6 +77,7 @@ struct CapacityRemindersView: View {
                 Text("Uplift will send you a notification when gyms dip below the set capacity")
                     .foregroundStyle(Constants.Colors.gray03)
                     .font(Constants.Fonts.labelNormal)
+                    .multilineTextAlignment(.leading)
             }
 
             showInfo ? reminderInfo : nil
