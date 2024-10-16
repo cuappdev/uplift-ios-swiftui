@@ -29,6 +29,9 @@ struct MainView: View {
 
                     ClassesView()
                         .tag(Screen.classes)
+
+                    ProfileView()
+                        .tag(Screen.profile)
                 }
 
                 tabBar
@@ -75,6 +78,10 @@ struct MainView: View {
             tabItem(for: .classes)
 
             Spacer()
+
+            tabItem(for: .profile)
+
+            Spacer()
         }
         .frame(height: 64)
         .background(Constants.Colors.yellow)
@@ -103,6 +110,15 @@ struct MainView: View {
                     name: "Classes"
                 )
             }
+        case .profile:
+            Button {
+                selectedTab = .profile
+            } label: {
+                tabItemView(
+                    icon: selectedTab == .profile ? Constants.Images.whistleSolid : Constants.Images.whistleOutline,
+                    name: "Profile"
+                )
+            }
         }
     }
 
@@ -127,6 +143,7 @@ extension MainView {
     private enum Screen {
         case home
         case classes
+        case profile
     }
 
 }

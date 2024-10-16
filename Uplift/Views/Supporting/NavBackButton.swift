@@ -13,7 +13,13 @@ struct NavBackButton: View {
 
     // MARK: - Properties
 
-    let dismiss: DismissAction
+    private var color: Color
+    private var dismiss: DismissAction
+
+    init(color: Color = Constants.Colors.white, dismiss: DismissAction) {
+        self.color = color
+        self.dismiss = dismiss
+    }
 
     // MARK: - UI
 
@@ -24,7 +30,7 @@ struct NavBackButton: View {
             Constants.Images.arrowLeft
                 .resizable()
                 .scaledToFill()
-                .foregroundStyle(Constants.Colors.white)
+                .foregroundStyle(color)
                 .frame(width: 24, height: 24)
         }
     }
