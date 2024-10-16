@@ -126,6 +126,7 @@ struct Constants {
         static let profileSolid = Image("profile_solid")
         static let pencil = Image("pencil")
         static let elevator = Image("elevator")
+        static let greenCheckCircle = Image("green_check_circle")
         static let greenTea = Image("green_tea")
         static let giveawayModalBackground = Image("giveaway_modal_bg")
         static let giveawayPopupBackground = Image("giveaway_popup_bg")
