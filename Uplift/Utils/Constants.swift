@@ -115,6 +115,7 @@ struct Constants {
         static let cameraMini = Image("camera_mini")
         static let capacity = Image("capacity")
         static let chest = Image("chest")
+        static let chevronDown = Image("chevron_down")
         static let clock = Image("clock")
         static let crossThin = Image("cross_thin")
         static let cross = Image("cross")
@@ -161,6 +162,8 @@ struct Constants {
         static let remindersHorizontal: CGFloat = 16
         static let remindersVertical: CGFloat = 24
         static let tabBarHeight: CGFloat = 64
+        static let reportHorizontal: CGFloat = 16
+        static let reportVertical: CGFloat = 24
     }
 
     /// Shadows used in Uplift's design system.

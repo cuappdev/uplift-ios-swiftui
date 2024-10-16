@@ -328,6 +328,12 @@ struct ProfileView: View {
                     }
                 }
             }
+
+            NavigationLink {
+                ReportView()
+            } label: {
+                Text("Report an issue")
+            }
         }
     }
 }
