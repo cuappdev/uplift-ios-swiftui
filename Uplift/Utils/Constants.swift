@@ -102,6 +102,7 @@ struct Constants {
         static let bowling = Image("bowling")
         static let calendar = Image("calendar")
         static let capacity = Image("capacity")
+        static let chevronDown = Image("chevron_down")
         static let clock = Image("clock")
         static let cross = Image("cross")
         static let dumbbellLarge = Image("dumbbell_large")
@@ -131,6 +132,8 @@ struct Constants {
         static let homeHorizontal: CGFloat = 16
         static let remindersHorizontal: CGFloat = 16
         static let remindersVertical: CGFloat = 24
+        static let reportHorizontal: CGFloat = 16
+        static let reportVertical: CGFloat = 24
     }
 
     /// Shadows usde in Uplift's design system.

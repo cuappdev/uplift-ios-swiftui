@@ -17,6 +17,12 @@ struct ProfileView: View {
             } label: {
                 Text("Reminders")
             }
+
+            NavigationLink {
+                ReportView()
+            } label: {
+                Text("Report an issue")
+            }
         }
     }
 }
