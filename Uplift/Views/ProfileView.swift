@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+/// The main view for the Profile page.
 struct ProfileView: View {
     var body: some View {
         NavigationStack {
