@@ -109,6 +109,7 @@ struct Constants {
         static let dumbbellOutline = Image("dumbbell_outline")
         static let dumbbellSolid = Image("dumbbell_solid")
         static let elevator = Image("elevator")
+        static let greenCheckCircle = Image("green_check_circle")
         static let greenTea = Image("green_tea")
         static let giveawayModalBackground = Image("giveaway_modal_bg")
         static let giveawayPopupBackground = Image("giveaway_popup_bg")

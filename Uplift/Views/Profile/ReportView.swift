@@ -158,8 +158,8 @@ struct ReportView: View {
     }
 
     private var submitButton: some View {
-        Button {
-
+        NavigationLink {
+            ReportSuccessView()
         } label: {
             VStack {
                 Text("SUBMIT")
@@ -167,10 +167,12 @@ struct ReportView: View {
                     .font(Constants.Fonts.h3)
             }
             .padding(EdgeInsets(top: 12, leading: 24, bottom: 12, trailing: 24))
-            .background(Constants.Colors.yellow)
+            .background(
+                RoundedRectangle(cornerRadius: 36)
+                    .foregroundStyle(Constants.Colors.yellow)
+            )
             .upliftShadow(Constants.Shadows.smallLight)
         }
-        .cornerRadius(36)
     }
 }
 
