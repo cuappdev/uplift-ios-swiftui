@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+/// The view for the success page of the reporting an issue flow.
 struct ReportSuccessView: View {
 
     // MARK: - Properties
