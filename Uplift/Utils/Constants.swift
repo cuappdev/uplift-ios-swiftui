@@ -39,6 +39,7 @@ struct Constants {
         static let gray05 = Color(red: 115/255, green: 131/255, blue: 144/255)
 
         // Others
+        static let dropdownSelectColor = Color(red: 202/255, green: 214/255, blue: 224/255)
         static let giveawayBgColor = Color(red: 34/255, green: 36/255, blue: 42/255)
     }
 
@@ -92,6 +93,9 @@ struct Constants {
         static let labelMedium = Font.custom("Montserrat-Medium", size: 12)
         static let labelSemibold = Font.custom("Montserrat-SemiBold", size: 12)
         static let labelBold = Font.custom("Montserrat-Bold", size: 12)
+
+        // Others
+        static let error = Font.custom("Montserrat-Regular", size: 10)
     }
 
     /// Image components used in Uplift.

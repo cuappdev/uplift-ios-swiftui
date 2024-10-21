@@ -18,8 +18,10 @@ struct ReportView: View {
     @Binding var profileIsActive: Bool
     @Binding var reportSuccessIsActive: Bool
     @State private var description = ""
-    @State private var issueIsExpanded = true
+    @State private var displayGymError = false
+    @State private var displayIssueError = false
     @State private var gymIsExpanded = true
+    @State private var issueIsExpanded = true
     @State private var selectedGym = ""
     @State private var selectedIssue = ""
 
@@ -107,15 +109,16 @@ struct ReportView: View {
             }
 
             Dropdown(
+                displayError: $displayIssueError,
                 isExpanded: $issueIsExpanded,
+                selectedOption: $selectedIssue,
                 options: [
                     "Inaccurate equipment",
                     "Incorrect hours",
                     "Inaccurate description",
                     "Wait time not updated",
                     "Other"
-                ],
-                selectedOption: $selectedIssue
+                ]
             )
         }
     }
@@ -131,15 +134,16 @@ struct ReportView: View {
             }
 
             Dropdown(
+                displayError: $displayGymError,
                 isExpanded: $gymIsExpanded,
+                selectedOption: $selectedGym,
                 options: [
                     "Morrison",
                     "Teagle",
                     "Helen Newman",
                     "Noyes",
                     "Other"
-                ],
-                selectedOption: $selectedGym
+                ]
             )
         }
     }
@@ -175,11 +179,16 @@ struct ReportView: View {
 
     private var submitButton: some View {
         Button {
-            withAnimation(.easeIn(duration: 0.3).delay(0.3)) {
-                isActive.toggle()
-            }
-            withAnimation(.easeIn(duration: 0.3)) {
-                reportSuccessIsActive.toggle()
+            if !selectedIssue.isEmpty && !selectedGym.isEmpty {
+                withAnimation(.easeIn(duration: 0.3).delay(0.3)) {
+                    isActive.toggle()
+                }
+                withAnimation(.easeIn(duration: 0.3)) {
+                    reportSuccessIsActive.toggle()
+                }
+            } else {
+                displayIssueError = selectedIssue.isEmpty
+                displayGymError = selectedGym.isEmpty
             }
         } label: {
             VStack {
