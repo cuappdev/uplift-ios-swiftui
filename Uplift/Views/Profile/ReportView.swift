@@ -14,6 +14,9 @@ struct ReportView: View {
     // MARK: - Properties
 
     @Environment(\.dismiss) private var dismiss
+    @Binding var isActive: Bool
+    @Binding var profileIsActive: Bool
+    @Binding var reportSuccessIsActive: Bool
     @State private var description = ""
     @State private var issueIsExpanded = true
     @State private var gymIsExpanded = true
@@ -33,7 +36,18 @@ struct ReportView: View {
             .toolbarBackground(.hidden, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    NavBackButton(color: Constants.Colors.black, dismiss: dismiss)
+                    Button {
+                        withAnimation(.easeIn(duration: 0.3)) {
+                            profileIsActive.toggle()
+                            isActive.toggle()
+                        }
+                    } label: {
+                        Constants.Images.arrowLeft
+                            .resizable()
+                            .scaledToFill()
+                            .foregroundStyle(Constants.Colors.black)
+                            .frame(width: 24, height: 24)
+                    }
                 }
             }
             .background(Constants.Colors.white)
@@ -158,8 +172,13 @@ struct ReportView: View {
     }
 
     private var submitButton: some View {
-        NavigationLink {
-            ReportSuccessView()
+        Button {
+            withAnimation(.easeIn(duration: 0.3).delay(0.3)) {
+                isActive.toggle()
+            }
+            withAnimation(.easeIn(duration: 0.3)) {
+                reportSuccessIsActive.toggle()
+            }
         } label: {
             VStack {
                 Text("SUBMIT")
@@ -174,8 +193,4 @@ struct ReportView: View {
             .upliftShadow(Constants.Shadows.smallLight)
         }
     }
-}
-
-#Preview {
-    ReportView()
 }

@@ -10,19 +10,47 @@ import SwiftUI
 
 /// The main view for the Profile page.
 struct ProfileView: View {
-    var body: some View {
-        NavigationStack {
-            NavigationLink {
-                RemindersView()
-            } label: {
-                Text("Reminders")
-            }
 
-            NavigationLink {
-                ReportView()
-            } label: {
-                Text("Report an issue")
-            }
+    // MARK: - Properties
+
+    @State var isActive = true
+    @State var reportIsActive = false
+    @State var reportSuccessIsActive = false
+
+    // MARK: - UI
+
+    var body: some View {
+        ZStack {
+            isActive ? (
+                NavigationStack {
+                    NavigationLink {
+                        RemindersView()
+                    } label: {
+                        Text("Reminders")
+                    }
+
+                    Button {
+                        withAnimation(.easeIn(duration: 0.3)) {
+                            isActive.toggle()
+                            reportIsActive.toggle()
+                        }
+                    } label: {
+                        Text("Report an issue")
+                    }
+                }
+            ) : nil
+
+            reportIsActive ? ReportView(
+                isActive: $reportIsActive,
+                profileIsActive: $isActive,
+                reportSuccessIsActive: $reportSuccessIsActive
+            ).transition(.move(edge: .trailing)) : nil
+
+            reportSuccessIsActive ? ReportSuccessView(
+                isActive: $reportSuccessIsActive,
+                profileIsActive: $isActive,
+                reportIsActive: $reportIsActive
+            ) : nil
         }
     }
 }
