@@ -83,6 +83,8 @@ struct ReportView: View {
                 Spacer()
 
                 submitButton
+
+                Spacer()
             }
             .padding(EdgeInsets(
                 top: Constants.Padding.reportVertical,
