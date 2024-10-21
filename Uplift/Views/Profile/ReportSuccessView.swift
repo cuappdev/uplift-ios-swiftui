@@ -70,27 +70,15 @@ struct ReportSuccessView: View {
             }
 
             VStack(spacing: 16) {
-                submitButton
-
-                Button {
-                    withAnimation(.easeIn(duration: 0.3)) {
-                        profileIsActive.toggle()
-                        isActive.toggle()
-                    }
-                } label: {
-                    HStack {
-                        Text("Return to Home")
-                            .foregroundStyle(Constants.Colors.gray04)
-                            .font(Constants.Fonts.f3)
-                    }
-                }
+                submitAnotherButton
+                returnHomeButton
             }
 
             Spacer()
         }
     }
 
-    private var submitButton: some View {
+    private var submitAnotherButton: some View {
         Button {
             withAnimation(.easeIn(duration: 0.3)) {
                 reportIsActive.toggle()
@@ -108,6 +96,21 @@ struct ReportSuccessView: View {
                     .foregroundStyle(Constants.Colors.gray01)
             )
             .upliftShadow(Constants.Shadows.smallLight)
+        }
+    }
+
+    private var returnHomeButton: some View {
+        Button {
+            withAnimation(.easeIn(duration: 0.3)) {
+                profileIsActive.toggle()
+                isActive.toggle()
+            }
+        } label: {
+            HStack {
+                Text("Return to Home")
+                    .foregroundStyle(Constants.Colors.gray04)
+                    .font(Constants.Fonts.f3)
+            }
         }
     }
 }
