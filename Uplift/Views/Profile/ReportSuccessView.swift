@@ -14,6 +14,9 @@ struct ReportSuccessView: View {
     // MARK: - Properties
 
     @Environment(\.dismiss) private var dismiss
+    @Binding var isActive: Bool
+    @Binding var profileIsActive: Bool
+    @Binding var reportIsActive: Bool
 
     // MARK: - UI
 
@@ -25,12 +28,6 @@ struct ReportSuccessView: View {
             }
             .ignoresSafeArea(.all, edges: .top)
             .navigationBarBackButtonHidden(true)
-            .toolbarBackground(.hidden, for: .navigationBar)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    NavBackButton(color: Constants.Colors.black, dismiss: dismiss)
-                }
-            }
             .background(Constants.Colors.white)
         }
     }
@@ -76,7 +73,10 @@ struct ReportSuccessView: View {
                 submitButton
 
                 Button {
-
+                    withAnimation(.easeIn(duration: 0.3)) {
+                        profileIsActive.toggle()
+                        isActive.toggle()
+                    }
                 } label: {
                     HStack {
                         Text("Return to Home")
@@ -91,8 +91,11 @@ struct ReportSuccessView: View {
     }
 
     private var submitButton: some View {
-        NavigationLink {
-            ReportView()
+        Button {
+            withAnimation(.easeIn(duration: 0.3)) {
+                reportIsActive.toggle()
+                isActive.toggle()
+            }
         } label: {
             VStack {
                 Text("SUBMIT ANOTHER")
@@ -107,8 +110,4 @@ struct ReportSuccessView: View {
             .upliftShadow(Constants.Shadows.smallLight)
         }
     }
-}
-
-#Preview {
-    ReportSuccessView()
 }
