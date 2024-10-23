@@ -6,37 +6,33 @@
 //  Copyright © 2024 Cornell AppDev. All rights reserved.
 //
 
+import PhotosUI
 import SwiftUI
-import UIKit
 
-struct ImagePicker: UIViewControllerRepresentable {
-    @Binding var selectedImage: UIImage?
+struct ImagePicker: View {
+    @State private var profileItem: PhotosPickerItem?
+    @Binding var selectedImage: Image?
 
-    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
-        let picker = UIImagePickerController()
-        picker.delegate = context.coordinator
-        picker.sourceType = .photoLibrary
-        return picker
-    }
-
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePicker>) {}
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-
-    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-        let parent: ImagePicker
-
-        init(_ parent: ImagePicker) {
-            self.parent = parent
-        }
-
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-            if let image = info[.originalImage] as? UIImage {
-                parent.selectedImage = image
+    var body: some View {
+        VStack {
+            PhotosPicker(selection: $profileItem, matching: .images) {
+                Text("Select profile image")
+                    .font(Constants.Fonts.h2)
+                    .foregroundColor(Constants.Colors.black)
             }
-            picker.dismiss(animated: true)
+            selectedImage?
+                .resizable()
+                .scaledToFit()
+                .frame(width: 300, height: 300)
+        }
+        .onChange(of: profileItem) { _ in
+            Task {
+                if let loaded = try? await profileItem?.loadTransferable(type: Image.self) {
+                    selectedImage = loaded
+                } else {
+                    print("Failed to load profile imagfe.")
+                }
+            }
         }
     }
 }
