@@ -15,6 +15,7 @@ struct SetGoalsView: View {
 
     @StateObject private var viewModel = ViewModel()
     @Environment(\.dismiss) private var dismiss
+    @State private var daysAWeek = 3.0
     @State private var isEveryDay = false
     @State private var isSettingTime = false
     @State private var showNewReminder = false
@@ -90,7 +91,7 @@ struct SetGoalsView: View {
 
             VStack(spacing: 16) {
                 Slider(
-                    value: $capacity,
+                    value: $daysAWeek,
                     in: 1...7,
                     step: 1
                 )
