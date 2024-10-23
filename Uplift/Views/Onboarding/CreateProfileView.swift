@@ -14,6 +14,7 @@ struct CreateProfileView: View {
     @State private var isCheckedLocation: Bool = false
     @State private var profileImage: UIImage?
     @State private var isShowingImagePicker = false
+    @State private var profileItem: PhotosPickerItem?
 
     var body: some View {
         VStack {
@@ -30,8 +31,12 @@ struct CreateProfileView: View {
                 .padding(.bottom, 24)
             Text("Stefanie Rivera-Osorio")
                 .font(Constants.Fonts.h1)
-            CheckBoxView(isCheckedTerms: $isCheckedTerms, isCheckedData: $isCheckedData, isCheckedLocation: $isCheckedLocation)
-                .padding(.top, 48)
+            CheckBoxView(
+                isCheckedTerms: $isCheckedTerms,
+                isCheckedData: $isCheckedData,
+                isCheckedLocation: $isCheckedLocation
+            )
+            .padding(.top, 48)
 
             if allChecked {
                 Spacer(minLength: 135)
@@ -46,8 +51,24 @@ struct CreateProfileView: View {
             Spacer()
         }
         .padding(.vertical, 40)
-        .sheet(isPresented: $isShowingImagePicker) {
-            ImagePicker(selectedImage: $profileImage)
+        .photosPicker(
+            isPresented: $isShowingImagePicker,
+            selection: $profileItem,
+            matching: .images,
+            photoLibrary: .shared()
+        )
+        .onChange(of: profileItem) { newItem in
+            Task {
+                if let newItem = newItem {
+                    if let data = try? await newItem.loadTransferable(type: Data.self),
+                       let image = UIImage(data: data) {
+                        DispatchQueue.main.async {
+                            self.profileImage = image
+                        }
+                    }
+                }
+            }
+
         }
     }
 
@@ -155,8 +176,4 @@ struct CreateProfileView: View {
                 .frame(width: 22, height: 17)
         }
     }
-}
-
-#Preview {
-    CreateProfileView()
 }

@@ -10,6 +10,7 @@ import FirebaseCore
 import SwiftUI
 
 @main
+@available(iOS 17.0, *)
 struct UpliftApp: App {
 
     // MARK: - Properties
