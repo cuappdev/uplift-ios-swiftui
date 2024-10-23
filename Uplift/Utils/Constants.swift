@@ -104,6 +104,7 @@ struct Constants {
         static let abdominals = Image("abdominals")
         static let agreementsChecker = Image("agreements_checker")
         static let agreementsUnchecked = Image("agreements_unchecked")
+        static let addCircle = Image("add_circle")
         static let appdevLogo = Image("appdev-logo")
         static let arm = Image("arm")
         static let arrowLeft = Image("arrow_left")
@@ -118,6 +119,9 @@ struct Constants {
         static let cameraMini = Image("camera_mini")
         static let capacity = Image("capacity")
         static let chest = Image("chest")
+        static let check = Image("check")
+        static let checkboxEmpty = Image("checkbox_empty")
+        static let checkboxFilled = Image("checkbox_filled")
         static let chevronDown = Image("chevron_down")
         static let clock = Image("clock")
         static let crossThin = Image("cross_thin")
@@ -149,6 +153,7 @@ struct Constants {
         static let shower = Image("shower")
         static let spokes = Image("spokes")
         static let vertEllipsis = Image("vert_ellipsis")
+        static let trash = Image("trash")
         static let whistleOutline = Image("whistle_outline")
         static let whistleSolid = Image("whistle_solid")
         static let settings = Image("settings")
@@ -160,6 +165,8 @@ struct Constants {
         static let classDetailSessionsHorizontal: CGFloat = 16
         static let classDetailSpacing: CGFloat = 24
         static let classDetailTextHorizontal: CGFloat = 48
+        static let goalsHorizontal: CGFloat = 16
+        static let goalsVertical: CGFloat = 24
         static let gymDetailHorizontal: CGFloat = 24
         static let gymDetailSpacing: CGFloat = 20
         static let homeHorizontal: CGFloat = 16
