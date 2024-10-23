@@ -10,7 +10,7 @@ import Foundation
 
 extension CapacityRemindersView {
 
-    /// The ViewModel for the Classes page view.
+    /// The ViewModel for the Capacity Reminders page view.
     @MainActor
     class ViewModel: ObservableObject {
 

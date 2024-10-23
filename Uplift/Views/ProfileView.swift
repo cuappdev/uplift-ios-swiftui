@@ -24,6 +24,12 @@ struct ProfileView: View {
             isActive ? (
                 NavigationStack {
                     NavigationLink {
+                        SetGoalsView()
+                    } label: {
+                        Text("Goals")
+                    }
+
+                    NavigationLink {
                         RemindersView()
                     } label: {
                         Text("Reminders")
