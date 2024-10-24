@@ -15,12 +15,8 @@ struct SetGoalsView: View {
 
     @StateObject private var viewModel = ViewModel()
     @Environment(\.dismiss) private var dismiss
-    @State private var daysAWeek = 3.0
-    @State private var hour = 1
     @State private var isEveryDay = false
     @State private var isSettingTime = false
-    @State private var timeSuffix = "AM"
-    @State private var minutes = 0
     @State private var showNewReminder = false
 
     // MARK: - UI
@@ -96,7 +92,7 @@ struct SetGoalsView: View {
 
             VStack(spacing: 16) {
                 Slider(
-                    value: $daysAWeek,
+                    value: $viewModel.daysAWeek,
                     in: 1...7,
                     step: 1
                 )
@@ -291,7 +287,7 @@ struct SetGoalsView: View {
 
             isSettingTime ? (
                 HStack {
-                    Picker("", selection: $hour) {
+                    Picker("", selection: $viewModel.hour) {
                         ForEach(1...12, id: \.self) { hour in
                             Text("\(hour)")
                                 .foregroundStyle(Constants.Colors.black)
@@ -307,7 +303,7 @@ struct SetGoalsView: View {
                             .stroke(Constants.Colors.gray01, lineWidth: 1)
                     )
 
-                    Picker("", selection: $hour) {
+                    Picker("", selection: $viewModel.minutes) {
                         ForEach(0...55, id: \.self) { hour in
                             hour % 5 == 0 ? (
                                 Text(String(format: "%02d", hour))
@@ -325,7 +321,7 @@ struct SetGoalsView: View {
                             .stroke(Constants.Colors.gray01, lineWidth: 1)
                     )
 
-                    Picker("", selection: $hour) {
+                    Picker("", selection: $viewModel.timeSuffix) {
                         ForEach(["AM", "PM"], id: \.self) { timeSuffix in
                             Text(timeSuffix)
                                 .foregroundStyle(Constants.Colors.black)
