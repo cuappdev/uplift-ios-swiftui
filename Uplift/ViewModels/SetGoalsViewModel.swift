@@ -18,5 +18,11 @@ extension SetGoalsView {
 
         @Published var selectedDays: [DayOfWeek] = []
 
+        // MARK: - Helpers
+
+        func setEveryDay(_ isEveryDay: Bool) {
+            selectedDays = isEveryDay ? DayOfWeek.sortedDaysOfWeek() : []
+        }
+
     }
 }

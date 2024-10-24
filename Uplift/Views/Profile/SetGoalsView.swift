@@ -176,6 +176,7 @@ struct SetGoalsView: View {
                         Button {
                             withAnimation {
                                 isEveryDay.toggle()
+                                viewModel.setEveryDay(isEveryDay)
                             }
                         } label: {
                             isEveryDay ? Constants.Images.checkboxFilled : Constants.Images.checkboxEmpty
