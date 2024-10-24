@@ -16,7 +16,11 @@ extension SetGoalsView {
 
         // MARK: - Properties
 
+        @Published var daysAWeek = 4.0
+        @Published var hour: Int = 1
+        @Published var minutes: Int = 0
         @Published var selectedDays: [DayOfWeek] = []
+        @Published var timeSuffix: String = "AM"
 
         // MARK: - Helpers
 
