@@ -16,8 +16,11 @@ struct SetGoalsView: View {
     @StateObject private var viewModel = ViewModel()
     @Environment(\.dismiss) private var dismiss
     @State private var daysAWeek = 3.0
+    @State private var hour = 1
     @State private var isEveryDay = false
     @State private var isSettingTime = false
+    @State private var timeSuffix = "AM"
+    @State private var minutes = 0
     @State private var showNewReminder = false
 
     // MARK: - UI
@@ -60,20 +63,22 @@ struct SetGoalsView: View {
     }
 
     private var content: some View {
-        VStack(spacing: 48) {
-            workoutDays
-            workoutReminders
+        ScrollView {
+            VStack(spacing: 48) {
+                workoutDays
+                workoutReminders
 
-            Spacer()
-        }
-        .padding(
-            EdgeInsets(
-                top: Constants.Padding.goalsVertical,
-                leading: Constants.Padding.goalsHorizontal,
-                bottom: Constants.Padding.goalsVertical,
-                trailing: Constants.Padding.goalsHorizontal
+                Spacer()
+            }
+            .padding(
+                EdgeInsets(
+                    top: Constants.Padding.goalsVertical,
+                    leading: Constants.Padding.goalsHorizontal,
+                    bottom: Constants.Padding.goalsVertical,
+                    trailing: Constants.Padding.goalsHorizontal
+                )
             )
-        )
+        }
     }
 
     private var workoutDays: some View {
@@ -238,7 +243,7 @@ struct SetGoalsView: View {
     }
 
     private var reminderDays: some View {
-        HStack(spacing: 20) {
+        HStack {
             ForEach(DayOfWeek.sortedDaysOfWeek(start: .monday), id: \.self) { day in
                 Text(day.dayOfWeekAbbreviation())
                     .frame(width: 32, height: 32)
@@ -255,11 +260,12 @@ struct SetGoalsView: View {
                                 : viewModel.selectedDays.append(day)
                         }
                     }
+
+                day != DayOfWeek.sunday ? Spacer() : nil
             }
         }
         .font(Constants.Fonts.h3)
         .foregroundStyle(Constants.Colors.black)
-        .padding(.vertical, 4)
     }
 
     private var setTime: some View {
@@ -283,8 +289,52 @@ struct SetGoalsView: View {
             }
 
             isSettingTime ? (
-                VStack {
-                    // TODO: Choose time
+                HStack {
+                    Picker("", selection: $hour) {
+                        ForEach(1...12, id: \.self) { hour in
+                            Text("\(hour)")
+                                .foregroundStyle(Constants.Colors.black)
+                                .font(Constants.Fonts.picker)
+                                .background(Constants.Colors.white)
+                        }
+                    }
+                    .frame(width: 68, height: 118)
+                    .pickerStyle(.wheel)
+                    .labelsHidden()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Constants.Colors.gray01, lineWidth: 1)
+                    )
+
+                    Picker("", selection: $hour) {
+                        ForEach(0...55, id: \.self) { hour in
+                            hour % 5 == 0 ? (
+                                Text(String(format: "%02d", hour))
+                                    .foregroundStyle(Constants.Colors.black)
+                                    .font(Constants.Fonts.picker)
+                                    .background(Constants.Colors.white)
+                            ) : nil
+                        }
+                    }
+                    .frame(width: 68, height: 118)
+                    .pickerStyle(.wheel)
+                    .labelsHidden()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Constants.Colors.gray01, lineWidth: 1)
+                    )
+
+                    Picker("", selection: $hour) {
+                        ForEach(["AM", "PM"], id: \.self) { timeSuffix in
+                            Text(timeSuffix)
+                                .foregroundStyle(Constants.Colors.black)
+                                .font(Constants.Fonts.h2)
+                                .background(Constants.Colors.white)
+                        }
+                    }
+                    .frame(width: 56, height: 118)
+                    .pickerStyle(.wheel)
+                    .labelsHidden()
                 }
             ) : nil
         }

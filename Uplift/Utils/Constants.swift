@@ -96,6 +96,7 @@ struct Constants {
 
         // Others
         static let error = Font.custom("Montserrat-Regular", size: 10)
+        static let picker = Font.custom("Montserrat-SemiBold", size: 36)
     }
 
     /// Image components used in Uplift.
