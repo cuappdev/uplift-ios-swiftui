@@ -172,21 +172,21 @@ struct SetGoalsView: View {
                 VStack(spacing: 16) {
                     reminderDays
 
-                    HStack(spacing: 12) {
-                        Button {
-                            withAnimation {
-                                isEveryDay.toggle()
-                                viewModel.setEveryDay(isEveryDay)
-                            }
-                        } label: {
-                            isEveryDay ? Constants.Images.checkboxFilled : Constants.Images.checkboxEmpty
+                    Button {
+                        withAnimation {
+                            isEveryDay.toggle()
+                            viewModel.setEveryDay(isEveryDay)
                         }
+                    } label: {
+                        HStack(spacing: 12) {
+                            isEveryDay ? Constants.Images.checkboxFilled : Constants.Images.checkboxEmpty
 
-                        Text("Every Day")
-                            .foregroundStyle(Constants.Colors.gray04)
-                            .font(Constants.Fonts.bodySemibold)
+                            Text("Every Day")
+                                .foregroundStyle(Constants.Colors.gray04)
+                                .font(Constants.Fonts.bodySemibold)
 
-                        Spacer()
+                            Spacer()
+                        }
                     }
                 }
 
