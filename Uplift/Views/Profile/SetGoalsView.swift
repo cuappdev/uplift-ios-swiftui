@@ -220,6 +220,11 @@ struct SetGoalsView: View {
 
                 Button {
                     // TODO: Implement adding a reminder
+                    isEveryDay = false
+                    isSettingTime = false
+                    withAnimation {
+                        showNewReminder.toggle()
+                    }
                 } label: {
                     HStack(spacing: 8) {
                         Constants.Images.check
