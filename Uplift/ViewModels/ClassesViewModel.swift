@@ -42,9 +42,7 @@ extension ClassesView {
                 guard let self else { return }
 
                 let gyms: [Gym] = gymFields.map { Gym(from: $0) }
-                let classes: [FitnessClassInstance] = gyms.flatMap { $0.classes }
-
-                self.classes = classes
+                self.classes = gyms.flatMap { $0.classes }
             }
             .store(in: &queryBag)
         }
@@ -128,12 +126,7 @@ extension ClassesView {
             guard let classes = classes,
                   let thisDate = determineDayOfMonth(weekday, weeksFromCurr) else { return false }
 
-            return classes.contains {
-                if let date = toDate($0.startTime) {
-                    return date.isSameDay(thisDate)
-                }
-                return false
-            }
+            return classes.contains { toDate($0.startTime)?.isSameDay(thisDate) == true }
         }
 
     }
