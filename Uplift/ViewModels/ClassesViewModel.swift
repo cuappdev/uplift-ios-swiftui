@@ -62,17 +62,13 @@ extension ClassesView {
             guard let classes = classes,
                   let selectedDate = determineDayOfMonth(selectedDay, weeksFromCurr) else { return [] }
 
-            return classes.sorted {
-                guard let lhsDate = toDate($0.startTime),
-                      let rhsDate = toDate($1.startTime) else { return false }
-                return lhsDate < rhsDate
-            }
-            .filter {
-                if let date = toDate($0.startTime) {
-                    return date.isSameDay(selectedDate)
+            return classes
+                .filter { toDate($0.startTime)?.isSameDay(selectedDate) == true }
+                .sorted {
+                    guard let lhsDate = toDate($0.startTime),
+                          let rhsDate = toDate($1.startTime) else { return false }
+                    return lhsDate < rhsDate
                 }
-                return false
-            }
         }
 
         /// The array of next sessions for this class.
