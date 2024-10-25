@@ -73,20 +73,21 @@ extension ClassesView {
 
         /// The array of next sessions for this class.
         func nextSessions(classInstance: FitnessClassInstance) -> [FitnessClassInstance] {
-            guard let classes = classes else { return [] }
+            guard let classes = classes,
+                  let selectedDate = toDate(classInstance.startTime) else { return [] }
 
-            return classes.sorted {
-                guard let lhsDate = toDate($0.startTime),
-                      let rhsDate = toDate($1.startTime) else { return false }
-                return lhsDate < rhsDate
-            }
-            .filter {
-                if let date = toDate($0.startTime),
-                   let selectedDate = toDate(classInstance.startTime) {
-                    return date > selectedDate && $0.classId == classInstance.classId
+            return classes
+                .filter {
+                    if let date = toDate($0.startTime) {
+                        return date > selectedDate && $0.classId == classInstance.classId
+                    }
+                    return false
                 }
-                return false
-            }
+                .sorted {
+                    guard let lhsDate = toDate($0.startTime),
+                          let rhsDate = toDate($1.startTime) else { return false }
+                    return lhsDate < rhsDate
+                }
         }
 
         /// Determine the day of the month for the given weekday. `Nil` if the calendar date is invalid.
