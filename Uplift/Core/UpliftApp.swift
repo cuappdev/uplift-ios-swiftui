@@ -33,17 +33,46 @@ struct UpliftApp: App {
 
 }
 
-class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     func application(
         _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil,
-        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data,
-        didReceiveRegistrationToken fcmToken: String?
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
-        application.registerForRemoteNotifications()
         FirebaseApp.configure()
+
+        // Configure Firebase Cloud Messaging
         Messaging.messaging().delegate = self
+
+        // Configure push notifications
         UNUserNotificationCenter.current().delegate = self
+
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(
+          options: authOptions,
+          completionHandler: { _, _ in }
+        )
+
+        application.registerForRemoteNotifications()
+
+        return true
+    }
+
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Unable to register for remote notifications: \(error.localizedDescription)")
+    }
+
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenString = deviceToken.map { String(format: "%02x", $0) }.joined()
+        print("APNs token retrieved: \(tokenString)")
+
+        // Passes the APNs token to Firebase Cloud Messaging (FCM)
+        Messaging.messaging().apnsToken = deviceToken
+    }
+}
+
+extension AppDelegate: MessagingDelegate {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        print("Firebase registration token: \(fcmToken ?? "")")
 
         Task {
             do {
@@ -52,28 +81,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNot
             } catch {
                 print("Error fetching id: \(error)")
             }
-        }
-
-        Messaging.messaging().apnsToken = deviceToken
-        print("Device token: \(deviceToken)")
-
-        if let fcm = Messaging.messaging().fcmToken {
-            print("FCM", fcm)
-        }
-
-        return true
-    }
-
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        Messaging.messaging().apnsToken = deviceToken
-        print("Device token: \(deviceToken)")
-    }
-
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        if let fcm = Messaging.messaging().fcmToken {
-            print("FCM", fcm)
-        } else {
-            print("FCM is nil")
         }
     }
 }
