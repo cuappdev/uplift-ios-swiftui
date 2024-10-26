@@ -7,23 +7,22 @@
 //
 
 import SwiftUI
+import UpliftAPI
 
 /// The view for reporting an issue.
 struct ReportView: View {
 
     // MARK: - Properties
 
+    @StateObject private var viewModel = ViewModel()
     @Environment(\.dismiss) private var dismiss
     @Binding var isActive: Bool
     @Binding var profileIsActive: Bool
     @Binding var reportSuccessIsActive: Bool
-    @State private var description = ""
     @State private var displayGymError = false
     @State private var displayIssueError = false
     @State private var gymIsExpanded = true
     @State private var issueIsExpanded = true
-    @State private var selectedGym = ""
-    @State private var selectedIssue = ""
 
     // MARK: - UI
 
@@ -53,6 +52,9 @@ struct ReportView: View {
                 }
             }
             .background(Constants.Colors.white)
+        }
+        .onAppear {
+            viewModel.fetchAllGyms()
         }
     }
 
@@ -111,14 +113,8 @@ struct ReportView: View {
             Dropdown(
                 displayError: $displayIssueError,
                 isExpanded: $issueIsExpanded,
-                selectedOption: $selectedIssue,
-                options: [
-                    "Inaccurate equipment",
-                    "Incorrect hours",
-                    "Inaccurate description",
-                    "Wait time not updated",
-                    "Other"
-                ]
+                selectedOption: $viewModel.selectedIssue,
+                options: ReportType.allCases.map { $0.string }
             )
         }
     }
@@ -136,14 +132,8 @@ struct ReportView: View {
             Dropdown(
                 displayError: $displayGymError,
                 isExpanded: $gymIsExpanded,
-                selectedOption: $selectedGym,
-                options: [
-                    "Morrison",
-                    "Teagle",
-                    "Helen Newman",
-                    "Noyes",
-                    "Other"
-                ]
+                selectedOption: $viewModel.selectedGym,
+                options: viewModel.gyms?.compactMap { $0.name } ?? [] + ["Other"]
             )
         }
     }
@@ -160,7 +150,7 @@ struct ReportView: View {
 
             TextField(
                 "",
-                text: $description,
+                text: $viewModel.description,
                 prompt: Text("What happened?")
                     .foregroundColor(Constants.Colors.gray04)
                     .font(Constants.Fonts.f3),
@@ -179,7 +169,9 @@ struct ReportView: View {
 
     private var submitButton: some View {
         Button {
-            if !selectedIssue.isEmpty && !selectedGym.isEmpty {
+            if !viewModel.selectedIssue.isEmpty && !viewModel.selectedGym.isEmpty {
+                viewModel.createReport()
+
                 withAnimation(.easeIn(duration: 0.3).delay(0.3)) {
                     isActive.toggle()
                 }
@@ -187,8 +179,8 @@ struct ReportView: View {
                     reportSuccessIsActive.toggle()
                 }
             } else {
-                displayIssueError = selectedIssue.isEmpty
-                displayGymError = selectedGym.isEmpty
+                displayIssueError = viewModel.selectedIssue.isEmpty
+                displayGymError = viewModel.selectedGym.isEmpty
             }
         } label: {
             VStack {
