@@ -56,3 +56,23 @@ struct Report: Hashable {
     }
 
 }
+
+extension ReportType {
+
+    /// The string for this report type.
+    var string: String {
+        switch self {
+        case .inaccurateEquipment:
+            return "Inaccurate equipment"
+        case .incorrectHours:
+            return "Incorrect hours"
+        case .inaccurateDescription:
+            return "Inaccurate description"
+        case .waitTimesNotUpdated:
+            return "Wait times not updated"
+        case .other:
+            return "Other"
+        }
+    }
+
+}
