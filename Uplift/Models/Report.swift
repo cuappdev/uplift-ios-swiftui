@@ -37,7 +37,7 @@ struct Report: Hashable {
 
     // MARK: - Functions
 
-//    /// Initializes this object given an `EquipmentFields` type.
+    /// Initializes this object given a `ReportFields` type.
 //    init(from report: ReportFields) {
 //        // Unwrap and convert GraphQL enum value to Swift enum value
 //        self.accessibility = equipment.accessibility?.value
