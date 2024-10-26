@@ -38,13 +38,21 @@ struct Report: Hashable {
     // MARK: - Functions
 
     /// Initializes this object given a `ReportFields` type.
-//    init(from report: ReportFields) {
-//        // Unwrap and convert GraphQL enum value to Swift enum value
-//        self.accessibility = equipment.accessibility?.value
-//        self.equipmentType = equipment.equipmentType.value
-//        self.facilityId = equipment.facilityId
-//        self.name = equipment.name
-//        self.quantity = equipment.quantity
-//    }
+    init(from report: ReportFields) {
+        // Unwrap and convert GraphQL enum value to Swift enum value
+        self.createdAt = report.createdAt
+        self.description = report.description
+        self.gym = {
+            guard let gym = report.gym else { return nil }
+            return Gym(from: gym.fragments.gymFields)
+        }()
+        self.gymId = report.gymId
+        self.issue = report.issue.value ?? ReportType.other
+        self.user = {
+            guard let user = report.user else { return nil }
+            return User(from: user.fragments.userFields)
+        }()
+        self.userId = report.userId
+    }
 
 }
