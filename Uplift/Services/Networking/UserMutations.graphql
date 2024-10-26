@@ -3,21 +3,6 @@ fragment userFields on User {
   email
   name
   netId
-  giveaways {
-    id
-    name
-  }
-  reports {
-    id
-    createdAt
-    description
-    issue
-    gym {
-      ...gymFields
-    }
-    gymId
-    userId
-  }
   workoutGoal
 }
 

@@ -14,31 +14,31 @@ struct User: Hashable {
 
     // MARK: - Properties
 
-//    /// Accessibility for this equipment.
-//    let accessibility: AccessibilityType?
-//
-//    /// The type of this equipment.
-//    let equipmentType: EquipmentType?
-//
-//    /// The ID of the facility in which this equipment belongs to.
-//    let facilityId: Int
-//
-//    /// The name of this equipment.
-//    let name: String
-//
-//    /// The amount of this equipment in the given facility,`nil` if it cannot be quantified.
-//    let quantity: Int?
-//
-//    // MARK: - Functions
-//
-//    /// Initializes this object given an `EquipmentFields` type.
-//    init(from equipment: EquipmentFields) {
-//        // Unwrap and convert GraphQL enum value to Swift enum value
-//        self.accessibility = equipment.accessibility?.value
-//        self.equipmentType = equipment.equipmentType.value
-//        self.facilityId = equipment.facilityId
-//        self.name = equipment.name
-//        self.quantity = equipment.quantity
-//    }
+    /// The ID of this user.
+    let id: ID
+
+    /// The email of this user.
+    let email: String
+
+    /// The name of this user.
+    let name: String
+
+    /// The net ID of this user.
+    let netId: String
+
+    /// The workout goal of this user.
+    let workoutGoal: [DayOfWeekEnum]
+
+    // MARK: - Functions
+
+    /// Initializes this object given a `UserFields` type.
+    init(from user: UserFields) {
+        // Unwrap and convert GraphQL enum value to Swift enum value
+        self.id = user.id
+        self.email = user.email
+        self.name = user.name
+        self.netId = user.netId
+        self.workoutGoal = user.workoutGoal?.compactMap(\.?.value) ?? []
+    }
 
 }
