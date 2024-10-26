@@ -119,7 +119,6 @@
 		89599A4E2BD4B39B00DA44DE /* FitnessClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */; };
 		89599A502BD4B4B600DA44DE /* FitnessClassInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */; };
 		896145AD2CCC9E5300F07789 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896145AC2CCC9E4F00F07789 /* Report.swift */; };
-		896145AF2CCC9F0500F07789 /* ReportType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896145AE2CCC9F0000F07789 /* ReportType.swift */; };
 		896145B12CCC9F5A00F07789 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896145B02CCC9F5700F07789 /* User.swift */; };
 		896500DC2BB4D33500D822AB /* ClassDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896500DB2BB4D33500D822AB /* ClassDetailView.swift */; };
 		897703662BA2028D00F9992F /* ClassesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897703652BA2028D00F9992F /* ClassesViewModel.swift */; };
@@ -257,7 +256,6 @@
 		89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessClass.swift; sourceTree = "<group>"; };
 		89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessClassInstance.swift; sourceTree = "<group>"; };
 		896145AC2CCC9E4F00F07789 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
-		896145AE2CCC9F0000F07789 /* ReportType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportType.swift; sourceTree = "<group>"; };
 		896145B02CCC9F5700F07789 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		896500DB2BB4D33500D822AB /* ClassDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailView.swift; sourceTree = "<group>"; };
 		897703652BA2028D00F9992F /* ClassesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesViewModel.swift; sourceTree = "<group>"; };
@@ -352,7 +350,6 @@
 				89E4FAAB2CF28E6600A952B1 /* HourlyAverageCapacity.swift */,
 				2E15F4DB2B39117300414BEC /* OpenHours.swift */,
 				896145AC2CCC9E4F00F07789 /* Report.swift */,
-				896145AE2CCC9F0000F07789 /* ReportType.swift */,
 				2E15F4E12B3917B200414BEC /* Status.swift */,
 				898890D92CDC326200E594A0 /* User.swift */,
 				8940D4ED2CE3E60000F4A4A4 /* Workout.swift */,
