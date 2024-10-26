@@ -8,7 +8,6 @@ fragment userFields on User {
   }
 }
 
-
 fragment giveawayFields on Giveaway {
   id
   name
