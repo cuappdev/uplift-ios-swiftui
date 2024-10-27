@@ -61,7 +61,7 @@ struct ClassesView: View {
 
     private var scrollContent: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            VStack {
+            LazyVStack {
                 calendarView
                 classesOnDay
             }
