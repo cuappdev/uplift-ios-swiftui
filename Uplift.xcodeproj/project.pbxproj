@@ -556,6 +556,7 @@
 				897DF9B92CCDC49B00246B0D /* UpliftAPI */,
 				63001AD72CC9AD970082AFFA /* GoogleSignIn */,
 				63001AD92CC9AD970082AFFA /* GoogleSignInSwift */,
+				897DF9B92CCDC49B00246B0D /* UpliftAPI */,
 			);
 			productName = Uplift;
 			productReference = 2E8FE38C2B1278B700B3DC6A /* Uplift.app */;
