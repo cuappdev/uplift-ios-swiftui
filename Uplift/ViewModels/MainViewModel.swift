@@ -52,13 +52,15 @@ extension MainView {
             // Make lowercase and remove whitespace
             netID = netID.lowercased().replacingOccurrences(of: " ", with: "")
 
+            // TODO: Update for next giveaway
             Network.client.mutationPublisher(
                 mutation: CreateUserMutation(
-                    instagram: GraphQLNullable(stringLiteral: instagram),
+                    email: "",
+                    name: "",
                     netId: netID
                 )
             )
-            .compactMap(\.data?.createUser?.user?.netId)
+            .compactMap(\.data?.createUser?.netId)
             .sink { completion in
                 if case let .failure(error) = completion {
                     callback() // If user already created (error thrown), still enter giveaway

@@ -42,9 +42,7 @@ extension ClassesView {
                 guard let self else { return }
 
                 let gyms: [Gym] = gymFields.map { Gym(from: $0) }
-                let classes: [FitnessClassInstance] = gyms.flatMap { $0.classes }
-
-                self.classes = classes
+                self.classes = gyms.flatMap { $0.classes }
             }
             .store(in: &queryBag)
         }
@@ -62,35 +60,32 @@ extension ClassesView {
             guard let classes = classes,
                   let selectedDate = determineDayOfMonth(selectedDay, weeksFromCurr) else { return [] }
 
-            return classes.sorted {
-                guard let lhsDate = toDate($0.startTime),
-                      let rhsDate = toDate($1.startTime) else { return false }
-                return lhsDate < rhsDate
-            }
-            .filter {
-                if let date = toDate($0.startTime) {
-                    return date.isSameDay(selectedDate)
+            return classes
+                .filter { toDate($0.startTime)?.isSameDay(selectedDate) == true }
+                .sorted {
+                    guard let lhsDate = toDate($0.startTime),
+                          let rhsDate = toDate($1.startTime) else { return false }
+                    return lhsDate < rhsDate
                 }
-                return false
-            }
         }
 
         /// The array of next sessions for this class.
         func nextSessions(classInstance: FitnessClassInstance) -> [FitnessClassInstance] {
-            guard let classes = classes else { return [] }
+            guard let classes = classes,
+                  let selectedDate = toDate(classInstance.startTime) else { return [] }
 
-            return classes.sorted {
-                guard let lhsDate = toDate($0.startTime),
-                      let rhsDate = toDate($1.startTime) else { return false }
-                return lhsDate < rhsDate
-            }
-            .filter {
-                if let date = toDate($0.startTime),
-                   let selectedDate = toDate(classInstance.startTime) {
-                    return date > selectedDate && $0.classId == classInstance.classId
+            return classes
+                .filter {
+                    if let date = toDate($0.startTime) {
+                        return date > selectedDate && $0.classId == classInstance.classId
+                    }
+                    return false
                 }
-                return false
-            }
+                .sorted {
+                    guard let lhsDate = toDate($0.startTime),
+                          let rhsDate = toDate($1.startTime) else { return false }
+                    return lhsDate < rhsDate
+                }
         }
 
         /// Determine the day of the month for the given weekday. `Nil` if the calendar date is invalid.
@@ -131,12 +126,7 @@ extension ClassesView {
             guard let classes = classes,
                   let thisDate = determineDayOfMonth(weekday, weeksFromCurr) else { return false }
 
-            return classes.contains {
-                if let date = toDate($0.startTime) {
-                    return date.isSameDay(thisDate)
-                }
-                return false
-            }
+            return classes.contains { toDate($0.startTime)?.isSameDay(thisDate) == true }
         }
 
     }

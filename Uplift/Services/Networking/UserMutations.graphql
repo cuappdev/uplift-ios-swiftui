@@ -1,13 +1,13 @@
 fragment userFields on User {
   id
-  instagram
+  email
+  name
   netId
   giveaways {
     id
     name
   }
 }
-
 
 fragment giveawayFields on Giveaway {
   id
@@ -17,20 +17,16 @@ fragment giveawayFields on Giveaway {
   }
 }
 
-mutation CreateUser($instagram: String, $netId: String!) {
-  createUser(instagram: $instagram, netId: $netId) {
-    user {
-      ...userFields
-    }
+mutation CreateUser($email: String!, $name: String!, $netId: String!) {
+  createUser(email: $email, name: $name, netId: $netId) {
+    ...userFields
   }
 }
 
 mutation EnterGiveaway($giveawayId: Int!, $userNetId: String!) {
   enterGiveaway(giveawayId: $giveawayId, userNetId: $userNetId) {
-    giveawayInstance {
-      id
-      userId
-      numEntries
-    }
+    id
+    userId
+    numEntries
   }
 }
