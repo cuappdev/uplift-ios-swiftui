@@ -14,6 +14,7 @@ struct MainView: View {
     // MARK: - Properties
 
     @State private var selectedTab: Screen = .home
+    @StateObject var tabBarProp = TabBarProperty()
     @StateObject private var viewModel = ViewModel()
 
     // MARK: - UI
@@ -23,15 +24,15 @@ struct MainView: View {
             HomeView(popUpGiveaway: $viewModel.popUpGiveaway)
 
             ZStack(alignment: .bottom) {
-                TabView(selection: $selectedTab) {
+                switch selectedTab {
+                case .home:
                     HomeView(popUpGiveaway: $viewModel.popUpGiveaway)
-                        .tag(Screen.home)
-
+                case .classes:
                     ClassesView()
-                        .tag(Screen.classes)
+                        .environmentObject(tabBarProp)
                 }
 
-                tabBar
+                !tabBarProp.hidden ? tabBar : nil
             }
 
             if viewModel.popUpGiveaway {
@@ -129,6 +130,10 @@ extension MainView {
         case classes
     }
 
+}
+
+final class TabBarProperty: ObservableObject {
+    @Published var hidden: Bool = false
 }
 
 #Preview {
