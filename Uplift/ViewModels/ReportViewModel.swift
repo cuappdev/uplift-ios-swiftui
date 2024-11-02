@@ -48,7 +48,7 @@ extension ReportView {
             .store(in: &queryBag)
         }
 
-        /// Enters a user to a giveaway in the backend.
+        /// Creates a report in the backend.
         func createReport() {
             let gymId = gymIdWithName(selectedGym)
 
