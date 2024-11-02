@@ -94,6 +94,7 @@
 		8988900D2CD6AE2D00E594A0 /* ReportSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890072CD6AE2D00E594A0 /* ReportSuccessView.swift */; };
 		8988900E2CD6AE2D00E594A0 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890082CD6AE2D00E594A0 /* ReportView.swift */; };
 		8988900F2CD6AE2D00E594A0 /* SetGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890092CD6AE2D00E594A0 /* SetGoalsView.swift */; };
+		898890112CD6BFB200E594A0 /* WorkoutReminderEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890102CD6BFA800E594A0 /* WorkoutReminderEditView.swift */; };
 		8992674A2CC03E8D00E5741E /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899267492CC03E8D00E5741E /* Dropdown.swift */; };
 		89950D8A2B992E8400DFB007 /* ClassesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89950D892B992E8400DFB007 /* ClassesView.swift */; };
 		8996FEE02BDF351800F13C67 /* NextSessionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */; };
@@ -190,6 +191,7 @@
 		898890072CD6AE2D00E594A0 /* ReportSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportSuccessView.swift; sourceTree = "<group>"; };
 		898890082CD6AE2D00E594A0 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
 		898890092CD6AE2D00E594A0 /* SetGoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGoalsView.swift; sourceTree = "<group>"; };
+		898890102CD6BFA800E594A0 /* WorkoutReminderEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutReminderEditView.swift; sourceTree = "<group>"; };
 		899267492CC03E8D00E5741E /* Dropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dropdown.swift; sourceTree = "<group>"; };
 		89950D892B992E8400DFB007 /* ClassesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesView.swift; sourceTree = "<group>"; };
 		8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextSessionCell.swift; sourceTree = "<group>"; };
@@ -388,6 +390,7 @@
 				2E3DC2412BCD2EDF0063B369 /* Giveaway */,
 				2E39D81B2B3B5F3700AD238B /* NavBackButton.swift */,
 				2E39D8252B3B6C6500AD238B /* SlidingTabBarView.swift */,
+				898890102CD6BFA800E594A0 /* WorkoutReminderEditView.swift */,
 				898890012CD5D6B800E594A0 /* WorkoutReminderView.swift */,
 			);
 			path = Supporting;
@@ -736,6 +739,7 @@
 				898890022CD5D6B800E594A0 /* WorkoutReminderView.swift in Sources */,
 				8988900B2CD6AE2D00E594A0 /* CapacityRemindersView.swift in Sources */,
 				8988900C2CD6AE2D00E594A0 /* RemindersView.swift in Sources */,
+				898890112CD6BFB200E594A0 /* WorkoutReminderEditView.swift in Sources */,
 				8988900D2CD6AE2D00E594A0 /* ReportSuccessView.swift in Sources */,
 				8988900E2CD6AE2D00E594A0 /* ReportView.swift in Sources */,
 				8988900F2CD6AE2D00E594A0 /* SetGoalsView.swift in Sources */,
