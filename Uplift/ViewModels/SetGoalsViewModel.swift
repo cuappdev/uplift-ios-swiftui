@@ -20,6 +20,7 @@ extension SetGoalsView {
         @Published var hour: Int = 1
         @Published var minutes: Int = 0
         @Published var selectedDays: [DayOfWeek] = []
+        @Published var reminders: [WorkoutReminder] = [WorkoutReminder(selectedDays: [], isAllDay: true, time: "")]
         @Published var timeSuffix: String = "AM"
 
         // MARK: - Helpers
