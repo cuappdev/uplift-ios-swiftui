@@ -43,8 +43,20 @@ mutation EnterGiveaway($giveawayId: Int!, $userNetId: String!) {
   }
 }
 
-mutation CreateReport($createdAt: DateTime!, $description: String!, $gymId: Int!, $issue: String!, $userId: Int!) {
-  createReport(createdAt: $createdAt, description: $description, gymId: $gymId, issue: $issue, userId: $userId) {
+mutation CreateReport(
+  $createdAt: DateTime!
+  $description: String!
+  $gymId: Int!
+  $issue: String!
+  $userId: Int!
+) {
+  createReport(
+    createdAt: $createdAt
+    description: $description
+    gymId: $gymId
+    issue: $issue
+    userId: $userId
+  ) {
     report {
       ...reportFields
     }

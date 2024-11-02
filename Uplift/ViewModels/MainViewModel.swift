@@ -52,6 +52,7 @@ extension MainView {
             // Make lowercase and remove whitespace
             netID = netID.lowercased().replacingOccurrences(of: " ", with: "")
 
+            // TODO: Update for next giveaway
             Network.client.mutationPublisher(
                 mutation: CreateUserMutation(
                     email: "",
