@@ -345,9 +345,13 @@ struct SetGoalsView: View {
     }
 
     private var reminders: some View {
-        VStack {
+        VStack(spacing: 24) {
             ForEach(viewModel.reminders, id: \.self) { reminder in
-                WorkoutReminderView(isAllDay: reminder.isAllDay, selectedDays: reminder.selectedDays, time: reminder.time)
+                WorkoutReminderView(
+                    isAllDay: reminder.isAllDay,
+                    selectedDays: reminder.selectedDays,
+                    time: reminder.time
+                )
             }
         }
     }
