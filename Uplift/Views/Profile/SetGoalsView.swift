@@ -60,7 +60,7 @@ struct SetGoalsView: View {
 
     private var content: some View {
         ScrollView {
-            VStack(spacing: 48) {
+            LazyVStack(spacing: 48) {
                 workoutDays
                 workoutReminders
 
@@ -134,6 +134,8 @@ struct SetGoalsView: View {
             }
 
             newReminder
+
+            !showNewReminder ? reminders : nil
         }
     }
 
@@ -341,6 +343,15 @@ struct SetGoalsView: View {
             ) : nil
         }
     }
+
+    private var reminders: some View {
+        VStack {
+            ForEach(viewModel.reminders, id: \.self) { reminder in
+                WorkoutReminderView(isAllDay: reminder.isAllDay, selectedDays: reminder.selectedDays, time: reminder.time)
+            }
+        }
+    }
+
 }
 
 #Preview {
