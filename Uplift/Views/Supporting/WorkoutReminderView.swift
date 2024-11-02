@@ -13,10 +13,11 @@ struct WorkoutReminderView: View {
 
     // MARK: - Properties
 
+    @StateObject private var viewModel = ViewModel()
+    @State private var isOn = true
     let isAllDay: Bool
     let selectedDays: [DayOfWeek]
     let time: String
-    @State private var isOn = true
 
     // MARK: - UI
 
@@ -24,7 +25,7 @@ struct WorkoutReminderView: View {
         VStack(spacing: 16) {
             HStack {
                 VStack {
-                    Text("Wednesday")
+                    Text(viewModel.daysToString(selectedDays))
                         .foregroundStyle(isOn ? Constants.Colors.black : Constants.Colors.gray03)
                         .font(Constants.Fonts.reminder)
                 }
@@ -42,9 +43,10 @@ struct WorkoutReminderView: View {
             }
 
             HStack {
-                Text("3:00 PM")
+                Text(isAllDay ? "All-Day" : viewModel.timeToString(time))
                     .foregroundStyle(isOn ? Constants.Colors.black : Constants.Colors.gray03)
                     .font(Constants.Fonts.bodyBold)
+                    .padding(.leading, 16)
 
                 Spacer()
             }
@@ -65,7 +67,3 @@ struct WorkoutReminder: Hashable {
     let isAllDay: Bool
     let time: String
 }
-
-//#Preview {
-//    WorkoutReminder()
-//}
