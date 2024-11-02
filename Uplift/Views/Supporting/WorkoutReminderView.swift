@@ -14,6 +14,7 @@ struct WorkoutReminderView: View {
     // MARK: - Properties
 
     @StateObject private var viewModel = ViewModel()
+    @State private var isEditable = false
     @State private var isOn = true
     let isAllDay: Bool
     let selectedDays: [DayOfWeek]
@@ -22,6 +23,14 @@ struct WorkoutReminderView: View {
     // MARK: - UI
 
     var body: some View {
+        if isEditable {
+            editReminder
+        } else {
+            displayReminder
+        }
+    }
+
+    private var displayReminder: some View {
         VStack(spacing: 16) {
             HStack {
                 VStack {
@@ -57,6 +66,15 @@ struct WorkoutReminderView: View {
                 .fill(Constants.Colors.white)
         )
         .upliftShadow(Constants.Shadows.smallLight)
+        .onTapGesture {
+            isEditable = true
+        }
+    }
+
+    private var editReminder: some View {
+        VStack {
+            
+        }
     }
 
 }
