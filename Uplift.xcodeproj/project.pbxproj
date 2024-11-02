@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -120,6 +120,12 @@
 		897703662BA2028D00F9992F /* ClassesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897703652BA2028D00F9992F /* ClassesViewModel.swift */; };
 		8983A9A62CFEA077008E84DB /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 8983A9A52CFEA077008E84DB /* UpliftAPI */; };
 		898890022CD5D6B800E594A0 /* WorkoutReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890012CD5D6B800E594A0 /* WorkoutReminderView.swift */; };
+		898890042CD6784600E594A0 /* WorkoutReminderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890032CD6784000E594A0 /* WorkoutReminderViewModel.swift */; };
+		8988900B2CD6AE2D00E594A0 /* CapacityRemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890052CD6AE2D00E594A0 /* CapacityRemindersView.swift */; };
+		8988900C2CD6AE2D00E594A0 /* RemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890062CD6AE2D00E594A0 /* RemindersView.swift */; };
+		8988900D2CD6AE2D00E594A0 /* ReportSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890072CD6AE2D00E594A0 /* ReportSuccessView.swift */; };
+		8988900E2CD6AE2D00E594A0 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890082CD6AE2D00E594A0 /* ReportView.swift */; };
+		8988900F2CD6AE2D00E594A0 /* SetGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890092CD6AE2D00E594A0 /* SetGoalsView.swift */; };
 		8992674A2CC03E8D00E5741E /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899267492CC03E8D00E5741E /* Dropdown.swift */; };
 		89950D8A2B992E8400DFB007 /* ClassesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89950D892B992E8400DFB007 /* ClassesView.swift */; };
 		8996FEE02BDF351800F13C67 /* NextSessionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */; };
@@ -243,6 +249,12 @@
 		896500DB2BB4D33500D822AB /* ClassDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailView.swift; sourceTree = "<group>"; };
 		897703652BA2028D00F9992F /* ClassesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesViewModel.swift; sourceTree = "<group>"; };
 		898890012CD5D6B800E594A0 /* WorkoutReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutReminderView.swift; sourceTree = "<group>"; };
+		898890032CD6784000E594A0 /* WorkoutReminderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutReminderViewModel.swift; sourceTree = "<group>"; };
+		898890052CD6AE2D00E594A0 /* CapacityRemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityRemindersView.swift; sourceTree = "<group>"; };
+		898890062CD6AE2D00E594A0 /* RemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersView.swift; sourceTree = "<group>"; };
+		898890072CD6AE2D00E594A0 /* ReportSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportSuccessView.swift; sourceTree = "<group>"; };
+		898890082CD6AE2D00E594A0 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
+		898890092CD6AE2D00E594A0 /* SetGoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGoalsView.swift; sourceTree = "<group>"; };
 		899267492CC03E8D00E5741E /* Dropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dropdown.swift; sourceTree = "<group>"; };
 		89950D892B992E8400DFB007 /* ClassesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesView.swift; sourceTree = "<group>"; };
 		8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextSessionCell.swift; sourceTree = "<group>"; };
@@ -257,10 +269,6 @@
 		89E4FAA92CEFEC3000A952B1 /* CapacitySemiCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacitySemiCircleView.swift; sourceTree = "<group>"; };
 		89E4FAAB2CF28E6600A952B1 /* HourlyAverageCapacity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyAverageCapacity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		899B18692CA5F72700FAC061 /* Profile */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Profile; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		2E15F4E82B39255B00414BEC /* Frameworks */ = {
@@ -403,6 +411,7 @@
 				2E2748CE2BCD4D1F0023882E /* MainViewModel.swift */,
 				296A2DAD2D7A805300EF042F /* ProfileViewModel.swift */,
 				899940712CC84DC90095568B /* SetGoalsViewModel.swift */,
+				898890032CD6784000E594A0 /* WorkoutReminderViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -665,9 +674,6 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				899B18692CA5F72700FAC061 /* Profile */,
-			);
 			name = Uplift;
 			packageProductDependencies = (
 				2EE5F3E12B12EDB6008E0299 /* Apollo */,
@@ -880,6 +886,11 @@
 				2E39D82C2B3BB35000AD238B /* FacilityExpandedViewModel.swift in Sources */,
 				8992674A2CC03E8D00E5741E /* Dropdown.swift in Sources */,
 				898890022CD5D6B800E594A0 /* WorkoutReminderView.swift in Sources */,
+				8988900B2CD6AE2D00E594A0 /* CapacityRemindersView.swift in Sources */,
+				8988900C2CD6AE2D00E594A0 /* RemindersView.swift in Sources */,
+				8988900D2CD6AE2D00E594A0 /* ReportSuccessView.swift in Sources */,
+				8988900E2CD6AE2D00E594A0 /* ReportView.swift in Sources */,
+				8988900F2CD6AE2D00E594A0 /* SetGoalsView.swift in Sources */,
 				2E3D6C202B1285D200B51BB2 /* UpliftEnvironment.swift in Sources */,
 				89507A9B2F36493100FB0757 /* SetGoalsView.swift in Sources */,
 				89507A9C2F36493100FB0757 /* ReportSuccessView.swift in Sources */,
@@ -908,6 +919,7 @@
 				2E1105C42B13D1B000119F5B /* DummyData.swift in Sources */,
 				2E15F4E22B3917B200414BEC /* Status.swift in Sources */,
 				2E3DC2432BCD2F1D0063B369 /* GiveawayModal.swift in Sources */,
+				898890042CD6784600E594A0 /* WorkoutReminderViewModel.swift in Sources */,
 				2E15F5042B39E54700414BEC /* LocationManager.swift in Sources */,
 				89A652F92D02B00000277A16 /* CapacityRemindersView.swift in Sources */,
 				89A652FA2D02B00000277A16 /* RemindersView.swift in Sources */,
