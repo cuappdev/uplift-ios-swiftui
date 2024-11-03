@@ -73,7 +73,7 @@ struct WorkoutReminderView: View {
 
     private var editReminder: some View {
         VStack {
-            
+
         }
     }
 
