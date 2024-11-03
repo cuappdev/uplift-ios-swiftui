@@ -24,7 +24,7 @@ struct WorkoutReminderView: View {
 
     var body: some View {
         if isEditable {
-            editReminder
+            WorkoutReminderEditView(isNew: false)
         } else {
             displayReminder
         }
@@ -68,12 +68,6 @@ struct WorkoutReminderView: View {
         .upliftShadow(Constants.Shadows.smallLight)
         .onTapGesture {
             isEditable = true
-        }
-    }
-
-    private var editReminder: some View {
-        VStack {
-
         }
     }
 
