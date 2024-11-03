@@ -15,9 +15,16 @@ struct WorkoutReminderEditView: View {
 
     @StateObject private var viewModel = ViewModel()
     @State private var isEveryDay = false
+    let isNew: Bool
     @State private var isSettingTime = false
     @Binding var showNewReminder: Bool
-    let isNew: Bool
+
+    // MARK: - Initalizer
+
+    init(showNewReminder: Binding<Bool> = .constant(false), isNew: Bool) {
+        self._showNewReminder = showNewReminder
+        self.isNew = isNew
+    }
 
     // MARK: - UI
 
