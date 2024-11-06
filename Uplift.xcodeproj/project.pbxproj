@@ -96,6 +96,7 @@
 		8988900F2CD6AE2D00E594A0 /* SetGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890092CD6AE2D00E594A0 /* SetGoalsView.swift */; };
 		898890132CD6C77E00E594A0 /* WorkoutReminderEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890122CD6C77800E594A0 /* WorkoutReminderEditViewModel.swift */; };
 		898890152CD6C7B400E594A0 /* WorkoutReminderEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890142CD6C7B400E594A0 /* WorkoutReminderEditView.swift */; };
+		898890DA2CDC326200E594A0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890D92CDC326200E594A0 /* User.swift */; };
 		8992674A2CC03E8D00E5741E /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899267492CC03E8D00E5741E /* Dropdown.swift */; };
 		89950D8A2B992E8400DFB007 /* ClassesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89950D892B992E8400DFB007 /* ClassesView.swift */; };
 		8996FEE02BDF351800F13C67 /* NextSessionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */; };
@@ -194,6 +195,7 @@
 		898890092CD6AE2D00E594A0 /* SetGoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGoalsView.swift; sourceTree = "<group>"; };
 		898890122CD6C77800E594A0 /* WorkoutReminderEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutReminderEditViewModel.swift; sourceTree = "<group>"; };
 		898890142CD6C7B400E594A0 /* WorkoutReminderEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutReminderEditView.swift; sourceTree = "<group>"; };
+		898890D92CDC326200E594A0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		899267492CC03E8D00E5741E /* Dropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dropdown.swift; sourceTree = "<group>"; };
 		89950D892B992E8400DFB007 /* ClassesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesView.swift; sourceTree = "<group>"; };
 		8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextSessionCell.swift; sourceTree = "<group>"; };
@@ -248,15 +250,16 @@
 			isa = PBXGroup;
 			children = (
 				2E15F4D92B39102A00414BEC /* Capacity.swift */,
+				2E6785C32B3A780600DD3ADA /* DayOfWeek.swift */,
+				63A7ABCE2B8C119A008D58FB /* Equipment.swift */,
+				2E15F4DD2B3912C700414BEC /* Facility.swift */,
 				89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */,
 				89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */,
-				2E6785C32B3A780600DD3ADA /* DayOfWeek.swift */,
-				2E15F4DD2B3912C700414BEC /* Facility.swift */,
 				2E15F4DF2B39143700414BEC /* Gym.swift */,
 				2E39D8272B3B726D00AD238B /* GymTabType.swift */,
 				2E15F4DB2B39117300414BEC /* OpenHours.swift */,
 				2E15F4E12B3917B200414BEC /* Status.swift */,
-				63A7ABCE2B8C119A008D58FB /* Equipment.swift */,
+				898890D92CDC326200E594A0 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -757,6 +760,7 @@
 				2E45B2472B4F643500FB83B7 /* AnalyticsManager.swift in Sources */,
 				63A7ABCF2B8C119A008D58FB /* Equipment.swift in Sources */,
 				2E39D8202B3B623B00AD238B /* FitnessCenterView.swift in Sources */,
+				898890DA2CDC326200E594A0 /* User.swift in Sources */,
 				897703662BA2028D00F9992F /* ClassesViewModel.swift in Sources */,
 				2E1105C22B13D15100119F5B /* HomeGymCell.swift in Sources */,
 				2E15F4F92B3950F800414BEC /* Date+Extension.swift in Sources */,
