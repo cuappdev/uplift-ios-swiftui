@@ -24,7 +24,7 @@ struct WorkoutReminderView: View {
 
     var body: some View {
         if isEditable {
-            WorkoutReminderEditView(isNew: false)
+            WorkoutReminderEditView(inEditMode: $isEditable, isNew: false)
         } else {
             displayReminder
         }
