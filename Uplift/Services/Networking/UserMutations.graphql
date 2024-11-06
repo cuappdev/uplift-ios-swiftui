@@ -1,12 +1,9 @@
 fragment userFields on User {
-  id
-  email
-  name
-  netId
-  giveaways {
-    id
-    name
-  }
+ id
+ email
+ name
+ netId
+ workoutGoal
 }
 
 fragment giveawayFields on Giveaway {
