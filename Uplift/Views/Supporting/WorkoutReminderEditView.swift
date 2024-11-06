@@ -17,12 +17,12 @@ struct WorkoutReminderEditView: View {
     @State private var isEveryDay = false
     let isNew: Bool
     @State private var isSettingTime = false
-    @Binding var showNewReminder: Bool
+    @Binding var inEditMode: Bool
 
     // MARK: - Initalizer
 
-    init(showNewReminder: Binding<Bool> = .constant(false), isNew: Bool) {
-        self._showNewReminder = showNewReminder
+    init(inEditMode: Binding<Bool> = .constant(false), isNew: Bool) {
+        self._inEditMode = inEditMode
         self.isNew = isNew
     }
 
@@ -64,52 +64,75 @@ struct WorkoutReminderEditView: View {
             HStack(spacing: 8) {
                 Spacer()
 
-                Button {
-                    isEveryDay = false
-                    isSettingTime = false
-                    withAnimation {
-                        showNewReminder = false
-                    }
-                    // TODO: What happens after deleting this reminder (is this new or existing?)
-                } label: {
-                    HStack(spacing: 8) {
-                        Constants.Images.trash
-
-                        Text("Delete")
-                            .foregroundStyle(Constants.Colors.black)
-                            .font(Constants.Fonts.h3)
-                    }
-                    .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
-                    .background(Constants.Colors.white)
-                }
-                .cornerRadius(38)
-                .upliftShadow(Constants.Shadows.smallLight)
-
-                Button {
-                    // TODO: Implement adding a reminder
-                    isEveryDay = false
-                    isSettingTime = false
-                    withAnimation {
-                        showNewReminder.toggle()
-                    }
-                    // TODO: What happens after adding a reminder
-                } label: {
-                    HStack(spacing: 8) {
-                        Constants.Images.check
-
-                        Text("Done")
-                            .foregroundStyle(Constants.Colors.white)
-                            .font(Constants.Fonts.h3)
-                    }
-                    .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
-                    .background(Constants.Colors.black)
-                }
-                .cornerRadius(38)
-                .upliftShadow(Constants.Shadows.smallLight)
+                deleteButton
+                doneButton
 
                 Spacer()
             }
         }
+    }
+
+    private var deleteButton: some View {
+        Button {
+            if isNew {
+                // If this is a new reminder, clear and reset
+                isEveryDay = false
+                isSettingTime = false
+                withAnimation {
+                    inEditMode = false
+                }
+            } else {
+                // If this is an existing reminder, delete the reminder
+                // TODO: Implement deleting reminders
+                withAnimation {
+                    inEditMode = false
+                }
+            }
+        } label: {
+            HStack(spacing: 8) {
+                Constants.Images.trash
+
+                Text("Delete")
+                    .foregroundStyle(Constants.Colors.black)
+                    .font(Constants.Fonts.h3)
+            }
+            .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+            .background(Constants.Colors.white)
+        }
+        .cornerRadius(38)
+        .upliftShadow(Constants.Shadows.smallLight)
+    }
+
+    private var doneButton: some View {
+        Button {
+            if isNew {
+                // If this is a new reminder, add this new reminder
+                isEveryDay = false
+                isSettingTime = false
+                withAnimation {
+                    inEditMode = false
+                }
+                // TODO: Implement creating a reminder
+            } else {
+                // If this is an existing reminder, update the reminder
+                // TODO: Implement updating a reminder
+                withAnimation {
+                    inEditMode = false
+                }
+            }
+        } label: {
+            HStack(spacing: 8) {
+                Constants.Images.check
+
+                Text("Done")
+                    .foregroundStyle(Constants.Colors.white)
+                    .font(Constants.Fonts.h3)
+            }
+            .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+            .background(Constants.Colors.black)
+        }
+        .cornerRadius(38)
+        .upliftShadow(Constants.Shadows.smallLight)
     }
 
     private var reminderDays: some View {

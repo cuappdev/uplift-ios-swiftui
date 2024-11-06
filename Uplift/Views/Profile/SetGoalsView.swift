@@ -160,7 +160,7 @@ struct SetGoalsView: View {
                 Spacer()
             }
 
-            showNewReminder ? WorkoutReminderEditView(showNewReminder: $showNewReminder, isNew: false) : nil
+            showNewReminder ? WorkoutReminderEditView(inEditMode: $showNewReminder, isNew: false) : nil
         }
     }
 
