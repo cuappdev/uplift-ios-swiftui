@@ -21,9 +21,7 @@ struct MainView: View {
 
     var body: some View {
         ZStack {
-            HomeView(popUpGiveaway: $viewModel.popUpGiveaway)
-
-            ZStack(alignment: .bottom) {
+            VStack(spacing: 0) {
                 switch selectedTab {
                 case .home:
                     HomeView(popUpGiveaway: $viewModel.popUpGiveaway)
@@ -32,7 +30,7 @@ struct MainView: View {
                         .environmentObject(tabBarProp)
                 }
 
-                !tabBarProp.hidden ? tabBar : nil
+                !tabBarProp.hidden ? tabBar.transition(.move(edge: .bottom)) : nil
             }
 
             if viewModel.popUpGiveaway {
