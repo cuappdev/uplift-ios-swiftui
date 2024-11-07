@@ -185,8 +185,16 @@ struct ClassesView: View {
                         ForEach(viewModel.filteredClasses, id: \.self) { classInstance in
                             NavigationLink {
                                 ClassDetailView(classInstance: classInstance, viewModel: viewModel)
-                                    .onAppear { tabBarProp.hidden = true }
-                                    .onDisappear { tabBarProp.hidden = false }
+                                    .onAppear {
+                                        withAnimation(.easeIn(duration: 0.05)) {
+                                            tabBarProp.hidden = true
+                                        }
+                                    }
+                                    .onDisappear {
+                                        withAnimation(.easeIn(duration: 0.05)) {
+                                            tabBarProp.hidden = false
+                                        }
+                                    }
                             } label: {
                                 ClassCell(classInstance: classInstance, viewModel: viewModel)
                             }
