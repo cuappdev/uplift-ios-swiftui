@@ -309,6 +309,7 @@
 				897703652BA2028D00F9992F /* ClassesViewModel.swift */,
 				63001AD52CC9ACFF0082AFFA /* LoginViewModel.swift */,
 				897703652BA2028D00F9992F /* ClassesViewModel.swift */,
+				63001AD52CC9ACFF0082AFFA /* LoginViewModel.swift */,
 				2E39D82B2B3BB35000AD238B /* FacilityExpandedViewModel.swift */,
 				2E39D8232B3B66FD00AD238B /* FitnessCenterViewModel.swift */,
 				2E6785C12B3A5CE000DD3ADA /* GymDetailViewModel.swift */,
@@ -558,6 +559,8 @@
 				63001AD72CC9AD970082AFFA /* GoogleSignIn */,
 				63001AD92CC9AD970082AFFA /* GoogleSignInSwift */,
 				897DF9B92CCDC49B00246B0D /* UpliftAPI */,
+				63001AD72CC9AD970082AFFA /* GoogleSignIn */,
+				63001AD92CC9AD970082AFFA /* GoogleSignInSwift */,
 			);
 			productName = Uplift;
 			productReference = 2E8FE38C2B1278B700B3DC6A /* Uplift.app */;
