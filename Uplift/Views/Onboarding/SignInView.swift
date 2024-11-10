@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct SignInView: View {
+    @EnvironmentObject var mainViewModel: MainView.ViewModel
+    @StateObject private var loginViewModel = LoginViewModel()
     var body: some View {
 
         VStack {
@@ -30,7 +32,9 @@ struct SignInView: View {
     }
     private var login: some View {
         Button {
-            // TODO: Action
+            loginViewModel.googleSignIn {
+                mainViewModel.userDidLogin = true
+            }
         } label: {
             Text("Log in")
                 .font(Constants.Fonts.h2)

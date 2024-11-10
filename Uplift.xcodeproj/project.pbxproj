@@ -78,6 +78,9 @@
 		2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E12B12EDB6008E0299 /* Apollo */; };
 		2EE5F3E42B12EDB6008E0299 /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E32B12EDB6008E0299 /* ApolloAPI */; };
 		2EF1A2582B129EEB007A299F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1A2572B129EEB007A299F /* Network.swift */; };
+		63001AD62CC9ACFF0082AFFA /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63001AD52CC9ACFF0082AFFA /* LoginViewModel.swift */; };
+		63001AD82CC9AD970082AFFA /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 63001AD72CC9AD970082AFFA /* GoogleSignIn */; };
+		63001ADA2CC9AD980082AFFA /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 63001AD92CC9AD970082AFFA /* GoogleSignInSwift */; };
 		6329A4462C964D0800D30A2F /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6329A4452C964D0800D30A2F /* SignInView.swift */; };
 		6329A4482CA0F89D00D30A2F /* CreateProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6329A4472CA0F89D00D30A2F /* CreateProfileView.swift */; };
 		6329A44A2CA0FE8A00D30A2F /* CheckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6329A4492CA0FE8A00D30A2F /* CheckBoxView.swift */; };
@@ -171,6 +174,7 @@
 		2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GymQueries.graphql; sourceTree = "<group>"; };
 		2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientProtocol.swift; sourceTree = "<group>"; };
 		2EF1A2572B129EEB007A299F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		63001AD52CC9ACFF0082AFFA /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		6329A4452C964D0800D30A2F /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		6329A4472CA0F89D00D30A2F /* CreateProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileView.swift; sourceTree = "<group>"; };
 		6329A4492CA0FE8A00D30A2F /* CheckBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxView.swift; sourceTree = "<group>"; };
@@ -198,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EE5F3E42B12EDB6008E0299 /* ApolloAPI in Frameworks */,
+				63001AD82CC9AD970082AFFA /* GoogleSignIn in Frameworks */,
 				2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */,
 				2E6785BC2B3A48D700DD3ADA /* WrappingHStack in Frameworks */,
 				2E4F06DC2B4B48DC008905C8 /* UpliftAPI in Frameworks */,
@@ -206,6 +211,7 @@
 				2E39D82F2B3BCBA400AD238B /* UpliftAPI in Frameworks */,
 				897DF9BA2CCDC49B00246B0D /* UpliftAPI in Frameworks */,
 				2E2748D22BCD4EC00023882E /* UpliftAPI in Frameworks */,
+				63001ADA2CC9AD980082AFFA /* GoogleSignInSwift in Frameworks */,
 				63A7ABCD2B86B971008D58FB /* UpliftAPI in Frameworks */,
 				2E45B2402B4E361100FB83B7 /* FirebaseCrashlytics in Frameworks */,
 				636E3D412BBE1EB100B6EFFC /* UpliftAPI in Frameworks */,
@@ -299,6 +305,7 @@
 			isa = PBXGroup;
 			children = (
 				897703652BA2028D00F9992F /* ClassesViewModel.swift */,
+				63001AD52CC9ACFF0082AFFA /* LoginViewModel.swift */,
 				2E39D82B2B3BB35000AD238B /* FacilityExpandedViewModel.swift */,
 				2E39D8232B3B66FD00AD238B /* FitnessCenterViewModel.swift */,
 				2E6785C12B3A5CE000DD3ADA /* GymDetailViewModel.swift */,
@@ -545,6 +552,8 @@
 				636E3D432BBE1F3800B6EFFC /* UpliftAPI */,
 				2E2748D12BCD4EC00023882E /* UpliftAPI */,
 				897DF9B92CCDC49B00246B0D /* UpliftAPI */,
+				63001AD72CC9AD970082AFFA /* GoogleSignIn */,
+				63001AD92CC9AD970082AFFA /* GoogleSignInSwift */,
 			);
 			productName = Uplift;
 			productReference = 2E8FE38C2B1278B700B3DC6A /* Uplift.app */;
@@ -585,6 +594,7 @@
 				2EC3EE642B3C000E00E927BF /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				897DF9B82CCDC49B00246B0D /* XCLocalSwiftPackageReference "UpliftAPI" */,
+				63001AD42CC9A6B20082AFFA /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
 			projectDirPath = "";
@@ -736,6 +746,7 @@
 				2E3DC2432BCD2F1D0063B369 /* GiveawayModal.swift in Sources */,
 				2E15F5042B39E54700414BEC /* LocationManager.swift in Sources */,
 				2E39D81E2B3B610200AD238B /* UINavigationController+Extension.swift in Sources */,
+				63001AD62CC9ACFF0082AFFA /* LoginViewModel.swift in Sources */,
 				2E15F4DC2B39117300414BEC /* OpenHours.swift in Sources */,
 				2E090ED62B13121600BAE982 /* Constants.swift in Sources */,
 				2E39D8282B3B726D00AD238B /* GymTabType.swift in Sources */,
@@ -1076,6 +1087,14 @@
 				minimumVersion = 1.7.1;
 			};
 		};
+		63001AD42CC9A6B20082AFFA /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1132,6 +1151,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2EE5F3E02B12EDB6008E0299 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = ApolloAPI;
+		};
+		63001AD72CC9AD970082AFFA /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 63001AD42CC9A6B20082AFFA /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		63001AD92CC9AD970082AFFA /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 63001AD42CC9A6B20082AFFA /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
 		};
 		636E3D402BBE1EB100B6EFFC /* UpliftAPI */ = {
 			isa = XCSwiftPackageProductDependency;
