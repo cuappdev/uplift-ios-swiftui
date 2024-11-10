@@ -13,13 +13,14 @@ import SwiftUI
 class LoginViewModel: ObservableObject {
 
     // MARK: - Properties
+
     @Published var didPresentError: Bool = false
     @Published var errorText: String = ""
     private let signInConfig = GIDConfiguration.init(clientID: UpliftEnvironment.Keys.googleClientID)
 
     // MARK: - Functions
 
-    func googleSignIn(success: @escaping () -> Void) {
+    func googleSignIn(success: @escaping (_ email: String, _ name: String, _ netID: String) -> Void) {
         guard let presentingViewController = (UIApplication.shared.connectedScenes.first as?
             UIWindowScene)?.windows.first?.rootViewController else { return }
 
@@ -37,7 +38,9 @@ class LoginViewModel: ObservableObject {
                 return
             }
 
-            success()
+            guard let fullName = user?.profile?.name else { return }
+            let netID = email.replacingOccurrences(of: "@cornell.edu", with: "")
+            success(email, fullName, netID)
         }
     }
 }

@@ -9,10 +9,15 @@
 import SwiftUI
 
 struct SignInView: View {
+
+    // MARK: - Properties
+
     @EnvironmentObject var mainViewModel: MainView.ViewModel
     @StateObject private var loginViewModel = LoginViewModel()
-    var body: some View {
 
+    // MARK: - UI
+
+    var body: some View {
         VStack {
             signInHeader
             login
@@ -23,16 +28,21 @@ struct SignInView: View {
 
     private var skip: some View {
         Button {
-            // TODO: Action
+            mainViewModel.displayMainView = true
         } label: {
             Text("Skip")
                 .font(Constants.Fonts.bodyNormal)
                 .foregroundColor(Constants.Colors.gray04)
         }
     }
+
     private var login: some View {
         Button {
-            loginViewModel.googleSignIn {
+            loginViewModel.googleSignIn { email, name, netId in
+                mainViewModel.email = email
+                mainViewModel.name = name
+                mainViewModel.netID = netId
+                mainViewModel.createUser()
                 mainViewModel.userDidLogin = true
             }
         } label: {
@@ -68,6 +78,7 @@ struct SignInView: View {
         .cornerRadius(8)
         .upliftShadow(Constants.Shadows.smallLight)
     }
+
     private var gymSimple: some View {
         HStack {
             Constants.Images.gymSimple
@@ -80,6 +91,7 @@ struct SignInView: View {
         .cornerRadius(8)
         .upliftShadow(Constants.Shadows.smallLight)
     }
+
     private var history: some View {
         HStack {
             Constants.Images.history
@@ -92,6 +104,7 @@ struct SignInView: View {
         .cornerRadius(8)
         .upliftShadow(Constants.Shadows.smallLight)
     }
+
     private var signInHeader: some View {
         VStack {
             ZStack(alignment: .bottom) {
@@ -102,8 +115,8 @@ struct SignInView: View {
                     .frame(width: 130, height: 115)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     .padding(32)
-
             }
+
             Text("Find what uplifts you.")
                 .font(Constants.Fonts.h1)
                 .padding(.top, 62)
@@ -114,6 +127,7 @@ struct SignInView: View {
 
             cards
                 .padding(.top, 24)
+
             Spacer()
         }
         .ignoresSafeArea(.all)

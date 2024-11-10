@@ -9,9 +9,14 @@
 import SwiftUI
 
 struct CheckBoxView: View {
+
+    // MARK: - Properties
+
     @Binding var isCheckedTerms: Bool
     @Binding var isCheckedData: Bool
     @Binding var isCheckedLocation: Bool
+
+    // MARK: - UI
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {

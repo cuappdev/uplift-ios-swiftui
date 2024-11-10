@@ -24,14 +24,18 @@ struct UpliftApp: App {
     var body: some Scene {
         WindowGroup {
             ZStack {
-                if mainViewModel.userDidLogin {
+                if mainViewModel.displayMainView {
                     MainView()
                         .environmentObject(locationManager)
                         .onAppear {
                             locationManager.requestLocation()
                         }
+                } else if mainViewModel.userDidLogin {
+                    CreateProfileView()
+                        .environmentObject(mainViewModel)
                 } else {
                     SignInView()
+                        .environmentObject(mainViewModel)
                         .onAppear {
                             GIDSignIn.sharedInstance.restorePreviousSignIn { _, _ in
                             }
@@ -42,27 +46,26 @@ struct UpliftApp: App {
                 }
             }
         }
-
     }
 
     class AppDelegate: NSObject, UIApplicationDelegate {
         func application(
-          _ application: UIApplication,
-          didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+            _ application: UIApplication,
+            didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
         ) -> Bool {
-          GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
-            if error != nil || user == nil {
-              // Show the app's signed-out state.
-            } else {
-              // Show the app's signed-in state.
+            GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+                if error != nil || user == nil {
+                    // Show the app's signed-out state.
+                } else {
+                    // Show the app's signed-in state.
+                }
             }
-          }
-          return true
+            return true
         }
 
         func application(_ app: UIApplication,
-                        open url: URL,
-                        options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+                         open url: URL,
+                         options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
             GIDSignIn.sharedInstance.handle(url)
         }
     }

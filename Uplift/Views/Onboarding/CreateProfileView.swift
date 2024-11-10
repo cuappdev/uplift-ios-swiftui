@@ -9,12 +9,18 @@ import SwiftUI
 import PhotosUI
 
 struct CreateProfileView: View {
+
+    // MARK: - Properties
+
+    @EnvironmentObject var mainViewModel: MainView.ViewModel
     @State private var isCheckedTerms: Bool = false
     @State private var isCheckedData: Bool = false
     @State private var isCheckedLocation: Bool = false
     @State private var profileImage: UIImage?
     @State private var isShowingImagePicker = false
     @State private var profileItem: PhotosPickerItem?
+
+    // MARK: - UI
 
     var body: some View {
         VStack {
@@ -24,13 +30,17 @@ struct CreateProfileView: View {
                     .padding(.leading, 16)
                 Spacer()
             }
+
             DividerLine()
                 .upliftShadow(Constants.Shadows.smallLight)
                 .padding(.bottom, 46)
+
             cameraPlaceholderButton
                 .padding(.bottom, 24)
-            Text("Stefanie Rivera-Osorio")
+
+            Text(mainViewModel.name)
                 .font(Constants.Fonts.h1)
+
             CheckBoxView(
                 isCheckedTerms: $isCheckedTerms,
                 isCheckedData: $isCheckedData,
@@ -45,7 +55,7 @@ struct CreateProfileView: View {
                     .padding(.top, 32)
             } else {
                 Spacer(minLength: 200)
-                nextButton
+                nextLabel
             }
 
             Spacer()
@@ -68,7 +78,6 @@ struct CreateProfileView: View {
                     }
                 }
             }
-
         }
     }
 
@@ -122,24 +131,20 @@ struct CreateProfileView: View {
         }
     }
 
-    private var nextButton: some View {
-        Button {
-            // TODO: Action
-        } label: {
-            Text("Next")
-                .font(Constants.Fonts.h2)
-                .foregroundColor(Constants.Colors.black)
-                .padding(.horizontal, 52)
-                .padding(.vertical, 12)
-                .background(Constants.Colors.gray03)
-                .cornerRadius(38)
-                .upliftShadow(Constants.Shadows.smallLight)
-        }
+    private var nextLabel: some View {
+        Text("Next")
+            .font(Constants.Fonts.h2)
+            .foregroundColor(Constants.Colors.black)
+            .padding(.horizontal, 52)
+            .padding(.vertical, 12)
+            .background(Constants.Colors.gray03)
+            .cornerRadius(38)
+            .upliftShadow(Constants.Shadows.smallLight)
     }
 
     private var getStartedButton: some View {
         Button {
-            // TODO: Action
+            mainViewModel.displayMainView = true
         } label: {
             Text("Get started")
                 .font(Constants.Fonts.h2)

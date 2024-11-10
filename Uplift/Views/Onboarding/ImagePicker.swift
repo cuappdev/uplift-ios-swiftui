@@ -10,8 +10,13 @@ import PhotosUI
 import SwiftUI
 
 struct ImagePicker: View {
+
+    // MARK: - Properties
+
     @State private var profileItem: PhotosPickerItem?
     @Binding var selectedImage: Image?
+
+    // MARK: - UI
 
     var body: some View {
         VStack {
