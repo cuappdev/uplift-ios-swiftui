@@ -64,7 +64,7 @@ struct ClassesView: View {
                 calendarView
                 classesOnDay
             }
-            .padding(.bottom, 32)
+            .padding(.bottom, 32 + Constants.Padding.tabBarHeight)
         }
         .refreshable {
             viewModel.refreshClasses()
