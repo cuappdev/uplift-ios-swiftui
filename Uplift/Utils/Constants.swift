@@ -126,6 +126,7 @@ struct Constants {
         static let gymDetailHorizontal: CGFloat = 24
         static let gymDetailSpacing: CGFloat = 20
         static let homeHorizontal: CGFloat = 16
+        static let tabBarHeight: CGFloat = 64
     }
 
     /// Shadows usde in Uplift's design system.
