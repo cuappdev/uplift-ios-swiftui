@@ -9,7 +9,7 @@
 import Foundation
 import UpliftAPI
 
-/// Model representing a facility's equipment.
+/// Model representing a user.
 struct User: Hashable {
 
     // MARK: - Properties
