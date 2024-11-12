@@ -114,6 +114,8 @@
 		89507A9B2F36493100FB0757 /* SetGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89507A9A2F36493100FB0757 /* SetGoalsView.swift */; };
 		89507A9C2F36493100FB0757 /* ReportSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89507A982F36493100FB0757 /* ReportSuccessView.swift */; };
 		89507A9D2F36493100FB0757 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89507A992F36493100FB0757 /* ReportView.swift */; };
+		8940D4EE2CE3E60200F4A4A4 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8940D4ED2CE3E60000F4A4A4 /* Workout.swift */; };
+		8940D4F02CE3E8FE00F4A4A4 /* WorkoutQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8940D4EF2CE3E8F400F4A4A4 /* WorkoutQueries.graphql */; };
 		89599A4E2BD4B39B00DA44DE /* FitnessClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */; };
 		89599A502BD4B4B600DA44DE /* FitnessClassInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */; };
 		896500DC2BB4D33500D822AB /* ClassDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896500DB2BB4D33500D822AB /* ClassDetailView.swift */; };
@@ -247,6 +249,8 @@
 		89507A982F36493100FB0757 /* ReportSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportSuccessView.swift; sourceTree = "<group>"; };
 		89507A992F36493100FB0757 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
 		89507A9A2F36493100FB0757 /* SetGoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGoalsView.swift; sourceTree = "<group>"; };
+		8940D4ED2CE3E60000F4A4A4 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
+		8940D4EF2CE3E8F400F4A4A4 /* WorkoutQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = WorkoutQueries.graphql; sourceTree = "<group>"; };
 		89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessClass.swift; sourceTree = "<group>"; };
 		89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessClassInstance.swift; sourceTree = "<group>"; };
 		896500DB2BB4D33500D822AB /* ClassDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailView.swift; sourceTree = "<group>"; };
@@ -343,6 +347,7 @@
 				2E15F4DB2B39117300414BEC /* OpenHours.swift */,
 				2E15F4E12B3917B200414BEC /* Status.swift */,
 				898890D92CDC326200E594A0 /* User.swift */,
+				8940D4ED2CE3E60000F4A4A4 /* Workout.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -433,6 +438,7 @@
 				2E090EC42B12EF2600BAE982 /* Publishers.swift */,
 				2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */,
 				2E2748CC2BCD4C300023882E /* UserMutations.graphql */,
+				8940D4EF2CE3E8F400F4A4A4 /* WorkoutQueries.graphql */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -779,6 +785,7 @@
 				2EB090B82B131CA80039EB3B /* Montserrat-Light.ttf in Resources */,
 				2E8FE3992B1278B900B3DC6A /* Preview Assets.xcassets in Resources */,
 				2E3838412BB7536700AE15DC /* PrivacyInfo.xcprivacy in Resources */,
+				8940D4F02CE3E8FE00F4A4A4 /* WorkoutQueries.graphql in Resources */,
 				2EB090B92B131CA80039EB3B /* Montserrat-SemiBold.ttf in Resources */,
 				2EB090B42B131CA40039EB3B /* BebasNeue-Regular.ttf in Resources */,
 				2E45B2422B4E5CE100FB83B7 /* GoogleService-Info.plist in Resources */,
@@ -875,6 +882,7 @@
 				89E4FAAA2CEFEC3C00A952B1 /* CapacitySemiCircleView.swift in Sources */,
 				89599A4E2BD4B39B00DA44DE /* FitnessClass.swift in Sources */,
 				2E15F5122B3A3D0000414BEC /* TriangleShape.swift in Sources */,
+				8940D4EE2CE3E60200F4A4A4 /* Workout.swift in Sources */,
 				2E8FE3922B1278B700B3DC6A /* HomeView.swift in Sources */,
 				2E6785C02B3A5CA300DD3ADA /* Haptics.swift in Sources */,
 				89950D8A2B992E8400DFB007 /* ClassesView.swift in Sources */,
@@ -1390,6 +1398,10 @@
 			productName = FirebaseMessaging;
 		};
 		89CE47412D03F3C700BCB79D /* UpliftAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UpliftAPI;
+		};
+		89E4FAA52CE3E96D00A952B1 /* UpliftAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UpliftAPI;
 		};
