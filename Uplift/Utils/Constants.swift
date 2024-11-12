@@ -148,9 +148,10 @@ struct Constants {
         static let remindersVertical: CGFloat = 24
         static let reportHorizontal: CGFloat = 16
         static let reportVertical: CGFloat = 24
+        static let tabBarHeight: CGFloat = 64
     }
 
-    /// Shadows usde in Uplift's design system.
+    /// Shadows used in Uplift's design system.
     enum Shadows {
         static let normalDark = ShadowConfig(
             color: Constants.Colors.black,

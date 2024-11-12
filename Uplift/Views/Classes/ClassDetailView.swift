@@ -13,10 +13,10 @@ struct ClassDetailView: View {
 
     // MARK: - Properties
 
-    let classInstance: FitnessClassInstance
-
-    @ObservedObject var viewModel: ClassesView.ViewModel
+    @State var classInstance: FitnessClassInstance
     @Environment(\.dismiss) private var dismiss
+    private let topViewId: String = "topId"
+    @ObservedObject var viewModel: ClassesView.ViewModel
 
     // MARK: - Constants
 
@@ -38,28 +38,31 @@ struct ClassDetailView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                scrollContent
-            }
-            .ignoresSafeArea(.all)
-            .padding(.bottom)
-            .navigationBarBackButtonHidden(true)
-            .toolbarBackground(.hidden, for: .navigationBar)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    NavBackButton(dismiss: dismiss)
+            ScrollViewReader { reader in
+                ScrollView(.vertical, showsIndicators: false) {
+                    scrollContent(reader)
                 }
-            }
-            .background(Constants.Colors.white)
-            .onAppear {
-                viewModel.fetchAllClasses()
+                .ignoresSafeArea(.all)
+                .padding(.bottom)
+                .navigationBarBackButtonHidden(true)
+                .toolbarBackground(.hidden, for: .navigationBar)
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        NavBackButton(dismiss: dismiss)
+                    }
+                }
+                .background(Constants.Colors.white)
+                .onAppear {
+                    viewModel.fetchAllClasses()
+                }
             }
         }
     }
 
-    private var scrollContent: some View {
+    private func scrollContent(_ reader: ScrollViewProxy) -> some View {
         VStack(spacing: 0) {
             heroSection
+                .id(topViewId)
             dateTimeSection
             DividerLine()
             // TODO: Function data is not in backend
@@ -70,7 +73,7 @@ struct ClassDetailView: View {
 //            DividerLine()
             descriptionSection
             DividerLine()
-            nextSessionsSection
+            nextSessionsSection(reader)
         }
         .padding(.bottom)
     }
@@ -99,13 +102,15 @@ struct ClassDetailView: View {
                         .font(Constants.Fonts.s1)
                         .foregroundStyle(Constants.Colors.white)
                         .multilineTextAlignment(.center)
+                        .minimumScaleFactor(0.01)
+                        .lineLimit(2)
 
                     Text(classInstance.location)
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.white)
                         .multilineTextAlignment(.center)
 
-                    Text(classInstance.instructor.uppercased())
+                    Text("INSTRUCTOR: \(classInstance.instructor.uppercased())")
                         .font(Constants.Fonts.h2)
                         .foregroundStyle(Constants.Colors.white)
                         .multilineTextAlignment(.center)
@@ -208,7 +213,7 @@ struct ClassDetailView: View {
             .padding(textPadding)
     }
 
-    private var nextSessionsSection: some View {
+    private func nextSessionsSection(_ reader: ScrollViewProxy) -> some View {
         VStack(spacing: 24) {
             Text("NEXT SESSIONS")
                 .font(Constants.Fonts.h2)
@@ -223,8 +228,11 @@ struct ClassDetailView: View {
                     }
                 } else {
                     ForEach(viewModel.nextSessions(classInstance: classInstance), id: \.self) { classInstance in
-                        NavigationLink {
-                            ClassDetailView(classInstance: classInstance, viewModel: viewModel)
+                        Button {
+                            withAnimation {
+                                self.classInstance = classInstance
+                                reader.scrollTo(topViewId)
+                            }
                         } label: {
                             NextSessionCell(classInstance: classInstance, viewModel: viewModel)
                         }
