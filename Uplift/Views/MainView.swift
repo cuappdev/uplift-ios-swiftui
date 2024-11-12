@@ -29,7 +29,8 @@ struct MainView: View {
                     ClassesView()
                         .environmentObject(tabBarProp)
                 }
-
+            }
+            .overlay(alignment: .bottom) {
                 !tabBarProp.hidden ? tabBar.transition(.move(edge: .bottom)) : nil
             }
 
@@ -75,7 +76,7 @@ struct MainView: View {
 
             Spacer()
         }
-        .frame(height: 64)
+        .frame(height: Constants.Padding.tabBarHeight)
         .background(Constants.Colors.yellow)
         .ignoresSafeArea(.all)
     }

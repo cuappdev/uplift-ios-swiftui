@@ -174,7 +174,7 @@ struct HomeView: View {
                 EdgeInsets(
                     top: 12,
                     leading: Constants.Padding.homeHorizontal,
-                    bottom: 32,
+                    bottom: 32 + Constants.Padding.tabBarHeight,
                     trailing: Constants.Padding.homeHorizontal
                 )
             )
