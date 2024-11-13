@@ -25,6 +25,7 @@ struct ImagePicker: View {
                     .font(Constants.Fonts.h2)
                     .foregroundColor(Constants.Colors.black)
             }
+
             selectedImage?
                 .resizable()
                 .scaledToFit()

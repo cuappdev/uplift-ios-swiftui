@@ -12,9 +12,9 @@ struct CheckBoxView: View {
 
     // MARK: - Properties
 
-    @Binding var isCheckedTerms: Bool
-    @Binding var isCheckedData: Bool
-    @Binding var isCheckedLocation: Bool
+    @Binding var didCheckTerms: Bool
+    @Binding var didCheckData: Bool
+    @Binding var didCheckLocation: Bool
 
     // MARK: - UI
 
@@ -27,21 +27,21 @@ struct CheckBoxView: View {
     }
 
     private var termsToggle: some View {
-        Toggle(isOn: $isCheckedTerms) {
+        Toggle(isOn: $didCheckTerms) {
             Text("I agree with EULA terms and agreements")
         }
         .toggleStyle(CheckboxToggleStyle())
     }
 
     private var dataToggle: some View {
-        Toggle(isOn: $isCheckedData) {
+        Toggle(isOn: $didCheckData) {
             Text("I allow Uplift to access data on my gym usage ")
         }
         .toggleStyle(CheckboxToggleStyle())
     }
 
     private var locationToggle: some View {
-        Toggle(isOn: $isCheckedLocation) {
+        Toggle(isOn: $didCheckLocation) {
             Text("I allow Uplift to access my location")
         }
         .toggleStyle(CheckboxToggleStyle())
@@ -63,7 +63,7 @@ struct CheckboxToggleStyle: ToggleStyle {
 }
 
 #Preview {
-    CheckBoxView(isCheckedTerms: .constant(false),
-                 isCheckedData: .constant(false),
-                 isCheckedLocation: .constant(false))
+    CheckBoxView(didCheckTerms: .constant(false),
+                 didCheckData: .constant(false),
+                 didCheckLocation: .constant(false))
 }

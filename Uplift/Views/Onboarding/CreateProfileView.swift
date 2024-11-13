@@ -5,19 +5,20 @@
 //  Created by Belle Hu on 9/22/24.
 //  Copyright © 2024 Cornell AppDev. All rights reserved.
 //
-import SwiftUI
+
 import PhotosUI
+import SwiftUI
 
 struct CreateProfileView: View {
 
     // MARK: - Properties
 
     @EnvironmentObject var mainViewModel: MainView.ViewModel
-    @State private var isCheckedTerms: Bool = false
-    @State private var isCheckedData: Bool = false
-    @State private var isCheckedLocation: Bool = false
+    @State private var didCheckTerms: Bool = false
+    @State private var didCheckData: Bool = false
+    @State private var didCheckLocation: Bool = false
     @State private var profileImage: UIImage?
-    @State private var isShowingImagePicker = false
+    @State private var didShowImagePicker = false
     @State private var profileItem: PhotosPickerItem?
 
     // MARK: - UI
@@ -28,6 +29,7 @@ struct CreateProfileView: View {
                 Text("Complete your profile.")
                     .font(Constants.Fonts.h1)
                     .padding(.leading, 16)
+
                 Spacer()
             }
 
@@ -42,19 +44,22 @@ struct CreateProfileView: View {
                 .font(Constants.Fonts.h1)
 
             CheckBoxView(
-                isCheckedTerms: $isCheckedTerms,
-                isCheckedData: $isCheckedData,
-                isCheckedLocation: $isCheckedLocation
+                didCheckTerms: $didCheckTerms,
+                didCheckData: $didCheckData,
+                didCheckLocation: $didCheckLocation
             )
             .padding(.top, 48)
 
             if allChecked {
                 Spacer(minLength: 135)
+
                 readyGreeting
                 getStartedButton
                     .padding(.top, 32)
+
             } else {
                 Spacer(minLength: 200)
+
                 nextLabel
             }
 
@@ -62,19 +67,18 @@ struct CreateProfileView: View {
         }
         .padding(.vertical, 40)
         .photosPicker(
-            isPresented: $isShowingImagePicker,
+            isPresented: $didShowImagePicker,
             selection: $profileItem,
             matching: .images,
             photoLibrary: .shared()
         )
         .onChange(of: profileItem) { newItem in
             Task {
-                if let newItem = newItem {
-                    if let data = try? await newItem.loadTransferable(type: Data.self),
-                       let image = UIImage(data: data) {
-                        DispatchQueue.main.async {
-                            self.profileImage = image
-                        }
+                if let newItem,
+                   let data = try? await newItem.loadTransferable(type: Data.self),
+                   let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self.profileImage = image
                     }
                 }
             }
@@ -82,7 +86,7 @@ struct CreateProfileView: View {
     }
 
     private var allChecked: Bool {
-        isCheckedTerms && isCheckedData && isCheckedLocation
+        didCheckTerms && didCheckData && didCheckLocation
     }
 
     private var cameraMiniImage: some View {
@@ -93,7 +97,7 @@ struct CreateProfileView: View {
 
     private var cameraMiniButton: some View {
         Button {
-            isShowingImagePicker = true
+            didShowImagePicker = true
         } label: {
             Circle()
                 .fill(Constants.Colors.white)
@@ -106,7 +110,7 @@ struct CreateProfileView: View {
 
     private var cameraPlaceholder: some View {
         ZStack {
-            if let profileImage = profileImage {
+            if let profileImage {
                 Image(uiImage: profileImage)
                     .resizable()
                     .scaledToFill()
@@ -114,6 +118,7 @@ struct CreateProfileView: View {
                     .clipShape(Circle())
                     .overlay(Circle().stroke(Constants.Colors.white, lineWidth: 6))
                     .upliftShadow(Constants.Shadows.smallLight)
+
                 cameraMiniButton
             } else {
                 Constants.Images.camera
@@ -125,7 +130,7 @@ struct CreateProfileView: View {
 
     private var cameraPlaceholderButton: some View {
         Button {
-            isShowingImagePicker = true
+            didShowImagePicker = true
         } label: {
             cameraPlaceholder
         }
@@ -176,6 +181,7 @@ struct CreateProfileView: View {
             Constants.Images.logo
                 .resizable()
                 .frame(width: 26, height: 23)
+
             Constants.Images.lift
                 .resizable()
                 .frame(width: 22, height: 17)

@@ -55,9 +55,9 @@ struct UpliftApp: App {
         ) -> Bool {
             GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
                 if error != nil || user == nil {
-                    // Show the app's signed-out state.
+                    // TODO: - Show the app's signed-out state.
                 } else {
-                    // Show the app's signed-in state.
+                    // TODO: - Show the app's signed-in state.
                 }
             }
             return true

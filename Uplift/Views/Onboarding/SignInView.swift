@@ -20,13 +20,15 @@ struct SignInView: View {
     var body: some View {
         VStack {
             signInHeader
-            login
+            loginButton
+
             Spacer(minLength: 16)
-            skip
+
+            skipButton
         }
     }
 
-    private var skip: some View {
+    private var skipButton: some View {
         Button {
             mainViewModel.displayMainView = true
         } label: {
@@ -36,7 +38,7 @@ struct SignInView: View {
         }
     }
 
-    private var login: some View {
+    private var loginButton: some View {
         Button {
             loginViewModel.googleSignIn { email, name, netId in
                 mainViewModel.email = email
@@ -57,20 +59,22 @@ struct SignInView: View {
         }
     }
 
-    private var cards: some View {
+    private var cardsView: some View {
         VStack(spacing: 12) {
-            goals
-            gymSimple
-            history
+            createGoalsView
+            trackGoalsView
+            workoutHistoryView
         }
         .padding(.horizontal, 76)
     }
 
-    private var goals: some View {
+    private var createGoalsView: some View {
         HStack {
             Constants.Images.goal
+
             Text("Create fitness goals")
                 .font(Constants.Fonts.f2)
+
             Spacer()
         }
         .padding(12)
@@ -79,11 +83,13 @@ struct SignInView: View {
         .upliftShadow(Constants.Shadows.smallLight)
     }
 
-    private var gymSimple: some View {
+    private var trackGoalsView: some View {
         HStack {
             Constants.Images.gymSimple
+
             Text("Track fitness goals")
                 .font(Constants.Fonts.f2)
+
             Spacer()
         }
         .padding(12)
@@ -92,11 +98,13 @@ struct SignInView: View {
         .upliftShadow(Constants.Shadows.smallLight)
     }
 
-    private var history: some View {
+    private var workoutHistoryView: some View {
         HStack {
             Constants.Images.history
+
             Text("View workout history")
                 .font(Constants.Fonts.f2)
+
             Spacer()
         }
         .padding(12)
@@ -110,6 +118,7 @@ struct SignInView: View {
             ZStack(alignment: .bottom) {
                 Constants.Images.backgroundEllipse
                     .padding(.trailing, 51)
+
                 Constants.Images.logo
                     .resizable()
                     .frame(width: 130, height: 115)
@@ -125,7 +134,7 @@ struct SignInView: View {
                 .font(Constants.Fonts.h2)
                 .padding(.top, 89)
 
-            cards
+            cardsView
                 .padding(.top, 24)
 
             Spacer()

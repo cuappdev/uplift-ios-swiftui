@@ -51,7 +51,7 @@ extension MainView {
          */
         func createUser() {
             createUserRequest {
-                // nothing to do after creating user
+                // TODO: - currently nothing to do after creating user
             }
         }
 
