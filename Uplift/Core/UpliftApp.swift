@@ -66,7 +66,9 @@ struct UpliftApp: App {
         func application(_ app: UIApplication,
                          open url: URL,
                          options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+            FirebaseApp.configure()
             GIDSignIn.sharedInstance.handle(url)
+            return true
         }
     }
 }

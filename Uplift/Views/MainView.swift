@@ -21,15 +21,13 @@ struct MainView: View {
 
     var body: some View {
         ZStack {
-            HomeView(popUpGiveaway: $viewModel.popUpGiveaway)
-
-            ZStack(alignment: .bottom) {
-                TabView(selection: $selectedTab) {
+            VStack(spacing: 0) {
+                switch selectedTab {
+                case .home:
                     HomeView(popUpGiveaway: $viewModel.popUpGiveaway)
-                        .tag(Screen.home)
-
+                case .classes:
                     ClassesView()
-                        .tag(Screen.classes)
+                        .environmentObject(tabBarProp)
                 }
             }
             .overlay(alignment: .bottom) {
