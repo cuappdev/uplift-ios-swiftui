@@ -2,24 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>FirebaseAppDelegateProxyEnabled</key>
-	<false/>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
-	<key>ANNOUNCEMENTS_PATH</key>
-	<string>$(ANNOUNCEMENTS_PATH)</string>
-	<key>ANNOUNCEMENTS_HOST</key>
-	<string>$(ANNOUNCEMENTS_HOST)</string>
 	<key>ANNOUNCEMENTS_COMMON_PATH</key>
 	<string>$(ANNOUNCEMENTS_COMMON_PATH)</string>
+	<key>ANNOUNCEMENTS_HOST</key>
+	<string>$(ANNOUNCEMENTS_HOST)</string>
+	<key>ANNOUNCEMENTS_PATH</key>
+	<string>$(ANNOUNCEMENTS_PATH)</string>
 	<key>ANNOUNCEMENTS_SCHEME</key>
 	<string>$(ANNOUNCEMENTS_SCHEME)</string>
 	<key>CFBundleIconName</key>
 	<string>AppIcon</string>
-	<key>UPLIFT_DEV_URL</key>
-	<string>$(UPLIFT_DEV_URL)</string>
-	<key>UPLIFT_PROD_URL</key>
-	<string>$(UPLIFT_PROD_URL)</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>BebasNeue-Regular.ttf</string>
@@ -29,5 +25,9 @@
 		<string>Montserrat-Regular.ttf</string>
 		<string>Montserrat-SemiBold.ttf</string>
 	</array>
+	<key>UPLIFT_DEV_URL</key>
+	<string>$(UPLIFT_DEV_URL)</string>
+	<key>UPLIFT_PROD_URL</key>
+	<string>$(UPLIFT_PROD_URL)</string>
 </dict>
 </plist>
