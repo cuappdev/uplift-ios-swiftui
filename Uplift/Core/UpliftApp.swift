@@ -53,6 +53,7 @@ struct UpliftApp: App {
             _ application: UIApplication,
             didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
         ) -> Bool {
+            FirebaseApp.configure()
             GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
                 if error != nil || user == nil {
                     // TODO: - Show the app's signed-out state.
@@ -66,9 +67,7 @@ struct UpliftApp: App {
         func application(_ app: UIApplication,
                          open url: URL,
                          options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-            FirebaseApp.configure()
             GIDSignIn.sharedInstance.handle(url)
-            return true
         }
     }
 }
