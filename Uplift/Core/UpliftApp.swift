@@ -36,10 +36,6 @@ struct UpliftApp: App {
                 } else {
                     SignInView()
                         .environmentObject(mainViewModel)
-                        .onAppear {
-                            GIDSignIn.sharedInstance.restorePreviousSignIn { _, _ in
-                            }
-                        }
                         .onOpenURL { url in
                             GIDSignIn.sharedInstance.handle(url)
                         }

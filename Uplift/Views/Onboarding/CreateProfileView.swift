@@ -14,11 +14,11 @@ struct CreateProfileView: View {
     // MARK: - Properties
 
     @EnvironmentObject var mainViewModel: MainView.ViewModel
-    @State private var didCheckTerms: Bool = false
     @State private var didCheckData: Bool = false
     @State private var didCheckLocation: Bool = false
-    @State private var profileImage: UIImage?
+    @State private var didCheckTerms: Bool = false
     @State private var didShowImagePicker = false
+    @State private var profileImage: UIImage?
     @State private var profileItem: PhotosPickerItem?
 
     // MARK: - UI
@@ -38,15 +38,14 @@ struct CreateProfileView: View {
                 .padding(.bottom, 46)
 
             cameraPlaceholderButton
-                .padding(.bottom, 24)
 
             Text(mainViewModel.name)
                 .font(Constants.Fonts.h1)
 
             CheckBoxView(
-                didCheckTerms: $didCheckTerms,
                 didCheckData: $didCheckData,
-                didCheckLocation: $didCheckLocation
+                didCheckLocation: $didCheckLocation,
+                didCheckTerms: $didCheckTerms
             )
             .padding(.top, 48)
 
@@ -55,7 +54,6 @@ struct CreateProfileView: View {
 
                 readyGreeting
                 getStartedButton
-                    .padding(.top, 32)
 
             } else {
                 Spacer(minLength: 200)
@@ -134,6 +132,7 @@ struct CreateProfileView: View {
         } label: {
             cameraPlaceholder
         }
+        .padding(.bottom, 24)
     }
 
     private var nextLabel: some View {
@@ -160,6 +159,7 @@ struct CreateProfileView: View {
                 .cornerRadius(38)
                 .upliftShadow(Constants.Shadows.smallLight)
         }
+        .padding(.top, 32)
     }
 
     private var readyGreeting: some View {

@@ -12,9 +12,9 @@ struct CheckBoxView: View {
 
     // MARK: - Properties
 
-    @Binding var didCheckTerms: Bool
     @Binding var didCheckData: Bool
     @Binding var didCheckLocation: Bool
+    @Binding var didCheckTerms: Bool
 
     // MARK: - UI
 
@@ -63,7 +63,7 @@ struct CheckboxToggleStyle: ToggleStyle {
 }
 
 #Preview {
-    CheckBoxView(didCheckTerms: .constant(false),
-                 didCheckData: .constant(false),
-                 didCheckLocation: .constant(false))
+    CheckBoxView(didCheckData: .constant(false),
+                 didCheckLocation: .constant(false),
+                 didCheckTerms: .constant(false))
 }
