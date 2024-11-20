@@ -25,6 +25,10 @@
 		<string>Montserrat-Regular.ttf</string>
 		<string>Montserrat-SemiBold.ttf</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UPLIFT_DEV_URL</key>
 	<string>$(UPLIFT_DEV_URL)</string>
 	<key>UPLIFT_PROD_URL</key>
