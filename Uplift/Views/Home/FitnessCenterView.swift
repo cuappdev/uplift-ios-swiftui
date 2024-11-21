@@ -15,6 +15,7 @@ struct FitnessCenterView: View {
     // MARK: - Properties
 
     let fc: Facility?
+    let gym: Gym
 
     @StateObject private var viewModel = ViewModel()
 
@@ -26,8 +27,8 @@ struct FitnessCenterView: View {
 
     var body: some View {
         VStack {
-            capacitiesSection
-            DividerLine()
+//            capacitiesSection
+//            DividerLine()
             hoursSection
             DividerLine()
             equipmentSection
@@ -63,9 +64,32 @@ struct FitnessCenterView: View {
 
     private var hoursSection: some View {
         VStack(spacing: 12) {
-            sectionHeader(text: "HOURS")
+            HStack(alignment: .center) {
+                sectionHeader(text: "Hours")
 
-            expandedHours
+                Text("·")
+                    .foregroundStyle(Constants.Colors.black)
+                    .font(Constants.Fonts.h2)
+
+                if gym.fitnessCenterIsOpen() {
+                    Text("Open")
+                        .foregroundStyle(Constants.Colors.open)
+                        .font(Constants.Fonts.h2)
+                } else {
+                    Text("Closed")
+                        .foregroundStyle(Constants.Colors.closed)
+                        .font(Constants.Fonts.h2)
+                }
+
+                Spacer()
+
+            }
+
+            HStack {
+                expandedHours
+
+                Spacer()
+            }
         }
         .padding(.vertical, vertPadding)
     }
@@ -74,9 +98,6 @@ struct FitnessCenterView: View {
         VStack(spacing: 8) {
             HStack(spacing: 8) {
                 Constants.Images.clock
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 32, height: 16, alignment: .trailing)
 
                 expandHoursButton
 
@@ -86,10 +107,10 @@ struct FitnessCenterView: View {
 
             if viewModel.expandHours {
                 ForEach(viewModel.daysOfWeek.dropFirst().indices, id: \.self) { index in
-                    HStack(spacing: 8) {
+                    HStack(spacing: 12) {
                         Text(viewModel.daysOfWeek[index])
                             .font(Constants.Fonts.f2)
-                            .frame(width: 32, alignment: .trailing)
+                            .frame(width: 40, alignment: .leading)
 
                         Text(viewModel.fitnessCenterHours[index])
                             .font(Constants.Fonts.f2Regular)
@@ -191,8 +212,4 @@ struct FitnessCenterView: View {
             .font(Constants.Fonts.h2)
     }
 
-}
-
-#Preview {
-    FitnessCenterView(fc: DummyData.uplift.getGym(data: DummyData.uplift.helenNewman).fitnessCenters[0])
 }

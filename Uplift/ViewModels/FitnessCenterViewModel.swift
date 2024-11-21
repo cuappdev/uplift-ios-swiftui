@@ -45,7 +45,7 @@ extension FitnessCenterView {
                 if day == Date.now.getDayOfWeek() {
                     daysOfWeek.append("Today")
                 } else {
-                    daysOfWeek.append(day.dayOfWeekAbbreviation())
+                    daysOfWeek.append(day.dayOfWeekShortened())
                 }
             }
         }

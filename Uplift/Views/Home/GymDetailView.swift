@@ -62,18 +62,18 @@ struct GymDetailView: View {
 
             Group {
                 if viewModel.selectedTab == .fitnessCenter {
-                    FitnessCenterView(fc: gym.fitnessCenters.first)
+                    FitnessCenterView(fc: gym.fitnessCenters.first, gym: gym)
                 } else if viewModel.selectedTab == .teagleDown {
-                    FitnessCenterView(fc: gym.facilityWithName(name: Constants.FacilityNames.teagleDown))
+                    FitnessCenterView(fc: gym.facilityWithName(name: Constants.FacilityNames.teagleDown), gym: gym)
                 } else if viewModel.selectedTab == .teagleUp {
-                    FitnessCenterView(fc: gym.facilityWithName(name: Constants.FacilityNames.teagleUp))
+                    FitnessCenterView(fc: gym.facilityWithName(name: Constants.FacilityNames.teagleUp), gym: gym)
                 } else {
                     facilitiesView
                 }
             }
             .padding(.horizontal, Constants.Padding.gymDetailHorizontal)
         }
-        .padding(.bottom)
+        .padding(.bottom, Constants.Padding.tabBarHeight)
     }
 
     // MARK: - Hero
