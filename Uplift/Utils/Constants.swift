@@ -113,6 +113,7 @@ struct Constants {
         static let logoWhite = Image("logo_white")
         static let parking = Image("parking")
         static let pool = Image("pool")
+        static let replay = Image("replay")
         static let shower = Image("shower")
         static let whistleOutline = Image("whistle_outline")
         static let whistleSolid = Image("whistle_solid")
