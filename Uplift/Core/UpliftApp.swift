@@ -23,22 +23,28 @@ struct UpliftApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ZStack {
-                if mainViewModel.displayMainView {
-                    MainView()
-                        .environmentObject(locationManager)
-                        .onAppear {
-                            locationManager.requestLocation()
-                        }
-                } else if mainViewModel.userDidLogin {
-                    CreateProfileView()
-                        .environmentObject(mainViewModel)
-                } else {
-                    SignInView()
-                        .environmentObject(mainViewModel)
-                        .onOpenURL { url in
-                            GIDSignIn.sharedInstance.handle(url)
-                        }
+            NavigationStack {
+                ZStack {
+                    (mainViewModel.showSignInView) ? (
+                        SignInView()
+                            .environmentObject(mainViewModel)
+                            .onOpenURL { url in
+                                GIDSignIn.sharedInstance.handle(url)
+                            }
+                    ) : nil
+
+                    (mainViewModel.showCreateProfileView) ? (
+                        CreateProfileView()
+                            .environmentObject(mainViewModel)
+                    ) : nil
+
+                    (mainViewModel.showMainView) ? (
+                        MainView()
+                            .environmentObject(locationManager)
+                            .onAppear {
+                                locationManager.requestLocation()
+                            }
+                    ) : nil
                 }
             }
         }

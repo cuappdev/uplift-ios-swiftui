@@ -21,6 +21,9 @@ struct MainView: View {
 
     var body: some View {
         ZStack {
+            Color.white
+                .ignoresSafeArea()
+
             VStack(spacing: 0) {
                 switch selectedTab {
                 case .home:

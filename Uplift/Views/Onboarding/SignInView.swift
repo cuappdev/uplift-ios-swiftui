@@ -18,19 +18,26 @@ struct SignInView: View {
     // MARK: - UI
 
     var body: some View {
-        VStack {
-            signInHeader
-            loginButton
+        ZStack {
+            Color.white
+                .ignoresSafeArea()
 
-            Spacer(minLength: 16)
+            VStack {
+                signInHeader
+                loginButton
 
-            skipButton
+                Spacer(minLength: 16)
+
+                skipButton
+            }
         }
     }
 
     private var skipButton: some View {
         Button {
-            mainViewModel.displayMainView = true
+            withAnimation(.easeIn) {
+                mainViewModel.showMainView = true
+            }
         } label: {
             Text("Skip")
                 .font(Constants.Fonts.bodyNormal)
@@ -45,7 +52,8 @@ struct SignInView: View {
                 mainViewModel.name = name
                 mainViewModel.netID = netId
                 mainViewModel.createUser()
-                mainViewModel.userDidLogin = true
+                mainViewModel.showSignInView = false
+                mainViewModel.showCreateProfileView = true
             }
         } label: {
             Text("Log in")

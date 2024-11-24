@@ -19,16 +19,17 @@ extension MainView {
 
         // MARK: - Properties
 
-        @Published var displayMainView: Bool = false
         @Published var email: String = ""
         @Published var instagram: String = ""
         @Published var name: String = ""
         @Published var netID: String = ""
         @Published var popUpGiveaway: Bool = false
         @Published var didClickSubmit: Bool = false
+        @Published var showCreateProfileView = false
         @Published var showGiveawayErrorAlert: Bool = false
+        @Published var showMainView: Bool = false
+        @Published var showSignInView: Bool = true
         @Published var submitSuccessful: Bool = false
-        @Published var userDidLogin: Bool = false
 
         private var queryBag = Set<AnyCancellable>()
 

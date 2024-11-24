@@ -24,59 +24,64 @@ struct CreateProfileView: View {
     // MARK: - UI
 
     var body: some View {
-        VStack {
-            HStack {
-                Text("Complete your profile.")
+        ZStack {
+            Color.white
+                .ignoresSafeArea()
+
+            VStack {
+                HStack {
+                    Text("Complete your profile.")
+                        .font(Constants.Fonts.h1)
+                        .padding(.leading, 16)
+
+                    Spacer()
+                }
+
+                DividerLine()
+                    .upliftShadow(Constants.Shadows.smallLight)
+                    .padding(.bottom, 46)
+
+                cameraPlaceholderButton
+
+                Text(mainViewModel.name)
                     .font(Constants.Fonts.h1)
-                    .padding(.leading, 16)
+
+                CheckBoxView(
+                    didCheckData: $didCheckData,
+                    didCheckLocation: $didCheckLocation,
+                    didCheckTerms: $didCheckTerms
+                )
+                .padding(.top, 48)
+
+                if allChecked {
+                    Spacer(minLength: 135)
+
+                    readyGreeting
+                    getStartedButton
+
+                } else {
+                    Spacer(minLength: 200)
+
+                    nextLabel
+                }
 
                 Spacer()
             }
-
-            DividerLine()
-                .upliftShadow(Constants.Shadows.smallLight)
-                .padding(.bottom, 46)
-
-            cameraPlaceholderButton
-
-            Text(mainViewModel.name)
-                .font(Constants.Fonts.h1)
-
-            CheckBoxView(
-                didCheckData: $didCheckData,
-                didCheckLocation: $didCheckLocation,
-                didCheckTerms: $didCheckTerms
+            .padding(.vertical, 40)
+            .photosPicker(
+                isPresented: $didShowImagePicker,
+                selection: $profileItem,
+                matching: .images,
+                photoLibrary: .shared()
             )
-            .padding(.top, 48)
-
-            if allChecked {
-                Spacer(minLength: 135)
-
-                readyGreeting
-                getStartedButton
-
-            } else {
-                Spacer(minLength: 200)
-
-                nextLabel
-            }
-
-            Spacer()
-        }
-        .padding(.vertical, 40)
-        .photosPicker(
-            isPresented: $didShowImagePicker,
-            selection: $profileItem,
-            matching: .images,
-            photoLibrary: .shared()
-        )
-        .onChange(of: profileItem) { newItem in
-            Task {
-                if let newItem,
-                   let data = try? await newItem.loadTransferable(type: Data.self),
-                   let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self.profileImage = image
+            .onChange(of: profileItem) { newItem in
+                Task {
+                    if let newItem,
+                       let data = try? await newItem.loadTransferable(type: Data.self),
+                       let image = UIImage(data: data) {
+                        DispatchQueue.main.async {
+                            self.profileImage = image
+                        }
                     }
                 }
             }
@@ -148,7 +153,9 @@ struct CreateProfileView: View {
 
     private var getStartedButton: some View {
         Button {
-            mainViewModel.displayMainView = true
+            withAnimation(.easeIn) {
+                mainViewModel.showMainView = true
+            }
         } label: {
             Text("Get started")
                 .font(Constants.Fonts.h2)
