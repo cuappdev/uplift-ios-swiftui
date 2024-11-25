@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Charts
 import UpliftAPI
 
 /// View for displaying fitness center information such as capacities, hours, equipment, etc.
@@ -16,7 +17,7 @@ struct FitnessCenterView: View {
 
     let fc: Facility?
     let gym: Gym
-
+    @State private var hourlyCapacities: [HourlyAverageCapacity] = []
     @StateObject private var viewModel = ViewModel()
 
     // MARK: - Constants
@@ -31,6 +32,8 @@ struct FitnessCenterView: View {
 //            DividerLine()
             hoursSection
             DividerLine()
+            popularTimesSection
+            DividerLine()
             equipmentSection
         }
         .onAppear {
@@ -40,6 +43,29 @@ struct FitnessCenterView: View {
                 viewModel.fetchFitnessCenterHours(for: fc)
             }
         }
+        .onAppear {
+            // TODO: Temporary
+            hourlyCapacities = [
+                HourlyAverageCapacity(capacity: 10, hour: createHour(hour: 6), timeSuffix: "a"),
+                HourlyAverageCapacity(capacity: 30, hour: createHour(hour: 7), timeSuffix: "a"),
+                HourlyAverageCapacity(capacity: 5, hour: createHour(hour: 8), timeSuffix: "a"),
+                HourlyAverageCapacity(capacity: 40, hour: createHour(hour: 9), timeSuffix: "a"),
+                HourlyAverageCapacity(capacity: 80, hour: createHour(hour: 10), timeSuffix: "a"),
+                HourlyAverageCapacity(capacity: 90, hour: createHour(hour: 11), timeSuffix: "a"),
+                HourlyAverageCapacity(capacity: 100, hour: createHour(hour: 12), timeSuffix: "p"),
+                HourlyAverageCapacity(capacity: 10, hour: createHour(hour: 13), timeSuffix: "p"),
+                HourlyAverageCapacity(capacity: 30, hour: createHour(hour: 14), timeSuffix: "p"),
+                HourlyAverageCapacity(capacity: 10, hour: createHour(hour: 15), timeSuffix: "p")
+            ]
+        }
+    }
+
+    // TODO: Delete after implementing networking
+    private func createHour(hour: Int) -> Date {
+        var dateComponent = DateComponents()
+        dateComponent.hour = hour
+        let calendar = Calendar.current
+        return calendar.date(from: dateComponent) ?? Date()
     }
 
     private var capacitiesSection: some View {
@@ -63,7 +89,7 @@ struct FitnessCenterView: View {
     }
 
     private var hoursSection: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 8) {
             HStack(alignment: .center) {
                 sectionHeader(text: "Hours")
 
@@ -147,6 +173,25 @@ struct FitnessCenterView: View {
             }
         }
         .frame(minWidth: 84, alignment: .leading)
+    }
+
+    private var popularTimesSection: some View {
+        VStack(spacing: 16) {
+            HStack {
+                sectionHeader(text: "Popular Times")
+
+                Spacer()
+            }
+
+            Chart(hourlyCapacities, id: \.self) { hourCapacity in
+                BarMark(
+                    x: .value("Hour", hourCapacity.hour, unit: .hour),
+                    y: .value("Capacity", hourCapacity.capacity)
+                )
+                .foregroundStyle(Constants.Colors.lightYellow)
+            }
+        }
+        .padding(.vertical, vertPadding)
     }
 
     private var equipmentSection: some View {

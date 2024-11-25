@@ -91,6 +91,7 @@
 		8996FEE02BDF351800F13C67 /* NextSessionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */; };
 		89C8658D2BB4779C00758337 /* ClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C8658C2BB4779C00758337 /* ClassCell.swift */; };
 		89E4FAAA2CEFEC3C00A952B1 /* CapacitySemiCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E4FAA92CEFEC3000A952B1 /* CapacitySemiCircleView.swift */; };
+		89E4FAAC2CF28E7500A952B1 /* HourlyAverageCapacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E4FAAB2CF28E6600A952B1 /* HourlyAverageCapacity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,6 +178,7 @@
 		8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextSessionCell.swift; sourceTree = "<group>"; };
 		89C8658C2BB4779C00758337 /* ClassCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCell.swift; sourceTree = "<group>"; };
 		89E4FAA92CEFEC3000A952B1 /* CapacitySemiCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacitySemiCircleView.swift; sourceTree = "<group>"; };
+		89E4FAAB2CF28E6600A952B1 /* HourlyAverageCapacity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyAverageCapacity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,6 +232,7 @@
 				2E15F4DD2B3912C700414BEC /* Facility.swift */,
 				2E15F4DF2B39143700414BEC /* Gym.swift */,
 				2E39D8272B3B726D00AD238B /* GymTabType.swift */,
+				89E4FAAB2CF28E6600A952B1 /* HourlyAverageCapacity.swift */,
 				2E15F4DB2B39117300414BEC /* OpenHours.swift */,
 				2E15F4E12B3917B200414BEC /* Status.swift */,
 				63A7ABCE2B8C119A008D58FB /* Equipment.swift */,
@@ -690,6 +693,7 @@
 				2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */,
 				2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */,
 				2E15F5062B39F81B00414BEC /* MainView.swift in Sources */,
+				89E4FAAC2CF28E7500A952B1 /* HourlyAverageCapacity.swift in Sources */,
 				8996FEE02BDF351800F13C67 /* NextSessionCell.swift in Sources */,
 				2E39D82A2B3B9F3D00AD238B /* FacilityExpandedView.swift in Sources */,
 				2EB161C92BBC9C3100493B71 /* StretchyModifier.swift in Sources */,
