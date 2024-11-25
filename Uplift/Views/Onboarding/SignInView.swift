@@ -80,8 +80,17 @@ struct SignInView: View {
     private var cardsView: some View {
         VStack(spacing: 12) {
             createGoalsView
+                .opacity(animateElements ? 1 : 0)
+                .offset(y: animateElements ? 0 : 200)
+                .animation(.spring(duration: 1).delay(2.5), value: animateElements)
             trackGoalsView
+                .opacity(animateElements ? 1 : 0)
+                .offset(y: animateElements ? 0 : 200)
+                .animation(.spring(duration: 1).delay(3), value: animateElements)
             workoutHistoryView
+                .opacity(animateElements ? 1 : 0)
+                .offset(y: animateElements ? 0 : 200)
+                .animation(.spring(duration: 1).delay(3.5), value: animateElements)
         }
         .padding(.horizontal, 76)
     }
