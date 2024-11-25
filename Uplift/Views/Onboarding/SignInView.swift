@@ -12,8 +12,9 @@ struct SignInView: View {
 
     // MARK: - Properties
 
-    @EnvironmentObject var mainViewModel: MainView.ViewModel
     @StateObject private var loginViewModel = LoginViewModel()
+    @EnvironmentObject var mainViewModel: MainView.ViewModel
+    @State private var animateElements: Bool = false
 
     // MARK: - UI
 
@@ -31,6 +32,11 @@ struct SignInView: View {
                 skipButton
             }
         }
+        .onAppear {
+            withAnimation(.easeIn(duration: 0.3)) {
+                animateElements = true
+            }
+        }
     }
 
     private var skipButton: some View {
@@ -43,6 +49,8 @@ struct SignInView: View {
                 .font(Constants.Fonts.bodyNormal)
                 .foregroundColor(Constants.Colors.gray04)
         }
+        .opacity(animateElements ? 1 : 0)
+        .animation(.easeIn(duration: 1), value: animateElements)
     }
 
     private var loginButton: some View {
@@ -65,6 +73,8 @@ struct SignInView: View {
                 .cornerRadius(38)
                 .upliftShadow(Constants.Shadows.smallLight)
         }
+        .opacity(animateElements ? 1 : 0)
+        .animation(.easeIn(duration: 1), value: animateElements)
     }
 
     private var cardsView: some View {
@@ -144,7 +154,7 @@ struct SignInView: View {
 
             cardsView
                 .padding(.top, 24)
-
+            
             Spacer()
         }
         .ignoresSafeArea(.all)
