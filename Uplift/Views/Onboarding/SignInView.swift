@@ -50,7 +50,7 @@ struct SignInView: View {
                 .foregroundColor(Constants.Colors.gray04)
         }
         .opacity(animateElements ? 1 : 0)
-        .animation(.easeIn(duration: 1), value: animateElements)
+        .animation(.easeIn(duration: 1).delay(2), value: animateElements)
     }
 
     private var loginButton: some View {
@@ -74,7 +74,7 @@ struct SignInView: View {
                 .upliftShadow(Constants.Shadows.smallLight)
         }
         .opacity(animateElements ? 1 : 0)
-        .animation(.easeIn(duration: 1), value: animateElements)
+        .animation(.easeIn(duration: 1).delay(2), value: animateElements)
     }
 
     private var cardsView: some View {
@@ -136,25 +136,33 @@ struct SignInView: View {
             ZStack(alignment: .bottom) {
                 Constants.Images.backgroundEllipse
                     .padding(.trailing, 51)
+                    .opacity(animateElements ? 1 : 0)
+                    .animation(.easeIn(duration: 1).delay(1), value: animateElements)
 
                 Constants.Images.logo
                     .resizable()
                     .frame(width: 130, height: 115)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     .padding(32)
+                    .offset(y: animateElements ? 0 : 200)
+                    .animation(.smooth(duration: 2), value: animateElements)
             }
 
             Text("Find what uplifts you.")
                 .font(Constants.Fonts.h1)
                 .padding(.top, 62)
+                .opacity(animateElements ? 1 : 0)
+                .animation(.easeIn(duration: 1).delay(2), value: animateElements)
 
             Text("Log in to:")
                 .font(Constants.Fonts.h2)
                 .padding(.top, 89)
+                .opacity(animateElements ? 1 : 0)
+                .animation(.easeIn(duration: 1).delay(2), value: animateElements)
 
             cardsView
                 .padding(.top, 24)
-            
+
             Spacer()
         }
         .ignoresSafeArea(.all)
