@@ -88,10 +88,6 @@ struct CreateProfileView: View {
         }
     }
 
-    private var allChecked: Bool {
-        didCheckTerms && didCheckData && didCheckLocation
-    }
-
     private var cameraMiniImage: some View {
         Constants.Images.cameraMini
             .resizable()
@@ -193,5 +189,11 @@ struct CreateProfileView: View {
                 .resizable()
                 .frame(width: 22, height: 17)
         }
+    }
+
+    // MARK: - Helpers
+
+    private var allChecked: Bool {
+        didCheckTerms && didCheckData && didCheckLocation
     }
 }
