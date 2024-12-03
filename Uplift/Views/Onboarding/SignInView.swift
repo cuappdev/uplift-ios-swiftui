@@ -20,9 +20,6 @@ struct SignInView: View {
 
     var body: some View {
         ZStack {
-            Color.white
-                .ignoresSafeArea()
-
             VStack {
                 signInHeader
                 loginButton
@@ -32,6 +29,7 @@ struct SignInView: View {
                 skipButton
             }
         }
+        .background(Color.white)
         .onAppear {
             withAnimation(.easeIn(duration: 0.3)) {
                 animateElements = true

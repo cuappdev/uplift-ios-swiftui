@@ -25,9 +25,6 @@ struct CreateProfileView: View {
 
     var body: some View {
         ZStack {
-            Color.white
-                .ignoresSafeArea()
-
             VStack {
                 HStack {
                     Text("Complete your profile.")
@@ -86,6 +83,7 @@ struct CreateProfileView: View {
                 }
             }
         }
+        .background(Color.white)
     }
 
     private var cameraMiniImage: some View {
