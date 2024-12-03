@@ -57,6 +57,7 @@ struct MainView: View {
                 }
             }
         }
+        .background(Color.white)
         .onChange(of: viewModel.didClickSubmit) { didClickSubmit in
             if didClickSubmit {
                 viewModel.enterGiveaway()
