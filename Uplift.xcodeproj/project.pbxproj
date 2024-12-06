@@ -119,7 +119,11 @@
 		892478202CCCB9DF0086F335 /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8924781F2CCCB9DA0086F335 /* ReportViewModel.swift */; };
 		89599A4E2BD4B39B00DA44DE /* FitnessClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */; };
 		89599A502BD4B4B600DA44DE /* FitnessClassInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */; };
-		8960C6952CD5C5990071B309 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 8960C6942CD5C5990071B309 /* UpliftAPI */; };
+		895BC5F72D02C8C10015BB45 /* CapacityRemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BC5F22D02C8C10015BB45 /* CapacityRemindersView.swift */; };
+		895BC5F82D02C8C10015BB45 /* RemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BC5F32D02C8C10015BB45 /* RemindersView.swift */; };
+		895BC5F92D02C8C10015BB45 /* ReportSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BC5F42D02C8C10015BB45 /* ReportSuccessView.swift */; };
+		895BC5FA2D02C8C10015BB45 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BC5F52D02C8C10015BB45 /* ReportView.swift */; };
+		8960C6952CD5C5990071B309 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		896145AD2CCC9E5300F07789 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896145AC2CCC9E4F00F07789 /* Report.swift */; };
 		896145B12CCC9F5A00F07789 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896145B02CCC9F5700F07789 /* User.swift */; };
 		896500DC2BB4D33500D822AB /* ClassDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896500DB2BB4D33500D822AB /* ClassDetailView.swift */; };
@@ -258,6 +262,10 @@
 		8924781F2CCCB9DA0086F335 /* ReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
 		89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessClass.swift; sourceTree = "<group>"; };
 		89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessClassInstance.swift; sourceTree = "<group>"; };
+		895BC5F22D02C8C10015BB45 /* CapacityRemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityRemindersView.swift; sourceTree = "<group>"; };
+		895BC5F32D02C8C10015BB45 /* RemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersView.swift; sourceTree = "<group>"; };
+		895BC5F42D02C8C10015BB45 /* ReportSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportSuccessView.swift; sourceTree = "<group>"; };
+		895BC5F52D02C8C10015BB45 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
 		896145AC2CCC9E4F00F07789 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		896145B02CCC9F5700F07789 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		896500DB2BB4D33500D822AB /* ClassDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailView.swift; sourceTree = "<group>"; };
@@ -897,6 +905,10 @@
 				2E6785C02B3A5CA300DD3ADA /* Haptics.swift in Sources */,
 				89950D8A2B992E8400DFB007 /* ClassesView.swift in Sources */,
 				296A2DAE2D7A805300EF042F /* ProfileViewModel.swift in Sources */,
+				895BC5F72D02C8C10015BB45 /* CapacityRemindersView.swift in Sources */,
+				895BC5F82D02C8C10015BB45 /* RemindersView.swift in Sources */,
+				895BC5F92D02C8C10015BB45 /* ReportSuccessView.swift in Sources */,
+				895BC5FA2D02C8C10015BB45 /* ReportView.swift in Sources */,
 				2E15F50C2B3A0B2100414BEC /* CapacityCircleView.swift in Sources */,
 				2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */,
 				2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */,
