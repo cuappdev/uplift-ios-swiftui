@@ -1,12 +1,13 @@
 {
+  "originHash" : "635ad0335b9ff7783a7e00a3975ea2fe2c6c89b0487c52fc82696e288c4e197f",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/abseil-cpp-binary.git",
       "state" : {
-        "revision" : "df308b8b46607675f2b9ec8e569109008f9155ce",
-        "version" : "1.2022062300.1"
+        "revision" : "7ce7be095bc3ed3c98b009532fe2d7698c132614",
+        "version" : "1.2024011601.0"
       }
     },
     {
@@ -32,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/openid/AppAuth-iOS.git",
       "state" : {
-        "revision" : "c89ed571ae140f8eb1142735e6e23d7bb8c34cb2",
-        "version" : "1.7.5"
+        "revision" : "2781038865a80e2c425a1da12cc1327bcd56501f",
+        "version" : "1.7.6"
       }
     },
     {
@@ -41,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/firebase-ios-sdk",
       "state" : {
-        "revision" : "c60c958e707c50a9cf8bcb7cfd7d51c566d726c5",
-        "version" : "10.19.1"
+        "revision" : "888f0b6026e2441a69e3ee2ad5293c7a92031e62",
+        "version" : "10.23.1"
       }
     },
     {
@@ -50,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GoogleAppMeasurement.git",
       "state" : {
-        "revision" : "6b332152355c372ace9966d8ee76ed191f97025e",
-        "version" : "10.17.0"
+        "revision" : "c7a5917ebe48d69f421aadf154ef3969c8b7f12d",
+        "version" : "10.23.1"
       }
     },
     {
@@ -86,8 +87,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/grpc-binary.git",
       "state" : {
-        "revision" : "ea4cb5cc0c39c732b85386263116d2e2fdbbdc61",
-        "version" : "1.49.2"
+        "revision" : "67043f6389d0e28b38fa02d1c6952afeb04d807f",
+        "version" : "1.62.1"
       }
     },
     {
@@ -140,8 +141,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/nanopb.git",
       "state" : {
-        "revision" : "819d0a2173aff699fb8c364b6fb906f7cdb1a692",
-        "version" : "2.30909.0"
+        "revision" : "b7e1104502eca3a213b46303391ca4d3bc8ddec1",
+        "version" : "2.30910.0"
       }
     },
     {
@@ -181,5 +182,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
