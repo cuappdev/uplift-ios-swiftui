@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -82,17 +82,20 @@
 		636E3D442BBE1F3800B6EFFC /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 636E3D432BBE1F3800B6EFFC /* UpliftAPI */; };
 		63A7ABCD2B86B971008D58FB /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 63A7ABCC2B86B971008D58FB /* UpliftAPI */; };
 		63A7ABCF2B8C119A008D58FB /* Equipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7ABCE2B8C119A008D58FB /* Equipment.swift */; };
-		8924781E2CCCAD7F0086F335 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 8924781D2CCCAD7F0086F335 /* UpliftAPI */; };
 		892478202CCCB9DF0086F335 /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8924781F2CCCB9DA0086F335 /* ReportViewModel.swift */; };
 		89599A4E2BD4B39B00DA44DE /* FitnessClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */; };
 		89599A502BD4B4B600DA44DE /* FitnessClassInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */; };
-		8960C6952CD5C5990071B309 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 8960C6942CD5C5990071B309 /* UpliftAPI */; };
+		895BC5F72D02C8C10015BB45 /* CapacityRemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BC5F22D02C8C10015BB45 /* CapacityRemindersView.swift */; };
+		895BC5F82D02C8C10015BB45 /* RemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BC5F32D02C8C10015BB45 /* RemindersView.swift */; };
+		895BC5F92D02C8C10015BB45 /* ReportSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BC5F42D02C8C10015BB45 /* ReportSuccessView.swift */; };
+		895BC5FA2D02C8C10015BB45 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895BC5F52D02C8C10015BB45 /* ReportView.swift */; };
+		8960C6952CD5C5990071B309 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		896145AD2CCC9E5300F07789 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896145AC2CCC9E4F00F07789 /* Report.swift */; };
 		896145B12CCC9F5A00F07789 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896145B02CCC9F5700F07789 /* User.swift */; };
 		896500DC2BB4D33500D822AB /* ClassDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896500DB2BB4D33500D822AB /* ClassDetailView.swift */; };
 		897703662BA2028D00F9992F /* ClassesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897703652BA2028D00F9992F /* ClassesViewModel.swift */; };
-		8992674A2CC03E8D00E5741E /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899267492CC03E8D00E5741E /* Dropdown.swift */; };
 		897DF9BA2CCDC49B00246B0D /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 897DF9B92CCDC49B00246B0D /* UpliftAPI */; };
+		8992674A2CC03E8D00E5741E /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899267492CC03E8D00E5741E /* Dropdown.swift */; };
 		89950D8A2B992E8400DFB007 /* ClassesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89950D892B992E8400DFB007 /* ClassesView.swift */; };
 		8996FEE02BDF351800F13C67 /* NextSessionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */; };
 		899B186D2CA5FAFB00FAC061 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899B186C2CA5FAFB00FAC061 /* ProfileView.swift */; };
@@ -179,6 +182,10 @@
 		8924781F2CCCB9DA0086F335 /* ReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
 		89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessClass.swift; sourceTree = "<group>"; };
 		89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessClassInstance.swift; sourceTree = "<group>"; };
+		895BC5F22D02C8C10015BB45 /* CapacityRemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityRemindersView.swift; sourceTree = "<group>"; };
+		895BC5F32D02C8C10015BB45 /* RemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersView.swift; sourceTree = "<group>"; };
+		895BC5F42D02C8C10015BB45 /* ReportSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportSuccessView.swift; sourceTree = "<group>"; };
+		895BC5F52D02C8C10015BB45 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
 		896145AC2CCC9E4F00F07789 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		896145B02CCC9F5700F07789 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		896500DB2BB4D33500D822AB /* ClassDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailView.swift; sourceTree = "<group>"; };
@@ -190,10 +197,6 @@
 		89C34AA02CA66E9000C579A5 /* CapacityRemindersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityRemindersViewModel.swift; sourceTree = "<group>"; };
 		89C8658C2BB4779C00758337 /* ClassCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		899B18692CA5F72700FAC061 /* Profile */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Profile; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		2E15F4E82B39255B00414BEC /* Frameworks */ = {
@@ -212,7 +215,7 @@
 				2E6785BC2B3A48D700DD3ADA /* WrappingHStack in Frameworks */,
 				2E4F06DC2B4B48DC008905C8 /* UpliftAPI in Frameworks */,
 				2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */,
-				8960C6952CD5C5990071B309 /* UpliftAPI in Frameworks */,
+				8960C6952CD5C5990071B309 /* (null) in Frameworks */,
 				2E45B2452B4F632700FB83B7 /* FirebaseAnalytics in Frameworks */,
 				2E39D82F2B3BCBA400AD238B /* UpliftAPI in Frameworks */,
 				897DF9BA2CCDC49B00246B0D /* UpliftAPI in Frameworks */,
@@ -303,7 +306,7 @@
 				899B186C2CA5FAFB00FAC061 /* ProfileView.swift */,
 				89C8658B2BB4778400758337 /* Classes */,
 				2E1105C02B13D11E00119F5B /* Home */,
-				899B18692CA5F72700FAC061 /* Profile */,
+				895BC5F62D02C8C10015BB45 /* Profile */,
 				2E15F50A2B3A0AF700414BEC /* Supporting */,
 			);
 			path = Views;
@@ -489,6 +492,17 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		895BC5F62D02C8C10015BB45 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				895BC5F22D02C8C10015BB45 /* CapacityRemindersView.swift */,
+				895BC5F32D02C8C10015BB45 /* RemindersView.swift */,
+				895BC5F42D02C8C10015BB45 /* ReportSuccessView.swift */,
+				895BC5F52D02C8C10015BB45 /* ReportView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		89C8658B2BB4778400758337 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -533,9 +547,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				899B18692CA5F72700FAC061 /* Profile */,
 			);
 			name = Uplift;
 			packageProductDependencies = (
@@ -712,6 +723,10 @@
 				896145AD2CCC9E5300F07789 /* Report.swift in Sources */,
 				2E6785C02B3A5CA300DD3ADA /* Haptics.swift in Sources */,
 				89950D8A2B992E8400DFB007 /* ClassesView.swift in Sources */,
+				895BC5F72D02C8C10015BB45 /* CapacityRemindersView.swift in Sources */,
+				895BC5F82D02C8C10015BB45 /* RemindersView.swift in Sources */,
+				895BC5F92D02C8C10015BB45 /* ReportSuccessView.swift in Sources */,
+				895BC5FA2D02C8C10015BB45 /* ReportView.swift in Sources */,
 				2E15F50C2B3A0B2100414BEC /* CapacityCircleView.swift in Sources */,
 				2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */,
 				2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */,
