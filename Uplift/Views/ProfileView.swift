@@ -10,15 +10,22 @@ import SwiftUI
 
 /// The main view for the Profile page.
 struct ProfileView: View {
+
     var body: some View {
         NavigationStack {
-            NavigationLink {
-                RemindersView()
-            } label: {
-                Text("Reminders")
+            VStack {
+                NavigationLink {
+                    RemindersView()
+                } label: {
+                    Text("Reminders")
+                }
             }
+            // TODO: Temporary to allow view to take up whole screen
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Constants.Colors.white)
         }
     }
+
 }
 
 #Preview {
