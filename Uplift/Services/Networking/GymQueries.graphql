@@ -1,7 +1,7 @@
 fragment equipmentFields on Equipment {
   accessibility
-  equipmentType
   facilityId
+  muscleGroups
   name
   quantity
 }

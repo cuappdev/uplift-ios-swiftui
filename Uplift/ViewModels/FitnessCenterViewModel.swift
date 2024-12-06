@@ -16,9 +16,10 @@ extension FitnessCenterView {
 
         // MARK: - Properties
 
-        @Published var fitnessCenterHours: [String] = []
+        @Published var currentHour: Int = Calendar.current.component(.hour, from: Date())
         @Published var daysOfWeek: [String] = []
         @Published var expandHours: Bool = false
+        @Published var fitnessCenterHours: [String] = []
 
         // MARK: - Helpers
 

@@ -17,11 +17,11 @@ struct Equipment: Hashable {
     /// Accessibility for this equipment.
     let accessibility: AccessibilityType?
 
-    /// The type of this equipment.
-    let equipmentType: EquipmentType?
-
     /// The ID of the facility in which this equipment belongs to.
     let facilityId: Int
+
+    /// The muscle groups of this equipment.
+    let muscleGroup: [MuscleGroup]
 
     /// The name of this equipment.
     let name: String
@@ -35,33 +35,34 @@ struct Equipment: Hashable {
     init(from equipment: EquipmentFields) {
         // Unwrap and convert GraphQL enum value to Swift enum value
         self.accessibility = equipment.accessibility?.value
-        self.equipmentType = equipment.equipmentType.value
         self.facilityId = equipment.facilityId
+        self.muscleGroup = [MuscleGroup](equipment.muscleGroups.compactMap(\.?.value))
         self.name = equipment.name
         self.quantity = equipment.quantity
     }
 
 }
 
-extension EquipmentType: CustomStringConvertible {
-
-    public var description: String {
-        switch self {
-        case .cardio:
-            return "Cardio Machines"
-        case .freeWeights:
-            return "Free Weights"
-        case .miscellaneous:
-            return "Miscellaneous"
-        case .multiCable:
-            return "Multiple Cables"
-        case .plateLoaded:
-            return "Plate Loaded Machines"
-        case .racksAndBenches:
-            return "Racks & Benches"
-        case .selectorized:
-            return "Precor Selectorized Machines"
-        }
-    }
-
-}
+// TODO: Remove equipment type
+//extension EquipmentType: CustomStringConvertible {
+//
+//    public var description: String {
+//        switch self {
+//        case .cardio:
+//            return "Cardio Machines"
+//        case .freeWeights:
+//            return "Free Weights"
+//        case .miscellaneous:
+//            return "Miscellaneous"
+//        case .multiCable:
+//            return "Multiple Cables"
+//        case .plateLoaded:
+//            return "Plate Loaded Machines"
+//        case .racksAndBenches:
+//            return "Racks & Benches"
+//        case .selectorized:
+//            return "Precor Selectorized Machines"
+//        }
+//    }
+//
+//}

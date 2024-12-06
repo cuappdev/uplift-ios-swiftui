@@ -17,12 +17,32 @@ struct FitnessCenterView: View {
 
     let fc: Facility?
     let gym: Gym
-    @State private var hourlyCapacities: [HourlyAverageCapacity] = []
+    @State private var hourlyCapacities: [HourlyAverageCapacity] = [
+        HourlyAverageCapacity(averagePercent: 0.30, hourOfDay: 7),
+        HourlyAverageCapacity(averagePercent: 0.5, hourOfDay: 8),
+        HourlyAverageCapacity(averagePercent: 0.40, hourOfDay: 9),
+        HourlyAverageCapacity(averagePercent: 0.80, hourOfDay: 10),
+        HourlyAverageCapacity(averagePercent: 0.90, hourOfDay: 11),
+        HourlyAverageCapacity(averagePercent: 0.10, hourOfDay: 12),
+        HourlyAverageCapacity(averagePercent: 0.10, hourOfDay: 13),
+        HourlyAverageCapacity(averagePercent: 0.30, hourOfDay: 14),
+        HourlyAverageCapacity(averagePercent: 0.10, hourOfDay: 15),
+        HourlyAverageCapacity(averagePercent: 0.40, hourOfDay: 16),
+        HourlyAverageCapacity(averagePercent: 0.70, hourOfDay: 17),
+        HourlyAverageCapacity(averagePercent: 0.80, hourOfDay: 18),
+        HourlyAverageCapacity(averagePercent: 1.00, hourOfDay: 19),
+        HourlyAverageCapacity(averagePercent: 0.40, hourOfDay: 20),
+        HourlyAverageCapacity(averagePercent: 0.40, hourOfDay: 21),
+        HourlyAverageCapacity(averagePercent: 0.40, hourOfDay: 22),
+        HourlyAverageCapacity(averagePercent: 0.40, hourOfDay: 23)
+    ]
     @StateObject private var viewModel = ViewModel()
+    @State private var chartLabelSize = CGSize.zero
 
     // MARK: - Constants
 
     let vertPadding: CGFloat = 20
+    let barWidth = 18
 
     // MARK: - UI
 
@@ -43,27 +63,14 @@ struct FitnessCenterView: View {
                 viewModel.fetchFitnessCenterHours(for: fc)
             }
         }
-        .onAppear {
-            // TODO: Temporary
-            hourlyCapacities = [
-                HourlyAverageCapacity(capacity: 10, hour: createHour(hour: 6), timeSuffix: "a"),
-                HourlyAverageCapacity(capacity: 30, hour: createHour(hour: 7), timeSuffix: "a"),
-                HourlyAverageCapacity(capacity: 5, hour: createHour(hour: 8), timeSuffix: "a"),
-                HourlyAverageCapacity(capacity: 40, hour: createHour(hour: 9), timeSuffix: "a"),
-                HourlyAverageCapacity(capacity: 80, hour: createHour(hour: 10), timeSuffix: "a"),
-                HourlyAverageCapacity(capacity: 90, hour: createHour(hour: 11), timeSuffix: "a"),
-                HourlyAverageCapacity(capacity: 100, hour: createHour(hour: 12), timeSuffix: "p"),
-                HourlyAverageCapacity(capacity: 10, hour: createHour(hour: 13), timeSuffix: "p"),
-                HourlyAverageCapacity(capacity: 30, hour: createHour(hour: 14), timeSuffix: "p"),
-                HourlyAverageCapacity(capacity: 10, hour: createHour(hour: 15), timeSuffix: "p")
-            ]
-        }
     }
 
     // TODO: Delete after implementing networking
-    private func createHour(hour: Int) -> Date {
+    private func convertHourToDate(_ hour: Int) -> Date {
         var dateComponent = DateComponents()
         dateComponent.hour = hour
+        dateComponent.minute = 0
+        dateComponent.second = 0
         let calendar = Calendar.current
         return calendar.date(from: dateComponent) ?? Date()
     }
@@ -175,6 +182,22 @@ struct FitnessCenterView: View {
         .frame(minWidth: 84, alignment: .leading)
     }
 
+    private func calculateChartOffset(_ posX: Int) -> CGFloat {
+        let textWidth = Int(chartLabelSize.width)
+        let chartWidth = Int(UIScreen.main.bounds.width - (2 * Constants.Padding.gymDetailHorizontal))
+        let x = Int(posX)
+
+        if textWidth / 2 + x > chartWidth {
+            let offset = -1 * (textWidth / 2 + x - chartWidth)
+            return CGFloat(offset)
+        } else if x - (textWidth / 2) < 0 {
+            let offset = (textWidth / 2) - x
+            return CGFloat(offset)
+        }
+
+        return 0
+    }
+
     private var popularTimesSection: some View {
         VStack(spacing: 16) {
             HStack {
@@ -183,12 +206,76 @@ struct FitnessCenterView: View {
                 Spacer()
             }
 
-            Chart(hourlyCapacities, id: \.self) { hourCapacity in
-                BarMark(
-                    x: .value("Hour", hourCapacity.hour, unit: .hour),
-                    y: .value("Capacity", hourCapacity.capacity)
+            Chart {
+                ForEach(hourlyCapacities, id: \.self) { hourCapacity in
+                    BarMark(
+                        x: .value("Hour", convertHourToDate(hourCapacity.hourOfDay)),
+                        y: .value("Capacity", hourCapacity.averagePercent * 0.8),
+                        width: 18
+                    )
+                    .foregroundStyle(
+                        viewModel.currentHour == hourCapacity.hourOfDay
+                        ? Constants.Colors.yellow
+                        : Constants.Colors.lightYellow
+                    )
+
+                    RuleMark(
+                        x: .value("Hour", convertHourToDate(hourCapacity.hourOfDay)),
+                        yStart: .value("Capacity", hourCapacity.averagePercent * 0.8),
+                        yEnd: .value("Capacity", 0.88)
+                    )
+                    .foregroundStyle(
+                        viewModel.currentHour == hourCapacity.hourOfDay
+                        ? Constants.Colors.gray03
+                        : .clear
+                    )
+                }
+            }
+            .frame(height: 124)
+            .chartYScale(domain: 0...1)
+            .chartXAxis {
+                AxisMarks(preset: .aligned, values: .stride(by: .hour)) { value in
+                    if value.index % 3 == 0 {
+                        AxisValueLabel(format: .dateTime.hour(.defaultDigits(amPM: .narrow)))
+                            .font(Constants.Fonts.labelMedium)
+                            .foregroundStyle(Constants.Colors.black)
+                    }
+                }
+            }
+            .padding(.horizontal, CGFloat(barWidth) / 2)
+            .chartYAxis(.hidden)
+            .chartOverlay(alignment: .top) { chart in
+                HStack(spacing: 4) {
+                    Text("\(Date.now.hourString)")
+                        .font(Constants.Fonts.h4)
+
+                    // TODO: Update with true capacity label
+                    Text("Usually not too busy")
+                        .font(Constants.Fonts.labelMedium)
+                }
+                .foregroundStyle(Constants.Colors.gray04)
+                .background {
+                    GeometryReader { proxy in
+                        // Getting the chart label size to be used to position the chart label
+                        Color.clear
+                            .onAppear {
+                                chartLabelSize = proxy.size
+                            }
+                            .onChange(of: proxy.size) { newVal in
+                                chartLabelSize = newVal
+                            }
+                    }
+                }
+                .position(
+                    x: CGFloat(barWidth / 2) + (
+                        chart.position(forX: convertHourToDate(viewModel.currentHour)) ?? 0
+                    )
                 )
-                .foregroundStyle(Constants.Colors.lightYellow)
+                .offset(
+                    x: calculateChartOffset(
+                        barWidth / 2 + Int(chart.position(forX: convertHourToDate(viewModel.currentHour)) ?? 0)
+                    )
+                )
             }
         }
         .padding(.vertical, vertPadding)
@@ -198,56 +285,57 @@ struct FitnessCenterView: View {
         VStack(spacing: 12) {
             sectionHeader(text: "EQUIPMENT")
 
-            equipmentScrollView()
+            // TODO: Fix equipments section
+//            equipmentScrollView()
         }
         .padding(.vertical, vertPadding)
     }
 
-    private func equipmentScrollView() -> some View {
-        ScrollView(.horizontal) {
-            HStack(spacing: 12) {
-                ForEach(fc?.equipment.allTypes() ?? [], id: \.self) { equipmentType in
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(equipmentType.description)
-                            .lineLimit(1)
-                            .foregroundStyle(Constants.Colors.black)
-                            .font(Constants.Fonts.h3)
-                            .padding(.bottom, 2)
+//    private func equipmentScrollView() -> some View {
+//        ScrollView(.horizontal) {
+//            HStack(spacing: 12) {
+//                ForEach(fc?.equipment.allTypes() ?? [], id: \.self) { equipmentType in
+//                    VStack(alignment: .leading, spacing: 4) {
+//                        Text(equipmentType.description)
+//                            .lineLimit(1)
+//                            .foregroundStyle(Constants.Colors.black)
+//                            .font(Constants.Fonts.h3)
+//                            .padding(.bottom, 2)
+//
+//                        equipmentTypeCellView(eqmtType: equipmentType)
+//                            .frame(alignment: .leading)
+//
+//                        Spacer()
+//                    }
+//                    .padding(16)
+//                    .frame(width: 247)
+//                    .overlay(
+//                        RoundedRectangle(cornerRadius: 4)
+//                            .stroke(Constants.Colors.gray01, lineWidth: 1)
+//                            .upliftShadow(Constants.Shadows.smallLight)
+//                    )
+//                }
+//            }
+//        }
+//        .scrollIndicators(.hidden)
+//    }
 
-                        equipmentTypeCellView(eqmtType: equipmentType)
-                            .frame(alignment: .leading)
-
-                        Spacer()
-                    }
-                    .padding(16)
-                    .frame(width: 247)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 4)
-                            .stroke(Constants.Colors.gray01, lineWidth: 1)
-                            .upliftShadow(Constants.Shadows.smallLight)
-                    )
-                }
-            }
-        }
-        .scrollIndicators(.hidden)
-    }
-
-    private func equipmentTypeCellView(eqmtType: EquipmentType) -> some View {
-        ForEach(fc?.equipment.filter({$0.equipmentType == eqmtType}) ?? [], id: \.self) { eqmt in
-            HStack(spacing: 12) {
-                Text(eqmt.name)
-                    .foregroundStyle(Constants.Colors.black)
-                    .font(Constants.Fonts.labelLight)
-                    .multilineTextAlignment(.leading)
-                    .frame(width: 190, alignment: .leading)
-
-                Text(eqmt.quantity == nil ? "" : String(eqmt.quantity ?? 0))
-                    .foregroundStyle(Constants.Colors.black)
-                    .font(Constants.Fonts.labelLight)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-            }
-        }
-    }
+//    private func equipmentTypeCellView(eqmtType: EquipmentType) -> some View {
+//        ForEach(fc?.equipment.filter({$0.equipmentType == eqmtType}) ?? [], id: \.self) { eqmt in
+//            HStack(spacing: 12) {
+//                Text(eqmt.name)
+//                    .foregroundStyle(Constants.Colors.black)
+//                    .font(Constants.Fonts.labelLight)
+//                    .multilineTextAlignment(.leading)
+//                    .frame(width: 190, alignment: .leading)
+//
+//                Text(eqmt.quantity == nil ? "" : String(eqmt.quantity ?? 0))
+//                    .foregroundStyle(Constants.Colors.black)
+//                    .font(Constants.Fonts.labelLight)
+//                    .frame(maxWidth: .infinity, alignment: .trailing)
+//            }
+//        }
+//    }
 
     // MARK: - Supporting
 
