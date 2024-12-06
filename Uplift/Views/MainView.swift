@@ -30,6 +30,7 @@ struct MainView: View {
                         .environmentObject(tabBarProp)
                 case .profile:
                     ProfileView()
+                        .environmentObject(tabBarProp)
                 }
             }
             .overlay(alignment: .bottom) {
