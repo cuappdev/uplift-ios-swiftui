@@ -16,6 +16,7 @@ struct ProfileView: View {
     @State var isActive = true
     @State var reportIsActive = false
     @State var reportSuccessIsActive = false
+    @EnvironmentObject var tabBarProp: TabBarProperty
 
     // MARK: - UI
 
@@ -40,6 +41,9 @@ struct ProfileView: View {
                             isActive.toggle()
                             reportIsActive.toggle()
                         }
+                        withAnimation(.easeIn(duration: 0.1)) {
+                            tabBarProp.hidden = true
+                        }
                     } label: {
                         Text("Report an issue")
                     }
@@ -50,15 +54,22 @@ struct ProfileView: View {
                 isActive: $reportIsActive,
                 profileIsActive: $isActive,
                 reportSuccessIsActive: $reportSuccessIsActive
-            ).transition(.move(edge: .trailing)) : nil
+            )
+            .environmentObject(tabBarProp)
+            .transition(.move(edge: .trailing)) : nil
 
             reportSuccessIsActive ? ReportSuccessView(
                 isActive: $reportSuccessIsActive,
                 profileIsActive: $isActive,
                 reportIsActive: $reportIsActive
-            ) : nil
+            )
+            .environmentObject(tabBarProp) : nil
         }
+        // TODO: Temporary to allow view to take up whole screen
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Constants.Colors.white)
     }
+
 }
 
 #Preview {

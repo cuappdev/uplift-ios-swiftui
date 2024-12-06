@@ -30,6 +30,7 @@ struct MainView: View {
                         .environmentObject(tabBarProp)
                 case .profile:
                     ProfileView()
+                        .environmentObject(tabBarProp)
                 }
             }
             .overlay(alignment: .bottom) {
@@ -59,6 +60,7 @@ struct MainView: View {
                 }
             }
         }
+        .background(Color.white)
         .onChange(of: viewModel.didClickSubmit) { didClickSubmit in
             if didClickSubmit {
                 viewModel.enterGiveaway()
