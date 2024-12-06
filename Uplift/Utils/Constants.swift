@@ -96,11 +96,16 @@ struct Constants {
 
     /// Image components used in Uplift.
     enum Images {
+        static let agreementsChecker = Image("agreements_checker")
+        static let agreementsUnchecked = Image("agreements_unchecked")
         static let appdevLogo = Image("appdev-logo")
         static let arrowLeft = Image("arrow_left")
+        static let backgroundEllipse = Image("background_ellipse")
         static let basketball = Image("basketball")
         static let bowling = Image("bowling")
         static let calendar = Image("calendar")
+        static let camera = Image("camera")
+        static let cameraMini = Image("camera_mini")
         static let capacity = Image("capacity")
         static let clock = Image("clock")
         static let cross = Image("cross")
@@ -111,6 +116,10 @@ struct Constants {
         static let greenTea = Image("green_tea")
         static let giveawayModalBackground = Image("giveaway_modal_bg")
         static let giveawayPopupBackground = Image("giveaway_popup_bg")
+        static let goal = Image("goal")
+        static let gymSimple = Image("gym_simple")
+        static let history = Image("history")
+        static let lift = Image("lift")
         static let lock = Image("lock")
         static let logo = Image("logo")
         static let logoWhite = Image("logo_white")
@@ -131,9 +140,10 @@ struct Constants {
         static let homeHorizontal: CGFloat = 16
         static let remindersHorizontal: CGFloat = 16
         static let remindersVertical: CGFloat = 24
+        static let tabBarHeight: CGFloat = 64
     }
 
-    /// Shadows usde in Uplift's design system.
+    /// Shadows used in Uplift's design system.
     enum Shadows {
         static let normalDark = ShadowConfig(
             color: Constants.Colors.black,

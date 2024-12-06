@@ -13,6 +13,7 @@ struct ClassesView: View {
 
     // MARK: - Properties
 
+    @EnvironmentObject var tabBarProp: TabBarProperty
     @StateObject private var viewModel = ViewModel()
     @State private var weeks: [Int] = [0, 1, 2]     // Integers represent the number of weeks from the current week
 
@@ -61,11 +62,11 @@ struct ClassesView: View {
 
     private var scrollContent: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            VStack {
+            LazyVStack {
                 calendarView
                 classesOnDay
             }
-            .padding(.bottom, 32)
+            .padding(.bottom, 32 + Constants.Padding.tabBarHeight)
         }
         .refreshable {
             viewModel.refreshClasses()
@@ -186,6 +187,16 @@ struct ClassesView: View {
                         ForEach(viewModel.filteredClasses, id: \.self) { classInstance in
                             NavigationLink {
                                 ClassDetailView(classInstance: classInstance, viewModel: viewModel)
+                                    .onAppear {
+                                        withAnimation(.easeIn(duration: 0.05)) {
+                                            tabBarProp.hidden = true
+                                        }
+                                    }
+                                    .onDisappear {
+                                        withAnimation(.easeIn(duration: 0.05)) {
+                                            tabBarProp.hidden = false
+                                        }
+                                    }
                             } label: {
                                 ClassCell(classInstance: classInstance, viewModel: viewModel)
                             }

@@ -19,11 +19,16 @@ extension MainView {
 
         // MARK: - Properties
 
+        @Published var email: String = ""
         @Published var instagram: String = ""
+        @Published var name: String = ""
         @Published var netID: String = ""
         @Published var popUpGiveaway: Bool = false
         @Published var didClickSubmit: Bool = false
+        @Published var showCreateProfileView = false
         @Published var showGiveawayErrorAlert: Bool = false
+        @Published var showMainView: Bool = false
+        @Published var showSignInView: Bool = true
         @Published var submitSuccessful: Bool = false
 
         private var queryBag = Set<AnyCancellable>()
@@ -44,6 +49,15 @@ extension MainView {
 
         /**
          Creates a user in the backend.
+         */
+        func createUser() {
+            createUserRequest {
+                // TODO: - currently nothing to do after creating user
+            }
+        }
+
+        /**
+         Creates a user in the backend.
 
          - Parameters:
             - callback: A callback function to be called once the request is done.
@@ -52,13 +66,15 @@ extension MainView {
             // Make lowercase and remove whitespace
             netID = netID.lowercased().replacingOccurrences(of: " ", with: "")
 
+            // TODO: Update for next giveaway
             Network.client.mutationPublisher(
                 mutation: CreateUserMutation(
-                    instagram: GraphQLNullable(stringLiteral: instagram),
+                    email: self.email,
+                    name: self.name,
                     netId: netID
                 )
             )
-            .compactMap(\.data?.createUser?.user?.netId)
+            .compactMap(\.data?.createUser?.netId)
             .sink { completion in
                 if case let .failure(error) = completion {
                     callback() // If user already created (error thrown), still enter giveaway
