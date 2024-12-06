@@ -23,6 +23,7 @@ struct ReportView: View {
     @State private var displayIssueError = false
     @State private var gymIsExpanded = true
     @State private var issueIsExpanded = true
+    @EnvironmentObject var tabBarProp: TabBarProperty
 
     // MARK: - UI
 
@@ -41,6 +42,9 @@ struct ReportView: View {
                         withAnimation(.easeIn(duration: 0.3)) {
                             profileIsActive.toggle()
                             isActive.toggle()
+                        }
+                        withAnimation(.easeIn(duration: 0.1)) {
+                            tabBarProp.hidden = false
                         }
                     } label: {
                         Constants.Images.arrowLeft
