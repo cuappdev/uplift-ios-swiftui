@@ -593,7 +593,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1610;
 				ORGANIZATIONNAME = "Cornell AppDev";
 				TargetAttributes = {
 					2E15F4EA2B39255B00414BEC = {
@@ -743,8 +743,6 @@
 				2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */,
 				2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */,
 				2E15F5062B39F81B00414BEC /* MainView.swift in Sources */,
-				8996FEE02BDF351800F13C67 /* NextSessionCell.swift in Sources */,
-				6329A4482CA0F89D00D30A2F /* CreateProfileView.swift in Sources */,
 				8996FEE02BDF351800F13C67 /* NextSessionCell.swift in Sources */,
 				6329A4482CA0F89D00D30A2F /* CreateProfileView.swift in Sources */,
 				2E39D82A2B3B9F3D00AD238B /* FacilityExpandedView.swift in Sources */,
