@@ -91,6 +91,7 @@
 		89950D8A2B992E8400DFB007 /* ClassesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89950D892B992E8400DFB007 /* ClassesView.swift */; };
 		8996FEE02BDF351800F13C67 /* NextSessionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */; };
 		89C8658D2BB4779C00758337 /* ClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C8658C2BB4779C00758337 /* ClassCell.swift */; };
+		89CE47422D03F3C700BCB79D /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 89CE47412D03F3C700BCB79D /* UpliftAPI */; };
 		89E4FAAA2CEFEC3C00A952B1 /* CapacitySemiCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E4FAA92CEFEC3000A952B1 /* CapacitySemiCircleView.swift */; };
 		89E4FAAC2CF28E7500A952B1 /* HourlyAverageCapacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E4FAAB2CF28E6600A952B1 /* HourlyAverageCapacity.swift */; };
 /* End PBXBuildFile section */
@@ -207,6 +208,7 @@
 				63A7ABCD2B86B971008D58FB /* UpliftAPI in Frameworks */,
 				2E45B2402B4E361100FB83B7 /* FirebaseCrashlytics in Frameworks */,
 				636E3D412BBE1EB100B6EFFC /* UpliftAPI in Frameworks */,
+				89CE47422D03F3C700BCB79D /* UpliftAPI in Frameworks */,
 				2E2932C62BA2B9B5008445CE /* UpliftAPI in Frameworks */,
 				636E3D442BBE1F3800B6EFFC /* UpliftAPI in Frameworks */,
 				2EC3EE662B3C000E00E927BF /* Kingfisher in Frameworks */,
@@ -228,16 +230,16 @@
 			isa = PBXGroup;
 			children = (
 				2E15F4D92B39102A00414BEC /* Capacity.swift */,
+				2E6785C32B3A780600DD3ADA /* DayOfWeek.swift */,
+				63A7ABCE2B8C119A008D58FB /* Equipment.swift */,
+				2E15F4DD2B3912C700414BEC /* Facility.swift */,
 				89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */,
 				89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */,
-				2E6785C32B3A780600DD3ADA /* DayOfWeek.swift */,
-				2E15F4DD2B3912C700414BEC /* Facility.swift */,
 				2E15F4DF2B39143700414BEC /* Gym.swift */,
 				2E39D8272B3B726D00AD238B /* GymTabType.swift */,
 				89E4FAAB2CF28E6600A952B1 /* HourlyAverageCapacity.swift */,
 				2E15F4DB2B39117300414BEC /* OpenHours.swift */,
 				2E15F4E12B3917B200414BEC /* Status.swift */,
-				63A7ABCE2B8C119A008D58FB /* Equipment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -534,6 +536,7 @@
 				2E2748D12BCD4EC00023882E /* UpliftAPI */,
 				897DF9B92CCDC49B00246B0D /* UpliftAPI */,
 				8983A9A52CFEA077008E84DB /* UpliftAPI */,
+				89CE47412D03F3C700BCB79D /* UpliftAPI */,
 			);
 			productName = Uplift;
 			productReference = 2E8FE38C2B1278B700B3DC6A /* Uplift.app */;
@@ -573,7 +576,7 @@
 				2E6785BA2B3A48D700DD3ADA /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				2EC3EE642B3C000E00E927BF /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				8983A9A42CFEA077008E84DB /* XCLocalSwiftPackageReference "UpliftAPI" */,
+				89CE47402D03F3C700BCB79D /* XCLocalSwiftPackageReference "UpliftAPI" */,
 			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
 			projectDirPath = "";
@@ -1024,7 +1027,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		8983A9A42CFEA077008E84DB /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
+		89CE47402D03F3C700BCB79D /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = UpliftAPI;
 		};
@@ -1137,6 +1140,10 @@
 			productName = UpliftAPI;
 		};
 		8983A9A52CFEA077008E84DB /* UpliftAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UpliftAPI;
+		};
+		89CE47412D03F3C700BCB79D /* UpliftAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UpliftAPI;
 		};
