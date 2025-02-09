@@ -176,10 +176,7 @@ struct FitnessCenterView: View {
                     .font(Constants.Fonts.f2)
                     .multilineTextAlignment(.leading)
 
-                Triangle()
-                    .fill(Constants.Colors.black)
-                    .rotationEffect(Angle(degrees: viewModel.expandHours ? 180 : 90))
-                    .frame(width: 8, height: 8)
+                DropDownArrow(isExpanded: $viewModel.expandHours)
             }
         }
         .frame(minWidth: 84, alignment: .leading)
@@ -337,6 +334,12 @@ struct FitnessCenterView: View {
             }
         }
         .padding(.vertical, vertPadding)
+    }
+
+    private func muscleGroupToggle(muscleGroup: String) -> some View {
+        VStack {
+
+        }
     }
 
 //    private func equipmentScrollView() -> some View {
