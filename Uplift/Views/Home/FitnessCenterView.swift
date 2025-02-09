@@ -332,61 +332,13 @@ struct FitnessCenterView: View {
 
                 Spacer()
             }
+
+            ForEach(MuscleCategory.allCases, id: \.self) { category in
+                MuscleCategoryView(category: category, equipment: fc?.equipment ?? [])
+            }
         }
         .padding(.vertical, vertPadding)
     }
-
-    private func muscleGroupToggle(muscleGroup: String) -> some View {
-        VStack {
-
-        }
-    }
-
-//    private func equipmentScrollView() -> some View {
-//        ScrollView(.horizontal) {
-//            HStack(spacing: 12) {
-//                ForEach(fc?.equipment.allTypes() ?? [], id: \.self) { equipmentType in
-//                    VStack(alignment: .leading, spacing: 4) {
-//                        Text(equipmentType.description)
-//                            .lineLimit(1)
-//                            .foregroundStyle(Constants.Colors.black)
-//                            .font(Constants.Fonts.h3)
-//                            .padding(.bottom, 2)
-//
-//                        equipmentTypeCellView(eqmtType: equipmentType)
-//                            .frame(alignment: .leading)
-//
-//                        Spacer()
-//                    }
-//                    .padding(16)
-//                    .frame(width: 247)
-//                    .overlay(
-//                        RoundedRectangle(cornerRadius: 4)
-//                            .stroke(Constants.Colors.gray01, lineWidth: 1)
-//                            .upliftShadow(Constants.Shadows.smallLight)
-//                    )
-//                }
-//            }
-//        }
-//        .scrollIndicators(.hidden)
-//    }
-
-//    private func equipmentTypeCellView(eqmtType: EquipmentType) -> some View {
-//        ForEach(fc?.equipment.filter({$0.equipmentType == eqmtType}) ?? [], id: \.self) { eqmt in
-//            HStack(spacing: 12) {
-//                Text(eqmt.name)
-//                    .foregroundStyle(Constants.Colors.black)
-//                    .font(Constants.Fonts.labelLight)
-//                    .multilineTextAlignment(.leading)
-//                    .frame(width: 190, alignment: .leading)
-//
-//                Text(eqmt.quantity == nil ? "" : String(eqmt.quantity ?? 0))
-//                    .foregroundStyle(Constants.Colors.black)
-//                    .font(Constants.Fonts.labelLight)
-//                    .frame(maxWidth: .infinity, alignment: .trailing)
-//            }
-//        }
-//    }
 
     // MARK: - Supporting
 

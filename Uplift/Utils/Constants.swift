@@ -94,11 +94,15 @@ struct Constants {
 
     /// Image components used in Uplift.
     enum Images {
+        static let abdominals = Image("abdominals")
         static let appdevLogo = Image("appdev-logo")
+        static let arm = Image("arm")
         static let arrowLeft = Image("arrow_left")
+        static let back = Image("back")
         static let basketball = Image("basketball")
         static let bowling = Image("bowling")
         static let calendar = Image("calendar")
+        static let chest = Image("chest")
         static let clock = Image("clock")
         static let cross = Image("cross")
         static let dumbbellLarge = Image("dumbbell_large")
@@ -108,13 +112,16 @@ struct Constants {
         static let greenTea = Image("green_tea")
         static let giveawayModalBackground = Image("giveaway_modal_bg")
         static let giveawayPopupBackground = Image("giveaway_popup_bg")
+        static let leg = Image("leg")
         static let lock = Image("lock")
         static let logo = Image("logo")
         static let logoWhite = Image("logo_white")
         static let parking = Image("parking")
         static let pool = Image("pool")
         static let replay = Image("replay")
+        static let shoulder = Image("shoulder")
         static let shower = Image("shower")
+        static let vertEllipsis = Image("vert_ellipsis")
         static let whistleOutline = Image("whistle_outline")
         static let whistleSolid = Image("whistle_solid")
     }

@@ -83,6 +83,8 @@
 		63A7ABCD2B86B971008D58FB /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 63A7ABCC2B86B971008D58FB /* UpliftAPI */; };
 		63A7ABCF2B8C119A008D58FB /* Equipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7ABCE2B8C119A008D58FB /* Equipment.swift */; };
 		893AD9132D59468000C0817B /* DropDownArrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893AD9122D59466F00C0817B /* DropDownArrow.swift */; };
+		893AD9152D59569600C0817B /* MuscleCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893AD9142D59569600C0817B /* MuscleCategoryView.swift */; };
+		893AD9172D595DC800C0817B /* MuscleGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893AD9162D595DC300C0817B /* MuscleGroupView.swift */; };
 		89599A4E2BD4B39B00DA44DE /* FitnessClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */; };
 		89599A502BD4B4B600DA44DE /* FitnessClassInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */; };
 		896500DC2BB4D33500D822AB /* ClassDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896500DB2BB4D33500D822AB /* ClassDetailView.swift */; };
@@ -174,6 +176,8 @@
 		2EF1A2572B129EEB007A299F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		63A7ABCE2B8C119A008D58FB /* Equipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipment.swift; sourceTree = "<group>"; };
 		893AD9122D59466F00C0817B /* DropDownArrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownArrow.swift; sourceTree = "<group>"; };
+		893AD9142D59569600C0817B /* MuscleCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleCategoryView.swift; sourceTree = "<group>"; };
+		893AD9162D595DC300C0817B /* MuscleGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleGroupView.swift; sourceTree = "<group>"; };
 		89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessClass.swift; sourceTree = "<group>"; };
 		89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessClassInstance.swift; sourceTree = "<group>"; };
 		896500DB2BB4D33500D822AB /* ClassDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailView.swift; sourceTree = "<group>"; };
@@ -369,6 +373,8 @@
 				2E15F50B2B3A0B2100414BEC /* CapacityCircleView.swift */,
 				89E4FAA92CEFEC3000A952B1 /* CapacitySemiCircleView.swift */,
 				893AD9122D59466F00C0817B /* DropDownArrow.swift */,
+				893AD9142D59569600C0817B /* MuscleCategoryView.swift */,
+				893AD9162D595DC300C0817B /* MuscleGroupView.swift */,
 				2E39D81B2B3B5F3700AD238B /* NavBackButton.swift */,
 				2E39D8212B3B631200AD238B /* DividerLine.swift */,
 				2E39D8252B3B6C6500AD238B /* SlidingTabBarView.swift */,
@@ -690,8 +696,10 @@
 				2E15F4FB2B39573C00414BEC /* Double+Extension.swift in Sources */,
 				2E39D8162B3B3AD600AD238B /* ScaleButtonStyle.swift in Sources */,
 				2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */,
+				893AD9152D59569600C0817B /* MuscleCategoryView.swift in Sources */,
 				89C8658D2BB4779C00758337 /* ClassCell.swift in Sources */,
 				2E1105BF2B13B0E100119F5B /* HomeViewModel.swift in Sources */,
+				893AD9172D595DC800C0817B /* MuscleGroupView.swift in Sources */,
 				89E4FAAA2CEFEC3C00A952B1 /* CapacitySemiCircleView.swift in Sources */,
 				89599A4E2BD4B39B00DA44DE /* FitnessClass.swift in Sources */,
 				2E15F5122B3A3D0000414BEC /* TriangleShape.swift in Sources */,
