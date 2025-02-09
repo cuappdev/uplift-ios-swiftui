@@ -41,8 +41,8 @@ struct FitnessCenterView: View {
 
     // MARK: - Constants
 
-    let vertPadding: CGFloat = 20
-    let barWidth = 18
+    private let vertPadding: CGFloat = 16
+    private let barWidth = 18
 
     // MARK: - UI
 
@@ -54,6 +54,8 @@ struct FitnessCenterView: View {
             DividerLine()
             popularTimesSection
             DividerLine()
+            !gym.amenities.isEmpty ? amenitiesSection : nil
+            !gym.amenities.isEmpty ? DividerLine() : nil
             equipmentSection
         }
         .onAppear {
@@ -75,6 +77,7 @@ struct FitnessCenterView: View {
         return calendar.date(from: dateComponent) ?? Date()
     }
 
+    // TODO: Remove
     private var capacitiesSection: some View {
         VStack(spacing: 12) {
             sectionHeader(text: "CAPACITIES")
@@ -281,12 +284,57 @@ struct FitnessCenterView: View {
         .padding(.vertical, vertPadding)
     }
 
-    private var equipmentSection: some View {
-        VStack(spacing: 12) {
-            sectionHeader(text: "EQUIPMENT")
+    private var amenitiesSection: some View {
+        VStack(spacing: 16) {
+            HStack {
+                sectionHeader(text: "Amenities")
 
-            // TODO: Fix equipments section
-//            equipmentScrollView()
+                Spacer()
+            }
+
+            VStack(spacing: 12) {
+                ForEach(gym.amenities, id: \.self) { amenity in
+                    HStack(spacing: 8) {
+                        switch amenity {
+                        case .showers:
+                            Constants.Images.shower
+                                .frame(width: 24, height: 24)
+
+                            Text("Showers")
+                        case .lockers:
+                            Constants.Images.lock
+                                .frame(width: 24, height: 24)
+
+                            Text("Lockers")
+                        case .parking:
+                            Constants.Images.parking
+                                .frame(width: 24, height: 24)
+
+                            Text("Parking")
+                        case .elevators:
+                            Constants.Images.elevator
+                                .frame(width: 24, height: 24)
+
+                            Text("Elevators/Lifts")
+                        }
+
+                        Spacer()
+                    }
+                    .foregroundStyle(Constants.Colors.black)
+                    .font(Constants.Fonts.bodyMedium)
+                }
+            }
+        }
+        .padding(.vertical, vertPadding)
+    }
+
+    private var equipmentSection: some View {
+        VStack(spacing: 16) {
+            HStack {
+                sectionHeader(text: "Equipment")
+
+                Spacer()
+            }
         }
         .padding(.vertical, vertPadding)
     }
