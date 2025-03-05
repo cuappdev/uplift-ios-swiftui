@@ -5,20 +5,14 @@
 //  Created by Vin Bui on 12/25/23.
 //  Copyright © 2023 Cornell AppDev. All rights reserved.
 //
-
 import SwiftUI
-
 /// The app's entry point view.
 struct MainView: View {
-
     // MARK: - Properties
-
     @State private var selectedTab: Screen = .home
     @StateObject var tabBarProp = TabBarProperty()
     @StateObject private var viewModel = ViewModel()
-
     // MARK: - UI
-
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
@@ -28,17 +22,18 @@ struct MainView: View {
                 case .classes:
                     ClassesView()
                         .environmentObject(tabBarProp)
+                case .profile:
+                    ProfileView()
+                        .environmentObject(tabBarProp)
                 }
             }
             .overlay(alignment: .bottom) {
                 !tabBarProp.hidden ? tabBar.transition(.move(edge: .bottom)) : nil
             }
-
             if viewModel.popUpGiveaway {
                 Constants.Colors.gray04
                     .opacity(0.4)
                     .ignoresSafeArea(.all)
-
                 GiveawayPopup(
                     didClickSubmit: $viewModel.didClickSubmit,
                     instagram: $viewModel.instagram,
@@ -64,24 +59,20 @@ struct MainView: View {
             }
         }
     }
-
     private var tabBar: some View {
         HStack {
             Spacer()
-
             tabItem(for: .home)
-
             Spacer()
-
             tabItem(for: .classes)
-
+            Spacer()
+            tabItem(for: .profile)
             Spacer()
         }
         .frame(height: Constants.Padding.tabBarHeight)
         .background(Constants.Colors.yellow)
         .ignoresSafeArea(.all)
     }
-
     @ViewBuilder
     private func tabItem(for screen: Screen) -> some View {
         switch screen {
@@ -104,38 +95,40 @@ struct MainView: View {
                     name: "Classes"
                 )
             }
+        case .profile:
+            Button {
+                selectedTab = .profile
+            } label: {
+                tabItemView(
+                    icon: selectedTab == .profile ? Constants.Images.whistleSolid : Constants.Images.whistleOutline,
+                    name: "Profile"
+                )
+            }
         }
     }
-
-    private func tabItemView(icon: Image, name: String) -> some View {
-        VStack {
-            icon
-                .resizable()
-                .scaledToFit()
-                .frame(width: 24, height: 24)
-
-            Text(name)
-                .font(Constants.Fonts.h3)
-        }
-        .foregroundStyle(Constants.Colors.black)
-    }
-
 }
-
+private func tabItemView(icon: Image, name: String) -> some View {
+    VStack {
+        icon
+            .resizable()
+            .scaledToFit()
+            .frame(width: 24, height: 24)
+        Text(name)
+            .font(Constants.Fonts.h3)
+    }
+    .foregroundStyle(Constants.Colors.black)
+}
 extension MainView {
-
     /// An enumeration to keep track of which tab the user is currently on.
     private enum Screen {
         case home
         case classes
+        case profile
     }
-
 }
-
 final class TabBarProperty: ObservableObject {
     @Published var hidden: Bool = false
 }
-
 #Preview {
     MainView()
 }

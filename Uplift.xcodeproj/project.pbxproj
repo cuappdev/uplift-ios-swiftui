@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		299F63462D79105B005B1C52 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 299F63452D79105B005B1C52 /* UpliftAPI */; };
+		299F63482D7910C2005B1C52 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299F63472D7910C2005B1C52 /* ProfileView.swift */; };
 		2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E090EC42B12EF2600BAE982 /* Publishers.swift */; };
 		2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E090ECA2B12FF5900BAE982 /* UpliftAPI */; };
 		2E090ED62B13121600BAE982 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E090ED52B13121600BAE982 /* Constants.swift */; };
@@ -111,6 +113,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		299F63472D7910C2005B1C52 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		2E090EC42B12EF2600BAE982 /* Publishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.swift; sourceTree = "<group>"; };
 		2E090ED52B13121600BAE982 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2E1105BE2B13B0E100119F5B /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -205,6 +208,7 @@
 				63001AD82CC9AD970082AFFA /* GoogleSignIn in Frameworks */,
 				2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */,
 				2E6785BC2B3A48D700DD3ADA /* WrappingHStack in Frameworks */,
+				299F63462D79105B005B1C52 /* UpliftAPI in Frameworks */,
 				2E4F06DC2B4B48DC008905C8 /* UpliftAPI in Frameworks */,
 				2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */,
 				2E45B2452B4F632700FB83B7 /* FirebaseAnalytics in Frameworks */,
@@ -299,6 +303,7 @@
 				89C8658B2BB4778400758337 /* Classes */,
 				2E1105C02B13D11E00119F5B /* Home */,
 				2E15F50A2B3A0AF700414BEC /* Supporting */,
+				299F63472D7910C2005B1C52 /* ProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -560,6 +565,7 @@
 				63001AD92CC9AD970082AFFA /* GoogleSignInSwift */,
 				6338EC5B2CE149AA000BBFD3 /* UpliftAPI */,
 				6338EC5E2CE14B54000BBFD3 /* UpliftAPI */,
+				299F63452D79105B005B1C52 /* UpliftAPI */,
 			);
 			productName = Uplift;
 			productReference = 2E8FE38C2B1278B700B3DC6A /* Uplift.app */;
@@ -600,7 +606,7 @@
 				2EC3EE642B3C000E00E927BF /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				63001AD42CC9A6B20082AFFA /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
-				6338EC5D2CE14B54000BBFD3 /* XCLocalSwiftPackageReference "UpliftAPI" */,
+				299F63442D79105A005B1C52 /* XCLocalSwiftPackageReference "UpliftAPI" */,
 			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
 			projectDirPath = "";
@@ -753,6 +759,7 @@
 				2E3DC2432BCD2F1D0063B369 /* GiveawayModal.swift in Sources */,
 				2E15F5042B39E54700414BEC /* LocationManager.swift in Sources */,
 				2E39D81E2B3B610200AD238B /* UINavigationController+Extension.swift in Sources */,
+				299F63482D7910C2005B1C52 /* ProfileView.swift in Sources */,
 				63001AD62CC9ACFF0082AFFA /* LoginViewModel.swift in Sources */,
 				2E15F4DC2B39117300414BEC /* OpenHours.swift in Sources */,
 				2E090ED62B13121600BAE982 /* Constants.swift in Sources */,
@@ -1055,7 +1062,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		6338EC5D2CE14B54000BBFD3 /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
+		299F63442D79105A005B1C52 /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = UpliftAPI;
 		};
@@ -1105,6 +1112,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		299F63452D79105B005B1C52 /* UpliftAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UpliftAPI;
+		};
 		2E090ECA2B12FF5900BAE982 /* UpliftAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UpliftAPI;
