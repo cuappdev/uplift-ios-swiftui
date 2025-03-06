@@ -125,6 +125,8 @@ struct Constants {
         static let shower = Image("shower")
         static let whistleOutline = Image("whistle_outline")
         static let whistleSolid = Image("whistle_solid")
+        static let settings = Image("settings")
+        static let profileEmpty = Image("profile_empty")
     }
 
     /// Padding amounts used in Uplift.
