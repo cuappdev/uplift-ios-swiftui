@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		293032532D7A8841002E5484 /* ProgressGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293032522D7A8841002E5484 /* ProgressGoalView.swift */; };
+		293032572D7A8F64002E5484 /* WorkoutProgressArc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */; };
+		296A2DAE2D7A805300EF042F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296A2DAD2D7A805300EF042F /* ProfileViewModel.swift */; };
 		299F63462D79105B005B1C52 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 299F63452D79105B005B1C52 /* UpliftAPI */; };
 		299F63482D7910C2005B1C52 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299F63472D7910C2005B1C52 /* ProfileView.swift */; };
 		2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E090EC42B12EF2600BAE982 /* Publishers.swift */; };
@@ -113,6 +116,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		293032522D7A8841002E5484 /* ProgressGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressGoalView.swift; sourceTree = "<group>"; };
+		293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutProgressArc.swift; sourceTree = "<group>"; };
+		296A2DAD2D7A805300EF042F /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		299F63472D7910C2005B1C52 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		2E090EC42B12EF2600BAE982 /* Publishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.swift; sourceTree = "<group>"; };
 		2E090ED52B13121600BAE982 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -304,6 +310,7 @@
 				2E1105C02B13D11E00119F5B /* Home */,
 				2E15F50A2B3A0AF700414BEC /* Supporting */,
 				299F63472D7910C2005B1C52 /* ProfileView.swift */,
+				293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -318,6 +325,7 @@
 				2E6785C12B3A5CE000DD3ADA /* GymDetailViewModel.swift */,
 				2E1105BE2B13B0E100119F5B /* HomeViewModel.swift */,
 				2E2748CE2BCD4D1F0023882E /* MainViewModel.swift */,
+				296A2DAD2D7A805300EF042F /* ProfileViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -383,6 +391,7 @@
 				2E39D8212B3B631200AD238B /* DividerLine.swift */,
 				2E39D8252B3B6C6500AD238B /* SlidingTabBarView.swift */,
 				2E3DC2412BCD2EDF0063B369 /* Giveaway */,
+				293032522D7A8841002E5484 /* ProgressGoalView.swift */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";
@@ -725,6 +734,7 @@
 				2E8FE3922B1278B700B3DC6A /* HomeView.swift in Sources */,
 				2E6785C02B3A5CA300DD3ADA /* Haptics.swift in Sources */,
 				89950D8A2B992E8400DFB007 /* ClassesView.swift in Sources */,
+				296A2DAE2D7A805300EF042F /* ProfileViewModel.swift in Sources */,
 				2E15F50C2B3A0B2100414BEC /* CapacityCircleView.swift in Sources */,
 				2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */,
 				2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */,
@@ -736,6 +746,7 @@
 				2E39D82A2B3B9F3D00AD238B /* FacilityExpandedView.swift in Sources */,
 				2EB161C92BBC9C3100493B71 /* StretchyModifier.swift in Sources */,
 				6329A44A2CA0FE8A00D30A2F /* CheckBoxView.swift in Sources */,
+				293032532D7A8841002E5484 /* ProgressGoalView.swift in Sources */,
 				2E39D82C2B3BB35000AD238B /* FacilityExpandedViewModel.swift in Sources */,
 				2E3D6C202B1285D200B51BB2 /* UpliftEnvironment.swift in Sources */,
 				2E2748CF2BCD4D1F0023882E /* MainViewModel.swift in Sources */,
@@ -750,6 +761,7 @@
 				897703662BA2028D00F9992F /* ClassesViewModel.swift in Sources */,
 				2E1105C22B13D15100119F5B /* HomeGymCell.swift in Sources */,
 				2E15F4F92B3950F800414BEC /* Date+Extension.swift in Sources */,
+				293032572D7A8F64002E5484 /* WorkoutProgressArc.swift in Sources */,
 				2E8FE3902B1278B700B3DC6A /* UpliftApp.swift in Sources */,
 				2EE5F3C82B12E094008E0299 /* ApolloClientProtocol.swift in Sources */,
 				2E39D8262B3B6C6500AD238B /* SlidingTabBarView.swift in Sources */,
