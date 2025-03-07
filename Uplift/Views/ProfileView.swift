@@ -246,6 +246,9 @@ struct ProfileView: View {
                     .rotationEffect(.degrees(-90))
 
             }
+
+            WorkoutProgressArc()
+
         }
     }
 }

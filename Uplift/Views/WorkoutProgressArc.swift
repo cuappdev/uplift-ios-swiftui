@@ -1,86 +1,102 @@
 import SwiftUI
 
+// Unit Circle Animation
 struct WorkoutProgressArc: View {
-    let workCompleted: Int // m = number of completed workouts
-    let totalWork: Int // n = number of work days
-    let width: CGFloat = 231
-    let height: CGFloat = 120
-    let radius: CGFloat = 125.5
-
-    // Calculate progress percentage
-    private var progress: Double {
-        guard totalWork > 0 else { return 0 }
-        return Double(workCompleted) / Double(totalWork)
-    }
-
-    // Calculate the end angle for the progress arc
-    private var endAngle: Double {
-        180 - (progress * 180)
-    }
+    @State private var arcProgress: Double = 0
+    @State private var dotRotation: Double = 0 // Start at left side (0 degrees bc of Unit Circle)
+    let targetWorkouts: Int = 5
+    let completedWorkouts: Int = 3
+    let radius: CGFloat = 126
 
     var body: some View {
-        VStack {
+        ZStack {
+
+            // Background track
+            Circle()
+                .trim(from: 0, to: 0.5)
+                .stroke(
+                    Color.gray.opacity(0.2),
+                    style: StrokeStyle(lineWidth: 18, lineCap: .round)
+                )
+                .frame(width: radius * 2, height: radius * 2)
+                .rotationEffect(.degrees(180))
+
+            // Progress arc - yellow portion
+            Circle()
+                .trim(from: 0, to: 0.5 * arcProgress)
+                .stroke(
+                    Color.yellow,
+                    style: StrokeStyle(lineWidth: 18, lineCap: .round)
+                )
+                .frame(width: radius * 2, height: radius * 2)
+                .rotationEffect(.degrees(180))
+
+            // Yellow dot
             ZStack {
-                // Background arc (empty progress)
-                Arc(startAngle: .degrees(180), endAngle: .degrees(0))
-                    .stroke(Color.gray.opacity(0.2), lineWidth: 8)
-                    .frame(width: width, height: height)
-
-                // Progress arc
-                Arc(startAngle: .degrees(180), endAngle: .degrees(180 + (180 - endAngle)))
-                    .stroke(Color.blue, lineWidth: 8)
-                    .frame(width: width, height: height)
-
-                if progress > 0 {
-                    Circle()
-                        .fill(Color.blue)
-                        .frame(width: 16, height: 16)
-                        .position(
-                            x: width / 2 + cos(Double.pi * (1 - progress)) * radius,
-                            y: height - sin(Double.pi * (1 - progress)) * radius
-                        )
-                }
-                // Status text in center below the arc
-                VStack {
-                    Text("\(workCompleted)/\(totalWork)")
-                        .font(.system(size: 36, weight: .bold))
-
-                    Text("Workouts this week")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                }
-                .position(x: width / 2, y: height + 60)
+                Circle()
+                    .fill(Color.yellow)
+                    .frame(width: 26, height: 26)
+                Circle()
+                    .fill(Color.white)
+                    .frame(width: 12, height: 12)
             }
-            .frame(width: width, height: height + 120)
-            .onAppear(){
-                print(endAngle)
+            .offset(x: -radius)
+            .rotationEffect(.degrees(dotRotation))
+            .animation(.easeOut(duration: 1.5), value: dotRotation)
+            VStack(spacing: 8) {
+                // Value
+                HStack(alignment: .lastTextBaseline, spacing: 2) {
+                    Text("\(completedWorkouts)")
+                        .font(.system(size: 65, weight: .black, design: .default))
+                        .foregroundColor(.black)
+
+                    Text("/ \(targetWorkouts)")
+                        .font(.system(size: 32, weight: .medium, design: .default))
+                        .foregroundColor(.gray)
+                        .padding(.leading, 2)
+                }
+                // Label
+                Text("Workouts this week")
+                    .font(.system(size: 18))
+                    .foregroundColor(.gray)
+            }
+        }
+        .frame(width: radius * 2, height: radius * 2)
+        .padding()
+        .onAppear {
+            // Start with initial values
+            arcProgress = 0
+            dotRotation = 0
+
+            // Calculate the final rotation based on progress
+            let finalRotation = 180 * Double(completedWorkouts) / Double(targetWorkouts)
+
+            // Animate both simultaneously
+            withAnimation(.easeOut(duration: 1.5)) {
+                arcProgress = Double(completedWorkouts) / Double(targetWorkouts)
+                dotRotation = finalRotation
             }
         }
     }
 }
 
-// Custom Arc shape
-struct Arc: Shape {
-    let startAngle: Angle
-    let endAngle: Angle
-
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        let center = CGPoint(x: rect.midX, y: rect.height)
-        let radius = min(rect.width, rect.height * 2) / 2
-
-        path.addArc(
-            center: center,
-            radius: radius,
-            startAngle: startAngle,
-            endAngle: endAngle,
-            clockwise: false
-        )
-
-        return path
+struct WorkoutGaugeDemo: View {
+    @State private var refreshID = UUID()
+    var body: some View {
+        VStack {
+            WorkoutProgressArc()
+                .id(refreshID)
+            Button("Reset Animation") {
+                refreshID = UUID()
+            }
+            .padding()
+            .buttonStyle(.bordered)
+        }
     }
 }
 
-#Preview{
-    WorkoutProgressArc(workCompleted: 4, totalWork: 7)
+struct WorkoutGauge_Previews: PreviewProvider {
+    static var previews: some View {
+        WorkoutGaugeDemo()
+    }
 }

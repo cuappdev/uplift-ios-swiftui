@@ -302,6 +302,7 @@
 		2E090ED02B1308C900BAE982 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */,
 				89950D892B992E8400DFB007 /* ClassesView.swift */,
 				63CA15862C924B84001620B5 /* Onboarding */,
 				2E8FE3912B1278B700B3DC6A /* HomeView.swift */,
@@ -310,7 +311,6 @@
 				2E1105C02B13D11E00119F5B /* Home */,
 				2E15F50A2B3A0AF700414BEC /* Supporting */,
 				299F63472D7910C2005B1C52 /* ProfileView.swift */,
-				293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
