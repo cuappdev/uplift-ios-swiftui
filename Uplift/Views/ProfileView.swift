@@ -155,6 +155,7 @@ struct ProfileView: View {
             VStack(spacing: 24) {
                 profileTopSection
                 goalView
+                historyView
             }
             .padding(.horizontal, Constants.Padding.homeHorizontal)
             .padding(.top, 24)
@@ -168,7 +169,8 @@ struct ProfileView: View {
         HStack(spacing: 24) {
             // Profile image with camera icon
             ZStack(alignment: .bottomTrailing) {
-                Constants.Images.profileEmpty                         .resizable()
+                Image(systemName: "person.crop.circle.fill")
+                    .resizable()
                     .scaledToFit()
                     .frame(width: 98, height: 98)
                     .foregroundStyle(Constants.Colors.gray02)
@@ -176,6 +178,7 @@ struct ProfileView: View {
                 // Camera button overlay
                 Circle()
                     .fill(Constants.Colors.white)
+                    .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 1)
                     .frame(width: 28, height: 28)
                     .overlay(
                         Image(systemName: "camera.fill")
@@ -231,24 +234,64 @@ struct ProfileView: View {
     }
 
     private var goalView: some View {
-        VStack(spacing: 12) {
+        VStack {
             HStack {
                 Text("GOALS")
-                    .font(Constants.Fonts.bodyNormal)
-                    .foregroundStyle(Constants.Colors.gray04)
+                    .font(.system(size: 15, weight: .medium))
+                    .foregroundColor(Constants.Colors.gray04)
 
                 Spacer()
 
-                Image(systemName: "chevron.down")
+                Image(systemName: "chevron.right")
                     .resizable()
-                    .frame(width: 12, height: 6)
-                    .foregroundStyle(Constants.Colors.gray03)
-                    .rotationEffect(.degrees(-90))
-
+                    .frame(width: 8, height: 12)
+                    .foregroundColor(Constants.Colors.gray03)
             }
 
-            WorkoutProgressArc()
+            VStack(spacing: -100) {
+                WorkoutProgressArc()
+                WeeklyWorkoutTrackerView(viewModel: viewModel)
+            }
+        }
+    }
 
+    private var historyView: some View {
+        VStack(spacing: 20) {
+            HStack {
+                Text("HISTORY")
+                    .font(.system(size: 15, weight: .medium))
+                    .foregroundColor(Constants.Colors.gray04)
+
+                Spacer()
+
+                Image(systemName: "chevron.right")
+                    .resizable()
+                    .frame(width: 8, height: 12)
+                    .foregroundColor(Constants.Colors.gray03)
+            }
+
+            ForEach(0..<viewModel.workoutHistory.count, id: \.self) { index in
+                VStack(spacing: 8) {
+                    HStack {
+                        let workout = viewModel.workoutHistory[index]
+                        Text(workout.location)
+                            .foregroundStyle(Constants.Colors.black)
+                            .font(Constants.Fonts.bodyNormal)
+
+                        Spacer()
+
+                        Text("\(workout.time) • \(workout.date.description)")
+                            .foregroundStyle(Constants.Colors.gray04)
+                            .font(Constants.Fonts.bodyNormal)
+                    }
+
+                    if index < viewModel.workoutHistory.count - 1 {
+                        Rectangle()
+                            .fill(Constants.Colors.gray03)
+                            .frame(height: 0.4)
+                    }
+                }
+            }
         }
     }
 }

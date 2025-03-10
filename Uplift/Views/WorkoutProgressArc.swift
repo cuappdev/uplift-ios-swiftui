@@ -1,11 +1,19 @@
+//
+//  WorkoutProgressArc.swift
+//  Uplift
+//
+//  Created by jiwon jeong on 3/9/25.
+//  Copyright © 2025 Cornell AppDev. All rights reserved.
+//
+
 import SwiftUI
 
 // Unit Circle Animation
 struct WorkoutProgressArc: View {
     @State private var arcProgress: Double = 0
     @State private var dotRotation: Double = 0 // Start at left side (0 degrees bc of Unit Circle)
-    let targetWorkouts: Int = 5
-    let completedWorkouts: Int = 3
+    let targetWorkouts: Int = 7
+    let completedWorkouts: Int = 5
     let radius: CGFloat = 126
 
     var body: some View {
@@ -25,7 +33,7 @@ struct WorkoutProgressArc: View {
             Circle()
                 .trim(from: 0, to: 0.5 * arcProgress)
                 .stroke(
-                    Color.yellow,
+                    Constants.Colors.yellow,
                     style: StrokeStyle(lineWidth: 18, lineCap: .round)
                 )
                 .frame(width: radius * 2, height: radius * 2)
@@ -34,7 +42,7 @@ struct WorkoutProgressArc: View {
             // Yellow dot
             ZStack {
                 Circle()
-                    .fill(Color.yellow)
+                    .fill(Constants.Colors.yellow)
                     .frame(width: 26, height: 26)
                 Circle()
                     .fill(Color.white)
@@ -60,6 +68,7 @@ struct WorkoutProgressArc: View {
                     .font(.system(size: 18))
                     .foregroundColor(.gray)
             }
+            .offset(y: -40)
         }
         .frame(width: radius * 2, height: radius * 2)
         .padding()
