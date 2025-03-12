@@ -90,6 +90,8 @@ struct Constants {
         static let labelMedium = Font.custom("Montserrat-Medium", size: 12)
         static let labelSemibold = Font.custom("Montserrat-SemiBold", size: 12)
         static let labelBold = Font.custom("Montserrat-Bold", size: 12)
+
+        static let p1 = Font.custom("Montserrat-Bold", size: 64)
     }
 
     /// Image components used in Uplift.

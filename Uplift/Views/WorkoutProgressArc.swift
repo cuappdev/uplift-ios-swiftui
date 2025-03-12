@@ -12,19 +12,19 @@ import SwiftUI
 struct WorkoutProgressArc: View {
     @State private var arcProgress: Double = 0
     @State private var dotRotation: Double = 0 // Start at left side (0 degrees bc of Unit Circle)
-    let targetWorkouts: Int = 7
-    let completedWorkouts: Int = 5
+
+    let completedWorkouts: Int = 3
+    let targetWorkouts: Int = 5
     let radius: CGFloat = 126
 
     var body: some View {
         ZStack {
-
             // Background track
             Circle()
                 .trim(from: 0, to: 0.5)
                 .stroke(
                     Color.gray.opacity(0.2),
-                    style: StrokeStyle(lineWidth: 18, lineCap: .round)
+                    style: StrokeStyle(lineWidth: 12, lineCap: .round)
                 )
                 .frame(width: radius * 2, height: radius * 2)
                 .rotationEffect(.degrees(180))
@@ -34,7 +34,7 @@ struct WorkoutProgressArc: View {
                 .trim(from: 0, to: 0.5 * arcProgress)
                 .stroke(
                     Constants.Colors.yellow,
-                    style: StrokeStyle(lineWidth: 18, lineCap: .round)
+                    style: StrokeStyle(lineWidth: 12, lineCap: .round)
                 )
                 .frame(width: radius * 2, height: radius * 2)
                 .rotationEffect(.degrees(180))
@@ -55,17 +55,17 @@ struct WorkoutProgressArc: View {
                 // Value
                 HStack(alignment: .lastTextBaseline, spacing: 2) {
                     Text("\(completedWorkouts)")
-                        .font(.system(size: 65, weight: .black, design: .default))
+                        .font(Constants.Fonts.p1)
                         .foregroundColor(.black)
 
                     Text("/ \(targetWorkouts)")
-                        .font(.system(size: 32, weight: .medium, design: .default))
+                        .font(Constants.Fonts.h1)
                         .foregroundColor(.gray)
                         .padding(.leading, 2)
                 }
                 // Label
-                Text("Workouts this week")
-                    .font(.system(size: 18))
+                Text("Days this week")
+                    .font(Constants.Fonts.labelNormal)
                     .foregroundColor(.gray)
             }
             .offset(y: -40)

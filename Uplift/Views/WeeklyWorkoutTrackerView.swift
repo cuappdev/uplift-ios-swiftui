@@ -13,31 +13,30 @@ struct WeeklyWorkoutTrackerView: View {
     @State private var animationProgress: Double = 0
 
     // Weekday abbreviations
-    private let weekdays = ["M", "T", "W", "Th", "F", "Sa", "Su"]
+    private let weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
     // Days that have workouts
     @State private var workoutDays: [Bool] = [false, false, false, false, false, false, false]
 
     // Animation timing
-    private let animationDuration: Double = 0.3
+    private let animationDuration: Double = 0.05
     private let delayBetweenDays: Double = 0.2
 
     // Circle dimensions
-    private let circleSize: CGFloat = 34
-    private let lineWidth: CGFloat = 1
-    private let spacing: CGFloat = 14
+    private let circleSize: CGFloat = 24
+    private let lineWidth: CGFloat = 2
+    private let spacing: CGFloat = 26
     private let verticalSpacing: CGFloat = 2
 
     var body: some View {
         VStack {
             VStack(alignment: .center, spacing: verticalSpacing) {
                 // Weekday abbreviations
-                HStack(spacing: spacing) {
+                HStack(spacing: 24.5) {
                     ForEach(0..<7, id: \.self) { index in
                         Text(weekdays[index])
-                            .font(.system(size: 15, weight: .medium))
-                            .frame(width: circleSize, height: 20)
-                            .foregroundColor(.black)
+                            .font(Constants.Fonts.labelSemibold)
+                            .foregroundColor(Constants.Colors.black)
                     }
                 }
 
@@ -90,9 +89,9 @@ struct WeeklyWorkoutTrackerView: View {
                 HStack(spacing: spacing) {
                     ForEach(0..<7, id: \.self) { index in
                         Text("\(25 + index)")
-                            .font(.system(size: 14))
+                            .font(Constants.Fonts.labelNormal)
                             .frame(width: circleSize, height: 20)
-                            .foregroundColor(.black)
+                            .foregroundColor(Constants.Colors.black)
                     }
                 }
             }

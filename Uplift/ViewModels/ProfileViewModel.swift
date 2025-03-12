@@ -20,6 +20,8 @@ extension ProfileView {
             weekDates: []
         )
         @Published var totalWorkouts: Int = 0
+        @Published var streaks: Int = 14
+        @Published var badges: Int = 6
         @Published var isFavorited: Bool = false
 
         func fetchUserProfile() {
@@ -31,6 +33,8 @@ extension ProfileView {
                 )
 
                 self.totalWorkouts = 132
+                self.streaks = 14
+                self.badges = 6
                 self.isFavorited = false
 
                 // Create dates for the week

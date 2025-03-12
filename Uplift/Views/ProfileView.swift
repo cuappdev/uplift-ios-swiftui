@@ -57,17 +57,40 @@ struct ProfileView: View {
     }
 
     private var settingsButton: some View {
-        Button {
-            viewModel.showSettingsSheet = true
-        } label: {
-            Image(systemName: "gearshape.fill")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 24, height: 24)
-                .foregroundStyle(Constants.Colors.black)
-        }
-        .sheet(isPresented: $viewModel.showSettingsSheet) {
-            settingsView
+        HStack(spacing: 12) {
+            Button {
+                viewModel.toggleFavorite()
+            } label: {
+                HStack(spacing: 4) {
+                    Image(systemName: "star.fill")
+                        .foregroundStyle(Constants.Colors.yellow)
+
+                    Text("Favorites")
+                        .font(Constants.Fonts.bodyLight)
+                        .foregroundStyle(Constants.Colors.black)
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(Constants.Colors.white)
+                .cornerRadius(20)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Constants.Colors.yellow, lineWidth: 1)
+                )
+            }
+
+            Button {
+                viewModel.showSettingsSheet = true
+            } label: {
+                Image(systemName: "gearshape.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 24, height: 24)
+                    .foregroundStyle(Constants.Colors.black)
+            }
+            .sheet(isPresented: $viewModel.showSettingsSheet) {
+                settingsView
+            }
         }
     }
 
@@ -105,7 +128,9 @@ struct ProfileView: View {
                         .foregroundStyle(Constants.Colors.gray03)
                 }
             }
+
             DividerLine()
+
             Button {
 
             } label: {
@@ -174,12 +199,17 @@ struct ProfileView: View {
                     .scaledToFit()
                     .frame(width: 98, height: 98)
                     .foregroundStyle(Constants.Colors.gray02)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 100)
+                            .stroke(Constants.Colors.white, lineWidth: 5)
+                    )
+                    .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 1)
 
                 // Camera button overlay
                 Circle()
                     .fill(Constants.Colors.white)
                     .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 1)
-                    .frame(width: 28, height: 28)
+                    .frame(width: 32, height: 32)
                     .overlay(
                         Image(systemName: "camera.fill")
                             .resizable()
@@ -192,41 +222,39 @@ struct ProfileView: View {
 
             // Name and workouts count
             VStack(alignment: .leading, spacing: 16) {
-                Text(viewModel.profile?.name ?? "Yucheng Shu")
+                Text(viewModel.profile?.name ?? "Anonymous")
                     .font(Constants.Fonts.h1)
                     .foregroundStyle(Constants.Colors.black)
 
-                HStack {
+                HStack(spacing: 46.5) {
                     VStack(alignment: .leading) {
-                        Text("Total Workouts")
-                            .font(Constants.Fonts.bodyLight)
-                            .foregroundStyle(Constants.Colors.gray03)
-
                         Text("\(viewModel.totalWorkouts)")
                             .font(Constants.Fonts.h2)
                             .foregroundStyle(Constants.Colors.black)
+
+                        Text("Gym Days")
+                            .font(Constants.Fonts.labelMedium)
+                            .foregroundStyle(Constants.Colors.gray04)
                     }
-                    Spacer()
 
-                    Button {
-                        viewModel.toggleFavorite()
-                    } label: {
-                        HStack(spacing: 4) {
-                            Image(systemName: "star.fill")
-                                .foregroundStyle(Constants.Colors.yellow)
+                    VStack(alignment: .leading) {
+                        Text("\(viewModel.streaks)")
+                            .font(Constants.Fonts.h2)
+                            .foregroundStyle(Constants.Colors.black)
 
-                            Text("Favorites")
-                                .font(Constants.Fonts.bodyLight)
-                                .foregroundStyle(Constants.Colors.black)
-                        }
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
-                        .background(Constants.Colors.white)
-                        .cornerRadius(20)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(Constants.Colors.gray01, lineWidth: 1)
-                        )
+                        Text("Streaks")
+                            .font(Constants.Fonts.labelMedium)
+                            .foregroundStyle(Constants.Colors.gray04)
+                    }
+
+                    VStack(alignment: .leading) {
+                        Text("\(viewModel.badges)")
+                            .font(Constants.Fonts.h2)
+                            .foregroundStyle(Constants.Colors.black)
+
+                        Text("Badges")
+                            .font(Constants.Fonts.labelMedium)
+                            .foregroundStyle(Constants.Colors.gray04)
                     }
                 }
             }
@@ -236,9 +264,8 @@ struct ProfileView: View {
     private var goalView: some View {
         VStack {
             HStack {
-                Text("GOALS")
-                    .font(.system(size: 15, weight: .medium))
-                    .foregroundColor(Constants.Colors.gray04)
+                Text("My Goals")
+                    .font(Constants.Fonts.h2)               .foregroundColor(Constants.Colors.gray04)
 
                 Spacer()
 
@@ -258,8 +285,8 @@ struct ProfileView: View {
     private var historyView: some View {
         VStack(spacing: 20) {
             HStack {
-                Text("HISTORY")
-                    .font(.system(size: 15, weight: .medium))
+                Text("History")
+                    .font(Constants.Fonts.h2)
                     .foregroundColor(Constants.Colors.gray04)
 
                 Spacer()
@@ -276,13 +303,13 @@ struct ProfileView: View {
                         let workout = viewModel.workoutHistory[index]
                         Text(workout.location)
                             .foregroundStyle(Constants.Colors.black)
-                            .font(Constants.Fonts.bodyNormal)
+                            .font(Constants.Fonts.bodyMedium)
 
                         Spacer()
 
                         Text("\(workout.time) • \(workout.date.description)")
-                            .foregroundStyle(Constants.Colors.gray04)
-                            .font(Constants.Fonts.bodyNormal)
+                            .foregroundStyle(Constants.Colors.black)
+                            .font(Constants.Fonts.labelLight)
                     }
 
                     if index < viewModel.workoutHistory.count - 1 {
