@@ -17,27 +17,10 @@ struct FitnessCenterView: View {
 
     let fc: Facility?
     let gym: Gym
-    @State private var hourlyCapacities: [HourlyAverageCapacity] = [
-        HourlyAverageCapacity(averagePercent: 0.30, hourOfDay: 7),
-        HourlyAverageCapacity(averagePercent: 0.5, hourOfDay: 8),
-        HourlyAverageCapacity(averagePercent: 0.40, hourOfDay: 9),
-        HourlyAverageCapacity(averagePercent: 0.80, hourOfDay: 10),
-        HourlyAverageCapacity(averagePercent: 0.90, hourOfDay: 11),
-        HourlyAverageCapacity(averagePercent: 0.10, hourOfDay: 12),
-        HourlyAverageCapacity(averagePercent: 0.10, hourOfDay: 13),
-        HourlyAverageCapacity(averagePercent: 0.30, hourOfDay: 14),
-        HourlyAverageCapacity(averagePercent: 0.10, hourOfDay: 15),
-        HourlyAverageCapacity(averagePercent: 0.40, hourOfDay: 16),
-        HourlyAverageCapacity(averagePercent: 0.70, hourOfDay: 17),
-        HourlyAverageCapacity(averagePercent: 0.80, hourOfDay: 18),
-        HourlyAverageCapacity(averagePercent: 1.00, hourOfDay: 19),
-        HourlyAverageCapacity(averagePercent: 0.40, hourOfDay: 20),
-        HourlyAverageCapacity(averagePercent: 0.40, hourOfDay: 21),
-        HourlyAverageCapacity(averagePercent: 0.40, hourOfDay: 22),
-        HourlyAverageCapacity(averagePercent: 0.40, hourOfDay: 23)
-    ]
+
     @StateObject private var viewModel = ViewModel()
     @State private var chartLabelSize = CGSize.zero
+    @State private var chartSize = CGSize.zero
 
     // MARK: - Constants
 
@@ -63,6 +46,7 @@ struct FitnessCenterView: View {
 
             if let fc {
                 viewModel.fetchFitnessCenterHours(for: fc)
+                viewModel.fetchHourlyAverageCapacities(for: fc)
             }
         }
     }
@@ -207,11 +191,14 @@ struct FitnessCenterView: View {
             }
 
             Chart {
-                ForEach(hourlyCapacities, id: \.self) { hourCapacity in
+                ForEach(viewModel.hourlyCapacities, id: \.self) { hourCapacity in
                     BarMark(
                         x: .value("Hour", convertHourToDate(hourCapacity.hourOfDay)),
-                        y: .value("Capacity", hourCapacity.averagePercent * 0.8),
-                        width: 18
+                        y: .value(
+                            "Capacity",
+                            viewModel.popularTimesIsAnimating ? hourCapacity.averagePercent * 0.8 : 0
+                        ),
+                        width: .fixed((chartSize.width / CGFloat(viewModel.hourlyCapacities.count)))
                     )
                     .foregroundStyle(
                         viewModel.currentHour == hourCapacity.hourOfDay
@@ -232,6 +219,11 @@ struct FitnessCenterView: View {
                 }
             }
             .frame(height: 124)
+            .background {
+                GeometryReader { proxy in
+                    Color.clear.onAppear { chartSize = proxy.size }
+                }
+            }
             .chartYScale(domain: 0...1)
             .chartXAxis {
                 AxisMarks(preset: .aligned, values: .stride(by: .hour)) { value in
@@ -249,8 +241,7 @@ struct FitnessCenterView: View {
                     Text("\(Date.now.hourString)")
                         .font(Constants.Fonts.h4)
 
-                    // TODO: Update with true capacity label
-                    Text("Usually not too busy")
+                    Text("Usually \(viewModel.currentHourCapacity.rawValue)")
                         .font(Constants.Fonts.labelMedium)
                 }
                 .foregroundStyle(Constants.Colors.gray04)
@@ -276,9 +267,11 @@ struct FitnessCenterView: View {
                         barWidth / 2 + Int(chart.position(forX: convertHourToDate(viewModel.currentHour)) ?? 0)
                     )
                 )
+                .opacity(viewModel.popularTimesIsAnimating ? 1 : 0)
             }
         }
         .padding(.vertical, vertPadding)
+        .animation(.easeOut(duration: 0.6), value: viewModel.popularTimesIsAnimating)
     }
 
     private var amenitiesSection: some View {

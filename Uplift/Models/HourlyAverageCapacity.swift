@@ -9,8 +9,7 @@
 import Foundation
 
 struct HourlyAverageCapacity: Hashable {
-
-    let averagePercent: Float
+    let averagePercent: Double
+    let dayOfWeek: String
     let hourOfDay: Int
-
 }
