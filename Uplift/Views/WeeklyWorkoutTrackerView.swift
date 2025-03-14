@@ -25,18 +25,21 @@ struct WeeklyWorkoutTrackerView: View {
     // Circle dimensions
     private let circleSize: CGFloat = 24
     private let lineWidth: CGFloat = 2
-    private let spacing: CGFloat = 26
+    private let spacing: CGFloat = 26.5
     private let verticalSpacing: CGFloat = 2
 
     var body: some View {
         VStack {
             VStack(alignment: .center, spacing: verticalSpacing) {
                 // Weekday abbreviations
-                HStack(spacing: 24.5) {
+                HStack(spacing: spacing) {
                     ForEach(0..<7, id: \.self) { index in
                         Text(weekdays[index])
                             .font(Constants.Fonts.labelSemibold)
                             .foregroundColor(Constants.Colors.black)
+                            .frame(width: circleSize)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.82)
                     }
                 }
 

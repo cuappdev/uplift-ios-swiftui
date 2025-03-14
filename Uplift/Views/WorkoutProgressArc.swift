@@ -13,6 +13,8 @@ struct WorkoutProgressArc: View {
     @State private var arcProgress: Double = 0
     @State private var dotRotation: Double = 0 // Start at left side (0 degrees bc of Unit Circle)
 
+    @ObservedObject var viewModel: ProfileView.ViewModel
+
     let completedWorkouts: Int = 3
     let targetWorkouts: Int = 5
     let radius: CGFloat = 126
@@ -89,23 +91,15 @@ struct WorkoutProgressArc: View {
     }
 }
 
-struct WorkoutGaugeDemo: View {
-    @State private var refreshID = UUID()
-    var body: some View {
-        VStack {
-            WorkoutProgressArc()
-                .id(refreshID)
-            Button("Reset Animation") {
-                refreshID = UUID()
-            }
-            .padding()
-            .buttonStyle(.bordered)
-        }
-    }
-}
-
-struct WorkoutGauge_Previews: PreviewProvider {
+struct WorkoutProgressArc_Previews: PreviewProvider {
     static var previews: some View {
-        WorkoutGaugeDemo()
+        let viewModel = ProfileView.ViewModel()
+        // Pre-load data for preview
+        viewModel.fetchUserProfile()
+
+        return WorkoutProgressArc(viewModel: viewModel)
+            .previewLayout(.sizeThatFits)
+            .padding()
+            .background(Color.white)
     }
 }

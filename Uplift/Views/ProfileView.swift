@@ -5,6 +5,7 @@
 //  Created by jiwon jeong on 2/27/25.
 //  Copyright © 2025 Cornell AppDev. All rights reserved.
 //
+
 import SwiftUI
 import Kingfisher
 
@@ -15,7 +16,7 @@ struct ProfileView: View {
     @EnvironmentObject var tabBarProp: TabBarProperty
     @StateObject private var viewModel = ViewModel()
 
-    // MARK: - UI
+    // MARK: - UI 
     var body: some View {
         NavigationStack {
             VStack {
@@ -82,7 +83,7 @@ struct ProfileView: View {
             Button {
                 viewModel.showSettingsSheet = true
             } label: {
-                Image(systemName: "gearshape.fill")
+                Constants.Images.settings
                     .resizable()
                     .scaledToFit()
                     .frame(width: 24, height: 24)
@@ -194,16 +195,25 @@ struct ProfileView: View {
         HStack(spacing: 24) {
             // Profile image with camera icon
             ZStack(alignment: .bottomTrailing) {
-                Image(systemName: "person.crop.circle.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 98, height: 98)
-                    .foregroundStyle(Constants.Colors.gray02)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 100)
-                            .stroke(Constants.Colors.white, lineWidth: 5)
-                    )
-                    .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 1)
+                ZStack {
+                    // Outer shadow circle
+                    Circle()
+                        .fill(Constants.Colors.white)
+                        .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 1)
+                        .frame(width: 98, height: 98)
+
+                    // White border circle
+                    Circle()
+                        .fill(Constants.Colors.white)
+                        .frame(width: 98, height: 98)
+
+                    // Profile image
+                    Image(systemName: "person.crop.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 93, height: 93)
+                        .foregroundStyle(Constants.Colors.gray02)
+                }
 
                 // Camera button overlay
                 Circle()
@@ -227,7 +237,7 @@ struct ProfileView: View {
                     .foregroundStyle(Constants.Colors.black)
 
                 HStack(spacing: 46.5) {
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 4) {
                         Text("\(viewModel.totalWorkouts)")
                             .font(Constants.Fonts.h2)
                             .foregroundStyle(Constants.Colors.black)
@@ -237,7 +247,7 @@ struct ProfileView: View {
                             .foregroundStyle(Constants.Colors.gray04)
                     }
 
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 4) {
                         Text("\(viewModel.streaks)")
                             .font(Constants.Fonts.h2)
                             .foregroundStyle(Constants.Colors.black)
@@ -247,7 +257,7 @@ struct ProfileView: View {
                             .foregroundStyle(Constants.Colors.gray04)
                     }
 
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 4) {
                         Text("\(viewModel.badges)")
                             .font(Constants.Fonts.h2)
                             .foregroundStyle(Constants.Colors.black)
@@ -275,8 +285,8 @@ struct ProfileView: View {
                     .foregroundColor(Constants.Colors.gray03)
             }
 
-            VStack(spacing: -100) {
-                WorkoutProgressArc()
+            VStack(spacing: -115) {
+                WorkoutProgressArc(viewModel: viewModel)
                 WeeklyWorkoutTrackerView(viewModel: viewModel)
             }
         }
@@ -298,7 +308,7 @@ struct ProfileView: View {
             }
 
             ForEach(0..<viewModel.workoutHistory.count, id: \.self) { index in
-                VStack(spacing: 8) {
+                LazyVStack(spacing: 8) {
                     HStack {
                         let workout = viewModel.workoutHistory[index]
                         Text(workout.location)
@@ -314,21 +324,12 @@ struct ProfileView: View {
 
                     if index < viewModel.workoutHistory.count - 1 {
                         Rectangle()
-                            .fill(Constants.Colors.gray03)
-                            .frame(height: 0.4)
+                            .fill(Constants.Colors.gray01)
+                            .frame(height: 1)
                     }
                 }
             }
         }
-    }
-}
-
-// do we have an extension of a date richie
-extension Date {
-    var dateStringLongMonth: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM yyyy"
-        return formatter.string(from: self)
     }
 }
 
