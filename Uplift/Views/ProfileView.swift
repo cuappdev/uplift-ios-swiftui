@@ -260,7 +260,8 @@ struct ProfileView: View {
         VStack {
             HStack {
                 Text("My Goals")
-                    .font(Constants.Fonts.h2)               .foregroundColor(Constants.Colors.gray04)
+                    .font(Constants.Fonts.h2)
+                    .foregroundColor(Constants.Colors.gray04)
 
                 Spacer()
 
@@ -318,6 +319,6 @@ struct ProfileView: View {
     }
 }
 
-#Preview{
+#Preview {
     ProfileView()
 }

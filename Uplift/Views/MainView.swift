@@ -67,6 +67,7 @@ struct MainView: View {
             tabItem(for: .classes)
             Spacer()
             tabItem(for: .profile)
+
             Spacer()
         }
         .frame(height: Constants.Padding.tabBarHeight)
