@@ -20,8 +20,6 @@ struct WorkoutProgressArc: View {
     let targetWorkouts: Int = 5
     let radius: CGFloat = 126
 
-    // I'm in the thicc of it everybody knows
-
     var body: some View {
         ZStack {
             // Background track
