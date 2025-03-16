@@ -11,13 +11,15 @@ import SwiftUI
 // Unit Circle Animation
 struct WorkoutProgressArc: View {
     @State private var arcProgress: Double = 0
-    @State private var dotRotation: Double = 0 // Start at left side (0 degrees bc of Unit Circle)
+    @State private var dotRotation: Double = 0
 
     @ObservedObject var viewModel: ProfileView.ViewModel
 
     let completedWorkouts: Int = 3
     let targetWorkouts: Int = 5
     let radius: CGFloat = 126
+
+    // I'm in the thicc of it everybody knows 
 
     var body: some View {
         ZStack {

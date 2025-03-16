@@ -16,7 +16,7 @@ struct ProfileView: View {
     @EnvironmentObject var tabBarProp: TabBarProperty
     @StateObject private var viewModel = ViewModel()
 
-    // MARK: - UI 
+    // MARK: - UI
     var body: some View {
         NavigationStack {
             VStack {
@@ -186,13 +186,10 @@ struct ProfileView: View {
             .padding(.horizontal, Constants.Padding.homeHorizontal)
             .padding(.top, 24)
         }
-        .refreshable {
-            viewModel.fetchUserProfile()
-        }
     }
 
     private var profileTopSection: some View {
-        HStack(spacing: 24) {
+        HStack(spacing: 20) {
             // Profile image with camera icon
             ZStack(alignment: .bottomTrailing) {
                 ZStack {
@@ -236,7 +233,7 @@ struct ProfileView: View {
                     .font(Constants.Fonts.h1)
                     .foregroundStyle(Constants.Colors.black)
 
-                HStack(spacing: 46.5) {
+                HStack(spacing: 24) {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("\(viewModel.totalWorkouts)")
                             .font(Constants.Fonts.h2)
@@ -245,7 +242,9 @@ struct ProfileView: View {
                         Text("Gym Days")
                             .font(Constants.Fonts.labelMedium)
                             .foregroundStyle(Constants.Colors.gray04)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
+                    .frame(minWidth: 70, alignment: .leading)
 
                     VStack(alignment: .leading, spacing: 4) {
                         Text("\(viewModel.streaks)")
@@ -256,6 +255,7 @@ struct ProfileView: View {
                             .font(Constants.Fonts.labelMedium)
                             .foregroundStyle(Constants.Colors.gray04)
                     }
+                    .frame(minWidth: 55, alignment: .leading)
 
                     VStack(alignment: .leading, spacing: 4) {
                         Text("\(viewModel.badges)")
@@ -266,9 +266,13 @@ struct ProfileView: View {
                             .font(Constants.Fonts.labelMedium)
                             .foregroundStyle(Constants.Colors.gray04)
                     }
+                    .frame(minWidth: 55, alignment: .leading)
                 }
             }
+
+            Spacer(minLength: 0)
         }
+        .padding(.horizontal, 2)
     }
 
     private var goalView: some View {
