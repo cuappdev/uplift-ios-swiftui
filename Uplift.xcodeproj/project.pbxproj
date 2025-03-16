@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		291433852D87387B00F913D5 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291433842D87387500F913D5 /* UserProfile.swift */; };
+		291433872D87388C00F913D5 /* WeeklyWorkoutData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291433862D87388800F913D5 /* WeeklyWorkoutData.swift */; };
+		291433892D8738A400F913D5 /* WorkoutHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291433882D8738A200F913D5 /* WorkoutHistory.swift */; };
 		293032532D7A8841002E5484 /* ProgressGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293032522D7A8841002E5484 /* ProgressGoalView.swift */; };
 		293032572D7A8F64002E5484 /* WorkoutProgressArc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */; };
 		294CC21D2D7E34D300EF6487 /* WeeklyWorkoutTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294CC21C2D7E34D000EF6487 /* WeeklyWorkoutTrackerView.swift */; };
@@ -117,6 +120,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		291433842D87387500F913D5 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		291433862D87388800F913D5 /* WeeklyWorkoutData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyWorkoutData.swift; sourceTree = "<group>"; };
+		291433882D8738A200F913D5 /* WorkoutHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistory.swift; sourceTree = "<group>"; };
 		293032522D7A8841002E5484 /* ProgressGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressGoalView.swift; sourceTree = "<group>"; };
 		293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutProgressArc.swift; sourceTree = "<group>"; };
 		294CC21C2D7E34D000EF6487 /* WeeklyWorkoutTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyWorkoutTrackerView.swift; sourceTree = "<group>"; };
@@ -249,6 +255,9 @@
 		2E090EC62B12FB9F00BAE982 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				291433882D8738A200F913D5 /* WorkoutHistory.swift */,
+				291433862D87388800F913D5 /* WeeklyWorkoutData.swift */,
+				291433842D87387500F913D5 /* UserProfile.swift */,
 				2E15F4D92B39102A00414BEC /* Capacity.swift */,
 				89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */,
 				89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */,
@@ -731,6 +740,7 @@
 				2E39D8162B3B3AD600AD238B /* ScaleButtonStyle.swift in Sources */,
 				2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */,
 				89C8658D2BB4779C00758337 /* ClassCell.swift in Sources */,
+				291433852D87387B00F913D5 /* UserProfile.swift in Sources */,
 				294CC21D2D7E34D300EF6487 /* WeeklyWorkoutTrackerView.swift in Sources */,
 				2E1105BF2B13B0E100119F5B /* HomeViewModel.swift in Sources */,
 				89599A4E2BD4B39B00DA44DE /* FitnessClass.swift in Sources */,
@@ -756,6 +766,7 @@
 				2E2748CF2BCD4D1F0023882E /* MainViewModel.swift in Sources */,
 				2E5726C72B4A63AE00D3DB36 /* ShimmerModifier.swift in Sources */,
 				2E15F5022B396EC500414BEC /* ShadowModifier.swift in Sources */,
+				291433872D87388C00F913D5 /* WeeklyWorkoutData.swift in Sources */,
 				2E15F4DA2B39102A00414BEC /* Capacity.swift in Sources */,
 				2ED53DCF2B3E06DC00FBDEAB /* Logger.swift in Sources */,
 				2E15F4E62B391E5300414BEC /* Array+Extension.swift in Sources */,
@@ -776,6 +787,7 @@
 				2E15F5042B39E54700414BEC /* LocationManager.swift in Sources */,
 				2E39D81E2B3B610200AD238B /* UINavigationController+Extension.swift in Sources */,
 				299F63482D7910C2005B1C52 /* ProfileView.swift in Sources */,
+				291433892D8738A400F913D5 /* WorkoutHistory.swift in Sources */,
 				63001AD62CC9ACFF0082AFFA /* LoginViewModel.swift in Sources */,
 				2E15F4DC2B39117300414BEC /* OpenHours.swift in Sources */,
 				2E090ED62B13121600BAE982 /* Constants.swift in Sources */,

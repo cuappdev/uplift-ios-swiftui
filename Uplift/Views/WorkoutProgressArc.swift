@@ -15,11 +15,12 @@ struct WorkoutProgressArc: View {
 
     @ObservedObject var viewModel: ProfileView.ViewModel
 
+    /// 3/5 - for dummy data for now
     let completedWorkouts: Int = 3
     let targetWorkouts: Int = 5
     let radius: CGFloat = 126
 
-    // I'm in the thicc of it everybody knows 
+    // I'm in the thicc of it everybody knows
 
     var body: some View {
         ZStack {
@@ -93,15 +94,11 @@ struct WorkoutProgressArc: View {
     }
 }
 
-struct WorkoutProgressArc_Previews: PreviewProvider {
-    static var previews: some View {
-        let viewModel = ProfileView.ViewModel()
-        // Pre-load data for preview
-        viewModel.fetchUserProfile()
+#Preview {
+    let viewModel = ProfileView.ViewModel()
+    viewModel.fetchUserProfile()
 
-        return WorkoutProgressArc(viewModel: viewModel)
-            .previewLayout(.sizeThatFits)
-            .padding()
-            .background(Color.white)
-    }
+    return WorkoutProgressArc(viewModel: viewModel)
+        .padding()
+        .background(Color.white)
 }

@@ -75,4 +75,10 @@ extension Date {
         return thisDate.month == otherDate.month && thisDate.day == otherDate.day
     }
 
+    /// Creates a Date object from a string with the specified format.
+    static func fromString(_ dateString: String, format: String = "EEE MMM dd, yyyy") -> Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        return formatter.date(from: dateString)
+    }
 }

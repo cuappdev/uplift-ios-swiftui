@@ -114,12 +114,10 @@ struct WeeklyWorkoutTrackerView: View {
         }
     }
 
+    /// Determines which days of the week have completed workouts and updates the UI accordingly
     private func determineWorkoutDays() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEE MMM dd, yyyy"
-
         let workoutDaysSet = Set(viewModel.workoutHistory.compactMap { workout -> Int? in
-            guard let date = formatter.date(from: workout.date) else { return nil }
+            guard let date = Date.fromString(workout.date) else { return nil }
             return Calendar.current.component(.day, from: date)
         })
 
@@ -129,6 +127,7 @@ struct WeeklyWorkoutTrackerView: View {
         }
     }
 
+    /// Animates the workout day indicators sequentially from left to right.
     private func animateWorkouts() {
         animationProgress = 0
 
@@ -142,15 +141,12 @@ struct WeeklyWorkoutTrackerView: View {
     }
 }
 
-struct WeeklyWorkoutTrackerView_Previews: PreviewProvider {
-    static var previews: some View {
-        let viewModel = ProfileView.ViewModel()
-        // Pre-load data for preview
-        viewModel.fetchUserProfile()
+#Preview {
+    let viewModel = ProfileView.ViewModel()
+    viewModel.fetchUserProfile()
 
-        return WeeklyWorkoutTrackerView(viewModel: viewModel)
-            .previewLayout(.sizeThatFits)
-            .padding()
-            .background(Color.white)
-    }
+    return WeeklyWorkoutTrackerView(viewModel: viewModel)
+        .frame(height: 100)
+        .padding()
+        .background(Color.white)
 }

@@ -59,26 +59,22 @@ struct ProfileView: View {
 
     private var settingsButton: some View {
         HStack(spacing: 12) {
-            Button {
-                viewModel.toggleFavorite()
-            } label: {
-                HStack(spacing: 4) {
-                    Image(systemName: "star.fill")
-                        .foregroundStyle(Constants.Colors.yellow)
+            HStack(spacing: 4) {
+                Image(systemName: "star.fill")
+                    .foregroundStyle(Constants.Colors.yellow)
 
-                    Text("Favorites")
-                        .font(Constants.Fonts.bodyLight)
-                        .foregroundStyle(Constants.Colors.black)
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(Constants.Colors.white)
-                .cornerRadius(20)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(Constants.Colors.yellow, lineWidth: 1)
-                )
+                Text("Favorites")
+                    .font(Constants.Fonts.bodyLight)
+                    .foregroundStyle(Constants.Colors.black)
             }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(Constants.Colors.white)
+            .cornerRadius(20)
+            .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(Constants.Colors.yellow, lineWidth: 1)
+            )
 
             Button {
                 viewModel.showSettingsSheet = true
@@ -122,11 +118,6 @@ struct ProfileView: View {
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.black)
                     Spacer()
-                    Constants.Images.arrowLeft
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 16, height: 16)
-                        .foregroundStyle(Constants.Colors.gray03)
                 }
             }
 
@@ -140,11 +131,6 @@ struct ProfileView: View {
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.black)
                     Spacer()
-                    Constants.Images.arrowLeft
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 16, height: 16)
-                        .foregroundStyle(Constants.Colors.gray03)
                 }
             }
             DividerLine()
@@ -155,11 +141,6 @@ struct ProfileView: View {
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.black)
                     Spacer()
-                    Constants.Images.arrowLeft
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 16, height: 16)
-                        .foregroundStyle(Constants.Colors.gray03)
                 }
             }
             DividerLine()
