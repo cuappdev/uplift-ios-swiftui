@@ -9,6 +9,9 @@
 import SwiftUI
 
 struct WeeklyWorkoutTrackerView: View {
+
+    // MARK: - Properties
+
     @ObservedObject var viewModel: ProfileView.ViewModel
     @State private var animationProgress: Double = 0
 
@@ -28,12 +31,14 @@ struct WeeklyWorkoutTrackerView: View {
     private let spacing: CGFloat = 26.5
     private let verticalSpacing: CGFloat = 2
 
+    // MARK: - UI
+
     var body: some View {
         VStack {
             VStack(alignment: .center, spacing: verticalSpacing) {
                 // Weekday abbreviations
                 HStack(spacing: spacing) {
-                    ForEach(0..<7, id: \.self) { index in
+                    ForEach(weekdays.indices, id: \.self) { index in
                         Text(weekdays[index])
                             .font(Constants.Fonts.labelSemibold)
                             .foregroundColor(Constants.Colors.black)
@@ -65,7 +70,7 @@ struct WeeklyWorkoutTrackerView: View {
 
                     // Workout day circles
                     HStack(spacing: spacing) {
-                        ForEach(0..<7, id: \.self) { index in
+                        ForEach(weekdays.indices, id: \.self) { index in
                             ZStack {
                                 Circle()
                                     .fill(Color(.systemGray6))
@@ -90,7 +95,7 @@ struct WeeklyWorkoutTrackerView: View {
                 }
 
                 HStack(spacing: spacing) {
-                    ForEach(0..<7, id: \.self) { index in
+                    ForEach(weekdays.indices, id: \.self) { index in
                         Text("\(25 + index)")
                             .font(Constants.Fonts.labelNormal)
                             .frame(width: circleSize, height: 20)
@@ -109,7 +114,9 @@ struct WeeklyWorkoutTrackerView: View {
         .onReceive(viewModel.$workoutHistory) { workouts in
             if !workouts.isEmpty {
                 determineWorkoutDays()
-                animateWorkouts()
+                Task {
+                    await animateWorkouts()
+                }
             }
         }
     }
@@ -121,21 +128,27 @@ struct WeeklyWorkoutTrackerView: View {
             return Calendar.current.component(.day, from: date)
         })
 
-        for i in 0..<7 {
-            let day = 25 + i
-            workoutDays[i] = workoutDaysSet.contains(day)
+        weekdays.indices.forEach { index in
+            let day = 25 + index
+            workoutDays[index] = workoutDaysSet.contains(day)
         }
     }
 
     /// Animates the workout day indicators sequentially from left to right.
-    private func animateWorkouts() {
+    private func animateWorkouts() async {
         animationProgress = 0
 
-        for i in 0..<7 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * (animationDuration + delayBetweenDays)) {
-                withAnimation(.easeInOut(duration: animationDuration)) {
-                    animationProgress = Double(i + 1)
+        for index in weekdays.indices {
+            do {
+                try await Task.sleep(for: .seconds(0.25))
+
+                await MainActor.run {
+                    withAnimation(.easeInOut(duration: animationDuration)) {
+                        animationProgress = Double(index + 1)
+                    }
                 }
+            } catch {
+                print("Error during animation delay: \(error)")
             }
         }
     }

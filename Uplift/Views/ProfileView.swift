@@ -16,6 +16,8 @@ struct ProfileView: View {
     @EnvironmentObject var tabBarProp: TabBarProperty
     @StateObject private var viewModel = ViewModel()
 
+    private let radius = 125
+
     // MARK: - UI
     var body: some View {
         NavigationStack {
@@ -33,22 +35,19 @@ struct ProfileView: View {
     private var header: some View {
         VStack {
             Spacer()
+
             HStack {
                 Text("Profile")
                     .foregroundStyle(Constants.Colors.black)
                     .font(Constants.Fonts.h1)
+
                 Spacer()
+
                 settingsButton
             }
         }
-        .padding(
-            EdgeInsets(
-                top: 0,
-                leading: Constants.Padding.homeHorizontal,
-                bottom: 12,
-                trailing: Constants.Padding.homeHorizontal
-            )
-        )
+        .padding(.bottom, 12)
+        .padding(.horizontal, Constants.Padding.homeHorizontal)
         .background(
             Constants.Colors.white
                 .upliftShadow(Constants.Shadows.smallLight)
@@ -71,10 +70,10 @@ struct ProfileView: View {
             .padding(.vertical, 8)
             .background(Constants.Colors.white)
             .cornerRadius(20)
-            .overlay(
+            .overlay {
                 RoundedRectangle(cornerRadius: 20)
                     .stroke(Constants.Colors.yellow, lineWidth: 1)
-            )
+            }
 
             Button {
                 viewModel.showSettingsSheet = true
@@ -97,7 +96,9 @@ struct ProfileView: View {
                 Text("Settings")
                     .font(Constants.Fonts.h1)
                     .foregroundStyle(Constants.Colors.black)
+
                 Spacer()
+
                 Button {
                     viewModel.showSettingsSheet = false
                 } label: {
@@ -109,14 +110,17 @@ struct ProfileView: View {
                 }
             }
             .padding(.top, 24)
-            DividerLine()
-            Button {
 
+            DividerLine()
+
+            Button {
+                //TODO: Learn more about uplift
             } label: {
                 HStack {
                     Text("About Uplift")
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.black)
+
                     Spacer()
                 }
             }
@@ -124,33 +128,41 @@ struct ProfileView: View {
             DividerLine()
 
             Button {
-
+                //TODO: Notifications about uplift
             } label: {
                 HStack {
                     Text("Reminders")
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.black)
+
                     Spacer()
                 }
             }
+
             DividerLine()
+
             Button {
+                //TODO: Reporting an Issue
             } label: {
                 HStack {
                     Text("Report an Issue")
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.black)
+
                     Spacer()
                 }
             }
-            DividerLine()
-            Button {
 
+            DividerLine()
+
+            Button {
+                //TODO: Logging Out functionality
             } label: {
                 Text("Log Out")
                     .font(Constants.Fonts.bodyNormal)
                     .foregroundStyle(Constants.Colors.closed)
             }
+
             Spacer()
         }
         .padding(.horizontal, 24)
@@ -198,13 +210,13 @@ struct ProfileView: View {
                     .fill(Constants.Colors.white)
                     .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 1)
                     .frame(width: 32, height: 32)
-                    .overlay(
+                    .overlay {
                         Image(systemName: "camera.fill")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 20, height: 20)
                             .foregroundStyle(Constants.Colors.gray03)
-                    )
+                    }
                     .offset(x: 2, y: 2)
             }
 
@@ -271,7 +283,7 @@ struct ProfileView: View {
                     .foregroundColor(Constants.Colors.gray03)
             }
 
-            VStack(spacing: -115) {
+            VStack(spacing: CGFloat(-radius) + 16) {
                 WorkoutProgressArc(viewModel: viewModel)
                 WeeklyWorkoutTrackerView(viewModel: viewModel)
             }
@@ -293,7 +305,7 @@ struct ProfileView: View {
                     .foregroundColor(Constants.Colors.gray03)
             }
 
-            ForEach(0..<viewModel.workoutHistory.count, id: \.self) { index in
+            ForEach(viewModel.workoutHistory.indices, id: \.self) { index in
                 LazyVStack(spacing: 8) {
                     HStack {
                         let workout = viewModel.workoutHistory[index]

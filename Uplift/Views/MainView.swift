@@ -107,18 +107,19 @@ struct MainView: View {
             }
         }
     }
-}
-private func tabItemView(icon: Image, name: String) -> some View {
-    VStack {
-        icon
-            .resizable()
-            .scaledToFit()
-            .frame(width: 24, height: 24)
-        Text(name)
-            .font(Constants.Fonts.h3)
+    private func tabItemView(icon: Image, name: String) -> some View {
+        VStack {
+            icon
+                .resizable()
+                .scaledToFit()
+                .frame(width: 24, height: 24)
+            Text(name)
+                .font(Constants.Fonts.h3)
+        }
+        .foregroundStyle(Constants.Colors.black)
     }
-    .foregroundStyle(Constants.Colors.black)
 }
+
 extension MainView {
     /// An enumeration to keep track of which tab the user is currently on.
     private enum Screen {

@@ -10,6 +10,9 @@ import SwiftUI
 
 // Unit Circle Animation
 struct WorkoutProgressArc: View {
+
+    // MARK: - Properties
+
     @State private var arcProgress: Double = 0
     @State private var dotRotation: Double = 0
 
@@ -19,6 +22,8 @@ struct WorkoutProgressArc: View {
     let completedWorkouts: Int = 3
     let targetWorkouts: Int = 5
     let radius: CGFloat = 126
+
+    // MARK: - UI
 
     var body: some View {
         ZStack {
@@ -47,6 +52,7 @@ struct WorkoutProgressArc: View {
                 Circle()
                     .fill(Constants.Colors.yellow)
                     .frame(width: 26, height: 26)
+
                 Circle()
                     .fill(Color.white)
                     .frame(width: 12, height: 12)
@@ -54,6 +60,7 @@ struct WorkoutProgressArc: View {
             .offset(x: -radius)
             .rotationEffect(.degrees(dotRotation))
             .animation(.easeOut(duration: 1.5), value: dotRotation)
+
             VStack(spacing: 8) {
                 // Value
                 HStack(alignment: .lastTextBaseline, spacing: 2) {
@@ -66,6 +73,7 @@ struct WorkoutProgressArc: View {
                         .foregroundColor(.gray)
                         .padding(.leading, 2)
                 }
+
                 // Label
                 Text("Days this week")
                     .font(Constants.Fonts.labelNormal)
@@ -74,7 +82,6 @@ struct WorkoutProgressArc: View {
             .offset(y: -40)
         }
         .frame(width: radius * 2, height: radius * 2)
-        .padding()
         .onAppear {
             // Start with initial values
             arcProgress = 0

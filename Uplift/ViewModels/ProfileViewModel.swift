@@ -25,64 +25,12 @@ extension ProfileView {
 
         /// dummy data
         func fetchUserProfile() {
-            self.profile = UserProfile(
-                id: "user123",
-                name: "Jiwon Jeong"
-            )
-
-            self.totalWorkouts = 132
-            self.streaks = 14
-            self.badges = 6
-
-            // Create dates for the week
-            let weekDates = [
-                self.createDate(day: 25),
-                self.createDate(day: 26),
-                self.createDate(day: 27),
-                self.createDate(day: 28),
-                self.createDate(day: 29),
-                self.createDate(day: 30),
-                self.createDate(day: 31)
-            ]
-
-            self.weeklyWorkouts = WeeklyWorkoutData(
-                currentWeekWorkouts: 0,
-                weeklyGoal: 5,
-                weekDates: weekDates
-            )
-
-            self.workoutHistory = [
-                WorkoutHistory(
-                    id: "workout1",
-                    location: "Helen Newman",
-                    time: "6:30 PM",
-                    date: "Fri Mar 29, 2024"
-                ),
-                WorkoutHistory(
-                    id: "workout2",
-                    location: "Teagle Up",
-                    time: "7:15 PM",
-                    date: "Thu Mar 28, 2024"
-                ),
-                WorkoutHistory(
-                    id: "workout3",
-                    location: "Helen Newman",
-                    time: "6:32 PM",
-                    date: "Tue Mar 26, 2024"
-                ),
-                WorkoutHistory(
-                    id: "workout4",
-                    location: "Toni Morrison",
-                    time: "7:37 PM",
-                    date: "Sun Mar 24, 2024"
-                ),
-                WorkoutHistory(
-                    id: "workout5",
-                    location: "Helen Newman",
-                    time: "10:02 AM",
-                    date: "Sat Mar 23, 2024"
-                )
-            ]
+            self.profile = DummyData.ProfileViewData.profile
+            self.totalWorkouts = DummyData.ProfileViewData.totalWorkouts
+            self.streaks = DummyData.ProfileViewData.streaks
+            self.badges = DummyData.ProfileViewData.badges
+            self.weeklyWorkouts = DummyData.ProfileViewData.weeklyWorkouts
+            self.workoutHistory = DummyData.ProfileViewData.workoutHistory
         }
 
         private func createDate(day: Int) -> Date {
