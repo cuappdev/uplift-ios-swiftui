@@ -75,35 +75,6 @@ extension MuscleGroup {
         }
     }
 
-//    var muscleCategory: MuscleCategory {
-//        switch self {
-//        case .abdominals:
-//            return .abdominals
-//        case .chest:
-//            return .chest
-//        case .back:
-//            return .back
-//        case .shoulders:
-//            return .shoulder
-//        case .biceps:
-//            return .arm
-//        case .triceps:
-//            return .arm
-//        case .hamstrings:
-//            return .leg
-//        case .quads:
-//            return .leg
-//        case .glutes:
-//            return .leg
-//        case .calves:
-//            return .leg
-//        case .miscellaneous:
-//            return .miscellaneous
-//        case .cardio:
-//            return .miscellaneous
-//        }
-//    }
-
 }
 
 enum MuscleCategory: CaseIterable {
