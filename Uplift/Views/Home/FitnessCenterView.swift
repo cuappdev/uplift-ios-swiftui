@@ -327,7 +327,9 @@ struct FitnessCenterView: View {
             }
 
             ForEach(MuscleCategory.allCases, id: \.self) { category in
-                MuscleCategoryView(category: category, equipment: fc?.equipment ?? [])
+                if let fc, viewModel.facilityHasMuscleCategory(fc: fc, category: category) {
+                    MuscleCategoryView(category: category, equipment: fc.equipment)
+                }
             }
         }
         .padding(.vertical, vertPadding)

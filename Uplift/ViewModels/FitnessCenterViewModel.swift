@@ -103,6 +103,17 @@ extension FitnessCenterView {
             .store(in: &queryBag)
         }
 
+        func facilityHasMuscleCategory(fc: Facility, category: MuscleCategory) -> Bool {
+            let totalQuantity = fc.equipment
+                .filter { equipment in
+                    equipment.muscleGroup.contains { category.muscles.contains($0) }
+                }
+                .compactMap { $0.quantity }
+                .reduce(0, +)
+
+            return totalQuantity > 0
+        }
+
         // MARK: - Helper Functions
 
         private func filterCapacities(capacities: [HourlyAverageCapacity], fc: Facility) {
