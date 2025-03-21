@@ -56,24 +56,24 @@ struct GymDetailView: View {
     private var scrollContent: some View {
         VStack(spacing: 0) {
             heroSection
-            !gym.amenities.isEmpty ? amenitiesSection : nil
+//            !gym.amenities.isEmpty ? amenitiesSection : nil
             slidingTabBar(gymName: viewModel.determineGymNameEnum(gym: gym))
             DividerLine()
 
             Group {
                 if viewModel.selectedTab == .fitnessCenter {
-                    FitnessCenterView(fc: gym.fitnessCenters.first)
+                    FitnessCenterView(fc: gym.fitnessCenters.first, gym: gym)
                 } else if viewModel.selectedTab == .teagleDown {
-                    FitnessCenterView(fc: gym.facilityWithName(name: Constants.FacilityNames.teagleDown))
+                    FitnessCenterView(fc: gym.facilityWithName(name: Constants.FacilityNames.teagleDown), gym: gym)
                 } else if viewModel.selectedTab == .teagleUp {
-                    FitnessCenterView(fc: gym.facilityWithName(name: Constants.FacilityNames.teagleUp))
+                    FitnessCenterView(fc: gym.facilityWithName(name: Constants.FacilityNames.teagleUp), gym: gym)
                 } else {
                     facilitiesView
                 }
             }
             .padding(.horizontal, Constants.Padding.gymDetailHorizontal)
         }
-        .padding(.bottom)
+        .padding(.bottom, Constants.Padding.tabBarHeight)
     }
 
     // MARK: - Hero
@@ -105,53 +105,26 @@ struct GymDetailView: View {
             VStack {
                 Spacer()
 
-                viewHoursCircle
+                capacitySemiCircle
             }
+
         }
         .frame(height: 330)
+        .padding(.bottom, 6)
+        .background(Constants.Colors.gray01)
     }
 
-    private var viewHoursCircle: some View {
-        ZStack {
-            SemiCircleShape()
-                .fill(Constants.Colors.white)
-                .frame(width: 120, height: 120)
-
-            VStack(spacing: 4) {
-                Spacer()
-
-                if gym.fitnessCenterIsOpen() {
-                    Text("OPEN")
-                        .font(Constants.Fonts.h3)
-                        .foregroundStyle(Constants.Colors.open)
-                        // Temporary padding to center status text while `viewHoursButton` is removed
-                        .padding(12)
-                } else {
-                    Text("CLOSED")
-                        .font(Constants.Fonts.h3)
-                        .foregroundStyle(Constants.Colors.closed)
-                        // Temporary padding to center status text while `viewHoursButton` is removed
-                        .padding(12)
-                }
-
-                // TODO: Removed building hours. Determine what should be displayed here.
-//                switch gym.status {
-//                case .closed:
-//                    Text("CLOSED")
-//                        .font(Constants.Fonts.h3)
-//                        .foregroundStyle(Constants.Colors.closed)
-//                case .open:
-//                    Text("OPEN")
-//                        .font(Constants.Fonts.h3)
-//                        .foregroundStyle(Constants.Colors.open)
-//                case .none:
-//                    EmptyView()
-//                }
-//
-//                viewHoursButton
-            }
-            .frame(height: 120)
-        }
+    private var capacitySemiCircle: some View {
+        CapacitySemiCircleView(
+            circleSize: 160,
+            closeStatus: viewModel.determineFitnessCenter(gym: gym)?.status,
+            lineWidth: 8,
+            status: viewModel.determineFitnessCenter(gym: gym)?.capacity?.status,
+            timeUpdated: viewModel.determineFitnessCenter(gym: gym)?.capacity?.updated
+        )
+        .frame(height: 160)
+        .offset(y: 160 / 2)
+        .clipped()
     }
 
     private var viewHoursButton: some View {

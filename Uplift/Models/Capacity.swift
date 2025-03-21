@@ -59,3 +59,10 @@ enum CapacityStatus: Hashable {
     case veryBusy(Double)
 
 }
+
+/// An enumeration of the status message of the current capacity.
+enum CapacityText: String {
+    case notBusy = "Not Busy"
+    case slightlyBusy = "Slightly Busy"
+    case veryBusy = "Very Busy"
+}
