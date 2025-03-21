@@ -175,6 +175,7 @@ struct ProfileView: View {
                 profileTopSection
                 goalView
                 historyView
+                    .padding(.bottom, CGFloat(radius))
             }
             .padding(.horizontal, Constants.Padding.homeHorizontal)
             .padding(.top, 24)
