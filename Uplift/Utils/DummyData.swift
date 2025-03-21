@@ -710,4 +710,67 @@ struct DummyData {
         ]
     ]
 
+    /// Dummy data for profile view.
+    struct ProfileViewData {
+
+        // Profile data
+        static let profile = UserProfile(
+            id: "user123",
+            name: "Jiwon Jeong"
+        )
+
+        static let totalWorkouts = 132
+        static let streaks = 14
+        static let badges = 6
+
+        // Create dates for the week
+        static let weekDates: [Date] = {
+            [25, 26, 27, 28, 29, 30, 31].map { day -> Date in
+                var components = DateComponents()
+                components.year = 2024
+                components.month = 3
+                components.day = day
+                return Calendar.current.date(from: components) ?? Date()
+            }
+        }()
+
+        static let weeklyWorkouts = WeeklyWorkoutData(
+            currentWeekWorkouts: 0,
+            weeklyGoal: 5,
+            weekDates: weekDates
+        )
+
+        static let workoutHistory: [WorkoutHistory] = [
+            WorkoutHistory(
+                id: "workout1",
+                location: "Helen Newman",
+                time: "6:30 PM",
+                date: "Fri Mar 29, 2024"
+            ),
+            WorkoutHistory(
+                id: "workout2",
+                location: "Teagle Up",
+                time: "7:15 PM",
+                date: "Thu Mar 28, 2024"
+            ),
+            WorkoutHistory(
+                id: "workout3",
+                location: "Helen Newman",
+                time: "6:32 PM",
+                date: "Tue Mar 26, 2024"
+            ),
+            WorkoutHistory(
+                id: "workout4",
+                location: "Toni Morrison",
+                time: "7:37 PM",
+                date: "Sun Mar 24, 2024"
+            ),
+            WorkoutHistory(
+                id: "workout5",
+                location: "Helen Newman",
+                time: "10:02 AM",
+                date: "Sat Mar 23, 2024"
+            )
+        ]
+    }
 }
