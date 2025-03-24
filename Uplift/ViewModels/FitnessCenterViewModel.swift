@@ -118,9 +118,11 @@ extension FitnessCenterView {
 
         private func filterCapacities(capacities: [HourlyAverageCapacity], fc: Facility) {
             let today = Date.now.getDayOfWeek()
-            let todayOpenHours = fc.hours.getHoursInDayOfWeek(dayOfWeek: today)
+            var todayOpenHours = fc.hours.getHoursInDayOfWeek(dayOfWeek: today)
 
             let calendar = Calendar.current
+
+            todayOpenHours = todayOpenHours.sorted { $0.startTime < $1.startTime }
 
             let startHour = todayOpenHours.first.map { calendar.component(.hour, from: $0.startTime) } ?? 6
             var endHour = todayOpenHours.last.map { calendar.component(.hour, from: $0.endTime) } ?? 23
