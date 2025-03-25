@@ -16,7 +16,7 @@ struct MainView: View {
     @State private var selectedTab: Screen = .home
     @StateObject var tabBarProp = TabBarProperty()
     @StateObject private var viewModel = ViewModel()
-    
+
     // MARK: - UI
 
     var body: some View {

@@ -13,7 +13,7 @@ struct WeeklyWorkoutTrackerView: View {
     // MARK: - Properties
 
     @ObservedObject var viewModel: ProfileView.ViewModel
-    @State private var animationProgress: Double = 0
+    @State private var animationProgress: [Double] = Array(repeating: 0, count: 7)
 
     // Weekday abbreviations
     private let weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
@@ -22,8 +22,8 @@ struct WeeklyWorkoutTrackerView: View {
     @State private var workoutDays: [Bool] = [false, false, false, false, false, false, false]
 
     // Animation timing
-    private let animationDuration: Double = 0.05
-    private let delayBetweenDays: Double = 0.2
+    private let animationDuration: Double = 0.5
+    private let delayBetweenDays: Double = 0.3
 
     // Circle dimensions
     private let circleSize: CGFloat = 24
@@ -80,14 +80,16 @@ struct WeeklyWorkoutTrackerView: View {
                                     Circle()
                                         .fill(Constants.Colors.yellow)
                                         .frame(width: circleSize, height: circleSize)
-                                        .opacity(animationProgress > Double(index) ? 1 : 0)
+                                        .scaleEffect(animationProgress[index])
+                                        .opacity(animationProgress[index])
                                 }
 
                                 if workoutDays[index] {
                                     Image(systemName: "checkmark")
                                         .font(.system(size: 14, weight: .bold))
                                         .foregroundColor(.black)
-                                        .opacity(animationProgress > Double(index) ? 1 : 0)
+                                        .scaleEffect(animationProgress[index])
+                                        .opacity(animationProgress[index])
                                 }
                             }
                         }
@@ -132,23 +134,21 @@ struct WeeklyWorkoutTrackerView: View {
             let day = 25 + index
             workoutDays[index] = workoutDaysSet.contains(day)
         }
+
+        // Reset animation progress
+        animationProgress = Array(repeating: 0, count: 7)
     }
 
-    /// Animates the workout day indicators sequentially from left to right.
+    /// Animates the workout day indicators sequentially from left to right with fade-in effect
     private func animateWorkouts() async {
-        animationProgress = 0
+        for index in weekdays.indices where workoutDays[index] {
+            // Add delay between animations
+            try? await Task.sleep(for: .seconds(delayBetweenDays))
 
-        for index in weekdays.indices {
-            do {
-                try await Task.sleep(for: .seconds(0.25))
-
-                await MainActor.run {
-                    withAnimation(.easeInOut(duration: animationDuration)) {
-                        animationProgress = Double(index + 1)
-                    }
+            await MainActor.run {
+                withAnimation(.easeIn(duration: animationDuration)) {
+                    animationProgress[index] = 1.0
                 }
-            } catch {
-                print("Error during animation delay: \(error)")
             }
         }
     }
