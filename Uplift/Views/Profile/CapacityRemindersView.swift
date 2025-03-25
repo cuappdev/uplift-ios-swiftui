@@ -169,8 +169,8 @@ struct CapacityRemindersView: View {
 
                 Slider(
                     value: $capacity,
-                    in: 0...99,
-                    step: 1
+                    in: 0...100,
+                    step: 10
                 )
                 .tint(Constants.Colors.yellow)
                 .frame(height: 8)
@@ -180,7 +180,7 @@ struct CapacityRemindersView: View {
 
                     Spacer()
 
-                    Text("99%")
+                    Text("100%")
                 }
                 .foregroundStyle(Constants.Colors.gray04)
                 .font(Constants.Fonts.bodySemibold)
