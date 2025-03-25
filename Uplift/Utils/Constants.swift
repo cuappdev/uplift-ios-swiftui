@@ -96,10 +96,13 @@ struct Constants {
 
     /// Image components used in Uplift.
     enum Images {
+        static let abdominals = Image("abdominals")
         static let agreementsChecker = Image("agreements_checker")
         static let agreementsUnchecked = Image("agreements_unchecked")
         static let appdevLogo = Image("appdev-logo")
+        static let arm = Image("arm")
         static let arrowLeft = Image("arrow_left")
+        static let back = Image("back")
         static let backgroundEllipse = Image("background_ellipse")
         static let basketball = Image("basketball")
         static let bowling = Image("bowling")
@@ -107,6 +110,7 @@ struct Constants {
         static let camera = Image("camera")
         static let cameraMini = Image("camera_mini")
         static let capacity = Image("capacity")
+        static let chest = Image("chest")
         static let clock = Image("clock")
         static let cross = Image("cross")
         static let dumbbellLarge = Image("dumbbell_large")
@@ -116,6 +120,7 @@ struct Constants {
         static let greenTea = Image("green_tea")
         static let giveawayModalBackground = Image("giveaway_modal_bg")
         static let giveawayPopupBackground = Image("giveaway_popup_bg")
+        static let leg = Image("leg")
         static let goal = Image("goal")
         static let gymSimple = Image("gym_simple")
         static let history = Image("history")
@@ -125,7 +130,10 @@ struct Constants {
         static let logoWhite = Image("logo_white")
         static let parking = Image("parking")
         static let pool = Image("pool")
+        static let replay = Image("replay")
+        static let shoulder = Image("shoulder")
         static let shower = Image("shower")
+        static let vertEllipsis = Image("vert_ellipsis")
         static let whistleOutline = Image("whistle_outline")
         static let whistleSolid = Image("whistle_solid")
     }
