@@ -1,7 +1,7 @@
 fragment equipmentFields on Equipment {
   accessibility
-  equipmentType
   facilityId
+  muscleGroups
   name
   quantity
 }
@@ -69,8 +69,23 @@ fragment gymFields on Gym {
   name
 }
 
+fragment hourlyCapacityFields on HourlyAverageCapacity {
+  id
+  facilityId
+  averagePercent
+  hourOfDay
+  dayOfWeek
+  history
+}
+
 query GetAllGyms {
   gyms: getAllGyms {
     ...gymFields
+  }
+}
+
+query GetHourlyAverageCapacitiesByFacilityId($facilityId: Int!) {
+  getHourlyAverageCapacitiesByFacilityId(facilityId: $facilityId) {
+    ...hourlyCapacityFields
   }
 }

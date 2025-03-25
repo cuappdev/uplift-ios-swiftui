@@ -22,6 +22,8 @@ enum UpliftEnvironment {
         static let announcementsHost = "ANNOUNCEMENTS_HOST"
         static let announcementsPath = "ANNOUNCEMENTS_PATH"
         static let announcementsScheme = "ANNOUNCEMENTS_SCHEME"
+
+        static let googleClientID = googleServiceDict["CLIENT_ID"] as? String ?? ""
     }
 
     /// A dictionary storing key-value pairs from Info.plist.
@@ -30,6 +32,17 @@ enum UpliftEnvironment {
             fatalError("Info.plist not found")
         }
         return dict
+    }()
+
+    /// An NSDictionary storing key-value pairs from GoogleService-Info.plist.
+    private static let googleServiceDict: NSDictionary = {
+        guard let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") else {
+            fatalError("Path for GoogleService-Info invalid")
+        }
+        guard let myDict = NSDictionary(contentsOfFile: path) else {
+            fatalError("GoogleService-Info.plist not found")
+        }
+        return myDict
     }()
 
     /**
