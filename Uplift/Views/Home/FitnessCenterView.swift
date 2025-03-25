@@ -275,12 +275,8 @@ struct FitnessCenterView: View {
     }
 
     private var amenitiesSection: some View {
-        VStack(spacing: 16) {
-            HStack {
-                sectionHeader(text: "Amenities")
-
-                Spacer()
-            }
+        VStack(alignment: .leading, spacing: 16) {
+            sectionHeader(text: "Amenities")
 
             VStack(spacing: 12) {
                 ForEach(gym.amenities, id: \.self) { amenity in

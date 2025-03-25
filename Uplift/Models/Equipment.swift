@@ -37,7 +37,7 @@ struct Equipment: Hashable {
         // Unwrap and convert GraphQL enum value to Swift enum value
         self.accessibility = equipment.accessibility?.value
         self.facilityId = equipment.facilityId
-        self.muscleGroup = [MuscleGroup](equipment.muscleGroups.compactMap(\.?.value))
+        self.muscleGroup = [MuscleGroup](equipment.muscleGroups.compactMap { $0?.value })
         self.name = equipment.name
         self.quantity = equipment.quantity
     }

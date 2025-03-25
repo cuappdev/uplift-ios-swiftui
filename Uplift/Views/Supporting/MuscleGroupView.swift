@@ -39,7 +39,7 @@ struct MuscleGroupView: View {
                 }
 
                 VStack(spacing: 12) {
-                    isExpanded ? (
+                    if isExpanded {
                         ForEach(equipment.filter { $0.muscleGroup.contains(muscle) }, id: \.self) { equip in
                             if let quantity = equip.quantity, quantity != 0 {
                                 HStack(spacing: 6) {
@@ -53,7 +53,7 @@ struct MuscleGroupView: View {
                                 .font(Constants.Fonts.bodyMedium)
                             }
                         }
-                    ) : nil
+                    }
                 }
                 .padding(.leading, 12)
             }

@@ -27,8 +27,8 @@ extension MainView {
         @Published var didClickSubmit: Bool = false
         @Published var showCreateProfileView = false
         @Published var showGiveawayErrorAlert: Bool = false
-        @Published var showMainView: Bool = false
-        @Published var showSignInView: Bool = true
+        @Published var showMainView: Bool = true //TODO: Swap true and false values for mainview and signin view when onboarding is ready to be released
+        @Published var showSignInView: Bool = false
         @Published var submitSuccessful: Bool = false
 
         private var queryBag = Set<AnyCancellable>()

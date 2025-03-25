@@ -41,11 +41,11 @@ struct MuscleCategoryView: View {
                     DropDownArrow(isExpanded: $isExpanded)
                 }
 
-                isExpanded ? (
+                if isExpanded {
                     ForEach(category.muscles, id: \.self) { muscleGroup in
                         MuscleGroupView(muscle: muscleGroup, equipment: equipment)
                     }
-                ) : nil
+                }
             }
         }
     }

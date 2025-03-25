@@ -77,17 +77,13 @@ extension FitnessCenterView {
                 let hourlyAverage = result.data?.getHourlyAverageCapacitiesByFacilityId ?? []
                 let capacities = hourlyAverage.compactMap { cap -> HourlyAverageCapacity? in
                     guard let cap,
-                          let dayOfWeek = cap.dayOfWeek?.rawValue else { return nil }
-
-                    if facilityId == cap.facilityId {
-                        return HourlyAverageCapacity(
-                            averagePercent: cap.averagePercent,
-                            dayOfWeek: dayOfWeek,
-                            hourOfDay: cap.hourOfDay
-                        )
-                    }
-
-                    return nil
+                          let dayOfWeek = cap.dayOfWeek?.rawValue,
+                          facilityId == cap.facilityId else { return nil }
+                    return HourlyAverageCapacity(
+                        averagePercent: cap.averagePercent,
+                        dayOfWeek: dayOfWeek,
+                        hourOfDay: cap.hourOfDay
+                    )
                 }
                 return capacities
             }
