@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 import Kingfisher
 
 /// The main view for the Profile page.
@@ -15,6 +16,9 @@ struct ProfileView: View {
     // MARK: - Properties
     @EnvironmentObject var tabBarProp: TabBarProperty
     @StateObject private var viewModel = ViewModel()
+
+    @State private var profileItem: PhotosPickerItem?
+    @State private var profileImage: UIImage?
 
     private let radius = 125
 
@@ -164,6 +168,11 @@ struct ProfileView: View {
             }
 
             Spacer()
+
+            PhotosPicker(selection: $profileItem, matching: .images) {
+                Text("open picker!")
+                    .foregroundStyle(Constants.Colors.black)
+            }
         }
         .padding(.horizontal, 24)
         .background(Constants.Colors.white)
@@ -184,7 +193,6 @@ struct ProfileView: View {
 
     private var profileTopSection: some View {
         HStack(spacing: 20) {
-            // Profile image with camera icon
             ZStack(alignment: .bottomTrailing) {
                 ZStack {
                     // Outer shadow circle
@@ -198,12 +206,32 @@ struct ProfileView: View {
                         .fill(Constants.Colors.white)
                         .frame(width: 98, height: 98)
 
-                    // Profile image
-                    Image(systemName: "person.crop.circle.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 93, height: 93)
-                        .foregroundStyle(Constants.Colors.gray02)
+                    VStack {
+                        PhotosPicker(selection: $profileItem, matching: .images) {
+                            if let image = profileImage {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 93, height: 93)
+                                    .clipShape(Circle())
+                            } else {
+                                Image(systemName: "person.crop.circle.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 93, height: 93)
+                                    .foregroundStyle(Constants.Colors.gray02)
+                            }
+                        }
+
+                    }
+                    .onChange(of: profileItem) { newItem in
+                        Task {
+                            if let data = try? await newItem?.loadTransferable(type: Data.self),
+                               let uiImage = UIImage(data: data) {
+                                profileImage = uiImage
+                            }
+                        }
+                    }
                 }
 
                 // Camera button overlay
