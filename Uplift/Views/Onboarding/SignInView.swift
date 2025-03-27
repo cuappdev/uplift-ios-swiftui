@@ -99,6 +99,7 @@ struct SignInView: View {
 
             Text("Create fitness goals")
                 .font(Constants.Fonts.f2)
+                .foregroundStyle(Constants.Colors.black)
 
             Spacer()
         }
@@ -114,6 +115,7 @@ struct SignInView: View {
 
             Text("Track fitness goals")
                 .font(Constants.Fonts.f2)
+                .foregroundStyle(Constants.Colors.black)
 
             Spacer()
         }
@@ -129,6 +131,7 @@ struct SignInView: View {
 
             Text("View workout history")
                 .font(Constants.Fonts.f2)
+                .foregroundStyle(Constants.Colors.black)
 
             Spacer()
         }
@@ -157,12 +160,14 @@ struct SignInView: View {
 
             Text("Find what uplifts you.")
                 .font(Constants.Fonts.h1)
+                .foregroundStyle(Constants.Colors.black)
                 .padding(.top, 62)
                 .opacity(animateElements ? 1 : 0)
                 .animation(.easeIn(duration: 1).delay(2), value: animateElements)
 
             Text("Log in to:")
                 .font(Constants.Fonts.h2)
+                .foregroundStyle(Constants.Colors.black)
                 .padding(.top, 89)
                 .opacity(animateElements ? 1 : 0)
                 .animation(.easeIn(duration: 1).delay(2), value: animateElements)
