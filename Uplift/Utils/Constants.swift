@@ -92,6 +92,8 @@ struct Constants {
         static let labelMedium = Font.custom("Montserrat-Medium", size: 12)
         static let labelSemibold = Font.custom("Montserrat-SemiBold", size: 12)
         static let labelBold = Font.custom("Montserrat-Bold", size: 12)
+
+        static let p1 = Font.custom("Montserrat-Bold", size: 64)
     }
 
     /// Image components used in Uplift.
@@ -113,9 +115,11 @@ struct Constants {
         static let chest = Image("chest")
         static let clock = Image("clock")
         static let cross = Image("cross")
+        static let dumbbellSolid = Image("dumbbell_solid")
         static let dumbbellLarge = Image("dumbbell_large")
         static let dumbbellOutline = Image("dumbbell_outline")
-        static let dumbbellSolid = Image("dumbbell_solid")
+        static let profileOutline = Image("profile_outline")
+        static let profileSolid = Image("profile_solid")
         static let elevator = Image("elevator")
         static let greenTea = Image("green_tea")
         static let giveawayModalBackground = Image("giveaway_modal_bg")
@@ -136,6 +140,8 @@ struct Constants {
         static let vertEllipsis = Image("vert_ellipsis")
         static let whistleOutline = Image("whistle_outline")
         static let whistleSolid = Image("whistle_solid")
+        static let settings = Image("settings")
+        static let profileEmpty = Image("profile_empty")
     }
 
     /// Padding amounts used in Uplift.
