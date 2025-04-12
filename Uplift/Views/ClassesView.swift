@@ -17,6 +17,8 @@ struct ClassesView: View {
     @StateObject private var viewModel = ViewModel()
     @State private var weeks: [Int] = [0, 1, 2]     // Integers represent the number of weeks from the current week
 
+    // MARK: - UI
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -64,7 +66,7 @@ struct ClassesView: View {
                 calendarView
                 classesOnDay
             }
-            .padding(.bottom, 32)
+            .padding(.bottom, 32 + Constants.Padding.tabBarHeight)
         }
         .refreshable {
             viewModel.refreshClasses()

@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		291433852D87387B00F913D5 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291433842D87387500F913D5 /* UserProfile.swift */; };
+		291433872D87388C00F913D5 /* WeeklyWorkoutData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291433862D87388800F913D5 /* WeeklyWorkoutData.swift */; };
+		291433892D8738A400F913D5 /* WorkoutHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291433882D8738A200F913D5 /* WorkoutHistory.swift */; };
+		293032572D7A8F64002E5484 /* WorkoutProgressArc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */; };
+		294CC21D2D7E34D300EF6487 /* WeeklyWorkoutTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294CC21C2D7E34D000EF6487 /* WeeklyWorkoutTrackerView.swift */; };
+		296A2DAE2D7A805300EF042F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296A2DAD2D7A805300EF042F /* ProfileViewModel.swift */; };
+		2CA97C8F2D8B852700EF48B3 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2CA97C8E2D8B852700EF48B3 /* UpliftAPI */; };
 		2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E090EC42B12EF2600BAE982 /* Publishers.swift */; };
 		2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E090ECA2B12FF5900BAE982 /* UpliftAPI */; };
 		2E090ED62B13121600BAE982 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E090ED52B13121600BAE982 /* Constants.swift */; };
@@ -78,19 +85,38 @@
 		2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E12B12EDB6008E0299 /* Apollo */; };
 		2EE5F3E42B12EDB6008E0299 /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E32B12EDB6008E0299 /* ApolloAPI */; };
 		2EF1A2582B129EEB007A299F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1A2572B129EEB007A299F /* Network.swift */; };
+		63001AD62CC9ACFF0082AFFA /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63001AD52CC9ACFF0082AFFA /* LoginViewModel.swift */; };
+		63001AD82CC9AD970082AFFA /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 63001AD72CC9AD970082AFFA /* GoogleSignIn */; };
+		63001ADA2CC9AD980082AFFA /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 63001AD92CC9AD970082AFFA /* GoogleSignInSwift */; };
+		6329A4462C964D0800D30A2F /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6329A4452C964D0800D30A2F /* SignInView.swift */; };
+		6329A4482CA0F89D00D30A2F /* CreateProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6329A4472CA0F89D00D30A2F /* CreateProfileView.swift */; };
+		6329A44A2CA0FE8A00D30A2F /* CheckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6329A4492CA0FE8A00D30A2F /* CheckBoxView.swift */; };
+		6338EC5C2CE149AA000BBFD3 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 6338EC5B2CE149AA000BBFD3 /* UpliftAPI */; };
+		6338EC5F2CE14B54000BBFD3 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 6338EC5E2CE14B54000BBFD3 /* UpliftAPI */; };
 		636E3D412BBE1EB100B6EFFC /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 636E3D402BBE1EB100B6EFFC /* UpliftAPI */; };
 		636E3D442BBE1F3800B6EFFC /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 636E3D432BBE1F3800B6EFFC /* UpliftAPI */; };
 		63A7ABCD2B86B971008D58FB /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 63A7ABCC2B86B971008D58FB /* UpliftAPI */; };
 		63A7ABCF2B8C119A008D58FB /* Equipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7ABCE2B8C119A008D58FB /* Equipment.swift */; };
+		893AD9132D59468000C0817B /* DropDownArrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893AD9122D59466F00C0817B /* DropDownArrow.swift */; };
+		893AD9152D59569600C0817B /* MuscleCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893AD9142D59569600C0817B /* MuscleCategoryView.swift */; };
+		893AD9172D595DC800C0817B /* MuscleGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893AD9162D595DC300C0817B /* MuscleGroupView.swift */; };
 		89599A4E2BD4B39B00DA44DE /* FitnessClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */; };
 		89599A502BD4B4B600DA44DE /* FitnessClassInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */; };
 		896500DC2BB4D33500D822AB /* ClassDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896500DB2BB4D33500D822AB /* ClassDetailView.swift */; };
 		897703662BA2028D00F9992F /* ClassesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897703652BA2028D00F9992F /* ClassesViewModel.swift */; };
-		897DF9BA2CCDC49B00246B0D /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		89C10D172CCB2F9E007E753F /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 89C10D162CCB2F9E007E753F /* FirebaseMessaging */; };
+		897DF9BA2CCDC49B00246B0D /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 897DF9B92CCDC49B00246B0D /* UpliftAPI */; };
+		8983A9A62CFEA077008E84DB /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 8983A9A52CFEA077008E84DB /* UpliftAPI */; };
 		89950D8A2B992E8400DFB007 /* ClassesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89950D892B992E8400DFB007 /* ClassesView.swift */; };
 		8996FEE02BDF351800F13C67 /* NextSessionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */; };
-		89C10D172CCB2F9E007E753F /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 89C10D162CCB2F9E007E753F /* FirebaseMessaging */; };
+		899B186D2CA5FAFB00FAC061 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899B186C2CA5FAFB00FAC061 /* ProfileView.swift */; };
+		89A652F92D02B00000277A16 /* CapacityRemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A652F62D02B00000277A16 /* CapacityRemindersView.swift */; };
+		89A652FA2D02B00000277A16 /* RemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A652F72D02B00000277A16 /* RemindersView.swift */; };
+		89C34AA12CA66E9C00C579A5 /* CapacityRemindersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C34AA02CA66E9000C579A5 /* CapacityRemindersViewModel.swift */; };
 		89C8658D2BB4779C00758337 /* ClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C8658C2BB4779C00758337 /* ClassCell.swift */; };
+		89CE47422D03F3C700BCB79D /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 89CE47412D03F3C700BCB79D /* UpliftAPI */; };
+		89E4FAAA2CEFEC3C00A952B1 /* CapacitySemiCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E4FAA92CEFEC3000A952B1 /* CapacitySemiCircleView.swift */; };
+		89E4FAAC2CF28E7500A952B1 /* HourlyAverageCapacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E4FAAB2CF28E6600A952B1 /* HourlyAverageCapacity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +130,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		291433842D87387500F913D5 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		291433862D87388800F913D5 /* WeeklyWorkoutData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyWorkoutData.swift; sourceTree = "<group>"; };
+		291433882D8738A200F913D5 /* WorkoutHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistory.swift; sourceTree = "<group>"; };
+		293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutProgressArc.swift; sourceTree = "<group>"; };
+		294CC21C2D7E34D000EF6487 /* WeeklyWorkoutTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyWorkoutTrackerView.swift; sourceTree = "<group>"; };
+		296A2DAD2D7A805300EF042F /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		2E090EC42B12EF2600BAE982 /* Publishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.swift; sourceTree = "<group>"; };
 		2E090ED52B13121600BAE982 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2E1105BE2B13B0E100119F5B /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -168,7 +200,14 @@
 		2EE0C7CA2B12D6EE000D3BF6 /* GymQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GymQueries.graphql; sourceTree = "<group>"; };
 		2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientProtocol.swift; sourceTree = "<group>"; };
 		2EF1A2572B129EEB007A299F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		63001AD52CC9ACFF0082AFFA /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		6329A4452C964D0800D30A2F /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		6329A4472CA0F89D00D30A2F /* CreateProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileView.swift; sourceTree = "<group>"; };
+		6329A4492CA0FE8A00D30A2F /* CheckBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxView.swift; sourceTree = "<group>"; };
 		63A7ABCE2B8C119A008D58FB /* Equipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipment.swift; sourceTree = "<group>"; };
+		893AD9122D59466F00C0817B /* DropDownArrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownArrow.swift; sourceTree = "<group>"; };
+		893AD9142D59569600C0817B /* MuscleCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleCategoryView.swift; sourceTree = "<group>"; };
+		893AD9162D595DC300C0817B /* MuscleGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleGroupView.swift; sourceTree = "<group>"; };
 		89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessClass.swift; sourceTree = "<group>"; };
 		89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessClassInstance.swift; sourceTree = "<group>"; };
 		896500DB2BB4D33500D822AB /* ClassDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailView.swift; sourceTree = "<group>"; };
@@ -176,7 +215,13 @@
 		89950D892B992E8400DFB007 /* ClassesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesView.swift; sourceTree = "<group>"; };
 		8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextSessionCell.swift; sourceTree = "<group>"; };
 		89C10D222CCB459F007E753F /* Uplift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Uplift.entitlements; sourceTree = "<group>"; };
+		899B186C2CA5FAFB00FAC061 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		89A652F62D02B00000277A16 /* CapacityRemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityRemindersView.swift; sourceTree = "<group>"; };
+		89A652F72D02B00000277A16 /* RemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersView.swift; sourceTree = "<group>"; };
+		89C34AA02CA66E9000C579A5 /* CapacityRemindersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityRemindersViewModel.swift; sourceTree = "<group>"; };
 		89C8658C2BB4779C00758337 /* ClassCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCell.swift; sourceTree = "<group>"; };
+		89E4FAA92CEFEC3000A952B1 /* CapacitySemiCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacitySemiCircleView.swift; sourceTree = "<group>"; };
+		89E4FAAB2CF28E6600A952B1 /* HourlyAverageCapacity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyAverageCapacity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,17 +238,24 @@
 			files = (
 				89C10D172CCB2F9E007E753F /* FirebaseMessaging in Frameworks */,
 				2EE5F3E42B12EDB6008E0299 /* ApolloAPI in Frameworks */,
+				63001AD82CC9AD970082AFFA /* GoogleSignIn in Frameworks */,
 				2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */,
 				2E6785BC2B3A48D700DD3ADA /* WrappingHStack in Frameworks */,
 				2E4F06DC2B4B48DC008905C8 /* UpliftAPI in Frameworks */,
+				2CA97C8F2D8B852700EF48B3 /* UpliftAPI in Frameworks */,
 				2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */,
+				8983A9A62CFEA077008E84DB /* UpliftAPI in Frameworks */,
 				2E45B2452B4F632700FB83B7 /* FirebaseAnalytics in Frameworks */,
+				6338EC5F2CE14B54000BBFD3 /* UpliftAPI in Frameworks */,
 				2E39D82F2B3BCBA400AD238B /* UpliftAPI in Frameworks */,
-				897DF9BA2CCDC49B00246B0D /* (null) in Frameworks */,
+				6338EC5C2CE149AA000BBFD3 /* UpliftAPI in Frameworks */,
+				897DF9BA2CCDC49B00246B0D /* UpliftAPI in Frameworks */,
 				2E2748D22BCD4EC00023882E /* UpliftAPI in Frameworks */,
+				63001ADA2CC9AD980082AFFA /* GoogleSignInSwift in Frameworks */,
 				63A7ABCD2B86B971008D58FB /* UpliftAPI in Frameworks */,
 				2E45B2402B4E361100FB83B7 /* FirebaseCrashlytics in Frameworks */,
 				636E3D412BBE1EB100B6EFFC /* UpliftAPI in Frameworks */,
+				89CE47422D03F3C700BCB79D /* UpliftAPI in Frameworks */,
 				2E2932C62BA2B9B5008445CE /* UpliftAPI in Frameworks */,
 				636E3D442BBE1F3800B6EFFC /* UpliftAPI in Frameworks */,
 				2EC3EE662B3C000E00E927BF /* Kingfisher in Frameworks */,
@@ -224,16 +276,20 @@
 		2E090EC62B12FB9F00BAE982 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				291433882D8738A200F913D5 /* WorkoutHistory.swift */,
+				291433862D87388800F913D5 /* WeeklyWorkoutData.swift */,
+				291433842D87387500F913D5 /* UserProfile.swift */,
 				2E15F4D92B39102A00414BEC /* Capacity.swift */,
+				2E6785C32B3A780600DD3ADA /* DayOfWeek.swift */,
+				63A7ABCE2B8C119A008D58FB /* Equipment.swift */,
+				2E15F4DD2B3912C700414BEC /* Facility.swift */,
 				89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */,
 				89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */,
-				2E6785C32B3A780600DD3ADA /* DayOfWeek.swift */,
-				2E15F4DD2B3912C700414BEC /* Facility.swift */,
 				2E15F4DF2B39143700414BEC /* Gym.swift */,
 				2E39D8272B3B726D00AD238B /* GymTabType.swift */,
+				89E4FAAB2CF28E6600A952B1 /* HourlyAverageCapacity.swift */,
 				2E15F4DB2B39117300414BEC /* OpenHours.swift */,
 				2E15F4E12B3917B200414BEC /* Status.swift */,
-				63A7ABCE2B8C119A008D58FB /* Equipment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -279,11 +335,16 @@
 		2E090ED02B1308C900BAE982 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				294CC21C2D7E34D000EF6487 /* WeeklyWorkoutTrackerView.swift */,
+				293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */,
 				89950D892B992E8400DFB007 /* ClassesView.swift */,
+				63CA15862C924B84001620B5 /* Onboarding */,
 				2E8FE3912B1278B700B3DC6A /* HomeView.swift */,
 				2E15F5052B39F81B00414BEC /* MainView.swift */,
+				899B186C2CA5FAFB00FAC061 /* ProfileView.swift */,
 				89C8658B2BB4778400758337 /* Classes */,
 				2E1105C02B13D11E00119F5B /* Home */,
+				89A652F82D02B00000277A16 /* Profile */,
 				2E15F50A2B3A0AF700414BEC /* Supporting */,
 			);
 			path = Views;
@@ -292,12 +353,15 @@
 		2E090ED12B1308D500BAE982 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				89C34AA02CA66E9000C579A5 /* CapacityRemindersViewModel.swift */,
+				63001AD52CC9ACFF0082AFFA /* LoginViewModel.swift */,
 				897703652BA2028D00F9992F /* ClassesViewModel.swift */,
 				2E39D82B2B3BB35000AD238B /* FacilityExpandedViewModel.swift */,
 				2E39D8232B3B66FD00AD238B /* FitnessCenterViewModel.swift */,
 				2E6785C12B3A5CE000DD3ADA /* GymDetailViewModel.swift */,
 				2E1105BE2B13B0E100119F5B /* HomeViewModel.swift */,
 				2E2748CE2BCD4D1F0023882E /* MainViewModel.swift */,
+				296A2DAD2D7A805300EF042F /* ProfileViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -359,6 +423,10 @@
 			isa = PBXGroup;
 			children = (
 				2E15F50B2B3A0B2100414BEC /* CapacityCircleView.swift */,
+				89E4FAA92CEFEC3000A952B1 /* CapacitySemiCircleView.swift */,
+				893AD9122D59466F00C0817B /* DropDownArrow.swift */,
+				893AD9142D59569600C0817B /* MuscleCategoryView.swift */,
+				893AD9162D595DC300C0817B /* MuscleGroupView.swift */,
 				2E39D81B2B3B5F3700AD238B /* NavBackButton.swift */,
 				2E39D8212B3B631200AD238B /* DividerLine.swift */,
 				2E39D8252B3B6C6500AD238B /* SlidingTabBarView.swift */,
@@ -467,6 +535,25 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		63CA15862C924B84001620B5 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				6329A4452C964D0800D30A2F /* SignInView.swift */,
+				6329A4472CA0F89D00D30A2F /* CreateProfileView.swift */,
+				6329A4492CA0FE8A00D30A2F /* CheckBoxView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		89A652F82D02B00000277A16 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				89A652F62D02B00000277A16 /* CapacityRemindersView.swift */,
+				89A652F72D02B00000277A16 /* RemindersView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		89C8658B2BB4778400758337 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -529,6 +616,15 @@
 				636E3D432BBE1F3800B6EFFC /* UpliftAPI */,
 				2E2748D12BCD4EC00023882E /* UpliftAPI */,
 				89C10D162CCB2F9E007E753F /* FirebaseMessaging */,
+				897DF9B92CCDC49B00246B0D /* UpliftAPI */,
+				63001AD72CC9AD970082AFFA /* GoogleSignIn */,
+				63001AD92CC9AD970082AFFA /* GoogleSignInSwift */,
+				897DF9B92CCDC49B00246B0D /* UpliftAPI */,
+				63001AD72CC9AD970082AFFA /* GoogleSignIn */,
+				63001AD92CC9AD970082AFFA /* GoogleSignInSwift */,
+				6338EC5B2CE149AA000BBFD3 /* UpliftAPI */,
+				6338EC5E2CE14B54000BBFD3 /* UpliftAPI */,
+				2CA97C8E2D8B852700EF48B3 /* UpliftAPI */,
 			);
 			productName = Uplift;
 			productReference = 2E8FE38C2B1278B700B3DC6A /* Uplift.app */;
@@ -542,7 +638,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1610;
 				ORGANIZATIONNAME = "Cornell AppDev";
 				TargetAttributes = {
 					2E15F4EA2B39255B00414BEC = {
@@ -568,7 +664,8 @@
 				2E6785BA2B3A48D700DD3ADA /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 				2EC3EE642B3C000E00E927BF /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				897DF9B82CCDC49B00246B0D /* XCLocalSwiftPackageReference "UpliftAPI" */,
+				63001AD42CC9A6B20082AFFA /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				2CA97C8D2D8B852700EF48B3 /* XCLocalSwiftPackageReference "UpliftAPI" */,
 			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
 			projectDirPath = "";
@@ -671,6 +768,7 @@
 			files = (
 				896500DC2BB4D33500D822AB /* ClassDetailView.swift in Sources */,
 				2EF1A2582B129EEB007A299F /* Network.swift in Sources */,
+				6329A4462C964D0800D30A2F /* SignInView.swift in Sources */,
 				2E39D81C2B3B5F3700AD238B /* NavBackButton.swift in Sources */,
 				2E15F4E02B39143700414BEC /* Gym.swift in Sources */,
 				2E39D8242B3B66FD00AD238B /* FitnessCenterViewModel.swift in Sources */,
@@ -679,25 +777,36 @@
 				2E15F4FB2B39573C00414BEC /* Double+Extension.swift in Sources */,
 				2E39D8162B3B3AD600AD238B /* ScaleButtonStyle.swift in Sources */,
 				2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */,
+				893AD9152D59569600C0817B /* MuscleCategoryView.swift in Sources */,
 				89C8658D2BB4779C00758337 /* ClassCell.swift in Sources */,
+				291433852D87387B00F913D5 /* UserProfile.swift in Sources */,
+				294CC21D2D7E34D300EF6487 /* WeeklyWorkoutTrackerView.swift in Sources */,
 				2E1105BF2B13B0E100119F5B /* HomeViewModel.swift in Sources */,
+				893AD9172D595DC800C0817B /* MuscleGroupView.swift in Sources */,
+				89E4FAAA2CEFEC3C00A952B1 /* CapacitySemiCircleView.swift in Sources */,
 				89599A4E2BD4B39B00DA44DE /* FitnessClass.swift in Sources */,
 				2E15F5122B3A3D0000414BEC /* TriangleShape.swift in Sources */,
 				2E8FE3922B1278B700B3DC6A /* HomeView.swift in Sources */,
 				2E6785C02B3A5CA300DD3ADA /* Haptics.swift in Sources */,
 				89950D8A2B992E8400DFB007 /* ClassesView.swift in Sources */,
+				296A2DAE2D7A805300EF042F /* ProfileViewModel.swift in Sources */,
 				2E15F50C2B3A0B2100414BEC /* CapacityCircleView.swift in Sources */,
 				2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */,
 				2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */,
 				2E15F5062B39F81B00414BEC /* MainView.swift in Sources */,
+				893AD9132D59468000C0817B /* DropDownArrow.swift in Sources */,
+				89E4FAAC2CF28E7500A952B1 /* HourlyAverageCapacity.swift in Sources */,
 				8996FEE02BDF351800F13C67 /* NextSessionCell.swift in Sources */,
+				6329A4482CA0F89D00D30A2F /* CreateProfileView.swift in Sources */,
 				2E39D82A2B3B9F3D00AD238B /* FacilityExpandedView.swift in Sources */,
 				2EB161C92BBC9C3100493B71 /* StretchyModifier.swift in Sources */,
+				6329A44A2CA0FE8A00D30A2F /* CheckBoxView.swift in Sources */,
 				2E39D82C2B3BB35000AD238B /* FacilityExpandedViewModel.swift in Sources */,
 				2E3D6C202B1285D200B51BB2 /* UpliftEnvironment.swift in Sources */,
 				2E2748CF2BCD4D1F0023882E /* MainViewModel.swift in Sources */,
 				2E5726C72B4A63AE00D3DB36 /* ShimmerModifier.swift in Sources */,
 				2E15F5022B396EC500414BEC /* ShadowModifier.swift in Sources */,
+				291433872D87388C00F913D5 /* WeeklyWorkoutData.swift in Sources */,
 				2E15F4DA2B39102A00414BEC /* Capacity.swift in Sources */,
 				2ED53DCF2B3E06DC00FBDEAB /* Logger.swift in Sources */,
 				2E15F4E62B391E5300414BEC /* Array+Extension.swift in Sources */,
@@ -707,17 +816,24 @@
 				897703662BA2028D00F9992F /* ClassesViewModel.swift in Sources */,
 				2E1105C22B13D15100119F5B /* HomeGymCell.swift in Sources */,
 				2E15F4F92B3950F800414BEC /* Date+Extension.swift in Sources */,
+				293032572D7A8F64002E5484 /* WorkoutProgressArc.swift in Sources */,
 				2E8FE3902B1278B700B3DC6A /* UpliftApp.swift in Sources */,
 				2EE5F3C82B12E094008E0299 /* ApolloClientProtocol.swift in Sources */,
 				2E39D8262B3B6C6500AD238B /* SlidingTabBarView.swift in Sources */,
+				899B186D2CA5FAFB00FAC061 /* ProfileView.swift in Sources */,
 				89599A502BD4B4B600DA44DE /* FitnessClassInstance.swift in Sources */,
 				2E1105C42B13D1B000119F5B /* DummyData.swift in Sources */,
 				2E15F4E22B3917B200414BEC /* Status.swift in Sources */,
 				2E3DC2432BCD2F1D0063B369 /* GiveawayModal.swift in Sources */,
 				2E15F5042B39E54700414BEC /* LocationManager.swift in Sources */,
+				89A652F92D02B00000277A16 /* CapacityRemindersView.swift in Sources */,
+				89A652FA2D02B00000277A16 /* RemindersView.swift in Sources */,
 				2E39D81E2B3B610200AD238B /* UINavigationController+Extension.swift in Sources */,
+				291433892D8738A400F913D5 /* WorkoutHistory.swift in Sources */,
+				63001AD62CC9ACFF0082AFFA /* LoginViewModel.swift in Sources */,
 				2E15F4DC2B39117300414BEC /* OpenHours.swift in Sources */,
 				2E090ED62B13121600BAE982 /* Constants.swift in Sources */,
+				89C34AA12CA66E9C00C579A5 /* CapacityRemindersViewModel.swift in Sources */,
 				2E39D8282B3B726D00AD238B /* GymTabType.swift in Sources */,
 				2E2748CB2BCD37810023882E /* GiveawayPopup.swift in Sources */,
 				2E15F4DE2B3912C700414BEC /* Facility.swift in Sources */,
@@ -907,7 +1023,7 @@
 				CODE_SIGN_ENTITLEMENTS = Uplift/Uplift.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 36;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZGMCXU7X3U;
 				ENABLE_PREVIEWS = YES;
@@ -928,7 +1044,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.7;
+				MARKETING_VERSION = 3.1.1;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.uplift.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -952,7 +1068,7 @@
 				CODE_SIGN_ENTITLEMENTS = Uplift/Uplift.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_TEAM = ZGMCXU7X3U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -972,7 +1088,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.5.7;
+				MARKETING_VERSION = 3.1.1;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.uplift.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1019,7 +1135,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		897DF9B82CCDC49B00246B0D /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
+		2CA97C8D2D8B852700EF48B3 /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = UpliftAPI;
 		};
@@ -1058,9 +1174,21 @@
 				minimumVersion = 1.7.1;
 			};
 		};
+		63001AD42CC9A6B20082AFFA /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2CA97C8E2D8B852700EF48B3 /* UpliftAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UpliftAPI;
+		};
 		2E090ECA2B12FF5900BAE982 /* UpliftAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UpliftAPI;
@@ -1115,6 +1243,24 @@
 			package = 2EE5F3E02B12EDB6008E0299 /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = ApolloAPI;
 		};
+		63001AD72CC9AD970082AFFA /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 63001AD42CC9A6B20082AFFA /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		63001AD92CC9AD970082AFFA /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 63001AD42CC9A6B20082AFFA /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+		6338EC5B2CE149AA000BBFD3 /* UpliftAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UpliftAPI;
+		};
+		6338EC5E2CE14B54000BBFD3 /* UpliftAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UpliftAPI;
+		};
 		636E3D402BBE1EB100B6EFFC /* UpliftAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UpliftAPI;
@@ -1130,6 +1276,14 @@
 		89C10D162CCB2F9E007E753F /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FirebaseMessaging;
+		};
+		8983A9A52CFEA077008E84DB /* UpliftAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UpliftAPI;
+		};
+		89CE47412D03F3C700BCB79D /* UpliftAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UpliftAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -30,6 +30,8 @@ struct Constants {
         static let turquoise = Color(red: 74/255, green: 210/255, blue: 242/255)
 
         // Gray
+        static let lightGray = Color(red: 248/255, green: 250/255, blue: 250/255)
+        static let gray00 = Color(red: 239/255, green: 241/255, blue: 244/255)
         static let gray01 = Color(red: 229/255, green: 236/255, blue: 237/255)
         static let gray02 = Color(red: 209/255, green: 213/255, blue: 218/255)
         static let gray03 = Color(red: 161/255, green: 165/255, blue: 166/255)
@@ -90,32 +92,56 @@ struct Constants {
         static let labelMedium = Font.custom("Montserrat-Medium", size: 12)
         static let labelSemibold = Font.custom("Montserrat-SemiBold", size: 12)
         static let labelBold = Font.custom("Montserrat-Bold", size: 12)
+
+        static let p1 = Font.custom("Montserrat-Bold", size: 64)
     }
 
     /// Image components used in Uplift.
     enum Images {
+        static let abdominals = Image("abdominals")
+        static let agreementsChecker = Image("agreements_checker")
+        static let agreementsUnchecked = Image("agreements_unchecked")
         static let appdevLogo = Image("appdev-logo")
+        static let arm = Image("arm")
         static let arrowLeft = Image("arrow_left")
+        static let back = Image("back")
+        static let backgroundEllipse = Image("background_ellipse")
         static let basketball = Image("basketball")
         static let bowling = Image("bowling")
         static let calendar = Image("calendar")
+        static let camera = Image("camera")
+        static let cameraMini = Image("camera_mini")
+        static let capacity = Image("capacity")
+        static let chest = Image("chest")
         static let clock = Image("clock")
         static let cross = Image("cross")
+        static let dumbbellSolid = Image("dumbbell_solid")
         static let dumbbellLarge = Image("dumbbell_large")
         static let dumbbellOutline = Image("dumbbell_outline")
-        static let dumbbellSolid = Image("dumbbell_solid")
+        static let profileOutline = Image("profile_outline")
+        static let profileSolid = Image("profile_solid")
         static let elevator = Image("elevator")
         static let greenTea = Image("green_tea")
         static let giveawayModalBackground = Image("giveaway_modal_bg")
         static let giveawayPopupBackground = Image("giveaway_popup_bg")
+        static let leg = Image("leg")
+        static let goal = Image("goal")
+        static let gymSimple = Image("gym_simple")
+        static let history = Image("history")
+        static let lift = Image("lift")
         static let lock = Image("lock")
         static let logo = Image("logo")
         static let logoWhite = Image("logo_white")
         static let parking = Image("parking")
         static let pool = Image("pool")
+        static let replay = Image("replay")
+        static let shoulder = Image("shoulder")
         static let shower = Image("shower")
+        static let vertEllipsis = Image("vert_ellipsis")
         static let whistleOutline = Image("whistle_outline")
         static let whistleSolid = Image("whistle_solid")
+        static let settings = Image("settings")
+        static let profileEmpty = Image("profile_empty")
     }
 
     /// Padding amounts used in Uplift.
@@ -126,9 +152,12 @@ struct Constants {
         static let gymDetailHorizontal: CGFloat = 24
         static let gymDetailSpacing: CGFloat = 20
         static let homeHorizontal: CGFloat = 16
+        static let remindersHorizontal: CGFloat = 16
+        static let remindersVertical: CGFloat = 24
+        static let tabBarHeight: CGFloat = 64
     }
 
-    /// Shadows usde in Uplift's design system.
+    /// Shadows used in Uplift's design system.
     enum Shadows {
         static let normalDark = ShadowConfig(
             color: Constants.Colors.black,

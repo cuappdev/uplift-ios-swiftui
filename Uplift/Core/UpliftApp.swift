@@ -9,6 +9,7 @@
 import FirebaseCore
 import FirebaseMessaging
 import FirebaseInstallations
+import GoogleSignIn
 import SwiftUI
 
 @main
@@ -18,19 +19,38 @@ struct UpliftApp: App {
 
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var locationManager = LocationManager.shared
+    @StateObject private var mainViewModel = MainView.ViewModel()
 
     // MARK: - UI
 
     var body: some Scene {
         WindowGroup {
-            MainView()
-                .environmentObject(locationManager)
-                .onAppear {
-                    locationManager.requestLocation()
+            NavigationStack {
+                ZStack {
+                    (mainViewModel.showSignInView) ? (
+                        SignInView()
+                            .environmentObject(mainViewModel)
+                            .onOpenURL { url in
+                                GIDSignIn.sharedInstance.handle(url)
+                            }
+                    ) : nil
+
+                    (mainViewModel.showCreateProfileView) ? (
+                        CreateProfileView()
+                            .environmentObject(mainViewModel)
+                    ) : nil
+
+                    (mainViewModel.showMainView) ? (
+                        MainView()
+                            .environmentObject(locationManager)
+                            .onAppear {
+                                locationManager.requestLocation()
+                            }
+                    ) : nil
                 }
+            }
         }
     }
-
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -40,6 +60,14 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     ) -> Bool {
         FirebaseApp.configure()
 
+        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+            if error != nil || user == nil {
+                // TODO: - Show the app's signed-out state.
+            } else {
+                // TODO: - Show the app's signed-in state.
+            }
+        }
+
         // Configure Firebase Cloud Messaging
         Messaging.messaging().delegate = self
 
@@ -48,13 +76,19 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(
-          options: authOptions,
-          completionHandler: { _, _ in }
+        options: authOptions,
+        completionHandler: { _, _ in }
         )
 
         application.registerForRemoteNotifications()
 
         return true
+    }
+
+    func application(_ app: UIApplication,
+                     open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        GIDSignIn.sharedInstance.handle(url)
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {

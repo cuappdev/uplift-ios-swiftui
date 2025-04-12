@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Charts
 import UpliftAPI
 
 /// View for displaying fitness center information such as capacities, hours, equipment, etc.
@@ -15,21 +16,29 @@ struct FitnessCenterView: View {
     // MARK: - Properties
 
     let fc: Facility?
+    let gym: Gym
 
     @StateObject private var viewModel = ViewModel()
+    @State private var chartLabelSize = CGSize.zero
+    @State private var chartSize = CGSize.zero
 
     // MARK: - Constants
 
-    let vertPadding: CGFloat = 20
+    private let vertPadding: CGFloat = 16
+    private let barWidth = 18
 
     // MARK: - UI
 
     var body: some View {
         VStack {
-            capacitiesSection
-            DividerLine()
+//            capacitiesSection
+//            DividerLine()
             hoursSection
             DividerLine()
+            popularTimesSection
+            DividerLine()
+            !gym.amenities.isEmpty ? amenitiesSection : nil
+            !gym.amenities.isEmpty ? DividerLine() : nil
             equipmentSection
         }
         .onAppear {
@@ -37,10 +46,22 @@ struct FitnessCenterView: View {
 
             if let fc {
                 viewModel.fetchFitnessCenterHours(for: fc)
+                viewModel.fetchHourlyAverageCapacities(for: fc)
             }
         }
     }
 
+    // TODO: Delete after implementing networking
+    private func convertHourToDate(_ hour: Int) -> Date {
+        var dateComponent = DateComponents()
+        dateComponent.hour = hour
+        dateComponent.minute = 0
+        dateComponent.second = 0
+        let calendar = Calendar.current
+        return calendar.date(from: dateComponent) ?? Date()
+    }
+
+    // TODO: Remove
     private var capacitiesSection: some View {
         VStack(spacing: 12) {
             sectionHeader(text: "CAPACITIES")
@@ -62,10 +83,33 @@ struct FitnessCenterView: View {
     }
 
     private var hoursSection: some View {
-        VStack(spacing: 12) {
-            sectionHeader(text: "HOURS")
+        VStack(spacing: 8) {
+            HStack(alignment: .center) {
+                sectionHeader(text: "Hours")
 
-            expandedHours
+                Text("·")
+                    .foregroundStyle(Constants.Colors.black)
+                    .font(Constants.Fonts.h2)
+
+                if gym.fitnessCenterIsOpen() {
+                    Text("Open")
+                        .foregroundStyle(Constants.Colors.open)
+                        .font(Constants.Fonts.h2)
+                } else {
+                    Text("Closed")
+                        .foregroundStyle(Constants.Colors.closed)
+                        .font(Constants.Fonts.h2)
+                }
+
+                Spacer()
+
+            }
+
+            HStack {
+                expandedHours
+
+                Spacer()
+            }
         }
         .padding(.vertical, vertPadding)
     }
@@ -74,9 +118,6 @@ struct FitnessCenterView: View {
         VStack(spacing: 8) {
             HStack(spacing: 8) {
                 Constants.Images.clock
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 32, height: 16, alignment: .trailing)
 
                 expandHoursButton
 
@@ -86,10 +127,10 @@ struct FitnessCenterView: View {
 
             if viewModel.expandHours {
                 ForEach(viewModel.daysOfWeek.dropFirst().indices, id: \.self) { index in
-                    HStack(spacing: 8) {
+                    HStack(spacing: 12) {
                         Text(viewModel.daysOfWeek[index])
                             .font(Constants.Fonts.f2)
-                            .frame(width: 32, alignment: .trailing)
+                            .frame(width: 40, alignment: .leading)
 
                         Text(viewModel.fitnessCenterHours[index])
                             .font(Constants.Fonts.f2Regular)
@@ -119,68 +160,175 @@ struct FitnessCenterView: View {
                     .font(Constants.Fonts.f2)
                     .multilineTextAlignment(.leading)
 
-                Triangle()
-                    .fill(Constants.Colors.black)
-                    .rotationEffect(Angle(degrees: viewModel.expandHours ? 180 : 90))
-                    .frame(width: 8, height: 8)
+                DropDownArrow(isExpanded: $viewModel.expandHours)
             }
         }
         .frame(minWidth: 84, alignment: .leading)
     }
 
-    private var equipmentSection: some View {
-        VStack(spacing: 12) {
-            sectionHeader(text: "EQUIPMENT")
+    private func calculateChartOffset(_ posX: Int) -> CGFloat {
+        let textWidth = Int(chartLabelSize.width)
+        let chartWidth = Int(UIScreen.main.bounds.width - (2 * Constants.Padding.gymDetailHorizontal))
+        let x = Int(posX)
 
-            equipmentScrollView()
+        if textWidth / 2 + x > chartWidth {
+            let offset = -1 * (textWidth / 2 + x - chartWidth)
+            return CGFloat(offset)
+        } else if x - (textWidth / 2) < 0 {
+            let offset = (textWidth / 2) - x
+            return CGFloat(offset)
+        }
+
+        return 0
+    }
+
+    private var popularTimesSection: some View {
+        VStack(spacing: 16) {
+            HStack {
+                sectionHeader(text: "Popular Times")
+
+                Spacer()
+            }
+
+            Chart {
+                ForEach(viewModel.hourlyCapacities, id: \.self) { hourCapacity in
+                    BarMark(
+                        x: .value("Hour", convertHourToDate(hourCapacity.hourOfDay)),
+                        y: .value(
+                            "Capacity",
+                            viewModel.popularTimesIsAnimating ? hourCapacity.averagePercent * 0.8 : 0
+                        ),
+                        width: .fixed((chartSize.width / CGFloat(viewModel.hourlyCapacities.count)))
+                    )
+                    .foregroundStyle(
+                        viewModel.currentHour == hourCapacity.hourOfDay
+                        ? Constants.Colors.yellow
+                        : Constants.Colors.lightYellow
+                    )
+
+                    RuleMark(
+                        x: .value("Hour", convertHourToDate(hourCapacity.hourOfDay)),
+                        yStart: .value("Capacity", hourCapacity.averagePercent * 0.8),
+                        yEnd: .value("Capacity", 0.88)
+                    )
+                    .foregroundStyle(
+                        viewModel.currentHour == hourCapacity.hourOfDay
+                        ? Constants.Colors.gray03
+                        : .clear
+                    )
+                }
+            }
+            .frame(height: 124)
+            .background {
+                GeometryReader { proxy in
+                    Color.clear.onAppear { chartSize = proxy.size }
+                }
+            }
+            .chartYScale(domain: 0...1)
+            .chartXAxis {
+                AxisMarks(preset: .aligned, values: .stride(by: .hour)) { value in
+                    if value.index % 3 == 0 {
+                        AxisValueLabel(format: .dateTime.hour(.defaultDigits(amPM: .narrow)))
+                            .font(Constants.Fonts.labelMedium)
+                            .foregroundStyle(Constants.Colors.black)
+                    }
+                }
+            }
+            .padding(.horizontal, CGFloat(barWidth) / 2)
+            .chartYAxis(.hidden)
+            .chartOverlay(alignment: .top) { chart in
+                HStack(spacing: 4) {
+                    Text("\(Date.now.hourString)")
+                        .font(Constants.Fonts.h4)
+
+                    Text("Usually \(viewModel.currentHourCapacity.rawValue)")
+                        .font(Constants.Fonts.labelMedium)
+                }
+                .foregroundStyle(Constants.Colors.gray04)
+                .background {
+                    GeometryReader { proxy in
+                        // Getting the chart label size to be used to position the chart label
+                        Color.clear
+                            .onAppear {
+                                chartLabelSize = proxy.size
+                            }
+                            .onChange(of: proxy.size) { newVal in
+                                chartLabelSize = newVal
+                            }
+                    }
+                }
+                .position(
+                    x: CGFloat(barWidth / 2) + (
+                        chart.position(forX: convertHourToDate(viewModel.currentHour)) ?? 0
+                    )
+                )
+                .offset(
+                    x: calculateChartOffset(
+                        barWidth / 2 + Int(chart.position(forX: convertHourToDate(viewModel.currentHour)) ?? 0)
+                    )
+                )
+                .opacity(viewModel.popularTimesIsAnimating ? 1 : 0)
+            }
+        }
+        .padding(.vertical, vertPadding)
+        .animation(.easeOut(duration: 0.6), value: viewModel.popularTimesIsAnimating)
+    }
+
+    private var amenitiesSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            sectionHeader(text: "Amenities")
+
+            VStack(spacing: 12) {
+                ForEach(gym.amenities, id: \.self) { amenity in
+                    HStack(spacing: 8) {
+                        switch amenity {
+                        case .showers:
+                            Constants.Images.shower
+                                .frame(width: 24, height: 24)
+
+                            Text("Showers")
+                        case .lockers:
+                            Constants.Images.lock
+                                .frame(width: 24, height: 24)
+
+                            Text("Lockers")
+                        case .parking:
+                            Constants.Images.parking
+                                .frame(width: 24, height: 24)
+
+                            Text("Parking")
+                        case .elevators:
+                            Constants.Images.elevator
+                                .frame(width: 24, height: 24)
+
+                            Text("Elevators/Lifts")
+                        }
+
+                        Spacer()
+                    }
+                    .foregroundStyle(Constants.Colors.black)
+                    .font(Constants.Fonts.bodyMedium)
+                }
+            }
         }
         .padding(.vertical, vertPadding)
     }
 
-    private func equipmentScrollView() -> some View {
-        ScrollView(.horizontal) {
-            HStack(spacing: 12) {
-                ForEach(fc?.equipment.allTypes() ?? [], id: \.self) { equipmentType in
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(equipmentType.description)
-                            .lineLimit(1)
-                            .foregroundStyle(Constants.Colors.black)
-                            .font(Constants.Fonts.h3)
-                            .padding(.bottom, 2)
+    private var equipmentSection: some View {
+        VStack(spacing: 16) {
+            HStack {
+                sectionHeader(text: "Equipment")
 
-                        equipmentTypeCellView(eqmtType: equipmentType)
-                            .frame(alignment: .leading)
+                Spacer()
+            }
 
-                        Spacer()
-                    }
-                    .padding(16)
-                    .frame(width: 247)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 4)
-                            .stroke(Constants.Colors.gray01, lineWidth: 1)
-                            .upliftShadow(Constants.Shadows.smallLight)
-                    )
+            ForEach(MuscleCategory.allCases, id: \.self) { category in
+                if let fc, viewModel.facilityHasMuscleCategory(fc: fc, category: category) {
+                    MuscleCategoryView(category: category, equipment: fc.equipment)
                 }
             }
         }
-        .scrollIndicators(.hidden)
-    }
-
-    private func equipmentTypeCellView(eqmtType: EquipmentType) -> some View {
-        ForEach(fc?.equipment.filter({$0.equipmentType == eqmtType}) ?? [], id: \.self) { eqmt in
-            HStack(spacing: 12) {
-                Text(eqmt.name)
-                    .foregroundStyle(Constants.Colors.black)
-                    .font(Constants.Fonts.labelLight)
-                    .multilineTextAlignment(.leading)
-                    .frame(width: 190, alignment: .leading)
-
-                Text(eqmt.quantity == nil ? "" : String(eqmt.quantity ?? 0))
-                    .foregroundStyle(Constants.Colors.black)
-                    .font(Constants.Fonts.labelLight)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-            }
-        }
+        .padding(.vertical, vertPadding)
     }
 
     // MARK: - Supporting
@@ -191,8 +339,4 @@ struct FitnessCenterView: View {
             .font(Constants.Fonts.h2)
     }
 
-}
-
-#Preview {
-    FitnessCenterView(fc: DummyData.uplift.getGym(data: DummyData.uplift.helenNewman).fitnessCenters[0])
 }
