@@ -12,6 +12,8 @@
 	<string>$(ANNOUNCEMENTS_SCHEME)</string>
 	<key>CFBundleIconName</key>
 	<string>AppIcon</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -35,6 +37,10 @@
 		<string>Montserrat-Medium.ttf</string>
 		<string>Montserrat-Regular.ttf</string>
 		<string>Montserrat-SemiBold.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
 	</array>
 	<key>UPLIFT_DEV_URL</key>
 	<string>$(UPLIFT_DEV_URL)</string>
