@@ -37,7 +37,7 @@ extension CapacityRemindersView {
         }
 
         // MARK: - Functions
-
+ 
         /// load saved days & gym locations
         private func loadSavedSelections() {
             if let savedDayNumbers = UserDefaults.standard.array(forKey: "selectedDays") as? [Int] {
