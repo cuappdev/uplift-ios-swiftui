@@ -13,6 +13,7 @@
 		293032572D7A8F64002E5484 /* WorkoutProgressArc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */; };
 		294CC21D2D7E34D300EF6487 /* WeeklyWorkoutTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294CC21C2D7E34D000EF6487 /* WeeklyWorkoutTrackerView.swift */; };
 		296A2DAE2D7A805300EF042F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296A2DAD2D7A805300EF042F /* ProfileViewModel.swift */; };
+		29DC9ABA2DB96C3C0088DC24 /* CapacityReminders.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 29DC9AB92DB96C340088DC24 /* CapacityReminders.graphql */; };
 		2CA97C8F2D8B852700EF48B3 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2CA97C8E2D8B852700EF48B3 /* UpliftAPI */; };
 		2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E090EC42B12EF2600BAE982 /* Publishers.swift */; };
 		2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E090ECA2B12FF5900BAE982 /* UpliftAPI */; };
@@ -104,14 +105,14 @@
 		89599A502BD4B4B600DA44DE /* FitnessClassInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */; };
 		896500DC2BB4D33500D822AB /* ClassDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896500DB2BB4D33500D822AB /* ClassDetailView.swift */; };
 		897703662BA2028D00F9992F /* ClassesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897703652BA2028D00F9992F /* ClassesViewModel.swift */; };
-		89C10D172CCB2F9E007E753F /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 89C10D162CCB2F9E007E753F /* FirebaseMessaging */; };
-		897DF9BA2CCDC49B00246B0D /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 897DF9B92CCDC49B00246B0D /* UpliftAPI */; };
+		897DF9BA2CCDC49B00246B0D /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		8983A9A62CFEA077008E84DB /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 8983A9A52CFEA077008E84DB /* UpliftAPI */; };
 		89950D8A2B992E8400DFB007 /* ClassesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89950D892B992E8400DFB007 /* ClassesView.swift */; };
 		8996FEE02BDF351800F13C67 /* NextSessionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */; };
 		899B186D2CA5FAFB00FAC061 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899B186C2CA5FAFB00FAC061 /* ProfileView.swift */; };
 		89A652F92D02B00000277A16 /* CapacityRemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A652F62D02B00000277A16 /* CapacityRemindersView.swift */; };
 		89A652FA2D02B00000277A16 /* RemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A652F72D02B00000277A16 /* RemindersView.swift */; };
+		89C10D172CCB2F9E007E753F /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 89C10D162CCB2F9E007E753F /* FirebaseMessaging */; };
 		89C34AA12CA66E9C00C579A5 /* CapacityRemindersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C34AA02CA66E9000C579A5 /* CapacityRemindersViewModel.swift */; };
 		89C8658D2BB4779C00758337 /* ClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C8658C2BB4779C00758337 /* ClassCell.swift */; };
 		89CE47422D03F3C700BCB79D /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 89CE47412D03F3C700BCB79D /* UpliftAPI */; };
@@ -136,6 +137,7 @@
 		293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutProgressArc.swift; sourceTree = "<group>"; };
 		294CC21C2D7E34D000EF6487 /* WeeklyWorkoutTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyWorkoutTrackerView.swift; sourceTree = "<group>"; };
 		296A2DAD2D7A805300EF042F /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		29DC9AB92DB96C340088DC24 /* CapacityReminders.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = CapacityReminders.graphql; sourceTree = "<group>"; };
 		2E090EC42B12EF2600BAE982 /* Publishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.swift; sourceTree = "<group>"; };
 		2E090ED52B13121600BAE982 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2E1105BE2B13B0E100119F5B /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -214,10 +216,10 @@
 		897703652BA2028D00F9992F /* ClassesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesViewModel.swift; sourceTree = "<group>"; };
 		89950D892B992E8400DFB007 /* ClassesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesView.swift; sourceTree = "<group>"; };
 		8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextSessionCell.swift; sourceTree = "<group>"; };
-		89C10D222CCB459F007E753F /* Uplift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Uplift.entitlements; sourceTree = "<group>"; };
 		899B186C2CA5FAFB00FAC061 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		89A652F62D02B00000277A16 /* CapacityRemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityRemindersView.swift; sourceTree = "<group>"; };
 		89A652F72D02B00000277A16 /* RemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersView.swift; sourceTree = "<group>"; };
+		89C10D222CCB459F007E753F /* Uplift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Uplift.entitlements; sourceTree = "<group>"; };
 		89C34AA02CA66E9000C579A5 /* CapacityRemindersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityRemindersViewModel.swift; sourceTree = "<group>"; };
 		89C8658C2BB4779C00758337 /* ClassCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCell.swift; sourceTree = "<group>"; };
 		89E4FAA92CEFEC3000A952B1 /* CapacitySemiCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacitySemiCircleView.swift; sourceTree = "<group>"; };
@@ -249,7 +251,7 @@
 				6338EC5F2CE14B54000BBFD3 /* UpliftAPI in Frameworks */,
 				2E39D82F2B3BCBA400AD238B /* UpliftAPI in Frameworks */,
 				6338EC5C2CE149AA000BBFD3 /* UpliftAPI in Frameworks */,
-				897DF9BA2CCDC49B00246B0D /* UpliftAPI in Frameworks */,
+				897DF9BA2CCDC49B00246B0D /* (null) in Frameworks */,
 				2E2748D22BCD4EC00023882E /* UpliftAPI in Frameworks */,
 				63001ADA2CC9AD980082AFFA /* GoogleSignInSwift in Frameworks */,
 				63A7ABCD2B86B971008D58FB /* UpliftAPI in Frameworks */,
@@ -369,6 +371,7 @@
 		2E090ED22B13093400BAE982 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				29DC9AB92DB96C340088DC24 /* CapacityReminders.graphql */,
 				2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */,
 				2EF1A2572B129EEB007A299F /* Network.swift */,
 				2E090EC42B12EF2600BAE982 /* Publishers.swift */,
@@ -616,10 +619,8 @@
 				636E3D432BBE1F3800B6EFFC /* UpliftAPI */,
 				2E2748D12BCD4EC00023882E /* UpliftAPI */,
 				89C10D162CCB2F9E007E753F /* FirebaseMessaging */,
-				897DF9B92CCDC49B00246B0D /* UpliftAPI */,
 				63001AD72CC9AD970082AFFA /* GoogleSignIn */,
 				63001AD92CC9AD970082AFFA /* GoogleSignInSwift */,
-				897DF9B92CCDC49B00246B0D /* UpliftAPI */,
 				63001AD72CC9AD970082AFFA /* GoogleSignIn */,
 				63001AD92CC9AD970082AFFA /* GoogleSignInSwift */,
 				6338EC5B2CE149AA000BBFD3 /* UpliftAPI */,
@@ -700,6 +701,7 @@
 				2EB090B92B131CA80039EB3B /* Montserrat-SemiBold.ttf in Resources */,
 				2EB090B42B131CA40039EB3B /* BebasNeue-Regular.ttf in Resources */,
 				2E45B2422B4E5CE100FB83B7 /* GoogleService-Info.plist in Resources */,
+				29DC9ABA2DB96C3C0088DC24 /* CapacityReminders.graphql in Resources */,
 				2E39D8312B3BEE5900AD238B /* LaunchScreen.storyboard in Resources */,
 				2E8FE3962B1278B900B3DC6A /* Assets.xcassets in Resources */,
 			);
@@ -1273,13 +1275,13 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = UpliftAPI;
 		};
-		89C10D162CCB2F9E007E753F /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = FirebaseMessaging;
-		};
 		8983A9A52CFEA077008E84DB /* UpliftAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UpliftAPI;
+		};
+		89C10D162CCB2F9E007E753F /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseMessaging;
 		};
 		89CE47412D03F3C700BCB79D /* UpliftAPI */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -8,6 +8,7 @@
 
 import SwiftUI
 import WrappingHStack
+import FirebaseMessaging
 
 /// The view for the Capacity Reminders page.
 struct CapacityRemindersView: View {
@@ -18,10 +19,20 @@ struct CapacityRemindersView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var capacity = 50.0
     @State private var showInfo = false
+    @State private var fcmToken: String = ""
 
     // MARK: - Constants
 
-    private let gyms = ["Teagle Up", "Teagle Down", "Helen Newman", "Toni Morrison", "Noyes"]
+    private let gyms = ["TEAGLEUP", "TEAGLEDOWN", "HELENNEWMAN", "TONIMORRISON", "NOYES"]
+
+    // MARK: - Init
+
+    init() {
+        if let savedId = UserDefaults.standard.object(forKey: "savedReminderId") as? Int {
+            _viewModel = StateObject(wrappedValue: ViewModel(savedReminderId: savedId))
+            _showInfo = State(initialValue: true)
+        }
+    }
 
     // MARK: - UI
 
@@ -40,6 +51,9 @@ struct CapacityRemindersView: View {
                 }
             }
             .background(Constants.Colors.white)
+            .onAppear {
+                getFCMToken()
+            }
         }
     }
 
@@ -72,6 +86,9 @@ struct CapacityRemindersView: View {
 
                     Toggle("", isOn: $showInfo.animation())
                         .tint(Constants.Colors.yellow)
+                        .onChange(of: showInfo) { newValue in
+                            handleToggleChange(isOn: newValue)
+                        }
                 }
 
                 Text("Uplift will send you a notification when gyms dip below the set capacity")
@@ -99,6 +116,7 @@ struct CapacityRemindersView: View {
             reminderDays
             capacityThreshold
             locationsToRemind
+            saveButton
         }
         .padding(.vertical, 16)
     }
@@ -207,16 +225,16 @@ struct CapacityRemindersView: View {
                         RoundedRectangle(cornerRadius: 8)
                             .fill(
                                 viewModel.selectedLocations.contains(gym)
-                                    ? Constants.Colors.lightYellow
-                                    : Constants.Colors.white
+                                ? Constants.Colors.lightYellow
+                                : Constants.Colors.white
                             )
                     }
                     .overlay {
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(
                                 viewModel.selectedLocations.contains(gym)
-                                    ? Constants.Colors.yellow
-                                    : Constants.Colors.gray02,
+                                ? Constants.Colors.yellow
+                                : Constants.Colors.gray02,
                                 lineWidth: 1
                             )
                     }
@@ -231,6 +249,85 @@ struct CapacityRemindersView: View {
                         }
                     }
             }
+        }
+    }
+
+    private var saveButton: some View {
+        Button {
+            saveReminder()
+        } label: {
+            HStack {
+                Image(systemName: "square.and.arrow.down")
+                    .font(.system(size: 14, weight: .bold))
+
+                Text("Save")
+                    .font(Constants.Fonts.h2)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Constants.Colors.yellow)
+            )
+            .foregroundColor(.black)
+        }
+        .disabled(viewModel.creatingReminder
+                  || viewModel.editingReminder
+                  || viewModel.selectedDays.isEmpty
+                  || viewModel.selectedLocations.isEmpty)
+        .opacity((viewModel.creatingReminder
+                  || viewModel.editingReminder
+                  || viewModel.selectedDays.isEmpty
+                  || viewModel.selectedLocations.isEmpty) ? 0.5 : 1)
+    }
+
+    // MARK: - Helper methods
+
+    private func getFCMToken() {
+        Messaging.messaging().token { token, error in
+            if let error = error {
+                print("Error getting FCM token: \(error.localizedDescription)")
+            } else if let token = token {
+                print("FCM TOKEN: \(token)")
+                self.fcmToken = token
+                UIPasteboard.general.string = token
+            }
+        }
+    }
+
+    private func handleToggleChange(isOn: Bool) {
+        if isOn {
+            if viewModel.savedReminderId == nil {
+                createDefaultReminder()
+            }
+        } else {
+            if let _ = viewModel.savedReminderId {
+                viewModel.deleteCapacityReminder()
+                UserDefaults.standard.removeObject(forKey: "savedReminderId")
+            }
+        }
+    }
+
+    private func createDefaultReminder() {
+        let daysOfWeekStrings = viewModel.selectedDays.map { $0.dayOfWeekComplete().uppercased() }
+
+        viewModel.createCapacityReminder(
+            capacityPercent: Int(capacity),
+            daysOfWeek: daysOfWeekStrings,
+            fcmToken: fcmToken,
+            gyms: viewModel.selectedLocations
+        )
+    }
+
+    private func saveReminder() {
+        if let _ = viewModel.savedReminderId {
+            let daysOfWeekStrings = viewModel.selectedDays.map { $0.dayOfWeekComplete().uppercased() }
+
+            viewModel.editCapacityReminder(
+                capacityPercent: Int(capacity),
+                daysOfWeek: daysOfWeekStrings,
+                gyms: viewModel.selectedLocations
+            )
         }
     }
 }
