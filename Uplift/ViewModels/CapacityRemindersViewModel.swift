@@ -22,6 +22,7 @@ extension CapacityRemindersView {
 
         @Published var selectedDays: [DayOfWeek] = []
         @Published var selectedLocations: [String] = []
+        @Published var capacityThreshold: Double = 50.0
 
         @Published var savedReminderId: Int?
         @Published var creatingReminder: Bool = false
@@ -30,12 +31,40 @@ extension CapacityRemindersView {
 
         private var queryBag = Set<AnyCancellable>()
 
-        // MARK: - Initialization
-
         init(savedReminderId: Int? = nil) {
             self.savedReminderId = savedReminderId
+            loadSavedSelections()
         }
-        // MARK: - Capacity Reminder Functions
+
+        // MARK: - Functions
+
+        /// load saved days & gym locations
+        private func loadSavedSelections() {
+            if let savedDayNumbers = UserDefaults.standard.array(forKey: "selectedDays") as? [Int] {
+                selectedDays = savedDayNumbers.compactMap { DayOfWeek(rawValue: $0) }
+            }
+
+            if let savedLocations = UserDefaults.standard.array(forKey: "selectedLocations") as? [String] {
+                selectedLocations = savedLocations
+            }
+
+            if let savedCapacity = UserDefaults.standard.object(forKey: "capacityThreshold") as? Double {
+                capacityThreshold = savedCapacity
+            }
+        }
+
+        private func saveDaysToUserDefaults() {
+            let dayNumbers = selectedDays.map { $0.rawValue }
+            UserDefaults.standard.set(dayNumbers, forKey: "selectedDays")
+        }
+
+        private func saveLocationsToUserDefaults() {
+            UserDefaults.standard.set(selectedLocations, forKey: "selectedLocations")
+        }
+
+        private func saveCapacityToUserDefaults(_ capacity: Double) {
+            UserDefaults.standard.set(capacity, forKey: "capacityThreshold")
+        }
 
         /// Create a new capacity reminder
         func createCapacityReminder(
@@ -45,6 +74,8 @@ extension CapacityRemindersView {
             gyms: [String]
         ) {
             creatingReminder = true
+
+            saveCapacityToUserDefaults(Double(capacityPercent))
 
             let mutation = UpliftAPI.CreateCapacityReminderMutation(
                 capacityPercent: capacityPercent,
@@ -71,10 +102,12 @@ extension CapacityRemindersView {
 
                     self.savedReminderId = id
 
-                    print("Default ID: \(id) Percent: \(capacityPercent) Day of Week: \(daysOfWeek) Gyms: \(gyms)")
-
                     UserDefaults.standard.set(id, forKey: "savedReminderId")
 
+                    self.saveDaysToUserDefaults()
+                    self.saveLocationsToUserDefaults()
+
+                    print("Default ID: \(id) Percent: \(capacityPercent) Day of Week: \(daysOfWeek) Gyms: \(gyms)")
                     Logger.data.info("Successfully created capacity reminder with ID: \(id)")
                     self.creatingReminder = false
                 }
@@ -87,18 +120,20 @@ extension CapacityRemindersView {
             daysOfWeek: [String],
             gyms: [String]
         ) {
-            guard let reminderId = savedReminderId else {
+            guard savedReminderId != nil else {
                 Logger.data.error("Cannot edit reminder: no saved reminder ID")
                 return
             }
 
             editingReminder = true
 
+            saveCapacityToUserDefaults(Double(capacityPercent))
+
             let mutation = UpliftAPI.EditCapacityReminderMutation(
                 capacityPercent: capacityPercent,
                 daysOfWeek: daysOfWeek,
                 gyms: gyms,
-                reminderId: reminderId
+                reminderId: savedReminderId!
             )
 
             Network.client.mutationPublisher(mutation: mutation)
@@ -117,10 +152,11 @@ extension CapacityRemindersView {
                 } receiveValue: { [weak self] reminderId in
                     guard let self, let id = reminderId else { return }
 
+                    self.saveDaysToUserDefaults()
+                    self.saveLocationsToUserDefaults()
+
                     Logger.data.info("Successfully edited capacity reminder with ID: \(id)")
-
                     print("Edit ID: \(id) Percent: \(capacityPercent) Day of Week: \(daysOfWeek) Gyms: \(gyms)")
-
                     self.editingReminder = false
                 }
                 .store(in: &queryBag)
@@ -128,7 +164,7 @@ extension CapacityRemindersView {
 
         /// Delete a capacity reminder
         func deleteCapacityReminder() {
-            guard let reminderId = savedReminderId else {
+            guard savedReminderId != nil else {
                 Logger.data.error("Cannot delete reminder: no saved reminder ID")
                 return
             }
@@ -136,7 +172,7 @@ extension CapacityRemindersView {
             deletingReminder = true
 
             let mutation = UpliftAPI.DeleteCapacityReminderMutation(
-                reminderId: reminderId
+                reminderId: savedReminderId!
             )
 
             Network.client.mutationPublisher(mutation: mutation)
@@ -158,10 +194,12 @@ extension CapacityRemindersView {
                     Logger.data.info("Successfully deleted capacity reminder with ID: \(id)")
                     self.savedReminderId = nil
 
-                    print("Success!")
-
                     UserDefaults.standard.removeObject(forKey: "savedReminderId")
+                    UserDefaults.standard.removeObject(forKey: "selectedDays")
+                    UserDefaults.standard.removeObject(forKey: "selectedLocations")
+                    UserDefaults.standard.removeObject(forKey: "capacityThreshold")
 
+                    print("Success!")
                     self.deletingReminder = false
                 }
                 .store(in: &queryBag)

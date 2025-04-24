@@ -17,20 +17,66 @@ struct CapacityRemindersView: View {
 
     @StateObject private var viewModel = ViewModel()
     @Environment(\.dismiss) private var dismiss
-    @State private var capacity = 50.0
     @State private var showInfo = false
     @State private var fcmToken: String = ""
 
-    // MARK: - Constants
-
     private let gyms = ["TEAGLEUP", "TEAGLEDOWN", "HELENNEWMAN", "TONIMORRISON", "NOYES"]
-
-    // MARK: - Init
 
     init() {
         if let savedId = UserDefaults.standard.object(forKey: "savedReminderId") as? Int {
             _viewModel = StateObject(wrappedValue: ViewModel(savedReminderId: savedId))
             _showInfo = State(initialValue: true)
+        }
+    }
+
+    /// retrieves the FCM token
+    private func getFCMToken() {
+        Messaging.messaging().token { token, error in
+            if let error = error {
+                print("Error getting FCM token: \(error.localizedDescription)")
+            } else if let token = token {
+                print("FCM TOKEN: \(token)")
+                self.fcmToken = token
+                UIPasteboard.general.string = token
+            }
+        }
+    }
+
+    /// creates a default reminder if toggle is on; if off, deletes it from the local storage
+    private func handleToggleChange(isOn: Bool) {
+        if isOn {
+            if viewModel.savedReminderId == nil {
+                createDefaultReminder()
+            }
+        } else {
+            if viewModel.savedReminderId != nil {
+                viewModel.deleteCapacityReminder()
+            }
+        }
+    }
+
+    /// creates a default reminder
+    private func createDefaultReminder() {
+        let daysOfWeekStrings = viewModel.selectedDays.map { $0.dayOfWeekComplete().uppercased() }
+
+        viewModel.createCapacityReminder(
+            capacityPercent: Int(viewModel.capacityThreshold),
+            daysOfWeek: daysOfWeekStrings,
+            fcmToken: fcmToken,
+            gyms: viewModel.selectedLocations
+        )
+    }
+
+    /// edits the device's reminder
+    private func saveReminder() {
+        if viewModel.savedReminderId != nil {
+            let daysOfWeekStrings = viewModel.selectedDays.map { $0.dayOfWeekComplete().uppercased() }
+
+            viewModel.editCapacityReminder(
+                capacityPercent: Int(viewModel.capacityThreshold),
+                daysOfWeek: daysOfWeekStrings,
+                gyms: viewModel.selectedLocations
+            )
         }
     }
 
@@ -171,7 +217,7 @@ struct CapacityRemindersView: View {
 
                 GeometryReader { geometry in
                     HStack {
-                        Text("\(Int(capacity))%")
+                        Text("\(Int(viewModel.capacityThreshold))%")
                             .foregroundStyle(Constants.Colors.gray04)
                             .font(Constants.Fonts.bodySemibold)
                             .padding(10)
@@ -179,14 +225,14 @@ struct CapacityRemindersView: View {
                                 RoundedRectangle(cornerRadius: 12)
                                     .fill(Constants.Colors.gray00)
                             }
-                            .position(x: capacity / 99 * (geometry.size.width - 32) + 16)
+                            .position(x: viewModel.capacityThreshold / 99 * (geometry.size.width - 32) + 16)
                     }
                 }
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.vertical, 12)
 
                 Slider(
-                    value: $capacity,
+                    value: $viewModel.capacityThreshold,
                     in: 0...100,
                     step: 10
                 )
@@ -279,56 +325,6 @@ struct CapacityRemindersView: View {
                   || viewModel.editingReminder
                   || viewModel.selectedDays.isEmpty
                   || viewModel.selectedLocations.isEmpty) ? 0.5 : 1)
-    }
-
-    // MARK: - Helper methods
-
-    private func getFCMToken() {
-        Messaging.messaging().token { token, error in
-            if let error = error {
-                print("Error getting FCM token: \(error.localizedDescription)")
-            } else if let token = token {
-                print("FCM TOKEN: \(token)")
-                self.fcmToken = token
-                UIPasteboard.general.string = token
-            }
-        }
-    }
-
-    private func handleToggleChange(isOn: Bool) {
-        if isOn {
-            if viewModel.savedReminderId == nil {
-                createDefaultReminder()
-            }
-        } else {
-            if let _ = viewModel.savedReminderId {
-                viewModel.deleteCapacityReminder()
-                UserDefaults.standard.removeObject(forKey: "savedReminderId")
-            }
-        }
-    }
-
-    private func createDefaultReminder() {
-        let daysOfWeekStrings = viewModel.selectedDays.map { $0.dayOfWeekComplete().uppercased() }
-
-        viewModel.createCapacityReminder(
-            capacityPercent: Int(capacity),
-            daysOfWeek: daysOfWeekStrings,
-            fcmToken: fcmToken,
-            gyms: viewModel.selectedLocations
-        )
-    }
-
-    private func saveReminder() {
-        if let _ = viewModel.savedReminderId {
-            let daysOfWeekStrings = viewModel.selectedDays.map { $0.dayOfWeekComplete().uppercased() }
-
-            viewModel.editCapacityReminder(
-                capacityPercent: Int(capacity),
-                daysOfWeek: daysOfWeekStrings,
-                gyms: viewModel.selectedLocations
-            )
-        }
     }
 }
 
