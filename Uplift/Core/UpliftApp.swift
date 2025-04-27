@@ -10,6 +10,7 @@ import FirebaseCore
 import FirebaseMessaging
 import FirebaseInstallations
 import GoogleSignIn
+import OSLog
 import SwiftUI
 
 @main
@@ -49,6 +50,68 @@ struct UpliftApp: App {
                     ) : nil
                 }
             }
+            .onAppear {
+                restoreUserSession()
+            }
+        }
+    }
+
+    // MARK: Restore Previous Sign-in
+
+    private func restoreUserSession() {
+        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+            if let error = error {
+                Logger.data.critical("❌ Failed to restore Google Sign-In: \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    self.mainViewModel.showSignInView = true
+                }
+                return
+            }
+
+            guard let user = user else {
+                Logger.data.critical("❌ No previous Google Sign-In session found")
+                DispatchQueue.main.async {
+                    self.mainViewModel.showSignInView = true
+                }
+                return
+            }
+
+            Logger.data.log("✅ Restored Google Sign-In session for user: \(user.profile?.email ?? "Unknown")")
+
+            if let netID = UserSessionManager.shared.netID {
+                UserSessionManager.shared.loginUser(netId: netID) { result in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success:
+                            Logger.data.log("✅ Successfully restored backend session")
+                            self.mainViewModel.showMainView = true
+                            self.mainViewModel.showSignInView = false
+                            self.mainViewModel.showCreateProfileView = false
+
+                        case .failure(let error):
+                            if let graphqlError = error as? GraphQLErrorWrapper,
+                               graphqlError.msg.contains("No user with those credentials") {
+                                Logger.data.critical("⚠️ No backend user exists. Showing Sign-In view.")
+                                self.mainViewModel.showSignInView = true
+                                self.mainViewModel.showCreateProfileView = false
+                                self.mainViewModel.showMainView = false
+                            } else {
+                                Logger.data.critical("❌ Failed backend login: \(error.localizedDescription)")
+                                self.mainViewModel.showSignInView = true
+                                self.mainViewModel.showCreateProfileView = false
+                                self.mainViewModel.showMainView = false
+                            }
+                        }
+                    }
+                }
+            } else {
+                Logger.data.critical("❌ No netID found in Keychain. Showing Sign-In view.")
+                DispatchQueue.main.async {
+                    self.mainViewModel.showSignInView = true
+                    self.mainViewModel.showCreateProfileView = false
+                    self.mainViewModel.showMainView = false
+                }
+            }
         }
     }
 }
@@ -76,8 +139,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(
-        options: authOptions,
-        completionHandler: { _, _ in }
+            options: authOptions,
+            completionHandler: { _, _ in }
         )
 
         application.registerForRemoteNotifications()
