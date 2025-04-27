@@ -7,6 +7,8 @@
 //
 
 import FirebaseCore
+import FirebaseMessaging
+import FirebaseInstallations
 import GoogleSignIn
 import SwiftUI
 
@@ -49,27 +51,78 @@ struct UpliftApp: App {
             }
         }
     }
+}
 
-    class AppDelegate: NSObject, UIApplicationDelegate {
-        func application(
-            _ application: UIApplication,
-            didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
-        ) -> Bool {
-            FirebaseApp.configure()
-            GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
-                if error != nil || user == nil {
-                    // TODO: - Show the app's signed-out state.
-                } else {
-                    // TODO: - Show the app's signed-in state.
-                }
+class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
+    ) -> Bool {
+        FirebaseApp.configure()
+
+        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+            if error != nil || user == nil {
+                // TODO: - Show the app's signed-out state.
+            } else {
+                // TODO: - Show the app's signed-in state.
             }
-            return true
         }
 
-        func application(_ app: UIApplication,
-                         open url: URL,
-                         options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-            GIDSignIn.sharedInstance.handle(url)
+        // Configure Firebase Cloud Messaging
+        Messaging.messaging().delegate = self
+
+        // Configure push notifications
+        UNUserNotificationCenter.current().delegate = self
+
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(
+        options: authOptions,
+        completionHandler: { _, _ in }
+        )
+
+        application.registerForRemoteNotifications()
+
+        return true
+    }
+
+    func application(_ app: UIApplication,
+                     open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        GIDSignIn.sharedInstance.handle(url)
+    }
+
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Unable to register for remote notifications: \(error.localizedDescription)")
+    }
+
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenString = deviceToken.map { String(format: "%02x", $0) }.joined()
+        print("APNs token retrieved: \(tokenString)")
+
+        // Passes the APNs token to Firebase Cloud Messaging (FCM)
+        Messaging.messaging().apnsToken = deviceToken
+    }
+}
+
+extension AppDelegate: MessagingDelegate {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        print("Firebase registration token: \(fcmToken ?? "")")
+
+        Messaging.messaging().token { token, error in
+            if let error = error {
+                print("Error fetching FCM registration token: \(error)")
+            } else if let token = token {
+                print("FCM registration token: \(token)")
+            }
+        }
+
+        Task {
+            do {
+                let id = try await Installations.installations().installationID()
+                print("Installation ID: \(id)")
+            } catch {
+                print("Error fetching id: \(error)")
+            }
         }
     }
 }
