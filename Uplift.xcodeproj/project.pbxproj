@@ -23,6 +23,8 @@
 		29EAC6CB2EC6D5580027E88E /* GymCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EAC6CA2EC6D5550027E88E /* GymCache.swift */; };
 		29EAC6CD2EC6DA740027E88E /* ClassesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EAC6CC2EC6DA690027E88E /* ClassesCache.swift */; };
 		2CA97C8F2D8B852700EF48B3 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2CA97C8E2D8B852700EF48B3 /* UpliftAPI */; };
+		2CFFEC542DBED07600EE26F8 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFFEC532DBED07100EE26F8 /* KeychainManager.swift */; };
+		2CFFEC562DBED07D00EE26F8 /* UserSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFFEC552DBED07900EE26F8 /* UserSessionManager.swift */; };
 		2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E090EC42B12EF2600BAE982 /* Publishers.swift */; };
 		2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E090ECA2B12FF5900BAE982 /* UpliftAPI */; };
 		2E090ED62B13121600BAE982 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E090ED52B13121600BAE982 /* Constants.swift */; };
@@ -154,6 +156,8 @@
 		29DC9AB92DB96C340088DC24 /* CapacityReminderMutations.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = CapacityReminderMutations.graphql; sourceTree = "<group>"; };
 		29EAC6CA2EC6D5550027E88E /* GymCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymCache.swift; sourceTree = "<group>"; };
 		29EAC6CC2EC6DA690027E88E /* ClassesCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesCache.swift; sourceTree = "<group>"; };
+		2CFFEC532DBED07100EE26F8 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		2CFFEC552DBED07900EE26F8 /* UserSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionManager.swift; sourceTree = "<group>"; };
 		2E090EC42B12EF2600BAE982 /* Publishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.swift; sourceTree = "<group>"; };
 		2E090ED52B13121600BAE982 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2E1105BE2B13B0E100119F5B /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -336,6 +340,8 @@
 		2E090ECE2B13087100BAE982 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				2CFFEC552DBED07900EE26F8 /* UserSessionManager.swift */,
+				2CFFEC532DBED07100EE26F8 /* KeychainManager.swift */,
 				2E45B2462B4F643500FB83B7 /* AnalyticsManager.swift */,
 				2E15F5032B39E54700414BEC /* LocationManager.swift */,
 				2ED53DCE2B3E06DC00FBDEAB /* Logger.swift */,
@@ -796,6 +802,7 @@
 			files = (
 				896500DC2BB4D33500D822AB /* ClassDetailView.swift in Sources */,
 				2923EF472E9836A600D3FC1D /* CapacityTutorialModal.swift in Sources */,
+				2CFFEC562DBED07D00EE26F8 /* UserSessionManager.swift in Sources */,
 				2EF1A2582B129EEB007A299F /* Network.swift in Sources */,
 				6329A4462C964D0800D30A2F /* SignInView.swift in Sources */,
 				2E39D81C2B3B5F3700AD238B /* NavBackButton.swift in Sources */,
@@ -810,6 +817,7 @@
 				893AD9152D59569600C0817B /* MuscleCategoryView.swift in Sources */,
 				89C8658D2BB4779C00758337 /* ClassCell.swift in Sources */,
 				298EBA502E8E5335000441BA /* CustomLoadingView.swift in Sources */,
+				2CFFEC542DBED07600EE26F8 /* KeychainManager.swift in Sources */,
 				291433852D87387B00F913D5 /* UserProfile.swift in Sources */,
 				294CC21D2D7E34D300EF6487 /* WeeklyWorkoutTrackerView.swift in Sources */,
 				2E1105BF2B13B0E100119F5B /* HomeViewModel.swift in Sources */,

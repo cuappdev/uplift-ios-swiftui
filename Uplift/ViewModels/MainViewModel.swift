@@ -24,6 +24,7 @@ extension MainView {
         @Published var name: String = ""
         @Published var netID: String = ""
         @Published var popUpGiveaway: Bool = false
+        @Published var profileImage: UIImage?
         @Published var didClickSubmit: Bool = false
         @Published var showCreateProfileView = false
         @Published var showGiveawayErrorAlert: Bool = false
@@ -52,7 +53,27 @@ extension MainView {
          */
         func createUser() {
             createUserRequest {
-                // TODO: - currently nothing to do after creating user
+                UserSessionManager.shared.loginUser(netId: self.netID) { result in
+                    switch result {
+                    case .success:
+                        Logger.data.log("✅ Successfully logged in after creating user")
+                        self.showMainView = true
+                        self.showCreateProfileView = false
+                        self.showSignInView = false
+
+                        UserSessionManager.shared.email = self.email
+                    case .failure(let error):
+                        if let graphqlError = error as? GraphQLErrorWrapper,
+                           graphqlError.msg.contains("No user with those credentials") {
+                            Logger.data.critical("⚠️ No user found, show onboarding flow or retry")
+                            self.showMainView = false
+                            self.showCreateProfileView = false
+                            self.showSignInView = true
+                        } else {
+                            Logger.data.critical("❌ Unexpected login error: \(error.localizedDescription)")
+                        }
+                    }
+                }
             }
         }
 
@@ -66,10 +87,14 @@ extension MainView {
             // Make lowercase and remove whitespace
             netID = netID.lowercased().replacingOccurrences(of: " ", with: "")
 
-            // TODO: Update for next giveaway
+            let base64Image: String? = profileImage?
+                .jpegData(compressionQuality: 0.5)?
+                .base64EncodedString()
+
             Network.client.mutationPublisher(
                 mutation: CreateUserMutation(
                     email: self.email,
+                    encodedImage: base64Image.map { GraphQLNullable.some($0) } ?? .none,
                     name: self.name,
                     netId: netID
                 )

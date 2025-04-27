@@ -6,6 +6,7 @@
 //  Copyright © 2024 Cornell AppDev. All rights reserved.
 //
 
+import OSLog
 import SwiftUI
 
 struct SignInView: View {
@@ -57,9 +58,31 @@ struct SignInView: View {
                 mainViewModel.email = email
                 mainViewModel.name = name
                 mainViewModel.netID = netId
-                mainViewModel.createUser()
-                mainViewModel.showSignInView = false
-                mainViewModel.showCreateProfileView = true
+
+                UserSessionManager.shared.loginUser(netId: netId) { result in
+                    switch result {
+                    case .success:
+                        DispatchQueue.main.async {
+                            mainViewModel.showSignInView = false
+                            mainViewModel.showCreateProfileView = false
+                            mainViewModel.showMainView = true
+                        }
+
+                        UserSessionManager.shared.email = email
+
+                    case .failure(let error):
+                        if let graphqlError = error as? GraphQLErrorWrapper,
+                           graphqlError.msg.contains("No user with those credentials") {
+
+                            DispatchQueue.main.async {
+                                mainViewModel.showSignInView = false
+                                mainViewModel.showCreateProfileView = true
+                            }
+                        } else {
+                            Logger.data.critical("❌ Unexpected login error: \(error.localizedDescription)")
+                        }
+                    }
+                }
             }
         } label: {
             Text("Log in")
