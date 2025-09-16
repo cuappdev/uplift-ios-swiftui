@@ -27,7 +27,7 @@ struct CapacitySemiCircleView: View {
             return Constants.Colors.orange
         case .veryBusy:
             return Constants.Colors.red
-        case nil:
+        default:
             return Constants.Colors.open
         }
     }
@@ -35,7 +35,7 @@ struct CapacitySemiCircleView: View {
         switch status {
         case .notBusy(let double), .slightlyBusy(let double), .veryBusy(let double):
             return double
-        case nil:
+        default:
             return 0
         }
     }
@@ -111,21 +111,6 @@ struct CapacitySemiCircleView: View {
             }
         }
         .padding(lineWidth / 2)
-//        .onAppear {
-//            switch status {
-//            case .notBusy(let double):
-//                color = Constants.Colors.open
-//                progress = double
-//            case .slightlyBusy(let double):
-//                color = Constants.Colors.orange
-//                progress = double
-//            case .veryBusy(let double):
-//                color = Constants.Colors.red
-//                progress = double
-//            case nil:
-//                break
-//            }
-//        }
     }
 
 }
