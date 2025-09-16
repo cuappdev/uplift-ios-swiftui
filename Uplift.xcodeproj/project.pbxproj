@@ -1285,6 +1285,14 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = UpliftAPI;
 		};
+		8983A9A52CFEA077008E84DB /* UpliftAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UpliftAPI;
+		};
+		89CE47412D03F3C700BCB79D /* UpliftAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UpliftAPI;
+		};
 /* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2E8FE3842B1278B700B3DC6A /* Project object */;
