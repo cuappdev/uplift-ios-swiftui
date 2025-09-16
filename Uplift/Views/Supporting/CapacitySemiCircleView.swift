@@ -19,8 +19,26 @@ struct CapacitySemiCircleView: View {
     let status: CapacityStatus?
     let timeUpdated: Date?
 
-    @State private var color: Color = Constants.Colors.open
-    @State private var progress: Double = 0.0
+    private var color: Color {
+        switch status {
+        case .notBusy:
+            return Constants.Colors.open
+        case .slightlyBusy:
+            return Constants.Colors.orange
+        case .veryBusy:
+            return Constants.Colors.red
+        default:
+            return Constants.Colors.open
+        }
+    }
+    private var progress: Double {
+        switch status {
+        case .notBusy(let double), .slightlyBusy(let double), .veryBusy(let double):
+            return double
+        default:
+            return 0
+        }
+    }
 
     // MARK: - UI
 
@@ -93,21 +111,6 @@ struct CapacitySemiCircleView: View {
             }
         }
         .padding(lineWidth / 2)
-        .onAppear {
-            switch status {
-            case .notBusy(let double):
-                color = Constants.Colors.open
-                progress = double
-            case .slightlyBusy(let double):
-                color = Constants.Colors.orange
-                progress = double
-            case .veryBusy(let double):
-                color = Constants.Colors.red
-                progress = double
-            case nil:
-                break
-            }
-        }
     }
 
 }
