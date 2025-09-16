@@ -58,11 +58,6 @@ struct GymDetailView: View {
             heroSection
 //            !gym.amenities.isEmpty ? amenitiesSection : nil
             slidingTabBar(gymName: viewModel.determineGymNameEnum(gym: gym))
-                .onTapGesture {
-                    if viewModel.determineGymNameEnum(gym: gym) == .teagle {
-                        viewModel.determineSelectedTab(gym: gym, isTeagleUpSelected: isTeagleUpSelected)
-                    }
-                }
             DividerLine()
 
             Group {
