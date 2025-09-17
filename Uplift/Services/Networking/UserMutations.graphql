@@ -17,9 +17,22 @@ fragment giveawayFields on Giveaway {
   }
 }
 
-mutation CreateUser($email: String!, $name: String!, $netId: String!) {
-  createUser(email: $email, name: $name, netId: $netId) {
+mutation CreateUser($email: String!, $encodedImage: String, $name: String!, $netId: String!) {
+  createUser(email: $email, encodedImage: $encodedImage, name: $name, netId: $netId) {
     ...userFields
+  }
+}
+
+mutation LoginUser($netId: String!) {
+  loginUser(netId: $netId) {
+    accessToken
+    refreshToken
+  }
+}
+
+mutation RefreshAccessToken {
+  refreshAccessToken {
+    newAccessToken
   }
 }
 

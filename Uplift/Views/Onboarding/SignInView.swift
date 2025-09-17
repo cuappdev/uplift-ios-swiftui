@@ -6,6 +6,7 @@
 //  Copyright © 2024 Cornell AppDev. All rights reserved.
 //
 
+import OSLog
 import SwiftUI
 
 struct SignInView: View {
@@ -57,9 +58,31 @@ struct SignInView: View {
                 mainViewModel.email = email
                 mainViewModel.name = name
                 mainViewModel.netID = netId
-                mainViewModel.createUser()
-                mainViewModel.showSignInView = false
-                mainViewModel.showCreateProfileView = true
+
+                UserSessionManager.shared.loginUser(netId: netId) { result in
+                    switch result {
+                    case .success:
+                        DispatchQueue.main.async {
+                            mainViewModel.showSignInView = false
+                            mainViewModel.showCreateProfileView = false
+                            mainViewModel.showMainView = true
+                        }
+
+                        UserSessionManager.shared.email = email
+
+                    case .failure(let error):
+                        if let graphqlError = error as? GraphQLErrorWrapper,
+                           graphqlError.msg.contains("No user with those credentials") {
+
+                            DispatchQueue.main.async {
+                                mainViewModel.showSignInView = false
+                                mainViewModel.showCreateProfileView = true
+                            }
+                        } else {
+                            Logger.data.critical("❌ Unexpected login error: \(error.localizedDescription)")
+                        }
+                    }
+                }
             }
         } label: {
             Text("Log in")
@@ -99,6 +122,7 @@ struct SignInView: View {
 
             Text("Create fitness goals")
                 .font(Constants.Fonts.f2)
+                .foregroundStyle(Constants.Colors.black)
 
             Spacer()
         }
@@ -114,6 +138,7 @@ struct SignInView: View {
 
             Text("Track fitness goals")
                 .font(Constants.Fonts.f2)
+                .foregroundStyle(Constants.Colors.black)
 
             Spacer()
         }
@@ -129,6 +154,7 @@ struct SignInView: View {
 
             Text("View workout history")
                 .font(Constants.Fonts.f2)
+                .foregroundStyle(Constants.Colors.black)
 
             Spacer()
         }
@@ -157,12 +183,14 @@ struct SignInView: View {
 
             Text("Find what uplifts you.")
                 .font(Constants.Fonts.h1)
+                .foregroundStyle(Constants.Colors.black)
                 .padding(.top, 62)
                 .opacity(animateElements ? 1 : 0)
                 .animation(.easeIn(duration: 1).delay(2), value: animateElements)
 
             Text("Log in to:")
                 .font(Constants.Fonts.h2)
+                .foregroundStyle(Constants.Colors.black)
                 .padding(.top, 89)
                 .opacity(animateElements ? 1 : 0)
                 .animation(.easeIn(duration: 1).delay(2), value: animateElements)
