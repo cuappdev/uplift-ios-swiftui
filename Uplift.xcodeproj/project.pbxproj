@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29055F802E7E3E6E00E9A730 /* UnsavedChangesModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29055F7F2E7E3E6500E9A730 /* UnsavedChangesModal.swift */; };
 		291433852D87387B00F913D5 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291433842D87387500F913D5 /* UserProfile.swift */; };
 		291433872D87388C00F913D5 /* WeeklyWorkoutData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291433862D87388800F913D5 /* WeeklyWorkoutData.swift */; };
 		291433892D8738A400F913D5 /* WorkoutHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291433882D8738A200F913D5 /* WorkoutHistory.swift */; };
@@ -131,6 +132,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		29055F7F2E7E3E6500E9A730 /* UnsavedChangesModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsavedChangesModal.swift; sourceTree = "<group>"; };
 		291433842D87387500F913D5 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		291433862D87388800F913D5 /* WeeklyWorkoutData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyWorkoutData.swift; sourceTree = "<group>"; };
 		291433882D8738A200F913D5 /* WorkoutHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistory.swift; sourceTree = "<group>"; };
@@ -425,6 +427,7 @@
 		2E15F50A2B3A0AF700414BEC /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
+				29055F7F2E7E3E6500E9A730 /* UnsavedChangesModal.swift */,
 				2E15F50B2B3A0B2100414BEC /* CapacityCircleView.swift */,
 				89E4FAA92CEFEC3000A952B1 /* CapacitySemiCircleView.swift */,
 				893AD9122D59466F00C0817B /* DropDownArrow.swift */,
@@ -777,6 +780,7 @@
 				2E6785C42B3A780600DD3ADA /* DayOfWeek.swift in Sources */,
 				2E6785BE2B3A513000DD3ADA /* SemiCircleShape.swift in Sources */,
 				2E15F4FB2B39573C00414BEC /* Double+Extension.swift in Sources */,
+				29055F802E7E3E6E00E9A730 /* UnsavedChangesModal.swift in Sources */,
 				2E39D8162B3B3AD600AD238B /* ScaleButtonStyle.swift in Sources */,
 				2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */,
 				893AD9152D59569600C0817B /* MuscleCategoryView.swift in Sources */,
