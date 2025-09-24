@@ -28,7 +28,7 @@ struct UnsavedChangesModal: View {
                 .overlay(
 
                     VStack(spacing: 16) {
-                        Constants.Images.edit
+                        Constants.Images.pencil
                             .resizable()
                             .frame(width: 40, height: 40)
                             .padding(.top, 20)
@@ -71,7 +71,7 @@ struct UnsavedChangesModal: View {
                     Button {
                         onCancel()
                     } label: {
-                        Constants.Images.close
+                        Constants.Images.cross_thin
                             .foregroundColor(Constants.Colors.black)
                             .frame(width: 32, height: 32)
                     }

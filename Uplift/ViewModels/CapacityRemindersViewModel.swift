@@ -107,7 +107,6 @@ extension CapacityRemindersView {
                     self.saveDaysToUserDefaults()
                     self.saveLocationsToUserDefaults()
 
-                    print("Default ID: \(id) Percent: \(capacityPercent) Day of Week: \(daysOfWeek) Gyms: \(gyms)")
                     Logger.data.info("Successfully created capacity reminder with ID: \(id)")
                     self.creatingReminder = false
                 }
@@ -156,7 +155,6 @@ extension CapacityRemindersView {
                     self.saveLocationsToUserDefaults()
 
                     Logger.data.info("Successfully edited capacity reminder with ID: \(id)")
-                    print("Edit ID: \(id) Percent: \(capacityPercent) Day of Week: \(daysOfWeek) Gyms: \(gyms)")
                     self.editingReminder = false
                 }
                 .store(in: &queryBag)
@@ -191,7 +189,6 @@ extension CapacityRemindersView {
                 } receiveValue: { [weak self] reminderId in
                     guard let self, let id = reminderId else { return }
 
-                    Logger.data.info("Successfully deleted capacity reminder with ID: \(id)")
                     self.savedReminderId = nil
 
                     UserDefaults.standard.removeObject(forKey: "savedReminderId")
@@ -199,8 +196,9 @@ extension CapacityRemindersView {
                     UserDefaults.standard.removeObject(forKey: "selectedLocations")
                     UserDefaults.standard.removeObject(forKey: "capacityThreshold")
 
-                    print("Success!")
                     self.deletingReminder = false
+
+                    Logger.data.info("Successfully deleted capacity reminder with ID: \(id)")
                 }
                 .store(in: &queryBag)
         }

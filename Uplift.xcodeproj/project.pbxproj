@@ -14,7 +14,7 @@
 		293032572D7A8F64002E5484 /* WorkoutProgressArc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */; };
 		294CC21D2D7E34D300EF6487 /* WeeklyWorkoutTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294CC21C2D7E34D000EF6487 /* WeeklyWorkoutTrackerView.swift */; };
 		296A2DAE2D7A805300EF042F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296A2DAD2D7A805300EF042F /* ProfileViewModel.swift */; };
-		29DC9ABA2DB96C3C0088DC24 /* CapacityReminders.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 29DC9AB92DB96C340088DC24 /* CapacityReminders.graphql */; };
+		29DC9ABA2DB96C3C0088DC24 /* CapacityReminderMutations.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 29DC9AB92DB96C340088DC24 /* CapacityReminderMutations.graphql */; };
 		2CA97C8F2D8B852700EF48B3 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2CA97C8E2D8B852700EF48B3 /* UpliftAPI */; };
 		2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E090EC42B12EF2600BAE982 /* Publishers.swift */; };
 		2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E090ECA2B12FF5900BAE982 /* UpliftAPI */; };
@@ -139,7 +139,7 @@
 		293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutProgressArc.swift; sourceTree = "<group>"; };
 		294CC21C2D7E34D000EF6487 /* WeeklyWorkoutTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyWorkoutTrackerView.swift; sourceTree = "<group>"; };
 		296A2DAD2D7A805300EF042F /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
-		29DC9AB92DB96C340088DC24 /* CapacityReminders.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = CapacityReminders.graphql; sourceTree = "<group>"; };
+		29DC9AB92DB96C340088DC24 /* CapacityReminderMutations.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = CapacityReminderMutations.graphql; sourceTree = "<group>"; };
 		2E090EC42B12EF2600BAE982 /* Publishers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publishers.swift; sourceTree = "<group>"; };
 		2E090ED52B13121600BAE982 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2E1105BE2B13B0E100119F5B /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -373,7 +373,7 @@
 		2E090ED22B13093400BAE982 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				29DC9AB92DB96C340088DC24 /* CapacityReminders.graphql */,
+				29DC9AB92DB96C340088DC24 /* CapacityReminderMutations.graphql */,
 				2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */,
 				2EF1A2572B129EEB007A299F /* Network.swift */,
 				2E090EC42B12EF2600BAE982 /* Publishers.swift */,
@@ -704,7 +704,7 @@
 				2EB090B92B131CA80039EB3B /* Montserrat-SemiBold.ttf in Resources */,
 				2EB090B42B131CA40039EB3B /* BebasNeue-Regular.ttf in Resources */,
 				2E45B2422B4E5CE100FB83B7 /* GoogleService-Info.plist in Resources */,
-				29DC9ABA2DB96C3C0088DC24 /* CapacityReminders.graphql in Resources */,
+				29DC9ABA2DB96C3C0088DC24 /* CapacityReminderMutations.graphql in Resources */,
 				2E39D8312B3BEE5900AD238B /* LaunchScreen.storyboard in Resources */,
 				2E8FE3962B1278B900B3DC6A /* Assets.xcassets in Resources */,
 			);
