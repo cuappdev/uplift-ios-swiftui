@@ -114,7 +114,7 @@ struct Constants {
         static let capacity = Image("capacity")
         static let chest = Image("chest")
         static let clock = Image("clock")
-        static let cross_thin = Image("cross_thin")
+        static let crossThin = Image("cross_thin")
         static let cross = Image("cross")
         static let dumbbellSolid = Image("dumbbell_solid")
         static let dumbbellLarge = Image("dumbbell_large")

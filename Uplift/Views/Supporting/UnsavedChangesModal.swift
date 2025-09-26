@@ -71,7 +71,7 @@ struct UnsavedChangesModal: View {
                     Button {
                         onCancel()
                     } label: {
-                        Constants.Images.cross_thin
+                        Constants.Images.crossThin
                             .foregroundColor(Constants.Colors.black)
                             .frame(width: 32, height: 32)
                     }

@@ -2,7 +2,7 @@
 //  CapacityRemindersViewModel.swift
 //  Uplift
 //
-//  Created by Caitlyn Jin on 9/27/24.
+//  Created by Jiwon Jeong on 9/25/25.
 //  Copyright © 2024 Cornell AppDev. All rights reserved.
 //
 
@@ -11,6 +11,7 @@ import Foundation
 import OSLog
 import UpliftAPI
 import SwiftUI
+import FirebaseMessaging
 
 extension CapacityRemindersView {
 
@@ -29,17 +30,122 @@ extension CapacityRemindersView {
         @Published var deletingReminder: Bool = false
         @Published var editingReminder: Bool = false
 
+        @Published var showInfo = false
+        @Published var fcmToken: String = ""
+
+        @Published var showUnsavedChangesModal = false
+        @Published var hasUnsavedChanges: Bool = false
+
+        @Published var originalSelectedDays: [DayOfWeek] = []
+        @Published var originalCapacityThreshold: Double = 50
+        @Published var originalSelectedLocations: [String] = []
+        @Published var originalShowInfo: Bool = false
+
+        @Published var isLoading: Bool = false
+
+        var onDismiss: (() -> Void)?
+
         private var queryBag = Set<AnyCancellable>()
 
         init(savedReminderId: Int? = nil) {
-            self.savedReminderId = savedReminderId
-            loadSavedSelections()
+            if let id = savedReminderId {
+                self.savedReminderId = id
+                loadSavedSelections()
+                self.showInfo = true
+                self.originalShowInfo = true
+            } else {
+                self.showInfo = false
+                self.originalShowInfo = false
+            }
         }
 
         // MARK: - Functions
 
+        func cleanupLocalReminderData() {
+            self.savedReminderId = nil
+            UserDefaults.standard.removeObject(forKey: "savedReminderId")
+            UserDefaults.standard.removeObject(forKey: "selectedDays")
+            UserDefaults.standard.removeObject(forKey: "selectedLocations")
+            UserDefaults.standard.removeObject(forKey: "capacityThreshold")
+            Logger.data.info("Cleaned up local reminder data due to remote not found error")
+        }
+
+        /// retrieves the FCM token
+        func getFCMToken() {
+            Messaging.messaging().token { token, error in
+                if let error = error {
+                    print("Error getting FCM token: \(error.localizedDescription)")
+                } else if let token = token {
+                    print("FCM TOKEN: \(token)")
+                    self.fcmToken = token
+                    UIPasteboard.general.string = token
+                }
+            }
+        }
+
+        /// checks for unsaved changes
+        func checkForUnsavedChanges() {
+            hasUnsavedChanges = (
+                showInfo != originalShowInfo ||
+                selectedDays != originalSelectedDays ||
+                capacityThreshold != originalCapacityThreshold ||
+                selectedLocations != originalSelectedLocations
+            )
+        }
+
+        /// saves original values when needed
+        func saveOriginalValues() {
+            originalSelectedDays = selectedDays
+            originalCapacityThreshold = capacityThreshold
+            originalSelectedLocations = selectedLocations
+            originalShowInfo = showInfo
+        }
+
+        /// creates a default reminder if toggle is on; if off, deletes it from the local storage
+        func handleToggleChange(isOn: Bool) {
+            if isOn {
+                if savedReminderId == nil {
+                    createDefaultReminder()
+                }
+            } else {
+                if savedReminderId != nil {
+                    deleteCapacityReminder()
+                }
+            }
+            checkForUnsavedChanges()
+        }
+
+        /// creates a default reminder
+        func createDefaultReminder() {
+            let daysOfWeekStrings = selectedDays.map { $0.dayOfWeekComplete().uppercased() }
+
+            createCapacityReminder(
+                capacityPercent: Int(capacityThreshold),
+                daysOfWeek: daysOfWeekStrings,
+                fcmToken: fcmToken,
+                gyms: selectedLocations
+            )
+        }
+
+        /// edits the device's reminder
+        func saveReminder(onComplete: (() -> Void)? = nil) {
+            if savedReminderId != nil {
+                let daysOfWeekStrings = selectedDays.map { $0.dayOfWeekComplete().uppercased() }
+
+                editCapacityReminder(
+                    capacityPercent: Int(capacityThreshold),
+                    daysOfWeek: daysOfWeekStrings,
+                    gyms: selectedLocations,
+                    onComplete: onComplete
+                )
+            }
+
+            saveOriginalValues()
+            hasUnsavedChanges = false
+        }
+
         /// load saved days & gym locations
-        private func loadSavedSelections() {
+        func loadSavedSelections() {
             if let savedDayNumbers = UserDefaults.standard.array(forKey: "selectedDays") as? [Int] {
                 selectedDays = savedDayNumbers.compactMap { DayOfWeek(rawValue: $0) }
             }
@@ -117,12 +223,15 @@ extension CapacityRemindersView {
         func editCapacityReminder(
             capacityPercent: Int,
             daysOfWeek: [String],
-            gyms: [String]
+            gyms: [String],
+            onComplete: (() -> Void)? = nil
         ) {
             guard savedReminderId != nil else {
                 Logger.data.error("Cannot edit reminder: no saved reminder ID")
                 return
             }
+
+            isLoading = true
 
             editingReminder = true
 
@@ -139,8 +248,8 @@ extension CapacityRemindersView {
                 .map { result -> Int? in
                     if let idString = result.data?.editCapacityReminder?.id,
                        let id = Int(idString) {
-                        return id
-                    }
+                            return id
+                        }
                     return nil
                 }
                 .sink { completion in
@@ -148,6 +257,8 @@ extension CapacityRemindersView {
                         Logger.data.critical("Error in editing capacity reminder: \(error)")
                     }
                     self.editingReminder = false
+                    self.isLoading = false
+                    onComplete?()
                 } receiveValue: { [weak self] reminderId in
                     guard let self, let id = reminderId else { return }
 

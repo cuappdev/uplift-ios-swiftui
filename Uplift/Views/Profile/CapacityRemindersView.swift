@@ -8,7 +8,6 @@
 
 import SwiftUI
 import WrappingHStack
-import FirebaseMessaging
 
 /// The view for the Capacity Reminders page.
 struct CapacityRemindersView: View {
@@ -17,108 +16,13 @@ struct CapacityRemindersView: View {
 
     @StateObject private var viewModel = ViewModel()
     @Environment(\.dismiss) private var dismiss
-    @State private var showInfo = false
-    @State private var fcmToken: String = ""
-
-    @State private var showUnsavedChangesModal = false
-    @State private var hasUnsavedChanges: Bool = false
-
-    @State private var originalSelectedDays: [DayOfWeek] = []
-    @State private var originalCapacityThreshold: Double = 50
-    @State private var originalSelectedLocations: [String] = []
-    @State private var originalShowInfo: Bool = false
 
     private let gyms = ["TEAGLEUP", "TEAGLEDOWN", "HELENNEWMAN", "TONIMORRISON", "NOYES"]
 
     init() {
         if let savedId = UserDefaults.standard.object(forKey: "savedReminderId") as? Int {
             _viewModel = StateObject(wrappedValue: ViewModel(savedReminderId: savedId))
-            _showInfo = State(initialValue: true)
-            _originalShowInfo = State(initialValue: true)
         }
-    }
-
-    /// checks for unsaved changes
-    private func checkForUnsavedChanges() {
-        hasUnsavedChanges = (
-            showInfo != originalShowInfo ||
-            viewModel.selectedDays != originalSelectedDays ||
-            viewModel.capacityThreshold != originalCapacityThreshold ||
-            viewModel.selectedLocations != originalSelectedLocations
-        )
-    }
-
-    /// saves original values when needed
-    private func saveOriginalValues() {
-        originalSelectedDays = viewModel.selectedDays
-        originalCapacityThreshold = viewModel.capacityThreshold
-        originalSelectedLocations = viewModel.selectedLocations
-        originalShowInfo = showInfo
-    }
-
-    /// retrieves the FCM token
-    private func getFCMToken() {
-        Messaging.messaging().token { token, error in
-            if let error = error {
-                print("Error getting FCM token: \(error.localizedDescription)")
-            } else if let token = token {
-                print("FCM TOKEN: \(token)")
-                self.fcmToken = token
-                UIPasteboard.general.string = token
-            }
-        }
-    }
-
-    /// custom back button logic now that we have custom unsaved logic
-    private func handleBackButton() {
-        checkForUnsavedChanges()
-        if hasUnsavedChanges {
-            showUnsavedChangesModal = true
-        } else {
-            dismiss()
-        }
-    }
-
-    /// creates a default reminder if toggle is on; if off, deletes it from the local storage
-    private func handleToggleChange(isOn: Bool) {
-        if isOn {
-            if viewModel.savedReminderId == nil {
-                createDefaultReminder()
-            }
-        } else {
-            if viewModel.savedReminderId != nil {
-                viewModel.deleteCapacityReminder()
-            }
-        }
-        checkForUnsavedChanges()
-    }
-
-    /// creates a default reminder
-    private func createDefaultReminder() {
-        let daysOfWeekStrings = viewModel.selectedDays.map { $0.dayOfWeekComplete().uppercased() }
-
-        viewModel.createCapacityReminder(
-            capacityPercent: Int(viewModel.capacityThreshold),
-            daysOfWeek: daysOfWeekStrings,
-            fcmToken: fcmToken,
-            gyms: viewModel.selectedLocations
-        )
-    }
-
-    /// edits the device's reminder
-    private func saveReminder() {
-        if viewModel.savedReminderId != nil {
-            let daysOfWeekStrings = viewModel.selectedDays.map { $0.dayOfWeekComplete().uppercased() }
-
-            viewModel.editCapacityReminder(
-                capacityPercent: Int(viewModel.capacityThreshold),
-                daysOfWeek: daysOfWeekStrings,
-                gyms: viewModel.selectedLocations
-            )
-        }
-
-        saveOriginalValues()
-        hasUnsavedChanges = false
     }
 
     // MARK: - UI
@@ -134,7 +38,14 @@ struct CapacityRemindersView: View {
             .toolbarBackground(.hidden, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button(action: handleBackButton) {
+                    Button(action: {
+                        viewModel.checkForUnsavedChanges()
+                        if !viewModel.hasUnsavedChanges {
+                            dismiss()
+                        } else {
+                            viewModel.showUnsavedChangesModal = true
+                        }
+                    }) {
                         Constants.Images.arrowLeft
                             .resizable()
                             .scaledToFill()
@@ -145,43 +56,44 @@ struct CapacityRemindersView: View {
             }
             .background(Constants.Colors.white)
             .onAppear {
-                getFCMToken()
-                saveOriginalValues()
+                viewModel.getFCMToken()
+                viewModel.saveOriginalValues()
             }
             .overlay(
                 Group {
-                    if showUnsavedChangesModal {
+                    if viewModel.showUnsavedChangesModal {
                         ZStack {
                             Color.black.opacity(0.4)
                                 .ignoresSafeArea()
                                 .onTapGesture {
                                     withAnimation(.easeInOut(duration: 0.3)) {
-                                        showUnsavedChangesModal = false
+                                        viewModel.showUnsavedChangesModal = false
                                     }
                                 }
 
                             UnsavedChangesModal(
                                 onSaveChanges: {
-                                    withAnimation(.easeInOut(duration: 0.3)) {
-                                        saveReminder()
-                                        showUnsavedChangesModal = false
-                                        dismiss()
+                                    viewModel.saveReminder {
+                                        withAnimation(.easeInOut(duration: 0.3)) {
+                                            viewModel.showUnsavedChangesModal = false
+                                            dismiss()
+                                        }
                                     }
                                 },
                                 onContinue: {
                                     withAnimation(.easeInOut(duration: 0.3)) {
-                                        showInfo = originalShowInfo
-                                        viewModel.selectedDays = originalSelectedDays
-                                        viewModel.capacityThreshold = originalCapacityThreshold
-                                        viewModel.selectedLocations = originalSelectedLocations
-                                        hasUnsavedChanges = false
-                                        showUnsavedChangesModal = false
+                                        viewModel.showInfo = viewModel.originalShowInfo
+                                        viewModel.selectedDays = viewModel.originalSelectedDays
+                                        viewModel.capacityThreshold = viewModel.originalCapacityThreshold
+                                        viewModel.selectedLocations = viewModel.originalSelectedLocations
+                                        viewModel.hasUnsavedChanges = false
+                                        viewModel.showUnsavedChangesModal = false
                                         dismiss()
                                     }
                                 },
                                 onCancel: {
                                     withAnimation(.easeInOut(duration: 0.3)) {
-                                        showUnsavedChangesModal = false
+                                        viewModel.showUnsavedChangesModal = false
                                     }
                                 }
                             )
@@ -190,9 +102,10 @@ struct CapacityRemindersView: View {
                         .transition(.opacity)
                     }
                 }
-                .animation(.easeInOut(duration: 0.3), value: showUnsavedChangesModal)
+                .animation(.easeInOut(duration: 0.3), value: viewModel.showUnsavedChangesModal)
             )
         }
+        .loading(viewModel.isLoading)
     }
 
     private var header: some View {
@@ -222,10 +135,10 @@ struct CapacityRemindersView: View {
                         .foregroundStyle(Constants.Colors.gray04)
                         .font(Constants.Fonts.h3)
 
-                    Toggle("", isOn: $showInfo.animation())
+                    Toggle("", isOn: $viewModel.showInfo.animation())
                         .tint(Constants.Colors.yellow)
-                        .onChange(of: showInfo) { newValue in
-                            handleToggleChange(isOn: newValue)
+                        .onChange(of: viewModel.showInfo) { newValue in
+                            viewModel.handleToggleChange(isOn: newValue)
                         }
                 }
 
@@ -235,7 +148,7 @@ struct CapacityRemindersView: View {
                     .multilineTextAlignment(.leading)
             }
 
-            showInfo ? reminderInfo : nil
+            viewModel.showInfo ? reminderInfo : nil
 
             Spacer()
         }
@@ -286,7 +199,7 @@ struct CapacityRemindersView: View {
                                 } else {
                                     viewModel.selectedDays.append(day)
                                 }
-                                checkForUnsavedChanges()
+                                viewModel.checkForUnsavedChanges()
                             }
                         }
                 }
@@ -332,7 +245,7 @@ struct CapacityRemindersView: View {
                 .tint(Constants.Colors.yellow)
                 .frame(height: 8)
                 .onChange(of: viewModel.capacityThreshold) { _ in
-                    checkForUnsavedChanges()
+                    viewModel.checkForUnsavedChanges()
                 }
 
                 HStack {
@@ -388,7 +301,7 @@ struct CapacityRemindersView: View {
                             } else {
                                 viewModel.selectedLocations.append(gym)
                             }
-                            checkForUnsavedChanges()
+                            viewModel.checkForUnsavedChanges()
                         }
                     }
             }
@@ -397,7 +310,7 @@ struct CapacityRemindersView: View {
 
     private var saveButton: some View {
         Button {
-            saveReminder()
+            viewModel.saveReminder()
         } label: {
             Text("Save Changes")
                 .frame(width: 165, height: 41)
