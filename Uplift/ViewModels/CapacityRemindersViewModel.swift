@@ -129,6 +129,8 @@ extension CapacityRemindersView {
 
         /// edits the device's reminder
         func saveReminder(onComplete: (() -> Void)? = nil) {
+            showUnsavedChangesModal = false
+
             if savedReminderId != nil {
                 let daysOfWeekStrings = selectedDays.map { $0.dayOfWeekComplete().uppercased() }
 

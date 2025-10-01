@@ -59,50 +59,32 @@ struct CapacityRemindersView: View {
                 viewModel.getFCMToken()
                 viewModel.saveOriginalValues()
             }
-            .overlay(
-                Group {
-                    if viewModel.showUnsavedChangesModal {
-                        ZStack {
-                            Color.black.opacity(0.4)
-                                .ignoresSafeArea()
-                                .onTapGesture {
-                                    withAnimation(.easeInOut(duration: 0.3)) {
-                                        viewModel.showUnsavedChangesModal = false
-                                    }
-                                }
-
-                            UnsavedChangesModal(
-                                onSaveChanges: {
-                                    viewModel.saveReminder {
-                                        withAnimation(.easeInOut(duration: 0.3)) {
-                                            viewModel.showUnsavedChangesModal = false
-                                            dismiss()
-                                        }
-                                    }
-                                },
-                                onContinue: {
-                                    withAnimation(.easeInOut(duration: 0.3)) {
-                                        viewModel.showInfo = viewModel.originalShowInfo
-                                        viewModel.selectedDays = viewModel.originalSelectedDays
-                                        viewModel.capacityThreshold = viewModel.originalCapacityThreshold
-                                        viewModel.selectedLocations = viewModel.originalSelectedLocations
-                                        viewModel.hasUnsavedChanges = false
-                                        viewModel.showUnsavedChangesModal = false
-                                        dismiss()
-                                    }
-                                },
-                                onCancel: {
-                                    withAnimation(.easeInOut(duration: 0.3)) {
-                                        viewModel.showUnsavedChangesModal = false
-                                    }
-                                }
-                            )
-                            .transition(.opacity)
+        }
+        .showModal($viewModel.showUnsavedChangesModal) {
+            UnsavedChangesModal(
+                onSaveChanges: {
+                    viewModel.saveReminder {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            dismiss()
                         }
-                        .transition(.opacity)
+                    }
+                },
+                onContinue: {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        viewModel.showInfo = viewModel.originalShowInfo
+                        viewModel.selectedDays = viewModel.originalSelectedDays
+                        viewModel.capacityThreshold = viewModel.originalCapacityThreshold
+                        viewModel.selectedLocations = viewModel.originalSelectedLocations
+                        viewModel.hasUnsavedChanges = false
+                        viewModel.showUnsavedChangesModal = false
+                        dismiss()
+                    }
+                },
+                onCancel: {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        viewModel.showUnsavedChangesModal = false
                     }
                 }
-                .animation(.easeInOut(duration: 0.3), value: viewModel.showUnsavedChangesModal)
             )
         }
         .loading(viewModel.isLoading)
