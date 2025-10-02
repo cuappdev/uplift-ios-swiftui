@@ -63,10 +63,10 @@ extension CapacityRemindersView {
 
         func cleanupLocalReminderData() {
             self.savedReminderId = nil
-            UserDefaults.standard.removeObject(forKey: "savedReminderId")
-            UserDefaults.standard.removeObject(forKey: "selectedDays")
-            UserDefaults.standard.removeObject(forKey: "selectedLocations")
-            UserDefaults.standard.removeObject(forKey: "capacityThreshold")
+            UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.reminderId)
+            UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.selectedDays)
+            UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.selectedLocations)
+            UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.capacityThreshold)
             Logger.data.info("Cleaned up local reminder data due to remote not found error")
         }
 
@@ -74,9 +74,9 @@ extension CapacityRemindersView {
         func getFCMToken() {
             Messaging.messaging().token { token, error in
                 if let error = error {
-                    print("Error getting FCM token: \(error.localizedDescription)")
+                    Logger.data.info("Error getting FCM token: \(error.localizedDescription)")
                 } else if let token = token {
-                    print("FCM TOKEN: \(token)")
+                    Logger.data.info("FCM TOKEN: \(token)")
                     self.fcmToken = token
                     UIPasteboard.general.string = token
                 }
@@ -148,30 +148,30 @@ extension CapacityRemindersView {
 
         /// load saved days & gym locations
         func loadSavedSelections() {
-            if let savedDayNumbers = UserDefaults.standard.array(forKey: "selectedDays") as? [Int] {
+            if let savedDayNumbers = UserDefaults.standard.array(forKey: Constants.UserDefaultsKeys.selectedDays) as? [Int] {
                 selectedDays = savedDayNumbers.compactMap { DayOfWeek(rawValue: $0) }
             }
 
-            if let savedLocations = UserDefaults.standard.array(forKey: "selectedLocations") as? [String] {
+            if let savedLocations = UserDefaults.standard.array(forKey: Constants.UserDefaultsKeys.selectedLocations) as? [String] {
                 selectedLocations = savedLocations
             }
 
-            if let savedCapacity = UserDefaults.standard.object(forKey: "capacityThreshold") as? Double {
+            if let savedCapacity = UserDefaults.standard.object(forKey: Constants.UserDefaultsKeys.capacityThreshold) as? Double {
                 capacityThreshold = savedCapacity
             }
         }
 
         private func saveDaysToUserDefaults() {
             let dayNumbers = selectedDays.map { $0.rawValue }
-            UserDefaults.standard.set(dayNumbers, forKey: "selectedDays")
+            UserDefaults.standard.set(dayNumbers, forKey: Constants.UserDefaultsKeys.selectedDays)
         }
 
         private func saveLocationsToUserDefaults() {
-            UserDefaults.standard.set(selectedLocations, forKey: "selectedLocations")
+            UserDefaults.standard.set(selectedLocations, forKey: Constants.UserDefaultsKeys.selectedLocations)
         }
 
         private func saveCapacityToUserDefaults(_ capacity: Double) {
-            UserDefaults.standard.set(capacity, forKey: "capacityThreshold")
+            UserDefaults.standard.set(capacity, forKey: Constants.UserDefaultsKeys.capacityThreshold)
         }
 
         /// Create a new capacity reminder
@@ -181,6 +181,8 @@ extension CapacityRemindersView {
             fcmToken: String,
             gyms: [String]
         ) {
+            isLoading = true
+
             creatingReminder = true
 
             saveCapacityToUserDefaults(Double(capacityPercent))
@@ -205,12 +207,13 @@ extension CapacityRemindersView {
                         Logger.data.critical("Error in creating capacity reminder: \(error)")
                     }
                     self.creatingReminder = false
+                    self.isLoading = false
                 } receiveValue: { [weak self] reminderId in
                     guard let self, let id = reminderId else { return }
 
                     self.savedReminderId = id
 
-                    UserDefaults.standard.set(id, forKey: "savedReminderId")
+                    UserDefaults.standard.set(id, forKey: Constants.UserDefaultsKeys.reminderId)
 
                     self.saveDaysToUserDefaults()
                     self.saveLocationsToUserDefaults()
@@ -280,6 +283,8 @@ extension CapacityRemindersView {
                 return
             }
 
+            isLoading = true
+
             deletingReminder = true
 
             let mutation = UpliftAPI.DeleteCapacityReminderMutation(
@@ -299,15 +304,16 @@ extension CapacityRemindersView {
                         Logger.data.critical("Error in deleting capacity reminder: \(error)")
                     }
                     self.deletingReminder = false
+                    self.isLoading = false
                 } receiveValue: { [weak self] reminderId in
                     guard let self, let id = reminderId else { return }
 
                     self.savedReminderId = nil
 
-                    UserDefaults.standard.removeObject(forKey: "savedReminderId")
-                    UserDefaults.standard.removeObject(forKey: "selectedDays")
-                    UserDefaults.standard.removeObject(forKey: "selectedLocations")
-                    UserDefaults.standard.removeObject(forKey: "capacityThreshold")
+                    UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.reminderId)
+                    UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.selectedDays)
+                    UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.selectedLocations)
+                    UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.capacityThreshold)
 
                     self.deletingReminder = false
 

@@ -189,4 +189,12 @@ struct Constants {
         )
     }
 
+    /// UserDefaults used in Uplift
+    enum UserDefaultsKeys {
+        static let reminderId = "savedReminderId"
+        static let selectedDays = "selectedDays"
+        static let selectedLocations = "selectedLocations"
+        static let capacityThreshold = "capacityThreshold"
+    }
+
 }

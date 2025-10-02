@@ -17,10 +17,8 @@ struct CapacityRemindersView: View {
     @StateObject private var viewModel = ViewModel()
     @Environment(\.dismiss) private var dismiss
 
-    private let gyms = ["TEAGLEUP", "TEAGLEDOWN", "HELENNEWMAN", "TONIMORRISON", "NOYES"]
-
     init() {
-        if let savedId = UserDefaults.standard.object(forKey: "savedReminderId") as? Int {
+        if let savedId = UserDefaults.standard.object(forKey: Constants.UserDefaultsKeys.reminderId) as? Int {
             _viewModel = StateObject(wrappedValue: ViewModel(savedReminderId: savedId))
         }
     }
@@ -253,15 +251,15 @@ struct CapacityRemindersView: View {
                 Spacer()
             }
 
-            WrappingHStack(gyms, id: \.self, spacing: .constant(16)) { gym in
-                Text(gym)
+            WrappingHStack(GymIdentifier.allCases, id: \.self, spacing: .constant(16)) { gym in
+                Text(gym.displayName())
                     .foregroundStyle(Constants.Colors.gray04)
                     .font(Constants.Fonts.labelSemibold)
                     .padding(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
                     .background {
                         RoundedRectangle(cornerRadius: 8)
                             .fill(
-                                viewModel.selectedLocations.contains(gym)
+                                viewModel.selectedLocations.contains(gym.rawValue)
                                 ? Constants.Colors.lightYellow
                                 : Constants.Colors.white
                             )
@@ -269,7 +267,7 @@ struct CapacityRemindersView: View {
                     .overlay {
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(
-                                viewModel.selectedLocations.contains(gym)
+                                viewModel.selectedLocations.contains(gym.rawValue)
                                 ? Constants.Colors.yellow
                                 : Constants.Colors.gray02,
                                 lineWidth: 1
@@ -278,10 +276,10 @@ struct CapacityRemindersView: View {
                     .padding(.bottom, 12)
                     .onTapGesture {
                         withAnimation {
-                            if viewModel.selectedLocations.contains(gym) {
-                                viewModel.selectedLocations.removeAll { $0 == gym }
+                            if viewModel.selectedLocations.contains(gym.rawValue) {
+                                viewModel.selectedLocations.removeAll { $0 == gym.rawValue }
                             } else {
-                                viewModel.selectedLocations.append(gym)
+                                viewModel.selectedLocations.append(gym.rawValue)
                             }
                             viewModel.checkForUnsavedChanges()
                         }
