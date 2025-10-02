@@ -8,8 +8,9 @@
 
 import SwiftUI
 
-struct LoadingModifier: ViewModifier {
+struct LoadingModifier<LoadingView: View>: ViewModifier {
     let isLoading: Bool
+    let loadingView: LoadingView
 
     func body(content: Content) -> some View {
         ZStack {
@@ -18,7 +19,7 @@ struct LoadingModifier: ViewModifier {
                 .blur(radius: isLoading ? 2 : 0)
 
             if isLoading {
-                CustomLoadingView()
+                loadingView
             }
         }
         .animation(.easeInOut, value: isLoading)
@@ -26,7 +27,10 @@ struct LoadingModifier: ViewModifier {
 }
 
 extension View {
-    func loading(_ isLoading: Bool) -> some View {
-        self.modifier(LoadingModifier(isLoading: isLoading))
+    func loading<LoadingView: View>(
+        _ isLoading: Bool,
+        @ViewBuilder loadingView: () -> LoadingView
+    ) -> some View {
+        self.modifier(LoadingModifier(isLoading: isLoading, loadingView: loadingView()))
     }
 }

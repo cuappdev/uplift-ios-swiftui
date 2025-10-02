@@ -85,7 +85,9 @@ struct CapacityRemindersView: View {
                 }
             )
         }
-        .loading(viewModel.isLoading)
+        .loading(viewModel.isLoading) {
+            CustomLoadingView()
+        }
     }
 
     private var header: some View {

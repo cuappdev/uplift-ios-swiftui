@@ -262,7 +262,7 @@ extension CapacityRemindersView {
                     if case let .failure(error) = completion {
                         Logger.data.critical("Error in editing capacity reminder: \(error)")
                     }
-                    
+
                     self.editingReminder = false
                 } receiveValue: { [weak self] reminderId in
                     guard let self, let id = reminderId else { return }
