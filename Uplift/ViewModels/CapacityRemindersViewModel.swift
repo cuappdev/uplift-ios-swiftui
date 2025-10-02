@@ -207,7 +207,6 @@ extension CapacityRemindersView {
                         Logger.data.critical("Error in creating capacity reminder: \(error)")
                     }
                     self.creatingReminder = false
-                    self.isLoading = false
                 } receiveValue: { [weak self] reminderId in
                     guard let self, let id = reminderId else { return }
 
@@ -219,6 +218,7 @@ extension CapacityRemindersView {
                     self.saveLocationsToUserDefaults()
 
                     Logger.data.info("Successfully created capacity reminder with ID: \(id)")
+                    self.isLoading = false
                     self.creatingReminder = false
                 }
                 .store(in: &queryBag)
@@ -255,15 +255,15 @@ extension CapacityRemindersView {
                        let id = Int(idString) {
                             return id
                         }
+
                     return nil
                 }
                 .sink { completion in
                     if case let .failure(error) = completion {
                         Logger.data.critical("Error in editing capacity reminder: \(error)")
                     }
+                    
                     self.editingReminder = false
-                    self.isLoading = false
-                    onComplete?()
                 } receiveValue: { [weak self] reminderId in
                     guard let self, let id = reminderId else { return }
 
@@ -271,7 +271,9 @@ extension CapacityRemindersView {
                     self.saveLocationsToUserDefaults()
 
                     Logger.data.info("Successfully edited capacity reminder with ID: \(id)")
+                    self.isLoading = false
                     self.editingReminder = false
+                    onComplete?()
                 }
                 .store(in: &queryBag)
         }
@@ -304,7 +306,6 @@ extension CapacityRemindersView {
                         Logger.data.critical("Error in deleting capacity reminder: \(error)")
                     }
                     self.deletingReminder = false
-                    self.isLoading = false
                 } receiveValue: { [weak self] reminderId in
                     guard let self, let id = reminderId else { return }
 
@@ -315,9 +316,10 @@ extension CapacityRemindersView {
                     UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.selectedLocations)
                     UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.capacityThreshold)
 
-                    self.deletingReminder = false
-
                     Logger.data.info("Successfully deleted capacity reminder with ID: \(id)")
+
+                    self.isLoading = false
+                    self.deletingReminder = false
                 }
                 .store(in: &queryBag)
         }
