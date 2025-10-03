@@ -32,6 +32,7 @@ struct CustomLoadingView: View {
             }
         }
     }
+    
     private var loadingView: some View {
         ZStack {
             pulsingBackground
