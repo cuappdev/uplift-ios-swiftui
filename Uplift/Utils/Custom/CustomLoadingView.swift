@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct CustomLoadingView: View {
-
     @State private var isAnimating = false
     @State private var rotation: Double = 0
 
