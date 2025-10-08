@@ -8,7 +8,7 @@
 
 import Foundation
 import UpliftAPI
-import SwiftUICore
+import SwiftUI
 
 /// Model representing a facility's equipment.
 struct Equipment: Hashable {
