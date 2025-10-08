@@ -19,7 +19,6 @@ wget -O ../UpliftSecrets/Keys.xcconfig "$KEYS"
 wget -O ../UpliftSecrets/GoogleService-Info.plist "$GOOGLE_PLIST"
 wget -O ../UpliftSecrets/schema.graphqls "$GRAPHQL_SCHEMA"
 
-
 echo "Generating API file"
 ../apollo-ios-cli generate -p "../UpliftSecrets/apollo-codegen-config-prod.json" -f
 
