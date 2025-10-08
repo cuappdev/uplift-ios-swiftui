@@ -220,10 +220,14 @@ struct CapacityRemindersView: View {
                 .padding(.vertical, 12)
 
                 Slider(
-                    value: $viewModel.capacityThreshold,
+                    value: Binding(
+                        get: { viewModel.capacityThreshold },
+                        set: { viewModel.capacityThreshold = min($0, 90) }
+                    ),
                     in: 0...100,
                     step: 10
                 )
+
                 .tint(Constants.Colors.yellow)
                 .frame(height: 8)
                 .onChange(of: viewModel.capacityThreshold) { _ in

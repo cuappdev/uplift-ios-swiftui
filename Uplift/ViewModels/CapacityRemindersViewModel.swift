@@ -204,9 +204,11 @@ extension CapacityRemindersView {
                 }
                 .sink { completion in
                     if case let .failure(error) = completion {
+                        self.cleanupLocalReminderData()
+                        self.isLoading = false
+                        self.creatingReminder = false
                         Logger.data.critical("Error in creating capacity reminder: \(error)")
                     }
-                    self.creatingReminder = false
                 } receiveValue: { [weak self] reminderId in
                     guard let self, let id = reminderId else { return }
 
@@ -260,10 +262,11 @@ extension CapacityRemindersView {
                 }
                 .sink { completion in
                     if case let .failure(error) = completion {
+                        self.cleanupLocalReminderData()
+                        self.isLoading = false
+                        self.editingReminder = false
                         Logger.data.critical("Error in editing capacity reminder: \(error)")
                     }
-
-                    self.editingReminder = false
                 } receiveValue: { [weak self] reminderId in
                     guard let self, let id = reminderId else { return }
 
@@ -303,9 +306,11 @@ extension CapacityRemindersView {
                 }
                 .sink { completion in
                     if case let .failure(error) = completion {
+                        self.cleanupLocalReminderData()
+                        self.isLoading = false
+                        self.deletingReminder = false
                         Logger.data.critical("Error in deleting capacity reminder: \(error)")
                     }
-                    self.deletingReminder = false
                 } receiveValue: { [weak self] reminderId in
                     guard let self, let id = reminderId else { return }
 

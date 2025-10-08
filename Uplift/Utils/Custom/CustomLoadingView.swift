@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct CustomLoadingView: View {
+
     @State private var isAnimating = false
     @State private var rotation: Double = 0
 
@@ -25,26 +26,6 @@ struct CustomLoadingView: View {
             isAnimating = true
             withAnimation(
                 Animation.linear(duration: 2.0)
-                    .repeatForever(autoreverses: false)
-            ) {
-                rotation = 360
-            }
-        }
-    }
-    
-    private var loadingView: some View {
-        ZStack {
-            pulsingBackground
-
-            VStack(spacing: 30) {
-                spinningLogoView
-                loadingText
-            }
-        }
-        .onAppear {
-            isAnimating = true
-            withAnimation(
-                Animation.linear(duration: 2.5)
                     .repeatForever(autoreverses: false)
             ) {
                 rotation = 360
