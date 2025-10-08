@@ -21,9 +21,19 @@ extension HomeView {
 
         @Published var gyms: [Gym]?
         @Published var showCapacities: Bool = false
+        @Published var showTutorial: Bool = false
 
         private var locationManager: LocationManager?
         private var queryBag = Set<AnyCancellable>()
+        
+        init() {
+            checkShowTutorial()
+        }
+        
+        func checkShowTutorial() {
+            let hasSeenTutorial = UserDefaults.standard.bool(forKey: "hasSeenTutorial")
+            showTutorial = !hasSeenTutorial
+        }
 
         // MARK: - Requests
 
