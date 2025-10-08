@@ -12,8 +12,6 @@
 	<string>$(ANNOUNCEMENTS_SCHEME)</string>
 	<key>CFBundleIconName</key>
 	<string>AppIcon</string>
-	<key>FirebaseAppDelegateProxyEnabled</key>
-	<false/>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -27,6 +25,8 @@
 			</array>
 		</dict>
 	</array>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>UIAppFonts</key>

@@ -114,12 +114,14 @@ struct Constants {
         static let capacity = Image("capacity")
         static let chest = Image("chest")
         static let clock = Image("clock")
+        static let crossThin = Image("cross_thin")
         static let cross = Image("cross")
         static let dumbbellSolid = Image("dumbbell_solid")
         static let dumbbellLarge = Image("dumbbell_large")
         static let dumbbellOutline = Image("dumbbell_outline")
         static let profileOutline = Image("profile_outline")
         static let profileSolid = Image("profile_solid")
+        static let pencil = Image("pencil")
         static let elevator = Image("elevator")
         static let greenTea = Image("green_tea")
         static let giveawayModalBackground = Image("giveaway_modal_bg")
@@ -130,6 +132,7 @@ struct Constants {
         static let history = Image("history")
         static let lift = Image("lift")
         static let lock = Image("lock")
+        static let logoTransparent = Image("logo_transparent")
         static let logo = Image("logo")
         static let logoWhite = Image("logo_white")
         static let parking = Image("parking")
@@ -137,6 +140,7 @@ struct Constants {
         static let replay = Image("replay")
         static let shoulder = Image("shoulder")
         static let shower = Image("shower")
+        static let spokes = Image("spokes")
         static let vertEllipsis = Image("vert_ellipsis")
         static let whistleOutline = Image("whistle_outline")
         static let whistleSolid = Image("whistle_solid")
@@ -183,6 +187,14 @@ struct Constants {
             x: 0,
             y: 4
         )
+    }
+
+    /// UserDefaults used in Uplift
+    enum UserDefaultsKeys {
+        static let reminderId = "savedReminderId"
+        static let selectedDays = "selectedDays"
+        static let selectedLocations = "selectedLocations"
+        static let capacityThreshold = "capacityThreshold"
     }
 
 }
