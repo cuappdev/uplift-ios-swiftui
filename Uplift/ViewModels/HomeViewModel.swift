@@ -21,9 +21,34 @@ extension HomeView {
 
         @Published var gyms: [Gym]?
         @Published var showCapacities: Bool = false
+        @Published var showTutorial: Bool = false
 
         private var locationManager: LocationManager?
         private var queryBag = Set<AnyCancellable>()
+
+        init() {
+            checkShowTutorial()
+        }
+
+        /// Checks if hasSeenTutorial UserDefaults is True or False
+        func checkShowTutorial() {
+            let hasSeenTutorial = UserDefaults.standard.bool(forKey: Constants.UserDefaultsKeys.capacityTutorial)
+            showTutorial = !hasSeenTutorial
+        }
+
+        /// Turns of the hasSeenTutorial UserDefaults off
+        func completeTutorial() {
+            UserDefaults.standard.set(true, forKey: Constants.UserDefaultsKeys.capacityTutorial)
+            showTutorial = false
+        }
+
+        /// Toggle UserDefaults hasSeenTutorial on or off and toggles the modal on as well. Used for debugging purposes
+        func toggleTutorial() {
+            let current = UserDefaults.standard.bool(forKey: Constants.UserDefaultsKeys.capacityTutorial)
+            let newValue = !current
+            UserDefaults.standard.set(newValue, forKey: Constants.UserDefaultsKeys.capacityTutorial)
+            showTutorial = !newValue
+        }
 
         // MARK: - Requests
 
