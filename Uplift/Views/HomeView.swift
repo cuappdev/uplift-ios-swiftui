@@ -14,6 +14,7 @@ struct HomeView: View {
     // MARK: - Properties
 
     @EnvironmentObject var locationManager: LocationManager
+    @Environment(\.dismiss) private var dismiss
     @Binding var popUpGiveaway: Bool
     @StateObject private var viewModel = ViewModel()
 
@@ -30,6 +31,22 @@ struct HomeView: View {
         .onAppear {
             viewModel.setupEnvironment(with: locationManager)
             viewModel.fetchAllGyms()
+        }
+        .loading(viewModel.showTutorial) {
+            CapacityTutorialModal(
+                onFinish: {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        dismiss()
+                        viewModel.completeTutorial()
+                    }
+                },
+                onSetUp: {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        dismiss()
+                        viewModel.completeTutorial()
+                    }
+                }
+            )
         }
     }
 
