@@ -91,7 +91,7 @@ struct HomeView: View {
     private var capacityReminder: some View {
         NavigationLink {
              CapacityRemindersView()
-         } label: {
+        } label: {
              HStack {
                  Text("CAPACITY REMINDERS")
                      .font(Constants.Fonts.bodyMedium)
@@ -110,7 +110,7 @@ struct HomeView: View {
                      .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
              )
         }
-         .buttonStyle(ScaleButtonStyle())
+        .buttonStyle(ScaleButtonStyle())
     }
 
     private func capacityCircle(facility: Facility?) -> some View {
