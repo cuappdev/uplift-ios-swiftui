@@ -119,18 +119,6 @@ extension CapacityRemindersView {
 
         /// creates a default reminder
         func createDefaultReminder() {
-            errorMessage = nil
-
-            if selectedDays.isEmpty {
-                errorMessage = "Please select at least one day"
-                return
-            }
-
-            if selectedLocations.isEmpty {
-                errorMessage = "Please select at least one gym"
-                return
-            }
-
             let daysOfWeekStrings = selectedDays.map { $0.dayOfWeekComplete().uppercased() }
 
             createCapacityReminder(
@@ -147,12 +135,12 @@ extension CapacityRemindersView {
             errorMessage = nil
 
             if selectedDays.isEmpty {
-                errorMessage = "Please select at least one day."
+                errorMessage = "Please select at least one day"
                 return
             }
 
             if selectedLocations.isEmpty {
-                errorMessage = "Please select at least one gym."
+                errorMessage = "Please select at least one gym"
                 return
             }
 
