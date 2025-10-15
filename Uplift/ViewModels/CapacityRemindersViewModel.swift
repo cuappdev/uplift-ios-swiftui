@@ -43,6 +43,8 @@ extension CapacityRemindersView {
 
         @Published var isLoading: Bool = false
 
+        @Published var errorMessage: String?
+
         var onDismiss: (() -> Void)?
 
         private var queryBag = Set<AnyCancellable>()
@@ -130,6 +132,17 @@ extension CapacityRemindersView {
         /// edits the device's reminder
         func saveReminder(onComplete: (() -> Void)? = nil) {
             showUnsavedChangesModal = false
+            errorMessage = nil
+
+            if selectedDays.isEmpty {
+                errorMessage = "Please select at least one day"
+                return
+            }
+
+            if selectedLocations.isEmpty {
+                errorMessage = "Please select at least one gym"
+                return
+            }
 
             if savedReminderId != nil {
                 let daysOfWeekStrings = selectedDays.map { $0.dayOfWeekComplete().uppercased() }
@@ -174,6 +187,29 @@ extension CapacityRemindersView {
             UserDefaults.standard.set(capacity, forKey: Constants.UserDefaultsKeys.capacityThreshold)
         }
 
+        /// Helper function to execute two tasks concurrently with Task Groups
+        private func executeWithMinimumDelay(_ operation: @escaping (@escaping () -> Void) -> AnyCancellable) async {
+            await withTaskGroup(of: Void.self) { group in
+                group.addTask { [weak self] in
+                    await withCheckedContinuation { continuation in
+                        let cancellable = operation {
+                            continuation.resume()
+                        }
+
+                        Task { @MainActor [weak self] in
+                            cancellable.store(in: &self!.queryBag)
+                        }
+                    }
+                }
+
+                group.addTask {
+                    try? await Task.sleep(nanoseconds: 1_500_000_000)
+                }
+
+                await group.waitForAll()
+            }
+        }
+
         /// Create a new capacity reminder
         func createCapacityReminder(
             capacityPercent: Int,
@@ -182,9 +218,7 @@ extension CapacityRemindersView {
             gyms: [String]
         ) {
             isLoading = true
-
             creatingReminder = true
-
             saveCapacityToUserDefaults(Double(capacityPercent))
 
             let mutation = UpliftAPI.CreateCapacityReminderMutation(
@@ -194,36 +228,43 @@ extension CapacityRemindersView {
                 gyms: gyms
             )
 
-            Network.client.mutationPublisher(mutation: mutation)
-                .map { result -> Int? in
-                    if let idString = result.data?.createCapacityReminder?.id,
-                       let id = Int(idString) {
-                        return id
+            Task {
+                await executeWithMinimumDelay { [weak self] completion in
+                    guard let self else {
+                        completion()
+                        return AnyCancellable {}
                     }
-                    return nil
+
+                    return Network.client.mutationPublisher(mutation: mutation)
+                        .map { result -> Int? in
+                            if let idString = result.data?.createCapacityReminder?.id,
+                               let id = Int(idString) {
+                                return id
+                            }
+                            return nil
+                        }
+                        .sink { sinkCompletion in
+                            if case let .failure(error) = sinkCompletion {
+                                self.cleanupLocalReminderData()
+                                Logger.data.critical("Error in creating capacity reminder: \(error)")
+                            }
+                            completion()
+                        } receiveValue: { [weak self] reminderId in
+                            guard let self, let id = reminderId else { return }
+
+                            self.savedReminderId = id
+                            UserDefaults.standard.set(id, forKey: Constants.UserDefaultsKeys.reminderId)
+                            self.saveDaysToUserDefaults()
+                            self.saveLocationsToUserDefaults()
+                            Logger.data.info("Successfully created capacity reminder with ID: \(id)")
+                        }
                 }
-                .sink { completion in
-                    if case let .failure(error) = completion {
-                        self.cleanupLocalReminderData()
-                        self.isLoading = false
-                        self.creatingReminder = false
-                        Logger.data.critical("Error in creating capacity reminder: \(error)")
-                    }
-                } receiveValue: { [weak self] reminderId in
-                    guard let self, let id = reminderId else { return }
 
-                    self.savedReminderId = id
-
-                    UserDefaults.standard.set(id, forKey: Constants.UserDefaultsKeys.reminderId)
-
-                    self.saveDaysToUserDefaults()
-                    self.saveLocationsToUserDefaults()
-
-                    Logger.data.info("Successfully created capacity reminder with ID: \(id)")
+                await MainActor.run {
                     self.isLoading = false
                     self.creatingReminder = false
                 }
-                .store(in: &queryBag)
+            }
         }
 
         /// Edit an existing capacity reminder
@@ -239,9 +280,7 @@ extension CapacityRemindersView {
             }
 
             isLoading = true
-
             editingReminder = true
-
             saveCapacityToUserDefaults(Double(capacityPercent))
 
             let mutation = UpliftAPI.EditCapacityReminderMutation(
@@ -251,34 +290,42 @@ extension CapacityRemindersView {
                 reminderId: savedReminderId!
             )
 
-            Network.client.mutationPublisher(mutation: mutation)
-                .map { result -> Int? in
-                    if let idString = result.data?.editCapacityReminder?.id,
-                       let id = Int(idString) {
-                            return id
-                        }
-
-                    return nil
-                }
-                .sink { completion in
-                    if case let .failure(error) = completion {
-                        self.cleanupLocalReminderData()
-                        self.isLoading = false
-                        self.editingReminder = false
-                        Logger.data.critical("Error in editing capacity reminder: \(error)")
+            Task {
+                await executeWithMinimumDelay { [weak self] completion in
+                    guard let self else {
+                        completion()
+                        return AnyCancellable {}
                     }
-                } receiveValue: { [weak self] reminderId in
-                    guard let self, let id = reminderId else { return }
 
-                    self.saveDaysToUserDefaults()
-                    self.saveLocationsToUserDefaults()
+                    return Network.client.mutationPublisher(mutation: mutation)
+                        .map { result -> Int? in
+                            if let idString = result.data?.editCapacityReminder?.id,
+                               let id = Int(idString) {
+                                return id
+                            }
+                            return nil
+                        }
+                        .sink { sinkCompletion in
+                            if case let .failure(error) = sinkCompletion {
+                                self.cleanupLocalReminderData()
+                                Logger.data.critical("Error in editing capacity reminder: \(error)")
+                            }
+                            completion()
+                        } receiveValue: { [weak self] reminderId in
+                            guard let self, let id = reminderId else { return }
 
-                    Logger.data.info("Successfully edited capacity reminder with ID: \(id)")
+                            self.saveDaysToUserDefaults()
+                            self.saveLocationsToUserDefaults()
+                            Logger.data.info("Successfully edited capacity reminder with ID: \(id)")
+                        }
+                }
+
+                await MainActor.run {
                     self.isLoading = false
                     self.editingReminder = false
                     onComplete?()
                 }
-                .store(in: &queryBag)
+            }
         }
 
         /// Delete a capacity reminder
@@ -288,45 +335,52 @@ extension CapacityRemindersView {
                 return
             }
 
+            errorMessage = nil
             isLoading = true
-
             deletingReminder = true
 
             let mutation = UpliftAPI.DeleteCapacityReminderMutation(
                 reminderId: savedReminderId!
             )
 
-            Network.client.mutationPublisher(mutation: mutation)
-                .map { result -> Int? in
-                    if let idString = result.data?.deleteCapacityReminder?.id,
-                       let id = Int(idString) {
-                        return id
+            Task {
+                await executeWithMinimumDelay { [weak self] completion in
+                    guard let self else {
+                        completion()
+                        return AnyCancellable {}
                     }
-                    return nil
+
+                    return Network.client.mutationPublisher(mutation: mutation)
+                        .map { result -> Int? in
+                            if let idString = result.data?.deleteCapacityReminder?.id,
+                               let id = Int(idString) {
+                                return id
+                            }
+                            return nil
+                        }
+                        .sink { sinkCompletion in
+                            if case let .failure(error) = sinkCompletion {
+                                self.cleanupLocalReminderData()
+                                Logger.data.critical("Error in deleting capacity reminder: \(error)")
+                            }
+                            completion()
+                        } receiveValue: { [weak self] reminderId in
+                            guard let self, let id = reminderId else { return }
+
+                            self.savedReminderId = nil
+                            UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.reminderId)
+                            UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.selectedDays)
+                            UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.selectedLocations)
+                            UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.capacityThreshold)
+                            Logger.data.info("Successfully deleted capacity reminder with ID: \(id)")
+                        }
                 }
-                .sink { completion in
-                    if case let .failure(error) = completion {
-                        self.cleanupLocalReminderData()
-                        self.isLoading = false
-                        self.deletingReminder = false
-                        Logger.data.critical("Error in deleting capacity reminder: \(error)")
-                    }
-                } receiveValue: { [weak self] reminderId in
-                    guard let self, let id = reminderId else { return }
 
-                    self.savedReminderId = nil
-
-                    UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.reminderId)
-                    UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.selectedDays)
-                    UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.selectedLocations)
-                    UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.capacityThreshold)
-
-                    Logger.data.info("Successfully deleted capacity reminder with ID: \(id)")
-
+                await MainActor.run {
                     self.isLoading = false
                     self.deletingReminder = false
                 }
-                .store(in: &queryBag)
+            }
         }
     }
 }

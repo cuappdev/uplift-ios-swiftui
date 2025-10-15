@@ -106,10 +106,12 @@ struct Constants {
         static let arrowLeft = Image("arrow_left")
         static let back = Image("back")
         static let backgroundEllipse = Image("background_ellipse")
+        static let backgroundTutorial = Image("background_tutorial")
         static let basketball = Image("basketball")
         static let bowling = Image("bowling")
         static let calendar = Image("calendar")
         static let camera = Image("camera")
+        static let capacityTutorial = Image("capacity_tutorial")
         static let cameraMini = Image("camera_mini")
         static let capacity = Image("capacity")
         static let chest = Image("chest")
@@ -191,10 +193,14 @@ struct Constants {
 
     /// UserDefaults used in Uplift
     enum UserDefaultsKeys {
+        // Capacity Reminder
         static let reminderId = "savedReminderId"
         static let selectedDays = "selectedDays"
         static let selectedLocations = "selectedLocations"
         static let capacityThreshold = "capacityThreshold"
+
+        // Capacity Reminder Tutorial
+        static let capacityTutorial = "hasSeenTutorial"
     }
 
 }
