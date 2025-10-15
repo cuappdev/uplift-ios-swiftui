@@ -296,16 +296,28 @@ struct CapacityRemindersView: View {
 
     private var saveButton: some View {
         Button {
-            viewModel.saveReminder()
+            viewModel.saveReminder {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    dismiss()
+                }
+            }
         } label: {
-            Text("Save Changes")
-                .frame(width: 165, height: 41)
-                .foregroundStyle(Constants.Colors.white)
-                .font(Constants.Fonts.h3)
-                .background(
-                    RoundedRectangle(cornerRadius: 30)
-                        .fill(Constants.Colors.black)
-                )
+            VStack(spacing: 20) {
+                if let errorMessage = viewModel.errorMessage, !errorMessage.isEmpty {
+                    Text(errorMessage)
+                        .foregroundStyle(Constants.Colors.red)
+                        .font(Constants.Fonts.bodyNormal)
+                }
+
+                Text("Save Changes")
+                    .frame(width: 165, height: 41)
+                    .foregroundStyle(Constants.Colors.white)
+                    .font(Constants.Fonts.h3)
+                    .background(
+                        RoundedRectangle(cornerRadius: 30)
+                            .fill(Constants.Colors.black)
+                    )
+            }
         }
     }
 }
