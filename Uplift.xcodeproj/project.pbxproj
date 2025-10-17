@@ -228,10 +228,11 @@
 		897703652BA2028D00F9992F /* ClassesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesViewModel.swift; sourceTree = "<group>"; };
 		89950D892B992E8400DFB007 /* ClassesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesView.swift; sourceTree = "<group>"; };
 		8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextSessionCell.swift; sourceTree = "<group>"; };
+		899A597E2EA0BD02000CBC36 /* Uplift-Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Uplift-Release.entitlements"; sourceTree = "<group>"; };
 		899B186C2CA5FAFB00FAC061 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		89A652F62D02B00000277A16 /* CapacityRemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityRemindersView.swift; sourceTree = "<group>"; };
 		89A652F72D02B00000277A16 /* RemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersView.swift; sourceTree = "<group>"; };
-		89C10D222CCB459F007E753F /* Uplift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Uplift.entitlements; sourceTree = "<group>"; };
+		89C10D222CCB459F007E753F /* Uplift-Debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Uplift-Debug.entitlements"; sourceTree = "<group>"; };
 		89C34AA02CA66E9000C579A5 /* CapacityRemindersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityRemindersViewModel.swift; sourceTree = "<group>"; };
 		89C8658C2BB4779C00758337 /* ClassCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCell.swift; sourceTree = "<group>"; };
 		89E4FAA92CEFEC3000A952B1 /* CapacitySemiCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacitySemiCircleView.swift; sourceTree = "<group>"; };
@@ -528,7 +529,8 @@
 		2E8FE38E2B1278B700B3DC6A /* Uplift */ = {
 			isa = PBXGroup;
 			children = (
-				89C10D222CCB459F007E753F /* Uplift.entitlements */,
+				899A597E2EA0BD02000CBC36 /* Uplift-Release.entitlements */,
+				89C10D222CCB459F007E753F /* Uplift-Debug.entitlements */,
 				2E3838402BB7536700AE15DC /* PrivacyInfo.xcprivacy */,
 				2E3D6C1D2B12840C00B51BB2 /* Info.plist */,
 				2E090ECF2B13088800BAE982 /* Configs */,
@@ -1046,7 +1048,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = Uplift/Uplift.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Uplift/Uplift-Debug.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 40;
@@ -1091,7 +1093,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = Uplift/Uplift.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Uplift/Uplift-Release.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 40;
