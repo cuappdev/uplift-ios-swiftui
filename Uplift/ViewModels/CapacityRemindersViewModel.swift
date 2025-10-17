@@ -121,6 +121,8 @@ extension CapacityRemindersView {
         func createDefaultReminder() {
             let daysOfWeekStrings = selectedDays.map { $0.dayOfWeekComplete().uppercased() }
 
+            self.saveOriginalValues()
+
             createCapacityReminder(
                 capacityPercent: Int(capacityThreshold),
                 daysOfWeek: daysOfWeekStrings,
@@ -334,6 +336,8 @@ extension CapacityRemindersView {
                 Logger.data.error("Cannot delete reminder: no saved reminder ID")
                 return
             }
+
+            self.saveOriginalValues()
 
             errorMessage = nil
             isLoading = true
