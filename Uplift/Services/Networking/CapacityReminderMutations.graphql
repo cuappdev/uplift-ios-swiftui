@@ -15,15 +15,15 @@ mutation CreateCapacityReminder(
 }
 
 mutation EditCapacityReminder(
-  $capacityPercent: Int!,
+  $newCapacityThreshold: Int!,
   $daysOfWeek: [String]!,
-  $gyms: [String]!,
+  $newGyms: [String]!,
   $reminderId: Int!
 ) {
   editCapacityReminder(
-    capacityPercent: $capacityPercent,
+    newCapacityThreshold: $newCapacityThreshold,
     daysOfWeek: $daysOfWeek,
-    gyms: $gyms,
+    newGyms: $newGyms,
     reminderId: $reminderId
   ) {
     id
