@@ -150,9 +150,9 @@ extension CapacityRemindersView {
                 let daysOfWeekStrings = selectedDays.map { $0.dayOfWeekComplete().uppercased() }
 
                 editCapacityReminder(
-                    capacityPercent: Int(capacityThreshold),
+                    newCapacityThreshold: Int(capacityThreshold),
                     daysOfWeek: daysOfWeekStrings,
-                    gyms: selectedLocations,
+                    newGyms: selectedLocations,
                     onComplete: onComplete
                 )
             }
@@ -271,9 +271,9 @@ extension CapacityRemindersView {
 
         /// Edit an existing capacity reminder
         func editCapacityReminder(
-            capacityPercent: Int,
+            newCapacityThreshold: Int,
             daysOfWeek: [String],
-            gyms: [String],
+            newGyms: [String],
             onComplete: (() -> Void)? = nil
         ) {
             guard savedReminderId != nil else {
@@ -283,12 +283,12 @@ extension CapacityRemindersView {
 
             isLoading = true
             editingReminder = true
-            saveCapacityToUserDefaults(Double(capacityPercent))
+            saveCapacityToUserDefaults(Double(newCapacityThreshold))
 
             let mutation = UpliftAPI.EditCapacityReminderMutation(
-                capacityPercent: capacityPercent,
+                newCapacityThreshold: newCapacityThreshold,
                 daysOfWeek: daysOfWeek,
-                gyms: gyms,
+                newGyms: newGyms,
                 reminderId: savedReminderId!
             )
 
