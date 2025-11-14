@@ -1,9 +1,9 @@
 //
-//  GymCache.swift
+//  ClassesCache.swift
 //  Uplift
 //
 //  Created by Jiwon Jeong on 11/13/25.
-//  Copyright © 2025 Cornell AppDev. All rights reserved.
+//  Copyright © 2024 Cornell AppDev. All rights reserved.
 //
 
 import Foundation
@@ -11,63 +11,60 @@ import OSLog
 import UpliftAPI
 import Combine
 
-/// Actor-based cache for gyms that prevents duplicate network requests
-actor GymCache {
+/// Actor-based cache for fitness class instances that prevents duplicate network requests
+actor ClassesCache {
 
     // MARK: Properties
 
-    static let shared = GymCache()
+    static let shared = ClassesCache()
 
     private var cachedEntry: CacheEntry?
-    private let cacheTimeout: TimeInterval = 300 // 5 minutes (feel free to change future developer!)
+    private let cacheTimeout: TimeInterval = 300
 
     enum CacheEntry {
-        case inProgress(Task<[Gym], Error>)
-        case ready([Gym], fetchedAt: Date)
+        case inProgress(Task<[FitnessClassInstance], Error>)
+        case ready([FitnessClassInstance], fetchedAt: Date)
     }
 
     // MARK: Functions
 
-    /// Fetches all gyms from the network with intelligent caching to prevent duplicate requests.
-    func fetchGyms() async throws -> [Gym] {
-        // Check if we have valid cached data
+    /// Fetches all fitness classes from the network with intelligent caching
+    func fetchClasses() async throws -> [FitnessClassInstance] {
         if let entry = cachedEntry {
             switch entry {
-            case .ready(let gyms, let fetchedAt):
+            case .ready(let classes, let fetchedAt):
                 if Date().timeIntervalSince(fetchedAt) < cacheTimeout {
-                    return gyms
+                    return classes
                 }
+
             case .inProgress(let task):
                 return try await task.value
             }
         }
 
-        // Create a new fetch task
-        let task = Task<[Gym], Error> {
+        let task = Task<[FitnessClassInstance], Error> {
             try await performFetch()
         }
 
-        // Now we mark it in progress
         cachedEntry = .inProgress(task)
 
         do {
-            let gyms = try await task.value
-            // If done, mark it ready with the result with timestamp
-            cachedEntry = .ready(gyms, fetchedAt: Date())
-            return gyms
+            let classes = try await task.value
+            cachedEntry = .ready(classes, fetchedAt: Date())
+            return classes
         } catch {
             cachedEntry = nil
             throw error
         }
     }
 
-    /// Clears the cached gym data
+    /// Clears the cached class data
     func invalidateCache() {
         cachedEntry = nil
     }
 
-    /// Performs the actual network request to fetch gyms from the backend API
-    private func performFetch() async throws -> [Gym] {
+    /// Performs the actual network request to fetch classes from the backend API
+    private func performFetch() async throws -> [FitnessClassInstance] {
         try await withCheckedThrowingContinuation { continuation in
             var cancellable: AnyCancellable?
 
@@ -82,8 +79,9 @@ actor GymCache {
                 }
                 cancellable?.cancel()
             } receiveValue: { gymFields in
-                let gyms = [Gym](gymFields)
-                continuation.resume(returning: gyms)
+                let gyms: [Gym] = gymFields.map { Gym(from: $0) }
+                let classes = gyms.flatMap { $0.classes }
+                continuation.resume(returning: classes)
                 cancellable?.cancel()
             }
         }
