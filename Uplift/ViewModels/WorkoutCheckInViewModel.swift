@@ -23,7 +23,7 @@ extension WorkoutCheckInView {
         @Published var isDailyCooldownActive: Bool = false
         @Published var currentNearestGym: String?
 
-        private let threshold: Double = 0.3
+        private let threshold: Double = 0.05
         private let cooldownDuration: TimeInterval = 2*60*60
         private let cooldownLastGymKey = "lastCooldownGym"
         private let cooldownKey = "lastCooldownTime"
