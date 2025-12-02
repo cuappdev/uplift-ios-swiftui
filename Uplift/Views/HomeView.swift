@@ -16,7 +16,7 @@ struct HomeView: View {
     @EnvironmentObject var locationManager: LocationManager
     @Environment(\.dismiss) private var dismiss
     @Binding var popUpGiveaway: Bool
-    @StateObject private var viewModel = ViewModel()
+    @ObservedObject var viewModel: ViewModel
 
     // MARK: - UI
 
@@ -298,6 +298,6 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView(popUpGiveaway: .constant(false))
+    HomeView(popUpGiveaway: .constant(false), viewModel: HomeView.ViewModel())
         .environmentObject(LocationManager.shared)
 }

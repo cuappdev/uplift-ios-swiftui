@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13446DEF2ECDFA4F00EED573 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 13446DEE2ECDFA4F00EED573 /* ConfettiSwiftUI */; };
+		135EEBAA2EC7E60B0051AD5B /* WorkoutCheckInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135EEBA92EC7E5F70051AD5B /* WorkoutCheckInViewModel.swift */; };
+		135EEBAC2EC9175B0051AD5B /* WorkoutCheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135EEBAB2EC917520051AD5B /* WorkoutCheckInView.swift */; };
 		29055F802E7E3E6E00E9A730 /* UnsavedChangesModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29055F7F2E7E3E6500E9A730 /* UnsavedChangesModal.swift */; };
 		29055FC62E849E2A00E9A730 /* LoadingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29055FC52E849E2600E9A730 /* LoadingModifier.swift */; };
 		291433852D87387B00F913D5 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291433842D87387500F913D5 /* UserProfile.swift */; };
@@ -137,6 +140,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		135EEBA92EC7E5F70051AD5B /* WorkoutCheckInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCheckInViewModel.swift; sourceTree = "<group>"; };
+		135EEBAB2EC917520051AD5B /* WorkoutCheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCheckInView.swift; sourceTree = "<group>"; };
 		29055F7F2E7E3E6500E9A730 /* UnsavedChangesModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsavedChangesModal.swift; sourceTree = "<group>"; };
 		29055FC52E849E2600E9A730 /* LoadingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingModifier.swift; sourceTree = "<group>"; };
 		291433842D87387500F913D5 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
@@ -256,6 +261,7 @@
 				63001AD82CC9AD970082AFFA /* GoogleSignIn in Frameworks */,
 				2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */,
 				2E6785BC2B3A48D700DD3ADA /* WrappingHStack in Frameworks */,
+				13446DEF2ECDFA4F00EED573 /* ConfettiSwiftUI in Frameworks */,
 				2E4F06DC2B4B48DC008905C8 /* UpliftAPI in Frameworks */,
 				2CA97C8F2D8B852700EF48B3 /* UpliftAPI in Frameworks */,
 				2E090ECB2B12FF5900BAE982 /* UpliftAPI in Frameworks */,
@@ -369,6 +375,7 @@
 		2E090ED12B1308D500BAE982 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				135EEBA92EC7E5F70051AD5B /* WorkoutCheckInViewModel.swift */,
 				89C34AA02CA66E9000C579A5 /* CapacityRemindersViewModel.swift */,
 				63001AD52CC9ACFF0082AFFA /* LoginViewModel.swift */,
 				897703652BA2028D00F9992F /* ClassesViewModel.swift */,
@@ -420,6 +427,7 @@
 		2E1105C02B13D11E00119F5B /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				135EEBAB2EC917520051AD5B /* WorkoutCheckInView.swift */,
 				2E39D8292B3B9F3D00AD238B /* FacilityExpandedView.swift */,
 				2E39D81F2B3B623B00AD238B /* FitnessCenterView.swift */,
 				2E6785B82B3A425E00DD3ADA /* GymDetailView.swift */,
@@ -646,6 +654,7 @@
 				6338EC5B2CE149AA000BBFD3 /* UpliftAPI */,
 				6338EC5E2CE14B54000BBFD3 /* UpliftAPI */,
 				2CA97C8E2D8B852700EF48B3 /* UpliftAPI */,
+				13446DEE2ECDFA4F00EED573 /* ConfettiSwiftUI */,
 			);
 			productName = Uplift;
 			productReference = 2E8FE38C2B1278B700B3DC6A /* Uplift.app */;
@@ -687,6 +696,7 @@
 				2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				63001AD42CC9A6B20082AFFA /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				29F24AB62EA9865500111048 /* XCLocalSwiftPackageReference "UpliftAPI" */,
+				13446DED2ECDF7BA00EED573 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
 			projectDirPath = "";
@@ -802,6 +812,7 @@
 				2E39D8162B3B3AD600AD238B /* ScaleButtonStyle.swift in Sources */,
 				2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */,
 				893AD9152D59569600C0817B /* MuscleCategoryView.swift in Sources */,
+				135EEBAC2EC9175B0051AD5B /* WorkoutCheckInView.swift in Sources */,
 				89C8658D2BB4779C00758337 /* ClassCell.swift in Sources */,
 				298EBA502E8E5335000441BA /* CustomLoadingView.swift in Sources */,
 				291433852D87387B00F913D5 /* UserProfile.swift in Sources */,
@@ -817,6 +828,7 @@
 				296A2DAE2D7A805300EF042F /* ProfileViewModel.swift in Sources */,
 				2E15F50C2B3A0B2100414BEC /* CapacityCircleView.swift in Sources */,
 				2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */,
+				135EEBAA2EC7E60B0051AD5B /* WorkoutCheckInViewModel.swift in Sources */,
 				2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */,
 				2E15F5062B39F81B00414BEC /* MainView.swift in Sources */,
 				893AD9132D59468000C0817B /* DropDownArrow.swift in Sources */,
@@ -1053,11 +1065,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 50;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = ZGMCXU7X3U;
+				DEVELOPMENT_TEAM = H5ZTDCQ89H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Uplift/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Uplift;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We want to help you find your nearest gym.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We want to help you find your nearest gym.";
@@ -1074,7 +1087,7 @@
 				);
 				MARKETING_VERSION = 3.2.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.uplift.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.uplift.ios.duru;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1097,11 +1110,12 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 50;
-				DEVELOPMENT_TEAM = ZGMCXU7X3U;
+				DEVELOPMENT_TEAM = H5ZTDCQ89H;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Uplift/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Uplift;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We want to help you find your nearest gym.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We want to help you find your nearest gym.";
@@ -1118,7 +1132,7 @@
 				);
 				MARKETING_VERSION = 3.2.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.uplift.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cornellappdev.uplift.ios.duru;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1170,6 +1184,14 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		13446DED2ECDF7BA00EED573 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.3;
+			};
+		};
 		2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -1213,6 +1235,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		13446DEE2ECDFA4F00EED573 /* ConfettiSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 13446DED2ECDF7BA00EED573 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */;
+			productName = ConfettiSwiftUI;
+		};
 		2CA97C8E2D8B852700EF48B3 /* UpliftAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UpliftAPI;
