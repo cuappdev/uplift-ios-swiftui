@@ -24,7 +24,6 @@ struct LoadingModifier<LoadingView: View>: ViewModifier {
         }
         .animation(.easeInOut, value: isLoading)
     }
-    // Duru edited
 }
 
 extension View {
