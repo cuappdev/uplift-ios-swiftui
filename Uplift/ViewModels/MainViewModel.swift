@@ -30,6 +30,7 @@ extension MainView {
         @Published var showMainView: Bool = true //TODO: Swap true and false values for mainview and signin view when onboarding is ready to be released
         @Published var showSignInView: Bool = false
         @Published var submitSuccessful: Bool = false
+        @Published var showWorkoutCheckIn: Bool = true
 
         private var queryBag = Set<AnyCancellable>()
 

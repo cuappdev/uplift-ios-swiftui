@@ -27,8 +27,6 @@
 	</array>
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<false/>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>BebasNeue-Regular.ttf</string>
