@@ -23,6 +23,9 @@ extension WorkoutCheckInView {
         @Published var isDailyCooldownActive: Bool = false
         @Published var currentNearestGym: String?
 
+        @Published var isCheckedIn = false
+        @Published var trigger: Int = 0
+
         private let threshold: Double = 0.05
         private let cooldownDuration: TimeInterval = 2*60*60
         private let cooldownLastGymKey = "lastCooldownGym"
@@ -68,20 +71,24 @@ extension WorkoutCheckInView {
                 visibility?(false)
                 return
             }
+
             if isCooldownActive {
                 visibility?(false)
                 return
             }
+
             guard let locationManager = locationManager, locationManager.userLocation != nil else {
                 nearestGymText = "Finding gyms nearby..."
                 visibility?(false)
                 return
             }
+
             guard !gyms.isEmpty else {
                 nearestGymText = "Finding gyms nearby..."
                 visibility?(false)
                 return
             }
+
             let gymsByDistance = gyms.sorted { g1, g2 in
                 let d1 = Double(locationManager.distanceToCoordinates(
                     latitude: g1.latitude,
@@ -93,14 +100,17 @@ extension WorkoutCheckInView {
                 )) ?? .infinity
                 return d1 < d2
             }
+
             for gym in gymsByDistance {
                 let distanceString = locationManager.distanceToCoordinates(
                     latitude: gym.latitude,
                     longitude: gym.longitude
                 )
+
                 guard let distanceNumeric = Double(distanceString) else {
                     continue
                 }
+
                 if distanceNumeric <= threshold, case .open = gym.status {
                     let time = Date().timeStringTrailingZeros
                     let gymName = gym.name
@@ -115,6 +125,7 @@ extension WorkoutCheckInView {
                     return
                 }
             }
+
             nearestGymText = "Finding gyms nearby..."
             visibility?(false)
         }
@@ -123,10 +134,12 @@ extension WorkoutCheckInView {
         func checkCooldown(gym: String) {
             let lastDate = UserDefaults.standard.object(forKey: cooldownKey) as? Date
             let lastGym = UserDefaults.standard.string(forKey: cooldownLastGymKey)
+
             if lastGym != gym {
                 isCooldownActive = false
                 return
             }
+
             if let lastDate {
                 let passed = Date().timeIntervalSince(lastDate)
                 if passed < cooldownDuration {

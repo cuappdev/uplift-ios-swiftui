@@ -40,7 +40,7 @@ struct MainView: View {
                         WorkoutCheckInView(
                             homeViewModel: homeViewModel,
                             profileViewModel: profileViewModel,
-                            visible: $viewModel.showWorkoutCheckIn
+                            mainViewModel: viewModel
                         )
                         .padding(.bottom, 13)
                         .opacity(viewModel.showWorkoutCheckIn ? 1 : 0)

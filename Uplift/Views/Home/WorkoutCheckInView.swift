@@ -17,16 +17,13 @@ struct WorkoutCheckInView: View {
     @EnvironmentObject var locationManager: LocationManager
     @ObservedObject var homeViewModel: HomeView.ViewModel
     @ObservedObject var profileViewModel: ProfileView.ViewModel
+    @ObservedObject var mainViewModel: MainView.ViewModel
     @StateObject private var viewModel = ViewModel()
 
-    @Binding var visible: Bool
-    @State private var isCheckedIn = false
-    @State private var trigger: Int = 0
-
-    // MARK: - UI
+    // MARK: - UI $
 
     var body: some View {
-        if !isCheckedIn {
+        if !viewModel.isCheckedIn {
             HStack(spacing: 20) {
                 VStack(alignment: .leading) {
                     Text("We see you're near a gym...")
@@ -38,7 +35,7 @@ struct WorkoutCheckInView: View {
                 }
                 HStack(spacing: 16) {
                     Button(action: {
-                        isCheckedIn = true
+                        viewModel.isCheckedIn = true
                         viewModel.performCheckIn(
                             gymName: viewModel.currentNearestGym,
                             profileViewModel: profileViewModel)
@@ -52,7 +49,7 @@ struct WorkoutCheckInView: View {
                     }
                     Button(action: {
                         withAnimation(.easeInOut(duration: 0.3)) {
-                            visible = false
+                            mainViewModel.showWorkoutCheckIn = false
                             if let gym = viewModel.currentNearestGym {
                                 viewModel.startCooldown(gym: gym)
                             }
@@ -79,7 +76,7 @@ struct WorkoutCheckInView: View {
                     locationManager: locationManager,
                     gyms: homeViewModel.gyms ?? []
                 ) { show in
-                    self.visible = show
+                    self.mainViewModel.showWorkoutCheckIn = show
                 }
             }
             .onChange(of: homeViewModel.gyms) { newGyms in
@@ -95,7 +92,7 @@ struct WorkoutCheckInView: View {
                         .foregroundStyle(Constants.Colors.black)
                     Button(action: {
                         withAnimation(.easeInOut(duration: 0.3)) {
-                            visible = false
+                            mainViewModel.showWorkoutCheckIn = false
                             if let gym = viewModel.currentNearestGym {
                                 viewModel.startCooldown(gym: gym)
                             }
@@ -117,16 +114,16 @@ struct WorkoutCheckInView: View {
                 if let gym = viewModel.currentNearestGym {
                     viewModel.checkCooldown(gym: gym)
                 }
-                trigger += 1
+                viewModel.trigger += 1
                 DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                     withAnimation(.easeInOut(duration: 0.3)) {
-                        visible = false
+                        mainViewModel.showWorkoutCheckIn = false
                     }
                     viewModel.startDailyCooldown()
                 }
             }
             .confettiCannon(
-                trigger: $trigger,
+                trigger: $viewModel.trigger,
                 num: 70,
                 confettis: [.shape(.circle), .shape(.slimRectangle)],
                 colors: [Constants.Colors.yellow, Constants.Colors.lightYellow],
@@ -142,7 +139,9 @@ struct WorkoutCheckInView: View {
 
 #Preview {
     WorkoutCheckInView(
-        homeViewModel: HomeView.ViewModel(), profileViewModel: ProfileView.ViewModel(), visible: .constant(true)
-        )
+        homeViewModel: HomeView.ViewModel(),
+        profileViewModel: ProfileView.ViewModel(),
+        mainViewModel: MainView.ViewModel()
+    )
     .environmentObject(LocationManager.shared)
 }
