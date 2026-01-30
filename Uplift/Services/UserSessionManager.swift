@@ -140,7 +140,7 @@ class UserSessionManager: ObservableObject {
         } receiveValue: { [weak self] newAccessToken in
             guard let self, let newAccessToken else { return }
             self.accessToken = newAccessToken
-            Logger.data.log("✅ Refreshed Access Token: \(newAccessToken)")
+            Logger.data.log("Refreshed Access Token: \(newAccessToken)")
         }
         .store(in: &queryBag)
     }
