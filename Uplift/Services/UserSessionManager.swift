@@ -8,9 +8,17 @@
 
 import Combine
 import Foundation
+import GoogleSignIn
 import os
 import SwiftUI
 import UpliftAPI
+
+enum SessionRestoreResult {
+    case success
+    case needsSignIn
+    case needsProfileCreation
+    case error(String)
+}
 
 class UserSessionManager: ObservableObject {
 
@@ -135,6 +143,53 @@ class UserSessionManager: ObservableObject {
             Logger.data.log("✅ Refreshed Access Token: \(newAccessToken)")
         }
         .store(in: &queryBag)
+    }
+
+    func restorePreviousSession(completion: @escaping (SessionRestoreResult) -> Void) {
+        GIDSignIn.sharedInstance.restorePreviousSignIn { [weak self] user, error in
+            guard let self = self else {
+                completion(.error("Session manager deallocated"))
+                return
+            }
+
+            if let error = error {
+                Logger.data.critical("Failed to restore Google Sign-In: \(error.localizedDescription)")
+                completion(.needsSignIn)
+                return
+            }
+
+            guard let user = user else {
+                Logger.data.critical("No previous Google Sign-In session found")
+                completion(.needsSignIn)
+                return
+            }
+
+            Logger.data.log("Restored Google Sign-In session for user: \(user.profile?.email ?? "Unknown")")
+
+            // If we have a netID in keychain, try to restore backend session
+            if let netID = self.netID {
+                self.loginUser(netId: netID) { result in
+                    switch result {
+                    case .success:
+                        Logger.data.log("Successfully restored backend session")
+                        completion(.success)
+
+                    case .failure(let error):
+                        if let graphqlError = error as? GraphQLErrorWrapper,
+                           graphqlError.msg.contains("No user with those credentials") {
+                            Logger.data.critical("No backend user exists. Needs profile creation.")
+                            completion(.needsProfileCreation)
+                        } else {
+                            Logger.data.critical("Failed backend login: \(error.localizedDescription)")
+                            completion(.needsSignIn)
+                        }
+                    }
+                }
+            } else {
+                Logger.data.critical("No netID found in Keychain. Needs sign-in.")
+                completion(.needsSignIn)
+            }
+        }
     }
 
 }
