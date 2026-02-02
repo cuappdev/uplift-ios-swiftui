@@ -29,12 +29,6 @@ struct Report: Hashable {
     /// The issue for this report.
     let issue: ReportType
 
-    /// The user this report is associated with.
-    let user: User?
-
-    /// The ID of the user in which this report is associated with.
-    let userId: Int
-
     // MARK: - Functions
 
     /// Initializes this object given a `ReportFields` type.
@@ -48,11 +42,6 @@ struct Report: Hashable {
         }()
         self.gymId = report.gymId
         self.issue = report.issue.value ?? ReportType.other
-        self.user = {
-            guard let user = report.user else { return nil }
-            return User(from: user.fragments.userFields)
-        }()
-        self.userId = report.userId
     }
 
 }
