@@ -57,8 +57,7 @@ extension ReportView {
                     createdAt: Date.now.ISO8601Format(),
                     description: description,
                     gymId: gymId,
-                    issue: selectedIssue,
-                    userId: 0
+                    issue: selectedIssue
                 )
             )
             .sink { [weak self] completion in

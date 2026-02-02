@@ -18,7 +18,7 @@ struct User: Hashable {
     let id: ID
 
     /// The email of this user.
-    let email: String
+    let email: String?
 
     /// The name of this user.
     let name: String
@@ -27,7 +27,7 @@ struct User: Hashable {
     let netId: String
 
     /// The workout goal of this user.
-    let workoutGoal: [DayOfWeekEnum]
+    let workoutGoal: [DayOfWeekGraphQLEnum]
 
     // MARK: - Functions
 
