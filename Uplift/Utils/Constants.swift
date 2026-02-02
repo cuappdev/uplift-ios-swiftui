@@ -98,49 +98,68 @@ struct Constants {
         static let error = Font.custom("Montserrat-Regular", size: 10)
         static let picker = Font.custom("Montserrat-SemiBold", size: 36)
         static let reminder = Font.custom("Montserrat-SemiBold", size: 24)
+        static let p1 = Font.custom("Montserrat-Bold", size: 64)
     }
 
     /// Image components used in Uplift.
     enum Images {
         static let addCircle = Image("add_circle")
+        static let abdominals = Image("abdominals")
         static let agreementsChecker = Image("agreements_checker")
         static let agreementsUnchecked = Image("agreements_unchecked")
         static let appdevLogo = Image("appdev-logo")
+        static let arm = Image("arm")
         static let arrowLeft = Image("arrow_left")
+        static let back = Image("back")
         static let backgroundEllipse = Image("background_ellipse")
+        static let backgroundTutorial = Image("background_tutorial")
         static let basketball = Image("basketball")
         static let bowling = Image("bowling")
         static let calendar = Image("calendar")
         static let camera = Image("camera")
+        static let capacityTutorial = Image("capacity_tutorial")
         static let cameraMini = Image("camera_mini")
         static let capacity = Image("capacity")
         static let check = Image("check")
         static let checkboxEmpty = Image("checkbox_empty")
         static let checkboxFilled = Image("checkbox_filled")
         static let chevronDown = Image("chevron_down")
+        static let chest = Image("chest")
         static let clock = Image("clock")
+        static let crossThin = Image("cross_thin")
         static let cross = Image("cross")
+        static let dumbbellSolid = Image("dumbbell_solid")
         static let dumbbellLarge = Image("dumbbell_large")
         static let dumbbellOutline = Image("dumbbell_outline")
-        static let dumbbellSolid = Image("dumbbell_solid")
+        static let profileOutline = Image("profile_outline")
+        static let profileSolid = Image("profile_solid")
+        static let pencil = Image("pencil")
         static let elevator = Image("elevator")
         static let greenCheckCircle = Image("green_check_circle")
         static let greenTea = Image("green_tea")
         static let giveawayModalBackground = Image("giveaway_modal_bg")
         static let giveawayPopupBackground = Image("giveaway_popup_bg")
+        static let leg = Image("leg")
         static let goal = Image("goal")
         static let gymSimple = Image("gym_simple")
         static let history = Image("history")
         static let lift = Image("lift")
         static let lock = Image("lock")
+        static let logoTransparent = Image("logo_transparent")
         static let logo = Image("logo")
         static let logoWhite = Image("logo_white")
         static let parking = Image("parking")
         static let pool = Image("pool")
+        static let replay = Image("replay")
+        static let shoulder = Image("shoulder")
         static let shower = Image("shower")
         static let trash = Image("trash")
+        static let spokes = Image("spokes")
+        static let vertEllipsis = Image("vert_ellipsis")
         static let whistleOutline = Image("whistle_outline")
         static let whistleSolid = Image("whistle_solid")
+        static let settings = Image("settings")
+        static let profileEmpty = Image("profile_empty")
     }
 
     /// Padding amounts used in Uplift.
@@ -186,6 +205,18 @@ struct Constants {
             x: 0,
             y: 4
         )
+    }
+
+    /// UserDefaults used in Uplift
+    enum UserDefaultsKeys {
+        // Capacity Reminder
+        static let reminderId = "savedReminderId"
+        static let selectedDays = "selectedDays"
+        static let selectedLocations = "selectedLocations"
+        static let capacityThreshold = "capacityThreshold"
+
+        // Capacity Reminder Tutorial
+        static let capacityTutorial = "hasSeenTutorial"
     }
 
 }

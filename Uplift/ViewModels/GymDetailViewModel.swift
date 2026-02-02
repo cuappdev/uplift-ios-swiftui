@@ -80,6 +80,23 @@ extension GymDetailView {
             }
         }
 
+        /// Determine the fitness center given a selected tab. Returns an arbitrary fitness center of this `Gym`
+        /// if not currently selecting a fitness center tab.
+        func determineFitnessCenter(gym: Gym) -> Facility? {
+            switch selectedTab {
+            case .facilities:
+                return gym.fitnessCenters.first
+            case .fitnessCenter:
+                return gym.fitnessCenters.first
+            case .teagleDown:
+                return gym.facilityWithName(name: Constants.FacilityNames.teagleDown)
+            case .teagleUp:
+                return gym.facilityWithName(name: Constants.FacilityNames.teagleUp)
+            case .none:
+                return gym.fitnessCenters.first
+            }
+        }
+
     }
 
 }

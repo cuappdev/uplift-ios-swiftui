@@ -23,15 +23,24 @@ fragment reportFields on Report {
   }
   gymId
   issue
-  user {
-    ...userFields
-  }
-  userId
 }
 
-mutation CreateUser($email: String!, $name: String!, $netId: String!) {
-  createUser(email: $email, name: $name, netId: $netId) {
+mutation CreateUser($email: String!, $encodedImage: String, $name: String!, $netId: String!) {
+  createUser(email: $email, encodedImage: $encodedImage, name: $name, netId: $netId) {
     ...userFields
+  }
+}
+
+mutation LoginUser($netId: String!) {
+  loginUser(netId: $netId) {
+    accessToken
+    refreshToken
+  }
+}
+
+mutation RefreshAccessToken {
+  refreshAccessToken {
+    newAccessToken
   }
 }
 
@@ -48,14 +57,12 @@ mutation CreateReport(
   $description: String!
   $gymId: Int!
   $issue: String!
-  $userId: Int!
 ) {
   createReport(
     createdAt: $createdAt
     description: $description
     gymId: $gymId
     issue: $issue
-    userId: $userId
   ) {
     report {
       ...reportFields

@@ -53,6 +53,16 @@ extension Date {
     }
 
     /**
+     This `Date` in the format "ha".
+     For example, 8:00 PM is 8PM.
+     */
+    var hourString: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "ha"
+        return formatter.string(from: self)
+    }
+
+    /**
      This `Date` in the format "EEEE, MMMM dd".
      For example, 4/29/24 8:00 PM is Monday, April 29.
      */
@@ -75,4 +85,10 @@ extension Date {
         return thisDate.month == otherDate.month && thisDate.day == otherDate.day
     }
 
+    /// Creates a Date object from a string with the specified format.
+    static func fromString(_ dateString: String, format: String = "EEE MMM dd, yyyy") -> Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        return formatter.date(from: dateString)
+    }
 }

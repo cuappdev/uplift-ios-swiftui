@@ -16,15 +16,16 @@ extension Array where Element == Equipment {
         self.init(equipments.map(Equipment.init))
     }
 
+    // TODO: Remove equipment type
     /// Returns all equipment types in this array.
-    func allTypes() -> [EquipmentType] {
-        let allTypes = self.compactMap(\.equipmentType)
-        var uniqueTypes = [EquipmentType]()
-        for eqType in allTypes where !uniqueTypes.contains(eqType) {
-            uniqueTypes.append(eqType)
-        }
-        return uniqueTypes
-    }
+//    func allTypes() -> [EquipmentType] {
+//        let allTypes = self.compactMap(\.equipmentType)
+//        var uniqueTypes = [EquipmentType]()
+//        for eqType in allTypes where !uniqueTypes.contains(eqType) {
+//            uniqueTypes.append(eqType)
+//        }
+//        return uniqueTypes
+//    }
 
 }
 

@@ -6,7 +6,11 @@
 //  Copyright © 2023 Cornell AppDev. All rights reserved.
 //
 
+import Combine
 import Foundation
+import OSLog
+import UpliftAPI
+import SwiftUI
 
 extension FitnessCenterView {
 
@@ -16,9 +20,15 @@ extension FitnessCenterView {
 
         // MARK: - Properties
 
-        @Published var fitnessCenterHours: [String] = []
+        @Published var currentHour: Int = Calendar.current.component(.hour, from: Date())
+        @Published var currentHourCapacity: CapacityText = .notBusy
         @Published var daysOfWeek: [String] = []
         @Published var expandHours: Bool = false
+        @Published var fitnessCenterHours: [String] = []
+        @Published var hourlyCapacities: [HourlyAverageCapacity] = []
+        @Published var popularTimesIsAnimating: Bool = false
+
+        private var queryBag = Set<AnyCancellable>()
 
         // MARK: - Helpers
 
@@ -45,10 +55,113 @@ extension FitnessCenterView {
                 if day == Date.now.getDayOfWeek() {
                     daysOfWeek.append("Today")
                 } else {
-                    daysOfWeek.append(day.dayOfWeekAbbreviation())
+                    daysOfWeek.append(day.dayOfWeekShortened())
                 }
             }
         }
-    }
 
+        /// Fetch hourly average capacities for a specific facility, filtered by its hours of operation.
+        func fetchHourlyAverageCapacities(for fc: Facility) {
+            popularTimesIsAnimating = false
+
+            guard let facilityId = Int(fc.id) else {
+                Logger.data.critical("Invalid facility ID")
+                return
+            }
+
+            Network.client.queryPublisher(
+                query: GetHourlyAverageCapacitiesByFacilityIdQuery(facilityId: facilityId),
+                cachePolicy: .fetchIgnoringCacheCompletely
+            )
+            .map { result -> [HourlyAverageCapacity] in
+                let hourlyAverage = result.data?.getHourlyAverageCapacitiesByFacilityId ?? []
+                let capacities = hourlyAverage.compactMap { cap -> HourlyAverageCapacity? in
+                    guard let cap,
+                          let dayOfWeek = cap.dayOfWeek?.rawValue,
+                          facilityId == cap.facilityId else { return nil }
+                    return HourlyAverageCapacity(
+                        averagePercent: cap.averagePercent,
+                        dayOfWeek: dayOfWeek,
+                        hourOfDay: cap.hourOfDay
+                    )
+                }
+                return capacities
+            }
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    Logger.data.critical("Error in FitnessCenterViewModel.fetchHourlyAverageCapacities: \(error)")
+                }
+            } receiveValue: { [weak self] (capacities: [HourlyAverageCapacity]) in
+                guard let self else { return }
+
+                self.filterCapacities(capacities: capacities, fc: fc)
+            }
+            .store(in: &queryBag)
+        }
+
+        func facilityHasMuscleCategory(fc: Facility, category: MuscleCategory) -> Bool {
+            let totalQuantity = fc.equipment
+                .filter { equipment in
+                    equipment.muscleGroup.contains { category.muscles.contains($0) }
+                }
+                .compactMap { $0.quantity }
+                .reduce(0, +)
+
+            return totalQuantity > 0
+        }
+
+        // MARK: - Helper Functions
+
+        private func filterCapacities(capacities: [HourlyAverageCapacity], fc: Facility) {
+            let today = Date.now.getDayOfWeek()
+            var todayOpenHours = fc.hours.getHoursInDayOfWeek(dayOfWeek: today)
+
+            let calendar = Calendar.current
+
+            todayOpenHours = todayOpenHours.sorted { $0.startTime < $1.startTime }
+
+            let startHour = todayOpenHours.first.map { calendar.component(.hour, from: $0.startTime) } ?? 6
+            var endHour = todayOpenHours.last.map { calendar.component(.hour, from: $0.endTime) } ?? 23
+
+            if let endMinutes = todayOpenHours.last.map({ calendar.component(.minute, from: $0.endTime) }), endMinutes > 0 {
+                endHour += 1
+            }
+
+            let filteredCapacities = capacities.filter { $0.dayOfWeek.capitalized == today.dayOfWeekComplete() }
+
+            let hourRange = startHour...endHour
+
+            var finalHourlyCapacities: [HourlyAverageCapacity] = hourRange.map { hour in
+                HourlyAverageCapacity(averagePercent: 0.0, dayOfWeek: "", hourOfDay: hour)
+            }
+
+            filteredCapacities.forEach { capacity in
+                if hourRange.contains(capacity.hourOfDay) {
+                    if let index = finalHourlyCapacities.firstIndex(where: { $0.hourOfDay == capacity.hourOfDay }) {
+                        finalHourlyCapacities[index] = capacity
+                    }
+                }
+
+                if capacity.hourOfDay == currentHour {
+                    computeCapacityMessage(percent: capacity.averagePercent)
+                }
+            }
+
+            self.hourlyCapacities = finalHourlyCapacities
+
+            withAnimation(.easeOut(duration: 0.6)) {
+                self.popularTimesIsAnimating = true
+            }
+        }
+
+        private func computeCapacityMessage(percent: Double) {
+            if percent < 0.5 {
+                currentHourCapacity = .notBusy
+            } else if percent < 0.8 {
+                currentHourCapacity = .slightlyBusy
+            } else {
+                currentHourCapacity = .veryBusy
+            }
+        }
+    }
 }

@@ -14,6 +14,7 @@ struct HomeView: View {
     // MARK: - Properties
 
     @EnvironmentObject var locationManager: LocationManager
+    @Environment(\.dismiss) private var dismiss
     @Binding var popUpGiveaway: Bool
     @StateObject private var viewModel = ViewModel()
 
@@ -30,6 +31,22 @@ struct HomeView: View {
         .onAppear {
             viewModel.setupEnvironment(with: locationManager)
             viewModel.fetchAllGyms()
+        }
+        .loading(viewModel.showTutorial) {
+            CapacityTutorialModal(
+                onFinish: {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        dismiss()
+                        viewModel.completeTutorial()
+                    }
+                },
+                onSetUp: {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        dismiss()
+                        viewModel.completeTutorial()
+                    }
+                }
+            )
         }
     }
 
@@ -88,6 +105,31 @@ struct HomeView: View {
         .transition(.move(edge: .top))
     }
 
+    private var capacityReminder: some View {
+        NavigationLink {
+             CapacityRemindersView()
+        } label: {
+             HStack {
+                 Text("CAPACITY REMINDERS")
+                     .font(Constants.Fonts.bodyMedium)
+                     .foregroundStyle(Constants.Colors.gray03)
+                     .padding(.vertical, 12)
+
+                 Spacer()
+
+                 Image(systemName: "square.and.pencil")
+                     .foregroundStyle(Constants.Colors.gray03)
+             }
+             .padding(.horizontal, 16)
+             .background(
+                 RoundedRectangle(cornerRadius: 12)
+                     .fill(Constants.Colors.white)
+                     .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+             )
+        }
+        .buttonStyle(ScaleButtonStyle())
+    }
+
     private func capacityCircle(facility: Facility?) -> some View {
         VStack(spacing: 12) {
             if let facility {
@@ -130,7 +172,13 @@ struct HomeView: View {
     private var scrollContent: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading, spacing: 12) {
-                viewModel.showCapacities ? capacitiesView : nil
+                if viewModel.showCapacities {
+                    VStack(alignment: .leading, spacing: 12) {
+                        capacitiesView
+                        capacityReminder
+                    }
+                    .transition(.move(edge: .top))
+                }
 
                 // TODO: Uncomment to display giveaway modal
 //                giveawayModalCell
@@ -251,4 +299,5 @@ struct HomeView: View {
 
 #Preview {
     HomeView(popUpGiveaway: .constant(false))
+        .environmentObject(LocationManager.shared)
 }

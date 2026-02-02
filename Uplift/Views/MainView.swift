@@ -116,7 +116,7 @@ struct MainView: View {
                 selectedTab = .profile
             } label: {
                 tabItemView(
-                    icon: selectedTab == .profile ? Constants.Images.whistleSolid : Constants.Images.whistleOutline,
+                    icon: selectedTab == .profile ? Constants.Images.profileSolid : Constants.Images.profileOutline,
                     name: "Profile"
                 )
             }

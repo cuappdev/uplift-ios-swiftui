@@ -16,12 +16,12 @@ struct CapacityRemindersView: View {
 
     @StateObject private var viewModel = ViewModel()
     @Environment(\.dismiss) private var dismiss
-    @State private var capacity = 50.0
-    @State private var showInfo = false
 
-    // MARK: - Constants
-
-    private let gyms = ["Teagle Up", "Teagle Down", "Helen Newman", "Toni Morrison", "Noyes"]
+    init() {
+        if let savedId = UserDefaults.standard.object(forKey: Constants.UserDefaultsKeys.reminderId) as? Int {
+            _viewModel = StateObject(wrappedValue: ViewModel(savedReminderId: savedId))
+        }
+    }
 
     // MARK: - UI
 
@@ -36,10 +36,57 @@ struct CapacityRemindersView: View {
             .toolbarBackground(.hidden, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    NavBackButton(color: Constants.Colors.black, dismiss: dismiss)
+                    Button(action: {
+                        viewModel.checkForUnsavedChanges()
+                        if !viewModel.hasUnsavedChanges {
+                            dismiss()
+                        } else {
+                            viewModel.showUnsavedChangesModal = true
+                        }
+                    }) {
+                        Constants.Images.arrowLeft
+                            .resizable()
+                            .scaledToFill()
+                            .foregroundStyle(Constants.Colors.black)
+                            .frame(width: 24, height: 24)
+                    }
                 }
             }
             .background(Constants.Colors.white)
+            .onAppear {
+                viewModel.getFCMToken()
+                viewModel.saveOriginalValues()
+            }
+        }
+        .showModal($viewModel.showUnsavedChangesModal) {
+            UnsavedChangesModal(
+                onSaveChanges: {
+                    viewModel.saveReminder {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            dismiss()
+                        }
+                    }
+                },
+                onContinue: {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        viewModel.showInfo = viewModel.originalShowInfo
+                        viewModel.selectedDays = viewModel.originalSelectedDays
+                        viewModel.capacityThreshold = viewModel.originalCapacityThreshold
+                        viewModel.selectedLocations = viewModel.originalSelectedLocations
+                        viewModel.hasUnsavedChanges = false
+                        viewModel.showUnsavedChangesModal = false
+                        dismiss()
+                    }
+                },
+                onCancel: {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        viewModel.showUnsavedChangesModal = false
+                    }
+                }
+            )
+        }
+        .loading(viewModel.isLoading) {
+            CustomLoadingView()
         }
     }
 
@@ -70,8 +117,11 @@ struct CapacityRemindersView: View {
                         .foregroundStyle(Constants.Colors.gray04)
                         .font(Constants.Fonts.h3)
 
-                    Toggle("", isOn: $showInfo.animation())
+                    Toggle("", isOn: $viewModel.showInfo.animation())
                         .tint(Constants.Colors.yellow)
+                        .onChange(of: viewModel.showInfo) { newValue in
+                            viewModel.handleToggleChange(isOn: newValue)
+                        }
                 }
 
                 Text("Uplift will send you a notification when gyms dip below the set capacity")
@@ -80,7 +130,7 @@ struct CapacityRemindersView: View {
                     .multilineTextAlignment(.leading)
             }
 
-            showInfo ? reminderInfo : nil
+            viewModel.showInfo ? reminderInfo : nil
 
             Spacer()
         }
@@ -99,6 +149,7 @@ struct CapacityRemindersView: View {
             reminderDays
             capacityThreshold
             locationsToRemind
+            saveButton
         }
         .padding(.vertical, 16)
     }
@@ -130,6 +181,7 @@ struct CapacityRemindersView: View {
                                 } else {
                                     viewModel.selectedDays.append(day)
                                 }
+                                viewModel.checkForUnsavedChanges()
                             }
                         }
                 }
@@ -153,7 +205,7 @@ struct CapacityRemindersView: View {
 
                 GeometryReader { geometry in
                     HStack {
-                        Text("\(Int(capacity))%")
+                        Text("\(Int(viewModel.capacityThreshold))%")
                             .foregroundStyle(Constants.Colors.gray04)
                             .font(Constants.Fonts.bodySemibold)
                             .padding(10)
@@ -161,26 +213,33 @@ struct CapacityRemindersView: View {
                                 RoundedRectangle(cornerRadius: 12)
                                     .fill(Constants.Colors.gray00)
                             }
-                            .position(x: capacity / 99 * (geometry.size.width - 32) + 16)
+                            .position(x: viewModel.capacityThreshold / 99 * (geometry.size.width - 32) + 16)
                     }
                 }
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.vertical, 12)
 
                 Slider(
-                    value: $capacity,
-                    in: 0...99,
-                    step: 1
+                    value: Binding(
+                        get: { viewModel.capacityThreshold },
+                        set: { viewModel.capacityThreshold = min($0, 90) }
+                    ),
+                    in: 0...100,
+                    step: 10
                 )
+
                 .tint(Constants.Colors.yellow)
                 .frame(height: 8)
+                .onChange(of: viewModel.capacityThreshold) { _ in
+                    viewModel.checkForUnsavedChanges()
+                }
 
                 HStack {
                     Text("0%")
 
                     Spacer()
 
-                    Text("99%")
+                    Text("100%")
                 }
                 .foregroundStyle(Constants.Colors.gray04)
                 .font(Constants.Fonts.bodySemibold)
@@ -198,38 +257,66 @@ struct CapacityRemindersView: View {
                 Spacer()
             }
 
-            WrappingHStack(gyms, id: \.self, spacing: .constant(16)) { gym in
-                Text(gym)
+            WrappingHStack(GymIdentifier.allCases, id: \.self, spacing: .constant(16)) { gym in
+                Text(gym.displayName())
                     .foregroundStyle(Constants.Colors.gray04)
                     .font(Constants.Fonts.labelSemibold)
                     .padding(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
                     .background {
                         RoundedRectangle(cornerRadius: 8)
                             .fill(
-                                viewModel.selectedLocations.contains(gym)
-                                    ? Constants.Colors.lightYellow
-                                    : Constants.Colors.white
+                                viewModel.selectedLocations.contains(gym.rawValue)
+                                ? Constants.Colors.lightYellow
+                                : Constants.Colors.white
                             )
                     }
                     .overlay {
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(
-                                viewModel.selectedLocations.contains(gym)
-                                    ? Constants.Colors.yellow
-                                    : Constants.Colors.gray02,
+                                viewModel.selectedLocations.contains(gym.rawValue)
+                                ? Constants.Colors.yellow
+                                : Constants.Colors.gray02,
                                 lineWidth: 1
                             )
                     }
                     .padding(.bottom, 12)
                     .onTapGesture {
                         withAnimation {
-                            if viewModel.selectedLocations.contains(gym) {
-                                viewModel.selectedLocations.removeAll { $0 == gym }
+                            if viewModel.selectedLocations.contains(gym.rawValue) {
+                                viewModel.selectedLocations.removeAll { $0 == gym.rawValue }
                             } else {
-                                viewModel.selectedLocations.append(gym)
+                                viewModel.selectedLocations.append(gym.rawValue)
                             }
+                            viewModel.checkForUnsavedChanges()
                         }
                     }
+            }
+        }
+    }
+
+    private var saveButton: some View {
+        Button {
+            viewModel.saveReminder {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    dismiss()
+                }
+            }
+        } label: {
+            VStack(spacing: 20) {
+                if let errorMessage = viewModel.errorMessage, !errorMessage.isEmpty {
+                    Text(errorMessage)
+                        .foregroundStyle(Constants.Colors.red)
+                        .font(Constants.Fonts.bodyNormal)
+                }
+
+                Text("Save Changes")
+                    .frame(width: 165, height: 41)
+                    .foregroundStyle(Constants.Colors.white)
+                    .font(Constants.Fonts.h3)
+                    .background(
+                        RoundedRectangle(cornerRadius: 30)
+                            .fill(Constants.Colors.black)
+                    )
             }
         }
     }
