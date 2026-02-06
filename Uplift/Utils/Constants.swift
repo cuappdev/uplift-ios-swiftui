@@ -99,6 +99,10 @@ struct Constants {
         static let picker = Font.custom("Montserrat-SemiBold", size: 36)
         static let reminder = Font.custom("Montserrat-SemiBold", size: 24)
         static let p1 = Font.custom("Montserrat-Bold", size: 64)
+        // Others
+        static let error = Font.custom("Montserrat-Regular", size: 10)
+        static let picker = Font.custom("Montserrat-SemiBold", size: 36)
+        static let reminder = Font.custom("Montserrat-SemiBold", size: 24)
     }
 
     /// Image components used in Uplift.
@@ -107,6 +111,7 @@ struct Constants {
         static let abdominals = Image("abdominals")
         static let agreementsChecker = Image("agreements_checker")
         static let agreementsUnchecked = Image("agreements_unchecked")
+        static let addCircle = Image("add_circle")
         static let appdevLogo = Image("appdev-logo")
         static let arm = Image("arm")
         static let arrowLeft = Image("arrow_left")
@@ -125,6 +130,10 @@ struct Constants {
         static let checkboxFilled = Image("checkbox_filled")
         static let chevronDown = Image("chevron_down")
         static let chest = Image("chest")
+        static let check = Image("check")
+        static let checkboxEmpty = Image("checkbox_empty")
+        static let checkboxFilled = Image("checkbox_filled")
+        static let chevronDown = Image("chevron_down")
         static let clock = Image("clock")
         static let crossThin = Image("cross_thin")
         static let cross = Image("cross")
@@ -156,6 +165,7 @@ struct Constants {
         static let trash = Image("trash")
         static let spokes = Image("spokes")
         static let vertEllipsis = Image("vert_ellipsis")
+        static let trash = Image("trash")
         static let whistleOutline = Image("whistle_outline")
         static let whistleSolid = Image("whistle_solid")
         static let settings = Image("settings")
@@ -177,6 +187,8 @@ struct Constants {
         static let reportHorizontal: CGFloat = 16
         static let reportVertical: CGFloat = 24
         static let tabBarHeight: CGFloat = 64
+        static let reportHorizontal: CGFloat = 16
+        static let reportVertical: CGFloat = 24
     }
 
     /// Shadows used in Uplift's design system.

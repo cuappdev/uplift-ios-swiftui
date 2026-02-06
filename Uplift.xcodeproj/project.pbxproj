@@ -109,14 +109,16 @@
 		63A7ABCD2B86B971008D58FB /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 63A7ABCC2B86B971008D58FB /* UpliftAPI */; };
 		63A7ABCF2B8C119A008D58FB /* Equipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7ABCE2B8C119A008D58FB /* Equipment.swift */; };
 		892478202CCCB9DF0086F335 /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8924781F2CCCB9DA0086F335 /* ReportViewModel.swift */; };
-		8940D4EE2CE3E60200F4A4A4 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8940D4ED2CE3E60000F4A4A4 /* Workout.swift */; };
-		8940D4F02CE3E8FE00F4A4A4 /* WorkoutQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8940D4EF2CE3E8F400F4A4A4 /* WorkoutQueries.graphql */; };
 		893AD9132D59468000C0817B /* DropDownArrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893AD9122D59466F00C0817B /* DropDownArrow.swift */; };
 		893AD9152D59569600C0817B /* MuscleCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893AD9142D59569600C0817B /* MuscleCategoryView.swift */; };
 		893AD9172D595DC800C0817B /* MuscleGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893AD9162D595DC300C0817B /* MuscleGroupView.swift */; };
+		8940D4EE2CE3E60200F4A4A4 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8940D4ED2CE3E60000F4A4A4 /* Workout.swift */; };
+		8940D4F02CE3E8FE00F4A4A4 /* WorkoutQueries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 8940D4EF2CE3E8F400F4A4A4 /* WorkoutQueries.graphql */; };
+		89507A9B2F36493100FB0757 /* SetGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89507A9A2F36493100FB0757 /* SetGoalsView.swift */; };
+		89507A9C2F36493100FB0757 /* ReportSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89507A982F36493100FB0757 /* ReportSuccessView.swift */; };
+		89507A9D2F36493100FB0757 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89507A992F36493100FB0757 /* ReportView.swift */; };
 		89599A4E2BD4B39B00DA44DE /* FitnessClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */; };
 		89599A502BD4B4B600DA44DE /* FitnessClassInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */; };
-		8960C6952CD5C5990071B309 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		896145AD2CCC9E5300F07789 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896145AC2CCC9E4F00F07789 /* Report.swift */; };
 		896500DC2BB4D33500D822AB /* ClassDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896500DB2BB4D33500D822AB /* ClassDetailView.swift */; };
 		897703662BA2028D00F9992F /* ClassesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897703652BA2028D00F9992F /* ClassesViewModel.swift */; };
@@ -131,8 +133,15 @@
 		8992674A2CC03E8D00E5741E /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899267492CC03E8D00E5741E /* Dropdown.swift */; };
 		899940722CC84DC90095568B /* SetGoalsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899940712CC84DC90095568B /* SetGoalsViewModel.swift */; };
 		8983A9A62CFEA077008E84DB /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 8983A9A52CFEA077008E84DB /* UpliftAPI */; };
+		898890022CD5D6B800E594A0 /* WorkoutReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890012CD5D6B800E594A0 /* WorkoutReminderView.swift */; };
+		898890042CD6784600E594A0 /* WorkoutReminderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890032CD6784000E594A0 /* WorkoutReminderViewModel.swift */; };
+		898890132CD6C77E00E594A0 /* WorkoutReminderEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890122CD6C77800E594A0 /* WorkoutReminderEditViewModel.swift */; };
+		898890152CD6C7B400E594A0 /* WorkoutReminderEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890142CD6C7B400E594A0 /* WorkoutReminderEditView.swift */; };
+		898890DA2CDC326200E594A0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890D92CDC326200E594A0 /* User.swift */; };
+		8992674A2CC03E8D00E5741E /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899267492CC03E8D00E5741E /* Dropdown.swift */; };
 		89950D8A2B992E8400DFB007 /* ClassesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89950D892B992E8400DFB007 /* ClassesView.swift */; };
 		8996FEE02BDF351800F13C67 /* NextSessionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */; };
+		899940722CC84DC90095568B /* SetGoalsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899940712CC84DC90095568B /* SetGoalsViewModel.swift */; };
 		899B186D2CA5FAFB00FAC061 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899B186C2CA5FAFB00FAC061 /* ProfileView.swift */; };
 		89A652F92D02B00000277A16 /* CapacityRemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A652F62D02B00000277A16 /* CapacityRemindersView.swift */; };
 		89A652FA2D02B00000277A16 /* RemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A652F72D02B00000277A16 /* RemindersView.swift */; };
@@ -242,11 +251,14 @@
 		6329A4492CA0FE8A00D30A2F /* CheckBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxView.swift; sourceTree = "<group>"; };
 		63A7ABCE2B8C119A008D58FB /* Equipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipment.swift; sourceTree = "<group>"; };
 		8924781F2CCCB9DA0086F335 /* ReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
-		8940D4ED2CE3E60000F4A4A4 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
-		8940D4EF2CE3E8F400F4A4A4 /* WorkoutQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = WorkoutQueries.graphql; sourceTree = "<group>"; };
 		893AD9122D59466F00C0817B /* DropDownArrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownArrow.swift; sourceTree = "<group>"; };
 		893AD9142D59569600C0817B /* MuscleCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleCategoryView.swift; sourceTree = "<group>"; };
 		893AD9162D595DC300C0817B /* MuscleGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleGroupView.swift; sourceTree = "<group>"; };
+		8940D4ED2CE3E60000F4A4A4 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
+		8940D4EF2CE3E8F400F4A4A4 /* WorkoutQueries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = WorkoutQueries.graphql; sourceTree = "<group>"; };
+		89507A982F36493100FB0757 /* ReportSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportSuccessView.swift; sourceTree = "<group>"; };
+		89507A992F36493100FB0757 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
+		89507A9A2F36493100FB0757 /* SetGoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGoalsView.swift; sourceTree = "<group>"; };
 		89599A4D2BD4B39B00DA44DE /* FitnessClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessClass.swift; sourceTree = "<group>"; };
 		89599A4F2BD4B4B600DA44DE /* FitnessClassInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessClassInstance.swift; sourceTree = "<group>"; };
 		895BC5F22D02C8C10015BB45 /* CapacityRemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityRemindersView.swift; sourceTree = "<group>"; };
@@ -429,6 +441,10 @@
 				898890122CD6C77800E594A0 /* WorkoutReminderEditViewModel.swift */,
 				8924781F2CCCB9DA0086F335 /* ReportViewModel.swift */,
 				296A2DAD2D7A805300EF042F /* ProfileViewModel.swift */,
+				899940712CC84DC90095568B /* SetGoalsViewModel.swift */,
+				898890032CD6784000E594A0 /* WorkoutReminderViewModel.swift */,
+				898890122CD6C77800E594A0 /* WorkoutReminderEditViewModel.swift */,
+				8924781F2CCCB9DA0086F335 /* ReportViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -500,7 +516,6 @@
 				893AD9122D59466F00C0817B /* DropDownArrow.swift */,
 				893AD9142D59569600C0817B /* MuscleCategoryView.swift */,
 				893AD9162D595DC300C0817B /* MuscleGroupView.swift */,
-				2E39D81B2B3B5F3700AD238B /* NavBackButton.swift */,
 				2E39D8212B3B631200AD238B /* DividerLine.swift */,
 				899267492CC03E8D00E5741E /* Dropdown.swift */,
 				2E3DC2412BCD2EDF0063B369 /* Giveaway */,
@@ -572,7 +587,7 @@
 				2E15F4EC2B39255B00414BEC /* UpliftTests */,
 				2E8FE38D2B1278B700B3DC6A /* Products */,
 				1E73905287F565F00258C43E /* Frameworks */,
-				895BC5FB2D02C9710015BB45 /* Recovered References */,
+				89507A972F3648E900FB0757 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -627,9 +642,29 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		89507A972F3648E900FB0757 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				895BC5F22D02C8C10015BB45 /* CapacityRemindersView.swift */,
+				895BC5F32D02C8C10015BB45 /* RemindersView.swift */,
+				895BC5F42D02C8C10015BB45 /* ReportSuccessView.swift */,
+				895BC5F52D02C8C10015BB45 /* ReportView.swift */,
+				898890052CD6AE2D00E594A0 /* CapacityRemindersView.swift */,
+				898890062CD6AE2D00E594A0 /* RemindersView.swift */,
+				898890072CD6AE2D00E594A0 /* ReportSuccessView.swift */,
+				898890082CD6AE2D00E594A0 /* ReportView.swift */,
+				898890092CD6AE2D00E594A0 /* SetGoalsView.swift */,
+				896145B02CCC9F5700F07789 /* User.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		89A652F82D02B00000277A16 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				89507A982F36493100FB0757 /* ReportSuccessView.swift */,
+				89507A992F36493100FB0757 /* ReportView.swift */,
+				89507A9A2F36493100FB0757 /* SetGoalsView.swift */,
 				89A652F62D02B00000277A16 /* CapacityRemindersView.swift */,
 				89A652F72D02B00000277A16 /* RemindersView.swift */,
 				898890072CD6AE2D00E594A0 /* ReportSuccessView.swift */,
@@ -867,6 +902,7 @@
 				2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */,
 				899940722CC84DC90095568B /* SetGoalsViewModel.swift in Sources */,
 				893AD9152D59569600C0817B /* MuscleCategoryView.swift in Sources */,
+				899940722CC84DC90095568B /* SetGoalsViewModel.swift in Sources */,
 				89C8658D2BB4779C00758337 /* ClassCell.swift in Sources */,
 				298EBA502E8E5335000441BA /* CustomLoadingView.swift in Sources */,
 				2CFFEC542DBED07600EE26F8 /* KeychainManager.swift in Sources */,
@@ -900,13 +936,11 @@
 				8992674A2CC03E8D00E5741E /* Dropdown.swift in Sources */,
 				898890022CD5D6B800E594A0 /* WorkoutReminderView.swift in Sources */,
 				898890152CD6C7B400E594A0 /* WorkoutReminderEditView.swift in Sources */,
-				8988900B2CD6AE2D00E594A0 /* CapacityRemindersView.swift in Sources */,
-				8988900C2CD6AE2D00E594A0 /* RemindersView.swift in Sources */,
 				898890132CD6C77E00E594A0 /* WorkoutReminderEditViewModel.swift in Sources */,
-				8988900D2CD6AE2D00E594A0 /* ReportSuccessView.swift in Sources */,
-				8988900E2CD6AE2D00E594A0 /* ReportView.swift in Sources */,
-				8988900F2CD6AE2D00E594A0 /* SetGoalsView.swift in Sources */,
 				2E3D6C202B1285D200B51BB2 /* UpliftEnvironment.swift in Sources */,
+				89507A9B2F36493100FB0757 /* SetGoalsView.swift in Sources */,
+				89507A9C2F36493100FB0757 /* ReportSuccessView.swift in Sources */,
+				89507A9D2F36493100FB0757 /* ReportView.swift in Sources */,
 				2E2748CF2BCD4D1F0023882E /* MainViewModel.swift in Sources */,
 				2E5726C72B4A63AE00D3DB36 /* ShimmerModifier.swift in Sources */,
 				29EAC6CB2EC6D5580027E88E /* GymCache.swift in Sources */,
@@ -938,6 +972,7 @@
 				89A652F92D02B00000277A16 /* CapacityRemindersView.swift in Sources */,
 				89A652FA2D02B00000277A16 /* RemindersView.swift in Sources */,
 				298EBA4A2E8DD244000441BA /* ModalModifier.swift in Sources */,
+				892478202CCCB9DF0086F335 /* ReportViewModel.swift in Sources */,
 				2E39D81E2B3B610200AD238B /* UINavigationController+Extension.swift in Sources */,
 				291433892D8738A400F913D5 /* WorkoutHistory.swift in Sources */,
 				63001AD62CC9ACFF0082AFFA /* LoginViewModel.swift in Sources */,

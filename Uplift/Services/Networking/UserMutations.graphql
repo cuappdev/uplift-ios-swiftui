@@ -4,6 +4,17 @@ fragment userFields on User {
   name
   netId
   workoutGoal
+  reports {
+    id
+    createdAt
+    description
+    issue
+    gym {
+      ...gymFields
+    }
+    gymId
+    userId
+  }
 }
 
 fragment giveawayFields on Giveaway {
