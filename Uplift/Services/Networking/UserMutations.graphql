@@ -4,17 +4,6 @@ fragment userFields on User {
   name
   netId
   workoutGoal
-  reports {
-    id
-    createdAt
-    description
-    issue
-    gym {
-      ...gymFields
-    }
-    gymId
-    userId
-  }
 }
 
 fragment giveawayFields on Giveaway {
@@ -78,5 +67,17 @@ mutation CreateReport(
     report {
       ...reportFields
     }
+  }
+}
+
+mutation SetWorkoutGoals(
+  $userId: Int!
+  $workoutGoal: [String]!
+) {
+  setWorkoutGoals(
+    userId: $userId,
+    workoutGoal: $workoutGoal
+  ) {
+    id
   }
 }

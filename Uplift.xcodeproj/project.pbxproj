@@ -122,16 +122,6 @@
 		896145AD2CCC9E5300F07789 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896145AC2CCC9E4F00F07789 /* Report.swift */; };
 		896500DC2BB4D33500D822AB /* ClassDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896500DB2BB4D33500D822AB /* ClassDetailView.swift */; };
 		897703662BA2028D00F9992F /* ClassesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897703652BA2028D00F9992F /* ClassesViewModel.swift */; };
-		898890022CD5D6B800E594A0 /* WorkoutReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890012CD5D6B800E594A0 /* WorkoutReminderView.swift */; };
-		898890042CD6784600E594A0 /* WorkoutReminderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890032CD6784000E594A0 /* WorkoutReminderViewModel.swift */; };
-		8988900D2CD6AE2D00E594A0 /* ReportSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890072CD6AE2D00E594A0 /* ReportSuccessView.swift */; };
-		8988900E2CD6AE2D00E594A0 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890082CD6AE2D00E594A0 /* ReportView.swift */; };
-		8988900F2CD6AE2D00E594A0 /* SetGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890092CD6AE2D00E594A0 /* SetGoalsView.swift */; };
-		898890132CD6C77E00E594A0 /* WorkoutReminderEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890122CD6C77800E594A0 /* WorkoutReminderEditViewModel.swift */; };
-		898890152CD6C7B400E594A0 /* WorkoutReminderEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890142CD6C7B400E594A0 /* WorkoutReminderEditView.swift */; };
-		898890DA2CDC326200E594A0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890D92CDC326200E594A0 /* User.swift */; };
-		8992674A2CC03E8D00E5741E /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899267492CC03E8D00E5741E /* Dropdown.swift */; };
-		899940722CC84DC90095568B /* SetGoalsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899940712CC84DC90095568B /* SetGoalsViewModel.swift */; };
 		8983A9A62CFEA077008E84DB /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 8983A9A52CFEA077008E84DB /* UpliftAPI */; };
 		898890022CD5D6B800E594A0 /* WorkoutReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890012CD5D6B800E594A0 /* WorkoutReminderView.swift */; };
 		898890042CD6784600E594A0 /* WorkoutReminderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890032CD6784000E594A0 /* WorkoutReminderViewModel.swift */; };
@@ -436,10 +426,6 @@
 				2E6785C12B3A5CE000DD3ADA /* GymDetailViewModel.swift */,
 				2E1105BE2B13B0E100119F5B /* HomeViewModel.swift */,
 				2E2748CE2BCD4D1F0023882E /* MainViewModel.swift */,
-				899940712CC84DC90095568B /* SetGoalsViewModel.swift */,
-				898890032CD6784000E594A0 /* WorkoutReminderViewModel.swift */,
-				898890122CD6C77800E594A0 /* WorkoutReminderEditViewModel.swift */,
-				8924781F2CCCB9DA0086F335 /* ReportViewModel.swift */,
 				296A2DAD2D7A805300EF042F /* ProfileViewModel.swift */,
 				899940712CC84DC90095568B /* SetGoalsViewModel.swift */,
 				898890032CD6784000E594A0 /* WorkoutReminderViewModel.swift */,
@@ -638,6 +624,7 @@
 				6329A4452C964D0800D30A2F /* SignInView.swift */,
 				6329A4472CA0F89D00D30A2F /* CreateProfileView.swift */,
 				6329A4492CA0FE8A00D30A2F /* CheckBoxView.swift */,
+				89507A9A2F36493100FB0757 /* SetGoalsView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -664,12 +651,8 @@
 			children = (
 				89507A982F36493100FB0757 /* ReportSuccessView.swift */,
 				89507A992F36493100FB0757 /* ReportView.swift */,
-				89507A9A2F36493100FB0757 /* SetGoalsView.swift */,
 				89A652F62D02B00000277A16 /* CapacityRemindersView.swift */,
 				89A652F72D02B00000277A16 /* RemindersView.swift */,
-				898890072CD6AE2D00E594A0 /* ReportSuccessView.swift */,
-				898890082CD6AE2D00E594A0 /* ReportView.swift */,
-				898890092CD6AE2D00E594A0 /* SetGoalsView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1427,14 +1410,6 @@
 			productName = FirebaseMessaging;
 		};
 		89CE47412D03F3C700BCB79D /* UpliftAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = UpliftAPI;
-		};
-		8997ECDA2D02D80A0025A486 /* UpliftAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = UpliftAPI;
-		};
-		89E4FAA52CE3E96D00A952B1 /* UpliftAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UpliftAPI;
 		};
