@@ -26,6 +26,7 @@ extension MainView {
         @Published var popUpGiveaway: Bool = false
         @Published var profileImage: UIImage?
         @Published var didClickSubmit: Bool = false
+        @Published var showSetGoalsView = false
         @Published var showCreateProfileView = false
         @Published var showGiveawayErrorAlert: Bool = false
         @Published var showMainView: Bool = false
