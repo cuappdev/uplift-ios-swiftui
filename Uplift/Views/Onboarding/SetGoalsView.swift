@@ -167,8 +167,13 @@ struct SetGoalsView: View {
         Button {
             // TODO: Fix animation
             withAnimation {
-                mainViewModel.showSetGoalsView = false
-                mainViewModel.showCreateProfileView = true
+                viewModel.setWorkoutGoal(
+                    userId: mainViewModel.userId ?? 0,
+                    workoutGoal: Int(viewModel.daysAWeek)
+                ) { _ in
+                    mainViewModel.showSetGoalsView = false
+                    mainViewModel.showCreateProfileView = true
+                }
             }
         } label: {
             Text("Next")

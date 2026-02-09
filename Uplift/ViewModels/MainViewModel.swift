@@ -19,6 +19,7 @@ extension MainView {
 
         // MARK: - Properties
 
+        @Published var userId: Int?
         @Published var email: String = ""
         @Published var instagram: String = ""
         @Published var name: String = ""
@@ -100,16 +101,18 @@ extension MainView {
                     netId: netID
                 )
             )
-            .compactMap(\.data?.createUser?.netId)
+            .compactMap(\.data?.createUser)
             .sink { completion in
                 if case let .failure(error) = completion {
                     callback() // If user already created (error thrown), still enter giveaway
                     Logger.data.critical("Error in MainViewModel.createUserRequest: \(error)")
                 }
-            } receiveValue: { netID in
+            } receiveValue: { [weak self] user in
+                guard let self else { return }
+                self.userId = Int(user.id)
                 callback()
 #if DEBUG
-                Logger.data.log("Created a new user with NetID \(netID)")
+                Logger.data.log("Created a new user with NetID \(user.netId)")
 #endif
             }
             .store(in: &queryBag)
