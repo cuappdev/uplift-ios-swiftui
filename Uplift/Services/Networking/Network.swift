@@ -13,6 +13,15 @@ import Foundation
 final class Network {
 
     /// The Apollo client.
-    static let client = ApolloClient(url: UpliftEnvironment.baseURL)
+    static let client: ApolloClient = {
+        let client = URLSessionClient()
+        let cache = InMemoryNormalizedCache()
+        let store = ApolloStore(cache: cache)
 
+        let provider = NetworkInterceptorProvider(client: client, store: store)
+        let url = UpliftEnvironment.baseURL
+        let transport = RequestChainNetworkTransport(interceptorProvider: provider, endpointURL: url)
+
+        return ApolloClient(networkTransport: transport, store: store)
+    }()
 }
