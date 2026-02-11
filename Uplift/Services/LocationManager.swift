@@ -84,3 +84,38 @@ extension LocationManager: CLLocationManagerDelegate {
     }
 
 }
+
+class MockLocationManager: NSObject, ObservableObject {
+    
+    @Published var userLocation: CLLocation?
+
+    func requestLocation() {
+        // Do Nothing
+    }
+    
+    func setLocation(latitude: Double, longtitude: Double) {
+        self.userLocation = CLLocation(latitude: latitude, longitude: longtitude)
+    }
+    
+    func distanceToCoordinates(latitude: Double, longitude: Double) -> String {
+        guard let locationA = userLocation else { return "0.0" }
+        let locationB = CLLocation(latitude: latitude, longitude: longitude)
+
+        let meters = locationA.distance(from: locationB)
+        let metersMeasurement = Measurement(value: meters, unit: UnitLength.meters)
+        let convertedValue = metersMeasurement.converted(to: .miles).value
+        return String(format: "%.1f", (convertedValue * 10).rounded() / 10)
+    }
+    
+}
+
+extension LocationManager: LocationManaging { }
+
+extension MockLocationManager: LocationManaging { }
+
+protocol LocationManaging {
+    
+    func requestLocation()
+    
+    func distanceToCoordinates(latitude: Double, longitude: Double) -> String
+}
