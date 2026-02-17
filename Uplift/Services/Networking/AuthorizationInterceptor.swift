@@ -11,6 +11,7 @@ import Apollo
 import ApolloAPI
 import OSLog
 
+/// Handles authentication for GraphQL requests.
 class AuthorizationInterceptor: ApolloInterceptor {
     public var id: String = UUID().uuidString
 
