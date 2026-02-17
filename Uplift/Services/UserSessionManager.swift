@@ -125,6 +125,12 @@ class UserSessionManager: ObservableObject {
 
     /// Refreshes the user's access token using the stored refresh token.
     func refreshAccessToken() {
+        refreshAccessToken(completion: nil)
+    }
+
+    /// Refreshes the user's access token. If completion provided, result is used in the case that the server
+    /// returns a token-expired error.
+    func refreshAccessToken(completion: ((Result<Void, Error>) -> Void)?) {
         Network.client.mutationPublisher(
             mutation: RefreshAccessTokenMutation(),
             publishResultToStore: false,
@@ -133,14 +139,21 @@ class UserSessionManager: ObservableObject {
         .map { result -> String? in
             result.data?.refreshAccessToken?.newAccessToken
         }
-        .sink { completion in
-            if case let .failure(error) = completion {
+        .sink { result in
+            if case let .failure(error) = result {
                 Logger.data.critical("Error in refreshAccessToken: \(error)")
+                completion?(.failure(error))
             }
         } receiveValue: { [weak self] newAccessToken in
-            guard let self, let newAccessToken else { return }
-            self.accessToken = newAccessToken
-            Logger.data.log("Refreshed Access Token: \(newAccessToken)")
+            guard let self else { return }
+            if let newAccessToken {
+                self.accessToken = newAccessToken
+                Logger.data.log("Refreshed Access Token: \(newAccessToken)")
+                completion?(.success(()))
+                // Interceptor may retry the original request when this completion succeeds
+            } else {
+                completion?(.failure(GraphQLErrorWrapper(msg: "Missing new access token")))
+            }
         }
         .store(in: &queryBag)
     }

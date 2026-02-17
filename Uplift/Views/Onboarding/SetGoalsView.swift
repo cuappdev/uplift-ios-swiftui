@@ -79,7 +79,7 @@ struct SetGoalsView: View {
 
             VStack(spacing: 16) {
                 Slider(
-                    value: $viewModel.daysAWeek,
+                    value: $mainViewModel.daysAWeek,
                     in: 1...7,
                     step: 1
                 )
@@ -167,13 +167,8 @@ struct SetGoalsView: View {
         Button {
             // TODO: Fix animation
             withAnimation {
-                viewModel.setWorkoutGoal(
-                    userId: mainViewModel.userId ?? 0,
-                    workoutGoal: Int(viewModel.daysAWeek)
-                ) { _ in
-                    mainViewModel.showSetGoalsView = false
-                    mainViewModel.showCreateProfileView = true
-                }
+                mainViewModel.showSetGoalsView = false
+                mainViewModel.showCreateProfileView = true
             }
         } label: {
             Text("Next")
