@@ -36,6 +36,11 @@ struct UpliftApp: App {
                             }
                     ) : nil
 
+                    (mainViewModel.showSetGoalsView) ? (
+                        SetGoalsView()
+                            .environmentObject(mainViewModel)
+                    ) : nil
+
                     (mainViewModel.showCreateProfileView) ? (
                         CreateProfileView()
                             .environmentObject(mainViewModel)
@@ -72,7 +77,7 @@ struct UpliftApp: App {
                     self.mainViewModel.showMainView = false
                 case .needsProfileCreation:
                     self.mainViewModel.showSignInView = false
-                    self.mainViewModel.showCreateProfileView = true
+                    self.mainViewModel.showSetGoalsView = true
                     self.mainViewModel.showMainView = false
                 case .error(let message):
                     Logger.data.critical("Session restore error: \(message)")

@@ -13,8 +13,8 @@ struct SetGoalsView: View {
 
     // MARK: - Properties
 
+    @EnvironmentObject var mainViewModel: MainView.ViewModel
     @StateObject private var viewModel = ViewModel()
-    @Environment(\.dismiss) private var dismiss
     @State private var isEveryDay = false
     @State private var isSettingTime = false
     @State private var showNewReminder = false
@@ -27,62 +27,49 @@ struct SetGoalsView: View {
                 header
                 content
             }
-            .ignoresSafeArea(.all, edges: .top)
-            .navigationBarBackButtonHidden(true)
-            .toolbarBackground(.hidden, for: .navigationBar)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    NavBackButton(color: Constants.Colors.black, dismiss: dismiss)
-                }
-            }
+            .padding(.vertical, 20)
             .background(Constants.Colors.white)
         }
     }
 
     private var header: some View {
         VStack {
-            Spacer()
-
             HStack {
-                Spacer()
-
-                Text("Goals")
-                    .foregroundStyle(Constants.Colors.black)
-                    .font(Constants.Fonts.h2)
+                Text("Set your goals.")
+                    .font(Constants.Fonts.h1)
+                    .padding(.leading, 16)
 
                 Spacer()
             }
+
+            DividerLine()
+                .upliftShadow(Constants.Shadows.smallLight)
         }
-        .padding(.bottom, 8)
-        .background(Constants.Colors.lightGray)
-        .frame(height: 96)
     }
 
     private var content: some View {
-        ScrollView {
-            LazyVStack(spacing: 48) {
-                workoutDays
-                workoutReminders
+        VStack(spacing: 48) {
+            workoutDays
+            // TODO: Workout reminders feature is archived for now
+//                workoutReminders
 
-                Spacer()
-            }
-            .padding(
-                EdgeInsets(
-                    top: Constants.Padding.goalsVertical,
-                    leading: Constants.Padding.goalsHorizontal,
-                    bottom: Constants.Padding.goalsVertical,
-                    trailing: Constants.Padding.goalsHorizontal
-                )
-            )
+            Spacer()
+
+            nextLabel
         }
+        .padding(
+            EdgeInsets(
+                top: Constants.Padding.goalsVertical,
+                leading: Constants.Padding.goalsHorizontal,
+                bottom: Constants.Padding.goalsVertical,
+                trailing: Constants.Padding.goalsHorizontal
+            )
+        )
     }
 
     private var workoutDays: some View {
         VStack(spacing: 20) {
             HStack {
-                Text("Let’s set a plan! ")
-                    .font(Constants.Fonts.h2)
-                +
                 Text("How many days a week would you like to work out?")
                     .font(Constants.Fonts.f2)
 
@@ -92,7 +79,7 @@ struct SetGoalsView: View {
 
             VStack(spacing: 16) {
                 Slider(
-                    value: $viewModel.daysAWeek,
+                    value: $mainViewModel.daysAWeek,
                     in: 1...7,
                     step: 1
                 )
@@ -173,6 +160,25 @@ struct SetGoalsView: View {
                     time: reminder.time
                 )
             }
+        }
+    }
+
+    private var nextLabel: some View {
+        Button {
+            // TODO: Fix animation
+            withAnimation {
+                mainViewModel.showSetGoalsView = false
+                mainViewModel.showCreateProfileView = true
+            }
+        } label: {
+            Text("Next")
+                .font(Constants.Fonts.h2)
+                .foregroundColor(Constants.Colors.black)
+                .padding(.horizontal, 52)
+                .padding(.vertical, 12)
+                .background(Constants.Colors.yellow)
+                .cornerRadius(38)
+                .upliftShadow(Constants.Shadows.smallLight)
         }
     }
 
