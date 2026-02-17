@@ -30,7 +30,7 @@ class AuthorizationInterceptor: ApolloInterceptor {
                 request.addHeader(name: "Authorization", value: "Bearer \(token)")
             }
         }
-        
+
         chain.proceedAsync(
             request: request,
             response: response,

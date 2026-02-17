@@ -148,8 +148,9 @@ struct CreateProfileView: View {
         Button {
             withAnimation(.easeIn) {
                 mainViewModel.createUser {
+                    guard let userId = mainViewModel.userId else { return }
                     mainViewModel.setWorkoutGoal(
-                        userId: mainViewModel.userId ?? 0,
+                        userId: userId,
                         workoutGoal: Int(mainViewModel.daysAWeek)
                     )
                 }

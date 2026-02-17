@@ -65,6 +65,7 @@ extension MainView {
                         self.showSignInView = false
 
                         UserSessionManager.shared.email = self.email
+                        completion()
                     case .failure(let error):
                         if let graphqlError = error as? GraphQLErrorWrapper,
                            graphqlError.msg.contains("No user with those credentials") {
@@ -134,7 +135,7 @@ extension MainView {
                 }
             } receiveValue: { _ in
 #if DEBUG
-                Logger.data.log("NetID \(userId) has set goal to \(workoutGoal)")
+                Logger.data.log("User id \(userId) has set goal to \(workoutGoal)")
 #endif
             }
             .store(in: &queryBag)
