@@ -12,6 +12,13 @@ import CoreLocation
 
 @MainActor
 struct LocationTests {
+    
+    /**
+     [Noyes] lat: 42.44660528140398, lon: -76.48803891048553
+     [Teagle] lat: 42.4459926380709, lon: -76.47915389837931
+     [Helen Newman] lat: 42.453188923853595, lon: -76.47730907608567
+     [Toni Morrison] lat: 42.45582093240726, lon: -76.47883902202813
+     */
 
     // MARK: - Helpers
 
