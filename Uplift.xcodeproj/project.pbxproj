@@ -18,6 +18,7 @@
 		2923EF472E9836A600D3FC1D /* CapacityTutorialModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2923EF462E98369900D3FC1D /* CapacityTutorialModal.swift */; };
 		293032572D7A8F64002E5484 /* WorkoutProgressArc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */; };
 		293A20A02F4660700012C74C /* LocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293A209F2F46606E0012C74C /* LocationTests.swift */; };
+		293A20A22F467CF00012C74C /* SetGoalsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293A20A12F467CED0012C74C /* SetGoalsViewModel.swift */; };
 		294CC21D2D7E34D300EF6487 /* WeeklyWorkoutTrackerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294CC21C2D7E34D000EF6487 /* WeeklyWorkoutTrackerView.swift */; };
 		296A2DAE2D7A805300EF042F /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296A2DAD2D7A805300EF042F /* ProfileViewModel.swift */; };
 		298EBA4A2E8DD244000441BA /* ModalModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298EBA492E8DD241000441BA /* ModalModifier.swift */; };
@@ -135,7 +136,6 @@
 		8992674A2CC03E8D00E5741E /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899267492CC03E8D00E5741E /* Dropdown.swift */; };
 		89950D8A2B992E8400DFB007 /* ClassesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89950D892B992E8400DFB007 /* ClassesView.swift */; };
 		8996FEE02BDF351800F13C67 /* NextSessionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */; };
-		899940722CC84DC90095568B /* SetGoalsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899940712CC84DC90095568B /* SetGoalsViewModel.swift */; };
 		899B186D2CA5FAFB00FAC061 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899B186C2CA5FAFB00FAC061 /* ProfileView.swift */; };
 		89A652F92D02B00000277A16 /* CapacityRemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A652F62D02B00000277A16 /* CapacityRemindersView.swift */; };
 		89A652FA2D02B00000277A16 /* RemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A652F72D02B00000277A16 /* RemindersView.swift */; };
@@ -168,6 +168,7 @@
 		2923EF462E98369900D3FC1D /* CapacityTutorialModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityTutorialModal.swift; sourceTree = "<group>"; };
 		293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutProgressArc.swift; sourceTree = "<group>"; };
 		293A209F2F46606E0012C74C /* LocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTests.swift; sourceTree = "<group>"; };
+		293A20A12F467CED0012C74C /* SetGoalsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGoalsViewModel.swift; sourceTree = "<group>"; };
 		294CC21C2D7E34D000EF6487 /* WeeklyWorkoutTrackerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyWorkoutTrackerView.swift; sourceTree = "<group>"; };
 		296A2DAD2D7A805300EF042F /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		298EBA492E8DD241000441BA /* ModalModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalModifier.swift; sourceTree = "<group>"; };
@@ -279,7 +280,6 @@
 		899267492CC03E8D00E5741E /* Dropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dropdown.swift; sourceTree = "<group>"; };
 		89950D892B992E8400DFB007 /* ClassesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesView.swift; sourceTree = "<group>"; };
 		8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextSessionCell.swift; sourceTree = "<group>"; };
-		899940712CC84DC90095568B /* SetGoalsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGoalsViewModel.swift; sourceTree = "<group>"; };
 		899A597E2EA0BD02000CBC36 /* Uplift-Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Uplift-Release.entitlements"; sourceTree = "<group>"; };
 		899B186C2CA5FAFB00FAC061 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		89A652F62D02B00000277A16 /* CapacityRemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityRemindersView.swift; sourceTree = "<group>"; };
@@ -426,6 +426,7 @@
 		2E090ED12B1308D500BAE982 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				293A20A12F467CED0012C74C /* SetGoalsViewModel.swift */,
 				135EEBA92EC7E5F70051AD5B /* WorkoutCheckInViewModel.swift */,
 				89C34AA02CA66E9000C579A5 /* CapacityRemindersViewModel.swift */,
 				63001AD52CC9ACFF0082AFFA /* LoginViewModel.swift */,
@@ -436,7 +437,6 @@
 				2E1105BE2B13B0E100119F5B /* HomeViewModel.swift */,
 				2E2748CE2BCD4D1F0023882E /* MainViewModel.swift */,
 				296A2DAD2D7A805300EF042F /* ProfileViewModel.swift */,
-				899940712CC84DC90095568B /* SetGoalsViewModel.swift */,
 				898890032CD6784000E594A0 /* WorkoutReminderViewModel.swift */,
 				898890122CD6C77800E594A0 /* WorkoutReminderEditViewModel.swift */,
 				8924781F2CCCB9DA0086F335 /* ReportViewModel.swift */,
@@ -909,6 +909,7 @@
 				89E4FAAA2CEFEC3C00A952B1 /* CapacitySemiCircleView.swift in Sources */,
 				89599A4E2BD4B39B00DA44DE /* FitnessClass.swift in Sources */,
 				2E15F5122B3A3D0000414BEC /* TriangleShape.swift in Sources */,
+				293A20A22F467CF00012C74C /* SetGoalsViewModel.swift in Sources */,
 				8940D4EE2CE3E60200F4A4A4 /* Workout.swift in Sources */,
 				2E8FE3922B1278B700B3DC6A /* HomeView.swift in Sources */,
 				896145AD2CCC9E5300F07789 /* Report.swift in Sources */,

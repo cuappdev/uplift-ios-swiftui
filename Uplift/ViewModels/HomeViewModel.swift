@@ -26,6 +26,8 @@ extension HomeView {
         private var locationManager: LocationManaging?
         private var queryBag = Set<AnyCancellable>()
 
+        private let gymCache = GymCache.shared
+
         init(locationManager: LocationManaging = LocationManager.shared) {
             self.locationManager = locationManager
             checkShowTutorial()

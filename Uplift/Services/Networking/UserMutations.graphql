@@ -4,17 +4,6 @@ fragment userFields on User {
   name
   netId
   workoutGoal
-  reports {
-    id
-    createdAt
-    description
-    issue
-    gym {
-      ...gymFields
-    }
-    gymId
-    userId
-  }
 }
 
 fragment giveawayFields on Giveaway {
@@ -34,10 +23,6 @@ fragment reportFields on Report {
   }
   gymId
   issue
-  user {
-    ...userFields
-  }
-  userId
 }
 
 mutation CreateUser($email: String!, $encodedImage: String, $name: String!, $netId: String!) {
@@ -67,8 +52,18 @@ mutation EnterGiveaway($giveawayId: Int!, $userNetId: String!) {
   }
 }
 
-mutation CreateReport($createdAt: DateTime!, $description: String!, $gymId: Int!, $issue: String!, $userId: Int!) {
-  createReport(createdAt: $createdAt, description: $description, gymId: $gymId, issue: $issue, userId: $userId) {
+mutation CreateReport(
+  $createdAt: DateTime!,
+  $description: String!,
+  $gymId: Int!,
+  $issue: String!
+) {
+  createReport(
+    createdAt: $createdAt,
+    description: $description,
+    gymId: $gymId,
+    issue: $issue
+  ) {
     report {
       ...reportFields
     }
