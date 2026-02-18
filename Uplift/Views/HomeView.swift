@@ -13,7 +13,6 @@ struct HomeView: View {
 
     // MARK: - Properties
 
-    @EnvironmentObject var locationManager: LocationManager
     @Environment(\.dismiss) private var dismiss
     @Binding var popUpGiveaway: Bool
     @ObservedObject var viewModel: ViewModel
@@ -29,7 +28,6 @@ struct HomeView: View {
             .background(Constants.Colors.white)
         }
         .onAppear {
-            viewModel.setupEnvironment(with: locationManager)
             viewModel.fetchAllGyms()
         }
         .loading(viewModel.showTutorial) {

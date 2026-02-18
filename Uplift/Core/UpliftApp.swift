@@ -18,7 +18,6 @@ struct UpliftApp: App {
     // MARK: - Properties
 
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @StateObject var locationManager = LocationManager.shared
     @StateObject private var mainViewModel = MainView.ViewModel()
 
     // MARK: - UI
@@ -42,9 +41,8 @@ struct UpliftApp: App {
 
                     (mainViewModel.showMainView) ? (
                         MainView()
-                            .environmentObject(locationManager)
                             .onAppear {
-                                locationManager.requestLocation()
+                                LocationManager.shared.requestLocation()
                             }
                     ) : nil
                 }

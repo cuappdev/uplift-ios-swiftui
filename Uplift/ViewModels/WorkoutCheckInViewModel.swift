@@ -31,26 +31,28 @@ extension WorkoutCheckInView {
         private let cooldownLastGymKey = "lastCooldownGym"
         private let cooldownKey = "lastCooldownTime"
         private let dailyCooldownKey = "lastCheckInDate"
-        private var locationManager: LocationManager?
+        private var locationManager: LocationManaging?
         private var queryBag = Set<AnyCancellable>()
 
         var gyms: [Gym] = []
         var visibility: ((Bool) -> Void)?
 
+        init(locationManager: LocationManaging = LocationManager.shared) {
+            self.locationManager = locationManager
+        }
+
         // MARK: - Helpers
 
         /// Set up environment for this ViewModel.
         func setupEnvironment(
-            locationManager: LocationManager?,
             gyms: [Gym] = [],
             visibility: @escaping (Bool) -> Void,
         ) {
-            self.locationManager = locationManager
             self.gyms = gyms
             self.visibility = visibility
-            locationManager?.$userLocation
-                .compactMap { $0 } // ignore nil values
-                .receive(on: DispatchQueue.main) // make sure UI updates happen on main thread
+            locationManager?.userLocationPublisher
+                .compactMap { $0 }
+                .receive(on: DispatchQueue.main)
                 .sink { [weak self] _ in
                     self?.checkDailyCooldown()
                     self?.findNearestGym()

@@ -23,10 +23,11 @@ extension HomeView {
         @Published var showCapacities: Bool = false
         @Published var showTutorial: Bool = false
 
-        private var locationManager: LocationManager?
+        private var locationManager: LocationManaging?
         private var queryBag = Set<AnyCancellable>()
 
-        init() {
+        init(locationManager: LocationManaging = LocationManager.shared) {
+            self.locationManager = locationManager
             checkShowTutorial()
         }
 
@@ -51,11 +52,6 @@ extension HomeView {
         }
 
         // MARK: - Requests
-
-        /// Set up environment for this ViewModel.
-        func setupEnvironment(with locationManager: LocationManager) {
-            self.locationManager = locationManager
-        }
 
         /// Fetch all gyms from the backend.
         func fetchAllGyms() {
