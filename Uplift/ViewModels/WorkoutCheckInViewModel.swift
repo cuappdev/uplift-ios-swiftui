@@ -26,7 +26,7 @@ extension WorkoutCheckInView {
         @Published var isCheckedIn = false
         @Published var trigger: Int = 0
 
-        private let threshold: Double = 0.1
+        private let threshold: Double = 0.05
         private let cooldownDuration: TimeInterval = 2*60*60
         private let cooldownLastGymKey = "lastCooldownGym"
         private let cooldownKey = "lastCooldownTime"
@@ -74,11 +74,11 @@ extension WorkoutCheckInView {
             }
 
             let gymsByDistance = gyms.sorted { g1, g2 in
-                let d1 = Double(locationManager.distanceToCoordinates(
+                let d1 = Double(locationManager.distanceToCoordinatesTwo(
                     latitude: g1.latitude,
                     longitude: g1.longitude
                 )) ?? .infinity
-                let d2 = Double(locationManager.distanceToCoordinates(
+                let d2 = Double(locationManager.distanceToCoordinatesTwo(
                     latitude: g2.latitude,
                     longitude: g2.longitude
                 )) ?? .infinity
@@ -86,7 +86,7 @@ extension WorkoutCheckInView {
             }
 
             for gym in gymsByDistance {
-                let distanceString = locationManager.distanceToCoordinates(
+                let distanceString = locationManager.distanceToCoordinatesTwo(
                     latitude: gym.latitude,
                     longitude: gym.longitude
                 )

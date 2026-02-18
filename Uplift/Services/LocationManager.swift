@@ -19,6 +19,8 @@ protocol LocationManaging {
     func requestLocation()
 
     func distanceToCoordinates(latitude: Double, longitude: Double) -> String
+
+    func distanceToCoordinatesTwo(latitude: Double, longitude: Double) -> String
 }
 
 /// Manage a user's location.
@@ -62,6 +64,16 @@ class LocationManager: NSObject, ObservableObject {
         let metersMeasurement = Measurement(value: meters, unit: UnitLength.meters)
         let convertedValue = metersMeasurement.converted(to: .miles).value
         return String(format: "%.1f", (convertedValue * 10).rounded() / 10)
+    }
+
+    func distanceToCoordinatesTwo(latitude: Double, longitude: Double) -> String {
+        guard let locationA = userLocation else { return "0.0" }
+        let locationB = CLLocation(latitude: latitude, longitude: longitude)
+
+        let meters = locationA.distance(from: locationB)
+        let metersMeasurement = Measurement(value: meters, unit: UnitLength.meters)
+        let convertedValue = metersMeasurement.converted(to: .miles).value
+        return String(format: "%.2f", (convertedValue * 100).rounded() / 100)
     }
 
 }
@@ -124,6 +136,16 @@ class MockLocationManager: NSObject, ObservableObject {
         let metersMeasurement = Measurement(value: meters, unit: UnitLength.meters)
         let convertedValue = metersMeasurement.converted(to: .miles).value
         return String(format: "%.1f", (convertedValue * 10).rounded() / 10)
+    }
+
+    func distanceToCoordinatesTwo(latitude: Double, longitude: Double) -> String {
+        guard let locationA = userLocation else { return "0.0" }
+        let locationB = CLLocation(latitude: latitude, longitude: longitude)
+
+        let meters = locationA.distance(from: locationB)
+        let metersMeasurement = Measurement(value: meters, unit: UnitLength.meters)
+        let convertedValue = metersMeasurement.converted(to: .miles).value
+        return String(format: "%.2f", (convertedValue * 100).rounded() / 100)
     }
 
 }
