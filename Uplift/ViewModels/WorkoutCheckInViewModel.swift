@@ -26,7 +26,7 @@ extension WorkoutCheckInView {
         @Published var isCheckedIn = false
         @Published var trigger: Int = 0
 
-        private let threshold: Double = 0.05
+        private let threshold: Double = 0.1
         private let cooldownDuration: TimeInterval = 2*60*60
         private let cooldownLastGymKey = "lastCooldownGym"
         private let cooldownKey = "lastCooldownTime"
@@ -42,24 +42,6 @@ extension WorkoutCheckInView {
         }
 
         // MARK: - Helpers
-
-        /// Set up environment for this ViewModel.
-        func setupEnvironment(
-            gyms: [Gym] = [],
-            visibility: @escaping (Bool) -> Void,
-        ) {
-            self.gyms = gyms
-            self.visibility = visibility
-            locationManager?.userLocationPublisher
-                .compactMap { $0 }
-                .receive(on: DispatchQueue.main)
-                .sink { [weak self] _ in
-                    self?.checkDailyCooldown()
-                    self?.findNearestGym()
-                }
-                .store(in: &queryBag)
-            findNearestGym()
-        }
 
         /// Update gyms to get sorted version and call function to find a gym close enough
         func updateGyms(_ gyms: [Gym]) {

@@ -26,18 +26,18 @@ struct WorkoutCheckInView: View {
             }
         }
         .onAppear {
+            viewModel.gyms = homeViewModel.gyms ?? []
+            viewModel.visibility = { show in
+                mainViewModel.showWorkoutCheckIn = show
+            }
+
             if let gym = viewModel.currentNearestGym {
                 viewModel.checkDailyCooldown()
                 viewModel.checkCooldown(gym: gym)
             }
 
             LocationManager.shared.requestLocation()
-
-            viewModel.setupEnvironment(
-                gyms: homeViewModel.gyms ?? []
-            ) { show in
-                mainViewModel.showWorkoutCheckIn = show
-            }
+            viewModel.findNearestGym()
         }
         .onChange(of: homeViewModel.gyms) { gyms in
             guard let gyms else { return }
