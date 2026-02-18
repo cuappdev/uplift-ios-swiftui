@@ -55,60 +55,31 @@ extension HomeView {
 
         /// Fetch all gyms from the backend.
         func fetchAllGyms() {
-            Network.client.queryPublisher(
-                query: GetAllGymsQuery(),
-                cachePolicy: .fetchIgnoringCacheCompletely
-            )
-            .compactMap { $0.data?.gyms?.compactMap(\.?.fragments.gymFields) }
-            .sink { completion in
-                if case let .failure(error) = completion {
-                    Logger.data.critical("Error in HomeViewModel.fetchAllGyms: \(error)")
+            Task {
+                do {
+                    let cachedGyms = try await gymCache.fetchGyms()
+                    self.gyms = sortGyms(cachedGyms)
+
+                } catch {
+                    Logger.data.critical("Error with fetching gyms: \(error)")
+                    self.gyms = []
                 }
-            } receiveValue: { [weak self] gymFields in
-                guard let self else { return }
-
-                let gyms = [Gym](gymFields)
-
-                // Sort gyms by nearest first, then open gym buildings, and open fitness centers at the top
-                self.gyms = gyms
-                    .sorted {
-                        guard let locationManager = self.locationManager else { return false }
-                        return locationManager.distanceToCoordinates(
-                            latitude: $0.latitude, longitude: $0.longitude
-                        ) < locationManager.distanceToCoordinates(
-                            latitude: $1.latitude, longitude: $1.longitude
-                        )
-                    }
-                    .sorted {
-                        guard let lhsStatus = $0.status,
-                              let rhsStatus = $1.status else { return false }
-                        return lhsStatus < rhsStatus
-                    }
-                    .sorted {
-                        ($0.fitnessCenters.contains { fc in
-                            switch fc.status {
-                            case .open:
-                                return true
-                            default:
-                                return false
-                            }
-                        } ? 0 : 1) < ($1.fitnessCenters.contains { fc in
-                            switch fc.status {
-                            case .open:
-                                return true
-                            default:
-                                return false
-                            }
-                        } ? 0 : 1)
-                    }
             }
-            .store(in: &queryBag)
         }
 
         /// Refresh gym data from the backend.
         func refreshGyms() {
             gyms = nil
-            fetchAllGyms()
+            Task {
+                do {
+                    // Force refresh by invalidating cache
+                    await gymCache.invalidateCache()
+                    let freshGyms = try await gymCache.fetchGyms()
+                    self.gyms = sortGyms(freshGyms)
+                } catch {
+                    Logger.data.critical("Error with refreshing gyms: \(error)")
+                }
+            }
         }
 
         // MARK: - Helpers
@@ -161,6 +132,47 @@ extension HomeView {
         /// Returns the gym for a given facility or `nil` if not found.
         func gymWithFacility(_ facility: Facility?) -> Gym? {
             gyms?.first { $0.fitnessCenters.contains { $0 == facility } }
+        }
+
+        /**
+        Sorts gyms by multiple criteria in priority order which is.
+        
+        * 1. Distance from user's location (nearest first)
+        * 2. Gym status (open gyms before closed)
+        * 3. Fitness center availability (gyms with open fitness centers first)
+         */
+        private func sortGyms(_ gyms: [Gym]) -> [Gym] {
+            gyms
+                .sorted {
+                    guard let locationManager = self.locationManager else { return false }
+                    return locationManager.distanceToCoordinates(
+                        latitude: $0.latitude, longitude: $0.longitude
+                    ) < locationManager.distanceToCoordinates(
+                        latitude: $1.latitude, longitude: $1.longitude
+                    )
+                }
+                .sorted {
+                    guard let lhsStatus = $0.status,
+                          let rhsStatus = $1.status else { return false }
+                    return lhsStatus < rhsStatus
+                }
+                .sorted {
+                    ($0.fitnessCenters.contains { fc in
+                        switch fc.status {
+                        case .open:
+                            return true
+                        default:
+                            return false
+                        }
+                    } ? 0 : 1) < ($1.fitnessCenters.contains { fc in
+                        switch fc.status {
+                        case .open:
+                            return true
+                        default:
+                            return false
+                        }
+                    } ? 0 : 1)
+                }
         }
 
     }

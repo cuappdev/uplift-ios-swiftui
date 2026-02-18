@@ -10,6 +10,7 @@ import FirebaseCore
 import FirebaseMessaging
 import FirebaseInstallations
 import GoogleSignIn
+import OSLog
 import SwiftUI
 
 @main
@@ -47,6 +48,37 @@ struct UpliftApp: App {
                     ) : nil
                 }
             }
+            .onAppear {
+                restoreUserSession()
+            }
+        }
+    }
+
+    // MARK: Restore Previous Sign-in
+
+    private func restoreUserSession() {
+        UserSessionManager.shared.restorePreviousSession { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    self.mainViewModel.showMainView = true
+                    self.mainViewModel.showSignInView = false
+                    self.mainViewModel.showCreateProfileView = false
+                case .needsSignIn:
+                    self.mainViewModel.showSignInView = true
+                    self.mainViewModel.showCreateProfileView = false
+                    self.mainViewModel.showMainView = false
+                case .needsProfileCreation:
+                    self.mainViewModel.showSignInView = false
+                    self.mainViewModel.showCreateProfileView = true
+                    self.mainViewModel.showMainView = false
+                case .error(let message):
+                    Logger.data.critical("Session restore error: \(message)")
+                    self.mainViewModel.showSignInView = true
+                    self.mainViewModel.showCreateProfileView = false
+                    self.mainViewModel.showMainView = false
+                }
+            }
         }
     }
 }
@@ -74,8 +106,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(
-        options: authOptions,
-        completionHandler: { _, _ in }
+            options: authOptions,
+            completionHandler: { _, _ in }
         )
 
         application.registerForRemoteNotifications()

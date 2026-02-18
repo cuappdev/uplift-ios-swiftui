@@ -39,6 +39,7 @@ struct Constants {
         static let gray05 = Color(red: 115/255, green: 131/255, blue: 144/255)
 
         // Others
+        static let dropdownSelectColor = Color(red: 202/255, green: 214/255, blue: 224/255)
         static let giveawayBgColor = Color(red: 34/255, green: 36/255, blue: 42/255)
     }
 
@@ -94,6 +95,10 @@ struct Constants {
         static let labelBold = Font.custom("Montserrat-Bold", size: 12)
 
         static let p1 = Font.custom("Montserrat-Bold", size: 64)
+        // Others
+        static let error = Font.custom("Montserrat-Regular", size: 10)
+        static let picker = Font.custom("Montserrat-SemiBold", size: 36)
+        static let reminder = Font.custom("Montserrat-SemiBold", size: 24)
     }
 
     /// Image components used in Uplift.
@@ -101,6 +106,7 @@ struct Constants {
         static let abdominals = Image("abdominals")
         static let agreementsChecker = Image("agreements_checker")
         static let agreementsUnchecked = Image("agreements_unchecked")
+        static let addCircle = Image("add_circle")
         static let appdevLogo = Image("appdev-logo")
         static let arm = Image("arm")
         static let arrowLeft = Image("arrow_left")
@@ -115,6 +121,10 @@ struct Constants {
         static let cameraMini = Image("camera_mini")
         static let capacity = Image("capacity")
         static let chest = Image("chest")
+        static let check = Image("check")
+        static let checkboxEmpty = Image("checkbox_empty")
+        static let checkboxFilled = Image("checkbox_filled")
+        static let chevronDown = Image("chevron_down")
         static let clock = Image("clock")
         static let close = Image("close")
         static let crossThin = Image("cross_thin")
@@ -126,6 +136,7 @@ struct Constants {
         static let profileSolid = Image("profile_solid")
         static let pencil = Image("pencil")
         static let elevator = Image("elevator")
+        static let greenCheckCircle = Image("green_check_circle")
         static let greenTea = Image("green_tea")
         static let giveawayModalBackground = Image("giveaway_modal_bg")
         static let giveawayPopupBackground = Image("giveaway_popup_bg")
@@ -145,6 +156,7 @@ struct Constants {
         static let shower = Image("shower")
         static let spokes = Image("spokes")
         static let vertEllipsis = Image("vert_ellipsis")
+        static let trash = Image("trash")
         static let whistleOutline = Image("whistle_outline")
         static let whistleSolid = Image("whistle_solid")
         static let settings = Image("settings")
@@ -156,12 +168,16 @@ struct Constants {
         static let classDetailSessionsHorizontal: CGFloat = 16
         static let classDetailSpacing: CGFloat = 24
         static let classDetailTextHorizontal: CGFloat = 48
+        static let goalsHorizontal: CGFloat = 16
+        static let goalsVertical: CGFloat = 24
         static let gymDetailHorizontal: CGFloat = 24
         static let gymDetailSpacing: CGFloat = 20
         static let homeHorizontal: CGFloat = 16
         static let remindersHorizontal: CGFloat = 16
         static let remindersVertical: CGFloat = 24
         static let tabBarHeight: CGFloat = 64
+        static let reportHorizontal: CGFloat = 16
+        static let reportVertical: CGFloat = 24
     }
 
     /// Shadows used in Uplift's design system.

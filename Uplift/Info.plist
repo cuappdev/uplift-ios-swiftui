@@ -10,6 +10,13 @@
 	<string>$(ANNOUNCEMENTS_PATH)</string>
 	<key>ANNOUNCEMENTS_SCHEME</key>
 	<string>$(ANNOUNCEMENTS_SCHEME)</string>
+	<key>CFBundleGetInfoString</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string></string>
+		</dict>
+	</array>
 	<key>CFBundleIconName</key>
 	<string>AppIcon</string>
 	<key>CFBundleURLTypes</key>
@@ -21,7 +28,7 @@
 			<string>com.cornellappdev.uplift.ios</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.207564484616-0tm2dfijhhehimopfcg8bh1k92r3h4e8</string>
+				<string>com.googleusercontent.apps.535667993262-iqe8kam2jkbpaq0vl0ee7484jev8p7i0</string>
 			</array>
 		</dict>
 	</array>

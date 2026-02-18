@@ -328,8 +328,12 @@ struct ProfileView: View {
                     }
                 }
             }
+            // TODO: Temporary to allow view to take up whole screen
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Constants.Colors.white)
         }
     }
+
 }
 
 #Preview {

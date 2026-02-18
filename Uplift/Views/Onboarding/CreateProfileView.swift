@@ -18,7 +18,6 @@ struct CreateProfileView: View {
     @State private var didCheckLocation: Bool = false
     @State private var didCheckTerms: Bool = false
     @State private var didShowImagePicker = false
-    @State private var profileImage: UIImage?
     @State private var profileItem: PhotosPickerItem?
 
     // MARK: - UI
@@ -77,7 +76,7 @@ struct CreateProfileView: View {
                        let data = try? await newItem.loadTransferable(type: Data.self),
                        let image = UIImage(data: data) {
                         DispatchQueue.main.async {
-                            self.profileImage = image
+                            self.mainViewModel.profileImage = image
                         }
                     }
                 }
@@ -107,7 +106,7 @@ struct CreateProfileView: View {
 
     private var cameraPlaceholder: some View {
         ZStack {
-            if let profileImage {
+            if let profileImage = mainViewModel.profileImage {
                 Image(uiImage: profileImage)
                     .resizable()
                     .scaledToFill()
@@ -148,7 +147,7 @@ struct CreateProfileView: View {
     private var getStartedButton: some View {
         Button {
             withAnimation(.easeIn) {
-                mainViewModel.showMainView = true
+                mainViewModel.createUser()
             }
         } label: {
             Text("Get started")

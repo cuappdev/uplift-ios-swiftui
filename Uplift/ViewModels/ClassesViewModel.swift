@@ -25,32 +25,35 @@ extension ClassesView {
 
         private var queryBag = Set<AnyCancellable>()
 
+        private let classesCache = ClassesCache.shared
+
         // MARK: - Requests
 
         /// Fetch all classes from the backend.
         func fetchAllClasses() {
-            Network.client.queryPublisher(
-                query: GetAllGymsQuery(),
-                cachePolicy: .fetchIgnoringCacheCompletely
-            )
-            .compactMap { $0.data?.gyms?.compactMap(\.?.fragments.gymFields) }
-            .sink { completion in
-                if case let .failure(error) = completion {
-                    Logger.data.critical("Error in ClassesViewModel.fetchAllClasses: \(error)")
+            Task {
+                do {
+                    let cachedClasses = try await classesCache.fetchClasses()
+                    self.classes = cachedClasses
+                } catch {
+                    Logger.data.critical("Error in fetching classes: \(error)")
+                    self.classes = []
                 }
-            } receiveValue: { [weak self] gymFields in
-                guard let self else { return }
-
-                let gyms: [Gym] = gymFields.map { Gym(from: $0) }
-                self.classes = gyms.flatMap { $0.classes }
             }
-            .store(in: &queryBag)
         }
 
         /// Refresh classes data from the backend.
         func refreshClasses() {
             classes = nil
-            fetchAllClasses()
+            Task {
+                do {
+                    await classesCache.invalidateCache()
+                    let freshClasses = try await classesCache.fetchClasses()
+                    self.classes = freshClasses
+                } catch {
+                    Logger.data.critical("Error in refreshing classes: \(error)")
+                }
+            }
         }
 
         // MARK: - Helpers

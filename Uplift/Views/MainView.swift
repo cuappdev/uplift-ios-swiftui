@@ -92,10 +92,9 @@ struct MainView: View {
 
             Spacer()
 
-            // TODO: Uncomment when profile released
-//            tabItem(for: .profile)
-//
-//            Spacer()
+            tabItem(for: .profile)
+
+            Spacer()
         }
         .frame(height: Constants.Padding.tabBarHeight)
         .background(Constants.Colors.yellow)
