@@ -774,7 +774,7 @@ struct DummyData {
         ]
     }
 
-    static let noyes = Gym(
+    static let noyesCheckIn = Gym(
         id: "noyes",
         name: "Noyes",
         latitude: 42.44660528140398,
@@ -806,5 +806,5 @@ struct DummyData {
         status: .open(closeTime: .distantFuture)
     )
 
-    static let allGyms = [noyes, teagleCheckIn, helenNewmanCheckIn, toniMorrison]
+    static let allGyms = [noyesCheckIn, teagleCheckIn, helenNewmanCheckIn, toniMorrison]
 }
