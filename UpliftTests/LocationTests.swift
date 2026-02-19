@@ -74,6 +74,7 @@ struct LocationTests {
         vm.gyms = DummyData.allGyms
         vm.findNearestGym()
         #expect(vm.currentNearestGym == "Noyes")
+        #expect(vm.nearestGymText.contains("Noyes"))
     }
 
     @Test("User just outside threshold (~0.06 mi) of Noyes does not trigger check-in")
