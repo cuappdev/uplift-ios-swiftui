@@ -773,4 +773,38 @@ struct DummyData {
             )
         ]
     }
+
+    static let noyesCheckIn = Gym(
+        id: "noyes",
+        name: "Noyes",
+        latitude: 42.44660528140398,
+        longitude: -76.48803891048553,
+        status: .open(closeTime: .distantFuture)
+    )
+
+    static let teagleCheckIn = Gym(
+        id: "teagle",
+        name: "Teagle",
+        latitude: 42.4459926380709,
+        longitude: -76.47915389837931,
+        status: .open(closeTime: .distantFuture)
+    )
+
+    static let helenNewmanCheckIn = Gym(
+        id: "helen",
+        name: "Helen Newman",
+        latitude: 42.453188923853595,
+        longitude: -76.47730907608567,
+        status: .open(closeTime: .distantFuture)
+    )
+
+    static let toniMorrison = Gym(
+        id: "toni",
+        name: "Toni Morrison",
+        latitude: 42.45582093240726,
+        longitude: -76.47883902202813,
+        status: .open(closeTime: .distantFuture)
+    )
+
+    static let allGyms = [noyesCheckIn, teagleCheckIn, helenNewmanCheckIn, toniMorrison]
 }

@@ -15,6 +15,8 @@ struct MainView: View {
 
     @State private var selectedTab: Screen = .home
     @StateObject var tabBarProp = TabBarProperty()
+    @StateObject private var homeViewModel = HomeView.ViewModel()
+    @StateObject private var profileViewModel = ProfileView.ViewModel()
     @StateObject private var viewModel = ViewModel()
 
     // MARK: - UI
@@ -24,7 +26,7 @@ struct MainView: View {
             VStack(spacing: 0) {
                 switch selectedTab {
                 case .home:
-                    HomeView(popUpGiveaway: $viewModel.popUpGiveaway)
+                    HomeView(popUpGiveaway: $viewModel.popUpGiveaway, viewModel: homeViewModel)
                 case .classes:
                     ClassesView()
                         .environmentObject(tabBarProp)
@@ -34,7 +36,17 @@ struct MainView: View {
                 }
             }
             .overlay(alignment: .bottom) {
-                !tabBarProp.hidden ? tabBar.transition(.move(edge: .bottom)) : nil
+                VStack {
+                        WorkoutCheckInView(
+                            homeViewModel: homeViewModel,
+                            profileViewModel: profileViewModel,
+                            mainViewModel: viewModel
+                        )
+                        .padding(.bottom, 13)
+                        .opacity(viewModel.showWorkoutCheckIn ? 1 : 0)
+
+                    !tabBarProp.hidden ? tabBar.transition(.move(edge: .bottom)) : nil
+                }
             }
 
             if viewModel.popUpGiveaway {
@@ -155,4 +167,5 @@ final class TabBarProperty: ObservableObject {
 
 #Preview {
     MainView()
+        .environmentObject(LocationManager.shared)
 }

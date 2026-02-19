@@ -98,6 +98,20 @@ struct Gym: Hashable {
         self.status = self.hours.getStatus()
     }
 
+    init(id: String, name: String, latitude: Double, longitude: Double, status: Status?) {
+        self.id = id
+        self.name = name
+        self.latitude = latitude
+        self.longitude = longitude
+        self.status = status
+        self.address = ""
+        self.amenities = []
+        self.classes = []
+        self.facilities = []
+        self.hours = []
+        self.imageUrl = nil
+    }
+
     /// Returns the highest capacity fitness center for this gym (Teagle).
     func highestCapacityFC() -> Facility? {
         let defaultPercent = Double.leastNormalMagnitude

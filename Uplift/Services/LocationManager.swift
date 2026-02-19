@@ -6,22 +6,37 @@
 //  Copyright © 2023 Cornell AppDev. All rights reserved.
 //
 
+import Combine
 import CoreLocation
 import OSLog
+
+protocol LocationManaging {
+
+    var userLocation: CLLocation? { get }
+
+    var userLocationPublisher: AnyPublisher<CLLocation?, Never> { get }
+
+    func requestLocation()
+
+    func distanceToCoordinates(latitude: Double, longitude: Double) -> String
+
+    func distanceToCoordinatesTwo(latitude: Double, longitude: Double) -> String
+}
 
 /// Manage a user's location.
 class LocationManager: NSObject, ObservableObject {
 
     // MARK: - Properties
 
+    static let shared = LocationManager()
+
     @Published var userLocation: CLLocation?
 
     private let manager = CLLocationManager()
-    static let shared = LocationManager()
 
     // MARK: - Functions
 
-    override private init() {
+    override init() {
         super.init()
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
@@ -51,6 +66,22 @@ class LocationManager: NSObject, ObservableObject {
         return String(format: "%.1f", (convertedValue * 10).rounded() / 10)
     }
 
+    func distanceToCoordinatesTwo(latitude: Double, longitude: Double) -> String {
+        guard let locationA = userLocation else { return "0.0" }
+        let locationB = CLLocation(latitude: latitude, longitude: longitude)
+
+        let meters = locationA.distance(from: locationB)
+        let metersMeasurement = Measurement(value: meters, unit: UnitLength.meters)
+        let convertedValue = metersMeasurement.converted(to: .miles).value
+        return String(format: "%.2f", (convertedValue * 100).rounded() / 100)
+    }
+
+}
+
+extension LocationManager: LocationManaging {
+    var userLocationPublisher: AnyPublisher<CLLocation?, Never> {
+        $userLocation.eraseToAnyPublisher()
+    }
 }
 
 extension LocationManager: CLLocationManagerDelegate {
@@ -83,4 +114,44 @@ extension LocationManager: CLLocationManagerDelegate {
         Logger.services.error("Error requesting location: \(error)")
     }
 
+}
+
+class MockLocationManager: NSObject, ObservableObject {
+
+    @Published var userLocation: CLLocation?
+
+    func requestLocation() {
+        // Do Nothing
+    }
+
+    func setLocation(latitude: Double, longtitude: Double) {
+        self.userLocation = CLLocation(latitude: latitude, longitude: longtitude)
+    }
+
+    func distanceToCoordinates(latitude: Double, longitude: Double) -> String {
+        guard let locationA = userLocation else { return "0.0" }
+        let locationB = CLLocation(latitude: latitude, longitude: longitude)
+
+        let meters = locationA.distance(from: locationB)
+        let metersMeasurement = Measurement(value: meters, unit: UnitLength.meters)
+        let convertedValue = metersMeasurement.converted(to: .miles).value
+        return String(format: "%.1f", (convertedValue * 10).rounded() / 10)
+    }
+
+    func distanceToCoordinatesTwo(latitude: Double, longitude: Double) -> String {
+        guard let locationA = userLocation else { return "0.0" }
+        let locationB = CLLocation(latitude: latitude, longitude: longitude)
+
+        let meters = locationA.distance(from: locationB)
+        let metersMeasurement = Measurement(value: meters, unit: UnitLength.meters)
+        let convertedValue = metersMeasurement.converted(to: .miles).value
+        return String(format: "%.2f", (convertedValue * 100).rounded() / 100)
+    }
+
+}
+
+extension MockLocationManager: LocationManaging {
+    var userLocationPublisher: AnyPublisher<CLLocation?, Never> {
+        $userLocation.eraseToAnyPublisher()
+    }
 }
