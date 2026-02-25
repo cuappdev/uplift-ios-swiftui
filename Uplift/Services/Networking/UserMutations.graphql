@@ -53,19 +53,31 @@ mutation EnterGiveaway($giveawayId: Int!, $userNetId: String!) {
 }
 
 mutation CreateReport(
-  $createdAt: DateTime!,
-  $description: String!,
-  $gymId: Int!,
+  $createdAt: DateTime!
+  $description: String!
+  $gymId: Int!
   $issue: String!
 ) {
   createReport(
-    createdAt: $createdAt,
-    description: $description,
-    gymId: $gymId,
+    createdAt: $createdAt
+    description: $description
+    gymId: $gymId
     issue: $issue
   ) {
     report {
       ...reportFields
     }
+  }
+}
+
+mutation SetWorkoutGoals(
+  $userId: Int!
+  $workoutGoal: [String]!
+) {
+  setWorkoutGoals(
+    userId: $userId,
+    workoutGoal: $workoutGoal
+  ) {
+    id
   }
 }

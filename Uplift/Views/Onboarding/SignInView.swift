@@ -76,7 +76,7 @@ struct SignInView: View {
 
                             DispatchQueue.main.async {
                                 mainViewModel.showSignInView = false
-                                mainViewModel.showCreateProfileView = true
+                                mainViewModel.showSetGoalsView = true
                             }
                         } else {
                             Logger.data.critical("❌ Unexpected login error: \(error.localizedDescription)")
