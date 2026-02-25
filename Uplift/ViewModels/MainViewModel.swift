@@ -34,6 +34,7 @@ extension MainView {
         @Published var showMainView: Bool = false
         @Published var showSignInView: Bool = true
         @Published var submitSuccessful: Bool = false
+        @Published var showWorkoutCheckIn: Bool = true
 
         private var queryBag = Set<AnyCancellable>()
 

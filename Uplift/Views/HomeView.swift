@@ -13,10 +13,9 @@ struct HomeView: View {
 
     // MARK: - Properties
 
-    @EnvironmentObject var locationManager: LocationManager
     @Environment(\.dismiss) private var dismiss
     @Binding var popUpGiveaway: Bool
-    @StateObject private var viewModel = ViewModel()
+    @ObservedObject var viewModel: ViewModel
 
     // MARK: - UI
 
@@ -29,7 +28,6 @@ struct HomeView: View {
             .background(Constants.Colors.white)
         }
         .onAppear {
-            viewModel.setupEnvironment(with: locationManager)
             viewModel.fetchAllGyms()
         }
         .loading(viewModel.showTutorial) {
@@ -298,6 +296,6 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView(popUpGiveaway: .constant(false))
+    HomeView(popUpGiveaway: .constant(false), viewModel: HomeView.ViewModel())
         .environmentObject(LocationManager.shared)
 }
