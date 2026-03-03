@@ -1,0 +1,58 @@
+//
+//  WorkoutHistoryViewModel.swift
+//  Uplift
+//
+//  Created by Caitlyn Jin on 2/25/26.
+//  Copyright © 2026 Cornell AppDev. All rights reserved.
+//
+
+import Foundation
+
+// MARK: - ViewModel
+extension WorkoutHistoryView {
+    class ViewModel: ObservableObject {
+        @Published private var currMonth = Date.now
+        let calendar = Calendar.current
+        private let firstWeekday = 2 // calendar always starts on Monday
+
+        private var firstOfCurrMonth: Date {
+            calendar.date(from: calendar.dateComponents([.year, .month], from: currMonth))!
+        }
+
+        var weeksInMonth: [[Date?]] {
+            guard
+                let firstOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: currMonth))
+            else { return [] }
+
+            var days: [Date?] = []
+
+            // Empty weekday slots
+            let weekdayOfFirst = calendar.component(.weekday, from: firstOfMonth)
+            let leadingWeekdays = (weekdayOfFirst - firstWeekday + 7) % 7
+            days.append(contentsOf: Array(repeating: nil, count: leadingWeekdays))
+
+            // Add rest of days in months
+            guard let daysInMonth = calendar.range(of: .day, in: .month, for: currMonth) else { return [] }
+            for day in daysInMonth {
+                days.append(calendar.date(byAdding: .day, value: day - 1, to: firstOfMonth))
+            }
+
+            // Empty weekday slots
+            while days.count % 7 != 0 {
+                days.append(nil)
+            }
+
+            return stride(from: 0, to: days.count, by: 7).map { i in
+                Array(days[i..<i+7])
+            }
+        }
+
+        private func nextMonth() {
+            currMonth = calendar.date(byAdding: .month, value: 1, to: firstOfCurrMonth)!
+        }
+
+        private func prevMonth() {
+            currMonth = calendar.date(byAdding: .month, value: -1, to: firstOfCurrMonth)!
+        }
+    }
+}

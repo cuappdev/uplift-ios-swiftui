@@ -292,45 +292,49 @@ struct ProfileView: View {
     }
 
     private var historyView: some View {
-        VStack(spacing: 20) {
-            HStack {
-                Text("History")
-                    .font(Constants.Fonts.h2)
-                    .foregroundColor(Constants.Colors.gray04)
+        NavigationLink {
+            WorkoutHistoryView()
+        } label: {
+            VStack(spacing: 20) {
+                HStack {
+                    Text("History")
+                        .font(Constants.Fonts.h2)
+                        .foregroundColor(Constants.Colors.gray04)
 
-                Spacer()
+                    Spacer()
 
-                Image(systemName: "chevron.right")
-                    .resizable()
-                    .frame(width: 8, height: 12)
-                    .foregroundColor(Constants.Colors.gray03)
-            }
+                    Image(systemName: "chevron.right")
+                        .resizable()
+                        .frame(width: 8, height: 12)
+                        .foregroundColor(Constants.Colors.gray03)
+                }
 
-            ForEach(viewModel.workoutHistory.indices, id: \.self) { index in
-                LazyVStack(spacing: 8) {
-                    HStack {
-                        let workout = viewModel.workoutHistory[index]
-                        Text(workout.location)
-                            .foregroundStyle(Constants.Colors.black)
-                            .font(Constants.Fonts.bodyMedium)
+                ForEach(viewModel.workoutHistory.indices, id: \.self) { index in
+                    LazyVStack(spacing: 8) {
+                        HStack {
+                            let workout = viewModel.workoutHistory[index]
+                            Text(workout.location)
+                                .foregroundStyle(Constants.Colors.black)
+                                .font(Constants.Fonts.bodyMedium)
 
-                        Spacer()
+                            Spacer()
 
-                        Text("\(workout.time) • \(workout.date.description)")
-                            .foregroundStyle(Constants.Colors.black)
-                            .font(Constants.Fonts.labelLight)
-                    }
+                            Text("\(workout.time) • \(workout.date.description)")
+                                .foregroundStyle(Constants.Colors.black)
+                                .font(Constants.Fonts.labelLight)
+                        }
 
-                    if index < viewModel.workoutHistory.count - 1 {
-                        Rectangle()
-                            .fill(Constants.Colors.gray01)
-                            .frame(height: 1)
+                        if index < viewModel.workoutHistory.count - 1 {
+                            Rectangle()
+                                .fill(Constants.Colors.gray01)
+                                .frame(height: 1)
+                        }
                     }
                 }
+                // TODO: Temporary to allow view to take up whole screen
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Constants.Colors.white)
             }
-            // TODO: Temporary to allow view to take up whole screen
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Constants.Colors.white)
         }
     }
 

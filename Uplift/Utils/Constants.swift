@@ -110,6 +110,7 @@ struct Constants {
         static let appdevLogo = Image("appdev-logo")
         static let arm = Image("arm")
         static let arrowLeft = Image("arrow_left")
+        static let arrowSmall = Image("arrow_small")
         static let back = Image("back")
         static let backgroundEllipse = Image("background_ellipse")
         static let backgroundTutorial = Image("background_tutorial")

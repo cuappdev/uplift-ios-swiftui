@@ -147,6 +147,8 @@
 		89CE47422D03F3C700BCB79D /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 89CE47412D03F3C700BCB79D /* UpliftAPI */; };
 		89E4FAAA2CEFEC3C00A952B1 /* CapacitySemiCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E4FAA92CEFEC3000A952B1 /* CapacitySemiCircleView.swift */; };
 		89E4FAAC2CF28E7500A952B1 /* HourlyAverageCapacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E4FAAB2CF28E6600A952B1 /* HourlyAverageCapacity.swift */; };
+		89E833412F4F93AE0080AC46 /* WorkoutHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E833402F4F93AE0080AC46 /* WorkoutHistoryView.swift */; };
+		89E833432F4FB26A0080AC46 /* WorkoutHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E833422F4FB2650080AC46 /* WorkoutHistoryViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -293,6 +295,8 @@
 		89C8658C2BB4779C00758337 /* ClassCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCell.swift; sourceTree = "<group>"; };
 		89E4FAA92CEFEC3000A952B1 /* CapacitySemiCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacitySemiCircleView.swift; sourceTree = "<group>"; };
 		89E4FAAB2CF28E6600A952B1 /* HourlyAverageCapacity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyAverageCapacity.swift; sourceTree = "<group>"; };
+		89E833402F4F93AE0080AC46 /* WorkoutHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryView.swift; sourceTree = "<group>"; };
+		89E833422F4FB2650080AC46 /* WorkoutHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -444,6 +448,7 @@
 				898890032CD6784000E594A0 /* WorkoutReminderViewModel.swift */,
 				898890122CD6C77800E594A0 /* WorkoutReminderEditViewModel.swift */,
 				8924781F2CCCB9DA0086F335 /* ReportViewModel.swift */,
+				89E833422F4FB2650080AC46 /* WorkoutHistoryViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -670,6 +675,7 @@
 				89507A992F36493100FB0757 /* ReportView.swift */,
 				89A652F62D02B00000277A16 /* CapacityRemindersView.swift */,
 				89A652F72D02B00000277A16 /* RemindersView.swift */,
+				89E833402F4F93AE0080AC46 /* WorkoutHistoryView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -903,7 +909,6 @@
 				29055F802E7E3E6E00E9A730 /* UnsavedChangesModal.swift in Sources */,
 				2E39D8162B3B3AD600AD238B /* ScaleButtonStyle.swift in Sources */,
 				2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */,
-				899940722CC84DC90095568B /* SetGoalsViewModel.swift in Sources */,
 				893AD9152D59569600C0817B /* MuscleCategoryView.swift in Sources */,
 				135EEBAC2EC9175B0051AD5B /* WorkoutCheckInView.swift in Sources */,
 				89C8658D2BB4779C00758337 /* ClassCell.swift in Sources */,
@@ -928,6 +933,7 @@
 				135EEBAA2EC7E60B0051AD5B /* WorkoutCheckInViewModel.swift in Sources */,
 				2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */,
 				2E15F5062B39F81B00414BEC /* MainView.swift in Sources */,
+				89E833412F4F93AE0080AC46 /* WorkoutHistoryView.swift in Sources */,
 				29EAC6CD2EC6DA740027E88E /* ClassesCache.swift in Sources */,
 				893AD9132D59468000C0817B /* DropDownArrow.swift in Sources */,
 				298EBA4E2E8E504A000441BA /* GymIdentifier.swift in Sources */,
@@ -974,6 +980,7 @@
 				2E3DC2432BCD2F1D0063B369 /* GiveawayModal.swift in Sources */,
 				898890042CD6784600E594A0 /* WorkoutReminderViewModel.swift in Sources */,
 				2E15F5042B39E54700414BEC /* LocationManager.swift in Sources */,
+				89E833432F4FB26A0080AC46 /* WorkoutHistoryViewModel.swift in Sources */,
 				892478202CCCB9DF0086F335 /* ReportViewModel.swift in Sources */,
 				893F6CA02F3AEDEC00CD6647 /* NetworkInterceptorProvider.swift in Sources */,
 				89A652F92D02B00000277A16 /* CapacityRemindersView.swift in Sources */,
