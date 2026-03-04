@@ -19,20 +19,32 @@ struct WorkoutHistoryView: View {
     private var calendarTab: some View {
         VStack(spacing: 16) {
             HStack(spacing: 24) {
-                Constants.Images.arrowSmall
-                    .resizable()
-                    .frame(width: 5, height: 9)
-                    .foregroundColor(Constants.Colors.black)
+                Button {
+                    withAnimation {
+                        viewModel.prevMonth()
+                    }
+                } label: {
+                    Constants.Images.arrowSmall
+                        .resizable()
+                        .frame(width: 5, height: 9)
+                        .foregroundColor(Constants.Colors.black)
+                }
 
-                Text("Mar 2024")
+                Text("\(viewModel.currMonth.dateStringCalendarMonth)")
                     .foregroundStyle(Constants.Colors.black)
                     .font(Constants.Fonts.h3)
 
-                Constants.Images.arrowSmall
-                    .resizable()
-                    .frame(width: 5, height: 9)
-                    .rotationEffect(.degrees(180))
-                    .foregroundColor(Constants.Colors.black)
+                Button {
+                    withAnimation {
+                        viewModel.nextMonth()
+                    }
+                } label: {
+                    Constants.Images.arrowSmall
+                        .resizable()
+                        .frame(width: 5, height: 9)
+                        .rotationEffect(.degrees(180))
+                        .foregroundColor(Constants.Colors.black)
+                }
             }
 
             HStack {
