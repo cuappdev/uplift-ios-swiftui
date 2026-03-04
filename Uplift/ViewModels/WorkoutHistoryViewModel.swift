@@ -57,6 +57,16 @@ extension WorkoutHistoryView {
             week.contains { isSelected($0) }
         }
 
+        func isSelectedDayOnLeft() -> Bool {
+            guard let selectedDay else { return false }
+            return selectedDay.getDayOfWeek() == DayOfWeek.monday
+        }
+
+        func isSelectedDayOnRight() -> Bool {
+            guard let selectedDay else { return false }
+            return selectedDay.getDayOfWeek() == DayOfWeek.sunday
+        }
+
         func nextMonth() {
             currMonth = calendar.date(byAdding: .month, value: 1, to: firstOfCurrMonth)!
         }

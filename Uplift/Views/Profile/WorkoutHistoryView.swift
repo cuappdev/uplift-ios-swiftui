@@ -102,15 +102,15 @@ struct WorkoutHistoryView: View {
                                 if viewModel.isSelected(date) {
                                     Triangle()
                                         .fill(Constants.Colors.lightYellow)
-                                        .frame(width: 16, height: 12)
+                                        .frame(width: 18, height: 12)
                                         .overlay(
                                             TriangleTwoSideBorder()
-                                                .stroke(Constants.Colors.yellow, lineWidth: 1)
-                                                .frame(width: 16, height: 12)
+                                                .stroke(Constants.Colors.yellow, lineWidth: 0.8)
+                                                .frame(width: 18, height: 12)
                                         )
                                 } else if viewModel.weekHasSelectedDay(week) {
                                     Color.clear
-                                        .frame(width: 16, height: 12)
+                                        .frame(width: 18, height: 12)
                                 }
                             }
 
@@ -152,10 +152,20 @@ struct WorkoutHistoryView: View {
         }
         .padding(12)
         .background {
-            RoundedRectangle(cornerRadius: 10)
+            UnevenRoundedRectangle(
+                topLeadingRadius: viewModel.isSelectedDayOnLeft() ? 0 : 10,
+                bottomLeadingRadius: 10,
+                bottomTrailingRadius: 10,
+                topTrailingRadius: viewModel.isSelectedDayOnRight() ? 0 : 10
+            )
                 .stroke(Constants.Colors.yellow, lineWidth: 1)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 10)
+                    UnevenRoundedRectangle(
+                        topLeadingRadius: viewModel.isSelectedDayOnLeft() ? 0 : 10,
+                        bottomLeadingRadius: 10,
+                        bottomTrailingRadius: 10,
+                        topTrailingRadius: viewModel.isSelectedDayOnRight() ? 0 : 10
+                    )
                         .fill(Constants.Colors.lightYellow)
                 )
         }
