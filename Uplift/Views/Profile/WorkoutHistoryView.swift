@@ -53,33 +53,101 @@ struct WorkoutHistoryView: View {
     }
 
     private func weekView(_ week: [Date?]) -> some View {
-        HStack {
-            ForEach(0..<7, id: \.self) { index in
-                VStack(spacing: 8) {
-                    if let date = week[index] {
-                        Text("\(viewModel.calendar.component(.day, from: date))")
-                            .foregroundStyle(Constants.Colors.black)
-                            .font(Constants.Fonts.f3)
-                            .frame(width: 32, height: 32)
-                            .background {
-                                if date.isSameDay(Date.now) {
-                                    RoundedRectangle(cornerRadius: 16)
-                                        .fill(Constants.Colors.lightYellow)
-                                        .overlay(
+        VStack(spacing: -0.5) {
+            HStack {
+                ForEach(0..<7, id: \.self) { index in
+                    Button {
+                        withAnimation {
+                            if viewModel.isSelected(week[index]) {
+                                viewModel.selectedDay = nil
+                            } else {
+                                viewModel.selectedDay = week[index]
+                            }
+                        }
+                    } label: {
+                        VStack(spacing: 8) {
+                            if let date = week[index] {
+
+                                Text("\(viewModel.calendar.component(.day, from: date))")
+                                    .foregroundStyle(Constants.Colors.black)
+                                    .font(Constants.Fonts.f3)
+                                    .frame(width: 32, height: 32)
+                                    .background {
+                                        if date.isSameDay(Date.now) || viewModel.isSelected(date) {
                                             RoundedRectangle(cornerRadius: 16)
+                                                .fill(date.isSameDay(Date.now) ? Constants.Colors.lightYellow : .clear)
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: 16)
+                                                        .stroke(Constants.Colors.yellow, lineWidth: 1)
+                                                )
+                                        }
+                                    }
+
+                                Circle()
+                                    .fill(date.isSameDay(Date.now) ? Constants.Colors.yellow : .clear)
+                                    .frame(width: 8, height: 8)
+
+                                if viewModel.isSelected(date) {
+                                    Triangle()
+                                        .fill(Constants.Colors.lightYellow)
+                                        .frame(width: 16, height: 12)
+                                        .overlay(
+                                            TriangleTwoSideBorder()
                                                 .stroke(Constants.Colors.yellow, lineWidth: 1)
+                                                .frame(width: 16, height: 12)
                                         )
+                                } else if viewModel.weekHasSelectedDay(week) {
+                                    Color.clear
+                                        .frame(width: 16, height: 12)
                                 }
                             }
 
-                            Circle()
-                                .fill(date.isSameDay(Date.now) ? Constants.Colors.yellow : .clear)
-                                .frame(width: 8, height: 8)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
                     }
                 }
-                .frame(maxWidth: .infinity, alignment: .center)
+            }
+            .zIndex(1)
+
+            if viewModel.weekHasSelectedDay(week) {
+                selectedDayDropdown()
+                    .zIndex(0)
             }
         }
+    }
+
+    private func selectedDayDropdown() -> some View {
+        VStack(spacing: 4) {
+            HStack {
+                Text("Toni Morrison")
+                    .foregroundStyle(Constants.Colors.black)
+                    .font(Constants.Fonts.f4)
+
+                Spacer()
+            }
+
+            HStack {
+                Text("6:30 PM ∙ Mar 2")
+                    .foregroundStyle(Constants.Colors.gray04)
+                    .font(Constants.Fonts.f4)
+
+                Spacer()
+
+                Text("Yesterday")
+                    .foregroundStyle(Constants.Colors.black)
+                    .font(Constants.Fonts.f4)
+            }
+        }
+        .padding(12)
+        .background {
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Constants.Colors.yellow, lineWidth: 1)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Constants.Colors.lightYellow)
+                )
+        }
+        .padding(.horizontal, 16)
     }
 
 }

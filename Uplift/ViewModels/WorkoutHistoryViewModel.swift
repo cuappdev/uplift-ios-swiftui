@@ -11,6 +11,7 @@ import Foundation
 // MARK: - ViewModel
 extension WorkoutHistoryView {
     class ViewModel: ObservableObject {
+        @Published var selectedDay: Date?
         @Published private var currMonth = Date.now
         let calendar = Calendar.current
         private let firstWeekday = 2 // calendar always starts on Monday
@@ -45,6 +46,15 @@ extension WorkoutHistoryView {
             return stride(from: 0, to: days.count, by: 7).map { i in
                 Array(days[i..<i+7])
             }
+        }
+
+        func isSelected(_ date: Date?) -> Bool {
+            guard let selectedDay, let date else { return false }
+            return date.isSameDay(selectedDay)
+        }
+
+        func weekHasSelectedDay(_ week: [Date?]) -> Bool {
+            week.contains { isSelected($0) }
         }
 
         private func nextMonth() {
