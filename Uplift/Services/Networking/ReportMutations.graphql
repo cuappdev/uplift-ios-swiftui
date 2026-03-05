@@ -26,3 +26,12 @@ mutation CreateReport(
     }
   }
 }
+
+mutation DeleteReport($reportId: Int!) {
+  deleteReport(reportId: $reportId) {
+    id
+    issue
+    description
+    createdAt
+  }
+}

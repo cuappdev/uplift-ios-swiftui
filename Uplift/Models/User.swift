@@ -29,8 +29,6 @@ struct User: Hashable {
     let activeStreak: Int
     /// The maximum streak of this user.
     let maxStreak: Int
-    /// The date of the last goal change.
-    let lastGoalChange: DateTime?
     /// The date/value of the last streak.
     let lastStreak: Int
     /// The encoded profile image of this user.
@@ -54,10 +52,37 @@ struct User: Hashable {
         self.maxStreak = user.maxStreak
         self.workoutGoal = user.workoutGoal
         self.encodedImage = user.encodedImage
-        self.lastGoalChange = user.lastGoalChange
         self.lastStreak = user.lastStreak
         self.goalHistory = user.goalHistory?.map { $0.map { WorkoutGoalHistory(from: $0.fragments.workoutgoalhistoryFields) } }
         self.totalGymDays = user.totalGymDays
         self.streakStart = user.streakStart
+    }
+
+    init(
+        id: ID,
+        email: String?,
+        name: String,
+        netId: String,
+        workoutGoal: Int?,
+        activeStreak: Int,
+        maxStreak: Int,
+        lastStreak: Int,
+        encodedImage: String?,
+        goalHistory: [WorkoutGoalHistory?]?,
+        totalGymDays: Int,
+        streakStart: UpliftAPI.Date?
+    ) {
+        self.id = id
+        self.email = email
+        self.name = name
+        self.netId = netId
+        self.workoutGoal = workoutGoal
+        self.activeStreak = activeStreak
+        self.maxStreak = maxStreak
+        self.lastStreak = lastStreak
+        self.encodedImage = encodedImage
+        self.goalHistory = goalHistory
+        self.totalGymDays = totalGymDays
+        self.streakStart = streakStart
     }
 }

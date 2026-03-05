@@ -113,51 +113,40 @@ struct ProfileView: View {
 
             DividerLine()
 
-            Button {
-                //TODO: Learn more about uplift
-            } label: {
+            Button { } label: {
                 HStack {
                     Text("About Uplift")
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.black)
-
                     Spacer()
                 }
             }
 
             DividerLine()
 
-            Button {
-                //TODO: Notifications about uplift
-            } label: {
+            Button { } label: {
                 HStack {
                     Text("Reminders")
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.black)
-
                     Spacer()
                 }
             }
 
             DividerLine()
 
-            Button {
-                //TODO: Reporting an Issue
-            } label: {
+            Button { } label: {
                 HStack {
                     Text("Report an Issue")
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.black)
-
                     Spacer()
                 }
             }
 
             DividerLine()
 
-            Button {
-                //TODO: Logging Out functionality
-            } label: {
+            Button { } label: {
                 Text("Log Out")
                     .font(Constants.Fonts.bodyNormal)
                     .foregroundStyle(Constants.Colors.closed)
@@ -184,21 +173,17 @@ struct ProfileView: View {
 
     private var profileTopSection: some View {
         HStack(spacing: 20) {
-            // Profile image with camera icon
             ZStack(alignment: .bottomTrailing) {
                 ZStack {
-                    // Outer shadow circle
                     Circle()
                         .fill(Constants.Colors.white)
                         .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 1)
                         .frame(width: 98, height: 98)
 
-                    // White border circle
                     Circle()
                         .fill(Constants.Colors.white)
                         .frame(width: 98, height: 98)
 
-                    // Profile image
                     Image(systemName: "person.crop.circle.fill")
                         .resizable()
                         .scaledToFit()
@@ -206,7 +191,6 @@ struct ProfileView: View {
                         .foregroundStyle(Constants.Colors.gray02)
                 }
 
-                // Camera button overlay
                 Circle()
                     .fill(Constants.Colors.white)
                     .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 1)
@@ -221,15 +205,14 @@ struct ProfileView: View {
                     .offset(x: 2, y: 2)
             }
 
-            // Name and workouts count
             VStack(alignment: .leading, spacing: 16) {
-                Text(viewModel.profile?.name ?? "Anonymous")
+                Text(viewModel.user?.name ?? "Anonymous")
                     .font(Constants.Fonts.h1)
                     .foregroundStyle(Constants.Colors.black)
 
                 HStack(spacing: 24) {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("\(viewModel.totalWorkouts)")
+                        Text("\(viewModel.totalGymDays)")
                             .font(Constants.Fonts.h2)
                             .foregroundStyle(Constants.Colors.black)
 
@@ -241,7 +224,7 @@ struct ProfileView: View {
                     .frame(minWidth: 70, alignment: .leading)
 
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("\(viewModel.streaks)")
+                        Text("\(viewModel.activeStreak)")
                             .font(Constants.Fonts.h2)
                             .foregroundStyle(Constants.Colors.black)
 
@@ -251,8 +234,9 @@ struct ProfileView: View {
                     }
                     .frame(minWidth: 55, alignment: .leading)
 
+                    // TODO: Replace with real badges count once available from API
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("\(viewModel.badges)")
+                        Text("0")
                             .font(Constants.Fonts.h2)
                             .foregroundStyle(Constants.Colors.black)
 
@@ -306,34 +290,48 @@ struct ProfileView: View {
                     .foregroundColor(Constants.Colors.gray03)
             }
 
-            ForEach(viewModel.workoutHistory.indices, id: \.self) { index in
+            ForEach(viewModel.workouts.indices, id: \.self) { index in
                 LazyVStack(spacing: 8) {
+                    let workout = viewModel.workouts[index]
+
                     HStack {
-                        let workout = viewModel.workoutHistory[index]
-                        Text(workout.location)
+                        Text(workout.gymName)
                             .foregroundStyle(Constants.Colors.black)
                             .font(Constants.Fonts.bodyMedium)
 
                         Spacer()
 
-                        Text("\(workout.time) • \(workout.date.description)")
+                        Text(formattedWorkoutTime(workout.workoutTime))
                             .foregroundStyle(Constants.Colors.black)
                             .font(Constants.Fonts.labelLight)
                     }
 
-                    if index < viewModel.workoutHistory.count - 1 {
+                    if index < viewModel.workouts.count - 1 {
                         Rectangle()
                             .fill(Constants.Colors.gray01)
                             .frame(height: 1)
                     }
                 }
             }
-            // TODO: Temporary to allow view to take up whole screen
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Constants.Colors.white)
         }
     }
 
+    // MARK: - Helpers
+
+    private func formattedWorkoutTime(_ isoString: String) -> String {
+        let parser = ISO8601DateFormatter()
+        guard let date = parser.date(from: isoString) else { return isoString }
+
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "h:mm a"
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEE MMM d, yyyy"
+
+        return "\(timeFormatter.string(from: date)) • \(dateFormatter.string(from: date))"
+    }
 }
 
 #Preview {

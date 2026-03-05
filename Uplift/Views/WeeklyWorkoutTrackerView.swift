@@ -14,18 +14,11 @@ struct WeeklyWorkoutTrackerView: View {
 
     @ObservedObject var viewModel: ProfileView.ViewModel
     @State private var animationProgress: [Double] = Array(repeating: 0, count: 7)
-
-    // Weekday abbreviations
-    private let weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-
-    // Days that have workouts
     @State private var workoutDays: [Bool] = [false, false, false, false, false, false, false]
 
-    // Animation timing
+    private let weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
     private let animationDuration: Double = 0.5
     private let delayBetweenDays: Double = 0.3
-
-    // Circle dimensions
     private let circleSize: CGFloat = 24
     private let lineWidth: CGFloat = 2
     private let spacing: CGFloat = 26.5
@@ -68,7 +61,6 @@ struct WeeklyWorkoutTrackerView: View {
                             .frame(width: circleSize)
                     }
 
-                    // Workout day circles
                     HStack(spacing: spacing) {
                         ForEach(weekdays.indices, id: \.self) { index in
                             ZStack {
@@ -96,9 +88,11 @@ struct WeeklyWorkoutTrackerView: View {
                     }
                 }
 
+                // Date numbers for current week
                 HStack(spacing: spacing) {
-                    ForEach(weekdays.indices, id: \.self) { index in
-                        Text("\(25 + index)")
+                    ForEach(viewModel.weekDates.indices, id: \.self) { index in
+                        let day = Calendar.current.component(.day, from: viewModel.weekDates[index])
+                        Text("\(day)")
                             .font(Constants.Fonts.labelNormal)
                             .frame(width: circleSize, height: 20)
                             .foregroundColor(Constants.Colors.black)
@@ -109,11 +103,11 @@ struct WeeklyWorkoutTrackerView: View {
         .padding(.top, 5)
         .padding(.bottom, 15)
         .onAppear {
-            if viewModel.workoutHistory.isEmpty {
+            if viewModel.workouts.isEmpty {
                 viewModel.fetchUserProfile()
             }
         }
-        .onReceive(viewModel.$workoutHistory) { workouts in
+        .onReceive(viewModel.$workouts) { workouts in
             if !workouts.isEmpty {
                 determineWorkoutDays()
                 Task {
@@ -123,26 +117,25 @@ struct WeeklyWorkoutTrackerView: View {
         }
     }
 
-    /// Determines which days of the week have completed workouts and updates the UI accordingly
-    private func determineWorkoutDays() {
-        let workoutDaysSet = Set(viewModel.workoutHistory.compactMap { workout -> Int? in
-            guard let date = Date.fromString(workout.effectiveAt) else { return nil }
-            return Calendar.current.component(.day, from: date)
-        })
+    // MARK: - Helpers
 
-        weekdays.indices.forEach { index in
-            let day = 25 + index
-            workoutDays[index] = workoutDaysSet.contains(day)
+    /// Determines which days of the current week have completed workouts
+    private func determineWorkoutDays() {
+        let parser = ISO8601DateFormatter()
+        let calendar = Calendar.current
+
+        let workoutDates = viewModel.workouts.compactMap { parser.date(from: $0.workoutTime) }
+
+        workoutDays = viewModel.weekDates.map { weekDate in
+            workoutDates.contains { calendar.isDate($0, inSameDayAs: weekDate) }
         }
 
-        // Reset animation progress
         animationProgress = Array(repeating: 0, count: 7)
     }
 
-    /// Animates the workout day indicators sequentially from left to right with fade-in effect
+    /// Animates workout day indicators sequentially left to right
     private func animateWorkouts() async {
         for index in weekdays.indices where workoutDays[index] {
-            // Add delay between animations
             try? await Task.sleep(for: .seconds(delayBetweenDays))
 
             await MainActor.run {

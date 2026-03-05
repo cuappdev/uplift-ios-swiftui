@@ -12,8 +12,6 @@
 		135EEBAC2EC9175B0051AD5B /* WorkoutCheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135EEBAB2EC917520051AD5B /* WorkoutCheckInView.swift */; };
 		29055F802E7E3E6E00E9A730 /* UnsavedChangesModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29055F7F2E7E3E6500E9A730 /* UnsavedChangesModal.swift */; };
 		29055FC62E849E2A00E9A730 /* LoadingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29055FC52E849E2600E9A730 /* LoadingModifier.swift */; };
-		291433852D87387B00F913D5 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291433842D87387500F913D5 /* UserProfile.swift */; };
-		291433872D87388C00F913D5 /* WeeklyWorkoutData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291433862D87388800F913D5 /* WeeklyWorkoutData.swift */; };
 		292284702F59461F00809ED4 /* WorkoutGoalHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2922846F2F59461B00809ED4 /* WorkoutGoalHistory.swift */; };
 		292284722F59F75200809ED4 /* ReportMutations.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 292284712F59F74400809ED4 /* ReportMutations.graphql */; };
 		292284762F59F7C100809ED4 /* GiveawayMutations.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 292284752F59F7B800809ED4 /* GiveawayMutations.graphql */; };
@@ -166,8 +164,6 @@
 		135EEBAB2EC917520051AD5B /* WorkoutCheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCheckInView.swift; sourceTree = "<group>"; };
 		29055F7F2E7E3E6500E9A730 /* UnsavedChangesModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsavedChangesModal.swift; sourceTree = "<group>"; };
 		29055FC52E849E2600E9A730 /* LoadingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingModifier.swift; sourceTree = "<group>"; };
-		291433842D87387500F913D5 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
-		291433862D87388800F913D5 /* WeeklyWorkoutData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyWorkoutData.swift; sourceTree = "<group>"; };
 		2922846F2F59461B00809ED4 /* WorkoutGoalHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutGoalHistory.swift; sourceTree = "<group>"; };
 		292284712F59F74400809ED4 /* ReportMutations.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = ReportMutations.graphql; sourceTree = "<group>"; };
 		292284752F59F7B800809ED4 /* GiveawayMutations.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GiveawayMutations.graphql; sourceTree = "<group>"; };
@@ -353,8 +349,6 @@
 			children = (
 				2922846F2F59461B00809ED4 /* WorkoutGoalHistory.swift */,
 				298EBA4D2E8E5048000441BA /* GymIdentifier.swift */,
-				291433862D87388800F913D5 /* WeeklyWorkoutData.swift */,
-				291433842D87387500F913D5 /* UserProfile.swift */,
 				2E15F4D92B39102A00414BEC /* Capacity.swift */,
 				2E6785C32B3A780600DD3ADA /* DayOfWeek.swift */,
 				63A7ABCE2B8C119A008D58FB /* Equipment.swift */,
@@ -918,7 +912,6 @@
 				89C8658D2BB4779C00758337 /* ClassCell.swift in Sources */,
 				298EBA502E8E5335000441BA /* CustomLoadingView.swift in Sources */,
 				2CFFEC542DBED07600EE26F8 /* KeychainManager.swift in Sources */,
-				291433852D87387B00F913D5 /* UserProfile.swift in Sources */,
 				294CC21D2D7E34D300EF6487 /* WeeklyWorkoutTrackerView.swift in Sources */,
 				2E1105BF2B13B0E100119F5B /* HomeViewModel.swift in Sources */,
 				893AD9172D595DC800C0817B /* MuscleGroupView.swift in Sources */,
@@ -960,7 +953,6 @@
 				2E5726C72B4A63AE00D3DB36 /* ShimmerModifier.swift in Sources */,
 				29EAC6CB2EC6D5580027E88E /* GymCache.swift in Sources */,
 				2E15F5022B396EC500414BEC /* ShadowModifier.swift in Sources */,
-				291433872D87388C00F913D5 /* WeeklyWorkoutData.swift in Sources */,
 				2E15F4DA2B39102A00414BEC /* Capacity.swift in Sources */,
 				2ED53DCF2B3E06DC00FBDEAB /* Logger.swift in Sources */,
 				2E15F4E62B391E5300414BEC /* Array+Extension.swift in Sources */,

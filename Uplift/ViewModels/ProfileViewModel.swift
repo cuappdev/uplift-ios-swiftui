@@ -11,43 +11,50 @@ import Foundation
 // MARK: - ViewModel
 extension ProfileView {
     class ViewModel: ObservableObject {
-        @Published var profile: UserProfile?
+        @Published var user: User?
+        @Published var workouts: [Workout] = []
         @Published var showSettingsSheet = false
-        @Published var workoutHistory: [WorkoutGoalHistory] = []
-        @Published var weeklyWorkouts: WeeklyWorkoutData = WeeklyWorkoutData(
-            currentWeekWorkouts: 0,
-            weeklyGoal: 5,
-            weekDates: []
-        )
-        @Published var totalWorkouts: Int = 0
-        @Published var streaks: Int = 14
-        @Published var badges: Int = 6
+        @Published var currentWeekWorkouts: Int = 0
 
-        /// dummy data
+        // MARK: - Computed Properties
+
+        var totalGymDays: Int {
+            user?.totalGymDays ?? 0
+        }
+
+        var activeStreak: Int {
+            user?.activeStreak ?? 0
+        }
+
+        var workoutGoal: Int {
+            user?.workoutGoal ?? 5
+        }
+
+        var weekDates: [Date] {
+            let calendar = Calendar.current
+            let today = Date()
+            let weekday = calendar.component(.weekday, from: today)
+            let startOfWeek = calendar.date(byAdding: .day, value: -(weekday - 1), to: today) ?? today
+            return (0..<7).compactMap { calendar.date(byAdding: .day, value: $0, to: startOfWeek) }
+        }
+
+        var workoutsThisWeek: [Workout] {
+            let calendar = Calendar.current
+            let today = Date()
+            let weekday = calendar.component(.weekday, from: today)
+            let startOfWeek = calendar.date(byAdding: .day, value: -(weekday - 1), to: today) ?? today
+            return workouts.filter { workout in
+                guard let date = ISO8601DateFormatter().date(from: workout.workoutTime) else { return false }
+                return date >= startOfWeek && date <= today
+            }
+        }
+
+        // MARK: - Functions
+
         func fetchUserProfile() {
-            let session = UserSessionManager.shared
-
-            self.profile = UserProfile(
-                id: session.netID ?? "",
-                name: session.displayName ?? session.netID ?? "User"
-            )
-//            self.totalWorkouts = DummyData.ProfileViewData.totalWorkouts
-//            self.streaks = DummyData.ProfileViewData.streaks
-//            self.badges = DummyData.ProfileViewData.badges
-//            self.weeklyWorkouts = DummyData.ProfileViewData.weeklyWorkouts
-//            self.workoutHistory = DummyData.ProfileViewData.workoutHistory
-        }
-
-        func fetchStreaks() {
-
-        }
-
-        private func createDate(day: Int) -> Date {
-            var components = DateComponents()
-            components.year = 2024
-            components.month = 3
-            components.day = day
-            return Calendar.current.date(from: components) ?? Date()
+            self.user = DummyData.uplift.dummyUser
+            self.workouts = DummyData.uplift.dummyWorkouts
+            self.currentWeekWorkouts = workoutsThisWeek.count
         }
     }
 }

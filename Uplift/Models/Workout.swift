@@ -23,6 +23,10 @@ struct Workout: Hashable {
     /// The time of this workout.
     let workoutTime: String
 
+    let facilityId: Int
+
+    let gymName: String
+
     // MARK: - Functions
 
     /// Initializes this object given a `UserFields` type.
@@ -31,6 +35,21 @@ struct Workout: Hashable {
         self.id = workout.id
         self.userId = workout.userId
         self.workoutTime = workout.workoutTime
+        self.facilityId = workout.facilityId
+        self.gymName = workout.gymName
     }
 
+    init(
+        id: ID,
+        userId: Int,
+        workoutTime: String,
+        facilityId: Int,
+        gymName: String
+    ) {
+        self.id = id
+        self.userId = userId
+        self.workoutTime = workoutTime
+        self.facilityId = facilityId
+        self.gymName = gymName
+    }
 }

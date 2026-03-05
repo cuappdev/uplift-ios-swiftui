@@ -6,7 +6,6 @@ fragment userFields on User {
   workoutGoal
   activeStreak
   maxStreak
-  lastGoalChange
   lastStreak
   encodedImage
   goalHistory {

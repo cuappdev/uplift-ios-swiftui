@@ -15,11 +15,11 @@ struct WorkoutGoalHistory: Hashable {
     // MARK: - Properties
 
     let id: ID
-    
+
     let userId: Int
-    
+
     let workoutGoal: Int
-    
+
     let effectiveAt: DateTime
 
     // MARK: - Functions

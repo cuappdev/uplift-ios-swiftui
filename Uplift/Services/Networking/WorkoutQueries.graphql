@@ -2,6 +2,8 @@ fragment workoutFields on Workout {
   id
   userId
   workoutTime
+  facilityId
+  gymName
 }
 
 mutation LogWorkout($facilityId: Int!, $userId: Int!, $workoutTime: DateTime!) {
@@ -9,5 +11,13 @@ mutation LogWorkout($facilityId: Int!, $userId: Int!, $workoutTime: DateTime!) {
     id,
     userId,
     workoutTime
+  }
+}
+
+query GetWorkoutHistory($id: Int) {
+  getWorkoutsById(id: $id) {
+    workoutTime
+    facilityId
+    gymName
   }
 }
