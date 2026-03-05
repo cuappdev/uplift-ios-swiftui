@@ -15,6 +15,10 @@
 		291433852D87387B00F913D5 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291433842D87387500F913D5 /* UserProfile.swift */; };
 		291433872D87388C00F913D5 /* WeeklyWorkoutData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291433862D87388800F913D5 /* WeeklyWorkoutData.swift */; };
 		292284702F59461F00809ED4 /* WorkoutGoalHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2922846F2F59461B00809ED4 /* WorkoutGoalHistory.swift */; };
+		292284722F59F75200809ED4 /* ReportMutations.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 292284712F59F74400809ED4 /* ReportMutations.graphql */; };
+		292284762F59F7C100809ED4 /* GiveawayMutations.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 292284752F59F7B800809ED4 /* GiveawayMutations.graphql */; };
+		292284782F59F86B00809ED4 /* WorkoutgoalhistoryMutations.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 292284772F59F85B00809ED4 /* WorkoutgoalhistoryMutations.graphql */; };
+		2922847A2F59F89A00809ED4 /* AuthenticationMutations.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 292284792F59F89000809ED4 /* AuthenticationMutations.graphql */; };
 		2923EF472E9836A600D3FC1D /* CapacityTutorialModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2923EF462E98369900D3FC1D /* CapacityTutorialModal.swift */; };
 		293032572D7A8F64002E5484 /* WorkoutProgressArc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */; };
 		293A20A02F4660700012C74C /* LocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293A209F2F46606E0012C74C /* LocationTests.swift */; };
@@ -165,6 +169,10 @@
 		291433842D87387500F913D5 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		291433862D87388800F913D5 /* WeeklyWorkoutData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyWorkoutData.swift; sourceTree = "<group>"; };
 		2922846F2F59461B00809ED4 /* WorkoutGoalHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutGoalHistory.swift; sourceTree = "<group>"; };
+		292284712F59F74400809ED4 /* ReportMutations.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = ReportMutations.graphql; sourceTree = "<group>"; };
+		292284752F59F7B800809ED4 /* GiveawayMutations.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GiveawayMutations.graphql; sourceTree = "<group>"; };
+		292284772F59F85B00809ED4 /* WorkoutgoalhistoryMutations.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = WorkoutgoalhistoryMutations.graphql; sourceTree = "<group>"; };
+		292284792F59F89000809ED4 /* AuthenticationMutations.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = AuthenticationMutations.graphql; sourceTree = "<group>"; };
 		2923EF462E98369900D3FC1D /* CapacityTutorialModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityTutorialModal.swift; sourceTree = "<group>"; };
 		293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutProgressArc.swift; sourceTree = "<group>"; };
 		293A209F2F46606E0012C74C /* LocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTests.swift; sourceTree = "<group>"; };
@@ -447,6 +455,10 @@
 		2E090ED22B13093400BAE982 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				292284792F59F89000809ED4 /* AuthenticationMutations.graphql */,
+				292284772F59F85B00809ED4 /* WorkoutgoalhistoryMutations.graphql */,
+				292284752F59F7B800809ED4 /* GiveawayMutations.graphql */,
+				292284712F59F74400809ED4 /* ReportMutations.graphql */,
 				29DC9AB92DB96C340088DC24 /* CapacityReminderMutations.graphql */,
 				2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */,
 				2EF1A2572B129EEB007A299F /* Network.swift */,
@@ -807,12 +819,16 @@
 				2EB090B52B131CA80039EB3B /* Montserrat-Medium.ttf in Resources */,
 				2EB090B72B131CA80039EB3B /* Montserrat-Regular.ttf in Resources */,
 				2E2748CD2BCD4C300023882E /* UserMutations.graphql in Resources */,
+				292284722F59F75200809ED4 /* ReportMutations.graphql in Resources */,
+				292284762F59F7C100809ED4 /* GiveawayMutations.graphql in Resources */,
 				2EB090B62B131CA80039EB3B /* Montserrat-Bold.ttf in Resources */,
 				2EB090B82B131CA80039EB3B /* Montserrat-Light.ttf in Resources */,
 				2E8FE3992B1278B900B3DC6A /* Preview Assets.xcassets in Resources */,
 				2E3838412BB7536700AE15DC /* PrivacyInfo.xcprivacy in Resources */,
+				292284782F59F86B00809ED4 /* WorkoutgoalhistoryMutations.graphql in Resources */,
 				8940D4F02CE3E8FE00F4A4A4 /* WorkoutQueries.graphql in Resources */,
 				2EB090B92B131CA80039EB3B /* Montserrat-SemiBold.ttf in Resources */,
+				2922847A2F59F89A00809ED4 /* AuthenticationMutations.graphql in Resources */,
 				2EB090B42B131CA40039EB3B /* BebasNeue-Regular.ttf in Resources */,
 				2E45B2422B4E5CE100FB83B7 /* GoogleService-Info.plist in Resources */,
 				29DC9ABA2DB96C3C0088DC24 /* CapacityReminderMutations.graphql in Resources */,

@@ -1,0 +1,19 @@
+mutation LoginUser($netId: String!) {
+  loginUser(netId: $netId) {
+    accessToken
+    refreshToken
+  }
+}
+
+mutation LogoutUser {
+  logoutUser {
+    success
+  }
+}
+
+mutation RefreshAccessToken {
+  refreshAccessToken {
+    newAccessToken
+  }
+}
+

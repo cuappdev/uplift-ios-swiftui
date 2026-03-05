@@ -3,3 +3,11 @@ fragment workoutFields on Workout {
   userId
   workoutTime
 }
+
+mutation LogWorkout($facilityId: Int!, $userId: Int!, $workoutTime: DateTime!) {
+  logWorkout(facilityId: $facilityId, userId: $userId, workoutTime: $workoutTime) {
+    id,
+    userId,
+    workoutTime
+  }
+}

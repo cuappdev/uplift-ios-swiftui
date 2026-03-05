@@ -1,5 +1,3 @@
-# ─── Fragments ───────────────────────────────────────────────────────────────
-
 fragment userFields on User {
   id
   email
@@ -18,40 +16,6 @@ fragment userFields on User {
   streakStart
 }
 
-fragment giveawayFields on Giveaway {
-  id
-  name
-  users {
-    ...userFields
-  }
-}
-
-fragment workoutgoalhistoryFields on WorkoutGoalHistory {
- id
- userId
- workoutGoal
- effectiveAt
-}
-
-fragment reportFields on Report {
-  id
-  createdAt
-  description
-  gym {
-    ...gymFields
-  }
-  gymId
-  issue
-}
-
-fragment friendshipFields on Friendship {
-  id
-  userId
-  friendId
-}
-
-# ─── User Mutations ───────────────────────────────────────────────────────────
-
 mutation CreateUser($email: String!, $encodedImage: String, $name: String!, $netId: String!) {
   createUser(email: $email, encodedImage: $encodedImage, name: $name, netId: $netId) {
     ...userFields
@@ -67,72 +31,5 @@ mutation EditUser($netId: String!, $email: String, $encodedImage: String, $name:
 mutation DeleteUser($userId: Int!) {
   deleteUser(userId: $userId) {
     ...userFields
-  }
-}
-
-# ─── Auth Mutations ───────────────────────────────────────────────────────────
-
-mutation LoginUser($netId: String!) {
-  loginUser(netId: $netId) {
-    accessToken
-    refreshToken
-  }
-}
-
-mutation LogoutUser {
-  logoutUser {
-    success
-  }
-}
-
-mutation RefreshAccessToken {
-  refreshAccessToken {
-    newAccessToken
-  }
-}
-
-# ─── Workout Mutations ────────────────────────────────────────────────────────
-
-mutation LogWorkout($facilityId: Int!, $userId: Int!, $workoutTime: DateTime!) {
-  logWorkout(facilityId: $facilityId, userId: $userId, workoutTime: $workoutTime) {
-    id,
-    userId,
-    workoutTime
-  }
-}
-
-# ─── Giveaway Mutations ───────────────────────────────────────────────────────
-
-mutation CreateGiveaway($name: String!) {
-  createGiveaway(name: $name) {
-    ...giveawayFields
-  }
-}
-
-mutation EnterGiveaway($giveawayId: Int!, $userNetId: String!) {
-  enterGiveaway(giveawayId: $giveawayId, userNetId: $userNetId) {
-    id
-    userId
-    numEntries
-  }
-}
-
-# ─── Report Mutations ─────────────────────────────────────────────────────────
-
-mutation CreateReport(
-  $createdAt: DateTime!,
-  $description: String!,
-  $gymId: Int!,
-  $issue: String!
-) {
-  createReport(
-    createdAt: $createdAt,
-    description: $description,
-    gymId: $gymId,
-    issue: $issue
-  ) {
-    report {
-      ...reportFields
-    }
   }
 }

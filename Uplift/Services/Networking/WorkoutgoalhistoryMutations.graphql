@@ -1,0 +1,6 @@
+fragment workoutgoalhistoryFields on WorkoutGoalHistory {
+  id
+  userId
+  workoutGoal
+  effectiveAt
+}
