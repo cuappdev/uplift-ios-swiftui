@@ -142,7 +142,7 @@ struct Gym: Hashable {
 
      - Returns: A `Bool` representing whether at least one of its fitness centers is open.
      */
-    func fitnessCenterIsOpen(currentTime: Date = Date.now) -> Bool {
+    func fitnessCenterIsOpen(currentTime: Foundation.Date = Foundation.Date.now) -> Bool {
         fitnessCenters.contains {
             switch $0.hours.getStatus(currentTime: currentTime) {
             case .open:
@@ -161,7 +161,7 @@ struct Gym: Hashable {
 
      - Returns: A `Status` object based on its fitness centers' hours. `nil` if there are no hours in the future.
      */
-    func determineStatus(currentTime: Date = Date.now) -> Status? {
+    func determineStatus(currentTime: Foundation.Date = Foundation.Date.now) -> Status? {
         if fitnessCenterIsOpen(currentTime: currentTime) {
             // Get all possible close times
             let closeTimes = fitnessCenters.compactMap {

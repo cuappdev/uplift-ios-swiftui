@@ -14,7 +14,7 @@
 		29055FC62E849E2A00E9A730 /* LoadingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29055FC52E849E2600E9A730 /* LoadingModifier.swift */; };
 		291433852D87387B00F913D5 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291433842D87387500F913D5 /* UserProfile.swift */; };
 		291433872D87388C00F913D5 /* WeeklyWorkoutData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291433862D87388800F913D5 /* WeeklyWorkoutData.swift */; };
-		291433892D8738A400F913D5 /* WorkoutHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291433882D8738A200F913D5 /* WorkoutHistory.swift */; };
+		292284702F59461F00809ED4 /* WorkoutGoalHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2922846F2F59461B00809ED4 /* WorkoutGoalHistory.swift */; };
 		2923EF472E9836A600D3FC1D /* CapacityTutorialModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2923EF462E98369900D3FC1D /* CapacityTutorialModal.swift */; };
 		293032572D7A8F64002E5484 /* WorkoutProgressArc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */; };
 		293A20A02F4660700012C74C /* LocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293A209F2F46606E0012C74C /* LocationTests.swift */; };
@@ -164,7 +164,7 @@
 		29055FC52E849E2600E9A730 /* LoadingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingModifier.swift; sourceTree = "<group>"; };
 		291433842D87387500F913D5 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		291433862D87388800F913D5 /* WeeklyWorkoutData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyWorkoutData.swift; sourceTree = "<group>"; };
-		291433882D8738A200F913D5 /* WorkoutHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistory.swift; sourceTree = "<group>"; };
+		2922846F2F59461B00809ED4 /* WorkoutGoalHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutGoalHistory.swift; sourceTree = "<group>"; };
 		2923EF462E98369900D3FC1D /* CapacityTutorialModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityTutorialModal.swift; sourceTree = "<group>"; };
 		293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutProgressArc.swift; sourceTree = "<group>"; };
 		293A209F2F46606E0012C74C /* LocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTests.swift; sourceTree = "<group>"; };
@@ -343,8 +343,8 @@
 		2E090EC62B12FB9F00BAE982 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2922846F2F59461B00809ED4 /* WorkoutGoalHistory.swift */,
 				298EBA4D2E8E5048000441BA /* GymIdentifier.swift */,
-				291433882D8738A200F913D5 /* WorkoutHistory.swift */,
 				291433862D87388800F913D5 /* WeeklyWorkoutData.swift */,
 				291433842D87387500F913D5 /* UserProfile.swift */,
 				2E15F4D92B39102A00414BEC /* Capacity.swift */,
@@ -920,6 +920,7 @@
 				2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */,
 				135EEBAA2EC7E60B0051AD5B /* WorkoutCheckInViewModel.swift in Sources */,
 				2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */,
+				292284702F59461F00809ED4 /* WorkoutGoalHistory.swift in Sources */,
 				2E15F5062B39F81B00414BEC /* MainView.swift in Sources */,
 				29EAC6CD2EC6DA740027E88E /* ClassesCache.swift in Sources */,
 				893AD9132D59468000C0817B /* DropDownArrow.swift in Sources */,
@@ -971,7 +972,6 @@
 				298EBA4A2E8DD244000441BA /* ModalModifier.swift in Sources */,
 				892478202CCCB9DF0086F335 /* ReportViewModel.swift in Sources */,
 				2E39D81E2B3B610200AD238B /* UINavigationController+Extension.swift in Sources */,
-				291433892D8738A400F913D5 /* WorkoutHistory.swift in Sources */,
 				63001AD62CC9ACFF0082AFFA /* LoginViewModel.swift in Sources */,
 				2E15F4DC2B39117300414BEC /* OpenHours.swift in Sources */,
 				2E090ED62B13121600BAE982 /* Constants.swift in Sources */,

@@ -13,7 +13,7 @@ extension ProfileView {
     class ViewModel: ObservableObject {
         @Published var profile: UserProfile?
         @Published var showSettingsSheet = false
-        @Published var workoutHistory: [WorkoutHistory] = []
+        @Published var workoutHistory: [WorkoutGoalHistory] = []
         @Published var weeklyWorkouts: WeeklyWorkoutData = WeeklyWorkoutData(
             currentWeekWorkouts: 0,
             weeklyGoal: 5,
@@ -25,12 +25,21 @@ extension ProfileView {
 
         /// dummy data
         func fetchUserProfile() {
-            self.profile = DummyData.ProfileViewData.profile
-            self.totalWorkouts = DummyData.ProfileViewData.totalWorkouts
-            self.streaks = DummyData.ProfileViewData.streaks
-            self.badges = DummyData.ProfileViewData.badges
-            self.weeklyWorkouts = DummyData.ProfileViewData.weeklyWorkouts
-            self.workoutHistory = DummyData.ProfileViewData.workoutHistory
+            let session = UserSessionManager.shared
+
+            self.profile = UserProfile(
+                id: session.netID ?? "",
+                name: session.displayName ?? session.netID ?? "User"
+            )
+//            self.totalWorkouts = DummyData.ProfileViewData.totalWorkouts
+//            self.streaks = DummyData.ProfileViewData.streaks
+//            self.badges = DummyData.ProfileViewData.badges
+//            self.weeklyWorkouts = DummyData.ProfileViewData.weeklyWorkouts
+//            self.workoutHistory = DummyData.ProfileViewData.workoutHistory
+        }
+
+        func fetchStreaks() {
+
         }
 
         private func createDate(day: Int) -> Date {

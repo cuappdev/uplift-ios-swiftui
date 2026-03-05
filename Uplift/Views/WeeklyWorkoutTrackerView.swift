@@ -126,7 +126,7 @@ struct WeeklyWorkoutTrackerView: View {
     /// Determines which days of the week have completed workouts and updates the UI accordingly
     private func determineWorkoutDays() {
         let workoutDaysSet = Set(viewModel.workoutHistory.compactMap { workout -> Int? in
-            guard let date = Date.fromString(workout.date) else { return nil }
+            guard let date = Date.fromString(workout.effectiveAt) else { return nil }
             return Calendar.current.component(.day, from: date)
         })
 

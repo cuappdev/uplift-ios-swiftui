@@ -1,9 +1,21 @@
+# ─── Fragments ───────────────────────────────────────────────────────────────
+
 fragment userFields on User {
   id
   email
   name
   netId
   workoutGoal
+  activeStreak
+  maxStreak
+  lastGoalChange
+  lastStreak
+  encodedImage
+  goalHistory {
+    ...workoutgoalhistoryFields
+  }
+  totalGymDays
+  streakStart
 }
 
 fragment giveawayFields on Giveaway {
@@ -12,6 +24,13 @@ fragment giveawayFields on Giveaway {
   users {
     ...userFields
   }
+}
+
+fragment workoutgoalhistoryFields on WorkoutGoalHistory {
+ id
+ userId
+ workoutGoal
+ effectiveAt
 }
 
 fragment reportFields on Report {
@@ -25,11 +44,33 @@ fragment reportFields on Report {
   issue
 }
 
+fragment friendshipFields on Friendship {
+  id
+  userId
+  friendId
+}
+
+# ─── User Mutations ───────────────────────────────────────────────────────────
+
 mutation CreateUser($email: String!, $encodedImage: String, $name: String!, $netId: String!) {
   createUser(email: $email, encodedImage: $encodedImage, name: $name, netId: $netId) {
     ...userFields
   }
 }
+
+mutation EditUser($netId: String!, $email: String, $encodedImage: String, $name: String) {
+  editUser(netId: $netId, email: $email, encodedImage: $encodedImage, name: $name) {
+    ...userFields
+  }
+}
+
+mutation DeleteUser($userId: Int!) {
+  deleteUser(userId: $userId) {
+    ...userFields
+  }
+}
+
+# ─── Auth Mutations ───────────────────────────────────────────────────────────
 
 mutation LoginUser($netId: String!) {
   loginUser(netId: $netId) {
@@ -38,9 +79,33 @@ mutation LoginUser($netId: String!) {
   }
 }
 
+mutation LogoutUser {
+  logoutUser {
+    success
+  }
+}
+
 mutation RefreshAccessToken {
   refreshAccessToken {
     newAccessToken
+  }
+}
+
+# ─── Workout Mutations ────────────────────────────────────────────────────────
+
+mutation LogWorkout($facilityId: Int!, $userId: Int!, $workoutTime: DateTime!) {
+  logWorkout(facilityId: $facilityId, userId: $userId, workoutTime: $workoutTime) {
+    id,
+    userId,
+    workoutTime
+  }
+}
+
+# ─── Giveaway Mutations ───────────────────────────────────────────────────────
+
+mutation CreateGiveaway($name: String!) {
+  createGiveaway(name: $name) {
+    ...giveawayFields
   }
 }
 
@@ -51,6 +116,8 @@ mutation EnterGiveaway($giveawayId: Int!, $userNetId: String!) {
     numEntries
   }
 }
+
+# ─── Report Mutations ─────────────────────────────────────────────────────────
 
 mutation CreateReport(
   $createdAt: DateTime!,

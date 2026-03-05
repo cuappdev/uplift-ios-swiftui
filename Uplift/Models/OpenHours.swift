@@ -18,7 +18,7 @@ struct OpenHours: Comparable, Hashable {
     let courtType: CourtType?
 
     /// The closing time of these hours.
-    let endTime: Date
+    let endTime: Foundation.Date
 
     /// Whether the pool hours is shallow waters only.
     let isShallow: Bool?
@@ -30,7 +30,7 @@ struct OpenHours: Comparable, Hashable {
     let isWomen: Bool?
 
     /// The opening time of these hours.
-    let startTime: Date
+    let startTime: Foundation.Date
 
     // MARK: - Functions
 
