@@ -31,9 +31,8 @@ struct User: Hashable {
     let maxStreak: Int
     /// The date/value of the last streak.
     let lastStreak: Int
-
+    /// The last time user changed workout goal.
     let lastGoalChange: DateTime?
-
     /// The encoded profile image of this user.
     let encodedImage: String?
     /// The history of workout goals for this user.

@@ -16,6 +16,12 @@ fragment userFields on User {
   streakStart
 }
 
+query GetUserByNetId($netId: String) {
+  getUserByNetId(netId: $netId) {
+    ...userFields
+  }
+}
+
 mutation CreateUser($email: String!, $encodedImage: String, $name: String!, $netId: String!) {
   createUser(email: $email, encodedImage: $encodedImage, name: $name, netId: $netId) {
     ...userFields
