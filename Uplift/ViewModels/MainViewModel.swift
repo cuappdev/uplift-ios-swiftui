@@ -19,13 +19,16 @@ extension MainView {
 
         // MARK: - Properties
 
+        @Published var userId: Int?
         @Published var email: String = ""
         @Published var instagram: String = ""
         @Published var name: String = ""
         @Published var netID: String = ""
+        @Published var daysAWeek = 4.0
         @Published var popUpGiveaway: Bool = false
         @Published var profileImage: UIImage?
         @Published var didClickSubmit: Bool = false
+        @Published var showSetGoalsView = false
         @Published var showCreateProfileView = false
         @Published var showGiveawayErrorAlert: Bool = false
         @Published var showMainView: Bool = false
@@ -52,7 +55,7 @@ extension MainView {
         /**
          Creates a user in the backend.
          */
-        func createUser() {
+        func createUser(completion: @escaping () -> Void) {
             createUserRequest {
                 UserSessionManager.shared.loginUser(netId: self.netID) { result in
                     switch result {
@@ -63,6 +66,7 @@ extension MainView {
                         self.showSignInView = false
 
                         UserSessionManager.shared.email = self.email
+                        completion()
                     case .failure(let error):
                         if let graphqlError = error as? GraphQLErrorWrapper,
                            graphqlError.msg.contains("No user with those credentials") {
@@ -100,16 +104,39 @@ extension MainView {
                     netId: netID
                 )
             )
-            .compactMap(\.data?.createUser?.netId)
+            .compactMap(\.data?.createUser)
             .sink { completion in
                 if case let .failure(error) = completion {
                     callback() // If user already created (error thrown), still enter giveaway
                     Logger.data.critical("Error in MainViewModel.createUserRequest: \(error)")
                 }
-            } receiveValue: { netID in
+            } receiveValue: { [weak self] user in
+                guard let self else { return }
+                self.userId = Int(user.id)
                 callback()
 #if DEBUG
-                Logger.data.log("Created a new user with NetID \(netID)")
+                Logger.data.log("Created a new user with NetID \(user.netId)")
+#endif
+            }
+            .store(in: &queryBag)
+        }
+
+        /// Sets the user's workout goal.
+        func setWorkoutGoal(
+            userId: Int,
+            workoutGoal: Int
+        ) {
+            Network.client.mutationPublisher(
+                // TODO: Format of workout goal is incorrect right now
+                mutation: SetWorkoutGoalsMutation(userId: userId, workoutGoal: ["Monday"])
+            )
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    Logger.data.critical("Error in SetGoalsViewModel.setWorkoutGoal: \(error)")
+                }
+            } receiveValue: { _ in
+#if DEBUG
+                Logger.data.log("User id \(userId) has set goal to \(workoutGoal)")
 #endif
             }
             .store(in: &queryBag)
