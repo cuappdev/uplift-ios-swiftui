@@ -75,8 +75,7 @@ extension ProfileView {
                     Logger.data.critical("fetchUserProfile error: \(error)")
                 }
             } receiveValue: { [weak self] result in
-                guard let self,
-                      let userFields = result.data?.getUserByNetId?.compactMap({ $0 }).first else { return }
+                guard let self, let userFields = result.data?.getUserByNetId?.compactMap({ $0 }).first else { return }
 
                 self.user = User(from: userFields.fragments.userFields)
 
