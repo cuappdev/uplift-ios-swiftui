@@ -147,13 +147,8 @@ struct CreateProfileView: View {
     private var getStartedButton: some View {
         Button {
             withAnimation(.easeIn) {
-                mainViewModel.createUser {
-                    guard let userId = mainViewModel.userId else { return }
-                    mainViewModel.setWorkoutGoal(
-                        userId: userId,
-                        workoutGoal: Int(mainViewModel.daysAWeek)
-                    )
-                }
+                mainViewModel.showCreateProfileView = false
+                mainViewModel.showSetGoalsView = true
             }
         } label: {
             Text("Get started")

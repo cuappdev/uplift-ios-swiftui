@@ -79,6 +79,7 @@ struct SignInView: View {
                             Task {
                                 await MainActor.run {
                                     mainViewModel.showSignInView = false
+                                    mainViewModel.showSetGoalsView = false
                                     mainViewModel.showCreateProfileView = true
                                 }
                             }
