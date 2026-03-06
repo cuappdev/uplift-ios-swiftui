@@ -22,6 +22,7 @@ extension ProfileView {
         @Published var user: User?
         @Published var workouts: [Workout] = []
         @Published var showSettingsSheet = false
+        @Published var showDeleteAccountAlert = false
         @Published var currentWeekWorkouts: Int = 0
 
         // MARK: - Computed Properties
@@ -76,12 +77,32 @@ extension ProfileView {
                 }
             } receiveValue: { [weak self] result in
                 guard let self, let userFields = result.data?.getUserByNetId?.compactMap({ $0 }).first else { return }
-
                 self.user = User(from: userFields.fragments.userFields)
-
                 self.currentWeekWorkouts = self.workoutsThisWeek.count
             }
             .store(in: &queryBag)
+        }
+
+        func deleteAccount() {
+            guard let idString = user?.id, let userId = Int(idString) else {
+                Logger.data.critical("deleteAccount: No user ID found or invalid ID format")
+                return
+            }
+
+            UserSessionManager.shared.logout()
+            showSettingsSheet = false
+            user = nil
+            workouts = []
+
+            Network.client.mutationPublisher(mutation: DeleteUserMutation(userId: userId))
+                .sink { completion in
+                    if case let .failure(error) = completion {
+                        Logger.data.critical("deleteAccount error: \(error)")
+                    }
+                } receiveValue: { _ in
+                    Logger.data.info("Successfully deleted account")
+                }
+                .store(in: &queryBag)
         }
     }
 }

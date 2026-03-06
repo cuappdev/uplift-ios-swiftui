@@ -158,6 +158,26 @@ struct ProfileView: View {
                     .foregroundStyle(Constants.Colors.closed)
             }
 
+            DividerLine()
+
+            Button {
+                viewModel.showDeleteAccountAlert = true
+            } label: {
+                Text("Delete Account")
+                    .font(Constants.Fonts.bodyNormal)
+                    .foregroundStyle(Constants.Colors.closed)
+            }
+            .alert("Delete Account", isPresented: $viewModel.showDeleteAccountAlert) {
+                Button("Cancel", role: .cancel) { }
+                Button("Delete", role: .destructive) {
+                    viewModel.deleteAccount()
+                    mainViewModel.showMainView = false
+                    mainViewModel.showSignInView = true
+                }
+            } message: {
+                Text("Are you sure you want to delete your account? This action cannot be undone.")
+            }
+
             Spacer()
         }
         .padding(.horizontal, 24)
