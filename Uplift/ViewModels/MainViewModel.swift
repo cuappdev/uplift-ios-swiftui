@@ -127,8 +127,7 @@ extension MainView {
             workoutGoal: Int
         ) {
             Network.client.mutationPublisher(
-                // TODO: Format of workout goal is incorrect right now
-                mutation: SetWorkoutGoalsMutation(userId: userId, workoutGoal: ["Monday"])
+                mutation: SetWorkoutGoalsMutation(userId: userId, workoutGoal: workoutGoal)
             )
             .sink { completion in
                 if case let .failure(error) = completion {
