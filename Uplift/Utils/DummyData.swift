@@ -729,6 +729,7 @@ struct DummyData {
         activeStreak: 14,
         maxStreak: 21,
         lastStreak: 10,
+        lastGoalChange: "",
         encodedImage: nil,
         goalHistory: [],
         totalGymDays: 132,

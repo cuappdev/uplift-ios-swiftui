@@ -13,8 +13,9 @@ import Kingfisher
 struct ProfileView: View {
 
     // MARK: - Properties
+    @ObservedObject var viewModel: ViewModel
+    @EnvironmentObject var mainViewModel: MainView.ViewModel
     @EnvironmentObject var tabBarProp: TabBarProperty
-    @StateObject private var viewModel = ViewModel()
 
     private let radius = 125
 
@@ -146,7 +147,12 @@ struct ProfileView: View {
 
             DividerLine()
 
-            Button { } label: {
+            Button {
+                UserSessionManager.shared.logout()
+                viewModel.showSettingsSheet = false
+                mainViewModel.showMainView = false
+                mainViewModel.showSignInView = true
+            } label: {
                 Text("Log Out")
                     .font(Constants.Fonts.bodyNormal)
                     .foregroundStyle(Constants.Colors.closed)
@@ -335,5 +341,5 @@ struct ProfileView: View {
 }
 
 #Preview {
-    ProfileView()
+    ProfileView(viewModel: ProfileView.ViewModel())
 }

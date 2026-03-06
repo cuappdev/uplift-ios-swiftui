@@ -13,8 +13,8 @@ struct SignInView: View {
 
     // MARK: - Properties
 
-    @StateObject private var loginViewModel = LoginViewModel()
     @EnvironmentObject var mainViewModel: MainView.ViewModel
+    @StateObject private var loginViewModel = LoginViewModel()
     @State private var animateElements: Bool = false
 
     // MARK: - UI
@@ -83,7 +83,7 @@ struct SignInView: View {
                                 }
                             }
                         } else {
-                            Logger.data.critical("❌ Unexpected login error: \(error.localizedDescription)")
+                            Logger.data.critical("Unexpected login error: \(error.localizedDescription)")
                         }
                     }
                 }

@@ -201,33 +201,11 @@ class UserSessionManager: ObservableObject {
     }
 
     /// Logs out the current user by clearing all session data and tokens.
-    func logout(completion: ((Result<Void, Error>) -> Void)? = nil) {
-        Network.client.mutationPublisher(
-            mutation: LogoutUserMutation(),
-            publishResultToStore: false,
-            queue: .main
-        )
-        .sink { completionResult in
-            if case let .failure(error) = completionResult {
-                Logger.data.critical("Error in logoutUser: \(error)")
-                completion?(.failure(error))
-            }
-        } receiveValue: { [weak self] result in
-            guard let self else { return }
-            guard result.data?.logoutUser?.success == true else {
-                Logger.data.critical("Logout mutation returned success: false")
-                completion?(.failure(GraphQLErrorWrapper(msg: "Logout failed on server")))
-                return
-            }
-
-            self.netID = nil
-            self.accessToken = nil
-            self.refreshToken = nil
-            self.displayName = nil
-
-            completion?(.success(()))
-        }
-        .store(in: &queryBag)
+    func logout() {
+        netID = nil
+        accessToken = nil
+        refreshToken = nil
+        displayName = nil
     }
 
 }

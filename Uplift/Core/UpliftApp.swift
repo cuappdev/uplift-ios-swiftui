@@ -42,6 +42,7 @@ struct UpliftApp: App {
 
                     (mainViewModel.showMainView) ? (
                         MainView()
+                            .environmentObject(mainViewModel)
                             .onAppear {
                                 LocationManager.shared.requestLocation()
                             }

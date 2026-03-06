@@ -31,6 +31,9 @@ struct User: Hashable {
     let maxStreak: Int
     /// The date/value of the last streak.
     let lastStreak: Int
+
+    let lastGoalChange: DateTime?
+
     /// The encoded profile image of this user.
     let encodedImage: String?
     /// The history of workout goals for this user.
@@ -53,6 +56,7 @@ struct User: Hashable {
         self.workoutGoal = user.workoutGoal
         self.encodedImage = user.encodedImage
         self.lastStreak = user.lastStreak
+        self.lastGoalChange = user.lastGoalChange
         self.goalHistory = user.goalHistory?.map { $0.map { WorkoutGoalHistory(from: $0.fragments.workoutgoalhistoryFields) } }
         self.totalGymDays = user.totalGymDays
         self.streakStart = user.streakStart
@@ -67,6 +71,7 @@ struct User: Hashable {
         activeStreak: Int,
         maxStreak: Int,
         lastStreak: Int,
+        lastGoalChange: DateTime,
         encodedImage: String?,
         goalHistory: [WorkoutGoalHistory?]?,
         totalGymDays: Int,
@@ -80,6 +85,7 @@ struct User: Hashable {
         self.activeStreak = activeStreak
         self.maxStreak = maxStreak
         self.lastStreak = lastStreak
+        self.lastGoalChange = lastGoalChange
         self.encodedImage = encodedImage
         self.goalHistory = goalHistory
         self.totalGymDays = totalGymDays
