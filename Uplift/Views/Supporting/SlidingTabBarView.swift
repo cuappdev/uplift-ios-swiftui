@@ -35,6 +35,10 @@ struct SlidingTabBarView<T: Hashable>: View {
                 if let icon = item.icon {
                     icon
                         .resizable()
+                        .renderingMode(.template)
+                        .foregroundStyle(selectedTab == item.tab ?
+                            Constants.Colors.black :
+                            Constants.Colors.gray04)
                         .frame(width: 16, height: 16)
                 }
 

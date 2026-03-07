@@ -203,6 +203,12 @@ struct WorkoutHistoryView: View {
         }
     }
 
+    private func historyListCell() -> some View {
+        VStack {
+
+        }
+    }
+
 }
 
 enum WorkoutHistoryTab {
