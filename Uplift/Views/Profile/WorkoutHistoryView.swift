@@ -12,11 +12,34 @@ struct WorkoutHistoryView: View {
     @StateObject private var viewModel = ViewModel()
 
     var body: some View {
-        calendarTab
-        Spacer()
+        VStack(spacing: 24) {
+            SlidingTabBarView(
+                config: SlidingTabBarView.TabBarConfig(),
+                items: [
+                    SlidingTabBarView.Item(
+                        tab: WorkoutHistoryTab.calendar,
+                        title: "Calendar"
+                    ),
+                    SlidingTabBarView.Item(
+                        tab: WorkoutHistoryTab.list,
+                        title: "List"
+                    )
+                ],
+                selectedTab: $viewModel.selectedTab
+            )
+
+            switch viewModel.selectedTab {
+            case .calendar:
+                calendarView
+            case .list:
+                listView
+            }
+            
+            Spacer()
+        }
     }
 
-    private var calendarTab: some View {
+    private var calendarView: some View {
         VStack(spacing: 16) {
             HStack(spacing: 24) {
                 Button {
@@ -172,6 +195,17 @@ struct WorkoutHistoryView: View {
         .padding(.horizontal, 16)
     }
 
+    private var listView: some View {
+        VStack {
+
+        }
+    }
+
+}
+
+enum WorkoutHistoryTab {
+    case calendar
+    case list
 }
 
 #Preview {

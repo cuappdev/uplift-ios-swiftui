@@ -11,6 +11,7 @@ import Foundation
 // MARK: - ViewModel
 extension WorkoutHistoryView {
     class ViewModel: ObservableObject {
+        @Published var selectedTab: WorkoutHistoryTab = .calendar
         @Published var selectedDay: Date?
         @Published var currMonth = Date.now
         let calendar = Calendar.current
