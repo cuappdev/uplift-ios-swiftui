@@ -27,7 +27,7 @@ struct User: Hashable {
     let netId: String
 
     /// The workout goal of this user.
-    let workoutGoal: [DayOfWeekGraphQLEnum]
+    let workoutGoal: Int?
 
     // MARK: - Functions
 
@@ -38,7 +38,7 @@ struct User: Hashable {
         self.email = user.email
         self.name = user.name
         self.netId = user.netId
-        self.workoutGoal = user.workoutGoal?.compactMap(\.?.value) ?? []
+        self.workoutGoal = user.workoutGoal
     }
 
 }
