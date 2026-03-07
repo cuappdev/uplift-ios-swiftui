@@ -199,14 +199,51 @@ struct WorkoutHistoryView: View {
 
     private var listView: some View {
         VStack {
+            // TODO: Will have actual data later
+            ForEach(0..<7, id: \.self) { index in
+                VStack(spacing: 0) {
+                    if index == 0 {
+                        HStack {
+                            Text("March 2024")
+                                .foregroundStyle(Constants.Colors.black)
+                                .font(Constants.Fonts.h4)
 
+                            Spacer()
+                        }
+                    }
+
+                    historyListCell()
+
+                    Divider()
+                }
+            }
         }
+        .padding(.horizontal, 16)
     }
 
     private func historyListCell() -> some View {
-        VStack {
+        VStack(spacing: 4) {
+            HStack {
+                Text("Toni Morrison")
+                    .foregroundStyle(Constants.Colors.black)
+                    .font(Constants.Fonts.f4)
 
+                Spacer()
+            }
+
+            HStack {
+                Text("Mar 2 ∙ 6:30 PM")
+                    .foregroundStyle(Constants.Colors.gray04)
+                    .font(Constants.Fonts.f4)
+
+                Spacer()
+
+                Text("Yesterday")
+                    .foregroundStyle(Constants.Colors.black)
+                    .font(Constants.Fonts.f4)
+            }
         }
+        .padding(.vertical, 12)
     }
 
 }
