@@ -18,11 +18,13 @@ struct WorkoutHistoryView: View {
                 items: [
                     SlidingTabBarView.Item(
                         tab: WorkoutHistoryTab.calendar,
-                        title: "Calendar"
+                        title: "Calendar",
+                        icon: Constants.Images.calendarTab
                     ),
                     SlidingTabBarView.Item(
                         tab: WorkoutHistoryTab.list,
-                        title: "List"
+                        title: "List",
+                        icon: Constants.Images.listTab
                     )
                 ],
                 selectedTab: $viewModel.selectedTab
@@ -34,7 +36,7 @@ struct WorkoutHistoryView: View {
             case .list:
                 listView
             }
-            
+
             Spacer()
         }
     }
