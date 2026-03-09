@@ -155,39 +155,13 @@ struct WorkoutHistoryView: View {
                     } label: {
                         VStack(spacing: 8) {
                             if let date = week[index] {
-
-                                Text("\(viewModel.calendar.component(.day, from: date))")
-                                    .foregroundStyle(Constants.Colors.black)
-                                    .font(Constants.Fonts.f3)
-                                    .frame(width: 32, height: 32)
-                                    .background {
-                                        if date.isSameDay(Date.now) || viewModel.isSelected(date) {
-                                            RoundedRectangle(cornerRadius: 16)
-                                                .fill(date.isSameDay(Date.now) ? Constants.Colors.lightYellow : .clear)
-                                                .overlay(
-                                                    RoundedRectangle(cornerRadius: 16)
-                                                        .stroke(Constants.Colors.yellow, lineWidth: 1)
-                                                )
-                                        }
-                                    }
+                                calendarDay(date)
 
                                 Circle()
                                     .fill(date.isSameDay(Date.now) ? Constants.Colors.yellow : .clear)
                                     .frame(width: 8, height: 8)
 
-                                if viewModel.isSelected(date) {
-                                    Triangle()
-                                        .fill(Constants.Colors.lightYellow)
-                                        .frame(width: 18, height: 12)
-                                        .overlay(
-                                            TriangleTwoSideBorder()
-                                                .stroke(Constants.Colors.yellow, lineWidth: 0.8)
-                                                .frame(width: 18, height: 12)
-                                        )
-                                } else if viewModel.weekHasSelectedDay(week) {
-                                    Color.clear
-                                        .frame(width: 18, height: 12)
-                                }
+                                selectedDayTriangleIndicator(date, week)
                             }
 
                         }
@@ -200,6 +174,41 @@ struct WorkoutHistoryView: View {
             if viewModel.weekHasSelectedDay(week) {
                 selectedDayDropdown()
                     .zIndex(0)
+            }
+        }
+    }
+
+    private func calendarDay(_ date: Date) -> some View {
+        Text("\(viewModel.calendar.component(.day, from: date))")
+            .foregroundStyle(Constants.Colors.black)
+            .font(Constants.Fonts.f3)
+            .frame(width: 32, height: 32)
+            .background {
+                if date.isSameDay(Date.now) || viewModel.isSelected(date) {
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(date.isSameDay(Date.now) ? Constants.Colors.lightYellow : .clear)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(Constants.Colors.yellow, lineWidth: 1)
+                        )
+                }
+            }
+    }
+
+    private func selectedDayTriangleIndicator(_ date: Date, _ week: [Date?]) -> some View {
+        VStack {
+            if viewModel.isSelected(date) {
+                Triangle()
+                    .fill(Constants.Colors.lightYellow)
+                    .frame(width: 18, height: 12)
+                    .overlay(
+                        TriangleTwoSideBorder()
+                            .stroke(Constants.Colors.yellow, lineWidth: 0.8)
+                            .frame(width: 18, height: 12)
+                    )
+            } else if viewModel.weekHasSelectedDay(week) {
+                Color.clear
+                    .frame(width: 18, height: 12)
             }
         }
     }
