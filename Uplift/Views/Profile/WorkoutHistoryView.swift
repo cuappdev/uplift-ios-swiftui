@@ -10,8 +10,59 @@ import SwiftUI
 
 struct WorkoutHistoryView: View {
     @StateObject private var viewModel = ViewModel()
+    @Environment(\.dismiss) private var dismiss
+    // TODO: Temporary bool since we don't have real data
+    private var hasNoWorkouts = false
 
     var body: some View {
+        ZStack {
+            VStack {
+                header
+                content
+            }
+            .navigationBarBackButtonHidden(true)
+            .toolbarBackground(.hidden, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Constants.Images.arrowLeftLight
+                            .resizable()
+                            .scaledToFill()
+                            .foregroundStyle(Constants.Colors.black)
+                            .frame(width: 24, height: 24)
+                    }
+                }
+            }
+
+            if viewModel.selectedTab == .list && hasNoWorkouts {
+                emptyState
+            }
+        }
+        .ignoresSafeArea(.all, edges: .top)
+    }
+
+    private var header: some View {
+        VStack {
+            Spacer()
+
+            HStack {
+                Spacer()
+
+                Text("History")
+                    .foregroundStyle(Constants.Colors.black)
+                    .font(Constants.Fonts.h2)
+
+                Spacer()
+            }
+        }
+        .padding(.bottom, 10)
+        .background(Constants.Colors.lightGray)
+        .frame(height: 96)
+    }
+
+    private var content: some View {
         VStack(spacing: 24) {
             SlidingTabBarView(
                 config: SlidingTabBarView.TabBarConfig(),
@@ -199,22 +250,24 @@ struct WorkoutHistoryView: View {
 
     private var listView: some View {
         VStack {
-            // TODO: Will have actual data later
-            ForEach(0..<7, id: \.self) { index in
-                VStack(spacing: 0) {
-                    if index == 0 {
-                        HStack {
-                            Text("March 2024")
-                                .foregroundStyle(Constants.Colors.black)
-                                .font(Constants.Fonts.h4)
+            if !hasNoWorkouts {
+                // TODO: Will have actual data later
+                ForEach(0..<7, id: \.self) { index in
+                    VStack(spacing: 0) {
+                        if index == 0 {
+                            HStack {
+                                Text("March 2024")
+                                    .foregroundStyle(Constants.Colors.black)
+                                    .font(Constants.Fonts.h4)
 
-                            Spacer()
+                                Spacer()
+                            }
                         }
+
+                        historyListCell()
+
+                        Divider()
                     }
-
-                    historyListCell()
-
-                    Divider()
                 }
             }
         }
@@ -244,6 +297,28 @@ struct WorkoutHistoryView: View {
             }
         }
         .padding(.vertical, 12)
+    }
+
+    private var emptyState: some View {
+        VStack {
+            Spacer()
+
+            VStack(spacing: 12) {
+                Constants.Images.bag
+
+                VStack(spacing: 4) {
+                    Text("No workouts yet.")
+                        .foregroundStyle(Constants.Colors.black)
+                        .font(Constants.Fonts.h3)
+
+                    Text("Head to a gym and check in!")
+                        .foregroundStyle(Constants.Colors.black)
+                        .font(Constants.Fonts.f3)
+                }
+            }
+
+            Spacer()
+        }
     }
 
 }
