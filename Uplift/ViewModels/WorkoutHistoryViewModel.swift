@@ -13,13 +13,13 @@ extension WorkoutHistoryView {
     class ViewModel: ObservableObject {
         @Published var selectedTab: WorkoutHistoryTab = .calendar
         @Published var selectedDay: Date?
-        @Published var currMonth = Date.now
+        @Published var selectedMonth = Date.now
         let calendar = Calendar.current
         private let startOfWeekday = DayOfWeek.monday.rawValue
 
         /// The first day of the selected month.
         private var firstOfCurrMonth: Date {
-            calendar.date(from: calendar.dateComponents([.year, .month], from: currMonth))!
+            calendar.date(from: calendar.dateComponents([.year, .month], from: selectedMonth))!
         }
 
         /// A 2D array of dates representing the weeks in the selected month. Each array is 7 elements,
@@ -27,7 +27,7 @@ extension WorkoutHistoryView {
         /// and last day of the month.
         var weeksInMonth: [[Date?]] {
             guard
-                let firstOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: currMonth))
+                let firstOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: selectedMonth))
             else { return [] }
 
             var days: [Date?] = []
@@ -38,7 +38,7 @@ extension WorkoutHistoryView {
             days.append(contentsOf: Array(repeating: nil, count: leadingWeekdays))
 
             // Add rest of days in months
-            guard let daysInMonth = calendar.range(of: .day, in: .month, for: currMonth) else { return [] }
+            guard let daysInMonth = calendar.range(of: .day, in: .month, for: selectedMonth) else { return [] }
             for day in daysInMonth {
                 days.append(calendar.date(byAdding: .day, value: day - 1, to: firstOfMonth))
             }
@@ -78,12 +78,12 @@ extension WorkoutHistoryView {
 
         /// Moves the selected month forward by one month.
         func nextMonth() {
-            currMonth = calendar.date(byAdding: .month, value: 1, to: firstOfCurrMonth)!
+            selectedMonth = calendar.date(byAdding: .month, value: 1, to: firstOfCurrMonth)!
         }
 
         /// Moves the selected month back by one month.
         func prevMonth() {
-            currMonth = calendar.date(byAdding: .month, value: -1, to: firstOfCurrMonth)!
+            selectedMonth = calendar.date(byAdding: .month, value: -1, to: firstOfCurrMonth)!
         }
     }
 }

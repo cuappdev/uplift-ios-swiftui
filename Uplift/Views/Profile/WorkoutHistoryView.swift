@@ -106,7 +106,7 @@ struct WorkoutHistoryView: View {
                         .foregroundColor(Constants.Colors.black)
                 }
 
-                Text("\(viewModel.currMonth.dateStringCalendarMonth)")
+                Text("\(viewModel.selectedMonth.dateStringCalendarMonth)")
                     .foregroundStyle(Constants.Colors.black)
                     .font(Constants.Fonts.h3)
 
