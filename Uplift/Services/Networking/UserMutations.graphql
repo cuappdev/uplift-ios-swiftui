@@ -72,7 +72,7 @@ mutation CreateReport(
 
 mutation SetWorkoutGoals(
   $userId: Int!
-  $workoutGoal: [String]!
+  $workoutGoal: Int!
 ) {
   setWorkoutGoals(
     userId: $userId,
