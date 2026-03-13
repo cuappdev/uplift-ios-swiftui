@@ -40,7 +40,9 @@ struct User: Hashable {
     /// The total number of gym days for this user.
     let totalGymDays: Int
     /// The start date of the current streak.
-    let streakStart: UpliftAPI.Date?
+    let streakStart: DateTime?
+    /// Workout History for this user.
+    let workoutHistory: [Workout]
 
     // MARK: - Functions
 
@@ -59,6 +61,7 @@ struct User: Hashable {
         self.goalHistory = user.goalHistory?.map { $0.map { WorkoutGoalHistory(from: $0.fragments.workoutgoalhistoryFields) } }
         self.totalGymDays = user.totalGymDays
         self.streakStart = user.streakStart
+        self.workoutHistory = user.workoutHistory?.compactMap { $0.map { Workout(from: $0.fragments.workoutFields) } } ?? []
     }
 
     init(
@@ -74,7 +77,8 @@ struct User: Hashable {
         encodedImage: String?,
         goalHistory: [WorkoutGoalHistory?]?,
         totalGymDays: Int,
-        streakStart: UpliftAPI.Date?
+        streakStart: UpliftAPI.Date?,
+        workoutHistory: [Workout]
     ) {
         self.id = id
         self.email = email
@@ -89,5 +93,6 @@ struct User: Hashable {
         self.goalHistory = goalHistory
         self.totalGymDays = totalGymDays
         self.streakStart = streakStart
+        self.workoutHistory = workoutHistory
     }
 }
