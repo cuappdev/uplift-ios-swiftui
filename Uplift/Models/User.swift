@@ -77,7 +77,7 @@ struct User: Hashable {
         encodedImage: String?,
         goalHistory: [WorkoutGoalHistory?]?,
         totalGymDays: Int,
-        streakStart: UpliftAPI.Date?,
+        streakStart: DateTime?,
         workoutHistory: [Workout]
     ) {
         self.id = id
