@@ -710,7 +710,7 @@ struct DummyData {
         ]
     ]
 
-    let dummyWorkouts: [Workout] = [
+    static let dummyWorkouts: [Workout] = [
         Workout(id: "workout1", userId: 1, workoutTime: "2024-03-29T18:30:00Z", facilityId: 101, gymName: "Helen Newman"),
         Workout(id: "workout2", userId: 1, workoutTime: "2024-03-28T19:15:00Z", facilityId: 102, gymName: "Teagle Up"),
         Workout(id: "workout3", userId: 1, workoutTime: "2024-03-26T18:32:00Z", facilityId: 101, gymName: "Helen Newman"),
@@ -720,7 +720,7 @@ struct DummyData {
         Workout(id: "workout7", userId: 1, workoutTime: "2024-03-18T08:15:00Z", facilityId: 101, gymName: "Helen Newman")
     ]
 
-    let dummyUser = User(
+    static let dummyUser = User(
         id: "user1",
         email: "jj775@cornell.edu",
         name: "Jiwon Jeong",
@@ -733,7 +733,8 @@ struct DummyData {
         encodedImage: nil,
         goalHistory: [],
         totalGymDays: 132,
-        streakStart: nil
+        streakStart: nil,
+        workoutHistory: dummyWorkouts
     )
 
     static let noyesCheckIn = Gym(
