@@ -10,7 +10,7 @@ fragment userFields on User {
   lastGoalChange
   encodedImage
   goalHistory {
-    ...workoutgoalhistoryFields
+    ...workoutGoalHistoryFields
   }
   totalGymDays
   streakStart

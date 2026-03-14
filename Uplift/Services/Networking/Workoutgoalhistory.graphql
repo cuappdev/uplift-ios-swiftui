@@ -1,4 +1,4 @@
-fragment workoutgoalhistoryFields on WorkoutGoalHistory {
+fragment workoutGoalHistoryFields on WorkoutGoalHistory {
   id
   userId
   workoutGoal

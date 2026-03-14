@@ -114,7 +114,9 @@ struct ProfileView: View {
 
             DividerLine()
 
-            Button { } label: {
+            Button {
+                //TODO: Learn more about uplift
+            } label: {
                 HStack {
                     Text("About Uplift")
                         .font(Constants.Fonts.bodyNormal)
@@ -125,7 +127,9 @@ struct ProfileView: View {
 
             DividerLine()
 
-            Button { } label: {
+            Button {
+                //TODO: Notifications about uplift
+            } label: {
                 HStack {
                     Text("Reminders")
                         .font(Constants.Fonts.bodyNormal)
@@ -136,7 +140,9 @@ struct ProfileView: View {
 
             DividerLine()
 
-            Button { } label: {
+            Button {
+                //TODO: Reporting an Issue
+            } label: {
                 HStack {
                     Text("Report an Issue")
                         .font(Constants.Fonts.bodyNormal)
