@@ -15,7 +15,7 @@
 		292284702F59461F00809ED4 /* WorkoutGoalHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2922846F2F59461B00809ED4 /* WorkoutGoalHistory.swift */; };
 		292284722F59F75200809ED4 /* Report.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 292284712F59F74400809ED4 /* Report.graphql */; };
 		292284762F59F7C100809ED4 /* Giveaway.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 292284752F59F7B800809ED4 /* Giveaway.graphql */; };
-		292284782F59F86B00809ED4 /* Workoutgoalhistory.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 292284772F59F85B00809ED4 /* Workoutgoalhistory.graphql */; };
+		292284782F59F86B00809ED4 /* WorkoutGoalHistory.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 292284772F59F85B00809ED4 /* WorkoutGoalHistory.graphql */; };
 		2922847A2F59F89A00809ED4 /* Authentication.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 292284792F59F89000809ED4 /* Authentication.graphql */; };
 		2923EF472E9836A600D3FC1D /* CapacityTutorialModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2923EF462E98369900D3FC1D /* CapacityTutorialModal.swift */; };
 		293032572D7A8F64002E5484 /* WorkoutProgressArc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */; };
@@ -169,7 +169,7 @@
 		2922846F2F59461B00809ED4 /* WorkoutGoalHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutGoalHistory.swift; sourceTree = "<group>"; };
 		292284712F59F74400809ED4 /* Report.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Report.graphql; sourceTree = "<group>"; };
 		292284752F59F7B800809ED4 /* Giveaway.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Giveaway.graphql; sourceTree = "<group>"; };
-		292284772F59F85B00809ED4 /* Workoutgoalhistory.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Workoutgoalhistory.graphql; sourceTree = "<group>"; };
+		292284772F59F85B00809ED4 /* WorkoutGoalHistory.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = WorkoutGoalHistory.graphql; sourceTree = "<group>"; };
 		292284792F59F89000809ED4 /* Authentication.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Authentication.graphql; sourceTree = "<group>"; };
 		2923EF462E98369900D3FC1D /* CapacityTutorialModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityTutorialModal.swift; sourceTree = "<group>"; };
 		293032562D7A8F64002E5484 /* WorkoutProgressArc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutProgressArc.swift; sourceTree = "<group>"; };
@@ -454,7 +454,7 @@
 			isa = PBXGroup;
 			children = (
 				292284792F59F89000809ED4 /* Authentication.graphql */,
-				292284772F59F85B00809ED4 /* Workoutgoalhistory.graphql */,
+				292284772F59F85B00809ED4 /* WorkoutGoalHistory.graphql */,
 				292284752F59F7B800809ED4 /* Giveaway.graphql */,
 				292284712F59F74400809ED4 /* Report.graphql */,
 				29DC9AB92DB96C340088DC24 /* CapacityReminder.graphql */,
@@ -825,7 +825,7 @@
 				2EB090B82B131CA80039EB3B /* Montserrat-Light.ttf in Resources */,
 				2E8FE3992B1278B900B3DC6A /* Preview Assets.xcassets in Resources */,
 				2E3838412BB7536700AE15DC /* PrivacyInfo.xcprivacy in Resources */,
-				292284782F59F86B00809ED4 /* Workoutgoalhistory.graphql in Resources */,
+				292284782F59F86B00809ED4 /* WorkoutGoalHistory.graphql in Resources */,
 				8940D4F02CE3E8FE00F4A4A4 /* Workout.graphql in Resources */,
 				2EB090B92B131CA80039EB3B /* Montserrat-SemiBold.ttf in Resources */,
 				2922847A2F59F89A00809ED4 /* Authentication.graphql in Resources */,
@@ -913,7 +913,6 @@
 				29055F802E7E3E6E00E9A730 /* UnsavedChangesModal.swift in Sources */,
 				2E39D8162B3B3AD600AD238B /* ScaleButtonStyle.swift in Sources */,
 				2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */,
-				899940722CC84DC90095568B /* SetGoalsViewModel.swift in Sources */,
 				893AD9152D59569600C0817B /* MuscleCategoryView.swift in Sources */,
 				135EEBAC2EC9175B0051AD5B /* WorkoutCheckInView.swift in Sources */,
 				89C8658D2BB4779C00758337 /* ClassCell.swift in Sources */,
