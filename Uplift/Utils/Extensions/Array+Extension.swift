@@ -95,7 +95,7 @@ extension Array where Element == OpenHours {
 
      - Returns: A `Status` object based on its hours.
      */
-    func getStatus(currentTime: Date = Date.now) -> Status? {
+    func getStatus(currentTime: Foundation.Date = Foundation.Date.now) -> Status? {
         // If facility is closed for an entire week
         if self.isEmpty { return .closed(openTime: .distantFuture) }
 

@@ -23,7 +23,7 @@ actor GymCache {
 
     enum CacheEntry {
         case inProgress(Task<[Gym], Error>)
-        case ready([Gym], fetchedAt: Date)
+        case ready([Gym], fetchedAt: Foundation.Date)
     }
 
     // MARK: Functions

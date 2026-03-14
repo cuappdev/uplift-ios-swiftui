@@ -52,7 +52,7 @@ struct FitnessCenterView: View {
     }
 
     // TODO: Delete after implementing networking
-    private func convertHourToDate(_ hour: Int) -> Date {
+    private func convertHourToDate(_ hour: Int) -> Foundation.Date {
         var dateComponent = DateComponents()
         dateComponent.hour = hour
         dateComponent.minute = 0

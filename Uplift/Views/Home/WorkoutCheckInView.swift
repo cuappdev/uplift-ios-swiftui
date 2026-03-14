@@ -12,9 +12,9 @@ import ConfettiSwiftUI
 /// View representing the workout check in pop-up
 struct WorkoutCheckInView: View {
 
-    @ObservedObject var homeViewModel: HomeView.ViewModel
+    @EnvironmentObject var mainViewModel: MainView.ViewModel
     @ObservedObject var profileViewModel: ProfileView.ViewModel
-    @ObservedObject var mainViewModel: MainView.ViewModel
+    @ObservedObject var homeViewModel: HomeView.ViewModel
     @StateObject private var viewModel = ViewModel()
 
     var body: some View {
@@ -168,8 +168,7 @@ struct WorkoutCheckInView: View {
 
 #Preview {
     WorkoutCheckInView(
-        homeViewModel: HomeView.ViewModel(),
         profileViewModel: ProfileView.ViewModel(),
-        mainViewModel: MainView.ViewModel()
+        homeViewModel: HomeView.ViewModel()
     )
 }

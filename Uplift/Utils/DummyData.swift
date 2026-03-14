@@ -710,69 +710,32 @@ struct DummyData {
         ]
     ]
 
-    /// Dummy data for profile view.
-    struct ProfileViewData {
+    static let dummyWorkouts: [Workout] = [
+        Workout(id: "workout1", userId: 1, workoutTime: "2024-03-29T18:30:00Z", facilityId: 101, gymName: "Helen Newman"),
+        Workout(id: "workout2", userId: 1, workoutTime: "2024-03-28T19:15:00Z", facilityId: 102, gymName: "Teagle Up"),
+        Workout(id: "workout3", userId: 1, workoutTime: "2024-03-26T18:32:00Z", facilityId: 101, gymName: "Helen Newman"),
+        Workout(id: "workout4", userId: 1, workoutTime: "2024-03-24T19:37:00Z", facilityId: 103, gymName: "Toni Morrison"),
+        Workout(id: "workout5", userId: 1, workoutTime: "2024-03-23T10:02:00Z", facilityId: 101, gymName: "Helen Newman"),
+        Workout(id: "workout6", userId: 1, workoutTime: "2024-03-20T17:45:00Z", facilityId: 102, gymName: "Teagle Up"),
+        Workout(id: "workout7", userId: 1, workoutTime: "2024-03-18T08:15:00Z", facilityId: 101, gymName: "Helen Newman")
+    ]
 
-        // Profile data
-        static let profile = UserProfile(
-            id: "user123",
-            name: "Jiwon Jeong"
-        )
-
-        static let totalWorkouts = 132
-        static let streaks = 14
-        static let badges = 6
-
-        // Create dates for the week
-        static let weekDates: [Date] = {
-            [25, 26, 27, 28, 29, 30, 31].map { day -> Date in
-                var components = DateComponents()
-                components.year = 2024
-                components.month = 3
-                components.day = day
-                return Calendar.current.date(from: components) ?? Date()
-            }
-        }()
-
-        static let weeklyWorkouts = WeeklyWorkoutData(
-            currentWeekWorkouts: 0,
-            weeklyGoal: 5,
-            weekDates: weekDates
-        )
-
-        static let workoutHistory: [WorkoutHistory] = [
-            WorkoutHistory(
-                id: "workout1",
-                location: "Helen Newman",
-                time: "6:30 PM",
-                date: "Fri Mar 29, 2024"
-            ),
-            WorkoutHistory(
-                id: "workout2",
-                location: "Teagle Up",
-                time: "7:15 PM",
-                date: "Thu Mar 28, 2024"
-            ),
-            WorkoutHistory(
-                id: "workout3",
-                location: "Helen Newman",
-                time: "6:32 PM",
-                date: "Tue Mar 26, 2024"
-            ),
-            WorkoutHistory(
-                id: "workout4",
-                location: "Toni Morrison",
-                time: "7:37 PM",
-                date: "Sun Mar 24, 2024"
-            ),
-            WorkoutHistory(
-                id: "workout5",
-                location: "Helen Newman",
-                time: "10:02 AM",
-                date: "Sat Mar 23, 2024"
-            )
-        ]
-    }
+    static let dummyUser = User(
+        id: "user1",
+        email: "jj775@cornell.edu",
+        name: "Jiwon Jeong",
+        netId: "jj775",
+        workoutGoal: 5,
+        activeStreak: 14,
+        maxStreak: 21,
+        lastStreak: 10,
+        lastGoalChange: "",
+        encodedImage: nil,
+        goalHistory: [],
+        totalGymDays: 132,
+        streakStart: nil,
+        workoutHistory: dummyWorkouts
+    )
 
     static let noyesCheckIn = Gym(
         id: "noyes",
