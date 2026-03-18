@@ -15,7 +15,7 @@ struct ProfileView: View {
     // MARK: - Properties
     @EnvironmentObject var tabBarProp: TabBarProperty
     @StateObject private var viewModel = ViewModel()
-
+    @State private var showReportFlow = false
     private let radius = 125
 
     // MARK: - UI
@@ -26,9 +26,24 @@ struct ProfileView: View {
                 scrollContent
             }
             .background(Constants.Colors.white)
+            .navigationDestination(isPresented: $showReportFlow) {
+                ReportView(
+                    onReturnToProfile: {
+                        showReportFlow = false
+                    }
+                )
+                .environmentObject(tabBarProp)
+            }
         }
         .onAppear {
             viewModel.fetchUserProfile()
+        }
+        .navigationDestination(isPresented: $viewModel.showSettingsSheet) {
+            settingsView
+                .environmentObject(tabBarProp)
+                .navigationBarBackButtonHidden(true)
+                .toolbar(.hidden, for: .navigationBar)
+                .navigationBarHidden(true)
         }
     }
 
@@ -84,89 +99,96 @@ struct ProfileView: View {
                     .frame(width: 24, height: 24)
                     .foregroundStyle(Constants.Colors.black)
             }
-            .sheet(isPresented: $viewModel.showSettingsSheet) {
-                settingsView
-            }
         }
     }
 
     private var settingsView: some View {
-        VStack(alignment: .leading, spacing: 24) {
+        VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Text("Settings")
-                    .font(Constants.Fonts.h1)
-                    .foregroundStyle(Constants.Colors.black)
-
-                Spacer()
-
                 Button {
                     viewModel.showSettingsSheet = false
                 } label: {
-                    Constants.Images.cross
+                    Constants.Images.arrowLeft
                         .resizable()
-                        .scaledToFit()
+                        .scaledToFill()
+                        .foregroundStyle(Constants.Colors.black)
                         .frame(width: 16, height: 16)
-                        .foregroundStyle(Constants.Colors.black)
                 }
+                .buttonStyle(.plain)
+
+                Spacer()
+
+                Text("Settings")
+                    .font(Constants.Fonts.h2)
+                    .foregroundStyle(Constants.Colors.black)
+
+                Spacer()
             }
-            .padding(.top, 24)
+            .padding(.horizontal, 24)
+            .padding(.vertical, 10)
+            .background(Constants.Colors.lightGray)
+            .frame(height: 80)
+            .frame(maxWidth: .infinity)
+            .ignoresSafeArea(edges: .top)
 
-            DividerLine()
+            VStack(alignment: .leading, spacing: 0) {
+                Button {
+                    //TODO: Learn more about uplift
+                } label: {
+                    HStack {
+                        Text("About Uplift")
+                            .font(Constants.Fonts.bodyNormal)
+                            .foregroundStyle(Constants.Colors.black)
+                        Spacer()
+                    }
+                    .padding(.vertical, 20)
+                }
 
-            Button {
-                //TODO: Learn more about uplift
-            } label: {
-                HStack {
-                    Text("About Uplift")
+                DividerLine()
+
+                Button {
+                    //TODO: Notifications about uplift
+                } label: {
+                    HStack {
+                        Text("Reminders")
+                            .font(Constants.Fonts.bodyNormal)
+                            .foregroundStyle(Constants.Colors.black)
+                        Spacer()
+                    }
+                    .padding(.vertical, 20)
+                }
+
+                DividerLine()
+
+                Button {
+                    viewModel.showSettingsSheet = false
+                    showReportFlow = true
+                } label: {
+                    HStack {
+                        Text("Report an Issue")
+                            .font(Constants.Fonts.bodyNormal)
+                            .foregroundStyle(Constants.Colors.black)
+                        Spacer()
+                    }
+                    .padding(.vertical, 20)
+                }
+
+                DividerLine()
+
+                Button {
+                    //TODO: Logging Out functionality
+                } label: {
+                    Text("Log Out")
                         .font(Constants.Fonts.bodyNormal)
-                        .foregroundStyle(Constants.Colors.black)
-
-                    Spacer()
+                        .foregroundStyle(Constants.Colors.closed)
+                        .padding(.vertical, 20)
                 }
+
+                Spacer()
             }
-
-            DividerLine()
-
-            Button {
-                //TODO: Notifications about uplift
-            } label: {
-                HStack {
-                    Text("Reminders")
-                        .font(Constants.Fonts.bodyNormal)
-                        .foregroundStyle(Constants.Colors.black)
-
-                    Spacer()
-                }
-            }
-
-            DividerLine()
-
-            Button {
-                //TODO: Reporting an Issue
-            } label: {
-                HStack {
-                    Text("Report an Issue")
-                        .font(Constants.Fonts.bodyNormal)
-                        .foregroundStyle(Constants.Colors.black)
-
-                    Spacer()
-                }
-            }
-
-            DividerLine()
-
-            Button {
-                //TODO: Logging Out functionality
-            } label: {
-                Text("Log Out")
-                    .font(Constants.Fonts.bodyNormal)
-                    .foregroundStyle(Constants.Colors.closed)
-            }
-
-            Spacer()
+            .padding(.horizontal, 24)
+            .background(Constants.Colors.white)
         }
-        .padding(.horizontal, 24)
-        .background(Constants.Colors.white)
     }
 
     private var scrollContent: some View {
