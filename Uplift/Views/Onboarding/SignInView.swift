@@ -13,8 +13,8 @@ struct SignInView: View {
 
     // MARK: - Properties
 
-    @StateObject private var loginViewModel = LoginViewModel()
     @EnvironmentObject var mainViewModel: MainView.ViewModel
+    @StateObject private var loginViewModel = LoginViewModel()
     @State private var animateElements: Bool = false
 
     // MARK: - UI
@@ -62,10 +62,12 @@ struct SignInView: View {
                 UserSessionManager.shared.loginUser(netId: netId) { result in
                     switch result {
                     case .success:
-                        DispatchQueue.main.async {
-                            mainViewModel.showSignInView = false
-                            mainViewModel.showCreateProfileView = false
-                            mainViewModel.showMainView = true
+                        Task {
+                            await MainActor.run {
+                                mainViewModel.showSignInView = false
+                                mainViewModel.showCreateProfileView = false
+                                mainViewModel.showMainView = true
+                            }
                         }
 
                         UserSessionManager.shared.email = email
@@ -74,12 +76,15 @@ struct SignInView: View {
                         if let graphqlError = error as? GraphQLErrorWrapper,
                            graphqlError.msg.contains("No user with those credentials") {
 
-                            DispatchQueue.main.async {
-                                mainViewModel.showSignInView = false
-                                mainViewModel.showSetGoalsView = true
+                            Task {
+                                await MainActor.run {
+                                    mainViewModel.showSignInView = false
+                                    mainViewModel.showSetGoalsView = false
+                                    mainViewModel.showCreateProfileView = true
+                                }
                             }
                         } else {
-                            Logger.data.critical("❌ Unexpected login error: \(error.localizedDescription)")
+                            Logger.data.critical("Unexpected login error: \(error.localizedDescription)")
                         }
                     }
                 }

@@ -23,7 +23,7 @@ actor ClassesCache {
 
     enum CacheEntry {
         case inProgress(Task<[FitnessClassInstance], Error>)
-        case ready([FitnessClassInstance], fetchedAt: Date)
+        case ready([FitnessClassInstance], fetchedAt: Foundation.Date)
     }
 
     // MARK: Functions
@@ -50,7 +50,7 @@ actor ClassesCache {
 
         do {
             let classes = try await task.value
-            cachedEntry = .ready(classes, fetchedAt: Date())
+            cachedEntry = .ready(classes, fetchedAt: Foundation.Date())
             return classes
         } catch {
             cachedEntry = nil

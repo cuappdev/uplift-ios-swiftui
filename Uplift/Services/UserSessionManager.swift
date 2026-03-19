@@ -30,6 +30,16 @@ class UserSessionManager: ObservableObject {
 
     private var queryBag = Set<AnyCancellable>()
 
+    @Published var displayName: String? {
+        didSet {
+            if let displayName {
+                KeychainManager.shared.save(displayName, forKey: "displayName")
+            } else {
+                KeychainManager.shared.delete(forKey: "displayName")
+            }
+        }
+    }
+
     @Published var netID: String? {
         didSet {
             if let netID {
@@ -73,6 +83,7 @@ class UserSessionManager: ObservableObject {
     // MARK: - Init
 
     private init() {
+        self.displayName = KeychainManager.shared.get(forKey: "displayName")
         self.netID = KeychainManager.shared.get(forKey: "netID")
         self.accessToken = KeychainManager.shared.get(forKey: "accessToken")
         self.refreshToken = KeychainManager.shared.get(forKey: "refreshToken")
@@ -80,13 +91,6 @@ class UserSessionManager: ObservableObject {
     }
 
     // MARK: - User Session Functions
-
-    /// Logs out the current user by clearing all session data and tokens.
-    func logout() {
-        netID = nil
-        accessToken = nil
-        refreshToken = nil
-    }
 
     /// Logs in a user by sending a login mutation and storing the returned access and refresh tokens.
     func loginUser(netId: String, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -106,10 +110,12 @@ class UserSessionManager: ObservableObject {
         .sink { completionResult in
             if case let .failure(error) = completionResult {
                 Logger.data.critical("Error in loginUser: \(error)")
+                Logger.data.critical("Raw error details: \(String(describing: error))")
                 completion(.failure(error))
             }
         } receiveValue: { credentials in
             guard let credentials else {
+                Logger.data.critical("Raw credentials received: \(String(describing: credentials))")
                 completion(.failure(GraphQLErrorWrapper(msg: "Missing login credentials")))
                 return
             }
@@ -179,6 +185,8 @@ class UserSessionManager: ObservableObject {
 
             Logger.data.log("Restored Google Sign-In session for user: \(user.profile?.email ?? "Unknown")")
 
+            self.displayName = user.profile?.name
+
             // If we have a netID in keychain, try to restore backend session
             if let netID = self.netID {
                 self.loginUser(netId: netID) { result in
@@ -203,6 +211,14 @@ class UserSessionManager: ObservableObject {
                 completion(.needsSignIn)
             }
         }
+    }
+
+    /// Logs out the current user by clearing all session data and tokens.
+    func logout() {
+        netID = nil
+        accessToken = nil
+        refreshToken = nil
+        displayName = nil
     }
 
 }

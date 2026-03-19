@@ -1,5 +1,0 @@
-fragment workoutFields on Workout {
-  id
-  userId
-  workoutTime
-}
