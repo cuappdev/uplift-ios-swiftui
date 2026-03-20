@@ -15,6 +15,7 @@ struct ProfileView: View {
     // MARK: - Properties
     @EnvironmentObject var tabBarProp: TabBarProperty
     @StateObject private var viewModel = ViewModel()
+    @State private var showSettings = false
     @State private var showReportFlow = false
     private let radius = 125
 
@@ -30,20 +31,40 @@ struct ProfileView: View {
                 ReportView(
                     onReturnToProfile: {
                         showReportFlow = false
+                    },
+                    onBackToSettings: {
+                        showReportFlow = false
+                        showSettings = true
                     }
                 )
                 .environmentObject(tabBarProp)
             }
-        }
-        .onAppear {
-            viewModel.fetchUserProfile()
-        }
-        .navigationDestination(isPresented: $viewModel.showSettingsSheet) {
-            settingsView
-                .environmentObject(tabBarProp)
+            .navigationDestination(isPresented: $showSettings) {
+                SettingsView(
+                    onBack: {
+                        showSettings = false
+                    },
+                    onReportIssue: {
+                        showSettings = false
+                        showReportFlow = true
+                    },
+                    onAbout: {
+                        // TODO: Learn more about uplift
+                    },
+                    onReminders: {
+                        // TODO: Notifications about uplift
+                    },
+                    onLogout: {
+                        // TODO: Logging out functionality
+                    }
+                )
                 .navigationBarBackButtonHidden(true)
                 .toolbar(.hidden, for: .navigationBar)
                 .navigationBarHidden(true)
+            }
+        }
+        .onAppear {
+                    viewModel.fetchUserProfile()
         }
     }
 
@@ -91,7 +112,10 @@ struct ProfileView: View {
             }
 
             Button {
-                viewModel.showSettingsSheet = true
+                showSettings = true
+                withAnimation(.easeIn(duration: 0.1)) {
+                    tabBarProp.hidden = true
+                }
             } label: {
                 Constants.Images.settings
                     .resizable()
@@ -99,95 +123,6 @@ struct ProfileView: View {
                     .frame(width: 24, height: 24)
                     .foregroundStyle(Constants.Colors.black)
             }
-        }
-    }
-
-    private var settingsView: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                Button {
-                    viewModel.showSettingsSheet = false
-                } label: {
-                    Constants.Images.arrowLeft
-                        .resizable()
-                        .scaledToFill()
-                        .foregroundStyle(Constants.Colors.black)
-                        .frame(width: 16, height: 16)
-                }
-                .buttonStyle(.plain)
-
-                Spacer()
-
-                Text("Settings")
-                    .font(Constants.Fonts.h2)
-                    .foregroundStyle(Constants.Colors.black)
-
-                Spacer()
-            }
-            .padding(.horizontal, 24)
-            .padding(.vertical, 10)
-            .background(Constants.Colors.lightGray)
-            .frame(height: 80)
-            .frame(maxWidth: .infinity)
-            .ignoresSafeArea(edges: .top)
-
-            VStack(alignment: .leading, spacing: 0) {
-                Button {
-                    //TODO: Learn more about uplift
-                } label: {
-                    HStack {
-                        Text("About Uplift")
-                            .font(Constants.Fonts.bodyNormal)
-                            .foregroundStyle(Constants.Colors.black)
-                        Spacer()
-                    }
-                    .padding(.vertical, 20)
-                }
-
-                DividerLine()
-
-                Button {
-                    //TODO: Notifications about uplift
-                } label: {
-                    HStack {
-                        Text("Reminders")
-                            .font(Constants.Fonts.bodyNormal)
-                            .foregroundStyle(Constants.Colors.black)
-                        Spacer()
-                    }
-                    .padding(.vertical, 20)
-                }
-
-                DividerLine()
-
-                Button {
-                    viewModel.showSettingsSheet = false
-                    showReportFlow = true
-                } label: {
-                    HStack {
-                        Text("Report an Issue")
-                            .font(Constants.Fonts.bodyNormal)
-                            .foregroundStyle(Constants.Colors.black)
-                        Spacer()
-                    }
-                    .padding(.vertical, 20)
-                }
-
-                DividerLine()
-
-                Button {
-                    //TODO: Logging Out functionality
-                } label: {
-                    Text("Log Out")
-                        .font(Constants.Fonts.bodyNormal)
-                        .foregroundStyle(Constants.Colors.closed)
-                        .padding(.vertical, 20)
-                }
-
-                Spacer()
-            }
-            .padding(.horizontal, 24)
-            .background(Constants.Colors.white)
         }
     }
 

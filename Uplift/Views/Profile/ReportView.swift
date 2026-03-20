@@ -13,6 +13,7 @@ import UpliftAPI
 struct ReportView: View {
 
     let onReturnToProfile: () -> Void
+    let onBackToSettings: () -> Void
 
     // MARK: - Properties
 
@@ -59,10 +60,7 @@ struct ReportView: View {
         .safeAreaInset(edge: .top) {
             HStack {
                 Button {
-                    onReturnToProfile()
-                    withAnimation(.easeIn(duration: 0.1)) {
-                        tabBarProp.hidden = false
-                    }
+                    onBackToSettings()
                 } label: {
                     Constants.Images.arrowLeft
                         .resizable()
@@ -227,6 +225,9 @@ struct ReportView: View {
 }
 
 #Preview {
-    ReportView(onReturnToProfile: {})
+    ReportView(
+        onReturnToProfile: {},
+        onBackToSettings: {}
+    )
         .environmentObject(TabBarProperty())
 }

@@ -12,7 +12,6 @@ import Foundation
 extension ProfileView {
     class ViewModel: ObservableObject {
         @Published var profile: UserProfile?
-        @Published var showSettingsSheet = false
         @Published var workoutHistory: [WorkoutHistory] = []
         @Published var weeklyWorkouts: WeeklyWorkoutData = WeeklyWorkoutData(
             currentWeekWorkouts: 0,
