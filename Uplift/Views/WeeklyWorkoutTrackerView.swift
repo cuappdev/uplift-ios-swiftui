@@ -156,7 +156,7 @@ struct WeeklyWorkoutTrackerView: View {
                 withAnimation(.easeIn(duration: animationDuration)) {
                     animationProgress[index] = 1.0
                 }
-            } 
+            }
         }
     }
 }
