@@ -43,7 +43,9 @@ extension ProfileView {
             let calendar = Calendar.current
             let today = Foundation.Date()
             let weekday = calendar.component(.weekday, from: today)
-            let startOfWeek = calendar.date(byAdding: .day, value: -(weekday - 1), to: today) ?? today
+            // Adjust so Monday = index 0 (weekday 2)
+            let daysFromMonday = (weekday + 5) % 7
+            let startOfWeek = calendar.date(byAdding: .day, value: -daysFromMonday, to: today) ?? today
             return (0..<7).compactMap { calendar.date(byAdding: .day, value: $0, to: startOfWeek) }
         }
 
