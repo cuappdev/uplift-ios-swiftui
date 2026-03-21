@@ -104,7 +104,9 @@ struct WeeklyWorkoutTrackerView: View {
         .padding(.bottom, 15)
         .onAppear {
             if viewModel.workouts.isEmpty {
-                viewModel.fetchUserProfile()
+                Task {
+                    await viewModel.fetchUserProfile()
+                }
             }
         }
         .onReceive(viewModel.$workouts) { workouts in
@@ -149,7 +151,9 @@ struct WeeklyWorkoutTrackerView: View {
 
 #Preview {
     let viewModel = ProfileView.ViewModel()
-    viewModel.fetchUserProfile()
+    Task {
+        await viewModel.fetchUserProfile()
+    }
 
     return WeeklyWorkoutTrackerView(viewModel: viewModel)
         .frame(height: 100)

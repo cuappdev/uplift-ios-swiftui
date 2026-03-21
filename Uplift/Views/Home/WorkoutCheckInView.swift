@@ -106,11 +106,11 @@ struct WorkoutCheckInView: View {
 
             viewModel.trigger += 1
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+            Task { @MainActor in
+                try? await Task.sleep(for: .seconds(10))
                 withAnimation(.easeInOut(duration: 0.3)) {
                     mainViewModel.showWorkoutCheckIn = false
                 }
-
                 viewModel.startDailyCooldown()
             }
         }
@@ -128,7 +128,12 @@ struct WorkoutCheckInView: View {
     }
 
     private var checkInButton: some View {
-        Button(action: handleCheckIn) {
+        Button {
+            Task {
+                await viewModel.handleCheckIn(user: profileViewModel.user)
+                await profileViewModel.fetchUserProfile()
+            }
+        } label: {
             Text("Check In?")
                 .font(Constants.Fonts.bodyMedium)
                 .foregroundStyle(Constants.Colors.black)
@@ -144,15 +149,6 @@ struct WorkoutCheckInView: View {
                 .resizable()
                 .frame(width: 19, height: 19)
         }
-    }
-
-    private func handleCheckIn() {
-        viewModel.isCheckedIn = true
-
-        viewModel.performCheckIn(
-            gymName: viewModel.currentNearestGym,
-            profileViewModel: profileViewModel
-        )
     }
 
     private func handleClose() {

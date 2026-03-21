@@ -68,7 +68,7 @@ struct WorkoutProgressArc: View {
                         .font(Constants.Fonts.p1)
                         .foregroundColor(.black)
 
-                    Text("/ \(targetWorkouts)")
+                    Text("/ \(viewModel.user?.workoutGoal ?? 0)")
                         .font(Constants.Fonts.h1)
                         .foregroundColor(.gray)
                         .padding(.leading, 2)
@@ -101,7 +101,9 @@ struct WorkoutProgressArc: View {
 
 #Preview {
     let viewModel = ProfileView.ViewModel()
-    viewModel.fetchUserProfile()
+    Task {
+        await viewModel.fetchUserProfile()
+    }
 
     return WorkoutProgressArc(viewModel: viewModel)
         .padding()

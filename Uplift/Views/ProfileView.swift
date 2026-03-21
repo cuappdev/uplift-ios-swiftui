@@ -29,7 +29,9 @@ struct ProfileView: View {
             .background(Constants.Colors.white)
         }
         .onAppear {
-            viewModel.fetchUserProfile()
+            Task {
+                await viewModel.fetchUserProfile()
+            }
         }
     }
 

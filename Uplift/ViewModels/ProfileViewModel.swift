@@ -60,27 +60,35 @@ extension ProfileView {
 
         // MARK: - Functions
 
-        func fetchUserProfile() {
+        func fetchUserProfile() async {
             guard let netID = UserSessionManager.shared.netID else {
                 Logger.data.critical("fetchUserProfile: No netID found in session")
                 return
             }
 
-            Network.client.queryPublisher(
-                query: GetUserByNetIdQuery(netId: .some(netID)),
-                cachePolicy: .fetchIgnoringCacheData,
-                queue: .main
-            )
-            .sink { completion in
-                if case let .failure(error) = completion {
-                    Logger.data.critical("fetchUserProfile error: \(error)")
+            await withCheckedContinuation { continuation in
+                Network.client.queryPublisher(
+                    query: GetUserByNetIdQuery(netId: .some(netID)),
+                    cachePolicy: .fetchIgnoringCacheData,
+                    queue: .main
+                )
+                .sink { completion in
+                    if case let .failure(error) = completion {
+                        Logger.data.critical("fetchUserProfile error: \(error)")
+                        continuation.resume()
+                    }
+                } receiveValue: { [weak self] result in
+                    guard let self, let userFields = result.data?.getUserByNetId?.compactMap({ $0 }).first else {
+                        continuation.resume()
+                        return
+                    }
+                    self.user = User(from: userFields.fragments.userFields)
+                    self.workouts = self.user?.workoutHistory ?? []
+                    self.currentWeekWorkouts = self.workoutsThisWeek.count
+                    continuation.resume()
                 }
-            } receiveValue: { [weak self] result in
-                guard let self, let userFields = result.data?.getUserByNetId?.compactMap({ $0 }).first else { return }
-                self.user = User(from: userFields.fragments.userFields)
-                self.currentWeekWorkouts = self.workoutsThisWeek.count
+                .store(in: &queryBag)
             }
-            .store(in: &queryBag)
         }
 
         func deleteAccount() {
