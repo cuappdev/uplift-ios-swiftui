@@ -16,6 +16,8 @@ struct ProfileView: View {
     @ObservedObject var viewModel: ViewModel
     @EnvironmentObject var mainViewModel: MainView.ViewModel
     @EnvironmentObject var tabBarProp: TabBarProperty
+    @State var showReportFlow: Bool = false
+    @State var showSettings: Bool = false
     private let radius = 125
 
     // MARK: - UI
