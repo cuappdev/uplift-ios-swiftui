@@ -12,12 +12,11 @@ import SwiftUI
 struct MainView: View {
 
     // MARK: - Properties
-
+    @EnvironmentObject private var viewModel: ViewModel // NOTE: MainViewModel is EnvironmentObject for now (many screens need it)
+    @StateObject private var profileViewModel = ProfileView.ViewModel() // NOTE: We only need to drill this to few screens so using @StateObject & @ObservedObject pattern
+    @StateObject private var homeViewModel = HomeView.ViewModel() // NOTE: We only need to drill this to few screens so using @StateObject & @ObservedObject pattern
     @State private var selectedTab: Screen = .home
     @StateObject var tabBarProp = TabBarProperty()
-    @StateObject private var homeViewModel = HomeView.ViewModel()
-    @StateObject private var profileViewModel = ProfileView.ViewModel()
-    @StateObject private var viewModel = ViewModel()
 
     // MARK: - UI
 
@@ -31,17 +30,18 @@ struct MainView: View {
                     ClassesView()
                         .environmentObject(tabBarProp)
                 case .profile:
-                    ProfileView()
+                    ProfileView(viewModel: profileViewModel)
+                        .environmentObject(viewModel) // MainViewModel
                         .environmentObject(tabBarProp)
                 }
             }
             .overlay(alignment: .bottom) {
                 VStack {
                         WorkoutCheckInView(
-                            homeViewModel: homeViewModel,
                             profileViewModel: profileViewModel,
-                            mainViewModel: viewModel
+                            homeViewModel: homeViewModel
                         )
+                        .environmentObject(viewModel) // MainViewModel
                         .padding(.bottom, 13)
                         .opacity(viewModel.showWorkoutCheckIn ? 1 : 0)
 

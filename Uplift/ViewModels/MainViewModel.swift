@@ -60,7 +60,7 @@ extension MainView {
                 UserSessionManager.shared.loginUser(netId: self.netID) { result in
                     switch result {
                     case .success:
-                        Logger.data.log("✅ Successfully logged in after creating user")
+                        Logger.data.log("Successfully logged in after creating user")
                         self.showMainView = true
                         self.showCreateProfileView = false
                         self.showSignInView = false
@@ -70,12 +70,12 @@ extension MainView {
                     case .failure(let error):
                         if let graphqlError = error as? GraphQLErrorWrapper,
                            graphqlError.msg.contains("No user with those credentials") {
-                            Logger.data.critical("⚠️ No user found, show onboarding flow or retry")
+                            Logger.data.critical("No user found, show onboarding flow or retry")
                             self.showMainView = false
                             self.showCreateProfileView = false
                             self.showSignInView = true
                         } else {
-                            Logger.data.critical("❌ Unexpected login error: \(error.localizedDescription)")
+                            Logger.data.critical("Unexpected login error: \(error.localizedDescription)")
                         }
                     }
                 }
@@ -127,7 +127,6 @@ extension MainView {
             workoutGoal: Int
         ) {
             Network.client.mutationPublisher(
-                // TODO: Format of workout goal is incorrect right now
                 mutation: SetWorkoutGoalsMutation(userId: userId, workoutGoal: workoutGoal)
             )
             .sink { completion in

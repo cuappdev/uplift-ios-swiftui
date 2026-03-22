@@ -92,7 +92,7 @@ extension ClassesView {
         }
 
         /// Determine the day of the month for the given weekday. `Nil` if the calendar date is invalid.
-        func determineDayOfMonth(_ weekday: DayOfWeek, _ weeksFromCurr: Int) -> Date? {
+        func determineDayOfMonth(_ weekday: DayOfWeek, _ weeksFromCurr: Int) -> Foundation.Date? {
             var weekdayValue = 0
             if weekday != Date.now.getDayOfWeek() {
                 weekdayValue = switch weekday {
@@ -107,7 +107,7 @@ extension ClassesView {
         }
 
         /// Convert a string to a `Date` object. `nil` if `string` is not in the ISO8601 format.
-        func toDate(_ string: String?) -> Date? {
+        func toDate(_ string: String?) -> Foundation.Date? {
             guard let string = string else { return nil }
 
             let dateFormatter = DateFormatter()

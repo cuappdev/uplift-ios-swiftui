@@ -1,0 +1,37 @@
+fragment reportFields on Report {
+  id
+  createdAt
+  description
+  gym {
+    ...gymFields
+  }
+  gymId
+  issue
+}
+
+mutation CreateReport(
+  $createdAt: DateTime!,
+  $description: String!,
+  $gymId: Int!,
+  $issue: String!
+) {
+  createReport(
+    createdAt: $createdAt,
+    description: $description,
+    gymId: $gymId,
+    issue: $issue
+  ) {
+    report {
+      ...reportFields
+    }
+  }
+}
+
+mutation DeleteReport($reportId: Int!) {
+  deleteReport(reportId: $reportId) {
+    id
+    issue
+    description
+    createdAt
+  }
+}

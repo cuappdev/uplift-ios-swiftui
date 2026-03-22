@@ -168,18 +168,6 @@ extension WorkoutCheckInView {
         /// Update the profile workout checkin database and history
         func performCheckIn(gymName: String?, profileViewModel: ProfileView.ViewModel) {
             // TODO: Adjust the profile database update logic (streaks, badges, workout history etc.)
-            profileViewModel.totalWorkouts += 1
-            profileViewModel.weeklyWorkouts.currentWeekWorkouts += 1
-            profileViewModel.streaks += 1
-            if let gym = gymName {
-                let workout = WorkoutHistory(
-                    id: "workout\(profileViewModel.weeklyWorkouts.currentWeekWorkouts)",
-                    location: gym,
-                    time: Date().timeStringTrailingZeros,
-                    date: Date().dateStringDayMonth
-                )
-                profileViewModel.workoutHistory.insert(workout, at: 0)
-            }
         }
     }
 }

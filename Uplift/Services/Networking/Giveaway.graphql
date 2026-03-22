@@ -1,0 +1,21 @@
+fragment giveawayFields on Giveaway {
+  id
+  name
+  users {
+    ...userFields
+  }
+}
+
+mutation CreateGiveaway($name: String!) {
+  createGiveaway(name: $name) {
+    ...giveawayFields
+  }
+}
+
+mutation EnterGiveaway($giveawayId: Int!, $userNetId: String!) {
+  enterGiveaway(giveawayId: $giveawayId, userNetId: $userNetId) {
+    id
+    userId
+    numEntries
+  }
+}

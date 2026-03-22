@@ -6,38 +6,103 @@
 //  Copyright © 2025 Cornell AppDev. All rights reserved.
 //
 
+import Combine
 import Foundation
+import UpliftAPI
+import os
 
 // MARK: - ViewModel
 extension ProfileView {
     class ViewModel: ObservableObject {
-        @Published var profile: UserProfile?
-        @Published var workoutHistory: [WorkoutHistory] = []
-        @Published var weeklyWorkouts: WeeklyWorkoutData = WeeklyWorkoutData(
-            currentWeekWorkouts: 0,
-            weeklyGoal: 5,
-            weekDates: []
-        )
-        @Published var totalWorkouts: Int = 0
-        @Published var streaks: Int = 14
-        @Published var badges: Int = 6
 
-        /// dummy data
-        func fetchUserProfile() {
-            self.profile = DummyData.ProfileViewData.profile
-            self.totalWorkouts = DummyData.ProfileViewData.totalWorkouts
-            self.streaks = DummyData.ProfileViewData.streaks
-            self.badges = DummyData.ProfileViewData.badges
-            self.weeklyWorkouts = DummyData.ProfileViewData.weeklyWorkouts
-            self.workoutHistory = DummyData.ProfileViewData.workoutHistory
+        // MARK: - Properties
+
+        private var queryBag = Set<AnyCancellable>()
+
+        @Published var user: User?
+        @Published var workouts: [Workout] = []
+        @Published var showSettingsSheet = false
+        @Published var showDeleteAccountAlert = false
+        @Published var currentWeekWorkouts: Int = 0
+
+        // MARK: - Computed Properties
+
+        var totalGymDays: Int {
+            user?.totalGymDays ?? 0
         }
 
-        private func createDate(day: Int) -> Date {
-            var components = DateComponents()
-            components.year = 2024
-            components.month = 3
-            components.day = day
-            return Calendar.current.date(from: components) ?? Date()
+        var activeStreak: Int {
+            user?.activeStreak ?? 0
+        }
+
+        var workoutGoal: Int {
+            user?.workoutGoal ?? 5
+        }
+
+        var weekDates: [Foundation.Date] {
+            let calendar = Calendar.current
+            let today = Foundation.Date()
+            let weekday = calendar.component(.weekday, from: today)
+            let startOfWeek = calendar.date(byAdding: .day, value: -(weekday - 1), to: today) ?? today
+            return (0..<7).compactMap { calendar.date(byAdding: .day, value: $0, to: startOfWeek) }
+        }
+
+        var workoutsThisWeek: [Workout] {
+            let calendar = Calendar.current
+            let today = Foundation.Date()
+            let weekday = calendar.component(.weekday, from: today)
+            let startOfWeek = calendar.date(byAdding: .day, value: -(weekday - 1), to: today) ?? today
+            return workouts.filter { workout in
+                guard let date = ISO8601DateFormatter().date(from: workout.workoutTime) else { return false }
+                return date >= startOfWeek && date <= today
+            }
+        }
+
+        // MARK: - Functions
+
+        func fetchUserProfile() {
+            guard let netID = UserSessionManager.shared.netID else {
+                Logger.data.critical("fetchUserProfile: No netID found in session")
+                return
+            }
+
+            Network.client.queryPublisher(
+                query: GetUserByNetIdQuery(netId: .some(netID)),
+                cachePolicy: .fetchIgnoringCacheData,
+                queue: .main
+            )
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    Logger.data.critical("fetchUserProfile error: \(error)")
+                }
+            } receiveValue: { [weak self] result in
+                guard let self, let userFields = result.data?.getUserByNetId?.compactMap({ $0 }).first else { return }
+                self.user = User(from: userFields.fragments.userFields)
+                self.currentWeekWorkouts = self.workoutsThisWeek.count
+            }
+            .store(in: &queryBag)
+        }
+
+        func deleteAccount() {
+            guard let idString = user?.id, let userId = Int(idString) else {
+                Logger.data.critical("deleteAccount: No user ID found or invalid ID format")
+                return
+            }
+
+            UserSessionManager.shared.logout()
+            showSettingsSheet = false
+            user = nil
+            workouts = []
+
+            Network.client.mutationPublisher(mutation: DeleteUserMutation(userId: userId))
+                .sink { completion in
+                    if case let .failure(error) = completion {
+                        Logger.data.critical("deleteAccount error: \(error)")
+                    }
+                } receiveValue: { _ in
+                    Logger.data.info("Successfully deleted account")
+                }
+                .store(in: &queryBag)
         }
     }
 }

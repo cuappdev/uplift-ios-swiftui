@@ -24,7 +24,7 @@ struct Capacity: Hashable {
     let status: CapacityStatus
 
     /// The date in which this capacity was last updated.
-    let updated: Date
+    let updated: Foundation.Date
 
     // MARK: - Functions
 

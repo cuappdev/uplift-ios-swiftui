@@ -1,0 +1,12 @@
+fragment workoutGoalHistoryFields on WorkoutGoalHistory {
+  id
+  userId
+  workoutGoal
+  effectiveAt
+}
+
+mutation SetWorkoutGoals($userId: Int!, $workoutGoal: Int!) {
+  setWorkoutGoals(userId: $userId, workoutGoal: $workoutGoal) {
+    id
+  }
+}
