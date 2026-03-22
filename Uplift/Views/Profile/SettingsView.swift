@@ -15,29 +15,28 @@ struct SettingsView: View {
     let onLogout: () -> Void
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-                header
-                content
+        VStack {
+            header
+            content
         }
-            .ignoresSafeArea(.all, edges: .top)
-            .safeAreaInset(edge: .top) {
-                        HStack {
-                            Button {
-                                onBack()
-                            } label: {
-                                Constants.Images.arrowLeft
-                                    .resizable()
-                                    .scaledToFit()
-                                    .foregroundStyle(Constants.Colors.black)
-                                    .frame(width: 16, height: 16)
-                            }
-                            .buttonStyle(.plain)
-
-                            Spacer()
-                        }
-                        .padding(.horizontal, 16)
-                        .padding(.top, 8)
+        .ignoresSafeArea(.all, edges: .top)
+        .safeAreaInset(edge: .top) {
+            HStack {
+                Button {
+                    onBack()
+                } label: {
+                    Constants.Images.arrowLeft
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundStyle(Constants.Colors.black)
+                        .frame(width: 16, height: 16)
+                }
+                .buttonStyle(.plain)
+                Spacer()
             }
+            .padding(.horizontal, 16)
+            .padding(.top, 8)
+        }
     }
 
     private var header: some View {
@@ -60,7 +59,7 @@ struct SettingsView: View {
     }
 
     private var content: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: 24) {
             Button {
                 onAbout()
             } label: {
@@ -70,7 +69,6 @@ struct SettingsView: View {
                         .foregroundStyle(Constants.Colors.black)
                     Spacer()
                 }
-                .padding(.vertical, 20)
             }
 
             DividerLine()
@@ -84,7 +82,6 @@ struct SettingsView: View {
                         .foregroundStyle(Constants.Colors.black)
                     Spacer()
                 }
-                .padding(.vertical, 20)
             }
 
             DividerLine()
@@ -98,7 +95,6 @@ struct SettingsView: View {
                         .foregroundStyle(Constants.Colors.black)
                     Spacer()
                 }
-                .padding(.vertical, 20)
             }
 
             DividerLine()
@@ -109,14 +105,12 @@ struct SettingsView: View {
                 Text("Log Out")
                     .font(Constants.Fonts.bodyNormal)
                     .foregroundStyle(Constants.Colors.closed)
-                    .padding(.vertical, 20)
             }
-
             Spacer()
         }
+        .padding(.top, 24)
         .padding(.horizontal, 24)
         .background(Constants.Colors.white)
-
     }
 }
 

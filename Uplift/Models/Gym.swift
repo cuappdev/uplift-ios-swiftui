@@ -197,9 +197,3 @@ struct Gym: Hashable {
     }
 
 }
-
-extension Gym {
-    enum GymNames {
-        static let helennewman = "Helen Newman"
-    }
-}
