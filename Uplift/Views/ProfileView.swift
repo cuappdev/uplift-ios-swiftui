@@ -313,45 +313,52 @@ struct ProfileView: View {
     }
 
     private var historyView: some View {
-        VStack(spacing: 20) {
-            HStack {
-                Text("History")
-                    .font(Constants.Fonts.h2)
-                    .foregroundColor(Constants.Colors.gray04)
+        NavigationLink {
+            WorkoutHistoryView()
+        } label: {
+            VStack(spacing: 20) {
+                HStack {
+                    Text("History")
+                        .font(Constants.Fonts.h2)
+                        .foregroundColor(Constants.Colors.gray04)
 
-                Spacer()
+                    Spacer()
 
-                Image(systemName: "chevron.right")
-                    .resizable()
-                    .frame(width: 8, height: 12)
-                    .foregroundColor(Constants.Colors.gray03)
-            }
-
-            ForEach(viewModel.workouts.indices, id: \.self) { index in
-                LazyVStack(spacing: 8) {
-                    let workout = viewModel.workouts[index]
-
-                    HStack {
-                        Text(workout.gymName)
-                            .foregroundStyle(Constants.Colors.black)
-                            .font(Constants.Fonts.bodyMedium)
-
-                        Spacer()
-
-                        Text(formattedWorkoutTime(workout.workoutTime))
-                            .foregroundStyle(Constants.Colors.black)
-                            .font(Constants.Fonts.labelLight)
-                    }
-
-                    if index < viewModel.workouts.count - 1 {
-                        Rectangle()
-                            .fill(Constants.Colors.gray01)
-                            .frame(height: 1)
-                    }
+                    Image(systemName: "chevron.right")
+                        .resizable()
+                        .frame(width: 8, height: 12)
+                        .foregroundColor(Constants.Colors.gray03)
                 }
+
+                ForEach(viewModel.workouts.indices, id: \.self) { index in
+                    LazyVStack(spacing: 8) {
+                        let workout = viewModel.workouts[index]
+
+                        HStack {
+                            Text(workout.gymName)
+                                .foregroundStyle(Constants.Colors.black)
+                                .font(Constants.Fonts.bodyMedium)
+
+                            Spacer()
+
+                            Text(formattedWorkoutTime(workout.workoutTime))
+                                .foregroundStyle(Constants.Colors.black)
+                                .font(Constants.Fonts.labelLight)
+                        }
+
+                        if index < viewModel.workouts.count - 1 {
+                            Rectangle()
+                                .fill(Constants.Colors.gray01)
+                                .frame(height: 1)
+                        }
+                    }
+                    // TODO: Temporary to allow view to take up whole screen
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Constants.Colors.white)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Constants.Colors.white)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Constants.Colors.white)
         }
     }
 
