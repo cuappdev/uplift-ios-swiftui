@@ -30,15 +30,17 @@ struct User: Hashable {
     let workoutGoal: [DayOfWeekGraphQLEnum]
 
     // MARK: - Functions
-
-    /// Initializes this object given a `UserFields` type.
-    init(from user: UserFields) {
-        // Unwrap and convert GraphQL enum value to Swift enum value
-        self.id = user.id
-        self.email = user.email
-        self.name = user.name
-        self.netId = user.netId
-        self.workoutGoal = user.workoutGoal?.compactMap(\.?.value) ?? []
-    }
-
+    /*
+     /// Initializes this object given a `UserFields` type.
+     init(from user: UserFields) {
+     // Unwrap and convert GraphQL enum value to Swift enum value
+     self.id = user.id
+     self.email = user.email
+     self.name = user.name
+     self.netId = user.netId
+     //self.workoutGoal = user.workoutGoal?.compactMap(\.?.value) ?? []
+     }
+     
+     }
+     */
 }
