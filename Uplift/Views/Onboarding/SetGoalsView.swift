@@ -47,7 +47,7 @@ struct SetGoalsView: View {
                         Button {
                             dismiss()
                         } label: {
-                            Constants.Images.arrowLeft
+                            Constants.Images.arrowLeftLight
                                 .resizable()
                                 .scaledToFill()
                                 .foregroundStyle(Constants.Colors.black)
@@ -89,7 +89,7 @@ struct SetGoalsView: View {
                 Spacer()
             }
         }
-        .padding(.bottom, 8)
+        .padding(.bottom, 10)
         .background(Constants.Colors.lightGray)
         .frame(height: 96)
     }
