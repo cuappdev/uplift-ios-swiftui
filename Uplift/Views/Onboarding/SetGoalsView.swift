@@ -183,7 +183,7 @@ struct SetGoalsView: View {
                 )
                 .tint(Constants.Colors.yellow)
                 .frame(height: 8)
-                .disabled(!isOnboarding && isGoalChangeLocked)
+                .disabled(!isOnboarding && (isGoalChangeLocked || inSavedState))
 
                 HStack {
                     ForEach(1...7, id: \.self) { day in
