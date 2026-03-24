@@ -287,8 +287,9 @@ struct ProfileView: View {
 
     private var goalView: some View {
         NavigationLink {
-            SetGoalsView(isOnboarding: false)
+            SetGoalsView(isOnboarding: false, user: viewModel.user)
                 .environmentObject(mainViewModel)
+                .environmentObject(viewModel)
         } label: {
             VStack {
                 HStack {

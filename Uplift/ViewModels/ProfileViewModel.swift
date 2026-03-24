@@ -36,7 +36,7 @@ extension ProfileView {
         }
 
         var workoutGoal: Int {
-            user?.workoutGoal ?? 5
+            user?.workoutGoal ?? 1
         }
 
         var weekDates: [Foundation.Date] {
