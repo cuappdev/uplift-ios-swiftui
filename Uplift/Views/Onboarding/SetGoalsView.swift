@@ -26,7 +26,7 @@ struct SetGoalsView: View {
     @State private var inSavedState = false
 
     private var isGoalChangeLocked: Bool {
-        return viewModel.isGoalChangeLocked(lastGoalChange: user?.lastGoalChange)
+        viewModel.isGoalChangeLocked(lastGoalChange: user?.lastGoalChange)
     }
 
     // MARK: - Init
