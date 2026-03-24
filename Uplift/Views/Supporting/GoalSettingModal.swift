@@ -10,9 +10,14 @@ import SwiftUI
 
 /// A modal for the goal setting warning popup.
 struct GoalSettingModal: View {
+
+    // MARK: - Properties
+
     let onContinue: () -> Void
     let onCancel: () -> Void
 
+    // MARK: - UI
+    
     var body: some View {
         ZStack(alignment: .topTrailing) {
             VStack(spacing: 16) {
@@ -59,6 +64,7 @@ struct GoalSettingModal: View {
         }
         .frame(width: 249, height: 246)
     }
+
 }
 
 #Preview {
