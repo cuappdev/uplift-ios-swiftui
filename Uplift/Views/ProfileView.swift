@@ -289,7 +289,6 @@ struct ProfileView: View {
         NavigationLink {
             SetGoalsView(isOnboarding: false, user: viewModel.user)
                 .environmentObject(mainViewModel)
-                .environmentObject(viewModel)
         } label: {
             VStack {
                 HStack {

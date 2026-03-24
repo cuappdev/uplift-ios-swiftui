@@ -17,7 +17,7 @@ struct GoalSettingModal: View {
     let onCancel: () -> Void
 
     // MARK: - UI
-    
+
     var body: some View {
         ZStack(alignment: .topTrailing) {
             VStack(spacing: 16) {
