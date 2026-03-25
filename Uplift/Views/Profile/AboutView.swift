@@ -42,24 +42,24 @@ struct AboutView: View {
         }
     }
 
-private var header: some View {
-    VStack {
-        Spacer()
-
-        HStack {
+    private var header: some View {
+        VStack {
             Spacer()
 
-            Text("About Uplift")
-                .foregroundStyle(Constants.Colors.black)
-                .font(Constants.Fonts.h2)
+            HStack {
+                Spacer()
 
-            Spacer()
+                Text("About Uplift")
+                    .foregroundStyle(Constants.Colors.black)
+                    .font(Constants.Fonts.h2)
+
+                Spacer()
+            }
         }
+        .padding(.bottom, 8)
+        .background(Constants.Colors.lightGray)
+        .frame(height: 96)
     }
-    .padding(.bottom, 8)
-    .background(Constants.Colors.lightGray)
-    .frame(height: 96)
-}
 
     private var content: some View {
         ScrollView {
@@ -92,9 +92,12 @@ private var header: some View {
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 56, height: 56)
+
                             Text(member.name)
                                 .font(Constants.Fonts.h2)
+
                             Text(member.role)
+                                .foregroundStyle(Constants.Colors.gray04)
                                 .font(Constants.Fonts.labelSemibold)
                         }
 
