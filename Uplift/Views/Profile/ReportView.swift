@@ -12,9 +12,6 @@ import UpliftAPI
 /// The view for reporting an issue.
 struct ReportView: View {
 
-    let onReturnToProfile: () -> Void
-    let onBackToSettings: () -> Void
-
     // MARK: - Properties
 
     @StateObject private var viewModel = ViewModel()
@@ -24,6 +21,8 @@ struct ReportView: View {
     @State private var issueIsExpanded = false
     @State private var navigateToSuccess = false
     @EnvironmentObject var tabBarProp: TabBarProperty
+    let onReturnToProfile: () -> Void
+    let onBackToSettings: () -> Void
 
     // MARK: - UI
 
