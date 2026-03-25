@@ -67,6 +67,7 @@ struct SettingsView: View {
                     Text("About Uplift")
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.black)
+                    
                     Spacer()
                 }
             }
