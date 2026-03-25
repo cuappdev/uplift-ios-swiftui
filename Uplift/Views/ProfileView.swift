@@ -6,8 +6,8 @@
 //  Copyright © 2025 Cornell AppDev. All rights reserved.
 //
 
-import SwiftUI
 import Kingfisher
+import SwiftUI
 
 /// The main view for the Profile page.
 struct ProfileView: View {
@@ -16,7 +16,8 @@ struct ProfileView: View {
     @ObservedObject var viewModel: ViewModel
     @EnvironmentObject var mainViewModel: MainView.ViewModel
     @EnvironmentObject var tabBarProp: TabBarProperty
-
+    @State var showReportFlow: Bool = false
+    @State var showSettings: Bool = false
     private let radius = 125
 
     // MARK: - UI
@@ -27,6 +28,41 @@ struct ProfileView: View {
                 scrollContent
             }
             .background(Constants.Colors.white)
+            .navigationDestination(isPresented: $showReportFlow) {
+                ReportView(
+                    onReturnToProfile: {
+                        showReportFlow = false
+                    },
+                    onBackToSettings: {
+                        showReportFlow = false
+                        showSettings = true
+                    }
+                )
+                .environmentObject(tabBarProp)
+            }
+            .navigationDestination(isPresented: $showSettings) {
+                SettingsView(
+                    onBack: {
+                        showSettings = false
+                    },
+                    onReportIssue: {
+                        showSettings = false
+                        showReportFlow = true
+                    },
+                    onAbout: {
+                        // TODO: Learn more about uplift
+                    },
+                    onReminders: {
+                        // TODO: Notifications about uplift
+                    },
+                    onLogout: {
+                        // TODO: Logging out functionality
+                    }
+                )
+                .navigationBarBackButtonHidden(true)
+                .toolbar(.hidden, for: .navigationBar)
+                .navigationBarHidden(true)
+            }
         }
         .onAppear {
             viewModel.fetchUserProfile()
@@ -77,7 +113,10 @@ struct ProfileView: View {
             }
 
             Button {
-                viewModel.showSettingsSheet = true
+                showSettings = true
+                withAnimation(.easeIn(duration: 0.1)) {
+                    tabBarProp.hidden = true
+                }
             } label: {
                 Constants.Images.settings
                     .resizable()
@@ -85,109 +124,7 @@ struct ProfileView: View {
                     .frame(width: 24, height: 24)
                     .foregroundStyle(Constants.Colors.black)
             }
-            .sheet(isPresented: $viewModel.showSettingsSheet) {
-                settingsView
-            }
         }
-    }
-
-    private var settingsView: some View {
-        VStack(alignment: .leading, spacing: 24) {
-            HStack {
-                Text("Settings")
-                    .font(Constants.Fonts.h1)
-                    .foregroundStyle(Constants.Colors.black)
-
-                Spacer()
-
-                Button {
-                    viewModel.showSettingsSheet = false
-                } label: {
-                    Constants.Images.cross
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 16, height: 16)
-                        .foregroundStyle(Constants.Colors.black)
-                }
-            }
-            .padding(.top, 24)
-
-            DividerLine()
-
-            Button {
-                //TODO: Learn more about uplift
-            } label: {
-                HStack {
-                    Text("About Uplift")
-                        .font(Constants.Fonts.bodyNormal)
-                        .foregroundStyle(Constants.Colors.black)
-                    Spacer()
-                }
-            }
-
-            DividerLine()
-
-            Button {
-                //TODO: Notifications about uplift
-            } label: {
-                HStack {
-                    Text("Reminders")
-                        .font(Constants.Fonts.bodyNormal)
-                        .foregroundStyle(Constants.Colors.black)
-                    Spacer()
-                }
-            }
-
-            DividerLine()
-
-            Button {
-                //TODO: Reporting an Issue
-            } label: {
-                HStack {
-                    Text("Report an Issue")
-                        .font(Constants.Fonts.bodyNormal)
-                        .foregroundStyle(Constants.Colors.black)
-                    Spacer()
-                }
-            }
-
-            DividerLine()
-
-            Button {
-                UserSessionManager.shared.logout()
-                viewModel.showSettingsSheet = false
-                mainViewModel.showMainView = false
-                mainViewModel.showSignInView = true
-            } label: {
-                Text("Log Out")
-                    .font(Constants.Fonts.bodyNormal)
-                    .foregroundStyle(Constants.Colors.closed)
-            }
-
-            DividerLine()
-
-            Button {
-                viewModel.showDeleteAccountAlert = true
-            } label: {
-                Text("Delete Account")
-                    .font(Constants.Fonts.bodyNormal)
-                    .foregroundStyle(Constants.Colors.closed)
-            }
-            .alert("Delete Account", isPresented: $viewModel.showDeleteAccountAlert) {
-                Button("Cancel", role: .cancel) { }
-                Button("Delete", role: .destructive) {
-                    viewModel.deleteAccount()
-                    mainViewModel.showMainView = false
-                    mainViewModel.showSignInView = true
-                }
-            } message: {
-                Text("Are you sure you want to delete your account? This action cannot be undone.")
-            }
-
-            Spacer()
-        }
-        .padding(.horizontal, 24)
-        .background(Constants.Colors.white)
     }
 
     private var scrollContent: some View {
@@ -209,7 +146,12 @@ struct ProfileView: View {
                 ZStack {
                     Circle()
                         .fill(Constants.Colors.white)
-                        .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 1)
+                        .shadow(
+                            color: .gray.opacity(0.5),
+                            radius: 3,
+                            x: 0,
+                            y: 1
+                        )
                         .frame(width: 98, height: 98)
 
                     Circle()
@@ -369,7 +311,8 @@ struct ProfileView: View {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEE MMM d, yyyy"
 
-        return "\(timeFormatter.string(from: date)) • \(dateFormatter.string(from: date))"
+        return
+            "\(timeFormatter.string(from: date)) • \(dateFormatter.string(from: date))"
     }
 }
 
