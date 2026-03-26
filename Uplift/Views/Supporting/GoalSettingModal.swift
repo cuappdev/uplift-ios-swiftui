@@ -25,7 +25,7 @@ struct GoalSettingModal: View {
                     .resizable()
                     .frame(width: 36, height: 36)
 
-                Text("Goals can only be changed again after 1 month, do you want to continue?")
+                Text("Goals can only be changed again after 30 days, do you want to continue?")
                     .font(Constants.Fonts.bodyNormal)
                     .multilineTextAlignment(.center)
                     .foregroundColor(Constants.Colors.black)
@@ -45,7 +45,7 @@ struct GoalSettingModal: View {
                 }
 
                 Button {
-                    onContinue()
+                    onCancel()
                 } label: {
                     Text("Back")
                         .foregroundStyle(Constants.Colors.black)

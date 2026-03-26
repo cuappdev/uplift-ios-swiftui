@@ -50,7 +50,7 @@ extension SetGoalsView {
             formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
             guard let lastChangeDate = formatter.date(from: lastGoalChange) else {
                 Logger.data.error("Could not parse lastGoalChange (check formatter): \(lastGoalChange)")
-                return false
+                return true
             }
 
             guard let unlockDate = Calendar.current.date(byAdding: .day, value: 30, to: lastChangeDate) else {

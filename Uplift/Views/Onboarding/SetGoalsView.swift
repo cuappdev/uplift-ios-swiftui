@@ -80,9 +80,9 @@ struct SetGoalsView: View {
         .showModal($viewModel.showWarningModal) {
             GoalSettingModal(
                 onContinue: {
-                    if let user = user {
+                    if let user = user, let userId = Int(user.id) {
                         viewModel.setWorkoutGoal(
-                            userId: Int(user.id) ?? 0,
+                            userId: userId,
                             workoutGoal: Int(viewModel.sliderWorkoutGoal)
                         ) { result in
                             switch result {
@@ -95,6 +95,8 @@ struct SetGoalsView: View {
                                 Logger.data.critical("Error in SetGoalsView: \(error.localizedDescription)")
                             }
                         }
+                    } else {
+                        Logger.data.error("Error in SetGoalsView: Failed to save workout goal because `user.id` was invalid (not an Int).")
                     }
                     withAnimation(.easeInOut(duration: 0.3)) {
                         viewModel.showWarningModal = false
