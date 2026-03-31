@@ -150,9 +150,9 @@
 		89CE47422D03F3C700BCB79D /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 89CE47412D03F3C700BCB79D /* UpliftAPI */; };
 		89E4FAAA2CEFEC3C00A952B1 /* CapacitySemiCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E4FAA92CEFEC3000A952B1 /* CapacitySemiCircleView.swift */; };
 		89E4FAAC2CF28E7500A952B1 /* HourlyAverageCapacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E4FAAB2CF28E6600A952B1 /* HourlyAverageCapacity.swift */; };
-		C07CFEB42F6B5478005830D3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07CFEB32F6B546D005830D3 /* SettingsView.swift */; };
 		89E833412F4F93AE0080AC46 /* WorkoutHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E833402F4F93AE0080AC46 /* WorkoutHistoryView.swift */; };
 		89E833432F4FB26A0080AC46 /* WorkoutHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E833422F4FB2650080AC46 /* WorkoutHistoryViewModel.swift */; };
+		C07CFEB42F6B5478005830D3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07CFEB32F6B546D005830D3 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -302,9 +302,9 @@
 		89C8658C2BB4779C00758337 /* ClassCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCell.swift; sourceTree = "<group>"; };
 		89E4FAA92CEFEC3000A952B1 /* CapacitySemiCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacitySemiCircleView.swift; sourceTree = "<group>"; };
 		89E4FAAB2CF28E6600A952B1 /* HourlyAverageCapacity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyAverageCapacity.swift; sourceTree = "<group>"; };
-		C07CFEB32F6B546D005830D3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		89E833402F4F93AE0080AC46 /* WorkoutHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryView.swift; sourceTree = "<group>"; };
 		89E833422F4FB2650080AC46 /* WorkoutHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryViewModel.swift; sourceTree = "<group>"; };
+		C07CFEB32F6B546D005830D3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1200,7 +1200,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 50;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = H5ZTDCQ89H;
+				DEVELOPMENT_TEAM = ZGMCXU7X3U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Uplift/Info.plist;
@@ -1245,7 +1245,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 50;
-				DEVELOPMENT_TEAM = H5ZTDCQ89H;
+				DEVELOPMENT_TEAM = ZGMCXU7X3U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Uplift/Info.plist;
