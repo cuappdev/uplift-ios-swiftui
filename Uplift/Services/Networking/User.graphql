@@ -31,8 +31,8 @@ mutation CreateUser($email: String!, $encodedImage: String, $name: String!, $net
   }
 }
 
-mutation EditUser($netId: String!, $email: String, $encodedImage: String, $name: String) {
-  editUser(netId: $netId, email: $email, encodedImage: $encodedImage, name: $name) {
+mutation EditUser($userId: Int!, $email: String, $encodedImage: String, $name: String) {
+  editUser(userId: $userId, email: $email, encodedImage: $encodedImage, name: $name) {
     ...userFields
   }
 }
