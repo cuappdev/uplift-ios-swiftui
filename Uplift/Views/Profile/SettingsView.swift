@@ -11,7 +11,7 @@ import SwiftUI
 struct SettingsView: View {
 
     // MARK: - Properties
-    
+
     let onBack: () -> Void
     let onReportIssue: () -> Void
     let onAbout: () -> Void
@@ -74,7 +74,7 @@ struct SettingsView: View {
                     Text("About Uplift")
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.black)
-                    
+
                     Spacer()
                 }
             }
@@ -88,7 +88,7 @@ struct SettingsView: View {
                     Text("Reminders")
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.black)
-                    
+
                     Spacer()
                 }
             }
@@ -102,7 +102,7 @@ struct SettingsView: View {
                     Text("Report an Issue")
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.black)
-                    
+
                     Spacer()
                 }
             }
@@ -116,7 +116,7 @@ struct SettingsView: View {
                     .font(Constants.Fonts.bodyNormal)
                     .foregroundStyle(Constants.Colors.closed)
             }
-            
+
             Spacer()
         }
         .padding(.top, 24)
