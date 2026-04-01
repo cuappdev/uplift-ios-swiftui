@@ -251,7 +251,7 @@ struct ProfileView: View {
 
     private var historyView: some View {
         NavigationLink {
-            WorkoutHistoryView()
+            WorkoutHistoryView(user: viewModel.user)
         } label: {
             VStack(spacing: 20) {
                 HStack {

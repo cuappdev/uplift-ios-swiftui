@@ -710,15 +710,16 @@ struct DummyData {
         ]
     ]
 
-    static let dummyWorkouts: [Workout] = [
-        Workout(id: "workout1", userId: 1, workoutTime: "2024-03-29T18:30:00Z", facilityId: 101, gymName: "Helen Newman"),
-        Workout(id: "workout2", userId: 1, workoutTime: "2024-03-28T19:15:00Z", facilityId: 102, gymName: "Teagle Up"),
-        Workout(id: "workout3", userId: 1, workoutTime: "2024-03-26T18:32:00Z", facilityId: 101, gymName: "Helen Newman"),
-        Workout(id: "workout4", userId: 1, workoutTime: "2024-03-24T19:37:00Z", facilityId: 103, gymName: "Toni Morrison"),
-        Workout(id: "workout5", userId: 1, workoutTime: "2024-03-23T10:02:00Z", facilityId: 101, gymName: "Helen Newman"),
-        Workout(id: "workout6", userId: 1, workoutTime: "2024-03-20T17:45:00Z", facilityId: 102, gymName: "Teagle Up"),
-        Workout(id: "workout7", userId: 1, workoutTime: "2024-03-18T08:15:00Z", facilityId: 101, gymName: "Helen Newman")
-    ]
+    // TODO: Out of date dummy workouts
+//    static let dummyWorkouts: [Workout] = [
+//        Workout(id: "workout1", userId: 1, workoutTime: "2024-03-29T18:30:00Z", facilityId: 101, gymName: "Helen Newman"),
+//        Workout(id: "workout2", userId: 1, workoutTime: "2024-03-28T19:15:00Z", facilityId: 102, gymName: "Teagle Up"),
+//        Workout(id: "workout3", userId: 1, workoutTime: "2024-03-26T18:32:00Z", facilityId: 101, gymName: "Helen Newman"),
+//        Workout(id: "workout4", userId: 1, workoutTime: "2024-03-24T19:37:00Z", facilityId: 103, gymName: "Toni Morrison"),
+//        Workout(id: "workout5", userId: 1, workoutTime: "2024-03-23T10:02:00Z", facilityId: 101, gymName: "Helen Newman"),
+//        Workout(id: "workout6", userId: 1, workoutTime: "2024-03-20T17:45:00Z", facilityId: 102, gymName: "Teagle Up"),
+//        Workout(id: "workout7", userId: 1, workoutTime: "2024-03-18T08:15:00Z", facilityId: 101, gymName: "Helen Newman")
+//    ]
 
     static let dummyUser = User(
         id: "user1",
@@ -734,7 +735,7 @@ struct DummyData {
         goalHistory: [],
         totalGymDays: 132,
         streakStart: nil,
-        workoutHistory: dummyWorkouts
+        workoutHistory: []
     )
 
     static let noyesCheckIn = Gym(

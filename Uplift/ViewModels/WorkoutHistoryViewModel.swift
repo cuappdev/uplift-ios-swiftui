@@ -7,15 +7,24 @@
 //
 
 import Foundation
+import OSLog
+import UpliftAPI
+import Combine
 
-// MARK: - ViewModel
 extension WorkoutHistoryView {
+
+    /// The ViewModel for the Workout history page view.
     class ViewModel: ObservableObject {
+
+        // MARK: - Properties
+
         @Published var selectedTab: WorkoutHistoryTab = .calendar
         @Published var selectedDay: Date?
         @Published var selectedMonth = Date.now
+        @Published var workouts: [Workout?]?
         let calendar = Calendar.current
         private let startOfWeekday = DayOfWeek.monday.rawValue
+        private var queryBag = Set<AnyCancellable>()
 
         /// The first day of the selected month.
         private var firstOfCurrMonth: Date {
@@ -52,6 +61,33 @@ extension WorkoutHistoryView {
                 Array(days[i..<i+7])
             }
         }
+
+        // MARK: - Requests
+
+        func getWorkoutHistory(userId: Int?) {
+            guard let userId = userId else {
+                Logger.data.critical("WorkoutHistoryViewModel: No userId found")
+                return
+            }
+
+            Network.client.queryPublisher(
+                query: GetWorkoutHistoryQuery(id: userId),
+                cachePolicy: .fetchIgnoringCacheData
+            )
+            .compactMap { $0.data?.getWorkoutsById?.compactMap { $0?.fragments.workoutFields } }
+            .map { $0.map { Workout(from: $0) } }
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    Logger.data.critical("Error in WorkoutHistoryViewModel.getWorkoutHistory: \(error)")
+                }
+            } receiveValue: { [weak self] workouts in
+                self?.workouts = workouts
+            }
+            .store(in: &queryBag)
+        }
+
+        // MARK: - Helpers
 
         /// Returns whether the given date is the currently selected day.
         func isSelected(_ date: Date?) -> Bool {

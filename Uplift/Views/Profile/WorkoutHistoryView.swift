@@ -9,10 +9,23 @@
 import SwiftUI
 
 struct WorkoutHistoryView: View {
+
+    // MARK: - Properties
+
+    let user: User?
+
     @StateObject private var viewModel = ViewModel()
     @Environment(\.dismiss) private var dismiss
     // TODO: Temporary bool since we don't have real data
     private var hasNoWorkouts = false
+
+    // MARK: - Init
+
+    init(user: User? = nil) {
+        self.user = user
+    }
+
+    // MARK: - UI
 
     var body: some View {
         ZStack {
@@ -335,8 +348,4 @@ struct WorkoutHistoryView: View {
 enum WorkoutHistoryTab {
     case calendar
     case list
-}
-
-#Preview {
-    WorkoutHistoryView()
 }
