@@ -23,12 +23,36 @@ extension WorkoutHistoryView {
         @Published var selectedMonth = Date.now
         @Published var workouts: [Workout?]?
         let calendar = Calendar.current
-        private let startOfWeekday = DayOfWeek.monday.rawValue
+        private let startOfWeek = DayOfWeek.monday.rawValue
         private var queryBag = Set<AnyCancellable>()
 
         /// The first day of the selected month.
         private var firstOfCurrMonth: Date {
             calendar.date(from: calendar.dateComponents([.year, .month], from: selectedMonth))!
+        }
+
+        /// Returns the list of workouts in the tuple `(Workout, Date)` sorted by newest workout first.
+        private var workoutsWithDates: [(Workout, Date)] {
+            guard let workouts else { return [] }
+
+            let sortedWorkouts = workouts
+                .compactMap { workout -> (Workout, Date)? in
+                    guard let workout, let date = workoutIsoToDate(workout.workoutTime) else { return nil }
+                    return (workout, date)  // allow sorting by date
+                }
+                .sorted { $0.1 > $1.1 } // sort by newest first
+
+            return sortedWorkouts
+        }
+
+        /// Workouts grouped by day (start of day) in ascending calendar day order.
+        private var workoutsByStartOfDay: [Date: [Workout]] {
+            var workoutDays: [Date: [Workout]] = [:]
+            for (workout, date) in workoutsWithDates {
+                let startOfDay = calendar.startOfDay(for: date)
+                workoutDays[startOfDay, default: []].append(workout)
+            }
+            return workoutDays
         }
 
         /// A 2D array of dates representing the weeks in the selected month. Each array is 7 elements,
@@ -43,7 +67,7 @@ extension WorkoutHistoryView {
 
             // Empty weekday slots
             let weekdayOfFirst = calendar.component(.weekday, from: firstOfMonth)
-            let leadingWeekdays = (weekdayOfFirst - startOfWeekday + 7) % 7
+            let leadingWeekdays = (weekdayOfFirst - startOfWeek + 7) % 7
             days.append(contentsOf: Array(repeating: nil, count: leadingWeekdays))
 
             // Add rest of days in months
@@ -62,24 +86,23 @@ extension WorkoutHistoryView {
             }
         }
 
-        /// An array of sections that groups `workouts` into months. Each section contains the sorted workouts in that month.
+        /// Returns the workout on the selected day. Currently there can only be one workout logged per day
+        /// (change if this is no longer the case).
+        var selectedWorkout: Workout? {
+            guard let day = selectedDay else { return nil }
+            return workoutsByStartOfDay[calendar.startOfDay(for: day)]?.first
+        }
+
+        /// An array of sections that groups `workouts` into months. Each section contains the
+        /// sorted workouts in that month.
         var workoutMonthSections: [WorkoutMonthSection] {
-            guard let workouts else { return [] }
-
-            let sortedWorkouts = workouts
-                .compactMap { workout -> (Workout, Date)? in
-                    guard let workout, let date = workoutIsoToDate(workout.workoutTime) else { return nil }
-                    return (workout, date)  // allow sorting by date
-                }
-                .sorted { $0.1 > $1.1 } // sort by newest first
-
-            let titleFormatter = DateFormatter()
+                        let titleFormatter = DateFormatter()
             titleFormatter.locale = Locale(identifier: "en_US_POSIX")
             titleFormatter.timeZone = calendar.timeZone
             titleFormatter.dateFormat = "MMMM yyyy" // March 2026
 
             var sections: [WorkoutMonthSection] = []
-            for (workout, date) in sortedWorkouts {
+            for (workout, date) in workoutsWithDates {
                 let year = calendar.component(.year, from: date)
                 let month = calendar.component(.month, from: date)
                 let id = String(format: "%04d-%02d", year, month)
@@ -148,6 +171,11 @@ extension WorkoutHistoryView {
             week.contains { isSelected($0) }
         }
 
+        /// Returns whether there is a workout logged on this day.
+        func hasWorkout(on day: Date) -> Bool {
+            workoutsByStartOfDay.keys.contains(calendar.startOfDay(for: day))
+        }
+
         /// Returns whether the selected day is on a Monday (the left edge of the week).
         func isSelectedDayOnLeft() -> Bool {
             guard let selectedDay else { return false }
@@ -179,7 +207,7 @@ extension WorkoutHistoryView {
 
         /// Formats the workout time from backend (ISO 8601 with timezone) as `MMM d • h:mm a` in local time.
         /// Returns the original format if parsing fails.
-        func stringToWorkoutTime(_ workoutTime: String) -> String {
+        func stringToWorkoutTime(_ workoutTime: String, in tab: WorkoutHistoryTab) -> String {
             guard let date = workoutIsoToDate(workoutTime) else {
                 Logger.data.critical("Error in WorkoutHistoryViewModel: Formatter unable to parse workout time")
                 return workoutTime
@@ -195,7 +223,12 @@ extension WorkoutHistoryView {
             timeFormatter.timeZone = calendar.timeZone
             timeFormatter.dateFormat = "h:mm a" // e.g. 3:10 PM
 
-            return "\(dateFormatter.string(from: date)) • \(timeFormatter.string(from: date))"
+            switch tab {
+            case .calendar:
+                return "\(timeFormatter.string(from: date)) • \(dateFormatter.string(from: date))"
+            case .list:
+                return "\(dateFormatter.string(from: date)) • \(timeFormatter.string(from: date))"
+            }
         }
 
         /// Formats the workout time from backend to a localized relative label (e.g. "today", "yesterday")..

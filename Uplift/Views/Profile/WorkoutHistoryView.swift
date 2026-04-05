@@ -16,8 +16,6 @@ struct WorkoutHistoryView: View {
 
     @StateObject private var viewModel = ViewModel()
     @Environment(\.dismiss) private var dismiss
-    // TODO: Temporary bool since we don't have real data
-    private var hasNoWorkouts = false
 
     // MARK: - Init
 
@@ -184,10 +182,12 @@ struct WorkoutHistoryView: View {
                                 calendarDay(date)
 
                                 Circle()
-                                    .fill(date.isSameDay(Date.now) ? Constants.Colors.yellow : .clear)
+                                    .fill(viewModel.hasWorkout(on: date) ? Constants.Colors.yellow : .clear)
                                     .frame(width: 8, height: 8)
 
-                                selectedDayTriangleIndicator(date, week)
+                                if viewModel.weekHasSelectedDay(week), viewModel.selectedWorkout != nil {
+                                    selectedDayTriangleIndicator(date, week)
+                                }
                             }
 
                         }
@@ -197,8 +197,8 @@ struct WorkoutHistoryView: View {
             }
             .zIndex(1)
 
-            if viewModel.weekHasSelectedDay(week) {
-                selectedDayDropdown()
+            if viewModel.weekHasSelectedDay(week), let workout = viewModel.selectedWorkout {
+                selectedDayDropdown(workout: workout)
                     .zIndex(0)
             }
         }
@@ -239,10 +239,10 @@ struct WorkoutHistoryView: View {
         }
     }
 
-    private func selectedDayDropdown() -> some View {
+    private func selectedDayDropdown(workout: Workout) -> some View {
         VStack(spacing: 4) {
             HStack {
-                Text("Toni Morrison")
+                Text(workout.gymName)
                     .foregroundStyle(Constants.Colors.black)
                     .font(Constants.Fonts.f4)
 
@@ -250,13 +250,13 @@ struct WorkoutHistoryView: View {
             }
 
             HStack {
-                Text("6:30 PM ∙ Mar 2")
+                Text(viewModel.stringToWorkoutTime(workout.workoutTime, in: .list))
                     .foregroundStyle(Constants.Colors.gray04)
                     .font(Constants.Fonts.f4)
 
                 Spacer()
 
-                Text("Yesterday")
+                Text(viewModel.relativeWorkoutTime(workout.workoutTime))
                     .foregroundStyle(Constants.Colors.black)
                     .font(Constants.Fonts.f4)
             }
@@ -323,7 +323,7 @@ struct WorkoutHistoryView: View {
             }
 
             HStack {
-                Text(viewModel.stringToWorkoutTime(workout.workoutTime))
+                Text(viewModel.stringToWorkoutTime(workout.workoutTime, in: .list))
                     .foregroundStyle(Constants.Colors.gray04)
                     .font(Constants.Fonts.f4)
 
