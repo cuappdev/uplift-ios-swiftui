@@ -55,10 +55,11 @@ struct WorkoutHistoryView: View {
                 }
             }
         }
-        .ignoresSafeArea(.all, edges: .top)
+        .ignoresSafeArea(.all, edges: [.top, .bottom])
         .onAppear {
             if let user = user, let userId = Int(user.id) {
                 viewModel.getWorkoutHistory(userId: userId)
+                // TODO: Remove later
 //                viewModel.logWorkout(facilityId: 12572681, userId: userId, workoutTime: Calendar.current.date(byAdding: .day, value: -7, to: Date.now) ?? .now)
             }
         }
@@ -304,10 +305,12 @@ struct WorkoutHistoryView: View {
                             }
                         }
                     }
+
+                    Spacer(minLength: 24)
                 }
             }
             .padding(.horizontal, 16)
-            .padding(.vertical, 24)
+            .padding(.top, 24)
         }
         .scrollIndicators(.hidden, axes: .vertical)
     }
