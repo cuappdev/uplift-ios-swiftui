@@ -8,8 +8,8 @@ fragment workoutFields on Workout {
 
 mutation LogWorkout($facilityId: Int!, $userId: Int!, $workoutTime: DateTime!) {
   logWorkout(facilityId: $facilityId, userId: $userId, workoutTime: $workoutTime) {
-    id,
-    userId,
+    id
+    userId
     workoutTime
   }
 }

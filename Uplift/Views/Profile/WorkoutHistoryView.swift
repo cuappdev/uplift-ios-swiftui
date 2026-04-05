@@ -49,11 +49,21 @@ struct WorkoutHistoryView: View {
                 }
             }
 
-            if viewModel.selectedTab == .list && hasNoWorkouts {
-                emptyState
+            if viewModel.selectedTab == .list {
+                if let workouts = viewModel.workouts, workouts.isEmpty {
+                    emptyState
+                } else if viewModel.workouts == nil {
+                    emptyState
+                }
             }
         }
         .ignoresSafeArea(.all, edges: .top)
+        .onAppear {
+            if let user = user, let userId = Int(user.id) {
+                viewModel.getWorkoutHistory(userId: userId)
+//                viewModel.logWorkout(facilityId: 12572681, userId: userId, workoutTime: Calendar.current.date(byAdding: .day, value: -7, to: Date.now) ?? .now)
+            }
+        }
     }
 
     private var header: some View {
@@ -76,7 +86,7 @@ struct WorkoutHistoryView: View {
     }
 
     private var content: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 0) {
             SlidingTabBarView(
                 config: SlidingTabBarView.TabBarConfig(),
                 items: [
@@ -93,6 +103,8 @@ struct WorkoutHistoryView: View {
                 ],
                 selectedTab: $viewModel.selectedTab
             )
+
+            DividerLine()
 
             switch viewModel.selectedTab {
             case .calendar:
@@ -151,6 +163,7 @@ struct WorkoutHistoryView: View {
                 }
             }
         }
+        .padding(.vertical, 24)
     }
 
     private func weekView(_ week: [Date?]) -> some View {
@@ -271,35 +284,38 @@ struct WorkoutHistoryView: View {
     }
 
     private var listView: some View {
-        VStack {
-            if !hasNoWorkouts {
-                // TODO: Will have actual data later
-                ForEach(0..<7, id: \.self) { index in
-                    VStack(spacing: 0) {
-                        if index == 0 {
+        ScrollView {
+            VStack(spacing: 24) {
+                if !viewModel.workoutMonthSections.isEmpty {
+                    ForEach(viewModel.workoutMonthSections) { section in
+                        VStack(spacing: 0) {
                             HStack {
-                                Text("March 2024")
+                                Text(section.title)
                                     .foregroundStyle(Constants.Colors.black)
                                     .font(Constants.Fonts.h4)
 
                                 Spacer()
                             }
+
+                            ForEach(section.workouts, id: \.id) { workout in
+                                historyListCell(workout: workout)
+
+                                Divider()
+                            }
                         }
-
-                        historyListCell()
-
-                        Divider()
                     }
                 }
             }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 24)
         }
-        .padding(.horizontal, 16)
+        .scrollIndicators(.hidden, axes: .vertical)
     }
 
-    private func historyListCell() -> some View {
+    private func historyListCell(workout: Workout) -> some View {
         VStack(spacing: 4) {
             HStack {
-                Text("Toni Morrison")
+                Text(workout.gymName)
                     .foregroundStyle(Constants.Colors.black)
                     .font(Constants.Fonts.f4)
 
@@ -307,13 +323,13 @@ struct WorkoutHistoryView: View {
             }
 
             HStack {
-                Text("Mar 2 ∙ 6:30 PM")
+                Text(viewModel.stringToWorkoutTime(workout.workoutTime))
                     .foregroundStyle(Constants.Colors.gray04)
                     .font(Constants.Fonts.f4)
 
                 Spacer()
 
-                Text("Yesterday")
+                Text(viewModel.relativeWorkoutTime(workout.workoutTime))
                     .foregroundStyle(Constants.Colors.black)
                     .font(Constants.Fonts.f4)
             }

@@ -62,8 +62,56 @@ extension WorkoutHistoryView {
             }
         }
 
+        /// An array of sections that groups `workouts` into months. Each section contains the sorted workouts in that month.
+        var workoutMonthSections: [WorkoutMonthSection] {
+            guard let workouts else { return [] }
+
+            let sortedWorkouts = workouts
+                .compactMap { workout -> (Workout, Date)? in
+                    guard let workout, let date = workoutIsoToDate(workout.workoutTime) else { return nil }
+                    return (workout, date)  // allow sorting by date
+                }
+                .sorted { $0.1 > $1.1 } // sort by newest first
+
+            let titleFormatter = DateFormatter()
+            titleFormatter.locale = Locale(identifier: "en_US_POSIX")
+            titleFormatter.timeZone = calendar.timeZone
+            titleFormatter.dateFormat = "MMMM yyyy" // March 2026
+
+            var sections: [WorkoutMonthSection] = []
+            for (workout, date) in sortedWorkouts {
+                let year = calendar.component(.year, from: date)
+                let month = calendar.component(.month, from: date)
+                let id = String(format: "%04d-%02d", year, month)
+
+                guard let firstOfMonth = calendar.date(from: DateComponents(year: year, month: month, day: 1)) else {
+                    continue
+                }
+
+                let title = titleFormatter.string(from: firstOfMonth)
+                if var prevMonth = sections.last, prevMonth.id == id {
+                    sections.removeLast()
+                    prevMonth.workouts.append(workout)
+                    sections.append(prevMonth)
+                } else {
+                    sections.append(WorkoutMonthSection(id: id, title: title, workouts: [workout]))
+                }
+            }
+
+            return sections
+        }
+
+        // MARK: - Helper Structs
+
+        struct WorkoutMonthSection: Identifiable {
+            let id: String  // e.g. "2026-03"
+            let title: String   // e.g. "March 2026"
+            var workouts: [Workout]
+        }
+
         // MARK: - Requests
 
+        /// Fetches the list of workouts logged (checked in) by the given user.
         func getWorkoutHistory(userId: Int?) {
             guard let userId = userId else {
                 Logger.data.critical("WorkoutHistoryViewModel: No userId found")
@@ -120,6 +168,74 @@ extension WorkoutHistoryView {
         /// Moves the selected month back by one month.
         func prevMonth() {
             selectedMonth = calendar.date(byAdding: .month, value: -1, to: firstOfCurrMonth)!
+        }
+
+        /// Returns the `Date` object from the given workout time in ISO 18601 with timezone format from backend.
+        private func workoutIsoToDate(_ workoutTime: String) -> Date? {
+            let iso = ISO8601DateFormatter()
+            iso.formatOptions = [.withInternetDateTime, .withTimeZone]
+            return iso.date(from: workoutTime)
+        }
+
+        /// Formats the workout time from backend (ISO 8601 with timezone) as `MMM d • h:mm a` in local time.
+        /// Returns the original format if parsing fails.
+        func stringToWorkoutTime(_ workoutTime: String) -> String {
+            guard let date = workoutIsoToDate(workoutTime) else {
+                Logger.data.critical("Error in WorkoutHistoryViewModel: Formatter unable to parse workout time")
+                return workoutTime
+            }
+
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+            dateFormatter.timeZone = calendar.timeZone
+            dateFormatter.dateFormat = "MMM d"  // e.g. Mar 3
+
+            let timeFormatter = DateFormatter()
+            timeFormatter.locale = Locale(identifier: "en_US_POSIX")
+            timeFormatter.timeZone = calendar.timeZone
+            timeFormatter.dateFormat = "h:mm a" // e.g. 3:10 PM
+
+            return "\(dateFormatter.string(from: date)) • \(timeFormatter.string(from: date))"
+        }
+
+        /// Formats the workout time from backend to a localized relative label (e.g. "today", "yesterday")..
+        /// Returns empty string if parsing fails.
+        func relativeWorkoutTime(_ workoutTime: String) -> String {
+            guard let date = workoutIsoToDate(workoutTime) else {
+                Logger.data.critical("Error in WorkoutHistoryViewModel: Formatter unable to parse workout time")
+                return ""
+            }
+
+            let relativeString = date.formatted(.relative(presentation: .named))
+            guard let first = relativeString.first else { return "" }
+            return String(first.uppercased()) + relativeString.dropFirst()
+        }
+
+        // TODO: Remove later
+        func logWorkout(
+            facilityId: Int,
+            userId: Int,
+            workoutTime: Date = .now,
+            completion: ((Result<Void, Error>) -> Void)? = nil
+        ) {
+            Network.client.mutationPublisher(
+                mutation: LogWorkoutMutation(
+                    facilityId: facilityId,
+                    userId: userId,
+                    workoutTime: workoutTime.ISO8601Format()
+                )
+            )
+            .compactMap(\.data?.logWorkout)
+            .sink { completionResult in
+                if case let .failure(error) = completionResult {
+                    Logger.data.critical("Error in WorkoutHistoryViewModel.logWorkout: \(error)")
+                    completion?(.failure(error))
+                }
+            } receiveValue: { [weak self] _ in
+                self?.getWorkoutHistory(userId: userId)
+                completion?(.success(()))
+            }
+            .store(in: &queryBag)
         }
     }
 }
