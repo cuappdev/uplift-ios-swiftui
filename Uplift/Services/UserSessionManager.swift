@@ -103,6 +103,7 @@ class UserSessionManager: ObservableObject {
             guard let loginUser = result.data?.loginUser,
                   let accessToken = loginUser.accessToken,
                   let refreshToken = loginUser.refreshToken else {
+                Logger.data.critical("No access or refresh token received after login")
                 return nil
             }
             return (accessToken, refreshToken)

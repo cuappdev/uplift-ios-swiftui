@@ -228,23 +228,28 @@ struct ProfileView: View {
     }
 
     private var goalView: some View {
-        VStack {
-            HStack {
-                Text("My Goals")
-                    .font(Constants.Fonts.h2)
-                    .foregroundColor(Constants.Colors.gray04)
+        NavigationLink {
+            SetGoalsView(isOnboarding: false, user: viewModel.user)
+                .environmentObject(mainViewModel)
+        } label: {
+            VStack {
+                HStack {
+                    Text("My Goals")
+                        .font(Constants.Fonts.h2)
+                        .foregroundColor(Constants.Colors.gray04)
 
-                Spacer()
+                    Spacer()
 
-                Image(systemName: "chevron.right")
-                    .resizable()
-                    .frame(width: 8, height: 12)
-                    .foregroundColor(Constants.Colors.gray03)
-            }
+                    Image(systemName: "chevron.right")
+                        .resizable()
+                        .frame(width: 8, height: 12)
+                        .foregroundColor(Constants.Colors.gray03)
+                }
 
-            VStack(spacing: CGFloat(-radius) + 16) {
-                WorkoutProgressArc(viewModel: viewModel)
-                WeeklyWorkoutTrackerView(viewModel: viewModel)
+                VStack(spacing: CGFloat(-radius) + 16) {
+                    WorkoutProgressArc(viewModel: viewModel)
+                    WeeklyWorkoutTrackerView(viewModel: viewModel)
+                }
             }
         }
     }
