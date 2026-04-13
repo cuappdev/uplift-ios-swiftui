@@ -42,25 +42,36 @@ extension ProfileView {
         var weekDates: [Foundation.Date] {
             let calendar = Calendar.current
             let today = Foundation.Date()
-            let weekday = calendar.component(.weekday, from: today)
-            // Adjust so Monday = index 0 (weekday 2)
-            let daysFromMonday = (weekday + 5) % 7
-            let startOfWeek = calendar.date(byAdding: .day, value: -daysFromMonday, to: today) ?? today
-            return (0..<7).compactMap { calendar.date(byAdding: .day, value: $0, to: startOfWeek) }
+            let startOfWeek = startOfWeek(for: today)
+
+            return (0..<7).compactMap {
+                calendar.date(byAdding: .day, value: $0, to: startOfWeek)
+            }
         }
 
         var workoutsThisWeek: [Workout] {
             let calendar = Calendar.current
             let today = Foundation.Date()
-            let weekday = calendar.component(.weekday, from: today)
-            let startOfWeek = calendar.date(byAdding: .day, value: -(weekday - 1), to: today) ?? today
+
+            let start = startOfWeek(for: today)
+            let end = calendar.date(byAdding: .day, value: 7, to: start)!
+
             return workouts.filter { workout in
-                guard let date = ISO8601DateFormatter().date(from: workout.workoutTime) else { return false }
-                return date >= startOfWeek && date <= today
+                guard let date = ISO8601DateFormatter().date(from: workout.workoutTime) else {
+                    return false
+                }
+                return date >= start && date < end
             }
         }
 
         // MARK: - Functions
+
+        private func startOfWeek(for date: Foundation.Date) -> Foundation.Date {
+            let calendar = Calendar.current
+            let weekday = calendar.component(.weekday, from: date)
+            let daysFromMonday = (weekday + 5) % 7
+            return calendar.date(byAdding: .day, value: -daysFromMonday, to: date) ?? date
+        }
 
         func fetchUserProfile() async {
             guard let netID = UserSessionManager.shared.netID else {
@@ -130,32 +141,23 @@ extension ProfileView {
                 return
             }
 
-            let netId = user?.netId ?? "nil"
-            let sessionNetID = UserSessionManager.shared.netID ?? "nil"
-            let hasAccessToken = UserSessionManager.shared.accessToken != nil
-            Logger.data.info(
-                "deleteAccount DeleteUser mutation: userId=\(userId) rawGraphQLId=\(rawIdDescription) profileNetId=\(netId) sessionNetID=\(sessionNetID) hasAccessToken=\(hasAccessToken)"
-            )
-
-            Network.client.mutationPublisher(mutation: DeleteUserMutation(userId: userId))
+            var cancellable: AnyCancellable?
+            cancellable = Network.client.mutationPublisher(mutation: DeleteUserMutation(userId: userId))
                 .sink { completion in
                     if case let .failure(error) = completion {
                         Logger.data.critical("deleteAccount error: \(error)")
                         onComplete(false)
                     }
+                    cancellable?.cancel()
+                    cancellable = nil
                 } receiveValue: { [weak self] _ in
-                    guard let self else {
-                        onComplete(false)
-                        return
-                    }
                     Logger.data.info("Successfully deleted account")
                     UserSessionManager.shared.logout()
-                    self.showSettingsSheet = false
-                    self.user = nil
-                    self.workouts = []
+                    self?.showSettingsSheet = false
+                    self?.user = nil
+                    self?.workouts = []
                     onComplete(true)
                 }
-                .store(in: &queryBag)
         }
     }
 }
