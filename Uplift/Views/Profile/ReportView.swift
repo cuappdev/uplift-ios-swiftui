@@ -15,50 +15,72 @@ struct ReportView: View {
     // MARK: - Properties
 
     @StateObject private var viewModel = ViewModel()
-    @Environment(\.dismiss) private var dismiss
-    @Binding var isActive: Bool
-    @Binding var profileIsActive: Bool
-    @Binding var reportSuccessIsActive: Bool
     @State private var displayGymError = false
     @State private var displayIssueError = false
-    @State private var gymIsExpanded = true
-    @State private var issueIsExpanded = true
+    @State private var gymIsExpanded = false
+    @State private var issueIsExpanded = false
+    @State private var navigateToSuccess = false
     @EnvironmentObject var tabBarProp: TabBarProperty
+    let onReturnToProfile: () -> Void
+    let onBackToSettings: () -> Void
 
     // MARK: - UI
 
     var body: some View {
-        NavigationStack {
-            VStack {
-                header
-                content
-            }
-            .ignoresSafeArea(.all, edges: .top)
-            .navigationBarBackButtonHidden(true)
-            .toolbarBackground(.hidden, for: .navigationBar)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        withAnimation(.easeIn(duration: 0.3)) {
-                            profileIsActive.toggle()
-                            isActive.toggle()
-                        }
+        VStack {
+            NavigationLink(
+                destination: ReportSuccessView(
+                    onSubmitAnother: {
+                        navigateToSuccess = false
+                        viewModel.description = ""
+                        viewModel.selectedIssue = ""
+                        viewModel.selectedGym = ""
+                    },
+                    onReturnHome: {
+                        navigateToSuccess = false
+                        onReturnToProfile()
                         withAnimation(.easeIn(duration: 0.1)) {
                             tabBarProp.hidden = false
                         }
-                    } label: {
-                        Constants.Images.arrowLeft
-                            .resizable()
-                            .scaledToFill()
-                            .foregroundStyle(Constants.Colors.black)
-                            .frame(width: 24, height: 24)
                     }
-                }
+                )
+                .environmentObject(tabBarProp),
+                isActive: $navigateToSuccess
+            ) {
+                EmptyView()
             }
-            .background(Constants.Colors.white)
+            .hidden()
+
+            header
+            content
         }
+        .ignoresSafeArea(.all, edges: .top)
+        .navigationBarBackButtonHidden(true)
+        .safeAreaInset(edge: .top) {
+            HStack {
+                Button {
+                    onBackToSettings()
+                } label: {
+                    Constants.Images.arrowLeft
+                        .resizable()
+                        .scaledToFill()
+                        .foregroundStyle(Constants.Colors.black)
+                        .frame(width: 16, height: 16)
+                }
+                .buttonStyle(.plain)
+
+                Spacer()
+            }
+            .padding(.horizontal, 16)
+            .padding(.top, 8)
+        }
+        .background(Constants.Colors.white)
         .onAppear {
             viewModel.fetchAllGyms()
+        }
+        .onChange(of: viewModel.submitSuccessful) { success in
+            guard success else { return }
+            navigateToSuccess = true
         }
     }
 
@@ -137,7 +159,7 @@ struct ReportView: View {
                 displayError: $displayGymError,
                 isExpanded: $gymIsExpanded,
                 selectedOption: $viewModel.selectedGym,
-                options: viewModel.gyms?.compactMap { $0.name } ?? [] + ["Other"]
+                options: viewModel.gyms.map { $0.compactMap(\.name) + ["Other"] } ?? []
             )
         }
     }
@@ -175,22 +197,20 @@ struct ReportView: View {
         Button {
             if !viewModel.selectedIssue.isEmpty && !viewModel.selectedGym.isEmpty {
                 viewModel.createReport()
-
-                withAnimation(.easeIn(duration: 0.3).delay(0.3)) {
-                    isActive.toggle()
-                }
-                withAnimation(.easeIn(duration: 0.3)) {
-                    reportSuccessIsActive.toggle()
-                }
             } else {
                 displayIssueError = viewModel.selectedIssue.isEmpty
                 displayGymError = viewModel.selectedGym.isEmpty
             }
         } label: {
             VStack {
-                Text("SUBMIT")
-                    .foregroundStyle(Constants.Colors.black)
-                    .font(Constants.Fonts.h3)
+                if viewModel.isSubmitting {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: Constants.Colors.black))
+                } else {
+                    Text("SUBMIT")
+                        .foregroundStyle(Constants.Colors.black)
+                        .font(Constants.Fonts.h3)
+                }
             }
             .padding(EdgeInsets(top: 12, leading: 24, bottom: 12, trailing: 24))
             .background(
@@ -199,5 +219,14 @@ struct ReportView: View {
             )
             .upliftShadow(Constants.Shadows.smallLight)
         }
+        .disabled(viewModel.isSubmitting)
     }
+}
+
+#Preview {
+    ReportView(
+        onReturnToProfile: {},
+        onBackToSettings: {}
+    )
+        .environmentObject(TabBarProperty())
 }

@@ -72,6 +72,16 @@ extension Date {
         return dateFormatter.string(from: self)
     }
 
+    /**
+     This `Date` in the format "MMM yyyy".
+     For example, 4/29/24 8:00 PM is Apr 2024.
+     */
+    var dateStringCalendarMonth: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM yyyy"
+        return dateFormatter.string(from: self)
+    }
+
     /// Returns the `DayOfWeek` for this date.
     func getDayOfWeek() -> DayOfWeek {
         DayOfWeek(rawValue: Calendar.current.dateComponents([.weekday], from: self).weekday!)!

@@ -6,8 +6,8 @@
 //  Copyright © 2025 Cornell AppDev. All rights reserved.
 //
 
-import SwiftUI
 import Kingfisher
+import SwiftUI
 
 /// The main view for the Profile page.
 struct ProfileView: View {
@@ -16,7 +16,8 @@ struct ProfileView: View {
     @ObservedObject var viewModel: ViewModel
     @EnvironmentObject var mainViewModel: MainView.ViewModel
     @EnvironmentObject var tabBarProp: TabBarProperty
-
+    @State var showReportFlow: Bool = false
+    @State var showSettings: Bool = false
     private let radius = 125
 
     // MARK: - UI
@@ -27,6 +28,41 @@ struct ProfileView: View {
                 scrollContent
             }
             .background(Constants.Colors.white)
+            .navigationDestination(isPresented: $showReportFlow) {
+                ReportView(
+                    onReturnToProfile: {
+                        showReportFlow = false
+                    },
+                    onBackToSettings: {
+                        showReportFlow = false
+                        showSettings = true
+                    }
+                )
+                .environmentObject(tabBarProp)
+            }
+            .navigationDestination(isPresented: $showSettings) {
+                SettingsView(
+                    onBack: {
+                        showSettings = false
+                    },
+                    onReportIssue: {
+                        showSettings = false
+                        showReportFlow = true
+                    },
+                    onAbout: {
+                        // TODO: Learn more about uplift
+                    },
+                    onReminders: {
+                        // TODO: Notifications about uplift
+                    },
+                    onLogout: {
+                        // TODO: Logging out functionality
+                    }
+                )
+                .navigationBarBackButtonHidden(true)
+                .toolbar(.hidden, for: .navigationBar)
+                .navigationBarHidden(true)
+            }
         }
         .onAppear {
             Task {
@@ -79,7 +115,10 @@ struct ProfileView: View {
             }
 
             Button {
-                viewModel.showSettingsSheet = true
+                showSettings = true
+                withAnimation(.easeIn(duration: 0.1)) {
+                    tabBarProp.hidden = true
+                }
             } label: {
                 Constants.Images.settings
                     .resizable()
@@ -213,7 +252,12 @@ struct ProfileView: View {
                 ZStack {
                     Circle()
                         .fill(Constants.Colors.white)
-                        .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 1)
+                        .shadow(
+                            color: .gray.opacity(0.5),
+                            radius: 3,
+                            x: 0,
+                            y: 1
+                        )
                         .frame(width: 98, height: 98)
 
                     Circle()
@@ -286,67 +330,79 @@ struct ProfileView: View {
     }
 
     private var goalView: some View {
-        VStack {
-            HStack {
-                Text("My Goals")
-                    .font(Constants.Fonts.h2)
-                    .foregroundColor(Constants.Colors.gray04)
+        NavigationLink {
+            SetGoalsView(isOnboarding: false, user: viewModel.user)
+                .environmentObject(mainViewModel)
+        } label: {
+            VStack {
+                HStack {
+                    Text("My Goals")
+                        .font(Constants.Fonts.h2)
+                        .foregroundColor(Constants.Colors.gray04)
 
-                Spacer()
+                    Spacer()
 
-                Image(systemName: "chevron.right")
-                    .resizable()
-                    .frame(width: 8, height: 12)
-                    .foregroundColor(Constants.Colors.gray03)
-            }
+                    Image(systemName: "chevron.right")
+                        .resizable()
+                        .frame(width: 8, height: 12)
+                        .foregroundColor(Constants.Colors.gray03)
+                }
 
-            VStack(spacing: CGFloat(-radius) + 16) {
-                WorkoutProgressArc(viewModel: viewModel)
-                WeeklyWorkoutTrackerView(viewModel: viewModel)
+                VStack(spacing: CGFloat(-radius) + 16) {
+                    WorkoutProgressArc(viewModel: viewModel)
+                    WeeklyWorkoutTrackerView(viewModel: viewModel)
+                }
             }
         }
     }
 
     private var historyView: some View {
-        VStack(spacing: 20) {
-            HStack {
-                Text("History")
-                    .font(Constants.Fonts.h2)
-                    .foregroundColor(Constants.Colors.gray04)
+        NavigationLink {
+            WorkoutHistoryView()
+        } label: {
+            VStack(spacing: 20) {
+                HStack {
+                    Text("History")
+                        .font(Constants.Fonts.h2)
+                        .foregroundColor(Constants.Colors.gray04)
 
-                Spacer()
+                    Spacer()
 
-                Image(systemName: "chevron.right")
-                    .resizable()
-                    .frame(width: 8, height: 12)
-                    .foregroundColor(Constants.Colors.gray03)
-            }
-
-            ForEach(viewModel.workouts.indices, id: \.self) { index in
-                LazyVStack(spacing: 8) {
-                    let workout = viewModel.workouts[index]
-
-                    HStack {
-                        Text(workout.gymName)
-                            .foregroundStyle(Constants.Colors.black)
-                            .font(Constants.Fonts.bodyMedium)
-
-                        Spacer()
-
-                        Text(formattedWorkoutTime(workout.workoutTime))
-                            .foregroundStyle(Constants.Colors.black)
-                            .font(Constants.Fonts.labelLight)
-                    }
-
-                    if index < viewModel.workouts.count - 1 {
-                        Rectangle()
-                            .fill(Constants.Colors.gray01)
-                            .frame(height: 1)
-                    }
+                    Image(systemName: "chevron.right")
+                        .resizable()
+                        .frame(width: 8, height: 12)
+                        .foregroundColor(Constants.Colors.gray03)
                 }
+
+                ForEach(viewModel.workouts.indices, id: \.self) { index in
+                    LazyVStack(spacing: 8) {
+                        let workout = viewModel.workouts[index]
+
+                        HStack {
+                            Text(workout.gymName)
+                                .foregroundStyle(Constants.Colors.black)
+                                .font(Constants.Fonts.bodyMedium)
+
+                            Spacer()
+
+                            Text(formattedWorkoutTime(workout.workoutTime))
+                                .foregroundStyle(Constants.Colors.black)
+                                .font(Constants.Fonts.labelLight)
+                        }
+
+                        if index < viewModel.workouts.count - 1 {
+                            Rectangle()
+                                .fill(Constants.Colors.gray01)
+                                .frame(height: 1)
+                        }
+                    }
+                    // TODO: Temporary to allow view to take up whole screen
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Constants.Colors.white)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Constants.Colors.white)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Constants.Colors.white)
         }
     }
 
@@ -393,7 +449,8 @@ struct ProfileView: View {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEE MMM d, yyyy"
 
-        return "\(timeFormatter.string(from: date)) • \(dateFormatter.string(from: date))"
+        return
+            "\(timeFormatter.string(from: date)) • \(dateFormatter.string(from: date))"
     }
 }
 

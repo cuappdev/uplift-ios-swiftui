@@ -24,7 +24,6 @@ extension MainView {
         @Published var instagram: String = ""
         @Published var name: String = ""
         @Published var netID: String = ""
-        @Published var daysAWeek = 4.0
         @Published var popUpGiveaway: Bool = false
         @Published var profileImage: UIImage?
         @Published var didClickSubmit: Bool = false
@@ -136,26 +135,6 @@ extension MainView {
                 callback()
 #if DEBUG
                 Logger.data.log("Created a new user with NetID \(user.netId)")
-#endif
-            }
-            .store(in: &queryBag)
-        }
-
-        /// Sets the user's workout goal.
-        func setWorkoutGoal(
-            userId: Int,
-            workoutGoal: Int
-        ) {
-            Network.client.mutationPublisher(
-                mutation: SetWorkoutGoalsMutation(userId: userId, workoutGoal: workoutGoal)
-            )
-            .sink { completion in
-                if case let .failure(error) = completion {
-                    Logger.data.critical("Error in SetGoalsViewModel.setWorkoutGoal: \(error)")
-                }
-            } receiveValue: { _ in
-#if DEBUG
-                Logger.data.log("User id \(userId) has set goal to \(workoutGoal)")
 #endif
             }
             .store(in: &queryBag)
