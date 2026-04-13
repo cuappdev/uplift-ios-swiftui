@@ -80,37 +80,60 @@ extension ProfileView {
                         continuation.resume()
                     }
                 } receiveValue: { [weak self] result in
-                    guard let self, let userFields = result.data?.getUserByNetId?.compactMap({ $0 }).first else {
+                    guard let self else {
+                        continuation.resume()
+                        return
+                    }
+                    guard let userFields = result.data?.getUserByNetId?.compactMap({ $0 }).first else {
+                        Logger.data.info("fetchUserProfile: no user in getUserByNetId response (netID=\(netID))")
                         continuation.resume()
                         return
                     }
                     self.user = User(from: userFields.fragments.userFields)
                     self.workouts = self.user?.workoutHistory ?? []
                     self.currentWeekWorkouts = self.workoutsThisWeek.count
+
                     continuation.resume()
                 }
                 .store(in: &queryBag)
             }
         }
 
-        func deleteAccount() {
+        /// Runs `DeleteUser` before `logout()` so the GraphQL request still sends `Authorization`.
+        func deleteAccount(onComplete: @escaping (Bool) -> Void = { _ in }) {
+            let rawIdDescription = user.map { String(describing: $0.id) } ?? "nil"
             guard let idString = user?.id, let userId = Int(idString) else {
-                Logger.data.critical("deleteAccount: No user ID found or invalid ID format")
+                Logger.data.critical(
+                    "deleteAccount: No user ID or invalid Int(rawGraphQLId=\(rawIdDescription))"
+                )
+                onComplete(false)
                 return
             }
 
-            UserSessionManager.shared.logout()
-            showSettingsSheet = false
-            user = nil
-            workouts = []
+            let netId = user?.netId ?? "nil"
+            let sessionNetID = UserSessionManager.shared.netID ?? "nil"
+            let hasAccessToken = UserSessionManager.shared.accessToken != nil
+            Logger.data.info(
+                "deleteAccount DeleteUser mutation: userId=\(userId) rawGraphQLId=\(rawIdDescription) profileNetId=\(netId) sessionNetID=\(sessionNetID) hasAccessToken=\(hasAccessToken)"
+            )
 
             Network.client.mutationPublisher(mutation: DeleteUserMutation(userId: userId))
                 .sink { completion in
                     if case let .failure(error) = completion {
                         Logger.data.critical("deleteAccount error: \(error)")
+                        onComplete(false)
                     }
-                } receiveValue: { _ in
+                } receiveValue: { [weak self] _ in
+                    guard let self else {
+                        onComplete(false)
+                        return
+                    }
                     Logger.data.info("Successfully deleted account")
+                    UserSessionManager.shared.logout()
+                    self.showSettingsSheet = false
+                    self.user = nil
+                    self.workouts = []
+                    onComplete(true)
                 }
                 .store(in: &queryBag)
         }

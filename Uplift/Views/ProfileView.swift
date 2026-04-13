@@ -178,9 +178,11 @@ struct ProfileView: View {
             .alert("Delete Account", isPresented: $viewModel.showDeleteAccountAlert) {
                 Button("Cancel", role: .cancel) { }
                 Button("Delete", role: .destructive) {
-                    viewModel.deleteAccount()
-                    mainViewModel.showMainView = false
-                    mainViewModel.showSignInView = true
+                    viewModel.deleteAccount { success in
+                        guard success else { return }
+                        mainViewModel.showMainView = false
+                        mainViewModel.showSignInView = true
+                    }
                 }
             } message: {
                 Text("Are you sure you want to delete your account? This action cannot be undone.")
@@ -218,11 +220,7 @@ struct ProfileView: View {
                         .fill(Constants.Colors.white)
                         .frame(width: 98, height: 98)
 
-                    Image(systemName: "person.crop.circle.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 93, height: 93)
-                        .foregroundStyle(Constants.Colors.gray02)
+                    profileAvatar
                 }
 
                 Circle()
@@ -353,6 +351,37 @@ struct ProfileView: View {
     }
 
     // MARK: - Helpers
+
+    @ViewBuilder
+    private var profileAvatar: some View {
+        if let url = profileImageHTTPURL {
+            KFImage(url)
+                .placeholder { defaultAvatarPlaceholder }
+                .resizable()
+                .scaledToFill()
+                .frame(width: 93, height: 93)
+                .clipShape(Circle())
+        } else {
+            defaultAvatarPlaceholder
+        }
+    }
+
+    private var defaultAvatarPlaceholder: some View {
+        Image(systemName: "person.crop.circle.fill")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 93, height: 93)
+            .foregroundStyle(Constants.Colors.gray02)
+    }
+
+    private var profileImageHTTPURL: URL? {
+        guard let raw = viewModel.user?.encodedImage?.trimmingCharacters(in: .whitespacesAndNewlines),
+              !raw.isEmpty,
+              let url = URL(string: raw),
+              let scheme = url.scheme?.lowercased(),
+              scheme == "http" || scheme == "https" else { return nil }
+        return url
+    }
 
     private func formattedWorkoutTime(_ isoString: String) -> String {
         let parser = ISO8601DateFormatter()
