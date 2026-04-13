@@ -69,7 +69,10 @@ extension ProfileView {
             }
 
             await withCheckedContinuation { continuation in
-                Network.client.queryPublisher(
+                var cancellable: AnyCancellable?
+                var didResume = false
+
+                cancellable = Network.client.queryPublisher(
                     query: GetUserByNetIdQuery(netId: .some(netID)),
                     cachePolicy: .fetchIgnoringCacheData,
                     queue: .main
@@ -77,25 +80,42 @@ extension ProfileView {
                 .sink { completion in
                     if case let .failure(error) = completion {
                         Logger.data.critical("fetchUserProfile error: \(error)")
+                    }
+
+                    if !didResume {
+                        didResume = true
                         continuation.resume()
                     }
+
+                    _ = cancellable
                 } receiveValue: { [weak self] result in
                     guard let self else {
-                        continuation.resume()
+                        if !didResume {
+                            didResume = true
+                            continuation.resume()
+                        }
                         return
                     }
+
                     guard let userFields = result.data?.getUserByNetId?.compactMap({ $0 }).first else {
                         Logger.data.info("fetchUserProfile: no user in getUserByNetId response (netID=\(netID))")
-                        continuation.resume()
+
+                        if !didResume {
+                            didResume = true
+                            continuation.resume()
+                        }
                         return
                     }
+
                     self.user = User(from: userFields.fragments.userFields)
                     self.workouts = self.user?.workoutHistory ?? []
                     self.currentWeekWorkouts = self.workoutsThisWeek.count
 
-                    continuation.resume()
+                    if !didResume {
+                        didResume = true
+                        continuation.resume()
+                    }
                 }
-                .store(in: &queryBag)
             }
         }
 

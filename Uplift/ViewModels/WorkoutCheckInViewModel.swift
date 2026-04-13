@@ -180,7 +180,8 @@ extension WorkoutCheckInView {
                   let facilityId = Int(facility.id) else { return }
 
             await withCheckedContinuation { continuation in
-                Network.client.mutationPublisher(
+                var cancellable: AnyCancellable?
+                cancellable = Network.client.mutationPublisher(
                     mutation: LogWorkoutMutation(
                         facilityId: facilityId,
                         userId: userId,
@@ -191,13 +192,12 @@ extension WorkoutCheckInView {
                 .sink { completion in
                     if case let .failure(error) = completion {
                         Logger.data.critical("handleCheckIn error: \(error)")
-                        continuation.resume()
                     }
+                    continuation.resume()
+                    _ = cancellable
                 } receiveValue: { _ in
                     Logger.data.info("Successfully logged workout")
-                    continuation.resume()
                 }
-                .store(in: &queryBag)
             }
         }
     }

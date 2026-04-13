@@ -84,6 +84,11 @@ extension MainView {
         private func resizeImage(_ image: UIImage, maxDimension: CGFloat = 300) -> UIImage {
             let size = image.size
 
+            guard size.width > 0, size.height > 0 else { return image }
+
+            let maxSide = max(size.width, size.height)
+            guard maxSide > maxDimension else { return image }
+
             let aspectRatio = size.width / size.height
             var newSize: CGSize
 

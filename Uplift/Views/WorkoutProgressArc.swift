@@ -65,7 +65,7 @@ struct WorkoutProgressArc: View {
                         .font(Constants.Fonts.p1)
                         .foregroundColor(.black)
 
-                    Text("/ \(viewModel.user?.workoutGoal ?? 0)")
+                    Text("/ \(viewModel.user?.workoutGoal ?? 5)")
                         .font(Constants.Fonts.h1)
                         .foregroundColor(.gray)
                         .padding(.leading, 2)
