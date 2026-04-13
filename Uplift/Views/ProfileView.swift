@@ -44,6 +44,9 @@ struct ProfileView: View {
                 SettingsView(
                     onBack: {
                         showSettings = false
+                        withAnimation(.easeIn(duration: 0.1)) {
+                            tabBarProp.hidden = false
+                        }
                     },
                     onReportIssue: {
                         showSettings = false
@@ -56,12 +59,41 @@ struct ProfileView: View {
                         // TODO: Notifications about uplift
                     },
                     onLogout: {
-                        // TODO: Logging out functionality
+                        UserSessionManager.shared.logout()
+                        showSettings = false
+                        withAnimation(.easeIn(duration: 0.1)) {
+                            tabBarProp.hidden = false
+                        }
+                        mainViewModel.showMainView = false
+                        mainViewModel.showSignInView = true
+                        mainViewModel.showCreateProfileView = false
+                        mainViewModel.showSetGoalsView = false
+                    },
+                    onDeleteAccount: {
+                        viewModel.showDeleteAccountAlert = true
                     }
                 )
                 .navigationBarBackButtonHidden(true)
                 .toolbar(.hidden, for: .navigationBar)
                 .navigationBarHidden(true)
+                .alert("Delete Account", isPresented: $viewModel.showDeleteAccountAlert) {
+                    Button("Cancel", role: .cancel) { }
+                    Button("Delete", role: .destructive) {
+                        viewModel.deleteAccount { success in
+                            guard success else { return }
+                            showSettings = false
+                            withAnimation(.easeIn(duration: 0.1)) {
+                                tabBarProp.hidden = false
+                            }
+                            mainViewModel.showMainView = false
+                            mainViewModel.showSignInView = true
+                            mainViewModel.showCreateProfileView = false
+                            mainViewModel.showSetGoalsView = false
+                        }
+                    }
+                } message: {
+                    Text("Are you sure you want to delete your account? This action cannot be undone.")
+                }
             }
         }
         .onAppear {

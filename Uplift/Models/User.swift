@@ -58,7 +58,7 @@ struct User: Hashable {
         self.encodedImage = user.encodedImage
         self.lastStreak = user.lastStreak
         self.lastGoalChange = user.lastGoalChange
-        self.goalHistory = user.goalHistory?.map { $0.map { WorkoutGoalHistory(from: $0.fragments.workoutGoalHistoryFields) } }
+        self.goalHistory = user.goalHistory?.map { $0.map { WorkoutGoalHistory(from: $0.fragments.workoutgoalhistoryFields) } }
         self.totalGymDays = user.totalGymDays
         self.streakStart = user.streakStart
         self.workoutHistory = user.workoutHistory?.compactMap { $0.map { Workout(from: $0.fragments.workoutFields) } } ?? []

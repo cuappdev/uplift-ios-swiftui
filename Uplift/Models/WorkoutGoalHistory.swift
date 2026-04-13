@@ -25,7 +25,7 @@ struct WorkoutGoalHistory: Hashable {
     // MARK: - Functions
 
     /// Initializes this object given a WorkoutgoalhistoryFields type.
-    init(from history: WorkoutGoalHistoryFields) {
+    init(from history: WorkoutgoalhistoryFields) {
         self.id = history.id
         self.userId = history.userId
         self.workoutGoal = history.workoutGoal
