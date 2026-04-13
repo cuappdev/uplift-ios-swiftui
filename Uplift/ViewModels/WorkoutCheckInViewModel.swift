@@ -169,8 +169,6 @@ extension WorkoutCheckInView {
 
         /// Update the profile workout checkin database and history
         func handleCheckIn(user: User?) async {
-            isCheckedIn = true
-
             guard let user,
                   let userId = Int(user.id) else { return }
 
@@ -189,14 +187,16 @@ extension WorkoutCheckInView {
                     )
                 )
                 .receive(on: DispatchQueue.main)
-                .sink { completion in
+                .sink { [weak self] completion in
                     if case let .failure(error) = completion {
                         Logger.data.critical("handleCheckIn error: \(error)")
+                        self?.isCheckedIn = false
                     }
                     continuation.resume()
                     _ = cancellable
-                } receiveValue: { _ in
+                } receiveValue: { [weak self] _ in
                     Logger.data.info("Successfully logged workout")
+                    self?.isCheckedIn = true
                 }
             }
         }
