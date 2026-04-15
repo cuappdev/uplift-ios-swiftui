@@ -64,15 +64,29 @@ extension ProfileView {
             }
         }
 
-        // MARK: - Functions
-
-        private func startOfWeek(for date: Foundation.Date) -> Foundation.Date {
-            let calendar = Calendar.current
-            let startOfDay = calendar.startOfDay(for: date)
-            let weekday = calendar.component(.weekday, from: startOfDay)
-            let daysFromMonday = (weekday + 5) % 7
-            return calendar.date(byAdding: .day, value: -daysFromMonday, to: startOfDay) ?? startOfDay
+        /// Returns the user profile image's URL from the encoded image given.
+        var profileImageHTTPURL: URL? {
+            guard let raw = user?.encodedImage?.trimmingCharacters(in: .whitespacesAndNewlines),
+                  !raw.isEmpty,
+                  let url = URL(string: raw),
+                  let scheme = url.scheme?.lowercased(),
+                  scheme == "http" || scheme == "https" else { return nil }
+            return url
         }
+
+        /// The most recent workouts sorted by newest first.
+        var recentWorkouts: [Workout] {
+            workouts
+                .compactMap { workout -> (Workout, Date)? in
+                    guard let date = WorkoutTimeFormatter.isoToDate(workout.workoutTime) else { return nil }
+                    return (workout, date)
+                }
+                .sorted { $0.1 > $1.1 }
+                .prefix(4)
+                .map(\.0)
+        }
+
+        // MARK: - Requests
 
         func fetchUserProfile() async {
             guard let netID = UserSessionManager.shared.netID else {
@@ -161,14 +175,14 @@ extension ProfileView {
                 }
         }
 
-        /// Returns the user profile image's URL from the encoded image given.
-        var profileImageHTTPURL: URL? {
-            guard let raw = user?.encodedImage?.trimmingCharacters(in: .whitespacesAndNewlines),
-                  !raw.isEmpty,
-                  let url = URL(string: raw),
-                  let scheme = url.scheme?.lowercased(),
-                  scheme == "http" || scheme == "https" else { return nil }
-            return url
+        // MARK: - Helpers
+
+        private func startOfWeek(for date: Foundation.Date) -> Foundation.Date {
+            let calendar = Calendar.current
+            let startOfDay = calendar.startOfDay(for: date)
+            let weekday = calendar.component(.weekday, from: startOfDay)
+            let daysFromMonday = (weekday + 5) % 7
+            return calendar.date(byAdding: .day, value: -daysFromMonday, to: startOfDay) ?? startOfDay
         }
 
     }

@@ -392,7 +392,7 @@ struct ProfileView: View {
         NavigationLink {
             WorkoutHistoryView(user: viewModel.user)
         } label: {
-            VStack(spacing: 20) {
+            VStack(spacing: 0) {
                 HStack {
                     Text("History")
                         .font(Constants.Fonts.h2)
@@ -406,35 +406,34 @@ struct ProfileView: View {
                         .foregroundColor(Constants.Colors.gray03)
                 }
 
-                // TODO: Fix to be same as workout history
-//                ForEach(viewModel.workouts.indices, id: \.self) { index in
-//                    LazyVStack(spacing: 8) {
-//                        let workout = viewModel.workouts[index]
-//
-//                        HStack {
-//                            Text(workout.gymName)
-//                                .foregroundStyle(Constants.Colors.black)
-//                                .font(Constants.Fonts.bodyMedium)
-//
-//                            Spacer()
-//
-//                            Text(formattedWorkoutTime(workout.workoutTime))
-//                                .foregroundStyle(Constants.Colors.black)
-//                                .font(Constants.Fonts.labelLight)
-//                        }
-//
-//                        if index < viewModel.workouts.count - 1 {
-//                            Rectangle()
-//                                .fill(Constants.Colors.gray01)
-//                                .frame(height: 1)
-//                        }
-//                    }
-//                    // TODO: Temporary to allow view to take up whole screen
-//                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-//                    .background(Constants.Colors.white)
-//                }
-//                .frame(maxWidth: .infinity, maxHeight: .infinity)
-//                .background(Constants.Colors.white)
+                ForEach(viewModel.recentWorkouts, id: \.id) { workout in
+                    VStack(spacing: 0) {
+                        VStack(spacing: 4) {
+                            HStack {
+                                Text(workout.gymName)
+                                    .foregroundStyle(Constants.Colors.black)
+                                    .font(Constants.Fonts.f4)
+
+                                Spacer()
+                            }
+
+                            HStack {
+                                Text(WorkoutTimeFormatter.string(from: workout.workoutTime, in: .list))
+                                    .foregroundStyle(Constants.Colors.gray04)
+                                    .font(Constants.Fonts.f4)
+
+                                Spacer()
+
+                                Text(WorkoutTimeFormatter.relativeString(from: workout.workoutTime))
+                                    .foregroundStyle(Constants.Colors.black)
+                                    .font(Constants.Fonts.f4)
+                            }
+                        }
+                        .padding(.vertical, 12)
+
+                        Divider()
+                    }
+                }
             }
         }
     }

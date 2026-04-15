@@ -60,7 +60,7 @@ struct WorkoutHistoryView: View {
             if let user = user, let userId = Int(user.id) {
                 viewModel.workouts = user.workoutHistory
                 // TODO: Remove after testing
-//                viewModel.logWorkout(facilityId: 12572681, userId: userId, workoutTime: Calendar.current.date(byAdding: .day, value: -7, to: Date.now) ?? .now)
+//                viewModel.logWorkout(facilityId: 12572681, userId: userId, workoutTime: Calendar.current.date(byAdding: .day, value: -4, to: Date.now) ?? .now)
             }
         }
     }
