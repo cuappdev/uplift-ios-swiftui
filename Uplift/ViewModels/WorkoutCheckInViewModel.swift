@@ -189,7 +189,7 @@ extension WorkoutCheckInView {
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] completion in
                     if case let .failure(error) = completion {
-                        Logger.data.critical("handleCheckIn error: \(error)")
+                        Logger.data.critical("Error in WorkoutCheckInViewModel: \(error)")
                         self?.isCheckedIn = false
                     }
                     continuation.resume()
