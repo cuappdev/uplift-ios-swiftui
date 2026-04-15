@@ -13,9 +13,3 @@ mutation LogWorkout($facilityId: Int!, $userId: Int!, $workoutTime: DateTime!) {
     workoutTime
   }
 }
-
-query GetWorkoutHistory($id: Int!) {
-  getWorkoutsById(id: $id) {
-    ...workoutFields
-  }
-}
