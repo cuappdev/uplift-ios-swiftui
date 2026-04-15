@@ -36,7 +36,7 @@ struct UpliftApp: App {
                     ) : nil
 
                     (mainViewModel.showSetGoalsView) ? (
-                        SetGoalsView()
+                        SetGoalsView(isOnboarding: true)
                             .environmentObject(mainViewModel)
                     ) : nil
 

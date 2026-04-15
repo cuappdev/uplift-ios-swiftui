@@ -36,73 +36,129 @@ extension ProfileView {
         }
 
         var workoutGoal: Int {
-            user?.workoutGoal ?? 5
+            user?.workoutGoal ?? 1
         }
 
         var weekDates: [Foundation.Date] {
             let calendar = Calendar.current
             let today = Foundation.Date()
-            let weekday = calendar.component(.weekday, from: today)
-            let startOfWeek = calendar.date(byAdding: .day, value: -(weekday - 1), to: today) ?? today
-            return (0..<7).compactMap { calendar.date(byAdding: .day, value: $0, to: startOfWeek) }
+            let startOfWeek = startOfWeek(for: today)
+
+            return (0..<7).compactMap {
+                calendar.date(byAdding: .day, value: $0, to: startOfWeek)
+            }
         }
 
         var workoutsThisWeek: [Workout] {
             let calendar = Calendar.current
             let today = Foundation.Date()
-            let weekday = calendar.component(.weekday, from: today)
-            let startOfWeek = calendar.date(byAdding: .day, value: -(weekday - 1), to: today) ?? today
+
+            let start = startOfWeek(for: today)
+            let end = calendar.date(byAdding: .day, value: 7, to: start)!
+
             return workouts.filter { workout in
-                guard let date = ISO8601DateFormatter().date(from: workout.workoutTime) else { return false }
-                return date >= startOfWeek && date <= today
+                guard let date = ISO8601DateFormatter().date(from: workout.workoutTime) else {
+                    return false
+                }
+                return date >= start && date < end
             }
         }
 
         // MARK: - Functions
 
-        func fetchUserProfile() {
+        private func startOfWeek(for date: Foundation.Date) -> Foundation.Date {
+            let calendar = Calendar.current
+            let startOfDay = calendar.startOfDay(for: date)
+            let weekday = calendar.component(.weekday, from: startOfDay)
+            let daysFromMonday = (weekday + 5) % 7
+            return calendar.date(byAdding: .day, value: -daysFromMonday, to: startOfDay) ?? startOfDay
+        }
+
+        func fetchUserProfile() async {
             guard let netID = UserSessionManager.shared.netID else {
                 Logger.data.critical("fetchUserProfile: No netID found in session")
                 return
             }
 
-            Network.client.queryPublisher(
-                query: GetUserByNetIdQuery(netId: .some(netID)),
-                cachePolicy: .fetchIgnoringCacheData,
-                queue: .main
-            )
-            .sink { completion in
-                if case let .failure(error) = completion {
-                    Logger.data.critical("fetchUserProfile error: \(error)")
+            await withCheckedContinuation { continuation in
+                var cancellable: AnyCancellable?
+                var didResume = false
+
+                cancellable = Network.client.queryPublisher(
+                    query: GetUserByNetIdQuery(netId: .some(netID)),
+                    cachePolicy: .fetchIgnoringCacheData,
+                    queue: .main
+                )
+                .sink { completion in
+                    if case let .failure(error) = completion {
+                        Logger.data.critical("fetchUserProfile error: \(error)")
+                    }
+
+                    if !didResume {
+                        didResume = true
+                        continuation.resume()
+                    }
+
+                    _ = cancellable
+                } receiveValue: { [weak self] result in
+                    guard let self else {
+                        if !didResume {
+                            didResume = true
+                            continuation.resume()
+                        }
+                        return
+                    }
+
+                    guard let userFields = result.data?.getUserByNetId?.compactMap({ $0 }).first else {
+                        Logger.data.info("fetchUserProfile: no user in getUserByNetId response (netID=\(netID))")
+
+                        if !didResume {
+                            didResume = true
+                            continuation.resume()
+                        }
+                        return
+                    }
+
+                    self.user = User(from: userFields.fragments.userFields)
+                    self.workouts = self.user?.workoutHistory ?? []
+                    self.currentWeekWorkouts = self.workoutsThisWeek.count
+
+                    if !didResume {
+                        didResume = true
+                        continuation.resume()
+                    }
                 }
-            } receiveValue: { [weak self] result in
-                guard let self, let userFields = result.data?.getUserByNetId?.compactMap({ $0 }).first else { return }
-                self.user = User(from: userFields.fragments.userFields)
-                self.currentWeekWorkouts = self.workoutsThisWeek.count
             }
-            .store(in: &queryBag)
         }
 
-        func deleteAccount() {
+        /// Runs `DeleteUser` before `logout()` so the GraphQL request still sends `Authorization`.
+        func deleteAccount(onComplete: @escaping (Bool) -> Void = { _ in }) {
+            let rawIdDescription = user.map { String(describing: $0.id) } ?? "nil"
             guard let idString = user?.id, let userId = Int(idString) else {
-                Logger.data.critical("deleteAccount: No user ID found or invalid ID format")
+                Logger.data.critical(
+                    "deleteAccount: No user ID or invalid Int(rawGraphQLId=\(rawIdDescription))"
+                )
+                onComplete(false)
                 return
             }
 
-            UserSessionManager.shared.logout()
-            showSettingsSheet = false
-            user = nil
-            workouts = []
-
-            Network.client.mutationPublisher(mutation: DeleteUserMutation(userId: userId))
+            var cancellable: AnyCancellable?
+            cancellable = Network.client.mutationPublisher(mutation: DeleteUserMutation(userId: userId))
                 .sink { completion in
                     if case let .failure(error) = completion {
                         Logger.data.critical("deleteAccount error: \(error)")
+                        onComplete(false)
                     }
-                } receiveValue: { _ in
+                    cancellable?.cancel()
+                    cancellable = nil
+                } receiveValue: { [weak self] _ in
                     Logger.data.info("Successfully deleted account")
+                    UserSessionManager.shared.logout()
+                    self?.showSettingsSheet = false
+                    self?.user = nil
+                    self?.workouts = []
+                    onComplete(true)
                 }
-                .store(in: &queryBag)
         }
     }
 }

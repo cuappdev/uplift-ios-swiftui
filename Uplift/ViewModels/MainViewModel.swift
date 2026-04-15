@@ -24,7 +24,6 @@ extension MainView {
         @Published var instagram: String = ""
         @Published var name: String = ""
         @Published var netID: String = ""
-        @Published var daysAWeek = 4.0
         @Published var popUpGiveaway: Bool = false
         @Published var profileImage: UIImage?
         @Published var didClickSubmit: Bool = false
@@ -82,6 +81,31 @@ extension MainView {
             }
         }
 
+        private func resizeImage(_ image: UIImage, maxDimension: CGFloat = 300) -> UIImage {
+            let size = image.size
+
+            guard size.width > 0, size.height > 0 else { return image }
+
+            let maxSide = max(size.width, size.height)
+            guard maxSide > maxDimension else { return image }
+
+            let aspectRatio = size.width / size.height
+            var newSize: CGSize
+
+            if size.width > size.height {
+                newSize = CGSize(width: maxDimension, height: maxDimension / aspectRatio)
+            } else {
+                newSize = CGSize(width: maxDimension * aspectRatio, height: maxDimension)
+            }
+
+            let format = UIGraphicsImageRendererFormat.default()
+            format.scale = 1
+            let renderer = UIGraphicsImageRenderer(size: newSize, format: format)
+            return renderer.image { _ in
+                image.draw(in: CGRect(origin: .zero, size: newSize))
+            }
+        }
+
         /**
          Creates a user in the backend.
 
@@ -92,8 +116,10 @@ extension MainView {
             // Make lowercase and remove whitespace
             netID = netID.lowercased().replacingOccurrences(of: " ", with: "")
 
-            let base64Image: String? = profileImage?
-                .jpegData(compressionQuality: 0.5)?
+            let resizedImage = profileImage.map { resizeImage($0) }
+
+            let base64Image: String? = resizedImage?
+                .jpegData(compressionQuality: 0.2)?
                 .base64EncodedString()
 
             Network.client.mutationPublisher(
@@ -116,26 +142,6 @@ extension MainView {
                 callback()
 #if DEBUG
                 Logger.data.log("Created a new user with NetID \(user.netId)")
-#endif
-            }
-            .store(in: &queryBag)
-        }
-
-        /// Sets the user's workout goal.
-        func setWorkoutGoal(
-            userId: Int,
-            workoutGoal: Int
-        ) {
-            Network.client.mutationPublisher(
-                mutation: SetWorkoutGoalsMutation(userId: userId, workoutGoal: workoutGoal)
-            )
-            .sink { completion in
-                if case let .failure(error) = completion {
-                    Logger.data.critical("Error in SetGoalsViewModel.setWorkoutGoal: \(error)")
-                }
-            } receiveValue: { _ in
-#if DEBUG
-                Logger.data.log("User id \(userId) has set goal to \(workoutGoal)")
 #endif
             }
             .store(in: &queryBag)
