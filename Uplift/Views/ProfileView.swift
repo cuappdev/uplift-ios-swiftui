@@ -406,32 +406,54 @@ struct ProfileView: View {
                         .foregroundColor(Constants.Colors.gray03)
                 }
 
-                ForEach(viewModel.recentWorkouts, id: \.id) { workout in
-                    VStack(spacing: 0) {
-                        VStack(spacing: 4) {
-                            HStack {
-                                Text(workout.gymName)
+                if viewModel.workouts.isEmpty {
+                    VStack {
+                        Spacer()
+
+                        VStack(spacing: 12) {
+                            Constants.Images.bag
+
+                            VStack(spacing: 4) {
+                                Text("No workouts yet.")
                                     .foregroundStyle(Constants.Colors.black)
-                                    .font(Constants.Fonts.f4)
+                                    .font(Constants.Fonts.h3)
 
-                                Spacer()
-                            }
-
-                            HStack {
-                                Text(WorkoutTimeFormatter.string(from: workout.workoutTime, in: .list))
-                                    .foregroundStyle(Constants.Colors.gray04)
-                                    .font(Constants.Fonts.f4)
-
-                                Spacer()
-
-                                Text(WorkoutTimeFormatter.relativeString(from: workout.workoutTime))
+                                Text("Head to a gym and check in!")
                                     .foregroundStyle(Constants.Colors.black)
-                                    .font(Constants.Fonts.f4)
+                                    .font(Constants.Fonts.f3)
                             }
                         }
-                        .padding(.vertical, 12)
 
-                        Divider()
+                        Spacer()
+                    }
+                } else {
+                    ForEach(viewModel.recentWorkouts, id: \.id) { workout in
+                        VStack(spacing: 0) {
+                            VStack(spacing: 4) {
+                                HStack {
+                                    Text(workout.gymName)
+                                        .foregroundStyle(Constants.Colors.black)
+                                        .font(Constants.Fonts.f4)
+
+                                    Spacer()
+                                }
+
+                                HStack {
+                                    Text(WorkoutTimeFormatter.string(from: workout.workoutTime, in: .list))
+                                        .foregroundStyle(Constants.Colors.gray04)
+                                        .font(Constants.Fonts.f4)
+
+                                    Spacer()
+
+                                    Text(WorkoutTimeFormatter.relativeString(from: workout.workoutTime))
+                                        .foregroundStyle(Constants.Colors.black)
+                                        .font(Constants.Fonts.f4)
+                                }
+                            }
+                            .padding(.vertical, 12)
+
+                            Divider()
+                        }
                     }
                 }
             }
