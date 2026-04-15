@@ -27,8 +27,8 @@ struct WorkoutCheckInView: View {
         }
         .onAppear {
             viewModel.gyms = homeViewModel.gyms ?? []
-            viewModel.visibility = { _ in
-                mainViewModel.showWorkoutCheckIn = true
+            viewModel.visibility = { show in
+                mainViewModel.showWorkoutCheckIn = show
             }
 
             if let gym = viewModel.currentNearestGym {
