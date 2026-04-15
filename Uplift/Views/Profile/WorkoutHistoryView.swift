@@ -58,7 +58,7 @@ struct WorkoutHistoryView: View {
         .ignoresSafeArea(.all, edges: [.top, .bottom])
         .onAppear {
             if let user = user, let userId = Int(user.id) {
-                viewModel.getWorkoutHistory(userId: userId)
+                viewModel.workouts = user.workoutHistory
                 // TODO: Remove later
 //                viewModel.logWorkout(facilityId: 12572681, userId: userId, workoutTime: Calendar.current.date(byAdding: .day, value: -7, to: Date.now) ?? .now)
             }

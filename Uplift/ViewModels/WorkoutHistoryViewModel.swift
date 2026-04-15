@@ -21,7 +21,7 @@ extension WorkoutHistoryView {
         @Published var selectedTab: WorkoutHistoryTab = .calendar
         @Published var selectedDay: Date?
         @Published var selectedMonth = Date.now
-        @Published var workouts: [Workout?]?
+        @Published var workouts: [Workout]?
         let calendar = Calendar.current
         private let startOfWeek = DayOfWeek.monday.rawValue
         private var queryBag = Set<AnyCancellable>()
@@ -37,7 +37,7 @@ extension WorkoutHistoryView {
 
             let sortedWorkouts = workouts
                 .compactMap { workout -> (Workout, Date)? in
-                    guard let workout, let date = workoutIsoToDate(workout.workoutTime) else { return nil }
+                    guard let date = workoutIsoToDate(workout.workoutTime) else { return nil }
                     return (workout, date)  // allow sorting by date
                 }
                 .sorted { $0.1 > $1.1 } // sort by newest first
@@ -130,32 +130,6 @@ extension WorkoutHistoryView {
             let id: String  // e.g. "2026-03"
             let title: String   // e.g. "March 2026"
             var workouts: [Workout]
-        }
-
-        // MARK: - Requests
-
-        /// Fetches the list of workouts logged (checked in) by the given user.
-        func getWorkoutHistory(userId: Int?) {
-            guard let userId = userId else {
-                Logger.data.critical("WorkoutHistoryViewModel: No userId found")
-                return
-            }
-
-            Network.client.queryPublisher(
-                query: GetWorkoutHistoryQuery(id: userId),
-                cachePolicy: .fetchIgnoringCacheData
-            )
-            .compactMap { $0.data?.getWorkoutsById?.compactMap { $0?.fragments.workoutFields } }
-            .map { $0.map { Workout(from: $0) } }
-            .receive(on: DispatchQueue.main)
-            .sink { completion in
-                if case let .failure(error) = completion {
-                    Logger.data.critical("Error in WorkoutHistoryViewModel.getWorkoutHistory: \(error)")
-                }
-            } receiveValue: { [weak self] workouts in
-                self?.workouts = workouts
-            }
-            .store(in: &queryBag)
         }
 
         // MARK: - Helpers
@@ -264,8 +238,7 @@ extension WorkoutHistoryView {
                     Logger.data.critical("Error in WorkoutHistoryViewModel.logWorkout: \(error)")
                     completion?(.failure(error))
                 }
-            } receiveValue: { [weak self] _ in
-                self?.getWorkoutHistory(userId: userId)
+            } receiveValue: { _ in
                 completion?(.success(()))
             }
             .store(in: &queryBag)
