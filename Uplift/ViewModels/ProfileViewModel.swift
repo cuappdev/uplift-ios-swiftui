@@ -77,7 +77,7 @@ extension ProfileView {
         /// The most recent workouts sorted by newest first.
         var recentWorkouts: [Workout] {
             workouts
-                .compactMap { workout -> (Workout, Date)? in
+                .compactMap { workout -> (Workout, Foundation.Date)? in
                     guard let date = WorkoutTimeFormatter.isoToDate(workout.workoutTime) else { return nil }
                     return (workout, date)
                 }
