@@ -251,13 +251,13 @@ struct WorkoutHistoryView: View {
             }
 
             HStack {
-                Text(viewModel.stringToWorkoutTime(workout.workoutTime, in: .list))
+                Text(WorkoutTimeFormatter.string(from: workout.workoutTime, in: .list))
                     .foregroundStyle(Constants.Colors.gray04)
                     .font(Constants.Fonts.f4)
 
                 Spacer()
 
-                Text(viewModel.relativeWorkoutTime(workout.workoutTime))
+                Text(WorkoutTimeFormatter.relativeString(from: workout.workoutTime))
                     .foregroundStyle(Constants.Colors.black)
                     .font(Constants.Fonts.f4)
             }
@@ -326,13 +326,13 @@ struct WorkoutHistoryView: View {
             }
 
             HStack {
-                Text(viewModel.stringToWorkoutTime(workout.workoutTime, in: .list))
+                Text(WorkoutTimeFormatter.string(from: workout.workoutTime, in: .list))
                     .foregroundStyle(Constants.Colors.gray04)
                     .font(Constants.Fonts.f4)
 
                 Spacer()
 
-                Text(viewModel.relativeWorkoutTime(workout.workoutTime))
+                Text(WorkoutTimeFormatter.relativeString(from: workout.workoutTime))
                     .foregroundStyle(Constants.Colors.black)
                     .font(Constants.Fonts.f4)
             }

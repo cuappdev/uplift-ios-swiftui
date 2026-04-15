@@ -160,5 +160,16 @@ extension ProfileView {
                     onComplete(true)
                 }
         }
+
+        /// Returns the user profile image's URL from the encoded image given.
+        var profileImageHTTPURL: URL? {
+            guard let raw = user?.encodedImage?.trimmingCharacters(in: .whitespacesAndNewlines),
+                  !raw.isEmpty,
+                  let url = URL(string: raw),
+                  let scheme = url.scheme?.lowercased(),
+                  scheme == "http" || scheme == "https" else { return nil }
+            return url
+        }
+
     }
 }

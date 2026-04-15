@@ -406,34 +406,35 @@ struct ProfileView: View {
                         .foregroundColor(Constants.Colors.gray03)
                 }
 
-                ForEach(viewModel.workouts.indices, id: \.self) { index in
-                    LazyVStack(spacing: 8) {
-                        let workout = viewModel.workouts[index]
-
-                        HStack {
-                            Text(workout.gymName)
-                                .foregroundStyle(Constants.Colors.black)
-                                .font(Constants.Fonts.bodyMedium)
-
-                            Spacer()
-
-                            Text(formattedWorkoutTime(workout.workoutTime))
-                                .foregroundStyle(Constants.Colors.black)
-                                .font(Constants.Fonts.labelLight)
-                        }
-
-                        if index < viewModel.workouts.count - 1 {
-                            Rectangle()
-                                .fill(Constants.Colors.gray01)
-                                .frame(height: 1)
-                        }
-                    }
-                    // TODO: Temporary to allow view to take up whole screen
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Constants.Colors.white)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Constants.Colors.white)
+                // TODO: Fix to be same as workout history
+//                ForEach(viewModel.workouts.indices, id: \.self) { index in
+//                    LazyVStack(spacing: 8) {
+//                        let workout = viewModel.workouts[index]
+//
+//                        HStack {
+//                            Text(workout.gymName)
+//                                .foregroundStyle(Constants.Colors.black)
+//                                .font(Constants.Fonts.bodyMedium)
+//
+//                            Spacer()
+//
+//                            Text(formattedWorkoutTime(workout.workoutTime))
+//                                .foregroundStyle(Constants.Colors.black)
+//                                .font(Constants.Fonts.labelLight)
+//                        }
+//
+//                        if index < viewModel.workouts.count - 1 {
+//                            Rectangle()
+//                                .fill(Constants.Colors.gray01)
+//                                .frame(height: 1)
+//                        }
+//                    }
+//                    // TODO: Temporary to allow view to take up whole screen
+//                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                    .background(Constants.Colors.white)
+//                }
+//                .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                .background(Constants.Colors.white)
             }
         }
     }
@@ -442,7 +443,7 @@ struct ProfileView: View {
 
     @ViewBuilder
     private var profileAvatar: some View {
-        if let url = profileImageHTTPURL {
+        if let url = viewModel.profileImageHTTPURL {
             KFImage(url)
                 .placeholder { defaultAvatarPlaceholder }
                 .resizable()
@@ -462,28 +463,6 @@ struct ProfileView: View {
             .foregroundStyle(Constants.Colors.gray02)
     }
 
-    private var profileImageHTTPURL: URL? {
-        guard let raw = viewModel.user?.encodedImage?.trimmingCharacters(in: .whitespacesAndNewlines),
-              !raw.isEmpty,
-              let url = URL(string: raw),
-              let scheme = url.scheme?.lowercased(),
-              scheme == "http" || scheme == "https" else { return nil }
-        return url
-    }
-
-    private func formattedWorkoutTime(_ isoString: String) -> String {
-        let parser = ISO8601DateFormatter()
-        guard let date = parser.date(from: isoString) else { return isoString }
-
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "h:mm a"
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEE MMM d, yyyy"
-
-        return
-            "\(timeFormatter.string(from: date)) • \(dateFormatter.string(from: date))"
-    }
 }
 
 #Preview {
