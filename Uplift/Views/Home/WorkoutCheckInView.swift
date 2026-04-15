@@ -27,8 +27,8 @@ struct WorkoutCheckInView: View {
         }
         .onAppear {
             viewModel.gyms = homeViewModel.gyms ?? []
-            viewModel.visibility = { show in
-                mainViewModel.showWorkoutCheckIn = show
+            viewModel.visibility = { _ in
+                mainViewModel.showWorkoutCheckIn = true
             }
 
             if let gym = viewModel.currentNearestGym {
@@ -46,7 +46,7 @@ struct WorkoutCheckInView: View {
     }
 
     private var promptBody: some View {
-        HStack(spacing: 20) {
+        HStack(spacing: 8) {
             VStack(alignment: .leading) {
                 Text("We see you're near a gym...")
                     .font(Constants.Fonts.bodySemibold)
@@ -75,6 +75,7 @@ struct WorkoutCheckInView: View {
                     y: 4
                 )
         )
+        .padding(.horizontal, 10)
     }
 
     private var successBody: some View {
@@ -125,6 +126,7 @@ struct WorkoutCheckInView: View {
             closingAngle: Angle.degrees(180),
             radius: 175
         )
+        .padding(.horizontal, 10)
     }
 
     private var checkInButton: some View {
