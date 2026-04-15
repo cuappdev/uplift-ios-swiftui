@@ -66,13 +66,12 @@ extension ProfileView {
 
         // MARK: - Functions
 
-private func startOfWeek(for date: Foundation.Date) -> Foundation.Date {
-    let calendar = Calendar.current
-    let startOfDay = calendar.startOfDay(for: date)
-    let weekday = calendar.component(.weekday, from: startOfDay)
-    let daysFromMonday = (weekday + 5) % 7
-    return calendar.date(byAdding: .day, value: -daysFromMonday, to: startOfDay) ?? startOfDay
-}
+        private func startOfWeek(for date: Foundation.Date) -> Foundation.Date {
+            let calendar = Calendar.current
+            let startOfDay = calendar.startOfDay(for: date)
+            let weekday = calendar.component(.weekday, from: startOfDay)
+            let daysFromMonday = (weekday + 5) % 7
+            return calendar.date(byAdding: .day, value: -daysFromMonday, to: startOfDay) ?? startOfDay
         }
 
         func fetchUserProfile() async {
