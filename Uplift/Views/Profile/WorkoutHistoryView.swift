@@ -59,7 +59,7 @@ struct WorkoutHistoryView: View {
         .onAppear {
             if let user = user, let userId = Int(user.id) {
                 viewModel.workouts = user.workoutHistory
-                // TODO: Remove later
+                // TODO: Remove after testing
 //                viewModel.logWorkout(facilityId: 12572681, userId: userId, workoutTime: Calendar.current.date(byAdding: .day, value: -7, to: Date.now) ?? .now)
             }
         }
@@ -286,7 +286,7 @@ struct WorkoutHistoryView: View {
 
     private var listView: some View {
         ScrollView {
-            VStack(spacing: 24) {
+            LazyVStack(spacing: 24) {
                 if !viewModel.workoutMonthSections.isEmpty {
                     ForEach(viewModel.workoutMonthSections) { section in
                         VStack(spacing: 0) {
