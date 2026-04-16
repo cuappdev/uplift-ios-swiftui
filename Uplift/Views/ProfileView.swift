@@ -365,7 +365,7 @@ struct ProfileView: View {
         } label: {
             VStack(spacing: 0) {
                 HStack {
-                    Text("History")
+                    Text("My Workout History")
                         .font(Constants.Fonts.h2)
                         .foregroundColor(Constants.Colors.gray04)
 
