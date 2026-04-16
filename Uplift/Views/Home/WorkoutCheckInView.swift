@@ -75,15 +75,16 @@ struct WorkoutCheckInView: View {
                     y: 4
                 )
         )
-        .padding(.horizontal, 10)
     }
 
     private var successBody: some View {
         ZStack {
-            HStack(spacing: 84) {
+            HStack(spacing: 8) {
                 Text("You're all set. Enjoy your workout!")
                     .font(Constants.Fonts.bodySemibold)
                     .foregroundStyle(Constants.Colors.black)
+
+                Spacer()
 
                 closeButton
             }
@@ -126,12 +127,14 @@ struct WorkoutCheckInView: View {
             closingAngle: Angle.degrees(180),
             radius: 175
         )
-        .padding(.horizontal, 10)
     }
 
     private var checkInButton: some View {
         Button {
             Task {
+                if profileViewModel.user == nil {
+                    await profileViewModel.fetchUserProfile()
+                }
                 await viewModel.handleCheckIn(user: profileViewModel.user)
                 await profileViewModel.fetchUserProfile()
             }

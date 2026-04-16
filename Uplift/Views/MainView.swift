@@ -37,13 +37,14 @@ struct MainView: View {
             }
             .overlay(alignment: .bottom) {
                 VStack {
-                        WorkoutCheckInView(
-                            profileViewModel: profileViewModel,
-                            homeViewModel: homeViewModel
-                        )
-                        .environmentObject(viewModel) // MainViewModel
-                        .padding(.bottom, 13)
-                        .opacity(viewModel.showWorkoutCheckIn ? 1 : 0)
+                    WorkoutCheckInView(
+                        profileViewModel: profileViewModel,
+                        homeViewModel: homeViewModel
+                    )
+                    .environmentObject(viewModel) // MainViewModel
+                    .padding(.bottom, 13)
+                    .padding(.horizontal, 10)
+                    .opacity(viewModel.showWorkoutCheckIn ? 1 : 0)
 
                     !tabBarProp.hidden ? tabBar.transition(.move(edge: .bottom)) : nil
                 }
@@ -113,7 +114,6 @@ struct MainView: View {
                     name: "Home"
                 )
             }
-            .buttonStyle(.plain)
         case .classes:
             Button {
                 selectedTab = .classes
