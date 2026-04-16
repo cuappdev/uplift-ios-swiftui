@@ -44,6 +44,9 @@ struct ProfileView: View {
                 SettingsView(
                     onBack: {
                         showSettings = false
+                        withAnimation(.easeIn(duration: 0.1)) {
+                            tabBarProp.hidden = false
+                        }
                     },
                     onReportIssue: {
                         showSettings = false
@@ -56,16 +59,47 @@ struct ProfileView: View {
                         // TODO: Notifications about uplift
                     },
                     onLogout: {
-                        // TODO: Logging out functionality
+                        UserSessionManager.shared.logout()
+                        showSettings = false
+                        withAnimation(.easeIn(duration: 0.1)) {
+                            tabBarProp.hidden = false
+                        }
+                        mainViewModel.showMainView = false
+                        mainViewModel.showSignInView = true
+                        mainViewModel.showCreateProfileView = false
+                        mainViewModel.showSetGoalsView = false
+                    },
+                    onDeleteAccount: {
+                        viewModel.showDeleteAccountAlert = true
                     }
                 )
                 .navigationBarBackButtonHidden(true)
                 .toolbar(.hidden, for: .navigationBar)
                 .navigationBarHidden(true)
+                .alert("Delete Account", isPresented: $viewModel.showDeleteAccountAlert) {
+                    Button("Cancel", role: .cancel) { }
+                    Button("Delete", role: .destructive) {
+                        viewModel.deleteAccount { success in
+                            guard success else { return }
+                            showSettings = false
+                            withAnimation(.easeIn(duration: 0.1)) {
+                                tabBarProp.hidden = false
+                            }
+                            mainViewModel.showMainView = false
+                            mainViewModel.showSignInView = true
+                            mainViewModel.showCreateProfileView = false
+                            mainViewModel.showSetGoalsView = false
+                        }
+                    }
+                } message: {
+                    Text("Are you sure you want to delete your account? This action cannot be undone.")
+                }
             }
         }
         .onAppear {
-            viewModel.fetchUserProfile()
+            Task {
+                await viewModel.fetchUserProfile()
+            }
         }
     }
 
@@ -124,7 +158,111 @@ struct ProfileView: View {
                     .frame(width: 24, height: 24)
                     .foregroundStyle(Constants.Colors.black)
             }
+            .sheet(isPresented: $viewModel.showSettingsSheet) {
+                settingsView
+            }
         }
+    }
+
+    private var settingsView: some View {
+        VStack(alignment: .leading, spacing: 24) {
+            HStack {
+                Text("Settings")
+                    .font(Constants.Fonts.h1)
+                    .foregroundStyle(Constants.Colors.black)
+
+                Spacer()
+
+                Button {
+                    viewModel.showSettingsSheet = false
+                } label: {
+                    Constants.Images.cross
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 16, height: 16)
+                        .foregroundStyle(Constants.Colors.black)
+                }
+            }
+            .padding(.top, 24)
+
+            DividerLine()
+
+            Button {
+                //TODO: Learn more about uplift
+            } label: {
+                HStack {
+                    Text("About Uplift")
+                        .font(Constants.Fonts.bodyNormal)
+                        .foregroundStyle(Constants.Colors.black)
+                    Spacer()
+                }
+            }
+
+            DividerLine()
+
+            Button {
+                //TODO: Notifications about uplift
+            } label: {
+                HStack {
+                    Text("Reminders")
+                        .font(Constants.Fonts.bodyNormal)
+                        .foregroundStyle(Constants.Colors.black)
+                    Spacer()
+                }
+            }
+
+            DividerLine()
+
+            Button {
+                //TODO: Reporting an Issue
+            } label: {
+                HStack {
+                    Text("Report an Issue")
+                        .font(Constants.Fonts.bodyNormal)
+                        .foregroundStyle(Constants.Colors.black)
+                    Spacer()
+                }
+            }
+
+            DividerLine()
+
+            Button {
+                UserSessionManager.shared.logout()
+                viewModel.showSettingsSheet = false
+                mainViewModel.showMainView = false
+                mainViewModel.showSignInView = true
+            } label: {
+                Text("Log Out")
+                    .font(Constants.Fonts.bodyNormal)
+                    .foregroundStyle(Constants.Colors.closed)
+            }
+
+            DividerLine()
+
+            Button {
+                viewModel.showDeleteAccountAlert = true
+            } label: {
+                Text("Delete Account")
+                    .font(Constants.Fonts.bodyNormal)
+                    .foregroundStyle(Constants.Colors.closed)
+            }
+            .alert("Delete Account", isPresented: $viewModel.showDeleteAccountAlert) {
+                Button("Cancel", role: .cancel) { }
+                Button("Delete", role: .destructive) {
+                    viewModel.deleteAccount { success in
+                        guard success else { return }
+                        mainViewModel.showMainView = false
+                        mainViewModel.showSignInView = true
+                    }
+                }
+            } message: {
+                Text("Are you sure you want to delete your account? This action cannot be undone.")
+            }
+
+            Spacer()
+        }
+        .padding(.horizontal, 24)
+        .background(Constants.Colors.white)
     }
 
     private var scrollContent: some View {
@@ -158,11 +296,7 @@ struct ProfileView: View {
                         .fill(Constants.Colors.white)
                         .frame(width: 98, height: 98)
 
-                    Image(systemName: "person.crop.circle.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 93, height: 93)
-                        .foregroundStyle(Constants.Colors.gray02)
+                    profileAvatar
                 }
 
                 Circle()
@@ -305,6 +439,37 @@ struct ProfileView: View {
     }
 
     // MARK: - Helpers
+
+    @ViewBuilder
+    private var profileAvatar: some View {
+        if let url = profileImageHTTPURL {
+            KFImage(url)
+                .placeholder { defaultAvatarPlaceholder }
+                .resizable()
+                .scaledToFill()
+                .frame(width: 93, height: 93)
+                .clipShape(Circle())
+        } else {
+            defaultAvatarPlaceholder
+        }
+    }
+
+    private var defaultAvatarPlaceholder: some View {
+        Image(systemName: "person.crop.circle.fill")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 93, height: 93)
+            .foregroundStyle(Constants.Colors.gray02)
+    }
+
+    private var profileImageHTTPURL: URL? {
+        guard let raw = viewModel.user?.encodedImage?.trimmingCharacters(in: .whitespacesAndNewlines),
+              !raw.isEmpty,
+              let url = URL(string: raw),
+              let scheme = url.scheme?.lowercased(),
+              scheme == "http" || scheme == "https" else { return nil }
+        return url
+    }
 
     private func formattedWorkoutTime(_ isoString: String) -> String {
         let parser = ISO8601DateFormatter()

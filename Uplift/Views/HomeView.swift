@@ -297,5 +297,4 @@ struct HomeView: View {
 
 #Preview {
     HomeView(popUpGiveaway: .constant(false), viewModel: HomeView.ViewModel())
-        .environmentObject(LocationManager.shared)
 }

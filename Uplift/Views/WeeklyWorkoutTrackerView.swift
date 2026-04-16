@@ -103,8 +103,15 @@ struct WeeklyWorkoutTrackerView: View {
         .padding(.top, 5)
         .padding(.bottom, 15)
         .onAppear {
-            if viewModel.workouts.isEmpty {
-                viewModel.fetchUserProfile()
+            if !viewModel.workouts.isEmpty {
+                determineWorkoutDays()
+                Task {
+                    await animateWorkouts()
+                }
+            } else {
+                Task {
+                    await viewModel.fetchUserProfile()
+                }
             }
         }
         .onReceive(viewModel.$workouts) { workouts in
@@ -122,9 +129,16 @@ struct WeeklyWorkoutTrackerView: View {
     /// Determines which days of the current week have completed workouts
     private func determineWorkoutDays() {
         let parser = ISO8601DateFormatter()
+        parser.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         let calendar = Calendar.current
 
-        let workoutDates = viewModel.workouts.compactMap { parser.date(from: $0.workoutTime) }
+        // Try both with and without fractional seconds
+        let workoutDates = viewModel.workouts.compactMap { workout -> Date? in
+            if let date = parser.date(from: workout.workoutTime) { return date }
+            let fallback = ISO8601DateFormatter()
+            fallback.formatOptions = [.withInternetDateTime]
+            return fallback.date(from: workout.workoutTime)
+        }
 
         workoutDays = viewModel.weekDates.map { weekDate in
             workoutDates.contains { calendar.isDate($0, inSameDayAs: weekDate) }
@@ -149,7 +163,9 @@ struct WeeklyWorkoutTrackerView: View {
 
 #Preview {
     let viewModel = ProfileView.ViewModel()
-    viewModel.fetchUserProfile()
+    Task {
+        await viewModel.fetchUserProfile()
+    }
 
     return WeeklyWorkoutTrackerView(viewModel: viewModel)
         .frame(height: 100)

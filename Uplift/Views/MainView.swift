@@ -167,5 +167,4 @@ final class TabBarProperty: ObservableObject {
 
 #Preview {
     MainView()
-        .environmentObject(LocationManager.shared)
 }

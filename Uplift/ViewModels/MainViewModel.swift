@@ -81,6 +81,31 @@ extension MainView {
             }
         }
 
+        private func resizeImage(_ image: UIImage, maxDimension: CGFloat = 300) -> UIImage {
+            let size = image.size
+
+            guard size.width > 0, size.height > 0 else { return image }
+
+            let maxSide = max(size.width, size.height)
+            guard maxSide > maxDimension else { return image }
+
+            let aspectRatio = size.width / size.height
+            var newSize: CGSize
+
+            if size.width > size.height {
+                newSize = CGSize(width: maxDimension, height: maxDimension / aspectRatio)
+            } else {
+                newSize = CGSize(width: maxDimension * aspectRatio, height: maxDimension)
+            }
+
+            let format = UIGraphicsImageRendererFormat.default()
+            format.scale = 1
+            let renderer = UIGraphicsImageRenderer(size: newSize, format: format)
+            return renderer.image { _ in
+                image.draw(in: CGRect(origin: .zero, size: newSize))
+            }
+        }
+
         /**
          Creates a user in the backend.
 
@@ -91,8 +116,10 @@ extension MainView {
             // Make lowercase and remove whitespace
             netID = netID.lowercased().replacingOccurrences(of: " ", with: "")
 
-            let base64Image: String? = profileImage?
-                .jpegData(compressionQuality: 0.5)?
+            let resizedImage = profileImage.map { resizeImage($0) }
+
+            let base64Image: String? = resizedImage?
+                .jpegData(compressionQuality: 0.2)?
                 .base64EncodedString()
 
             Network.client.mutationPublisher(
