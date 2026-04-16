@@ -75,10 +75,9 @@ struct SetGoalsView: View {
             guard !isOnboarding, let user = user else { return }
             viewModel.sliderWorkoutGoal = Double(user.workoutGoal ?? 1)
             viewModel.currWorkoutGoal = user.workoutGoal ?? 1
-            inSavedState = isGoalChangeLocked   // ensures saved state is locked if still cannot be changed
         }
         .showModal($viewModel.showWarningModal) {
-            GoalSettingModal(
+            GoalSettingWarningModal(
                 onContinue: {
                     if let user = user, let userId = Int(user.id) {
                         viewModel.setWorkoutGoal(
@@ -109,6 +108,17 @@ struct SetGoalsView: View {
                 }
             )
         }
+        .showModal($viewModel.showErrorModal) {
+            GoalSettingErrorModal(
+                onCancel: {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        viewModel.showErrorModal = false
+                    }
+                },
+                unlockDate: viewModel.unlockDate(lastGoalChange: user?.lastGoalChange)
+            )
+        }
+
     }
 
     private var header: some View {
@@ -185,7 +195,6 @@ struct SetGoalsView: View {
                 )
                 .tint(Constants.Colors.yellow)
                 .frame(height: 8)
-                .disabled(!isOnboarding && (isGoalChangeLocked || inSavedState))
 
                 HStack {
                     ForEach(1...7, id: \.self) { day in
@@ -275,7 +284,11 @@ struct SetGoalsView: View {
     private var saveButton: some View {
         Button {
             withAnimation {
-                viewModel.showWarningModal = true
+                if isGoalChangeLocked {
+                    viewModel.showErrorModal = true
+                } else {
+                    viewModel.showWarningModal = true
+                }
             }
         } label: {
             Text("Save Changes")
