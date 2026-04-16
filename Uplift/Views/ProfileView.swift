@@ -130,39 +130,20 @@ struct ProfileView: View {
     }
 
     private var settingsButton: some View {
-        HStack(spacing: 12) {
-            HStack(spacing: 4) {
-                Image(systemName: "star.fill")
-                    .foregroundStyle(Constants.Colors.yellow)
-
-                Text("Favorites")
-                    .font(Constants.Fonts.bodyLight)
-                    .foregroundStyle(Constants.Colors.black)
+        Button {
+            showSettings = true
+            withAnimation(.easeIn(duration: 0.1)) {
+                tabBarProp.hidden = true
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-            .background(Constants.Colors.white)
-            .cornerRadius(20)
-            .overlay {
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(Constants.Colors.yellow, lineWidth: 1)
-            }
-
-            Button {
-                showSettings = true
-                withAnimation(.easeIn(duration: 0.1)) {
-                    tabBarProp.hidden = true
-                }
-            } label: {
-                Constants.Images.settings
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 24, height: 24)
-                    .foregroundStyle(Constants.Colors.black)
-            }
-            .sheet(isPresented: $viewModel.showSettingsSheet) {
-                settingsView
-            }
+        } label: {
+            Constants.Images.settings
+                .resizable()
+                .scaledToFit()
+                .frame(width: 24, height: 24)
+                .foregroundStyle(Constants.Colors.black)
+        }
+        .sheet(isPresented: $viewModel.showSettingsSheet) {
+            settingsView
         }
     }
 
