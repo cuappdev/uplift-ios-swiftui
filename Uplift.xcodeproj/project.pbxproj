@@ -154,6 +154,7 @@
 		89E833412F4F93AE0080AC46 /* WorkoutHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E833402F4F93AE0080AC46 /* WorkoutHistoryView.swift */; };
 		89E833432F4FB26A0080AC46 /* WorkoutHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E833422F4FB2650080AC46 /* WorkoutHistoryViewModel.swift */; };
 		89EA50D12F90812E00B1A177 /* GoalSettingErrorModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EA50D02F90812E00B1A177 /* GoalSettingErrorModal.swift */; };
+		89EA50D32F90955800B1A177 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EA50D22F90954C00B1A177 /* UIImage+Extension.swift */; };
 		C07CFEB42F6B5478005830D3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07CFEB32F6B546D005830D3 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -308,6 +309,7 @@
 		89E833402F4F93AE0080AC46 /* WorkoutHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryView.swift; sourceTree = "<group>"; };
 		89E833422F4FB2650080AC46 /* WorkoutHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryViewModel.swift; sourceTree = "<group>"; };
 		89EA50D02F90812E00B1A177 /* GoalSettingErrorModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalSettingErrorModal.swift; sourceTree = "<group>"; };
+		89EA50D22F90954C00B1A177 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		C07CFEB32F6B546D005830D3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -499,6 +501,7 @@
 		2E090ED42B13096700BAE982 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				89EA50D22F90954C00B1A177 /* UIImage+Extension.swift */,
 				2E15F4E52B391E5300414BEC /* Array+Extension.swift */,
 				2E15F4F82B3950F800414BEC /* Date+Extension.swift */,
 				2E15F4FA2B39573C00414BEC /* Double+Extension.swift */,
@@ -974,6 +977,7 @@
 				898890152CD6C7B400E594A0 /* WorkoutReminderEditView.swift in Sources */,
 				898890132CD6C77E00E594A0 /* WorkoutReminderEditViewModel.swift in Sources */,
 				2E3D6C202B1285D200B51BB2 /* UpliftEnvironment.swift in Sources */,
+				89EA50D32F90955800B1A177 /* UIImage+Extension.swift in Sources */,
 				89507A9B2F36493100FB0757 /* SetGoalsView.swift in Sources */,
 				89507A9C2F36493100FB0757 /* ReportSuccessView.swift in Sources */,
 				89507A9D2F36493100FB0757 /* ReportView.swift in Sources */,

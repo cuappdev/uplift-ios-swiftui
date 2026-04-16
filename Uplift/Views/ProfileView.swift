@@ -8,6 +8,7 @@
 
 import Kingfisher
 import SwiftUI
+import PhotosUI
 
 /// The main view for the Profile page.
 struct ProfileView: View {
@@ -18,6 +19,8 @@ struct ProfileView: View {
     @EnvironmentObject var tabBarProp: TabBarProperty
     @State var showReportFlow: Bool = false
     @State var showSettings: Bool = false
+    @State private var showImagePicker = false
+    @State private var profileItem: PhotosPickerItem?
     private let radius = 125
 
     // MARK: - UI
@@ -28,6 +31,22 @@ struct ProfileView: View {
                 scrollContent
             }
             .background(Constants.Colors.white)
+            .photosPicker(
+                isPresented: $showImagePicker,
+                selection: $profileItem,
+                matching: .images,
+                photoLibrary: .shared()
+            )
+            .onChange(of: profileItem) { newItem in
+                Task { @MainActor in
+                    guard let newItem,
+                          let data = try? await newItem.loadTransferable(type: Data.self),
+                          let image = UIImage(data: data) else { return }
+
+                    viewModel.profileImage = image
+                    viewModel.editProfileImage()
+                }
+            }
             .navigationDestination(isPresented: $showReportFlow) {
                 ReportView(
                     onReturnToProfile: {
@@ -280,18 +299,7 @@ struct ProfileView: View {
                     profileAvatar
                 }
 
-                Circle()
-                    .fill(Constants.Colors.white)
-                    .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 1)
-                    .frame(width: 32, height: 32)
-                    .overlay {
-                        Image(systemName: "camera.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 20, height: 20)
-                            .foregroundStyle(Constants.Colors.gray03)
-                    }
-                    .offset(x: 2, y: 2)
+                cameraMiniButton
             }
 
             VStack(alignment: .leading, spacing: 16) {
@@ -326,6 +334,25 @@ struct ProfileView: View {
             Spacer(minLength: 0)
         }
         .padding(.horizontal, 2)
+    }
+
+    private var cameraMiniButton: some View {
+        Button {
+            showImagePicker = true
+        } label: {
+            Circle()
+                .fill(Constants.Colors.white)
+                .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 1)
+                .frame(width: 32, height: 32)
+                .overlay {
+                    Image(systemName: "camera.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 20, height: 20)
+                        .foregroundStyle(Constants.Colors.gray03)
+                }
+                .offset(x: 2, y: 2)
+        }
     }
 
     private var goalView: some View {
@@ -431,8 +458,15 @@ struct ProfileView: View {
 
     @ViewBuilder
     private var profileAvatar: some View {
-        if let url = viewModel.profileImageHTTPURL {
+        if let profileImage = viewModel.profileImage {
+            Image(uiImage: profileImage)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 93, height: 93)
+                .clipShape(Circle())
+        } else if let url = viewModel.profileImageHTTPURL {
             KFImage(url)
+                .forceRefresh()
                 .placeholder { defaultAvatarPlaceholder }
                 .resizable()
                 .scaledToFill()

@@ -10,6 +10,7 @@ import Combine
 import Foundation
 import UpliftAPI
 import os
+import UIKit
 
 // MARK: - ViewModel
 extension ProfileView {
@@ -21,6 +22,7 @@ extension ProfileView {
 
         @Published var user: User?
         @Published var workouts: [Workout] = []
+        @Published var profileImage: UIImage?
         @Published var showSettingsSheet = false
         @Published var showDeleteAccountAlert = false
         @Published var currentWeekWorkouts: Int = 0
@@ -143,6 +145,37 @@ extension ProfileView {
                     }
                 }
             }
+        }
+
+        /// Updates the profile image for this user.
+        func editProfileImage() {
+            guard let user = user,
+                  let userId = Int(user.id) else { return }
+
+            let resizedImage = profileImage?.resized()
+            let base64Image: String? = resizedImage?
+                .jpegData(compressionQuality: 0.2)?
+                .base64EncodedString()
+
+            Network.client.mutationPublisher(
+                mutation: EditUserMutation(
+                    userId: userId,
+                    email: user.email.map { GraphQLNullable.some($0) } ?? .none,
+                    encodedImage: base64Image.map { GraphQLNullable.some($0) } ?? .none,
+                    name: GraphQLNullable(stringLiteral: user.name)
+                )
+            )
+            .compactMap(\.data?.editUser)
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    Logger.data.critical("Error in ProfileViewModel.editUser: \(error)")
+                }
+            } receiveValue: { _ in
+#if DEBUG
+                Logger.data.log("Edit profile image successful")
+#endif
+            }
+            .store(in: &queryBag)
         }
 
         /// Runs `DeleteUser` before `logout()` so the GraphQL request still sends `Authorization`.
