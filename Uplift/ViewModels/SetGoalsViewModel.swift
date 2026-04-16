@@ -20,6 +20,7 @@ extension SetGoalsView {
         // MARK: - Properties
 
         @Published var showWarningModal = false
+        @Published var showErrorModal = false
         @Published var sliderWorkoutGoal = 1.0
         @Published var reminders: [WorkoutReminder] = [
             WorkoutReminder(selectedDays: [DayOfWeek.saturday, DayOfWeek.monday], isAllDay: true, time: ""),
@@ -42,7 +43,17 @@ extension SetGoalsView {
         /// Last goal change is in this format: "yyyy-MM-dd'T'HH:mm:ss.SSSSSS". Change if this is no longer true.
         /// e.g. 2026-03-18T20:27:31.084971
         func isGoalChangeLocked(lastGoalChange: DateTime?) -> Bool {
-            guard let lastGoalChange else { return false }
+            guard let unlockDate = unlockDate(lastGoalChange: lastGoalChange) else {
+                return false
+            }
+            return unlockDate > Date.now
+        }
+
+        /// Return the date that goal changing is next allowed.
+        /// Last goal change is in this format: "yyyy-MM-dd'T'HH:mm:ss.SSSSSS". Change if this is no longer true.
+        /// e.g. 2026-03-18T20:27:31.084971
+        func unlockDate(lastGoalChange: DateTime?) -> Date? {
+            guard let lastGoalChange else { return nil }
 
             let formatter = DateFormatter()
             formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -50,13 +61,14 @@ extension SetGoalsView {
             formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS"
             guard let lastChangeDate = formatter.date(from: lastGoalChange) else {
                 Logger.data.error("Could not parse lastGoalChange (check formatter): \(lastGoalChange)")
-                return true
+                return nil
             }
 
             guard let unlockDate = Calendar.current.date(byAdding: .day, value: 30, to: lastChangeDate) else {
-                return false
+                return nil
             }
-            return unlockDate > Date.now
+
+            return unlockDate
         }
 
         // MARK: - Requests

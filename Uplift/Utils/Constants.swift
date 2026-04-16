@@ -163,6 +163,7 @@ struct Constants {
         static let trash = Image("trash")
         static let spokes = Image("spokes")
         static let vertEllipsis = Image("vert_ellipsis")
+        static let warning = Image("warning")
         static let whistleOutline = Image("whistle_outline")
         static let whistleSolid = Image("whistle_solid")
         static let settings = Image("settings")
