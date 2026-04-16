@@ -82,7 +82,7 @@ extension ProfileView {
                     return (workout, date)
                 }
                 .sorted { $0.1 > $1.1 }
-                .prefix(4)
+                .prefix(5)
                 .map(\.0)
         }
 
