@@ -318,7 +318,7 @@ struct ProfileView: View {
                     .font(Constants.Fonts.h1)
                     .foregroundStyle(Constants.Colors.black)
 
-                HStack(spacing: 24) {
+                HStack(spacing: 36) {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("\(viewModel.totalGymDays)")
                             .font(Constants.Fonts.h2)
@@ -329,7 +329,6 @@ struct ProfileView: View {
                             .foregroundStyle(Constants.Colors.gray04)
                             .fixedSize(horizontal: false, vertical: true)
                     }
-                    .frame(minWidth: 70, alignment: .leading)
 
                     VStack(alignment: .leading, spacing: 4) {
                         Text("\(viewModel.activeStreak)")
@@ -340,19 +339,6 @@ struct ProfileView: View {
                             .font(Constants.Fonts.labelMedium)
                             .foregroundStyle(Constants.Colors.gray04)
                     }
-                    .frame(minWidth: 55, alignment: .leading)
-
-                    // TODO: Replace with real badges count once available from API
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("0")
-                            .font(Constants.Fonts.h2)
-                            .foregroundStyle(Constants.Colors.black)
-
-                        Text("Badges")
-                            .font(Constants.Fonts.labelMedium)
-                            .foregroundStyle(Constants.Colors.gray04)
-                    }
-                    .frame(minWidth: 55, alignment: .leading)
                 }
             }
 
