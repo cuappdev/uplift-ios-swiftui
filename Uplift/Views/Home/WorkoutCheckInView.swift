@@ -18,6 +18,10 @@ struct WorkoutCheckInView: View {
     @StateObject private var viewModel = ViewModel()
 
     var body: some View {
+        // Guests who skipped sign-in should never be able to check in.
+        if mainViewModel.isSkipped {
+            EmptyView()
+        } else {
         Group {
             if !viewModel.isCheckedIn {
                 promptBody
@@ -42,6 +46,7 @@ struct WorkoutCheckInView: View {
         .onChange(of: homeViewModel.gyms) { gyms in
             guard let gyms else { return }
             viewModel.updateGyms(gyms)
+        }
         }
     }
 
