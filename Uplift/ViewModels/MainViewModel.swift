@@ -37,6 +37,12 @@ extension MainView {
 
         private var queryBag = Set<AnyCancellable>()
 
+        /// Clears draft onboarding data that must not carry across sessions (e.g. after log out or account deletion).
+        func resetOnboardingDraftState() {
+            profileImage = nil
+            userId = nil
+        }
+
         // MARK: - Constants
 
         // TODO: Change hardcoded giveaway ID if needed

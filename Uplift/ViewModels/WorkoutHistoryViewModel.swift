@@ -19,24 +19,24 @@ extension WorkoutHistoryView {
         // MARK: - Properties
 
         @Published var selectedTab: WorkoutHistoryTab = .calendar
-        @Published var selectedDay: Date?
-        @Published var selectedMonth = Date.now
+        @Published var selectedDay: Foundation.Date?
+        @Published var selectedMonth = Foundation.Date.now
         @Published var workouts: [Workout]?
         let calendar = Calendar.current
         private let startOfWeek = DayOfWeek.monday.rawValue
         private var queryBag = Set<AnyCancellable>()
 
         /// The first day of the selected month.
-        private var firstOfCurrMonth: Date {
+        private var firstOfCurrMonth: Foundation.Date {
             calendar.date(from: calendar.dateComponents([.year, .month], from: selectedMonth))!
         }
 
         /// Returns the list of workouts in the tuple `(Workout, Date)` sorted by newest workout first.
-        private var workoutsWithDates: [(Workout, Date)] {
+        private var workoutsWithDates: [(Workout, Foundation.Date)] {
             guard let workouts else { return [] }
 
             let sortedWorkouts = workouts
-                .compactMap { workout -> (Workout, Date)? in
+                .compactMap { workout -> (Workout, Foundation.Date)? in
                     guard let date = WorkoutTimeFormatter.isoToDate(workout.workoutTime) else { return nil }
                     return (workout, date)  // allow sorting by date
                 }
@@ -46,8 +46,8 @@ extension WorkoutHistoryView {
         }
 
         /// Workouts grouped by day (start of day) in ascending calendar day order.
-        private var workoutsByStartOfDay: [Date: [Workout]] {
-            var workoutDays: [Date: [Workout]] = [:]
+        private var workoutsByStartOfDay: [Foundation.Date: [Workout]] {
+            var workoutDays: [Foundation.Date: [Workout]] = [:]
             for (workout, date) in workoutsWithDates {
                 let startOfDay = calendar.startOfDay(for: date)
                 workoutDays[startOfDay, default: []].append(workout)
@@ -58,12 +58,12 @@ extension WorkoutHistoryView {
         /// A 2D array of dates representing the weeks in the selected month. Each array is 7 elements,
         /// one for each weekday. An entry of `nil` is a placeholder for cells before and after the first
         /// and last day of the month.
-        var weeksInMonth: [[Date?]] {
+        var weeksInMonth: [[Foundation.Date?]] {
             guard
                 let firstOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: selectedMonth))
             else { return [] }
 
-            var days: [Date?] = []
+            var days: [Foundation.Date?] = []
 
             // Empty weekday slots
             let weekdayOfFirst = calendar.component(.weekday, from: firstOfMonth)
@@ -135,18 +135,18 @@ extension WorkoutHistoryView {
         // MARK: - Helpers
 
         /// Returns whether the given date is the currently selected day.
-        func isSelected(_ date: Date?) -> Bool {
+        func isSelected(_ date: Foundation.Date?) -> Bool {
             guard let selectedDay, let date else { return false }
             return date.isSameDay(selectedDay)
         }
 
         /// Returns whether the given week contains the currently selected day.
-        func weekHasSelectedDay(_ week: [Date?]) -> Bool {
+        func weekHasSelectedDay(_ week: [Foundation.Date?]) -> Bool {
             week.contains { isSelected($0) }
         }
 
         /// Returns whether there is a workout logged on this day.
-        func hasWorkout(on day: Date) -> Bool {
+        func hasWorkout(on day: Foundation.Date) -> Bool {
             workoutsByStartOfDay.keys.contains(calendar.startOfDay(for: day))
         }
 
@@ -176,7 +176,7 @@ extension WorkoutHistoryView {
         func logWorkout(
             facilityId: Int,
             userId: Int,
-            workoutTime: Date = .now,
+            workoutTime: Foundation.Date = .now,
             completion: ((Result<Void, Error>) -> Void)? = nil
         ) {
             Network.client.mutationPublisher(

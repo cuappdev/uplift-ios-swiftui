@@ -60,6 +60,7 @@ struct ProfileView: View {
                     },
                     onLogout: {
                         UserSessionManager.shared.logout()
+                        mainViewModel.resetOnboardingDraftState()
                         showSettings = false
                         withAnimation(.easeIn(duration: 0.1)) {
                             tabBarProp.hidden = false
@@ -81,6 +82,7 @@ struct ProfileView: View {
                     Button("Delete", role: .destructive) {
                         viewModel.deleteAccount { success in
                             guard success else { return }
+                            mainViewModel.resetOnboardingDraftState()
                             showSettings = false
                             withAnimation(.easeIn(duration: 0.1)) {
                                 tabBarProp.hidden = false
@@ -228,6 +230,7 @@ struct ProfileView: View {
 
             Button {
                 UserSessionManager.shared.logout()
+                mainViewModel.resetOnboardingDraftState()
                 viewModel.showSettingsSheet = false
                 mainViewModel.showMainView = false
                 mainViewModel.showSignInView = true
@@ -251,6 +254,7 @@ struct ProfileView: View {
                 Button("Delete", role: .destructive) {
                     viewModel.deleteAccount { success in
                         guard success else { return }
+                        mainViewModel.resetOnboardingDraftState()
                         mainViewModel.showMainView = false
                         mainViewModel.showSignInView = true
                     }
