@@ -23,14 +23,11 @@ struct EmptyLoginView: View {
     var body: some View {
         ZStack {
             VStack {
-
                 headerSection
-
-                Spacer()
 
                 loginButton
 
-                Spacer(minLength: 24)
+                Spacer()
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -58,8 +55,9 @@ struct EmptyLoginView: View {
                     .offset(y: animateElements ? 0 : 200)
                     .animation(.smooth(duration: 2), value: animateElements)
             }
+            .padding(.bottom, 48)
 
-            Text("Get started with Uplift")
+            Text("Create a profile to:")
                 .font(Constants.Fonts.h1)
                 .foregroundStyle(Constants.Colors.black)
                 .multilineTextAlignment(.center)
@@ -70,15 +68,12 @@ struct EmptyLoginView: View {
 
             featureCards
                 .padding(.top, 24)
-                .padding(.bottom, 24)
-
-            Spacer(minLength: 0)
         }
         .ignoresSafeArea(edges: .top)
     }
 
     private var featureCards: some View {
-        VStack(spacing: 12) {
+        VStack(alignment: .leading, spacing: 20) {
             createGoalsCard
                 .opacity(animateElements ? 1 : 0)
                 .offset(y: animateElements ? 0 : 24)
@@ -94,55 +89,44 @@ struct EmptyLoginView: View {
                 .offset(y: animateElements ? 0 : 24)
                 .animation(.spring(duration: 0.8).delay(1.1), value: animateElements)
         }
-        .padding(.horizontal, 48)
+        .fixedSize()
+        .frame(maxWidth: .infinity, alignment: .center)
     }
 
     private var createGoalsCard: some View {
         HStack(spacing: 12) {
             Constants.Images.goal
+                .frame(width: 32)
 
-            Text("Create fitness goals")
+            Text("Make fitness goals")
                 .font(Constants.Fonts.f2)
                 .foregroundStyle(Constants.Colors.black)
-
-            Spacer(minLength: 0)
         }
         .padding(12)
-        .background(Constants.Colors.white)
-        .cornerRadius(8)
-        .upliftShadow(Constants.Shadows.smallLight)
     }
 
     private var trackProgressCard: some View {
         HStack(spacing: 12) {
             Constants.Images.gymSimple
+                .frame(width: 32)
 
             Text("Track fitness progress")
                 .font(Constants.Fonts.f2)
                 .foregroundStyle(Constants.Colors.black)
-
-            Spacer(minLength: 0)
         }
         .padding(12)
-        .background(Constants.Colors.white)
-        .cornerRadius(8)
-        .upliftShadow(Constants.Shadows.smallLight)
     }
 
     private var historyCard: some View {
         HStack(spacing: 12) {
             Constants.Images.history
+                .frame(width: 32)
 
             Text("View workout history")
                 .font(Constants.Fonts.f2)
                 .foregroundStyle(Constants.Colors.black)
-
-            Spacer(minLength: 0)
         }
         .padding(12)
-        .background(Constants.Colors.white)
-        .cornerRadius(8)
-        .upliftShadow(Constants.Shadows.smallLight)
     }
 
     private var loginButton: some View {
@@ -186,12 +170,14 @@ struct EmptyLoginView: View {
             Text("Log in")
                 .font(Constants.Fonts.h2)
                 .foregroundColor(Constants.Colors.black)
+                .frame(maxWidth: .infinity)
                 .padding(.horizontal, 46)
                 .padding(.vertical, 12)
                 .background(Constants.Colors.yellow)
                 .cornerRadius(38)
                 .upliftShadow(Constants.Shadows.smallLight)
         }
+        .padding(.horizontal, 48)
         .opacity(animateElements ? 1 : 0)
         .animation(.easeIn(duration: 0.8).delay(1.2), value: animateElements)
     }
