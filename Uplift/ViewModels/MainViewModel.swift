@@ -35,7 +35,23 @@ extension MainView {
         @Published var submitSuccessful: Bool = false
         @Published var showWorkoutCheckIn: Bool = true
 
+        /// True when the user tapped Skip on sign-in; persisted so relaunch stays on main with a guest profile tab.
+        @Published var isSkipped: Bool = false {
+            didSet {
+                UserDefaults.standard.set(isSkipped, forKey: Constants.UserDefaultsKeys.skippedLogin)
+            }
+        }
+
         private var queryBag = Set<AnyCancellable>()
+
+        init() {
+            let skipped = UserDefaults.standard.bool(forKey: Constants.UserDefaultsKeys.skippedLogin)
+            isSkipped = skipped
+            if skipped {
+                showSignInView = false
+                showMainView = true
+            }
+        }
 
         /// Clears draft onboarding data that must not carry across sessions (e.g. after log out or account deletion).
         func resetOnboardingDraftState() {
@@ -66,6 +82,7 @@ extension MainView {
                     switch result {
                     case .success:
                         Logger.data.log("Successfully logged in after creating user")
+                        self.isSkipped = false
                         self.showMainView = true
                         self.showCreateProfileView = false
                         self.showSignInView = false

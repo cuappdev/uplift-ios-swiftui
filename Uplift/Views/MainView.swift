@@ -30,9 +30,15 @@ struct MainView: View {
                     ClassesView()
                         .environmentObject(tabBarProp)
                 case .profile:
-                    ProfileView(viewModel: profileViewModel)
-                        .environmentObject(viewModel) // MainViewModel
-                        .environmentObject(tabBarProp)
+                    Group {
+                        if viewModel.isSkipped {
+                            ProfileTabSignInPlaceholderView()
+                        } else {
+                            ProfileView(viewModel: profileViewModel)
+                                .environmentObject(tabBarProp)
+                        }
+                    }
+                    .environmentObject(viewModel) // MainViewModel
                 }
             }
             .overlay(alignment: .bottom) {
@@ -159,6 +165,50 @@ extension MainView {
         case profile
     }
 
+}
+
+/// Minimal profile tab when the user chose Skip on sign-in (no `ProfileView` / no profile fetch).
+private struct ProfileTabSignInPlaceholderView: View {
+    @EnvironmentObject private var mainViewModel: MainView.ViewModel
+
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: 24) {
+                Spacer()
+
+                Text("Log in to see your profile and track workouts.")
+                    .font(Constants.Fonts.bodyNormal)
+                    .foregroundStyle(Constants.Colors.gray04)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, Constants.Padding.homeHorizontal)
+
+                Button {
+                    mainViewModel.showMainView = false
+                    mainViewModel.showSignInView = true
+                } label: {
+                    Text("Log in")
+                        .font(Constants.Fonts.h2)
+                        .foregroundColor(Constants.Colors.black)
+                        .padding(.horizontal, 46)
+                        .padding(.vertical, 12)
+                        .background(Constants.Colors.yellow)
+                        .cornerRadius(38)
+                        .upliftShadow(Constants.Shadows.smallLight)
+                }
+
+                Spacer()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Constants.Colors.white)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Profile")
+                        .font(Constants.Fonts.h1)
+                        .foregroundStyle(Constants.Colors.black)
+                }
+            }
+        }
+    }
 }
 
 final class TabBarProperty: ObservableObject {

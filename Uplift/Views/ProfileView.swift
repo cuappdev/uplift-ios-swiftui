@@ -84,6 +84,7 @@ struct ProfileView: View {
                         withAnimation(.easeIn(duration: 0.1)) {
                             tabBarProp.hidden = false
                         }
+                        mainViewModel.isSkipped = false
                         mainViewModel.showMainView = false
                         mainViewModel.showSignInView = true
                         mainViewModel.showCreateProfileView = false
@@ -106,6 +107,7 @@ struct ProfileView: View {
                             withAnimation(.easeIn(duration: 0.1)) {
                                 tabBarProp.hidden = false
                             }
+                            mainViewModel.isSkipped = false
                             mainViewModel.showMainView = false
                             mainViewModel.showSignInView = true
                             mainViewModel.showCreateProfileView = false
@@ -232,6 +234,7 @@ struct ProfileView: View {
                 UserSessionManager.shared.logout()
                 mainViewModel.resetOnboardingDraftState()
                 viewModel.showSettingsSheet = false
+                mainViewModel.isSkipped = false
                 mainViewModel.showMainView = false
                 mainViewModel.showSignInView = true
             } label: {
@@ -255,6 +258,7 @@ struct ProfileView: View {
                     viewModel.deleteAccount { success in
                         guard success else { return }
                         mainViewModel.resetOnboardingDraftState()
+                        mainViewModel.isSkipped = false
                         mainViewModel.showMainView = false
                         mainViewModel.showSignInView = true
                     }

@@ -67,22 +67,36 @@ struct UpliftApp: App {
             DispatchQueue.main.async {
                 switch result {
                 case .success:
+                    self.mainViewModel.isSkipped = false
                     self.mainViewModel.showMainView = true
                     self.mainViewModel.showSignInView = false
                     self.mainViewModel.showCreateProfileView = false
                 case .needsSignIn:
-                    self.mainViewModel.showSignInView = true
-                    self.mainViewModel.showCreateProfileView = false
-                    self.mainViewModel.showMainView = false
+                    if self.mainViewModel.isSkipped {
+                        self.mainViewModel.showSignInView = false
+                        self.mainViewModel.showCreateProfileView = false
+                        self.mainViewModel.showMainView = true
+                    } else {
+                        self.mainViewModel.showSignInView = true
+                        self.mainViewModel.showCreateProfileView = false
+                        self.mainViewModel.showMainView = false
+                    }
                 case .needsProfileCreation:
+                    self.mainViewModel.isSkipped = false
                     self.mainViewModel.showSignInView = false
                     self.mainViewModel.showSetGoalsView = true
                     self.mainViewModel.showMainView = false
                 case .error(let message):
                     Logger.data.critical("Session restore error: \(message)")
-                    self.mainViewModel.showSignInView = true
-                    self.mainViewModel.showCreateProfileView = false
-                    self.mainViewModel.showMainView = false
+                    if self.mainViewModel.isSkipped {
+                        self.mainViewModel.showSignInView = false
+                        self.mainViewModel.showCreateProfileView = false
+                        self.mainViewModel.showMainView = true
+                    } else {
+                        self.mainViewModel.showSignInView = true
+                        self.mainViewModel.showCreateProfileView = false
+                        self.mainViewModel.showMainView = false
+                    }
                 }
             }
         }
