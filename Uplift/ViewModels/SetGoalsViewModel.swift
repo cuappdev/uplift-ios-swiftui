@@ -46,13 +46,13 @@ extension SetGoalsView {
             guard let unlockDate = unlockDate(lastGoalChange: lastGoalChange) else {
                 return false
             }
-            return unlockDate > Date.now
+            return unlockDate > Foundation.Date.now
         }
 
         /// Return the date that goal changing is next allowed.
         /// Last goal change is in this format: "yyyy-MM-dd'T'HH:mm:ss.SSSSSS". Change if this is no longer true.
         /// e.g. 2026-03-18T20:27:31.084971
-        func unlockDate(lastGoalChange: DateTime?) -> Date? {
+        func unlockDate(lastGoalChange: DateTime?) -> Foundation.Date? {
             guard let lastGoalChange else { return nil }
 
             let formatter = DateFormatter()

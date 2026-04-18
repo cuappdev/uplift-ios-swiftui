@@ -390,7 +390,7 @@ struct ProfileView: View {
         NavigationLink {
             WorkoutHistoryView(user: viewModel.user)
         } label: {
-            VStack(spacing: 0) {
+            VStack(spacing: 48) {
                 HStack {
                     Text("My Workout History")
                         .font(Constants.Fonts.h2)
