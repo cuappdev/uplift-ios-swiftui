@@ -13,11 +13,11 @@ enum UpliftEnvironment {
 
     /// Keys from Info.plist.
     enum Keys {
-#if DEBUG
+        // #if DEBUG
         static let baseURL: String = "UPLIFT_DEV_URL"
-#else
-        static let baseURL: String = "UPLIFT_PROD_URL"
-#endif
+        // #else
+        // static let baseURL: String = "UPLIFT_PROD_URL"
+        // #endif
         static let announcementsCommonPath = "ANNOUNCEMENTS_COMMON_PATH"
         static let announcementsHost = "ANNOUNCEMENTS_HOST"
         static let announcementsPath = "ANNOUNCEMENTS_PATH"
@@ -45,20 +45,15 @@ enum UpliftEnvironment {
         return myDict
     }()
 
-    /**
-     The base URL of Uplift's backend server.
-
-     * If the scheme is set to DEBUG, the development server URL is used.
-     * If the scheme is set to RELEASE, the production server URL is used.
-     */
+    /// The base URL of Uplift's backend server (currently always `UPLIFT_DEV_URL`; restore `#if DEBUG` when switching Release back to prod).
     static let baseURL: URL = {
         guard let baseURLString = UpliftEnvironment.infoDict[Keys.baseURL] as? String,
               let baseURL = URL(string: baseURLString) else {
-#if DEBUG
+            // #if DEBUG
             fatalError("UPLIFT_DEV_URL not found in Info.plist")
-#else
-            fatalError("UPLIFT_PROD_URL not found in Info.plist")
-#endif
+            // #else
+            // fatalError("UPLIFT_PROD_URL not found in Info.plist")
+            // #endif
         }
         return baseURL
     }()
