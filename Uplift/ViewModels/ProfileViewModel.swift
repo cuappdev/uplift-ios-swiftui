@@ -190,7 +190,10 @@ extension ProfileView {
             }
 
             var cancellable: AnyCancellable?
-            cancellable = Network.client.mutationPublisher(mutation: DeleteUserMutation(userId: userId))
+            cancellable = Network.client.mutationPublisher(
+                mutation: DeleteUserMutation(userId: userId),
+                queue: .main
+            )
                 .sink { completion in
                     if case let .failure(error) = completion {
                         Logger.data.critical("deleteAccount error: \(error)")

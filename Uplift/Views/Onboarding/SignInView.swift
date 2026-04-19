@@ -178,6 +178,7 @@ struct SignInView: View {
             ZStack(alignment: .bottom) {
                 Constants.Images.backgroundEllipse
                     .padding(.trailing, 51)
+                    .ignoresSafeArea(edges: .top)
                     .opacity(animateElements ? 1 : 0)
                     .animation(.easeIn(duration: 1).delay(1), value: animateElements)
 
@@ -209,7 +210,6 @@ struct SignInView: View {
 
             Spacer()
         }
-        .ignoresSafeArea(.all)
     }
 }
 
