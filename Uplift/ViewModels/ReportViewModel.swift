@@ -24,6 +24,8 @@ extension ReportView {
         @Published var selectedGym = ""
         @Published var selectedIssue = ""
         @Published var submitSuccessful = false
+        @Published var isSubmitting = false
+        @Published var submitError: String?
 
         private var queryBag = Set<AnyCancellable>()
 
@@ -50,26 +52,32 @@ extension ReportView {
 
         /// Creates a report in the backend.
         func createReport() {
+            submitError = nil
+            isSubmitting = true
+
             let gymId = gymIdWithName(selectedGym)
+            let issueRawValue = ReportType.from(displayString: selectedIssue).rawValue
 
             Network.client.mutationPublisher(
                 mutation: CreateReportMutation(
                     createdAt: Date.now.ISO8601Format(),
                     description: description,
                     gymId: gymId,
-                    issue: selectedIssue
+                    issue: issueRawValue
                 )
             )
             .sink { [weak self] completion in
-                guard self != nil else { return }
+                guard let self else { return }
+                isSubmitting = false
 
                 if case let .failure(error) = completion {
                     Logger.data.critical("Error in ReportViewModel.createReport: \(error)")
+                    submitError = error.localizedDescription
                 }
             } receiveValue: { [weak self] _ in
                 guard let self else { return }
-
-                self.submitSuccessful = true
+                isSubmitting = false
+                submitSuccessful = true
             }
             .store(in: &queryBag)
         }

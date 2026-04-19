@@ -41,6 +41,8 @@ struct SignInView: View {
     private var skipButton: some View {
         Button {
             withAnimation(.easeIn) {
+                mainViewModel.isSkipped = true
+                mainViewModel.showSignInView = false
                 mainViewModel.showMainView = true
             }
         } label: {
@@ -64,6 +66,7 @@ struct SignInView: View {
                     case .success:
                         Task {
                             await MainActor.run {
+                                mainViewModel.isSkipped = false
                                 mainViewModel.showSignInView = false
                                 mainViewModel.showCreateProfileView = false
                                 mainViewModel.showMainView = true
@@ -78,6 +81,7 @@ struct SignInView: View {
 
                             Task {
                                 await MainActor.run {
+                                    mainViewModel.isSkipped = false
                                     mainViewModel.showSignInView = false
                                     mainViewModel.showSetGoalsView = false
                                     mainViewModel.showCreateProfileView = true

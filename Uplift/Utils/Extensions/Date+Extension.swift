@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import OSLog
 
 extension Date {
 
@@ -72,6 +73,16 @@ extension Date {
         return dateFormatter.string(from: self)
     }
 
+    /**
+     This `Date` in the format "MMM yyyy".
+     For example, 4/29/24 8:00 PM is Apr 2024.
+     */
+    var dateStringCalendarMonth: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM yyyy"
+        return dateFormatter.string(from: self)
+    }
+
     /// Returns the `DayOfWeek` for this date.
     func getDayOfWeek() -> DayOfWeek {
         DayOfWeek(rawValue: Calendar.current.dateComponents([.weekday], from: self).weekday!)!
@@ -91,4 +102,50 @@ extension Date {
         formatter.dateFormat = format
         return formatter.date(from: dateString)
     }
+}
+
+enum WorkoutTimeFormatter {
+
+    /// Returns the `Date` object from the given workout time in ISO 18601 with timezone format from backend.
+    static func isoToDate(_ workoutTime: String) -> Date? {
+        let iso = ISO8601DateFormatter()
+        iso.formatOptions = [.withInternetDateTime, .withTimeZone]
+        return iso.date(from: workoutTime)
+    }
+
+    /// Formats the workout time from backend (ISO 8601 with timezone) as `MMM d • h:mm a` in local time.
+    /// Returns the original format if parsing fails.
+    static func string(from workoutTime: String, in tab: WorkoutHistoryTab) -> String {
+        guard let date = isoToDate(workoutTime) else {
+            Logger.data.critical("Error in Date+Extension: Formatter unable to parse workout time")
+            return workoutTime
+        }
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d"  // e.g. Mar 3
+
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "h:mm a" // e.g. 3:10 PM
+
+        switch tab {
+        case .calendar:
+            return "\(timeFormatter.string(from: date)) • \(dateFormatter.string(from: date))"
+        case .list:
+            return "\(dateFormatter.string(from: date)) • \(timeFormatter.string(from: date))"
+        }
+    }
+
+    /// Formats the workout time from backend to a localized relative label (e.g. "today", "yesterday")..
+    /// Returns empty string if parsing fails.
+    static func relativeString(from workoutTime: String) -> String {
+        guard let date = isoToDate(workoutTime) else {
+            Logger.data.critical("Error in WorkoutHistoryViewModel: Formatter unable to parse workout time")
+            return ""
+        }
+
+        let relativeString = date.formatted(.relative(presentation: .named))
+        guard let first = relativeString.first else { return "" }
+        return String(first.uppercased()) + relativeString.dropFirst()
+    }
+
 }

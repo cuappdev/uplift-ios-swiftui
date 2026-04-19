@@ -48,6 +48,11 @@ struct Report: Hashable {
 
 extension ReportType {
 
+    /// The report type whose display string matches the given value.
+    static func from(displayString: String) -> ReportType {
+        ReportType.allCases.first { $0.string == displayString } ?? .other
+    }
+
     /// The string for this report type.
     var string: String {
         switch self {
