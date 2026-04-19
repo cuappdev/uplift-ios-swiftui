@@ -81,31 +81,55 @@ struct ProfileView: View {
                 .navigationBarBackButtonHidden(true)
                 .toolbar(.hidden, for: .navigationBar)
                 .navigationBarHidden(true)
-                .alert("Delete Account", isPresented: $viewModel.showDeleteAccountAlert) {
-                    Button("Cancel", role: .cancel) { }
-                    Button("Delete", role: .destructive) {
-                        viewModel.deleteAccount { success in
-                            guard success else { return }
-                            mainViewModel.resetOnboardingDraftState()
-                            showSettings = false
-                            withAnimation(.easeIn(duration: 0.1)) {
-                                tabBarProp.hidden = false
-                            }
-                            mainViewModel.isSkipped = false
-                            mainViewModel.showMainView = false
-                            mainViewModel.showSignInView = true
-                            mainViewModel.showCreateProfileView = false
-                            mainViewModel.showSetGoalsView = false
-                        }
-                    }
-                } message: {
-                    Text("Are you sure you want to delete your account? This action cannot be undone.")
+                .showModal($viewModel.showDeleteAccountAlert) {
+                    DeleteAccountModal(
+                        onDelete: confirmDeleteAccount,
+                        onBack: dismissDeleteAccountModal,
+                        onClose: dismissDeleteAccountModal
+                    )
                 }
             }
         }
         .onAppear {
             Task {
                 await viewModel.fetchUserProfile()
+            }
+        }
+        .showModal($viewModel.showDeleteAccountAlert) {
+            DeleteAccountModal(
+                onDelete: confirmDeleteAccount,
+                onBack: dismissDeleteAccountModal,
+                onClose: dismissDeleteAccountModal
+            )
+        }
+    }
+
+    private func dismissDeleteAccountModal() {
+        // Dismiss on the next runloop tick to prevent the tap from
+        // "falling through" to the Settings row underneath.
+        DispatchQueue.main.async {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                viewModel.showDeleteAccountAlert = false
+            }
+        }
+    }
+
+    private func confirmDeleteAccount() {
+        viewModel.deleteAccount { success in
+            guard success else { return }
+            Task { @MainActor in
+                mainViewModel.resetOnboardingDraftState()
+                showSettings = false
+                viewModel.showSettingsSheet = false
+                withAnimation(.easeIn(duration: 0.1)) {
+                    tabBarProp.hidden = false
+                }
+                mainViewModel.isSkipped = false
+                mainViewModel.showMainView = false
+                mainViewModel.showSignInView = true
+                mainViewModel.showCreateProfileView = false
+                mainViewModel.showSetGoalsView = false
+                dismissDeleteAccountModal()
             }
         }
     }
@@ -236,25 +260,18 @@ struct ProfileView: View {
                     .font(Constants.Fonts.bodyNormal)
                     .foregroundStyle(Constants.Colors.closed)
             }
-            .alert("Delete Account", isPresented: $viewModel.showDeleteAccountAlert) {
-                Button("Cancel", role: .cancel) { }
-                Button("Delete", role: .destructive) {
-                    viewModel.deleteAccount { success in
-                        guard success else { return }
-                        mainViewModel.resetOnboardingDraftState()
-                        mainViewModel.isSkipped = false
-                        mainViewModel.showMainView = false
-                        mainViewModel.showSignInView = true
-                    }
-                }
-            } message: {
-                Text("Are you sure you want to delete your account? This action cannot be undone.")
-            }
 
             Spacer()
         }
         .padding(.horizontal, 24)
         .background(Constants.Colors.white)
+        .showModal($viewModel.showDeleteAccountAlert) {
+            DeleteAccountModal(
+                onDelete: confirmDeleteAccount,
+                onBack: dismissDeleteAccountModal,
+                onClose: dismissDeleteAccountModal
+            )
+        }
     }
 
     private var scrollContent: some View {
