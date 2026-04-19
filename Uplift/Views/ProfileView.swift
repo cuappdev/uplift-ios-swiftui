@@ -13,19 +13,23 @@ import PhotosUI
 /// The main view for the Profile page.
 struct ProfileView: View {
 
+    private enum SettingsNavigationRoute: Hashable {
+        case settings
+        case report
+    }
+
     // MARK: - Properties
     @ObservedObject var viewModel: ViewModel
     @EnvironmentObject var mainViewModel: MainView.ViewModel
     @EnvironmentObject var tabBarProp: TabBarProperty
-    @State var showReportFlow: Bool = false
-    @State var showSettings: Bool = false
+    @State private var settingsPath: [SettingsNavigationRoute] = []
     @State private var showImagePicker = false
     @State private var profileItem: PhotosPickerItem?
     private let radius = 125
 
     // MARK: - UI
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $settingsPath) {
             VStack {
                 header
                 scrollContent
@@ -47,63 +51,29 @@ struct ProfileView: View {
                     viewModel.editProfileImage()
                 }
             }
-            .navigationDestination(isPresented: $showReportFlow) {
-                ReportView(
-                    onReturnToProfile: {
-                        showReportFlow = false
-                    },
-                    onBackToSettings: {
-                        showReportFlow = false
-                        showSettings = true
-                    }
-                )
-                .environmentObject(tabBarProp)
-            }
-            .navigationDestination(isPresented: $showSettings) {
-                SettingsView(
-                    onBack: {
-                        showSettings = false
-                        withAnimation(.easeIn(duration: 0.1)) {
-                            tabBarProp.hidden = false
-                        }
-                    },
-                    onReportIssue: {
-                        showSettings = false
-                        showReportFlow = true
-                    },
-                    onAbout: {
-                        // TODO: Learn more about uplift
-                    },
-                    onReminders: {
-                        // TODO: Notifications about uplift
-                    },
-                    onLogout: {
-                        UserSessionManager.shared.logout()
-                        mainViewModel.resetOnboardingDraftState()
-                        showSettings = false
-                        withAnimation(.easeIn(duration: 0.1)) {
-                            tabBarProp.hidden = false
-                        }
-                        mainViewModel.isSkipped = false
-                        mainViewModel.showMainView = false
-                        mainViewModel.showSignInView = true
-                        mainViewModel.showCreateProfileView = false
-                        mainViewModel.showSetGoalsView = false
-                    },
-                    onDeleteAccount: {
-                        viewModel.showDeleteAccountAlert = true
-                    }
-                )
-                .navigationBarBackButtonHidden(true)
-                .toolbar(.hidden, for: .navigationBar)
-                .navigationBarHidden(true)
-                .alert("Delete Account", isPresented: $viewModel.showDeleteAccountAlert) {
-                    Button("Cancel", role: .cancel) { }
-                    Button("Delete", role: .destructive) {
-                        viewModel.deleteAccount { success in
-                            guard success else { return }
+            .navigationDestination(for: SettingsNavigationRoute.self) { route in
+                switch route {
+                case .settings:
+                    SettingsView(
+                        onBack: {
+                            settingsPath.removeAll()
+                            withAnimation(.easeIn(duration: 0.1)) {
+                                tabBarProp.hidden = false
+                            }
+                        },
+                        onReportIssue: {
+                            settingsPath.append(.report)
+                        },
+                        onAbout: {
+                            // TODO: Learn more about uplift
+                        },
+                        onReminders: {
+                            // TODO: Notifications about uplift
+                        },
+                        onLogout: {
+                            UserSessionManager.shared.logout()
                             mainViewModel.resetOnboardingDraftState()
-                            showSettings = false
+                            settingsPath.removeAll()
                             withAnimation(.easeIn(duration: 0.1)) {
                                 tabBarProp.hidden = false
                             }
@@ -112,10 +82,44 @@ struct ProfileView: View {
                             mainViewModel.showSignInView = true
                             mainViewModel.showCreateProfileView = false
                             mainViewModel.showSetGoalsView = false
+                        },
+                        onDeleteAccount: {
+                            viewModel.showDeleteAccountAlert = true
                         }
+                    )
+                    .navigationBarBackButtonHidden(true)
+                    .toolbar(.hidden, for: .navigationBar)
+                    .navigationBarHidden(true)
+                    .alert("Delete Account", isPresented: $viewModel.showDeleteAccountAlert) {
+                        Button("Cancel", role: .cancel) { }
+                        Button("Delete", role: .destructive) {
+                            viewModel.deleteAccount { success in
+                                guard success else { return }
+                                mainViewModel.resetOnboardingDraftState()
+                                settingsPath.removeAll()
+                                withAnimation(.easeIn(duration: 0.1)) {
+                                    tabBarProp.hidden = false
+                                }
+                                mainViewModel.isSkipped = false
+                                mainViewModel.showMainView = false
+                                mainViewModel.showSignInView = true
+                                mainViewModel.showCreateProfileView = false
+                                mainViewModel.showSetGoalsView = false
+                            }
+                        }
+                    } message: {
+                        Text("Are you sure you want to delete your account? This action cannot be undone.")
                     }
-                } message: {
-                    Text("Are you sure you want to delete your account? This action cannot be undone.")
+                case .report:
+                    ReportView(
+                        onReturnToProfile: {
+                            settingsPath.removeAll()
+                        },
+                        onBackToSettings: {
+                            settingsPath.removeLast()
+                        }
+                    )
+                    .environmentObject(tabBarProp)
                 }
             }
         }
@@ -152,7 +156,7 @@ struct ProfileView: View {
 
     private var settingsButton: some View {
         Button {
-            showSettings = true
+            settingsPath = [.settings]
             withAnimation(.easeIn(duration: 0.1)) {
                 tabBarProp.hidden = true
             }

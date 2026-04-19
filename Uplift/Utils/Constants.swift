@@ -128,6 +128,7 @@ struct Constants {
         static let check = Image("check")
         static let checkboxEmpty = Image("checkbox_empty")
         static let checkboxFilled = Image("checkbox_filled")
+        static let chevronRight = Image("chevron_right")
         static let chevronDown = Image("chevron_down")
         static let chest = Image("chest")
         static let clock = Image("clock")

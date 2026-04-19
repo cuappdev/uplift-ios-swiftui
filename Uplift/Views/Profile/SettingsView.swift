@@ -80,6 +80,9 @@ struct SettingsView: View {
                         .foregroundStyle(Constants.Colors.black)
 
                     Spacer()
+
+                    Constants.Images.chevronRight
+                        .frame(width: 24, alignment: .center)
                 }
             }
 
@@ -97,6 +100,9 @@ struct SettingsView: View {
                         .foregroundStyle(Constants.Colors.black)
 
                     Spacer()
+
+                    Constants.Images.chevronRight
+                        .frame(width: 24, alignment: .center)
                 }
             }
 
