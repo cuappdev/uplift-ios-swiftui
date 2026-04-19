@@ -152,6 +152,8 @@
 		89CE47422D03F3C700BCB79D /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 89CE47412D03F3C700BCB79D /* UpliftAPI */; };
 		89E4FAAA2CEFEC3C00A952B1 /* CapacitySemiCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E4FAA92CEFEC3000A952B1 /* CapacitySemiCircleView.swift */; };
 		89E4FAAC2CF28E7500A952B1 /* HourlyAverageCapacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E4FAAB2CF28E6600A952B1 /* HourlyAverageCapacity.swift */; };
+		C0CB14922F709DA100E23E69 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB14912F709D9D00E23E69 /* AboutView.swift */; };
+		C0CB14942F70A2C800E23E69 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB14932F70A2C100E23E69 /* Member.swift */; };
 		89E833412F4F93AE0080AC46 /* WorkoutHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E833402F4F93AE0080AC46 /* WorkoutHistoryView.swift */; };
 		89E833432F4FB26A0080AC46 /* WorkoutHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E833422F4FB2650080AC46 /* WorkoutHistoryViewModel.swift */; };
 		89EA50D12F90812E00B1A177 /* GoalSettingErrorModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EA50D02F90812E00B1A177 /* GoalSettingErrorModal.swift */; };
@@ -308,6 +310,8 @@
 		89C8658C2BB4779C00758337 /* ClassCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCell.swift; sourceTree = "<group>"; };
 		89E4FAA92CEFEC3000A952B1 /* CapacitySemiCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacitySemiCircleView.swift; sourceTree = "<group>"; };
 		89E4FAAB2CF28E6600A952B1 /* HourlyAverageCapacity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyAverageCapacity.swift; sourceTree = "<group>"; };
+		C0CB14912F709D9D00E23E69 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		C0CB14932F70A2C100E23E69 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		89E833402F4F93AE0080AC46 /* WorkoutHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryView.swift; sourceTree = "<group>"; };
 		89E833422F4FB2650080AC46 /* WorkoutHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryViewModel.swift; sourceTree = "<group>"; };
 		89EA50D02F90812E00B1A177 /* GoalSettingErrorModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalSettingErrorModal.swift; sourceTree = "<group>"; };
@@ -367,6 +371,7 @@
 		2E090EC62B12FB9F00BAE982 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C0CB14932F70A2C100E23E69 /* Member.swift */,
 				2922846F2F59461B00809ED4 /* WorkoutGoalHistory.swift */,
 				298EBA4D2E8E5048000441BA /* GymIdentifier.swift */,
 				2E15F4D92B39102A00414BEC /* Capacity.swift */,
@@ -693,6 +698,7 @@
 		89A652F82D02B00000277A16 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				C0CB14912F709D9D00E23E69 /* AboutView.swift */,
 				29C2EC192F942A8100A7F6E2 /* EmptyLoginView.swift */,
 				C07CFEB32F6B546D005830D3 /* SettingsView.swift */,
 				89507A982F36493100FB0757 /* ReportSuccessView.swift */,
@@ -936,6 +942,7 @@
 				2E15F4FB2B39573C00414BEC /* Double+Extension.swift in Sources */,
 				29055F802E7E3E6E00E9A730 /* UnsavedChangesModal.swift in Sources */,
 				2E39D8162B3B3AD600AD238B /* ScaleButtonStyle.swift in Sources */,
+				C0CB14922F709DA100E23E69 /* AboutView.swift in Sources */,
 				2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */,
 				893AD9152D59569600C0817B /* MuscleCategoryView.swift in Sources */,
 				135EEBAC2EC9175B0051AD5B /* WorkoutCheckInView.swift in Sources */,
@@ -1029,6 +1036,7 @@
 				2E2748CB2BCD37810023882E /* GiveawayPopup.swift in Sources */,
 				2E15F4DE2B3912C700414BEC /* Facility.swift in Sources */,
 				2E6785C22B3A5CE000DD3ADA /* GymDetailViewModel.swift in Sources */,
+				C0CB14942F70A2C800E23E69 /* Member.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
