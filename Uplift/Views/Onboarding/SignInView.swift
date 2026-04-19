@@ -20,9 +20,18 @@ struct SignInView: View {
     // MARK: - UI
 
     var body: some View {
-        ZStack {
+        ZStack(alignment: .top) {
+            Constants.Images.backgroundEllipse
+                .resizable()
+                .scaledToFit()
+                .padding(.trailing, 51)
+                .ignoresSafeArea(edges: .top)
+                .opacity(animateElements ? 1 : 0)
+                .animation(.easeIn(duration: 1).delay(1), value: animateElements)
+
             VStack {
                 signInHeader
+
                 loginButton
 
                 Spacer(minLength: 16)
@@ -175,21 +184,14 @@ struct SignInView: View {
 
     private var signInHeader: some View {
         VStack {
-            ZStack(alignment: .bottom) {
-                Constants.Images.backgroundEllipse
-                    .padding(.trailing, 51)
-                    .ignoresSafeArea(edges: .top)
-                    .opacity(animateElements ? 1 : 0)
-                    .animation(.easeIn(duration: 1).delay(1), value: animateElements)
-
-                Constants.Images.logo
-                    .resizable()
-                    .frame(width: 130, height: 115)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                    .padding(32)
-                    .offset(y: animateElements ? 0 : 200)
-                    .animation(.smooth(duration: 2), value: animateElements)
-            }
+            Constants.Images.logo
+                .resizable()
+                .frame(width: 130, height: 115)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .padding(32)
+                .padding(.top, 60)
+                .offset(y: animateElements ? 0 : 200)
+                .animation(.smooth(duration: 2), value: animateElements)
 
             Text("Find what uplifts you.")
                 .font(Constants.Fonts.h1)

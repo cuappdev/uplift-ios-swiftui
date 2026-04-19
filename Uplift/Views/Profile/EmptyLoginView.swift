@@ -43,6 +43,8 @@ struct EmptyLoginView: View {
         VStack(spacing: 0) {
             ZStack(alignment: .bottom) {
                 Constants.Images.backgroundEllipse
+                    .resizable()
+                    .scaledToFit()
                     .padding(.trailing, 51)
                     .ignoresSafeArea(edges: .top)
                     .opacity(animateElements ? 1 : 0)
