@@ -12,8 +12,9 @@ struct SettingsView: View {
 
     // MARK: - Properties
 
+    @EnvironmentObject private var tabBarProp: TabBarProperty
     let onBack: () -> Void
-    let onReportIssue: () -> Void
+    let onFinishedReporting: () -> Void
     let onAbout: () -> Void
     let onReminders: () -> Void
     let onLogout: () -> Void
@@ -88,8 +89,9 @@ struct SettingsView: View {
 
             DividerLine()
 
-            Button {
-                onReportIssue()
+            NavigationLink {
+                ReportView(onReturnToProfile: onFinishedReporting)
+                    .environmentObject(tabBarProp)
             } label: {
                 HStack {
                     Constants.Images.reportLogo
@@ -105,6 +107,7 @@ struct SettingsView: View {
                         .frame(width: 24, alignment: .center)
                 }
             }
+            .buttonStyle(.plain)
 
             DividerLine()
 
@@ -151,10 +154,11 @@ struct SettingsView: View {
 #Preview {
     SettingsView(
         onBack: {},
-        onReportIssue: {},
+        onFinishedReporting: {},
         onAbout: {},
         onReminders: {},
         onLogout: {},
         onDeleteAccount: {}
     )
+    .environmentObject(TabBarProperty())
 }
