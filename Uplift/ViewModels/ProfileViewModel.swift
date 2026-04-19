@@ -10,6 +10,7 @@ import Combine
 import Foundation
 import UpliftAPI
 import os
+import UIKit
 
 // MARK: - ViewModel
 extension ProfileView {
@@ -21,6 +22,7 @@ extension ProfileView {
 
         @Published var user: User?
         @Published var workouts: [Workout] = []
+        @Published var profileImage: UIImage?
         @Published var showSettingsSheet = false
         @Published var showDeleteAccountAlert = false
         @Published var currentWeekWorkouts: Int = 0
@@ -64,15 +66,29 @@ extension ProfileView {
             }
         }
 
-        // MARK: - Functions
-
-        private func startOfWeek(for date: Foundation.Date) -> Foundation.Date {
-            let calendar = Calendar.current
-            let startOfDay = calendar.startOfDay(for: date)
-            let weekday = calendar.component(.weekday, from: startOfDay)
-            let daysFromMonday = (weekday + 5) % 7
-            return calendar.date(byAdding: .day, value: -daysFromMonday, to: startOfDay) ?? startOfDay
+        /// Returns the user profile image's URL from the encoded image given.
+        var profileImageHTTPURL: URL? {
+            guard let raw = user?.encodedImage?.trimmingCharacters(in: .whitespacesAndNewlines),
+                  !raw.isEmpty,
+                  let url = URL(string: raw),
+                  let scheme = url.scheme?.lowercased(),
+                  scheme == "http" || scheme == "https" else { return nil }
+            return url
         }
+
+        /// The most recent workouts sorted by newest first.
+        var recentWorkouts: [Workout] {
+            workouts
+                .compactMap { workout -> (Workout, Foundation.Date)? in
+                    guard let date = WorkoutTimeFormatter.isoToDate(workout.workoutTime) else { return nil }
+                    return (workout, date)
+                }
+                .sorted { $0.1 > $1.1 }
+                .prefix(5)
+                .map(\.0)
+        }
+
+        // MARK: - Requests
 
         func fetchUserProfile() async {
             guard let netID = UserSessionManager.shared.netID else {
@@ -131,6 +147,37 @@ extension ProfileView {
             }
         }
 
+        /// Updates the profile image for this user.
+        func editProfileImage() {
+            guard let user = user,
+                  let userId = Int(user.id) else { return }
+
+            let resizedImage = profileImage?.resized()
+            let base64Image: String? = resizedImage?
+                .jpegData(compressionQuality: 0.2)?
+                .base64EncodedString()
+
+            Network.client.mutationPublisher(
+                mutation: EditUserMutation(
+                    userId: userId,
+                    email: user.email.map { GraphQLNullable.some($0) } ?? .none,
+                    encodedImage: base64Image.map { GraphQLNullable.some($0) } ?? .none,
+                    name: GraphQLNullable(stringLiteral: user.name)
+                )
+            )
+            .compactMap(\.data?.editUser)
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    Logger.data.critical("Error in ProfileViewModel.editUser: \(error)")
+                }
+            } receiveValue: { _ in
+#if DEBUG
+                Logger.data.log("Edit profile image successful")
+#endif
+            }
+            .store(in: &queryBag)
+        }
+
         /// Runs `DeleteUser` before `logout()` so the GraphQL request still sends `Authorization`.
         func deleteAccount(onComplete: @escaping (Bool) -> Void = { _ in }) {
             let rawIdDescription = user.map { String(describing: $0.id) } ?? "nil"
@@ -160,5 +207,16 @@ extension ProfileView {
                     onComplete(true)
                 }
         }
+
+        // MARK: - Helpers
+
+        private func startOfWeek(for date: Foundation.Date) -> Foundation.Date {
+            let calendar = Calendar.current
+            let startOfDay = calendar.startOfDay(for: date)
+            let weekday = calendar.component(.weekday, from: startOfDay)
+            let daysFromMonday = (weekday + 5) % 7
+            return calendar.date(byAdding: .day, value: -daysFromMonday, to: startOfDay) ?? startOfDay
+        }
+
     }
 }

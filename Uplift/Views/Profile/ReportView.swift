@@ -21,8 +21,8 @@ struct ReportView: View {
     @State private var issueIsExpanded = false
     @State private var navigateToSuccess = false
     @EnvironmentObject var tabBarProp: TabBarProperty
+    @Environment(\.dismiss) private var dismiss
     let onReturnToProfile: () -> Void
-    let onBackToSettings: () -> Void
 
     // MARK: - UI
 
@@ -59,7 +59,7 @@ struct ReportView: View {
         .safeAreaInset(edge: .top) {
             HStack {
                 Button {
-                    onBackToSettings()
+                    dismiss()
                 } label: {
                     Constants.Images.arrowLeft
                         .resizable()
@@ -224,9 +224,6 @@ struct ReportView: View {
 }
 
 #Preview {
-    ReportView(
-        onReturnToProfile: {},
-        onBackToSettings: {}
-    )
+    ReportView(onReturnToProfile: {})
         .environmentObject(TabBarProperty())
 }

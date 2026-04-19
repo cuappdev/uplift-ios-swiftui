@@ -12,9 +12,9 @@ struct SettingsView: View {
 
     // MARK: - Properties
 
+    @EnvironmentObject private var tabBarProp: TabBarProperty
     let onBack: () -> Void
-    let onReportIssue: () -> Void
-    let onAbout: () -> Void
+    let onFinishedReporting: () -> Void
     let onReminders: () -> Void
     let onLogout: () -> Void
     let onDeleteAccount: () -> Void
@@ -68,54 +68,62 @@ struct SettingsView: View {
 
     private var content: some View {
         VStack(alignment: .leading, spacing: 24) {
-            Button {
-                onAbout()
+            NavigationLink {
+                AboutView()
             } label: {
                 HStack {
+                    Constants.Images.aboutLogo
+                        .frame(width: 24, alignment: .center)
+
                     Text("About Uplift")
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.black)
 
                     Spacer()
+
+                    Constants.Images.chevronRight
+                        .frame(width: 24, alignment: .center)
                 }
             }
+            .buttonStyle(.plain)
 
             DividerLine()
 
-            Button {
-                onReminders()
+            NavigationLink {
+                ReportView(onReturnToProfile: onFinishedReporting)
+                    .environmentObject(tabBarProp)
             } label: {
                 HStack {
-                    Text("Reminders")
-                        .font(Constants.Fonts.bodyNormal)
-                        .foregroundStyle(Constants.Colors.black)
+                    Constants.Images.reportLogo
+                        .frame(width: 24, alignment: .center)
 
-                    Spacer()
-                }
-            }
-
-            DividerLine()
-
-            Button {
-                onReportIssue()
-            } label: {
-                HStack {
                     Text("Report an Issue")
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.black)
 
                     Spacer()
+
+                    Constants.Images.chevronRight
+                        .frame(width: 24, alignment: .center)
                 }
             }
+            .buttonStyle(.plain)
 
             DividerLine()
 
             Button {
                 onLogout()
             } label: {
-                Text("Log Out")
-                    .font(Constants.Fonts.bodyNormal)
-                    .foregroundStyle(Constants.Colors.closed)
+                HStack {
+                    Constants.Images.logoutLogo
+                        .frame(width: 24, alignment: .center)
+
+                    Text("Log Out")
+                        .font(Constants.Fonts.bodyNormal)
+                        .foregroundStyle(Constants.Colors.closed)
+
+                    Spacer()
+                }
             }
 
             DividerLine()
@@ -123,9 +131,16 @@ struct SettingsView: View {
             Button {
                 onDeleteAccount()
             } label: {
-                Text("Delete Account")
-                    .font(Constants.Fonts.bodyNormal)
-                    .foregroundStyle(Constants.Colors.closed)
+                HStack {
+                    Constants.Images.deleteLogo
+                        .frame(width: 24, alignment: .center)
+
+                    Text("Delete Account")
+                        .font(Constants.Fonts.bodyNormal)
+                        .foregroundStyle(Constants.Colors.closed)
+
+                    Spacer()
+                }
             }
 
             Spacer()
@@ -139,10 +154,10 @@ struct SettingsView: View {
 #Preview {
     SettingsView(
         onBack: {},
-        onReportIssue: {},
-        onAbout: {},
+        onFinishedReporting: {},
         onReminders: {},
         onLogout: {},
         onDeleteAccount: {}
     )
+    .environmentObject(TabBarProperty())
 }

@@ -30,20 +30,29 @@ struct MainView: View {
                     ClassesView()
                         .environmentObject(tabBarProp)
                 case .profile:
-                    ProfileView(viewModel: profileViewModel)
-                        .environmentObject(viewModel) // MainViewModel
-                        .environmentObject(tabBarProp)
+                    Group {
+                        if viewModel.isSkipped {
+                            EmptyLoginView()
+                        } else {
+                            ProfileView(viewModel: profileViewModel)
+                                .environmentObject(tabBarProp)
+                        }
+                    }
+                    .environmentObject(viewModel) // MainViewModel
                 }
             }
             .overlay(alignment: .bottom) {
                 VStack {
+                    if !viewModel.isSkipped {
                         WorkoutCheckInView(
                             profileViewModel: profileViewModel,
                             homeViewModel: homeViewModel
                         )
                         .environmentObject(viewModel) // MainViewModel
                         .padding(.bottom, 13)
+                        .padding(.horizontal, 10)
                         .opacity(viewModel.showWorkoutCheckIn ? 1 : 0)
+                    }
 
                     !tabBarProp.hidden ? tabBar.transition(.move(edge: .bottom)) : nil
                 }
@@ -113,7 +122,6 @@ struct MainView: View {
                     name: "Home"
                 )
             }
-            .buttonStyle(.plain)
         case .classes:
             Button {
                 selectedTab = .classes

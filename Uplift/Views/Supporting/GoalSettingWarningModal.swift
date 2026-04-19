@@ -1,5 +1,5 @@
 //
-//  GoalSettingModal.swift
+//  GoalSettingWarningModal.swift
 //  Uplift
 //
 //  Created by Caitlyn Jin on 3/23/26.
@@ -9,7 +9,7 @@
 import SwiftUI
 
 /// A modal for the goal setting warning popup.
-struct GoalSettingModal: View {
+struct GoalSettingWarningModal: View {
 
     // MARK: - Properties
 
@@ -25,7 +25,7 @@ struct GoalSettingModal: View {
                     .resizable()
                     .frame(width: 36, height: 36)
 
-                Text("Goals can only be changed again after 30 days, do you want to continue?")
+                Text("Warning: Goals can only be changed again after 30 days, do you want to continue to save?")
                     .font(Constants.Fonts.bodyNormal)
                     .multilineTextAlignment(.center)
                     .foregroundColor(Constants.Colors.black)
@@ -69,7 +69,7 @@ struct GoalSettingModal: View {
 
 #Preview {
     VStack {
-        GoalSettingModal(onContinue: {}, onCancel: {})
+        GoalSettingWarningModal(onContinue: {}, onCancel: {})
     }
     .background(Constants.Colors.gray05)
 }

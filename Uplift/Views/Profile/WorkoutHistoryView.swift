@@ -9,10 +9,21 @@
 import SwiftUI
 
 struct WorkoutHistoryView: View {
+
+    // MARK: - Properties
+
+    let user: User?
+
     @StateObject private var viewModel = ViewModel()
     @Environment(\.dismiss) private var dismiss
-    // TODO: Temporary bool since we don't have real data
-    private var hasNoWorkouts = false
+
+    // MARK: - Init
+
+    init(user: User? = nil) {
+        self.user = user
+    }
+
+    // MARK: - UI
 
     var body: some View {
         ZStack {
@@ -36,11 +47,22 @@ struct WorkoutHistoryView: View {
                 }
             }
 
-            if viewModel.selectedTab == .list && hasNoWorkouts {
-                emptyState
+            if viewModel.selectedTab == .list {
+                if let workouts = viewModel.workouts, workouts.isEmpty {
+                    emptyState
+                } else if viewModel.workouts == nil {
+                    emptyState
+                }
             }
         }
-        .ignoresSafeArea(.all, edges: .top)
+        .ignoresSafeArea(.all, edges: [.top, .bottom])
+        .onAppear {
+            if let user = user, let userId = Int(user.id) {
+                viewModel.workouts = user.workoutHistory
+                // TODO: Remove after testing
+//                viewModel.logWorkout(facilityId: 12572681, userId: userId, workoutTime: Calendar.current.date(byAdding: .day, value: -4, to: Date.now) ?? .now)
+            }
+        }
     }
 
     private var header: some View {
@@ -63,7 +85,7 @@ struct WorkoutHistoryView: View {
     }
 
     private var content: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 0) {
             SlidingTabBarView(
                 config: SlidingTabBarView.TabBarConfig(),
                 items: [
@@ -80,6 +102,8 @@ struct WorkoutHistoryView: View {
                 ],
                 selectedTab: $viewModel.selectedTab
             )
+
+            DividerLine()
 
             switch viewModel.selectedTab {
             case .calendar:
@@ -138,6 +162,7 @@ struct WorkoutHistoryView: View {
                 }
             }
         }
+        .padding(.vertical, 24)
     }
 
     private func weekView(_ week: [Date?]) -> some View {
@@ -158,10 +183,12 @@ struct WorkoutHistoryView: View {
                                 calendarDay(date)
 
                                 Circle()
-                                    .fill(date.isSameDay(Date.now) ? Constants.Colors.yellow : .clear)
+                                    .fill(viewModel.hasWorkout(on: date) ? Constants.Colors.yellow : .clear)
                                     .frame(width: 8, height: 8)
 
-                                selectedDayTriangleIndicator(date, week)
+                                if viewModel.weekHasSelectedDay(week), viewModel.selectedWorkout != nil {
+                                    selectedDayTriangleIndicator(date, week)
+                                }
                             }
 
                         }
@@ -171,8 +198,8 @@ struct WorkoutHistoryView: View {
             }
             .zIndex(1)
 
-            if viewModel.weekHasSelectedDay(week) {
-                selectedDayDropdown()
+            if viewModel.weekHasSelectedDay(week), let workout = viewModel.selectedWorkout {
+                selectedDayDropdown(workout: workout)
                     .zIndex(0)
             }
         }
@@ -213,10 +240,10 @@ struct WorkoutHistoryView: View {
         }
     }
 
-    private func selectedDayDropdown() -> some View {
+    private func selectedDayDropdown(workout: Workout) -> some View {
         VStack(spacing: 4) {
             HStack {
-                Text("Toni Morrison")
+                Text(workout.gymName)
                     .foregroundStyle(Constants.Colors.black)
                     .font(Constants.Fonts.f4)
 
@@ -224,13 +251,13 @@ struct WorkoutHistoryView: View {
             }
 
             HStack {
-                Text("6:30 PM ∙ Mar 2")
+                Text(WorkoutTimeFormatter.string(from: workout.workoutTime, in: .list))
                     .foregroundStyle(Constants.Colors.gray04)
                     .font(Constants.Fonts.f4)
 
                 Spacer()
 
-                Text("Yesterday")
+                Text(WorkoutTimeFormatter.relativeString(from: workout.workoutTime))
                     .foregroundStyle(Constants.Colors.black)
                     .font(Constants.Fonts.f4)
             }
@@ -258,35 +285,40 @@ struct WorkoutHistoryView: View {
     }
 
     private var listView: some View {
-        VStack {
-            if !hasNoWorkouts {
-                // TODO: Will have actual data later
-                ForEach(0..<7, id: \.self) { index in
-                    VStack(spacing: 0) {
-                        if index == 0 {
+        ScrollView {
+            LazyVStack(spacing: 24) {
+                if !viewModel.workoutMonthSections.isEmpty {
+                    ForEach(viewModel.workoutMonthSections) { section in
+                        VStack(spacing: 0) {
                             HStack {
-                                Text("March 2024")
+                                Text(section.title)
                                     .foregroundStyle(Constants.Colors.black)
                                     .font(Constants.Fonts.h4)
 
                                 Spacer()
                             }
+
+                            ForEach(section.workouts, id: \.id) { workout in
+                                historyListCell(workout: workout)
+
+                                Divider()
+                            }
                         }
-
-                        historyListCell()
-
-                        Divider()
                     }
+
+                    Spacer(minLength: 24)
                 }
             }
+            .padding(.horizontal, 16)
+            .padding(.top, 24)
         }
-        .padding(.horizontal, 16)
+        .scrollIndicators(.hidden, axes: .vertical)
     }
 
-    private func historyListCell() -> some View {
+    private func historyListCell(workout: Workout) -> some View {
         VStack(spacing: 4) {
             HStack {
-                Text("Toni Morrison")
+                Text(workout.gymName)
                     .foregroundStyle(Constants.Colors.black)
                     .font(Constants.Fonts.f4)
 
@@ -294,13 +326,13 @@ struct WorkoutHistoryView: View {
             }
 
             HStack {
-                Text("Mar 2 ∙ 6:30 PM")
+                Text(WorkoutTimeFormatter.string(from: workout.workoutTime, in: .list))
                     .foregroundStyle(Constants.Colors.gray04)
                     .font(Constants.Fonts.f4)
 
                 Spacer()
 
-                Text("Yesterday")
+                Text(WorkoutTimeFormatter.relativeString(from: workout.workoutTime))
                     .foregroundStyle(Constants.Colors.black)
                     .font(Constants.Fonts.f4)
             }
@@ -335,8 +367,4 @@ struct WorkoutHistoryView: View {
 enum WorkoutHistoryTab {
     case calendar
     case list
-}
-
-#Preview {
-    WorkoutHistoryView()
 }

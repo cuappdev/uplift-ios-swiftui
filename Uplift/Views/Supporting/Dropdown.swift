@@ -40,10 +40,8 @@ struct Dropdown: View {
                 isExpanded.toggle()
             } label: {
                 HStack {
-                    Text(selectedOption.isEmpty || isExpanded ? "Choose an option..." : selectedOption)
-                        .foregroundStyle(selectedOption.isEmpty || isExpanded
-                                         ? Constants.Colors.gray04
-                                         : Constants.Colors.black)
+                    Text(selectedOption.isEmpty ? "Choose an option..." : selectedOption)
+                        .foregroundStyle(selectedOption.isEmpty ? Constants.Colors.gray04 : Constants.Colors.black)
                         .font(Constants.Fonts.f3)
 
                     Spacer()
@@ -58,6 +56,7 @@ struct Dropdown: View {
                     Button {
                         selectedOption = option
                         displayError = false
+                        isExpanded = false
                     } label: {
                         HStack {
                             Text(option)
