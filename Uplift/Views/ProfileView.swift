@@ -378,7 +378,7 @@ struct ProfileView: View {
         NavigationLink {
             WorkoutHistoryView(user: viewModel.user)
         } label: {
-            VStack(spacing: 48) {
+            VStack(spacing: 0) {
                 HStack {
                     Text("My Workout History")
                         .font(Constants.Fonts.h2)
@@ -412,6 +412,7 @@ struct ProfileView: View {
 
                         Spacer()
                     }
+                    .padding(.top, 48)
                 } else {
                     ForEach(viewModel.recentWorkouts, id: \.id) { workout in
                         VStack(spacing: 0) {
