@@ -35,10 +35,7 @@ struct WorkoutCheckInView: View {
                 mainViewModel.showWorkoutCheckIn = show
             }
 
-            if let gym = viewModel.currentNearestGym {
-                viewModel.checkDailyCooldown()
-                viewModel.checkCooldown(gym: gym)
-            }
+            viewModel.checkDailyCooldown()
 
             LocationManager.shared.requestLocation()
             viewModel.findNearestGym()
