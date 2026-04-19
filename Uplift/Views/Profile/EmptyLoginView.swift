@@ -144,6 +144,7 @@ struct EmptyLoginView: View {
                                 mainViewModel.isSkipped = false
                                 mainViewModel.showSignInView = false
                                 mainViewModel.showCreateProfileView = false
+                                mainViewModel.showSetGoalsView = false
                                 mainViewModel.showMainView = true
                             }
                         }
@@ -157,6 +158,7 @@ struct EmptyLoginView: View {
                                     mainViewModel.isSkipped = false
                                     mainViewModel.showSignInView = false
                                     mainViewModel.showSetGoalsView = false
+                                    mainViewModel.showMainView = false
                                     mainViewModel.showCreateProfileView = true
                                 }
                             }

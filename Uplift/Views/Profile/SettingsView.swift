@@ -72,21 +72,10 @@ struct SettingsView: View {
                 onAbout()
             } label: {
                 HStack {
+                    Constants.Images.aboutLogo
+                        .frame(width: 24, alignment: .center)
+
                     Text("About Uplift")
-                        .font(Constants.Fonts.bodyNormal)
-                        .foregroundStyle(Constants.Colors.black)
-
-                    Spacer()
-                }
-            }
-
-            DividerLine()
-
-            Button {
-                onReminders()
-            } label: {
-                HStack {
-                    Text("Reminders")
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.black)
 
@@ -100,6 +89,9 @@ struct SettingsView: View {
                 onReportIssue()
             } label: {
                 HStack {
+                    Constants.Images.reportLogo
+                        .frame(width: 24, alignment: .center)
+
                     Text("Report an Issue")
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.black)
@@ -113,9 +105,16 @@ struct SettingsView: View {
             Button {
                 onLogout()
             } label: {
-                Text("Log Out")
-                    .font(Constants.Fonts.bodyNormal)
-                    .foregroundStyle(Constants.Colors.closed)
+                HStack {
+                    Constants.Images.logoutLogo
+                        .frame(width: 24, alignment: .center)
+
+                    Text("Log Out")
+                        .font(Constants.Fonts.bodyNormal)
+                        .foregroundStyle(Constants.Colors.closed)
+
+                    Spacer()
+                }
             }
 
             DividerLine()
@@ -123,9 +122,16 @@ struct SettingsView: View {
             Button {
                 onDeleteAccount()
             } label: {
-                Text("Delete Account")
-                    .font(Constants.Fonts.bodyNormal)
-                    .foregroundStyle(Constants.Colors.closed)
+                HStack {
+                    Constants.Images.deleteLogo
+                        .frame(width: 24, alignment: .center)
+
+                    Text("Delete Account")
+                        .font(Constants.Fonts.bodyNormal)
+                        .foregroundStyle(Constants.Colors.closed)
+
+                    Spacer()
+                }
             }
 
             Spacer()
