@@ -220,6 +220,15 @@ class UserSessionManager: ObservableObject {
         accessToken = nil
         refreshToken = nil
         displayName = nil
+        email = nil
+    }
+
+    /// Clears workout check-in cooldown state stored in `UserDefaults`.
+    func clearWorkoutCheckInCooldown() {
+        let defaults = UserDefaults.standard
+        defaults.removeObject(forKey: "lastCooldownGym")
+        defaults.removeObject(forKey: "lastCooldownTime")
+        defaults.removeObject(forKey: "lastCheckInDate")
     }
 
 }
