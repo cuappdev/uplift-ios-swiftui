@@ -8,4 +8,5 @@ build/
 UpliftSecrets/**
 
 ## API
-UpliftAPI/**
+UpliftAPI/.build/
+UpliftAPI/Sources/

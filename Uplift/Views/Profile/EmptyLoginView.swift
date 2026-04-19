@@ -44,6 +44,7 @@ struct EmptyLoginView: View {
             ZStack(alignment: .bottom) {
                 Constants.Images.backgroundEllipse
                     .padding(.trailing, 51)
+                    .ignoresSafeArea(edges: .top)
                     .opacity(animateElements ? 1 : 0)
                     .animation(.easeIn(duration: 1).delay(0.2), value: animateElements)
 
@@ -69,7 +70,6 @@ struct EmptyLoginView: View {
             featureCards
                 .padding(.top, 24)
         }
-        .ignoresSafeArea(edges: .top)
     }
 
     private var featureCards: some View {

@@ -27,6 +27,7 @@
 		298EBA4E2E8E504A000441BA /* GymIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298EBA4D2E8E5048000441BA /* GymIdentifier.swift */; };
 		298EBA502E8E5335000441BA /* CustomLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298EBA4F2E8E532C000441BA /* CustomLoadingView.swift */; };
 		29C2EC1A2F942A8800A7F6E2 /* EmptyLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C2EC192F942A8100A7F6E2 /* EmptyLoginView.swift */; };
+		29C2EC1C2F95653500A7F6E2 /* DeleteAccountModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C2EC1B2F95653200A7F6E2 /* DeleteAccountModal.swift */; };
 		29DC9ABA2DB96C3C0088DC24 /* CapacityReminder.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 29DC9AB92DB96C340088DC24 /* CapacityReminder.graphql */; };
 		29EAC6CB2EC6D5580027E88E /* GymCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EAC6CA2EC6D5550027E88E /* GymCache.swift */; };
 		29EAC6CD2EC6DA740027E88E /* ClassesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EAC6CC2EC6DA690027E88E /* ClassesCache.swift */; };
@@ -191,6 +192,7 @@
 		298EBA4D2E8E5048000441BA /* GymIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymIdentifier.swift; sourceTree = "<group>"; };
 		298EBA4F2E8E532C000441BA /* CustomLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoadingView.swift; sourceTree = "<group>"; };
 		29C2EC192F942A8100A7F6E2 /* EmptyLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyLoginView.swift; sourceTree = "<group>"; };
+		29C2EC1B2F95653200A7F6E2 /* DeleteAccountModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountModal.swift; sourceTree = "<group>"; };
 		29DC9AB92DB96C340088DC24 /* CapacityReminder.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = CapacityReminder.graphql; sourceTree = "<group>"; };
 		29EAC6CA2EC6D5550027E88E /* GymCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymCache.swift; sourceTree = "<group>"; };
 		29EAC6CC2EC6DA690027E88E /* ClassesCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesCache.swift; sourceTree = "<group>"; };
@@ -541,6 +543,7 @@
 		2E15F50A2B3A0AF700414BEC /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
+				29C2EC1B2F95653200A7F6E2 /* DeleteAccountModal.swift */,
 				2923EF462E98369900D3FC1D /* CapacityTutorialModal.swift */,
 				29055F7F2E7E3E6500E9A730 /* UnsavedChangesModal.swift */,
 				89EA50D02F90812E00B1A177 /* GoalSettingErrorModal.swift */,
@@ -995,6 +998,7 @@
 				2E5726C72B4A63AE00D3DB36 /* ShimmerModifier.swift in Sources */,
 				29EAC6CB2EC6D5580027E88E /* GymCache.swift in Sources */,
 				2E15F5022B396EC500414BEC /* ShadowModifier.swift in Sources */,
+				29C2EC1C2F95653500A7F6E2 /* DeleteAccountModal.swift in Sources */,
 				2E15F4DA2B39102A00414BEC /* Capacity.swift in Sources */,
 				2ED53DCF2B3E06DC00FBDEAB /* Logger.swift in Sources */,
 				2E15F4E62B391E5300414BEC /* Array+Extension.swift in Sources */,
