@@ -15,7 +15,6 @@ struct SettingsView: View {
     @EnvironmentObject private var tabBarProp: TabBarProperty
     let onBack: () -> Void
     let onFinishedReporting: () -> Void
-    let onAbout: () -> Void
     let onReminders: () -> Void
     let onLogout: () -> Void
     let onDeleteAccount: () -> Void
@@ -69,8 +68,8 @@ struct SettingsView: View {
 
     private var content: some View {
         VStack(alignment: .leading, spacing: 24) {
-            Button {
-                onAbout()
+            NavigationLink {
+                AboutView()
             } label: {
                 HStack {
                     Constants.Images.aboutLogo
@@ -86,6 +85,7 @@ struct SettingsView: View {
                         .frame(width: 24, alignment: .center)
                 }
             }
+            .buttonStyle(.plain)
 
             DividerLine()
 
@@ -155,7 +155,6 @@ struct SettingsView: View {
     SettingsView(
         onBack: {},
         onFinishedReporting: {},
-        onAbout: {},
         onReminders: {},
         onLogout: {},
         onDeleteAccount: {}

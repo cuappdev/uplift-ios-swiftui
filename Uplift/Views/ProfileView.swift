@@ -57,9 +57,6 @@ struct ProfileView: View {
                     onFinishedReporting: {
                         showSettings = false
                     },
-                    onAbout: {
-                        // TODO: Learn more about uplift
-                    },
                     onReminders: {
                         // TODO: Notifications about uplift
                     },

@@ -10,6 +10,8 @@ import SwiftUI
 
 struct AboutView: View {
 
+    @Environment(\.dismiss) private var dismiss
+
     private let memberColumns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -23,10 +25,11 @@ struct AboutView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .ignoresSafeArea(.all, edges: .top)
+        .navigationBarBackButtonHidden(true)
         .safeAreaInset(edge: .top) {
             HStack {
                 Button {
-                    // TODO: add button
+                    dismiss()
                 } label: {
                     Constants.Images.arrowLeft
                         .resizable()
