@@ -89,6 +89,78 @@ struct LocationTests {
         #expect(vm.nearestGymText == "Finding gyms nearby...")
     }
 
+    @Test("User just inside threshold (~0.04 mi) of Teagle triggers check-in")
+    func userJustInsideTeagleThreshold() {
+        // ~0.04 miles north of Teagle — within 0.05 mile threshold
+        let mockLocation = MockLocationManager()
+        mockLocation.setLocation(latitude: 42.44639, longtitude: -76.47915389837931)
+        let vm = WorkoutCheckInView.ViewModel(locationManager: mockLocation)
+        vm.gyms = DummyData.allGyms
+        vm.findNearestGym()
+        #expect(vm.currentNearestGym == "Teagle")
+        #expect(vm.nearestGymText.contains("Teagle"))
+    }
+
+    @Test("User just outside threshold (~0.06 mi) of Teagle does not trigger check-in")
+    func userJustOutsideTeagleThreshold() {
+        // ~0.06 miles north of Teagle — outside 0.05 mile threshold
+        let mockLocation = MockLocationManager()
+        mockLocation.setLocation(latitude: 42.44689, longtitude: -76.47915389837931)
+        let vm = WorkoutCheckInView.ViewModel(locationManager: mockLocation)
+        vm.gyms = DummyData.allGyms
+        vm.findNearestGym()
+        #expect(vm.currentNearestGym == nil)
+        #expect(vm.nearestGymText == "Finding gyms nearby...")
+    }
+
+    @Test("User just inside threshold (~0.04 mi) of Helen Newman triggers check-in")
+    func userJustInsideHelenNewmanThreshold() {
+        // ~0.04 miles north of Helen Newman — within 0.05 mile threshold
+        let mockLocation = MockLocationManager()
+        mockLocation.setLocation(latitude: 42.45359, longtitude: -76.47730907608567)
+        let vm = WorkoutCheckInView.ViewModel(locationManager: mockLocation)
+        vm.gyms = DummyData.allGyms
+        vm.findNearestGym()
+        #expect(vm.currentNearestGym == "Helen Newman")
+        #expect(vm.nearestGymText.contains("Helen Newman"))
+    }
+
+    @Test("User just outside threshold (~0.06 mi) of Helen Newman does not trigger check-in")
+    func userJustOutsideHelenNewmanThreshold() {
+        // ~0.06 miles north of Helen Newman — outside 0.05 mile threshold
+        let mockLocation = MockLocationManager()
+        mockLocation.setLocation(latitude: 42.45409, longtitude: -76.47730907608567)
+        let vm = WorkoutCheckInView.ViewModel(locationManager: mockLocation)
+        vm.gyms = DummyData.allGyms
+        vm.findNearestGym()
+        #expect(vm.currentNearestGym == nil)
+        #expect(vm.nearestGymText == "Finding gyms nearby...")
+    }
+
+    @Test("User just inside threshold (~0.04 mi) of Toni Morrison triggers check-in")
+    func userJustInsideToniMorrisonThreshold() {
+        // ~0.04 miles north of Toni Morrison — within 0.05 mile threshold
+        let mockLocation = MockLocationManager()
+        mockLocation.setLocation(latitude: 42.45622, longtitude: -76.47883902202813)
+        let vm = WorkoutCheckInView.ViewModel(locationManager: mockLocation)
+        vm.gyms = DummyData.allGyms
+        vm.findNearestGym()
+        #expect(vm.currentNearestGym == "Toni Morrison")
+        #expect(vm.nearestGymText.contains("Toni Morrison"))
+    }
+
+    @Test("User just outside threshold (~0.06 mi) of Toni Morrison does not trigger check-in")
+    func userJustOutsideToniMorrisonThreshold() {
+        // ~0.06 miles north of Toni Morrison — outside 0.05 mile threshold
+        let mockLocation = MockLocationManager()
+        mockLocation.setLocation(latitude: 42.45672, longtitude: -76.47883902202813)
+        let vm = WorkoutCheckInView.ViewModel(locationManager: mockLocation)
+        vm.gyms = DummyData.allGyms
+        vm.findNearestGym()
+        #expect(vm.currentNearestGym == nil)
+        #expect(vm.nearestGymText == "Finding gyms nearby...")
+    }
+
     @Test("User equidistant between two gyms checks in to nearest open one")
     func userBetweenTwoGyms() {
         // Midpoint between Teagle and Helen Newman longitude-wise, same latitude as Teagle

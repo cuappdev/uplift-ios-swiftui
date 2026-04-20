@@ -122,6 +122,12 @@ struct WeeklyWorkoutTrackerView: View {
                 }
             }
         }
+        .onChange(of: viewModel.currentWeekWorkouts) { _ in
+            determineWorkoutDays()
+            Task {
+                await animateWorkouts()
+            }
+        }
     }
 
     // MARK: - Helpers
