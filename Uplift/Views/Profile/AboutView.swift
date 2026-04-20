@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct AboutView: View {
-
     @Environment(\.dismiss) private var dismiss
 
     private let memberColumns = [
@@ -26,6 +25,8 @@ struct AboutView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .ignoresSafeArea(.all, edges: .top)
         .navigationBarBackButtonHidden(true)
+        .toolbar(.hidden, for: .navigationBar)
+        .navigationBarHidden(true)
         .safeAreaInset(edge: .top) {
             HStack {
                 Button {

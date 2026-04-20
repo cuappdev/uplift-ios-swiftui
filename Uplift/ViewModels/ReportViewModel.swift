@@ -53,9 +53,10 @@ extension ReportView {
         /// Creates a report in the backend.
         func createReport() {
             submitError = nil
+            submitSuccessful = false
             isSubmitting = true
 
-            let gymId = gymIdWithName(selectedGym)
+            let gymId = selectedGym != "Other" ? gymIdWithName(selectedGym) : gymIdWithName("Helen Newman")
             let issueRawValue = ReportType.from(displayString: selectedIssue).rawValue
 
             Network.client.mutationPublisher(
