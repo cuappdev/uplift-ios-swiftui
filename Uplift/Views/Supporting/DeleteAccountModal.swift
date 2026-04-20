@@ -67,7 +67,7 @@ struct DeleteAccountModal: View {
             }
             .offset(x: -10, y: -10)
         }
-        .frame(width: 249, height: 242)
+        .frame(width: 240, height: 245)
     }
 }
 
