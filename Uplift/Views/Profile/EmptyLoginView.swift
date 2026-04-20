@@ -60,7 +60,7 @@ struct EmptyLoginView: View {
             }
             .padding(.bottom, 48)
 
-            Text("Create a profile to:")
+            Text("Create your Uplift profile.")
                 .font(Constants.Fonts.h1)
                 .foregroundStyle(Constants.Colors.black)
                 .multilineTextAlignment(.center)
