@@ -13,11 +13,11 @@ enum UpliftEnvironment {
 
     /// Keys from Info.plist.
     enum Keys {
-        // #if DEBUG
+#if DEBUG
         static let baseURL: String = "UPLIFT_DEV_URL"
-        // #else
-        // static let baseURL: String = "UPLIFT_PROD_URL"
-        // #endif
+#else
+        static let baseURL: String = "UPLIFT_PROD_URL"
+#endif
         static let announcementsCommonPath = "ANNOUNCEMENTS_COMMON_PATH"
         static let announcementsHost = "ANNOUNCEMENTS_HOST"
         static let announcementsPath = "ANNOUNCEMENTS_PATH"
@@ -49,11 +49,11 @@ enum UpliftEnvironment {
     static let baseURL: URL = {
         guard let baseURLString = UpliftEnvironment.infoDict[Keys.baseURL] as? String,
               let baseURL = URL(string: baseURLString) else {
-            // #if DEBUG
+#if DEBUG
             fatalError("UPLIFT_DEV_URL not found in Info.plist")
-            // #else
-            // fatalError("UPLIFT_PROD_URL not found in Info.plist")
-            // #endif
+#else
+            fatalError("UPLIFT_PROD_URL not found in Info.plist")
+#endif
         }
         return baseURL
     }()
