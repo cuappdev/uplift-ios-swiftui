@@ -17,7 +17,6 @@ struct ModalModifier<ModalContent: View>: ViewModifier {
             content
                 .disabled(showModal)
                 .blur(radius: showModal ? 2 : 0)
-                .animation(.easeInOut, value: showModal)
 
             if showModal {
                 ZStack {
@@ -41,6 +40,7 @@ struct ModalModifier<ModalContent: View>: ViewModifier {
                 .transition(.opacity)
             }
         }
+        .animation(.easeInOut, value: showModal)
     }
 }
 
