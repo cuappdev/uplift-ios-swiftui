@@ -33,7 +33,7 @@ extension WorkoutCheckInView {
         private let cooldownLastGymKey = "lastCooldownGym"
         private let cooldownKey = "lastCooldownTime"
         private let dailyCooldownKey = "lastCheckInDate"
-        private var locationManager: LocationManaging?
+        private let locationManager: LocationManaging
         private var queryBag = Set<AnyCancellable>()
 
         var gyms: [Gym] = []
@@ -41,6 +41,13 @@ extension WorkoutCheckInView {
 
         init(locationManager: LocationManaging = LocationManager.shared) {
             self.locationManager = locationManager
+
+            locationManager.userLocationPublisher
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] _ in
+                    self?.findNearestGym()
+                }
+                .store(in: &queryBag)
         }
 
         // MARK: - Helpers
@@ -63,7 +70,7 @@ extension WorkoutCheckInView {
                 return
             }
 
-            guard let locationManager = locationManager, locationManager.userLocation != nil else {
+            guard locationManager.userLocation != nil else {
                 nearestGymText = "Finding gyms nearby..."
                 visibility?(false)
                 return
