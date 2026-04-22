@@ -13,7 +13,6 @@ struct SettingsView: View {
     // MARK: - Properties
 
     @EnvironmentObject private var tabBarProp: TabBarProperty
-    @Environment(\.dismiss) private var dismiss
     let onBack: () -> Void
     let onFinishedReporting: () -> Void
     let onReminders: () -> Void
@@ -45,6 +44,9 @@ struct SettingsView: View {
             }
             .padding(.horizontal, 16)
             .padding(.top, 8)
+        }
+        .onDisappear {
+            onBack()
         }
     }
 
