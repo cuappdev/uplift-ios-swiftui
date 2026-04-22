@@ -18,6 +18,7 @@ enum UpliftEnvironment {
 #else
         static let baseURL: String = "UPLIFT_PROD_URL"
 #endif
+        static let appReviewAllowedEmails = "APP_REVIEW_ALLOWED_EMAILS"
         static let announcementsCommonPath = "ANNOUNCEMENTS_COMMON_PATH"
         static let announcementsHost = "ANNOUNCEMENTS_HOST"
         static let announcementsPath = "ANNOUNCEMENTS_PATH"
@@ -88,6 +89,17 @@ enum UpliftEnvironment {
             fatalError("ANNOUNCEMENTS_SCHEME not found in Info.plist")
         }
         return value
+    }()
+
+    /// List of non-Cornell emails allowed for app review sign-in.
+    static let appReviewAllowedEmails: Set<String> = {
+        let value = (UpliftEnvironment.infoDict[Keys.appReviewAllowedEmails] as? String) ?? ""
+        return Set(
+            value
+                .split(separator: ",")
+                .map { $0.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() }
+                .filter { !$0.isEmpty }
+        )
     }()
 
 }
