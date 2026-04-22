@@ -89,6 +89,13 @@ struct ProfileView: View {
                     )
                 }
             }
+            .onChange(of: showSettings) { isShowing in
+                if !isShowing {
+                    withAnimation(.easeIn(duration: 0.1)) {
+                        tabBarProp.hidden = false
+                    }
+                }
+            }
         }
         .onAppear {
             Task {

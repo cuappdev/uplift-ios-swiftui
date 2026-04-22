@@ -45,9 +45,6 @@ struct SettingsView: View {
             .padding(.horizontal, 16)
             .padding(.top, 8)
         }
-        .onDisappear {
-            onBack()
-        }
     }
 
     private var header: some View {
