@@ -188,10 +188,17 @@ struct HomeGymCell: View {
         }
     }
 
+    @ViewBuilder
     private var distanceText: some View {
-        Text("\(locationManager.distanceToCoordinates(latitude: gym.latitude, longitude: gym.longitude)) mi")
-            .font(Constants.Fonts.labelMedium)
-            .foregroundStyle(Constants.Colors.gray03)
+        if locationManager.userLocation != nil {
+            Text("\(locationManager.distanceToCoordinates(latitude: gym.latitude, longitude: gym.longitude)) mi")
+                .font(Constants.Fonts.labelMedium)
+                .foregroundStyle(Constants.Colors.gray03)
+        } else {
+            Text("")
+                .font(Constants.Fonts.labelMedium)
+                .foregroundStyle(Constants.Colors.gray03)
+        }
     }
 
 }
