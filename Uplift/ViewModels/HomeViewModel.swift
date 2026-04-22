@@ -7,6 +7,7 @@
 //
 
 import Combine
+import CoreLocation
 import OSLog
 import SwiftUI
 import UpliftAPI
@@ -23,7 +24,7 @@ extension HomeView {
         @Published var showCapacities: Bool = false
         @Published var showTutorial: Bool = false
 
-        private var locationManager: LocationManaging?
+        private let locationManager: LocationManaging
         private var queryBag = Set<AnyCancellable>()
 
         private let gymCache = GymCache.shared
@@ -31,6 +32,14 @@ extension HomeView {
         init(locationManager: LocationManaging = LocationManager.shared) {
             self.locationManager = locationManager
             checkShowTutorial()
+
+            locationManager.userLocationPublisher
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] _ in
+                    guard let self, let gyms = self.gyms else { return }
+                    self.gyms = self.sortGyms(gyms)
+                }
+                .store(in: &queryBag)
         }
 
         /// Checks if hasSeenTutorial UserDefaults is True or False
@@ -146,12 +155,7 @@ extension HomeView {
         private func sortGyms(_ gyms: [Gym]) -> [Gym] {
             gyms
                 .sorted {
-                    guard let locationManager = self.locationManager else { return false }
-                    return locationManager.distanceToCoordinates(
-                        latitude: $0.latitude, longitude: $0.longitude
-                    ) < locationManager.distanceToCoordinates(
-                        latitude: $1.latitude, longitude: $1.longitude
-                    )
+                    self.distanceInMiles(to: $0) < self.distanceInMiles(to: $1)
                 }
                 .sorted {
                     guard let lhsStatus = $0.status,
@@ -175,6 +179,13 @@ extension HomeView {
                         }
                     } ? 0 : 1)
                 }
+        }
+
+        private func distanceInMiles(to gym: Gym) -> Double {
+            guard let locationA = locationManager.userLocation else { return .infinity }
+            let locationB = CLLocation(latitude: gym.latitude, longitude: gym.longitude)
+            let meters = locationA.distance(from: locationB)
+            return Measurement(value: meters, unit: UnitLength.meters).converted(to: .miles).value
         }
 
     }

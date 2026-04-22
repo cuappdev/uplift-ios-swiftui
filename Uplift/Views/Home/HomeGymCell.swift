@@ -15,7 +15,7 @@ struct HomeGymCell: View {
 
     let gym: Gym
 
-    @State private var distance: String = "0.0"
+    @ObservedObject private var locationManager: LocationManager = .shared
 
     // MARK: - Constants
 
@@ -49,11 +49,6 @@ struct HomeGymCell: View {
                 .stroke(Constants.Colors.gray01, lineWidth: 1)
                 .upliftShadow(Constants.Shadows.smallLight)
         )
-        .onChange(of: LocationManager.shared.userLocation) { _ in
-            distance = LocationManager.shared.distanceToCoordinates(
-                latitude: gym.latitude, longitude: gym.longitude
-            )
-        }
     }
 
     private var gymInfoView: some View {
@@ -194,7 +189,7 @@ struct HomeGymCell: View {
     }
 
     private var distanceText: some View {
-        Text("\(distance)mi")
+        Text("\(locationManager.distanceToCoordinates(latitude: gym.latitude, longitude: gym.longitude)) mi")
             .font(Constants.Fonts.labelMedium)
             .foregroundStyle(Constants.Colors.gray03)
     }
