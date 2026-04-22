@@ -12,6 +12,8 @@
 	<string>$(ANNOUNCEMENTS_PATH)</string>
 	<key>ANNOUNCEMENTS_SCHEME</key>
 	<string>$(ANNOUNCEMENTS_SCHEME)</string>
+	<key>APP_REVIEW_ALLOWED_EMAILS</key>
+	<string>uplift.appdev.test@gmail.com</string>
 	<key>CFBundleGetInfoString</key>
 	<array>
 		<dict>
