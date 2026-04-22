@@ -15,7 +15,7 @@ struct HomeGymCell: View {
 
     let gym: Gym
 
-    @State private var distance: String = "0.0"
+    @State private var distance: String = ""
 
     // MARK: - Constants
 
@@ -49,10 +49,14 @@ struct HomeGymCell: View {
                 .stroke(Constants.Colors.gray01, lineWidth: 1)
                 .upliftShadow(Constants.Shadows.smallLight)
         )
-        .onChange(of: LocationManager.shared.userLocation) { _ in
-            distance = LocationManager.shared.distanceToCoordinates(
-                latitude: gym.latitude, longitude: gym.longitude
-            )
+        .onChange(of: LocationManager.shared.userLocation) { location in
+            if location == nil {
+                distance = ""
+            } else {
+                distance = LocationManager.shared.distanceToCoordinates(
+                    latitude: gym.latitude, longitude: gym.longitude
+                )
+            }
         }
     }
 
@@ -194,7 +198,7 @@ struct HomeGymCell: View {
     }
 
     private var distanceText: some View {
-        Text("\(distance)mi")
+        Text(distance.isEmpty ? "" : "\(distance)mi")
             .font(Constants.Fonts.labelMedium)
             .foregroundStyle(Constants.Colors.gray03)
     }
