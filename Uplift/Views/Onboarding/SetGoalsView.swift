@@ -7,29 +7,118 @@
 //
 
 import SwiftUI
+import OSLog
 
 /// The view for setting goals and workout reminders.
 struct SetGoalsView: View {
 
     // MARK: - Properties
 
+    let isOnboarding: Bool
+    let user: User?
+
     @EnvironmentObject var mainViewModel: MainView.ViewModel
+    @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = ViewModel()
     @State private var isEveryDay = false
     @State private var isSettingTime = false
     @State private var showNewReminder = false
+    @State private var inSavedState = false
+
+    private var isGoalChangeLocked: Bool {
+        viewModel.isGoalChangeLocked(lastGoalChange: user?.lastGoalChange)
+    }
+
+    // MARK: - Init
+
+    init(isOnboarding: Bool, user: User? = nil) {
+        self.isOnboarding = isOnboarding
+        self.user = user
+    }
 
     // MARK: - UI
 
     var body: some View {
         NavigationStack {
-            VStack {
-                header
-                content
+            if isOnboarding {
+                VStack {
+                    header
+                    content
+                }
+                .padding(.vertical, 20)
+                .background(Constants.Colors.white)
+            } else {
+                VStack {
+                    headerInProfile
+                    content
+                }
+                .ignoresSafeArea(.all, edges: .top)
+                .navigationBarBackButtonHidden(true)
+                .toolbarBackground(.hidden, for: .navigationBar)
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Constants.Images.arrowLeftLight
+                                .resizable()
+                                .scaledToFill()
+                                .foregroundStyle(Constants.Colors.black)
+                                .frame(width: 24, height: 24)
+                        }
+                    }
+                }
+                .background(Constants.Colors.white)
             }
-            .padding(.vertical, 20)
-            .background(Constants.Colors.white)
         }
+        .onAppear {
+            guard !isOnboarding, let user = user else { return }
+            viewModel.sliderWorkoutGoal = Double(user.workoutGoal ?? 1)
+            viewModel.currWorkoutGoal = user.workoutGoal ?? 1
+        }
+        .showModal($viewModel.showWarningModal) {
+            GoalSettingWarningModal(
+                onContinue: {
+                    if let user = user, let userId = Int(user.id) {
+                        viewModel.setWorkoutGoal(
+                            userId: userId,
+                            workoutGoal: Int(viewModel.sliderWorkoutGoal)
+                        ) { result in
+                            switch result {
+                            case .success:
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    inSavedState = true
+                                    viewModel.currWorkoutGoal = Int(viewModel.sliderWorkoutGoal)
+                                }
+                            case .failure(let error):
+                                Logger.data.critical("Error in SetGoalsView: \(error.localizedDescription)")
+                            }
+                        }
+                    } else {
+                        Logger.data.error("Error in SetGoalsView: Failed to save workout goal because `user.id` was invalid (not an Int).")
+                    }
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        viewModel.showWarningModal = false
+                    }
+                },
+                onCancel: {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        viewModel.showWarningModal = false
+                    }
+                }
+            )
+        }
+        .showModal($viewModel.showErrorModal) {
+            GoalSettingErrorModal(
+                onCancel: {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        viewModel.showErrorModal = false
+                    }
+                },
+                unlockDate: viewModel.unlockDate(lastGoalChange: user?.lastGoalChange)
+            )
+        }
+
     }
 
     private var header: some View {
@@ -47,24 +136,45 @@ struct SetGoalsView: View {
         }
     }
 
+    private var headerInProfile: some View {
+        VStack {
+            Spacer()
+
+            HStack {
+                Spacer()
+
+                Text("Goals")
+                    .foregroundStyle(Constants.Colors.black)
+                    .font(Constants.Fonts.h2)
+
+                Spacer()
+            }
+        }
+        .padding(.bottom, 10)
+        .background(Constants.Colors.lightGray)
+        .frame(height: 96)
+    }
+
     private var content: some View {
-        VStack(spacing: 48) {
+        VStack(spacing: 40) {
             workoutDays
             // TODO: Workout reminders feature is archived for now
 //                workoutReminders
 
+            if !isOnboarding {
+                if inSavedState {
+                    savedLabel
+                } else {
+                    saveButton
+                }
+            }
+
             Spacer()
 
-            nextLabel
+            if isOnboarding {
+                nextButton
+            }
         }
-        .padding(
-            EdgeInsets(
-                top: Constants.Padding.goalsVertical,
-                leading: Constants.Padding.goalsHorizontal,
-                bottom: Constants.Padding.goalsVertical,
-                trailing: Constants.Padding.goalsHorizontal
-            )
-        )
     }
 
     private var workoutDays: some View {
@@ -79,7 +189,7 @@ struct SetGoalsView: View {
 
             VStack(spacing: 16) {
                 Slider(
-                    value: $mainViewModel.daysAWeek,
+                    value: $viewModel.sliderWorkoutGoal,
                     in: 1...7,
                     step: 1
                 )
@@ -98,6 +208,14 @@ struct SetGoalsView: View {
                 .padding(.horizontal, 10)
             }
         }
+        .padding(
+            EdgeInsets(
+                top: Constants.Padding.goalsVertical,
+                leading: Constants.Padding.goalsHorizontal,
+                bottom: Constants.Padding.goalsVertical,
+                trailing: Constants.Padding.goalsHorizontal
+            )
+        )
     }
 
     private var workoutReminders: some View {
@@ -163,12 +281,64 @@ struct SetGoalsView: View {
         }
     }
 
-    private var nextLabel: some View {
+    private var saveButton: some View {
         Button {
-            // TODO: Fix animation
             withAnimation {
-                mainViewModel.showSetGoalsView = false
-                mainViewModel.showCreateProfileView = true
+                if isGoalChangeLocked {
+                    viewModel.showErrorModal = true
+                } else {
+                    viewModel.showWarningModal = true
+                }
+            }
+        } label: {
+            Text("Save Changes")
+                .font(Constants.Fonts.h3)
+                .foregroundColor(Constants.Colors.white)
+                .padding(.horizontal, 32)
+                .padding(.vertical, 12)
+                .background(viewModel.isWorkoutGoal ? Constants.Colors.gray03 : Constants.Colors.black)
+                .cornerRadius(30)
+                .upliftShadow(Constants.Shadows.smallLight)
+        }
+        .disabled(viewModel.isWorkoutGoal)
+    }
+
+    private var savedLabel: some View {
+        HStack(spacing: 8) {
+            Image(systemName: "checkmark")
+                .resizable()
+                .frame(width: 12, height: 12)
+                .foregroundStyle(Constants.Colors.white)
+
+            Text("Saved")
+                .font(Constants.Fonts.h3)
+                .foregroundStyle(Constants.Colors.white)
+        }
+        .padding(.horizontal, 32)
+        .padding(.vertical, 12)
+        .background(viewModel.isWorkoutGoal ? Constants.Colors.gray03 : Constants.Colors.black)
+        .cornerRadius(30)
+        .upliftShadow(Constants.Shadows.smallLight)
+    }
+
+    private var nextButton: some View {
+        Button {
+            mainViewModel.createUser {
+                guard let userId = mainViewModel.userId else { return }
+                viewModel.setWorkoutGoal(
+                    userId: userId,
+                    workoutGoal: Int(viewModel.sliderWorkoutGoal)
+                ) { result in
+                    switch result {
+                    case .success:
+                        withAnimation {
+                            mainViewModel.showSetGoalsView = false
+                            mainViewModel.showMainView = true
+                        }
+                    case .failure(let error):
+                        Logger.data.critical("Error in SetGoalsView: \(error.localizedDescription)")
+                    }
+                }
             }
         } label: {
             Text("Next")
@@ -185,5 +355,5 @@ struct SetGoalsView: View {
 }
 
 #Preview {
-    SetGoalsView()
+    SetGoalsView(isOnboarding: true)
 }

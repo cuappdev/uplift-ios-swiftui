@@ -102,7 +102,7 @@ enum MuscleCategory: CaseIterable {
         case .abdominals:
             return "ABDOMINALS"
         case .miscellaneous:
-            return "MISCELLANOUS"
+            return "MISCELLANEOUS"
         }
     }
 

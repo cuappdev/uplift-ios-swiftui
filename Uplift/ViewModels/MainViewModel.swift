@@ -24,7 +24,6 @@ extension MainView {
         @Published var instagram: String = ""
         @Published var name: String = ""
         @Published var netID: String = ""
-        @Published var daysAWeek = 4.0
         @Published var popUpGiveaway: Bool = false
         @Published var profileImage: UIImage?
         @Published var didClickSubmit: Bool = false
@@ -36,7 +35,29 @@ extension MainView {
         @Published var submitSuccessful: Bool = false
         @Published var showWorkoutCheckIn: Bool = true
 
+        /// True when the user tapped Skip on sign-in; persisted so relaunch stays on main with a guest profile tab.
+        @Published var isSkipped: Bool = false {
+            didSet {
+                UserDefaults.standard.set(isSkipped, forKey: Constants.UserDefaultsKeys.skippedLogin)
+            }
+        }
+
         private var queryBag = Set<AnyCancellable>()
+
+        init() {
+            let skipped = UserDefaults.standard.bool(forKey: Constants.UserDefaultsKeys.skippedLogin)
+            isSkipped = skipped
+            if skipped {
+                showSignInView = false
+                showMainView = true
+            }
+        }
+
+        /// Clears draft onboarding data that must not carry across sessions (e.g. after log out or account deletion).
+        func resetOnboardingDraftState() {
+            profileImage = nil
+            userId = nil
+        }
 
         // MARK: - Constants
 
@@ -60,7 +81,8 @@ extension MainView {
                 UserSessionManager.shared.loginUser(netId: self.netID) { result in
                     switch result {
                     case .success:
-                        Logger.data.log("✅ Successfully logged in after creating user")
+                        Logger.data.log("Successfully logged in after creating user")
+                        self.isSkipped = false
                         self.showMainView = true
                         self.showCreateProfileView = false
                         self.showSignInView = false
@@ -70,12 +92,12 @@ extension MainView {
                     case .failure(let error):
                         if let graphqlError = error as? GraphQLErrorWrapper,
                            graphqlError.msg.contains("No user with those credentials") {
-                            Logger.data.critical("⚠️ No user found, show onboarding flow or retry")
+                            Logger.data.critical("No user found, show onboarding flow or retry")
                             self.showMainView = false
                             self.showCreateProfileView = false
                             self.showSignInView = true
                         } else {
-                            Logger.data.critical("❌ Unexpected login error: \(error.localizedDescription)")
+                            Logger.data.critical("Unexpected login error: \(error.localizedDescription)")
                         }
                     }
                 }
@@ -92,8 +114,10 @@ extension MainView {
             // Make lowercase and remove whitespace
             netID = netID.lowercased().replacingOccurrences(of: " ", with: "")
 
-            let base64Image: String? = profileImage?
-                .jpegData(compressionQuality: 0.5)?
+            let resizedImage = profileImage?.resized()
+
+            let base64Image: String? = resizedImage?
+                .jpegData(compressionQuality: 0.2)?
                 .base64EncodedString()
 
             Network.client.mutationPublisher(
@@ -116,27 +140,6 @@ extension MainView {
                 callback()
 #if DEBUG
                 Logger.data.log("Created a new user with NetID \(user.netId)")
-#endif
-            }
-            .store(in: &queryBag)
-        }
-
-        /// Sets the user's workout goal.
-        func setWorkoutGoal(
-            userId: Int,
-            workoutGoal: Int
-        ) {
-            Network.client.mutationPublisher(
-                // TODO: Format of workout goal is incorrect right now
-                mutation: SetWorkoutGoalsMutation(userId: userId, workoutGoal: 2000)
-            )
-            .sink { completion in
-                if case let .failure(error) = completion {
-                    Logger.data.critical("Error in SetGoalsViewModel.setWorkoutGoal: \(error)")
-                }
-            } receiveValue: { _ in
-#if DEBUG
-                Logger.data.log("User id \(userId) has set goal to \(workoutGoal)")
 #endif
             }
             .store(in: &queryBag)

@@ -13,24 +13,20 @@ struct ReportSuccessView: View {
 
     // MARK: - Properties
 
-    @Environment(\.dismiss) private var dismiss
-    @Binding var isActive: Bool
-    @Binding var profileIsActive: Bool
-    @Binding var reportIsActive: Bool
+    let onSubmitAnother: () -> Void
+    let onReturnHome: () -> Void
     @EnvironmentObject var tabBarProp: TabBarProperty
 
     // MARK: - UI
 
     var body: some View {
-        NavigationStack {
-            VStack {
-                header
-                content
-            }
-            .ignoresSafeArea(.all, edges: .top)
-            .navigationBarBackButtonHidden(true)
-            .background(Constants.Colors.white)
+        VStack {
+            header
+            content
         }
+        .ignoresSafeArea(.all, edges: .top)
+        .background(Constants.Colors.white)
+        .navigationBarBackButtonHidden(true)
     }
 
     private var header: some View {
@@ -81,10 +77,7 @@ struct ReportSuccessView: View {
 
     private var submitAnotherButton: some View {
         Button {
-            withAnimation(.easeIn(duration: 0.3)) {
-                reportIsActive.toggle()
-                isActive.toggle()
-            }
+            onSubmitAnother()
         } label: {
             VStack {
                 Text("SUBMIT ANOTHER")
@@ -102,19 +95,21 @@ struct ReportSuccessView: View {
 
     private var returnHomeButton: some View {
         Button {
-            withAnimation(.easeIn(duration: 0.3)) {
-                profileIsActive.toggle()
-                isActive.toggle()
-            }
-            withAnimation(.easeIn(duration: 0.1)) {
-                tabBarProp.hidden = false
-            }
+            onReturnHome()
         } label: {
             HStack {
-                Text("Return to Home")
+                Text("Return to Profile")
                     .foregroundStyle(Constants.Colors.gray04)
                     .font(Constants.Fonts.f3)
             }
         }
     }
+}
+
+#Preview {
+    ReportSuccessView(
+        onSubmitAnother: {},
+        onReturnHome: {}
+    )
+    .environmentObject(TabBarProperty())
 }

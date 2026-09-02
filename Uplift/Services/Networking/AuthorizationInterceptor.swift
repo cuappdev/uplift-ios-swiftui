@@ -25,10 +25,14 @@ class AuthorizationInterceptor: ApolloInterceptor {
         if !isRefresh {
             if let token = UserSessionManager.shared.accessToken {
                 request.addHeader(name: "Authorization", value: "Bearer \(token)")
+            } else {
+                Logger.data.critical("Error in AuthorizationInterceptor: No access token")
             }
         } else {
             if let token = UserSessionManager.shared.refreshToken {
                 request.addHeader(name: "Authorization", value: "Bearer \(token)")
+            } else {
+                Logger.data.critical("Error in AuthorizationInterceptor: No refresh token")
             }
         }
 

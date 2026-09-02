@@ -18,9 +18,6 @@ struct WorkoutProgressArc: View {
 
     @ObservedObject var viewModel: ProfileView.ViewModel
 
-    /// 3/5 - for dummy data for now
-    let completedWorkouts: Int = 3
-    let targetWorkouts: Int = 5
     let radius: CGFloat = 126
 
     // MARK: - UI
@@ -64,11 +61,11 @@ struct WorkoutProgressArc: View {
             VStack(spacing: 8) {
                 // Value
                 HStack(alignment: .lastTextBaseline, spacing: 2) {
-                    Text("\(completedWorkouts)")
+                    Text("\(viewModel.currentWeekWorkouts)")
                         .font(Constants.Fonts.p1)
                         .foregroundColor(.black)
 
-                    Text("/ \(targetWorkouts)")
+                    Text("/ \(viewModel.user?.workoutGoal ?? 5)")
                         .font(Constants.Fonts.h1)
                         .foregroundColor(.gray)
                         .padding(.leading, 2)
@@ -83,25 +80,33 @@ struct WorkoutProgressArc: View {
         }
         .frame(width: radius * 2, height: radius * 2)
         .onAppear {
-            // Start with initial values
-            arcProgress = 0
-            dotRotation = 0
+            animateProgress()
+        }
+        .onChange(of: viewModel.currentWeekWorkouts) { _ in
+            animateProgress()
+        }
+    }
 
-            // Calculate the final rotation based on progress
-            let finalRotation = 180 * Double(completedWorkouts) / Double(targetWorkouts)
+    // MARK: - Helpers
 
-            // Animate both simultaneously
-            withAnimation(.easeOut(duration: 1.5)) {
-                arcProgress = Double(completedWorkouts) / Double(targetWorkouts)
-                dotRotation = finalRotation
-            }
+    private func animateProgress() {
+        let goal = Double(viewModel.user?.workoutGoal ?? 5)
+        let completed = Double(viewModel.currentWeekWorkouts)
+        let progress = min(completed / goal, 1.0)
+        let finalRotation = 180 * progress
+
+        withAnimation(.easeOut(duration: 1.5)) {
+            arcProgress = progress
+            dotRotation = finalRotation
         }
     }
 }
 
 #Preview {
     let viewModel = ProfileView.ViewModel()
-    viewModel.fetchUserProfile()
+    Task {
+        await viewModel.fetchUserProfile()
+    }
 
     return WorkoutProgressArc(viewModel: viewModel)
         .padding()

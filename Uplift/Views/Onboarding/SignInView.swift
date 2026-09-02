@@ -13,16 +13,25 @@ struct SignInView: View {
 
     // MARK: - Properties
 
-    @StateObject private var loginViewModel = LoginViewModel()
     @EnvironmentObject var mainViewModel: MainView.ViewModel
+    @StateObject private var loginViewModel = LoginViewModel()
     @State private var animateElements: Bool = false
 
     // MARK: - UI
 
     var body: some View {
-        ZStack {
+        ZStack(alignment: .top) {
+            Constants.Images.backgroundEllipse
+                .resizable()
+                .scaledToFit()
+                .padding(.trailing, 51)
+                .ignoresSafeArea(edges: .top)
+                .opacity(animateElements ? 1 : 0)
+                .animation(.easeIn(duration: 1).delay(1), value: animateElements)
+
             VStack {
                 signInHeader
+
                 loginButton
 
                 Spacer(minLength: 16)
@@ -41,6 +50,8 @@ struct SignInView: View {
     private var skipButton: some View {
         Button {
             withAnimation(.easeIn) {
+                mainViewModel.isSkipped = true
+                mainViewModel.showSignInView = false
                 mainViewModel.showMainView = true
             }
         } label: {
@@ -62,10 +73,13 @@ struct SignInView: View {
                 UserSessionManager.shared.loginUser(netId: netId) { result in
                     switch result {
                     case .success:
-                        DispatchQueue.main.async {
-                            mainViewModel.showSignInView = false
-                            mainViewModel.showCreateProfileView = false
-                            mainViewModel.showMainView = true
+                        Task {
+                            await MainActor.run {
+                                mainViewModel.isSkipped = false
+                                mainViewModel.showSignInView = false
+                                mainViewModel.showCreateProfileView = false
+                                mainViewModel.showMainView = true
+                            }
                         }
 
                         UserSessionManager.shared.email = email
@@ -74,12 +88,16 @@ struct SignInView: View {
                         if let graphqlError = error as? GraphQLErrorWrapper,
                            graphqlError.msg.contains("No user with those credentials") {
 
-                            DispatchQueue.main.async {
-                                mainViewModel.showSignInView = false
-                                mainViewModel.showSetGoalsView = true
+                            Task {
+                                await MainActor.run {
+                                    mainViewModel.isSkipped = false
+                                    mainViewModel.showSignInView = false
+                                    mainViewModel.showSetGoalsView = false
+                                    mainViewModel.showCreateProfileView = true
+                                }
                             }
                         } else {
-                            Logger.data.critical("❌ Unexpected login error: \(error.localizedDescription)")
+                            Logger.data.critical("Unexpected login error: \(error.localizedDescription)")
                         }
                     }
                 }
@@ -166,20 +184,14 @@ struct SignInView: View {
 
     private var signInHeader: some View {
         VStack {
-            ZStack(alignment: .bottom) {
-                Constants.Images.backgroundEllipse
-                    .padding(.trailing, 51)
-                    .opacity(animateElements ? 1 : 0)
-                    .animation(.easeIn(duration: 1).delay(1), value: animateElements)
-
-                Constants.Images.logo
-                    .resizable()
-                    .frame(width: 130, height: 115)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                    .padding(32)
-                    .offset(y: animateElements ? 0 : 200)
-                    .animation(.smooth(duration: 2), value: animateElements)
-            }
+            Constants.Images.logo
+                .resizable()
+                .frame(width: 130, height: 115)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .padding(32)
+                .padding(.top, 60)
+                .offset(y: animateElements ? 0 : 200)
+                .animation(.smooth(duration: 2), value: animateElements)
 
             Text("Find what uplifts you.")
                 .font(Constants.Fonts.h1)
@@ -200,7 +212,6 @@ struct SignInView: View {
 
             Spacer()
         }
-        .ignoresSafeArea(.all)
     }
 }
 

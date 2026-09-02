@@ -6,16 +6,20 @@
 //  Copyright © 2025 Cornell AppDev. All rights reserved.
 //
 
-import SwiftUI
 import Kingfisher
+import SwiftUI
+import PhotosUI
 
 /// The main view for the Profile page.
 struct ProfileView: View {
 
     // MARK: - Properties
+    @ObservedObject var viewModel: ViewModel
+    @EnvironmentObject var mainViewModel: MainView.ViewModel
     @EnvironmentObject var tabBarProp: TabBarProperty
-    @StateObject private var viewModel = ViewModel()
-
+    @State private var showSettings = false
+    @State private var showImagePicker = false
+    @State private var profileItem: PhotosPickerItem?
     private let radius = 125
 
     // MARK: - UI
@@ -26,9 +30,114 @@ struct ProfileView: View {
                 scrollContent
             }
             .background(Constants.Colors.white)
+            .photosPicker(
+                isPresented: $showImagePicker,
+                selection: $profileItem,
+                matching: .images,
+                photoLibrary: .shared()
+            )
+            .onChange(of: profileItem) { newItem in
+                Task { @MainActor in
+                    guard let newItem,
+                          let data = try? await newItem.loadTransferable(type: Data.self),
+                          let image = UIImage(data: data) else { return }
+
+                    viewModel.profileImage = image
+                    viewModel.editProfileImage()
+                }
+            }
+            .navigationDestination(isPresented: $showSettings) {
+                SettingsView(
+                    onBack: {
+                        showSettings = false
+                        withAnimation(.easeIn(duration: 0.1)) {
+                            tabBarProp.hidden = false
+                        }
+                    },
+                    onFinishedReporting: {
+                        showSettings = false
+                    },
+                    onReminders: {
+                        // TODO: Notifications about uplift
+                    },
+                    onLogout: {
+                        UserSessionManager.shared.logout()
+                        mainViewModel.resetOnboardingDraftState()
+                        showSettings = false
+                        withAnimation(.easeIn(duration: 0.1)) {
+                            tabBarProp.hidden = false
+                        }
+                        mainViewModel.isSkipped = false
+                        mainViewModel.showMainView = false
+                        mainViewModel.showSignInView = true
+                        mainViewModel.showCreateProfileView = false
+                        mainViewModel.showSetGoalsView = false
+                    },
+                    onDeleteAccount: {
+                        viewModel.showDeleteAccountAlert = true
+                    }
+                )
+                .environmentObject(tabBarProp)
+                .navigationBarBackButtonHidden(true)
+                .toolbar(.hidden, for: .navigationBar)
+                .navigationBarHidden(true)
+                .showModal($viewModel.showDeleteAccountAlert) {
+                    DeleteAccountModal(
+                        onDelete: confirmDeleteAccount,
+                        onBack: dismissDeleteAccountModal,
+                        onClose: dismissDeleteAccountModal
+                    )
+                }
+            }
+            .onChange(of: showSettings) { isShowing in
+                if !isShowing {
+                    withAnimation(.easeIn(duration: 0.1)) {
+                        tabBarProp.hidden = false
+                    }
+                }
+            }
         }
         .onAppear {
-            viewModel.fetchUserProfile()
+            Task {
+                await viewModel.fetchUserProfile()
+            }
+        }
+        .showModal($viewModel.showDeleteAccountAlert) {
+            DeleteAccountModal(
+                onDelete: confirmDeleteAccount,
+                onBack: dismissDeleteAccountModal,
+                onClose: dismissDeleteAccountModal
+            )
+        }
+    }
+
+    private func dismissDeleteAccountModal() {
+        // Dismiss on the next runloop tick to prevent the tap from
+        // "falling through" to the Settings row underneath.
+        DispatchQueue.main.async {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                viewModel.showDeleteAccountAlert = false
+            }
+        }
+    }
+
+    private func confirmDeleteAccount() {
+        viewModel.deleteAccount { success in
+            guard success else { return }
+            Task { @MainActor in
+                mainViewModel.resetOnboardingDraftState()
+                showSettings = false
+                viewModel.showSettingsSheet = false
+                withAnimation(.easeIn(duration: 0.1)) {
+                    tabBarProp.hidden = false
+                }
+                mainViewModel.isSkipped = false
+                mainViewModel.showMainView = false
+                mainViewModel.showSignInView = true
+                mainViewModel.showCreateProfileView = false
+                mainViewModel.showSetGoalsView = false
+                dismissDeleteAccountModal()
+            }
         }
     }
 
@@ -57,36 +166,20 @@ struct ProfileView: View {
     }
 
     private var settingsButton: some View {
-        HStack(spacing: 12) {
-            HStack(spacing: 4) {
-                Image(systemName: "star.fill")
-                    .foregroundStyle(Constants.Colors.yellow)
-
-                Text("Favorites")
-                    .font(Constants.Fonts.bodyLight)
-                    .foregroundStyle(Constants.Colors.black)
+        Button {
+            showSettings = true
+            withAnimation(.easeIn(duration: 0.1)) {
+                tabBarProp.hidden = true
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-            .background(Constants.Colors.white)
-            .cornerRadius(20)
-            .overlay {
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(Constants.Colors.yellow, lineWidth: 1)
-            }
-
-            Button {
-                viewModel.showSettingsSheet = true
-            } label: {
-                Constants.Images.settings
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 24, height: 24)
-                    .foregroundStyle(Constants.Colors.black)
-            }
-            .sheet(isPresented: $viewModel.showSettingsSheet) {
-                settingsView
-            }
+        } label: {
+            Constants.Images.settings
+                .resizable()
+                .scaledToFit()
+                .frame(width: 24, height: 24)
+                .foregroundStyle(Constants.Colors.black)
+        }
+        .sheet(isPresented: $viewModel.showSettingsSheet) {
+            settingsView
         }
     }
 
@@ -120,7 +213,6 @@ struct ProfileView: View {
                     Text("About Uplift")
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.black)
-
                     Spacer()
                 }
             }
@@ -134,7 +226,6 @@ struct ProfileView: View {
                     Text("Reminders")
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.black)
-
                     Spacer()
                 }
             }
@@ -148,7 +239,6 @@ struct ProfileView: View {
                     Text("Report an Issue")
                         .font(Constants.Fonts.bodyNormal)
                         .foregroundStyle(Constants.Colors.black)
-
                     Spacer()
                 }
             }
@@ -156,9 +246,24 @@ struct ProfileView: View {
             DividerLine()
 
             Button {
-                //TODO: Logging Out functionality
+                UserSessionManager.shared.logout()
+                mainViewModel.resetOnboardingDraftState()
+                viewModel.showSettingsSheet = false
+                mainViewModel.isSkipped = false
+                mainViewModel.showMainView = false
+                mainViewModel.showSignInView = true
             } label: {
                 Text("Log Out")
+                    .font(Constants.Fonts.bodyNormal)
+                    .foregroundStyle(Constants.Colors.closed)
+            }
+
+            DividerLine()
+
+            Button {
+                viewModel.showDeleteAccountAlert = true
+            } label: {
+                Text("Delete Account")
                     .font(Constants.Fonts.bodyNormal)
                     .foregroundStyle(Constants.Colors.closed)
             }
@@ -167,6 +272,13 @@ struct ProfileView: View {
         }
         .padding(.horizontal, 24)
         .background(Constants.Colors.white)
+        .showModal($viewModel.showDeleteAccountAlert) {
+            DeleteAccountModal(
+                onDelete: confirmDeleteAccount,
+                onBack: dismissDeleteAccountModal,
+                onClose: dismissDeleteAccountModal
+            )
+        }
     }
 
     private var scrollContent: some View {
@@ -184,52 +296,36 @@ struct ProfileView: View {
 
     private var profileTopSection: some View {
         HStack(spacing: 20) {
-            // Profile image with camera icon
             ZStack(alignment: .bottomTrailing) {
                 ZStack {
-                    // Outer shadow circle
                     Circle()
                         .fill(Constants.Colors.white)
-                        .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 1)
+                        .shadow(
+                            color: .gray.opacity(0.5),
+                            radius: 3,
+                            x: 0,
+                            y: 1
+                        )
                         .frame(width: 98, height: 98)
 
-                    // White border circle
                     Circle()
                         .fill(Constants.Colors.white)
                         .frame(width: 98, height: 98)
 
-                    // Profile image
-                    Image(systemName: "person.crop.circle.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 93, height: 93)
-                        .foregroundStyle(Constants.Colors.gray02)
+                    profileAvatar
                 }
 
-                // Camera button overlay
-                Circle()
-                    .fill(Constants.Colors.white)
-                    .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 1)
-                    .frame(width: 32, height: 32)
-                    .overlay {
-                        Image(systemName: "camera.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 20, height: 20)
-                            .foregroundStyle(Constants.Colors.gray03)
-                    }
-                    .offset(x: 2, y: 2)
+                cameraMiniButton
             }
 
-            // Name and workouts count
             VStack(alignment: .leading, spacing: 16) {
-                Text(viewModel.profile?.name ?? "Anonymous")
+                Text(viewModel.user?.name ?? "Anonymous")
                     .font(Constants.Fonts.h1)
                     .foregroundStyle(Constants.Colors.black)
 
-                HStack(spacing: 24) {
+                HStack(spacing: 36) {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("\(viewModel.totalWorkouts)")
+                        Text("\(viewModel.totalGymDays)")
                             .font(Constants.Fonts.h2)
                             .foregroundStyle(Constants.Colors.black)
 
@@ -238,10 +334,9 @@ struct ProfileView: View {
                             .foregroundStyle(Constants.Colors.gray04)
                             .fixedSize(horizontal: false, vertical: true)
                     }
-                    .frame(minWidth: 70, alignment: .leading)
 
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("\(viewModel.streaks)")
+                        Text("\(viewModel.activeStreak)")
                             .font(Constants.Fonts.h2)
                             .foregroundStyle(Constants.Colors.black)
 
@@ -249,18 +344,6 @@ struct ProfileView: View {
                             .font(Constants.Fonts.labelMedium)
                             .foregroundStyle(Constants.Colors.gray04)
                     }
-                    .frame(minWidth: 55, alignment: .leading)
-
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("\(viewModel.badges)")
-                            .font(Constants.Fonts.h2)
-                            .foregroundStyle(Constants.Colors.black)
-
-                        Text("Badges")
-                            .font(Constants.Fonts.labelMedium)
-                            .foregroundStyle(Constants.Colors.gray04)
-                    }
-                    .frame(minWidth: 55, alignment: .leading)
                 }
             }
 
@@ -269,73 +352,158 @@ struct ProfileView: View {
         .padding(.horizontal, 2)
     }
 
+    private var cameraMiniButton: some View {
+        Button {
+            showImagePicker = true
+        } label: {
+            Circle()
+                .fill(Constants.Colors.white)
+                .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 1)
+                .frame(width: 32, height: 32)
+                .overlay {
+                    Image(systemName: "camera.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 20, height: 20)
+                        .foregroundStyle(Constants.Colors.gray03)
+                }
+                .offset(x: 2, y: 2)
+        }
+    }
+
     private var goalView: some View {
-        VStack {
-            HStack {
-                Text("My Goals")
-                    .font(Constants.Fonts.h2)
-                    .foregroundColor(Constants.Colors.gray04)
+        NavigationLink {
+            SetGoalsView(isOnboarding: false, user: viewModel.user)
+                .environmentObject(mainViewModel)
+        } label: {
+            VStack {
+                HStack {
+                    Text("My Goals")
+                        .font(Constants.Fonts.h2)
+                        .foregroundColor(Constants.Colors.gray04)
 
-                Spacer()
+                    Spacer()
 
-                Image(systemName: "chevron.right")
-                    .resizable()
-                    .frame(width: 8, height: 12)
-                    .foregroundColor(Constants.Colors.gray03)
-            }
+                    Image(systemName: "chevron.right")
+                        .resizable()
+                        .frame(width: 8, height: 12)
+                        .foregroundColor(Constants.Colors.gray03)
+                }
 
-            VStack(spacing: CGFloat(-radius) + 16) {
-                WorkoutProgressArc(viewModel: viewModel)
-                WeeklyWorkoutTrackerView(viewModel: viewModel)
+                VStack(spacing: CGFloat(-radius) + 16) {
+                    WorkoutProgressArc(viewModel: viewModel)
+                    WeeklyWorkoutTrackerView(viewModel: viewModel)
+                }
             }
         }
     }
 
     private var historyView: some View {
-        VStack(spacing: 20) {
-            HStack {
-                Text("History")
-                    .font(Constants.Fonts.h2)
-                    .foregroundColor(Constants.Colors.gray04)
+        NavigationLink {
+            WorkoutHistoryView(user: viewModel.user)
+        } label: {
+            VStack(spacing: 0) {
+                HStack {
+                    Text("My Workout History")
+                        .font(Constants.Fonts.h2)
+                        .foregroundColor(Constants.Colors.gray04)
 
-                Spacer()
+                    Spacer()
 
-                Image(systemName: "chevron.right")
-                    .resizable()
-                    .frame(width: 8, height: 12)
-                    .foregroundColor(Constants.Colors.gray03)
-            }
+                    Image(systemName: "chevron.right")
+                        .resizable()
+                        .frame(width: 8, height: 12)
+                        .foregroundColor(Constants.Colors.gray03)
+                }
 
-            ForEach(viewModel.workoutHistory.indices, id: \.self) { index in
-                LazyVStack(spacing: 8) {
-                    HStack {
-                        let workout = viewModel.workoutHistory[index]
-                        Text(workout.location)
-                            .foregroundStyle(Constants.Colors.black)
-                            .font(Constants.Fonts.bodyMedium)
-
+                if viewModel.workouts.isEmpty {
+                    VStack {
                         Spacer()
 
-                        Text("\(workout.time) • \(workout.date.description)")
-                            .foregroundStyle(Constants.Colors.black)
-                            .font(Constants.Fonts.labelLight)
-                    }
+                        VStack(spacing: 12) {
+                            Constants.Images.bag
 
-                    if index < viewModel.workoutHistory.count - 1 {
-                        Rectangle()
-                            .fill(Constants.Colors.gray01)
-                            .frame(height: 1)
+                            VStack(spacing: 4) {
+                                Text("No workouts yet.")
+                                    .foregroundStyle(Constants.Colors.black)
+                                    .font(Constants.Fonts.h3)
+
+                                Text("Head to a gym and check in!")
+                                    .foregroundStyle(Constants.Colors.black)
+                                    .font(Constants.Fonts.f3)
+                            }
+                        }
+
+                        Spacer()
+                    }
+                    .padding(.top, 48)
+                } else {
+                    ForEach(viewModel.recentWorkouts, id: \.id) { workout in
+                        VStack(spacing: 0) {
+                            VStack(spacing: 4) {
+                                HStack {
+                                    Text(workout.gymName)
+                                        .foregroundStyle(Constants.Colors.black)
+                                        .font(Constants.Fonts.f4)
+
+                                    Spacer()
+                                }
+
+                                HStack {
+                                    Text(WorkoutTimeFormatter.string(from: workout.workoutTime, in: .list))
+                                        .foregroundStyle(Constants.Colors.gray04)
+                                        .font(Constants.Fonts.f4)
+
+                                    Spacer()
+
+                                    Text(WorkoutTimeFormatter.relativeString(from: workout.workoutTime))
+                                        .foregroundStyle(Constants.Colors.black)
+                                        .font(Constants.Fonts.f4)
+                                }
+                            }
+                            .padding(.vertical, 12)
+
+                            Divider()
+                        }
                     }
                 }
             }
-            // TODO: Temporary to allow view to take up whole screen
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Constants.Colors.white)
         }
+    }
+
+    // MARK: - Helpers
+
+    @ViewBuilder
+    private var profileAvatar: some View {
+        if let profileImage = viewModel.profileImage {
+            Image(uiImage: profileImage)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 93, height: 93)
+                .clipShape(Circle())
+        } else if let url = viewModel.profileImageHTTPURL {
+            KFImage(url)
+                .forceRefresh()
+                .placeholder { defaultAvatarPlaceholder }
+                .resizable()
+                .scaledToFill()
+                .frame(width: 93, height: 93)
+                .clipShape(Circle())
+        } else {
+            defaultAvatarPlaceholder
+        }
+    }
+
+    private var defaultAvatarPlaceholder: some View {
+        Image(systemName: "person.crop.circle.fill")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 93, height: 93)
+            .foregroundStyle(Constants.Colors.gray02)
     }
 
 }
 
 #Preview {
-    ProfileView()
+    ProfileView(viewModel: ProfileView.ViewModel())
 }

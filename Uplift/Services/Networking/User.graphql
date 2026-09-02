@@ -1,0 +1,44 @@
+fragment userFields on User {
+  id
+  email
+  name
+  netId
+  workoutGoal
+  activeStreak
+  maxStreak
+  lastStreak
+  lastGoalChange
+  encodedImage
+  goalHistory {
+    ...workoutGoalHistoryFields
+  }
+  totalGymDays
+  streakStart
+  workoutHistory {
+    ...workoutFields
+  }
+}
+
+query GetUserByNetId($netId: String) {
+  getUserByNetId(netId: $netId) {
+    ...userFields
+  }
+}
+
+mutation CreateUser($email: String!, $encodedImage: String, $name: String!, $netId: String!) {
+  createUser(email: $email, encodedImage: $encodedImage, name: $name, netId: $netId) {
+    ...userFields
+  }
+}
+
+mutation EditUser($userId: Int!, $email: String, $encodedImage: String, $name: String) {
+  editUser(userId: $userId, email: $email, encodedImage: $encodedImage, name: $name) {
+    ...userFields
+  }
+}
+
+mutation DeleteUser($userId: Int!) {
+  deleteUser(userId: $userId) {
+    ...userFields
+  }
+}

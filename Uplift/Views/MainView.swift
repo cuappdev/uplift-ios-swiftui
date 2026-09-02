@@ -12,12 +12,11 @@ import SwiftUI
 struct MainView: View {
 
     // MARK: - Properties
-
+    @EnvironmentObject private var viewModel: ViewModel // NOTE: MainViewModel is EnvironmentObject for now (many screens need it)
+    @StateObject private var profileViewModel = ProfileView.ViewModel() // NOTE: We only need to drill this to few screens so using @StateObject & @ObservedObject pattern
+    @StateObject private var homeViewModel = HomeView.ViewModel() // NOTE: We only need to drill this to few screens so using @StateObject & @ObservedObject pattern
     @State private var selectedTab: Screen = .home
     @StateObject var tabBarProp = TabBarProperty()
-    @StateObject private var homeViewModel = HomeView.ViewModel()
-    @StateObject private var profileViewModel = ProfileView.ViewModel()
-    @StateObject private var viewModel = ViewModel()
 
     // MARK: - UI
 
@@ -31,19 +30,29 @@ struct MainView: View {
                     ClassesView()
                         .environmentObject(tabBarProp)
                 case .profile:
-                    ProfileView()
-                        .environmentObject(tabBarProp)
+                    Group {
+                        if viewModel.isSkipped {
+                            EmptyLoginView()
+                        } else {
+                            ProfileView(viewModel: profileViewModel)
+                                .environmentObject(tabBarProp)
+                        }
+                    }
+                    .environmentObject(viewModel) // MainViewModel
                 }
             }
             .overlay(alignment: .bottom) {
                 VStack {
+                    if !viewModel.isSkipped {
                         WorkoutCheckInView(
-                            homeViewModel: homeViewModel,
                             profileViewModel: profileViewModel,
-                            mainViewModel: viewModel
+                            homeViewModel: homeViewModel
                         )
+                        .environmentObject(viewModel) // MainViewModel
                         .padding(.bottom, 13)
+                        .padding(.horizontal, 10)
                         .opacity(viewModel.showWorkoutCheckIn ? 1 : 0)
+                    }
 
                     !tabBarProp.hidden ? tabBar.transition(.move(edge: .bottom)) : nil
                 }
@@ -113,7 +122,6 @@ struct MainView: View {
                     name: "Home"
                 )
             }
-            .buttonStyle(.plain)
         case .classes:
             Button {
                 selectedTab = .classes
@@ -167,5 +175,4 @@ final class TabBarProperty: ObservableObject {
 
 #Preview {
     MainView()
-        .environmentObject(LocationManager.shared)
 }

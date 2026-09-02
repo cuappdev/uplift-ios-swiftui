@@ -12,12 +12,16 @@ import ConfettiSwiftUI
 /// View representing the workout check in pop-up
 struct WorkoutCheckInView: View {
 
-    @ObservedObject var homeViewModel: HomeView.ViewModel
+    @EnvironmentObject var mainViewModel: MainView.ViewModel
     @ObservedObject var profileViewModel: ProfileView.ViewModel
-    @ObservedObject var mainViewModel: MainView.ViewModel
+    @ObservedObject var homeViewModel: HomeView.ViewModel
     @StateObject private var viewModel = ViewModel()
 
     var body: some View {
+        // Guests who skipped sign-in should never be able to check in.
+        if mainViewModel.isSkipped {
+            EmptyView()
+        } else {
         Group {
             if !viewModel.isCheckedIn {
                 promptBody
@@ -31,10 +35,7 @@ struct WorkoutCheckInView: View {
                 mainViewModel.showWorkoutCheckIn = show
             }
 
-            if let gym = viewModel.currentNearestGym {
-                viewModel.checkDailyCooldown()
-                viewModel.checkCooldown(gym: gym)
-            }
+            viewModel.checkDailyCooldown()
 
             LocationManager.shared.requestLocation()
             viewModel.findNearestGym()
@@ -43,10 +44,11 @@ struct WorkoutCheckInView: View {
             guard let gyms else { return }
             viewModel.updateGyms(gyms)
         }
+        }
     }
 
     private var promptBody: some View {
-        HStack(spacing: 20) {
+        HStack(spacing: 8) {
             VStack(alignment: .leading) {
                 Text("We see you're near a gym...")
                     .font(Constants.Fonts.bodySemibold)
@@ -79,10 +81,12 @@ struct WorkoutCheckInView: View {
 
     private var successBody: some View {
         ZStack {
-            HStack(spacing: 84) {
+            HStack(spacing: 8) {
                 Text("You're all set. Enjoy your workout!")
                     .font(Constants.Fonts.bodySemibold)
                     .foregroundStyle(Constants.Colors.black)
+
+                Spacer()
 
                 closeButton
             }
@@ -106,11 +110,11 @@ struct WorkoutCheckInView: View {
 
             viewModel.trigger += 1
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+            Task { @MainActor in
+                try? await Task.sleep(for: .seconds(10))
                 withAnimation(.easeInOut(duration: 0.3)) {
                     mainViewModel.showWorkoutCheckIn = false
                 }
-
                 viewModel.startDailyCooldown()
             }
         }
@@ -128,7 +132,15 @@ struct WorkoutCheckInView: View {
     }
 
     private var checkInButton: some View {
-        Button(action: handleCheckIn) {
+        Button {
+            Task {
+                if profileViewModel.user == nil {
+                    await profileViewModel.fetchUserProfile()
+                }
+                await viewModel.handleCheckIn(user: profileViewModel.user)
+                await profileViewModel.fetchUserProfile()
+            }
+        } label: {
             Text("Check In?")
                 .font(Constants.Fonts.bodyMedium)
                 .foregroundStyle(Constants.Colors.black)
@@ -146,15 +158,6 @@ struct WorkoutCheckInView: View {
         }
     }
 
-    private func handleCheckIn() {
-        viewModel.isCheckedIn = true
-
-        viewModel.performCheckIn(
-            gymName: viewModel.currentNearestGym,
-            profileViewModel: profileViewModel
-        )
-    }
-
     private func handleClose() {
         withAnimation(.easeInOut(duration: 0.3)) {
             mainViewModel.showWorkoutCheckIn = false
@@ -168,8 +171,7 @@ struct WorkoutCheckInView: View {
 
 #Preview {
     WorkoutCheckInView(
-        homeViewModel: HomeView.ViewModel(),
         profileViewModel: ProfileView.ViewModel(),
-        mainViewModel: MainView.ViewModel()
+        homeViewModel: HomeView.ViewModel()
     )
 }

@@ -8,7 +8,9 @@
 
 import Combine
 import SwiftUI
+import UpliftAPI
 import CoreLocation
+import OSLog
 
 extension WorkoutCheckInView {
 
@@ -31,7 +33,7 @@ extension WorkoutCheckInView {
         private let cooldownLastGymKey = "lastCooldownGym"
         private let cooldownKey = "lastCooldownTime"
         private let dailyCooldownKey = "lastCheckInDate"
-        private var locationManager: LocationManaging?
+        private let locationManager: LocationManaging
         private var queryBag = Set<AnyCancellable>()
 
         var gyms: [Gym] = []
@@ -39,6 +41,13 @@ extension WorkoutCheckInView {
 
         init(locationManager: LocationManaging = LocationManager.shared) {
             self.locationManager = locationManager
+
+            locationManager.userLocationPublisher
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] _ in
+                    self?.findNearestGym()
+                }
+                .store(in: &queryBag)
         }
 
         // MARK: - Helpers
@@ -61,7 +70,7 @@ extension WorkoutCheckInView {
                 return
             }
 
-            guard let locationManager = locationManager, locationManager.userLocation != nil else {
+            guard locationManager.userLocation != nil else {
                 nearestGymText = "Finding gyms nearby..."
                 visibility?(false)
                 return
@@ -116,7 +125,7 @@ extension WorkoutCheckInView {
 
         /// Check if the view is in 2 hour cooldown for pressing the close button
         func checkCooldown(gym: String) {
-            let lastDate = UserDefaults.standard.object(forKey: cooldownKey) as? Date
+            let lastDate = UserDefaults.standard.object(forKey: cooldownKey) as? Foundation.Date
             let lastGym = UserDefaults.standard.string(forKey: cooldownLastGymKey)
 
             if lastGym != gym {
@@ -138,7 +147,7 @@ extension WorkoutCheckInView {
 
         /// Check if the view is in daily cooldown for already checking in to a gym
         func checkDailyCooldown() {
-            let lastDate = UserDefaults.standard.object(forKey: dailyCooldownKey) as? Date
+            let lastDate = UserDefaults.standard.object(forKey: dailyCooldownKey) as? Foundation.Date
 
             if let lastDate {
                 let today = Calendar.current.startOfDay(for: Date())
@@ -154,7 +163,7 @@ extension WorkoutCheckInView {
 
         /// Start 2 hour cooldown for pressing close button
         func startCooldown(gym: String) {
-            UserDefaults.standard.set(Date(), forKey: cooldownKey)
+            UserDefaults.standard.set(Foundation.Date(), forKey: cooldownKey)
             UserDefaults.standard.set(gym, forKey: cooldownLastGymKey)
             isCooldownActive = true
         }
@@ -166,19 +175,36 @@ extension WorkoutCheckInView {
         }
 
         /// Update the profile workout checkin database and history
-        func performCheckIn(gymName: String?, profileViewModel: ProfileView.ViewModel) {
-            // TODO: Adjust the profile database update logic (streaks, badges, workout history etc.)
-            profileViewModel.totalWorkouts += 1
-            profileViewModel.weeklyWorkouts.currentWeekWorkouts += 1
-            profileViewModel.streaks += 1
-            if let gym = gymName {
-                let workout = WorkoutHistory(
-                    id: "workout\(profileViewModel.weeklyWorkouts.currentWeekWorkouts)",
-                    location: gym,
-                    time: Date().timeStringTrailingZeros,
-                    date: Date().dateStringDayMonth
+        func handleCheckIn(user: User?) async {
+            guard let user,
+                  let userId = Int(user.id) else { return }
+
+            guard let gymName = currentNearestGym,
+                  let gym = gyms.first(where: { $0.name == gymName }),
+                  let facility = gym.facilities.first,
+                  let facilityId = Int(facility.id) else { return }
+
+            await withCheckedContinuation { continuation in
+                var cancellable: AnyCancellable?
+                cancellable = Network.client.mutationPublisher(
+                    mutation: LogWorkoutMutation(
+                        facilityId: facilityId,
+                        userId: userId,
+                        workoutTime: ISO8601DateFormatter().string(from: Date())
+                    )
                 )
-                profileViewModel.workoutHistory.insert(workout, at: 0)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] completion in
+                    if case let .failure(error) = completion {
+                        Logger.data.critical("Error in WorkoutCheckInViewModel: \(error)")
+                        self?.isCheckedIn = false
+                    }
+                    continuation.resume()
+                    _ = cancellable
+                } receiveValue: { [weak self] _ in
+                    Logger.data.info("Successfully logged workout")
+                    self?.isCheckedIn = true
+                }
             }
         }
     }
