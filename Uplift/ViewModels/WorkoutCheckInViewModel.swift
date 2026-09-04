@@ -26,6 +26,8 @@ extension WorkoutCheckInView {
         @Published var currentNearestGym: String?
 
         @Published var isCheckedIn = false
+        /// Whether a check-in request is in flight.
+        @Published var isCheckingIn = false
         @Published var trigger: Int = 0
 
         private let threshold: Double = 0.05
@@ -60,6 +62,10 @@ extension WorkoutCheckInView {
 
         /// Sort through gyms to find if a gym is close enough
         func findNearestGym() {
+            if isCheckedIn {
+                return
+            }
+
             if isDailyCooldownActive {
                 visibility?(false)
                 return
@@ -176,6 +182,8 @@ extension WorkoutCheckInView {
 
         /// Update the profile workout checkin database and history
         func handleCheckIn(user: User?) async {
+            guard !isCheckingIn, !isCheckedIn, !isDailyCooldownActive else { return }
+
             guard let user,
                   let userId = Int(user.id) else { return }
 
@@ -183,6 +191,9 @@ extension WorkoutCheckInView {
                   let gym = gyms.first(where: { $0.name == gymName }),
                   let facility = gym.facilities.first,
                   let facilityId = Int(facility.id) else { return }
+
+            isCheckingIn = true
+            defer { isCheckingIn = false }
 
             await withCheckedContinuation { continuation in
                 var cancellable: AnyCancellable?
@@ -201,9 +212,15 @@ extension WorkoutCheckInView {
                     }
                     continuation.resume()
                     _ = cancellable
-                } receiveValue: { [weak self] _ in
+                } receiveValue: { [weak self] result in
+                    guard result.data?.logWorkout != nil else {
+                        Logger.data.critical("Error in WorkoutCheckInViewModel: logWorkout returned no data")
+                        return
+                    }
+
                     Logger.data.info("Successfully logged workout")
                     self?.isCheckedIn = true
+                    self?.startDailyCooldown()
                 }
             }
         }
