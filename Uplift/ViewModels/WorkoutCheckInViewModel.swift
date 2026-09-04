@@ -62,7 +62,14 @@ extension WorkoutCheckInView {
 
         /// Sort through gyms to find if a gym is close enough
         func findNearestGym() {
-            if isCheckedIn {
+            if isCheckedIn || isDailyCooldownActive {
+                checkDailyCooldown()
+                if !isDailyCooldownActive {
+                    isCheckedIn = false
+                }
+            }
+
+            if isCheckedIn || isCheckingIn {
                 return
             }
 
