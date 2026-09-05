@@ -115,7 +115,6 @@ struct WorkoutCheckInView: View {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     mainViewModel.showWorkoutCheckIn = false
                 }
-                viewModel.startDailyCooldown()
             }
         }
         .confettiCannon(
@@ -148,6 +147,8 @@ struct WorkoutCheckInView: View {
                 .background(Constants.Colors.lightYellow)
                 .cornerRadius(11.1)
         }
+        .disabled(viewModel.isCheckingIn)
+        .opacity(viewModel.isCheckingIn ? 0.5 : 1)
     }
 
     private var closeButton: some View {
