@@ -2,6 +2,7 @@ import SwiftUI
 
 struct IntroAnimationView: View {
     @State private var hasEntered = false
+    var onFinished: (() -> Void)?
 
     var body: some View {
         GeometryReader { geo in
@@ -13,7 +14,7 @@ struct IntroAnimationView: View {
                     .clipped()
                     .opacity(hasEntered ? 1 : 0)
                     .animation(.easeIn(duration: 1.2), value: hasEntered)
-                
+
                 ZStack(alignment: .bottom) {
                     Image("mountain_back")
                         .resizable()
@@ -35,7 +36,7 @@ struct IntroAnimationView: View {
                             .easeOut(duration: 1.0).delay(0.1),
                             value: hasEntered
                         )
-                    
+
                     Image("appdev_logo_white")
                         .resizable()
                         .scaledToFit()
@@ -45,7 +46,7 @@ struct IntroAnimationView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .clipped()
-                
+
                 Image("logo")
                     .resizable()
                     .scaledToFit()
@@ -53,15 +54,27 @@ struct IntroAnimationView: View {
                     .offset(
                         y: hasEntered ? -geo.size.height * 0.22 : geo.size.height
                     )
-                
+
                     .animation(.easeOut(duration: 1.0), value: hasEntered)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Constants.Colors.white)
             .ignoresSafeArea()
             .onAppear {
+                guard geo.size.height > 0 else { return }
                 hasEntered = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    onFinished?()
+                }
             }
+            .onChange(of: geo.size) { newSize in
+                guard !hasEntered, newSize.height > 0 else { return }
+                hasEntered = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    onFinished?()
+                }
+            }
+
         }
     }
 }

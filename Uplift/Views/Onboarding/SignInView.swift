@@ -16,10 +16,30 @@ struct SignInView: View {
     @EnvironmentObject var mainViewModel: MainView.ViewModel
     @StateObject private var loginViewModel = LoginViewModel()
     @State private var animateElements: Bool = false
+    @State private var showIntro = !SignInView.hasShownIntro
+
+    static var hasShownIntro = false
 
     // MARK: - UI
 
     var body: some View {
+        ZStack {
+            if showIntro {
+                IntroAnimationView {
+                    SignInView.hasShownIntro = true
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        showIntro = false
+                    }
+                }
+                .transition(.opacity)
+            } else {
+                signInContent
+                    .transition(.opacity)
+            }
+        }
+    }
+
+    private var signInContent: some View {
         ZStack(alignment: .top) {
             Constants.Images.backgroundEllipse
                 .resizable()
