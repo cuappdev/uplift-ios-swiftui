@@ -6,6 +6,14 @@ struct IntroAnimationView: View {
     var body: some View {
         GeometryReader { geo in
             ZStack {
+                Image("intro_background")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .clipped()
+                    .opacity(hasEntered ? 1 : 0)
+                    .animation(.easeIn(duration: 1.2), value: hasEntered)
+                
                 ZStack(alignment: .bottom) {
                     Image("mountain_back")
                         .resizable()
@@ -27,10 +35,17 @@ struct IntroAnimationView: View {
                             .easeOut(duration: 1.0).delay(0.1),
                             value: hasEntered
                         )
+                    
+                    Image("appdev_logo_white")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 164, height: 24)
+                        .opacity(hasEntered ? 1 : 0)
+                        .animation(.easeIn(duration: 1.2), value: hasEntered)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .clipped()
-
+                
                 Image("logo")
                     .resizable()
                     .scaledToFit()
@@ -38,6 +53,7 @@ struct IntroAnimationView: View {
                     .offset(
                         y: hasEntered ? -geo.size.height * 0.22 : geo.size.height
                     )
+                
                     .animation(.easeOut(duration: 1.0), value: hasEntered)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
