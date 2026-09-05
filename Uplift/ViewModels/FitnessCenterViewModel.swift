@@ -127,6 +127,11 @@ extension FitnessCenterView {
                 endHour += 1
             }
 
+            if endHour <= startHour {
+                endHour += 24
+            }
+            let closesAfterMidnight = endHour >= 24
+
             let filteredCapacities = capacities.filter { $0.dayOfWeek.capitalized == today.dayOfWeekComplete() }
 
             let hourRange = startHour...endHour
@@ -136,9 +141,17 @@ extension FitnessCenterView {
             }
 
             filteredCapacities.forEach { capacity in
-                if hourRange.contains(capacity.hourOfDay) {
-                    if let index = finalHourlyCapacities.firstIndex(where: { $0.hourOfDay == capacity.hourOfDay }) {
-                        finalHourlyCapacities[index] = capacity
+                let normalizedHour = (closesAfterMidnight && capacity.hourOfDay < startHour)
+                    ? capacity.hourOfDay + 24
+                    : capacity.hourOfDay
+
+                if hourRange.contains(normalizedHour) {
+                    if let index = finalHourlyCapacities.firstIndex(where: { $0.hourOfDay == normalizedHour }) {
+                        finalHourlyCapacities[index] = HourlyAverageCapacity(
+                            averagePercent: capacity.averagePercent,
+                            dayOfWeek: capacity.dayOfWeek,
+                            hourOfDay: normalizedHour
+                        )
                     }
                 }
 
