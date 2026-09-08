@@ -17,6 +17,7 @@ struct SignInView: View {
     @StateObject private var loginViewModel = LoginViewModel()
     @State private var animateElements: Bool = false
     @State private var showIntro = !SignInView.hasShownIntro
+    @Namespace private var logoNamespace
 
     static var hasShownIntro = false
 
@@ -24,17 +25,13 @@ struct SignInView: View {
 
     var body: some View {
         ZStack {
+            signInContent
+
             if showIntro {
-                IntroAnimationView {
+                IntroAnimationView(logoNamespace: logoNamespace) {
                     SignInView.hasShownIntro = true
-                    withAnimation(.easeInOut(duration: 0.5)) {
-                        showIntro = false
-                    }
+                    showIntro = false
                 }
-                .transition(.opacity)
-            } else {
-                signInContent
-                    .transition(.opacity)
             }
         }
     }
@@ -61,8 +58,17 @@ struct SignInView: View {
         }
         .background(Color.white)
         .onAppear {
-            withAnimation(.easeIn(duration: 0.3)) {
-                animateElements = true
+            if showIntro {
+                var transaction = Transaction()
+                transaction.disablesAnimations = true
+
+                withTransaction(transaction) {
+                    animateElements = true
+                }
+            } else {
+                withAnimation(.easeIn(duration: 0.3)) {
+                    animateElements = true
+                }
             }
         }
     }
@@ -204,14 +210,17 @@ struct SignInView: View {
 
     private var signInHeader: some View {
         VStack {
-            Constants.Images.logo
-                .resizable()
-                .frame(width: 130, height: 115)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-                .padding(32)
-                .padding(.top, 60)
-                .offset(y: animateElements ? 0 : 200)
-                .animation(.smooth(duration: 2), value: animateElements)
+                Constants.Images.logo
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 130, height: 115)
+                    .frame(maxWidth: .infinity)
+                    .padding(32)
+                    .padding(.top, 10)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .opacity(showIntro ? 0 : 1)
+                    .offset(y: animateElements ? 0 : 200)
+                    .animation(.smooth(duration: 2), value: animateElements)
 
             Text("Find what uplifts you.")
                 .font(Constants.Fonts.h1)
@@ -232,6 +241,7 @@ struct SignInView: View {
 
             Spacer()
         }
+        .frame(maxWidth: .infinity)
     }
 }
 
