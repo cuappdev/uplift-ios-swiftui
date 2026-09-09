@@ -49,21 +49,16 @@ struct IntroAnimationView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 164, height: 24)
-                        .opacity(shrinkLogo ? 0 : 1)
                         .position(
                             x: geo.size.width / 2,
                             y: geo.size.height * 1.2
                         )
-                        .offset(
-                            y: hasEntered
-                                ? 0
-                                : geo.size.height
-                        )
+                        .offset(y: appDevLogoYOffset(for: geo.size.height))
                         .animation(
                             .easeOut(duration: 1.0).delay(0.1),
                             value: hasEntered
                         )
-                        .animation(.easeInOut(duration: 0.6), value: shrinkLogo)
+
                 }
                 .opacity(shrinkLogo ? 0 : 1)
                 .animation(.easeInOut(duration: 0.6), value: shrinkLogo)
@@ -73,24 +68,12 @@ struct IntroAnimationView: View {
                 Image("logo")
                     .resizable()
                     .scaledToFit()
-                    .frame(
-                        width: shrinkLogo ? 130 : 173.14737,
-                        height: shrinkLogo ? 115 : 152.79259
-                    )
-                    .position(
+                    .frame(width: logoWidth, height: logoHeight)
+                    .position( //needs to stay as is or else it won't be centered horizontally :(
                         x: geo.size.width / 2,
-                        y: geo.size.height * 0.70
+                        y: geo.size.height * 0.7
                     )
-                    .offset(
-                        y: hasEntered
-                            ? (shrinkLogo
-                                ? -geo.size.height * 0.33
-                               // this is the ratio it is for me for the logo to be at the right spot, but i'm not sure if it would be for everyone.
-                               // so idk if this is the best implementation. i also tried matchedGeometryEffect
-                               // will look into another solution
-                                : -geo.size.height * 0.22)
-                            : geo.size.height
-                    )
+                    .offset(y: logoYOffset(for: geo.size.height))
                     .animation(.easeOut(duration: 1.0), value: hasEntered)
                     .animation(.smooth(duration: 0.7), value: shrinkLogo)
 
@@ -98,24 +81,56 @@ struct IntroAnimationView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .ignoresSafeArea()
             .onAppear {
-                guard geo.size.height > 0 else { return }
+                startAnimation(for: geo.size.height)
+            }
+        }
+    }
 
-                DispatchQueue.main.async {
-                    hasEntered = true
+    // MARK: - Helpers
 
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                        withAnimation(.smooth(duration: 0.7)) {
-                            shrinkLogo = true
-                        }
+    // for uplift logo
+    private func logoYOffset(for height: CGFloat) -> CGFloat {
+        if !hasEntered {
+            return height
+        }
 
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                            onFinished?()
-                        }
-                    }
+        return shrinkLogo
+            ? -height * 0.33
+            : -height * 0.22
+    }
+
+    private var logoWidth: CGFloat {
+        shrinkLogo ? 130 : 173.14737
+    }
+
+    private var logoHeight: CGFloat {
+        shrinkLogo ? 115 : 152.79259
+    }
+
+    // for appdev logo
+    private func appDevLogoYOffset(for height: CGFloat) -> CGFloat {
+        hasEntered ? 0 : height
+    }
+
+    // for animation
+    private func startAnimation(for height: CGFloat) {
+        guard height > 0 else { return }
+
+        DispatchQueue.main.async {
+            hasEntered = true
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                withAnimation(.smooth(duration: 0.7)) {
+                    shrinkLogo = true
+                }
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                    onFinished?()
                 }
             }
         }
     }
+
 }
 
 #Preview {
