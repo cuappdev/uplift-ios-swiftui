@@ -44,6 +44,26 @@ struct IntroAnimationView: View {
                             .easeOut(duration: 1.0).delay(0.1),
                             value: hasEntered
                         )
+
+                    Image("appdev_logo_white")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 164, height: 24)
+                        .opacity(shrinkLogo ? 0 : 1)
+                        .position(
+                            x: geo.size.width / 2,
+                            y: geo.size.height * 1.2
+                        )
+                        .offset(
+                            y: hasEntered
+                                ? 0
+                                : geo.size.height
+                        )
+                        .animation(
+                            .easeOut(duration: 1.0).delay(0.1),
+                            value: hasEntered
+                        )
+                        .animation(.easeInOut(duration: 0.6), value: shrinkLogo)
                 }
                 .opacity(shrinkLogo ? 0 : 1)
                 .animation(.easeInOut(duration: 0.6), value: shrinkLogo)
@@ -73,23 +93,6 @@ struct IntroAnimationView: View {
                     )
                     .animation(.easeOut(duration: 1.0), value: hasEntered)
                     .animation(.smooth(duration: 0.7), value: shrinkLogo)
-
-                Image("appdev_logo_white")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 164, height: 24)
-                    .opacity(shrinkLogo ? 0 : 1)
-                    .position(
-                        x: geo.size.width / 2,
-                        y: geo.size.height * 1.2
-                    )
-                    .offset(
-                        y: hasEntered
-                            ? 0
-                            : geo.size.height
-                    )
-                    .animation(.easeIn(duration: 1.0), value: hasEntered)
-                    .animation(.easeInOut(duration: 0.6), value: shrinkLogo)
 
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
