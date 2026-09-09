@@ -52,6 +52,7 @@ struct MainView: View {
                         .padding(.bottom, 13)
                         .padding(.horizontal, 10)
                         .opacity(viewModel.showWorkoutCheckIn ? 1 : 0)
+                        .allowsHitTesting(viewModel.showWorkoutCheckIn)
                     }
 
                     !tabBarProp.hidden ? tabBar.transition(.move(edge: .bottom)) : nil
