@@ -244,13 +244,25 @@ struct SignInView: View {
 
     private var mainLogo: some View {
         VStack {
-            Constants.Images.logo
-                .resizable()
-                .scaledToFit()
-                .frame(
-                    width: mainLogoSize.width,
-                    height: mainLogoSize.height
-                )
+            ZStack {
+                Image("logo_sunset")
+                    .resizable()
+                    .scaledToFit()
+                    .opacity(isTransitioningToSignIn ? 0 : 1)
+
+                Constants.Images.logo
+                    .resizable()
+                    .scaledToFit()
+                    .opacity(isTransitioningToSignIn ? 1 : 0)
+            }
+            .frame(
+                width: mainLogoSize.width,
+                height: mainLogoSize.height
+            )
+            .animation(
+                .easeInOut(duration: 0.35),
+                value: isTransitioningToSignIn
+            )
 
             Spacer()
         }
