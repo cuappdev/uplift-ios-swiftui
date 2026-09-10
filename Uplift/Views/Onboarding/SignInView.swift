@@ -30,26 +30,15 @@ struct SignInView: View {
 
             if showIntro {
                 IntroAnimationView(
-                    onTransition: {
-                        withAnimation(.smooth(duration: 0.7)) {
-                            isTransitioningToSignIn = true
-                        }
-                    },
-                    onFinished: {
-                        SignInView.hasShownIntro = true
-                        showIntro = false
-                    }
+                    onTransition: transitionToSignIn,
+                    onFinished: finishIntro
                 )
             }
 
             mainLogo
         }
         .onAppear {
-            if showIntro {
-                DispatchQueue.main.async {
-                    introLogoEntered = true
-                }
-            }
+            startIntroLogoAnimation()
         }
     }
 
@@ -229,9 +218,7 @@ struct SignInView: View {
         VStack {
 
             Color.clear // to give enough space for logo!
-                .frame(height: 115)
-                .padding(32)
-                .padding(.top, 10)
+                .frame(height: 150)
 
             Text("Find what uplifts you.")
                 .font(Constants.Fonts.h1)
@@ -261,20 +248,28 @@ struct SignInView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(
-                    width: logoWidth,
-                    height: logoHeight
+                    width: mainLogoSize.width,
+                    height: mainLogoSize.height
                 )
 
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(.top, logoTopPadding)
-        .offset(y: logoYOffset)
+        .padding(.top, mainLogoTopPadding)
+        .offset(y: mainLogoYOffset)
         .animation(.easeOut(duration: 1.0), value: introLogoEntered)
-        .animation(.smooth(duration: 0.7), value: isTransitioningToSignIn)
+        .animation(.smooth(duration: 0.35), value: isTransitioningToSignIn)
     }
 
-    // helpers
+    // MARK: - Helpers
+
+    // logo properties
+    private var mainLogoSize: CGSize {
+        isTransitioningToSignIn
+            ? CGSize(width: 130, height: 115)
+            : CGSize(width: 173.14737, height: 152.79259)
+    }
+
     private var logoWidth: CGFloat {
         isTransitioningToSignIn ? 130 : 173.14737
     }
@@ -283,16 +278,40 @@ struct SignInView: View {
         isTransitioningToSignIn ? 115 : 152.79259
     }
 
-    private var logoTopPadding: CGFloat {
+    private var mainLogoTopPadding: CGFloat {
         isTransitioningToSignIn ? 10 : 0
     }
 
-    private var logoYOffset: CGFloat {
+    private var mainLogoYOffset: CGFloat {
         if isTransitioningToSignIn {
             return 15
         }
 
-        return introLogoEntered ? 160 : 900
+        if introLogoEntered {
+            return 160
+        }
+
+        return 900
+    }
+
+    // IntroAnimationView helpers
+    private func transitionToSignIn() {
+        withAnimation(.smooth(duration: 0.35)) {
+            isTransitioningToSignIn = true
+        }
+    }
+
+    private func finishIntro() {
+        SignInView.hasShownIntro = true
+        showIntro = false
+    }
+
+    private func startIntroLogoAnimation() {
+        guard showIntro else { return }
+
+        DispatchQueue.main.async {
+            introLogoEntered = true
+        }
     }
 }
 

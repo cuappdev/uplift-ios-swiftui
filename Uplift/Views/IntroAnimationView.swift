@@ -5,7 +5,7 @@ struct IntroAnimationView: View {
     // MARK: - Properties
 
     @State private var hasEntered = false
-    @State private var shrinkLogo = false
+    @State private var isFadingOut = false
 
     var onTransition: (() -> Void)?
     var onFinished: (() -> Void)?
@@ -13,98 +13,87 @@ struct IntroAnimationView: View {
     // MARK: - UI
 
     var body: some View {
-        GeometryReader { geo in
-            ZStack {
-                Image("intro_background")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .clipped()
-                    .opacity(hasEntered && !shrinkLogo ? 1 : 0)
-                    .animation(.easeInOut(duration: 0.7), value: shrinkLogo)
+           GeometryReader { geo in
+               ZStack {
+                   backgroundImage
 
-                ZStack(alignment: .bottom) {
-                    Image("mountain_back")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(height: geo.size.height)
-                        .frame(maxWidth: .infinity)
-                        .clipped()
-                        .offset(y: hasEntered ? 50 : geo.size.height)
-                        .animation(.easeOut(duration: 1.0), value: hasEntered)
+                   ZStack(alignment: .bottom) {
+                       mountainImage(
+                           "mountain_back",
+                           height: geo.size.height
+                       )
 
-                    Image("mountain_front")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(height: geo.size.height)
-                        .frame(maxWidth: .infinity)
-                        .clipped()
-                        .offset(y: hasEntered ? 50 : geo.size.height)
-                        .animation(
-                            .easeOut(duration: 1.0).delay(0.1),
-                            value: hasEntered
-                        )
+                       mountainImage(
+                           "mountain_front",
+                           height: geo.size.height,
+                           delay: 0.1
+                       )
 
-                    Image("appdev_logo_white")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 164, height: 24)
-                        .position(
-                            x: geo.size.width / 2,
-                            y: geo.size.height * 1.2
-                        )
-                        .offset(y: appDevLogoYOffset(for: geo.size.height))
-                        .animation(
-                            .easeOut(duration: 1.0).delay(0.1),
-                            value: hasEntered
-                        )
+                       appDevLogo(in: geo)
+                   }
+                   .opacity(isFadingOut ? 0 : 1)
+                   .animation(.easeInOut(duration: 0.35), value: isFadingOut)
+                   .frame(maxWidth: .infinity, maxHeight: .infinity)
+                   .clipped()
+               }
+               .frame(maxWidth: .infinity, maxHeight: .infinity)
+               .ignoresSafeArea()
+               .onAppear {
+                   startAnimation(for: geo.size.height)
+               }
+           }
+       }
 
-                }
-                .opacity(shrinkLogo ? 0 : 1)
-                .animation(.easeInOut(duration: 0.6), value: shrinkLogo)
+    // MARK: - Views
+
+        private var backgroundImage: some View {
+            Image("intro_background")
+                .resizable()
+                .scaledToFill()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .clipped()
-
-//                Image("logo")
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: logoWidth, height: logoHeight)
-//                    .position( //needs to stay as is or else it won't be centered horizontally :(
-//                        x: geo.size.width / 2,
-//                        y: geo.size.height * 0.7
-//                    )
-//                    .offset(y: logoYOffset(for: geo.size.height))
-//                    .animation(.easeOut(duration: 1.0), value: hasEntered)
-//                    .animation(.smooth(duration: 0.7), value: shrinkLogo)
-
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .ignoresSafeArea()
-            .onAppear {
-                startAnimation(for: geo.size.height)
-            }
+                .opacity(hasEntered && !isFadingOut ? 1 : 0)
+                .animation(.easeInOut(duration: 0.35), value: isFadingOut)
         }
-    }
+
+        private func mountainImage(
+            _ name: String,
+            height: CGFloat,
+            delay: Double = 0
+        ) -> some View {
+            Image(name)
+                .resizable()
+                .scaledToFill()
+                .frame(height: height)
+                .frame(maxWidth: .infinity)
+                .clipped()
+                .offset(y: mountainYOffset(for: height))
+                .animation(
+                    .easeOut(duration: 0.35).delay(delay),
+                    value: hasEntered
+                )
+        }
+
+        private func appDevLogo(in geo: GeometryProxy) -> some View {
+            Image("appdev_logo_white")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 164, height: 24)
+                .position(
+                    x: geo.size.width / 2,
+                    y: geo.size.height * 1.2
+                )
+                .offset(y: appDevLogoYOffset(for: geo.size.height))
+                .animation(
+                    .easeOut(duration: 0.35).delay(0.1),
+                    value: hasEntered
+                )
+        }
 
     // MARK: - Helpers
 
-    // for uplift logo
-    private func logoYOffset(for height: CGFloat) -> CGFloat {
-        if !hasEntered {
-            return height
-        }
-
-        return shrinkLogo
-            ? -height * 0.33
-            : -height * 0.22
-    }
-
-    private var logoWidth: CGFloat {
-        shrinkLogo ? 130 : 173.14737
-    }
-
-    private var logoHeight: CGFloat {
-        shrinkLogo ? 115 : 152.79259
+    private func mountainYOffset(for height: CGFloat) -> CGFloat {
+        hasEntered ? 50 : height
     }
 
     // for appdev logo
@@ -112,7 +101,6 @@ struct IntroAnimationView: View {
         hasEntered ? 0 : height
     }
 
-    // for animation
     private func startAnimation(for height: CGFloat) {
         guard height > 0 else { return }
 
@@ -120,14 +108,13 @@ struct IntroAnimationView: View {
             hasEntered = true
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                withAnimation(.smooth(duration: 0.7)) {
-                    shrinkLogo = true
+                withAnimation(.smooth(duration: 0.35)) {
+                    isFadingOut = true
                 }
 
-                // Start moving the Uplift logo at the SAME TIME as the fade
                 onTransition?()
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
                     onFinished?()
                 }
             }
@@ -137,5 +124,5 @@ struct IntroAnimationView: View {
 }
 
 #Preview {
-    IntroAnimationView {}
+    IntroAnimationView(onFinished: {})
 }
