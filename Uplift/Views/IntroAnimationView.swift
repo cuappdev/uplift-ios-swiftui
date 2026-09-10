@@ -18,16 +18,26 @@ struct IntroAnimationView: View {
                    backgroundImage
 
                    ZStack(alignment: .bottom) {
-                       mountainImage(
-                           "mountain_back",
-                           height: geo.size.height
-                       )
+                       Image("mountain_back")
+                           .resizable()
+                           .scaledToFill()
+                           .frame(height: geo.size.height)
+                           .frame(maxWidth: .infinity)
+                           .clipped()
+                           .offset(y: hasEntered ? 0 : geo.size.height)
+                           .animation(.easeOut(duration: 1.0), value: hasEntered)
 
-                       mountainImage(
-                           "mountain_front",
-                           height: geo.size.height,
-                           delay: 0.1
-                       )
+                       Image("mountain_front")
+                           .resizable()
+                           .scaledToFill()
+                           .frame(height: geo.size.height)
+                           .frame(maxWidth: .infinity)
+                           .clipped()
+                           .offset(y: hasEntered ? 50 : geo.size.height)
+                           .animation(
+                               .easeOut(duration: 1.0).delay(0.1),
+                               value: hasEntered
+                           )
 
                        appDevLogo(in: geo)
                    }
@@ -56,24 +66,6 @@ struct IntroAnimationView: View {
                 .animation(.easeInOut(duration: 0.35), value: isFadingOut)
         }
 
-        private func mountainImage(
-            _ name: String,
-            height: CGFloat,
-            delay: Double = 0
-        ) -> some View {
-            Image(name)
-                .resizable()
-                .scaledToFill()
-                .frame(height: height)
-                .frame(maxWidth: .infinity)
-                .clipped()
-                .offset(y: mountainYOffset(for: height))
-                .animation(
-                    .easeOut(duration: 0.35).delay(delay),
-                    value: hasEntered
-                )
-        }
-
         private func appDevLogo(in geo: GeometryProxy) -> some View {
             Image("appdev_logo_white")
                 .resizable()
@@ -85,7 +77,7 @@ struct IntroAnimationView: View {
                 )
                 .offset(y: appDevLogoYOffset(for: geo.size.height))
                 .animation(
-                    .easeOut(duration: 0.35).delay(0.1),
+                    .easeOut(duration: 1).delay(0.1),
                     value: hasEntered
                 )
         }
@@ -93,7 +85,7 @@ struct IntroAnimationView: View {
     // MARK: - Helpers
 
     private func mountainYOffset(for height: CGFloat) -> CGFloat {
-        hasEntered ? 50 : height
+        hasEntered ? 0 : height
     }
 
     // for appdev logo
