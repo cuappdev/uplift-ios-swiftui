@@ -17,9 +17,10 @@ struct SignInView: View {
     @StateObject private var loginViewModel = LoginViewModel()
     @State private var animateElements: Bool = false
     @State private var showIntro = !SignInView.hasShownIntro
-    @Namespace private var logoNamespace
 
     static var hasShownIntro = false
+    @State private var introLogoEntered = false
+    @State private var isTransitioningToSignIn = false
 
     // MARK: - UI
 
@@ -28,9 +29,25 @@ struct SignInView: View {
             signInContent
 
             if showIntro {
-                IntroAnimationView(logoNamespace: logoNamespace) {
-                    SignInView.hasShownIntro = true
-                    showIntro = false
+                IntroAnimationView(
+                    onTransition: {
+                        withAnimation(.smooth(duration: 0.7)) {
+                            isTransitioningToSignIn = true
+                        }
+                    },
+                    onFinished: {
+                        SignInView.hasShownIntro = true
+                        showIntro = false
+                    }
+                )
+            }
+
+            mainLogo
+        }
+        .onAppear {
+            if showIntro {
+                DispatchQueue.main.async {
+                    introLogoEntered = true
                 }
             }
         }
@@ -210,17 +227,11 @@ struct SignInView: View {
 
     private var signInHeader: some View {
         VStack {
-                Constants.Images.logo
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 130, height: 115)
-                    .frame(maxWidth: .infinity)
-                    .padding(32)
-                    .padding(.top, 10)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                    .opacity(showIntro ? 0 : 1)
-                    .offset(y: animateElements ? 0 : 200)
-                    .animation(.smooth(duration: 2), value: animateElements)
+
+            Color.clear // to give enough space for logo!
+                .frame(height: 115)
+                .padding(32)
+                .padding(.top, 10)
 
             Text("Find what uplifts you.")
                 .font(Constants.Fonts.h1)
@@ -242,6 +253,46 @@ struct SignInView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity)
+    }
+
+    private var mainLogo: some View {
+        VStack {
+            Constants.Images.logo
+                .resizable()
+                .scaledToFit()
+                .frame(
+                    width: logoWidth,
+                    height: logoHeight
+                )
+
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(.top, logoTopPadding)
+        .offset(y: logoYOffset)
+        .animation(.easeOut(duration: 1.0), value: introLogoEntered)
+        .animation(.smooth(duration: 0.7), value: isTransitioningToSignIn)
+    }
+
+    // helpers
+    private var logoWidth: CGFloat {
+        isTransitioningToSignIn ? 130 : 173.14737
+    }
+
+    private var logoHeight: CGFloat {
+        isTransitioningToSignIn ? 115 : 152.79259
+    }
+
+    private var logoTopPadding: CGFloat {
+        isTransitioningToSignIn ? 10 : 0
+    }
+
+    private var logoYOffset: CGFloat {
+        if isTransitioningToSignIn {
+            return 15
+        }
+
+        return introLogoEntered ? 160 : 900
     }
 }
 

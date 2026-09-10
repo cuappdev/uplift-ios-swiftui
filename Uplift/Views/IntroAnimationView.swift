@@ -7,7 +7,7 @@ struct IntroAnimationView: View {
     @State private var hasEntered = false
     @State private var shrinkLogo = false
 
-    var logoNamespace: Namespace.ID
+    var onTransition: (() -> Void)?
     var onFinished: (() -> Void)?
 
     // MARK: - UI
@@ -65,17 +65,17 @@ struct IntroAnimationView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .clipped()
 
-                Image("logo")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: logoWidth, height: logoHeight)
-                    .position( //needs to stay as is or else it won't be centered horizontally :(
-                        x: geo.size.width / 2,
-                        y: geo.size.height * 0.7
-                    )
-                    .offset(y: logoYOffset(for: geo.size.height))
-                    .animation(.easeOut(duration: 1.0), value: hasEntered)
-                    .animation(.smooth(duration: 0.7), value: shrinkLogo)
+//                Image("logo")
+//                    .resizable()
+//                    .scaledToFit()
+//                    .frame(width: logoWidth, height: logoHeight)
+//                    .position( //needs to stay as is or else it won't be centered horizontally :(
+//                        x: geo.size.width / 2,
+//                        y: geo.size.height * 0.7
+//                    )
+//                    .offset(y: logoYOffset(for: geo.size.height))
+//                    .animation(.easeOut(duration: 1.0), value: hasEntered)
+//                    .animation(.smooth(duration: 0.7), value: shrinkLogo)
 
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -124,6 +124,9 @@ struct IntroAnimationView: View {
                     shrinkLogo = true
                 }
 
+                // Start moving the Uplift logo at the SAME TIME as the fade
+                onTransition?()
+
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                     onFinished?()
                 }
@@ -134,5 +137,5 @@ struct IntroAnimationView: View {
 }
 
 #Preview {
-    IntroAnimationView(logoNamespace: Namespace().wrappedValue) {}
+    IntroAnimationView {}
 }
