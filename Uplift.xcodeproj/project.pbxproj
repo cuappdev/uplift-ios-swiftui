@@ -105,6 +105,8 @@
 		2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E12B12EDB6008E0299 /* Apollo */; };
 		2EE5F3E42B12EDB6008E0299 /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E32B12EDB6008E0299 /* ApolloAPI */; };
 		2EF1A2582B129EEB007A299F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1A2572B129EEB007A299F /* Network.swift */; };
+		52A30D3A3053B7E3002AE86C /* IntroAnimationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A30D393053B7DF002AE86C /* IntroAnimationViewModel.swift */; };
+		52A30D3C3053B9B8002AE86C /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A30D3B3053B9B4002AE86C /* SignInViewModel.swift */; };
 		63001AD62CC9ACFF0082AFFA /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63001AD52CC9ACFF0082AFFA /* LoginViewModel.swift */; };
 		63001AD82CC9AD970082AFFA /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 63001AD72CC9AD970082AFFA /* GoogleSignIn */; };
 		63001ADA2CC9AD980082AFFA /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 63001AD92CC9AD970082AFFA /* GoogleSignInSwift */; };
@@ -153,7 +155,6 @@
 		89CE47422D03F3C700BCB79D /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 89CE47412D03F3C700BCB79D /* UpliftAPI */; };
 		89E4FAAA2CEFEC3C00A952B1 /* CapacitySemiCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E4FAA92CEFEC3000A952B1 /* CapacitySemiCircleView.swift */; };
 		89E4FAAC2CF28E7500A952B1 /* HourlyAverageCapacity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E4FAAB2CF28E6600A952B1 /* HourlyAverageCapacity.swift */; };
-		C0DED3032F70ACB600E43983 /* IntroAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DED3022F70ACAD00E43983 /* IntroAnimationView.swift */; };
 		89E833412F4F93AE0080AC46 /* WorkoutHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E833402F4F93AE0080AC46 /* WorkoutHistoryView.swift */; };
 		89E833432F4FB26A0080AC46 /* WorkoutHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E833422F4FB2650080AC46 /* WorkoutHistoryViewModel.swift */; };
 		89EA50D12F90812E00B1A177 /* GoalSettingErrorModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EA50D02F90812E00B1A177 /* GoalSettingErrorModal.swift */; };
@@ -161,6 +162,7 @@
 		C07CFEB42F6B5478005830D3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07CFEB32F6B546D005830D3 /* SettingsView.swift */; };
 		C0CB14922F709DA100E23E69 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB14912F709D9D00E23E69 /* AboutView.swift */; };
 		C0CB14942F70A2C800E23E69 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB14932F70A2C100E23E69 /* Member.swift */; };
+		C0DED3032F70ACB600E43983 /* IntroAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DED3022F70ACAD00E43983 /* IntroAnimationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -263,6 +265,8 @@
 		2EE0C7CA2B12D6EE000D3BF6 /* Gym.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gym.graphql; sourceTree = "<group>"; };
 		2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientProtocol.swift; sourceTree = "<group>"; };
 		2EF1A2572B129EEB007A299F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		52A30D393053B7DF002AE86C /* IntroAnimationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAnimationViewModel.swift; sourceTree = "<group>"; };
+		52A30D3B3053B9B4002AE86C /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		63001AD52CC9ACFF0082AFFA /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		6329A4452C964D0800D30A2F /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		6329A4472CA0F89D00D30A2F /* CreateProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileView.swift; sourceTree = "<group>"; };
@@ -313,7 +317,6 @@
 		89C8658C2BB4779C00758337 /* ClassCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassCell.swift; sourceTree = "<group>"; };
 		89E4FAA92CEFEC3000A952B1 /* CapacitySemiCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacitySemiCircleView.swift; sourceTree = "<group>"; };
 		89E4FAAB2CF28E6600A952B1 /* HourlyAverageCapacity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyAverageCapacity.swift; sourceTree = "<group>"; };
-		C0DED3022F70ACAD00E43983 /* IntroAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAnimationView.swift; sourceTree = "<group>"; };
 		89E833402F4F93AE0080AC46 /* WorkoutHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryView.swift; sourceTree = "<group>"; };
 		89E833422F4FB2650080AC46 /* WorkoutHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryViewModel.swift; sourceTree = "<group>"; };
 		89EA50D02F90812E00B1A177 /* GoalSettingErrorModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalSettingErrorModal.swift; sourceTree = "<group>"; };
@@ -321,6 +324,7 @@
 		C07CFEB32F6B546D005830D3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C0CB14912F709D9D00E23E69 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		C0CB14932F70A2C100E23E69 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
+		C0DED3022F70ACAD00E43983 /* IntroAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAnimationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -458,6 +462,8 @@
 		2E090ED12B1308D500BAE982 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				52A30D3B3053B9B4002AE86C /* SignInViewModel.swift */,
+				52A30D393053B7DF002AE86C /* IntroAnimationViewModel.swift */,
 				293A20A12F467CED0012C74C /* SetGoalsViewModel.swift */,
 				135EEBA92EC7E5F70051AD5B /* WorkoutCheckInViewModel.swift */,
 				89C34AA02CA66E9000C579A5 /* CapacityRemindersViewModel.swift */,
@@ -960,6 +966,7 @@
 				893AD9172D595DC800C0817B /* MuscleGroupView.swift in Sources */,
 				89E4FAAA2CEFEC3C00A952B1 /* CapacitySemiCircleView.swift in Sources */,
 				89599A4E2BD4B39B00DA44DE /* FitnessClass.swift in Sources */,
+				52A30D3A3053B7E3002AE86C /* IntroAnimationViewModel.swift in Sources */,
 				2E15F5122B3A3D0000414BEC /* TriangleShape.swift in Sources */,
 				293A20A22F467CF00012C74C /* SetGoalsViewModel.swift in Sources */,
 				8940D4EE2CE3E60200F4A4A4 /* Workout.swift in Sources */,
@@ -970,6 +977,7 @@
 				296A2DAE2D7A805300EF042F /* ProfileViewModel.swift in Sources */,
 				2E15F50C2B3A0B2100414BEC /* CapacityCircleView.swift in Sources */,
 				2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */,
+				52A30D3C3053B9B8002AE86C /* SignInViewModel.swift in Sources */,
 				C07CFEB42F6B5478005830D3 /* SettingsView.swift in Sources */,
 				135EEBAA2EC7E60B0051AD5B /* WorkoutCheckInViewModel.swift in Sources */,
 				2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */,

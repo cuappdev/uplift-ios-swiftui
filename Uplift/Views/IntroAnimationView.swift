@@ -23,8 +23,15 @@ struct IntroAnimationView: View {
                            .frame(height: geo.size.height)
                            .frame(maxWidth: .infinity)
                            .clipped()
-                           .offset(y: viewModel.hasEntered ? 0 : geo.size.height)
-                           .animation(.easeOut(duration: Constants.IntroAnimation.entranceDuration), value: viewModel.hasEntered)
+                           .offset(
+                               y: viewModel.hasEntered ? 0 : geo.size.height
+                           )
+                           .animation(
+                               .easeOut(
+                                   duration: Constants.IntroAnimation.entranceDuration
+                               ),
+                               value: viewModel.hasEntered
+                           )
 
                        Image("mountain_front")
                            .resizable()
@@ -32,16 +39,26 @@ struct IntroAnimationView: View {
                            .frame(height: geo.size.height)
                            .frame(maxWidth: .infinity)
                            .clipped()
-                           .offset(y: viewModel.hasEntered ? 50 : geo.size.height)
+                           .offset(
+                               y: viewModel.hasEntered ? 50 : geo.size.height
+                           )
                            .animation(
-                               .easeOut(duration: Constants.IntroAnimation.entranceDuration).delay(Constants.IntroAnimation.entranceDelay),
+                               .easeOut(
+                                   duration: Constants.IntroAnimation.entranceDuration
+                               )
+                               .delay(Constants.IntroAnimation.entranceDelay),
                                value: viewModel.hasEntered
                            )
 
                        appDevLogo(in: geo)
                    }
                    .opacity(viewModel.isFadingOut ? 0 : 1)
-                   .animation(.easeInOut(duration: Constants.IntroAnimation.transitionDuration), value: viewModel.isFadingOut)
+                   .animation(
+                       .easeInOut(
+                           duration: Constants.IntroAnimation.transitionDuration
+                       ),
+                       value: viewModel.isFadingOut
+                   )
                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                    .clipped()
                }
@@ -80,7 +97,10 @@ struct IntroAnimationView: View {
             )
             .offset(y: viewModel.appDevLogoYOffset(for: geo.size.height))
             .animation(
-                .easeOut(duration: Constants.IntroAnimation.entranceDuration).delay(Constants.IntroAnimation.entranceDelay),
+                .easeOut(
+                    duration: Constants.IntroAnimation.entranceDuration
+                )
+                .delay(Constants.IntroAnimation.entranceDelay),
                 value: viewModel.hasEntered
             )
     }
