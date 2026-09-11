@@ -173,6 +173,11 @@ struct Constants {
         static let whistleSolid = Image("whistle_solid")
         static let settings = Image("settings")
         static let profileEmpty = Image("profile_empty")
+        static let introBackground = Image("intro_background")
+        static let mountainBack = Image("mountain_back")
+        static let mountainFront = Image("mountain_front")
+        static let appDevLogoWhite = Image("appdev_logo_white")
+        static let logoSunset = Image("logo_sunset")
     }
 
     /// Padding amounts used in Uplift.
@@ -233,20 +238,5 @@ struct Constants {
 
         /// User chose "Skip" on sign-in and uses the app without an account until they log in.
         static let skippedLogin = "skippedLogin"
-    }
-
-    /// Constants used for the sign-in intro animation.
-    enum IntroAnimation {
-        static let mountainFrontYOffset: CGFloat = 50
-
-        static let appDevLogoWidth: CGFloat = 164
-        static let appDevLogoHeight: CGFloat = 24
-        static let appDevLogoVerticalPositionMultiplier: CGFloat = 1.2
-
-        static let entranceDuration: Double = 1.0
-        static let entranceDelay: Double = 0.1
-
-        static let transitionDuration: Double = 0.35
-        static let introDuration: Double = 1.5
     }
 }

@@ -10,12 +10,22 @@ import SwiftUI
 
 final class IntroAnimationViewModel: ObservableObject {
 
+    // MARK: - Properties
+
     @Published var hasEntered = false
     @Published var isFadingOut = false
+
+    // MARK: - Constants
+    let introDuration: Double = 1.5
+    let transitionDuration: Double = 0.35
+
+    // MARK: - Helpers
 
     func appDevLogoYOffset(for height: CGFloat) -> CGFloat {
         hasEntered ? 0 : height
     }
+
+    // MARK: - Animation
 
     @MainActor
     func startAnimation(
@@ -28,13 +38,13 @@ final class IntroAnimationViewModel: ObservableObject {
         hasEntered = true
 
         try? await Task.sleep(
-            for: .seconds(Constants.IntroAnimation.introDuration)
+            for: .seconds(introDuration)
         )
 
         guard !Task.isCancelled else { return }
 
         withAnimation(
-            .smooth(duration: Constants.IntroAnimation.transitionDuration)
+            .smooth(duration: transitionDuration)
         ) {
             isFadingOut = true
         }
@@ -42,7 +52,7 @@ final class IntroAnimationViewModel: ObservableObject {
         onTransition?()
 
         try? await Task.sleep(
-            for: .seconds(Constants.IntroAnimation.transitionDuration)
+            for: .seconds(transitionDuration)
         )
 
         guard !Task.isCancelled else { return }

@@ -9,98 +9,112 @@ struct IntroAnimationView: View {
     var onTransition: (() -> Void)?
     var onFinished: (() -> Void)?
 
+    // MARK: - Constants
+
+    private let entranceDuration: Double = 1.0
+    private let entranceDelay: Double = 0.1
+
+    private let mountainFrontYOffset: CGFloat = 50
+
+    private let appDevLogoWidth: CGFloat = 164
+    private let appDevLogoHeight: CGFloat = 24
+    private let appDevLogoVerticalPositionMultiplier: CGFloat = 1.2
+
     // MARK: - UI
 
     var body: some View {
-           GeometryReader { geo in
-               ZStack {
-                   backgroundImage
+       GeometryReader { geo in
+           ZStack {
+               backgroundImage
 
-                   ZStack(alignment: .bottom) {
-                       Image("mountain_back")
-                           .resizable()
-                           .scaledToFill()
-                           .frame(height: geo.size.height)
-                           .frame(maxWidth: .infinity)
-                           .clipped()
-                           .offset(
-                               y: viewModel.hasEntered ? 0 : geo.size.height
-                           )
-                           .animation(
-                               .easeOut(
-                                   duration: Constants.IntroAnimation.entranceDuration
-                               ),
-                               value: viewModel.hasEntered
-                           )
+               ZStack(alignment: .bottom) {
+                   Constants.Images.mountainBack
+                       .resizable()
+                       .scaledToFill()
+                       .frame(height: geo.size.height)
+                       .frame(maxWidth: .infinity)
+                       .clipped()
+                       .offset(
+                           y: viewModel.hasEntered ? 0 : geo.size.height
+                       )
+                       .animation(
+                           .easeOut(
+                               duration: entranceDuration
+                           ),
+                           value: viewModel.hasEntered
+                       )
 
-                       Image("mountain_front")
-                           .resizable()
-                           .scaledToFill()
-                           .frame(height: geo.size.height)
-                           .frame(maxWidth: .infinity)
-                           .clipped()
-                           .offset(
-                               y: viewModel.hasEntered ? 50 : geo.size.height
+                   Constants.Images.mountainFront
+                       .resizable()
+                       .scaledToFill()
+                       .frame(height: geo.size.height)
+                       .frame(maxWidth: .infinity)
+                       .clipped()
+                       .offset(
+                           y: viewModel.hasEntered ? mountainFrontYOffset : geo.size.height
+                       )
+                       .animation(
+                           .easeOut(
+                               duration: entranceDuration
                            )
-                           .animation(
-                               .easeOut(
-                                   duration: Constants.IntroAnimation.entranceDuration
-                               )
-                               .delay(Constants.IntroAnimation.entranceDelay),
-                               value: viewModel.hasEntered
-                           )
+                           .delay(entranceDelay),
+                           value: viewModel.hasEntered
+                       )
 
-                       appDevLogo(in: geo)
-                   }
-                   .opacity(viewModel.isFadingOut ? 0 : 1)
-                   .animation(
-                       .easeInOut(
-                           duration: Constants.IntroAnimation.transitionDuration
-                       ),
-                       value: viewModel.isFadingOut
-                   )
-                   .frame(maxWidth: .infinity, maxHeight: .infinity)
-                   .clipped()
+                   appDevLogo(in: geo)
                }
+               .opacity(viewModel.isFadingOut ? 0 : 1)
+               .animation(
+                   .easeInOut(
+                    duration: viewModel.transitionDuration
+                   ),
+                   value: viewModel.isFadingOut
+               )
                .frame(maxWidth: .infinity, maxHeight: .infinity)
-               .ignoresSafeArea()
-               .task {
-                   await viewModel.startAnimation(
-                       for: geo.size.height,
-                       onTransition: onTransition,
-                       onFinished: onFinished
-                   )
-               }
+               .clipped()
+           }
+           .frame(maxWidth: .infinity, maxHeight: .infinity)
+           .ignoresSafeArea()
+           .task {
+               await viewModel.startAnimation(
+                   for: geo.size.height,
+                   onTransition: onTransition,
+                   onFinished: onFinished
+               )
            }
        }
+   }
 
     // MARK: - Views
 
     private var backgroundImage: some View {
-        Image("intro_background")
+        Constants.Images.introBackground
             .resizable()
             .scaledToFill()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .clipped()
             .opacity(viewModel.hasEntered && !viewModel.isFadingOut ? 1 : 0)
-            .animation(.easeInOut(duration: Constants.IntroAnimation.transitionDuration), value: viewModel.isFadingOut)
+            .animation(.easeInOut(duration: viewModel.transitionDuration), value: viewModel.isFadingOut)
     }
 
     private func appDevLogo(in geo: GeometryProxy) -> some View {
-        Image("appdev_logo_white")
+        Constants.Images.appDevLogoWhite
             .resizable()
             .scaledToFit()
-            .frame(width: 164, height: 24)
+            .frame(
+                width: appDevLogoWidth,
+                height: appDevLogoHeight
+            )
             .position(
                 x: geo.size.width / 2,
-                y: geo.size.height * 1.2
+                y: geo.size.height * appDevLogoVerticalPositionMultiplier
             )
             .offset(y: viewModel.appDevLogoYOffset(for: geo.size.height))
             .animation(
                 .easeOut(
-                    duration: Constants.IntroAnimation.entranceDuration
+                    duration: entranceDuration
                 )
-                .delay(Constants.IntroAnimation.entranceDelay),
+                .delay(entranceDelay),
                 value: viewModel.hasEntered
             )
     }

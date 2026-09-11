@@ -10,6 +10,8 @@ import SwiftUI
 
 final class SignInAnimationViewModel: ObservableObject {
 
+    // MARK: - Phase
+
     enum Phase {
         case hidden
         case entered
@@ -18,6 +20,21 @@ final class SignInAnimationViewModel: ObservableObject {
     }
 
     @Published var phase: Phase
+
+    // MARK: - Constants
+
+    let transitionDuration: Double = 0.35
+
+    private let transitionedLogoWidth: CGFloat = 130
+    private let transitionedLogoHeight: CGFloat = 115
+
+    private let enteredLogoWidth: CGFloat = 173.14737
+    private let enteredLogoHeight: CGFloat = 152.79259
+
+    private let transitionedLogoTopPadding: CGFloat = 10
+    private let transitionedLogoYOffset: CGFloat = 15
+    private let enteredLogoYOffset: CGFloat = 160
+    private let hiddenLogoYOffset: CGFloat = 900
 
     init(hasShownIntro: Bool) {
         phase = hasShownIntro ? .finished : .hidden
@@ -49,24 +66,24 @@ final class SignInAnimationViewModel: ObservableObject {
 
     var mainLogoSize: CGSize {
         isTransitioningToSignIn
-            ? CGSize(width: 130, height: 115)
-            : CGSize(width: 173.14737, height: 152.79259)
+            ? CGSize(width: transitionedLogoWidth, height: transitionedLogoHeight)
+            : CGSize(width: enteredLogoWidth, height: enteredLogoHeight)
     }
 
     var mainLogoTopPadding: CGFloat {
-        isTransitioningToSignIn ? 10 : 0
+        isTransitioningToSignIn ? transitionedLogoTopPadding : 0
     }
 
     var mainLogoYOffset: CGFloat {
         if isTransitioningToSignIn {
-            return 15
+            return transitionedLogoYOffset
         }
 
         if introLogoEntered {
-            return 160
+            return enteredLogoYOffset
         }
 
-        return 900
+        return hiddenLogoYOffset
     }
 
     // MARK: - Animation
@@ -83,7 +100,7 @@ final class SignInAnimationViewModel: ObservableObject {
     @MainActor
     func transitionToSignIn() {
         withAnimation(
-            .smooth(duration: Constants.IntroAnimation.transitionDuration)
+            .smooth(duration: transitionDuration)
         ) {
             phase = .transitioningToSignIn
         }
