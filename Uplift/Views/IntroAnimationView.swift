@@ -48,39 +48,39 @@ struct IntroAnimationView: View {
                }
                .frame(maxWidth: .infinity, maxHeight: .infinity)
                .ignoresSafeArea()
-               .onAppear {
-                   startAnimation(for: geo.size.height)
+               .task {
+                   await startAnimation(for: geo.size.height)
                }
            }
        }
 
     // MARK: - Views
 
-        private var backgroundImage: some View {
-            Image("intro_background")
-                .resizable()
-                .scaledToFill()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .clipped()
-                .opacity(hasEntered && !isFadingOut ? 1 : 0)
-                .animation(.easeInOut(duration: Constants.IntroAnimation.transitionDuration), value: isFadingOut)
-        }
+    private var backgroundImage: some View {
+        Image("intro_background")
+            .resizable()
+            .scaledToFill()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .clipped()
+            .opacity(hasEntered && !isFadingOut ? 1 : 0)
+            .animation(.easeInOut(duration: Constants.IntroAnimation.transitionDuration), value: isFadingOut)
+    }
 
-        private func appDevLogo(in geo: GeometryProxy) -> some View {
-            Image("appdev_logo_white")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 164, height: 24)
-                .position(
-                    x: geo.size.width / 2,
-                    y: geo.size.height * 1.2
-                )
-                .offset(y: appDevLogoYOffset(for: geo.size.height))
-                .animation(
-                    .easeOut(duration: Constants.IntroAnimation.entranceDuration).delay(Constants.IntroAnimation.entranceDelay),
-                    value: hasEntered
-                )
-        }
+    private func appDevLogo(in geo: GeometryProxy) -> some View {
+        Image("appdev_logo_white")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 164, height: 24)
+            .position(
+                x: geo.size.width / 2,
+                y: geo.size.height * 1.2
+            )
+            .offset(y: appDevLogoYOffset(for: geo.size.height))
+            .animation(
+                .easeOut(duration: Constants.IntroAnimation.entranceDuration).delay(Constants.IntroAnimation.entranceDelay),
+                value: hasEntered
+            )
+    }
 
     // MARK: - Helpers
 
@@ -93,24 +93,29 @@ struct IntroAnimationView: View {
         hasEntered ? 0 : height
     }
 
-    private func startAnimation(for height: CGFloat) {
+    @MainActor
+    private func startAnimation(for height: CGFloat) async {
         guard height > 0 else { return }
 
-        DispatchQueue.main.async {
-            hasEntered = true
+        hasEntered = true
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + Constants.IntroAnimation.introDuration) {
-                withAnimation(.smooth(duration: Constants.IntroAnimation.transitionDuration)) {
-                    isFadingOut = true
-                }
+        try? await Task.sleep(
+            for: .seconds(Constants.IntroAnimation.introDuration)
+        )
 
-                onTransition?()
-
-                DispatchQueue.main.asyncAfter(deadline: .now() + Constants.IntroAnimation.transitionDuration) {
-                    onFinished?()
-                }
-            }
+        withAnimation(
+            .smooth(duration: Constants.IntroAnimation.transitionDuration)
+        ) {
+            isFadingOut = true
         }
+
+        onTransition?()
+
+        try? await Task.sleep(
+            for: .seconds(Constants.IntroAnimation.transitionDuration)
+        )
+
+        onFinished?()
     }
 
 }

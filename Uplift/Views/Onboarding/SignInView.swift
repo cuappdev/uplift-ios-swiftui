@@ -38,8 +38,8 @@ struct SignInView: View {
             mainLogo
 
         }
-        .onAppear {
-            startIntroLogoAnimation()
+        .task {
+            await startIntroLogoAnimation()
         }
     }
 
@@ -316,12 +316,13 @@ struct SignInView: View {
         showIntro = false
     }
 
-    private func startIntroLogoAnimation() {
+    @MainActor
+    private func startIntroLogoAnimation() async {
         guard showIntro else { return }
 
-        DispatchQueue.main.async {
-            introLogoEntered = true
-        }
+        await Task.yield()
+
+        introLogoEntered = true
     }
 }
 
