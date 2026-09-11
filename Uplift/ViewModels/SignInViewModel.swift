@@ -10,12 +10,42 @@ import SwiftUI
 
 final class SignInAnimationViewModel: ObservableObject {
 
-    // MARK: - Properties
+    enum Phase {
+        case hidden
+        case entered
+        case transitioningToSignIn
+        case finished
+    }
 
-    @Published var introLogoEntered = false
-    @Published var isTransitioningToSignIn = false
+    @Published var phase: Phase
 
-    // MARK: - Logo Properties
+    init(hasShownIntro: Bool) {
+        phase = hasShownIntro ? .finished : .hidden
+    }
+
+    // MARK: - Computed Properties
+
+    var showIntro: Bool {
+        phase != .finished
+    }
+
+    var introLogoEntered: Bool {
+        switch phase {
+        case .entered, .transitioningToSignIn, .finished:
+            return true
+        case .hidden:
+            return false
+        }
+    }
+
+    var isTransitioningToSignIn: Bool {
+        switch phase {
+        case .transitioningToSignIn, .finished:
+            return true
+        case .hidden, .entered:
+            return false
+        }
+    }
 
     var mainLogoSize: CGSize {
         isTransitioningToSignIn
@@ -42,11 +72,12 @@ final class SignInAnimationViewModel: ObservableObject {
     // MARK: - Animation
 
     @MainActor
-    func startIntroLogoAnimation(showIntro: Bool) async {
-        guard showIntro else { return }
+    func startIntroLogoAnimation() async {
+        guard phase == .hidden else { return }
 
         await Task.yield()
-        introLogoEntered = true
+
+        phase = .entered
     }
 
     @MainActor
@@ -54,7 +85,12 @@ final class SignInAnimationViewModel: ObservableObject {
         withAnimation(
             .smooth(duration: Constants.IntroAnimation.transitionDuration)
         ) {
-            isTransitioningToSignIn = true
+            phase = .transitioningToSignIn
         }
+    }
+
+    @MainActor
+    func finish() {
+        phase = .finished
     }
 }

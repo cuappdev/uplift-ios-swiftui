@@ -16,11 +16,12 @@ struct SignInView: View {
     @EnvironmentObject var mainViewModel: MainView.ViewModel
     @StateObject private var loginViewModel = LoginViewModel()
     @State private var animateElements: Bool = false
-    @State private var showIntro = !SignInView.hasShownIntro
-
-    @StateObject private var animationViewModel = SignInAnimationViewModel()
 
     static var hasShownIntro = false
+
+    @StateObject private var viewModel = SignInAnimationViewModel(
+        hasShownIntro: SignInView.hasShownIntro
+    )
 
     // MARK: - UI
 
@@ -28,9 +29,9 @@ struct SignInView: View {
         ZStack {
             signInContent
 
-            if showIntro {
+            if viewModel.showIntro {
                 IntroAnimationView(
-                    onTransition: animationViewModel.transitionToSignIn,
+                    onTransition: viewModel.transitionToSignIn,
                     onFinished: finishIntro
                 )
             }
@@ -39,9 +40,7 @@ struct SignInView: View {
 
         }
         .task {
-            await animationViewModel.startIntroLogoAnimation(
-                showIntro: showIntro
-            )
+            await viewModel.startIntroLogoAnimation()
         }
     }
 
@@ -67,7 +66,7 @@ struct SignInView: View {
         }
         .background(Color.white)
         .onAppear {
-            if showIntro {
+            if viewModel.showIntro {
                 var transaction = Transaction()
                 transaction.disablesAnimations = true
 
@@ -249,7 +248,7 @@ struct SignInView: View {
                     .resizable()
                     .scaledToFit()
                     .opacity(
-                        animationViewModel.isTransitioningToSignIn
+                        viewModel.isTransitioningToSignIn
                             ? 0
                             : 1
                     )
@@ -258,20 +257,20 @@ struct SignInView: View {
                     .resizable()
                     .scaledToFit()
                     .opacity(
-                        animationViewModel.isTransitioningToSignIn
+                        viewModel.isTransitioningToSignIn
                             ? 1
                             : 0
                     )
             }
             .frame(
-                width: animationViewModel.mainLogoSize.width,
-                height: animationViewModel.mainLogoSize.height
+                width: viewModel.mainLogoSize.width,
+                height: viewModel.mainLogoSize.height
             )
             .animation(
                 .easeInOut(
                     duration: Constants.IntroAnimation.transitionDuration
                 ),
-                value: animationViewModel.isTransitioningToSignIn
+                value: viewModel.isTransitioningToSignIn
             )
 
             Spacer()
@@ -279,28 +278,28 @@ struct SignInView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(
             .top,
-            animationViewModel.mainLogoTopPadding
+            viewModel.mainLogoTopPadding
         )
         .offset(
-            y: animationViewModel.mainLogoYOffset
+            y: viewModel.mainLogoYOffset
         )
         .animation(
             .easeOut(
                 duration: Constants.IntroAnimation.entranceDuration
             ),
-            value: animationViewModel.introLogoEntered
+            value: viewModel.introLogoEntered
         )
         .animation(
             .smooth(
                 duration: Constants.IntroAnimation.transitionDuration
             ),
-            value: animationViewModel.isTransitioningToSignIn
+            value: viewModel.isTransitioningToSignIn
         )
     }
 
     private func finishIntro() {
         SignInView.hasShownIntro = true
-        showIntro = false
+        viewModel.finish()
     }
 }
 
