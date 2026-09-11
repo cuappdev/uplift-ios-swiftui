@@ -36,6 +36,7 @@ struct SignInView: View {
             }
 
             mainLogo
+
         }
         .onAppear {
             startIntroLogoAnimation()
@@ -217,13 +218,10 @@ struct SignInView: View {
     private var signInHeader: some View {
         VStack {
 
-            Color.clear // to give enough space for logo!
-                .frame(height: 150)
-
             Text("Find what uplifts you.")
                 .font(Constants.Fonts.h1)
                 .foregroundStyle(Constants.Colors.black)
-                .padding(.top, 62)
+                .padding(.top, 212)
                 .opacity(animateElements ? 1 : 0)
                 .animation(.easeIn(duration: 1).delay(2), value: animateElements)
 
