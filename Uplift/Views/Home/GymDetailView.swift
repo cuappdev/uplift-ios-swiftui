@@ -86,8 +86,7 @@ struct GymDetailView: View {
                     .placeholder {
                         Constants.Colors.gray01
                     }
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
+                    .resizable().scaledToFill()
                     .stretchy(geometry)
             }
             .frame(height: 330)
