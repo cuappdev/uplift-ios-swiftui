@@ -235,4 +235,18 @@ struct Constants {
         static let skippedLogin = "skippedLogin"
     }
 
+    /// Constants used for the sign-in intro animation.
+    enum IntroAnimation {
+        static let mountainFrontYOffset: CGFloat = 50
+
+        static let appDevLogoWidth: CGFloat = 164
+        static let appDevLogoHeight: CGFloat = 24
+        static let appDevLogoVerticalPositionMultiplier: CGFloat = 1.2
+
+        static let entranceDuration: Double = 1.0
+        static let entranceDelay: Double = 0.1
+
+        static let transitionDuration: Double = 0.35
+        static let introDuration: Double = 1.5
+    }
 }

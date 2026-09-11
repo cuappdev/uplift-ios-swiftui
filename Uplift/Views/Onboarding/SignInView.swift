@@ -258,7 +258,7 @@ struct SignInView: View {
                 height: mainLogoSize.height
             )
             .animation(
-                .easeInOut(duration: 0.35),
+                .easeInOut(duration: Constants.IntroAnimation.transitionDuration),
                 value: isTransitioningToSignIn
             )
 
@@ -268,7 +268,7 @@ struct SignInView: View {
         .padding(.top, mainLogoTopPadding)
         .offset(y: mainLogoYOffset)
         .animation(.easeOut(duration: 1.0), value: introLogoEntered)
-        .animation(.smooth(duration: 0.35), value: isTransitioningToSignIn)
+        .animation(.smooth(duration: Constants.IntroAnimation.transitionDuration), value: isTransitioningToSignIn)
     }
 
     // MARK: - Helpers
@@ -306,7 +306,7 @@ struct SignInView: View {
 
     // IntroAnimationView helpers
     private func transitionToSignIn() {
-        withAnimation(.smooth(duration: 0.35)) {
+        withAnimation(.smooth(duration: Constants.IntroAnimation.transitionDuration)) {
             isTransitioningToSignIn = true
         }
     }

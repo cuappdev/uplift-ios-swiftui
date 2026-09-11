@@ -25,7 +25,7 @@ struct IntroAnimationView: View {
                            .frame(maxWidth: .infinity)
                            .clipped()
                            .offset(y: hasEntered ? 0 : geo.size.height)
-                           .animation(.easeOut(duration: 1.0), value: hasEntered)
+                           .animation(.easeOut(duration: Constants.IntroAnimation.entranceDuration), value: hasEntered)
 
                        Image("mountain_front")
                            .resizable()
@@ -35,14 +35,14 @@ struct IntroAnimationView: View {
                            .clipped()
                            .offset(y: hasEntered ? 50 : geo.size.height)
                            .animation(
-                               .easeOut(duration: 1.0).delay(0.1),
+                               .easeOut(duration: Constants.IntroAnimation.entranceDuration).delay(Constants.IntroAnimation.entranceDelay),
                                value: hasEntered
                            )
 
                        appDevLogo(in: geo)
                    }
                    .opacity(isFadingOut ? 0 : 1)
-                   .animation(.easeInOut(duration: 0.35), value: isFadingOut)
+                   .animation(.easeInOut(duration: Constants.IntroAnimation.transitionDuration), value: isFadingOut)
                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                    .clipped()
                }
@@ -63,7 +63,7 @@ struct IntroAnimationView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .clipped()
                 .opacity(hasEntered && !isFadingOut ? 1 : 0)
-                .animation(.easeInOut(duration: 0.35), value: isFadingOut)
+                .animation(.easeInOut(duration: Constants.IntroAnimation.transitionDuration), value: isFadingOut)
         }
 
         private func appDevLogo(in geo: GeometryProxy) -> some View {
@@ -77,7 +77,7 @@ struct IntroAnimationView: View {
                 )
                 .offset(y: appDevLogoYOffset(for: geo.size.height))
                 .animation(
-                    .easeOut(duration: 1).delay(0.1),
+                    .easeOut(duration: Constants.IntroAnimation.entranceDuration).delay(Constants.IntroAnimation.entranceDelay),
                     value: hasEntered
                 )
         }
@@ -99,14 +99,14 @@ struct IntroAnimationView: View {
         DispatchQueue.main.async {
             hasEntered = true
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                withAnimation(.smooth(duration: 0.35)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Constants.IntroAnimation.introDuration) {
+                withAnimation(.smooth(duration: Constants.IntroAnimation.transitionDuration)) {
                     isFadingOut = true
                 }
 
                 onTransition?()
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + Constants.IntroAnimation.transitionDuration) {
                     onFinished?()
                 }
             }
