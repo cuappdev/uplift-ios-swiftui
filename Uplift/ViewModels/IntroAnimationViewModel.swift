@@ -15,10 +15,6 @@ final class IntroAnimationViewModel: ObservableObject {
     @Published var hasEntered = false
     @Published var isFadingOut = false
 
-    // MARK: - Constants
-    let introDuration: Double = 1.5
-    let transitionDuration: Double = 0.35
-
     // MARK: - Helpers
 
     func appDevLogoYOffset(for height: CGFloat) -> CGFloat {
@@ -38,13 +34,13 @@ final class IntroAnimationViewModel: ObservableObject {
         hasEntered = true
 
         try? await Task.sleep(
-            for: .seconds(introDuration)
+            for: .seconds(Constants.IntroAnimation.introDuration)
         )
 
         guard !Task.isCancelled else { return }
 
         withAnimation(
-            .smooth(duration: transitionDuration)
+            .smooth(duration: Constants.IntroAnimation.transitionDuration)
         ) {
             isFadingOut = true
         }
@@ -52,7 +48,7 @@ final class IntroAnimationViewModel: ObservableObject {
         onTransition?()
 
         try? await Task.sleep(
-            for: .seconds(transitionDuration)
+            for: .seconds(Constants.IntroAnimation.transitionDuration)
         )
 
         guard !Task.isCancelled else { return }

@@ -9,17 +9,6 @@ struct IntroAnimationView: View {
     var onTransition: (() -> Void)?
     var onFinished: (() -> Void)?
 
-    // MARK: - Constants
-
-    private let entranceDuration: Double = 1.0
-    private let entranceDelay: Double = 0.1
-
-    private let mountainFrontYOffset: CGFloat = 50
-
-    private let appDevLogoWidth: CGFloat = 164
-    private let appDevLogoHeight: CGFloat = 24
-    private let appDevLogoVerticalPositionMultiplier: CGFloat = 1.2
-
     // MARK: - UI
 
     var body: some View {
@@ -39,7 +28,7 @@ struct IntroAnimationView: View {
                        )
                        .animation(
                            .easeOut(
-                               duration: entranceDuration
+                            duration: Constants.IntroAnimation.entranceDuration
                            ),
                            value: viewModel.hasEntered
                        )
@@ -51,13 +40,13 @@ struct IntroAnimationView: View {
                        .frame(maxWidth: .infinity)
                        .clipped()
                        .offset(
-                           y: viewModel.hasEntered ? mountainFrontYOffset : geo.size.height
+                        y: viewModel.hasEntered ? Constants.IntroAnimation.mountainFrontYOffset : geo.size.height
                        )
                        .animation(
                            .easeOut(
-                               duration: entranceDuration
+                            duration: Constants.IntroAnimation.entranceDuration
                            )
-                           .delay(entranceDelay),
+                           .delay(Constants.IntroAnimation.entranceDelay),
                            value: viewModel.hasEntered
                        )
 
@@ -66,7 +55,7 @@ struct IntroAnimationView: View {
                .opacity(viewModel.isFadingOut ? 0 : 1)
                .animation(
                    .easeInOut(
-                    duration: viewModel.transitionDuration
+                    duration: Constants.IntroAnimation.transitionDuration
                    ),
                    value: viewModel.isFadingOut
                )
@@ -94,7 +83,7 @@ struct IntroAnimationView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .clipped()
             .opacity(viewModel.hasEntered && !viewModel.isFadingOut ? 1 : 0)
-            .animation(.easeInOut(duration: viewModel.transitionDuration), value: viewModel.isFadingOut)
+            .animation(.easeInOut(duration: Constants.IntroAnimation.transitionDuration), value: viewModel.isFadingOut)
     }
 
     private func appDevLogo(in geo: GeometryProxy) -> some View {
@@ -102,19 +91,19 @@ struct IntroAnimationView: View {
             .resizable()
             .scaledToFit()
             .frame(
-                width: appDevLogoWidth,
-                height: appDevLogoHeight
+                width: Constants.IntroAnimation.appDevLogoWidth,
+                height: Constants.IntroAnimation.appDevLogoHeight
             )
             .position(
                 x: geo.size.width / 2,
-                y: geo.size.height * appDevLogoVerticalPositionMultiplier
+                y: geo.size.height * Constants.IntroAnimation.appDevLogoVerticalPositionMultiplier
             )
             .offset(y: viewModel.appDevLogoYOffset(for: geo.size.height))
             .animation(
                 .easeOut(
-                    duration: entranceDuration
+                    duration: Constants.IntroAnimation.entranceDuration
                 )
-                .delay(entranceDelay),
+                .delay(Constants.IntroAnimation.entranceDelay),
                 value: viewModel.hasEntered
             )
     }

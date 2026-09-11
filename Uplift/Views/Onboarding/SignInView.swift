@@ -23,38 +23,6 @@ struct SignInView: View {
         hasShownIntro: SignInView.hasShownIntro
     )
 
-    // MARK: - Constants
-
-    private let backgroundTrailingPadding: CGFloat = 51
-
-    private let entranceDuration: Double = 1
-
-    private let backgroundFadeDuration: Double = 1
-    private let backgroundFadeDelay: Double = 1
-    private let contentFadeDuration: Double = 1
-    private let contentFadeDelay: Double = 2
-    private let initialFadeDuration: Double = 0.3
-
-    private let cardSpacing: CGFloat = 12
-    private let cardYOffset: CGFloat = 200
-    private let firstCardDelay: Double = 2.5
-    private let secondCardDelay: Double = 3
-    private let thirdCardDelay: Double = 3.5
-    private let cardsHorizontalPadding: CGFloat = 76
-
-    private let buttonHorizontalPadding: CGFloat = 46
-    private let buttonVerticalPadding: CGFloat = 12
-    private let buttonCornerRadius: CGFloat = 38
-
-    private let cardPadding: CGFloat = 12
-    private let cardCornerRadius: CGFloat = 8
-
-    private let headerTopPadding: CGFloat = 212
-    private let loginLabelTopPadding: CGFloat = 89
-    private let cardsTopPadding: CGFloat = 24
-
-    private let spacerMinLength: CGFloat = 16
-
     // MARK: - UI
 
     var body: some View {
@@ -81,12 +49,12 @@ struct SignInView: View {
             Constants.Images.backgroundEllipse
                 .resizable()
                 .scaledToFit()
-                .padding(.trailing, backgroundTrailingPadding)
+                .padding(.trailing, Constants.SignIn.backgroundTrailingPadding)
                 .ignoresSafeArea(edges: .top)
                 .opacity(animateElements ? 1 : 0)
                 .animation(
-                    .easeIn(duration: backgroundFadeDuration)
-                        .delay(backgroundFadeDelay),
+                    .easeIn(duration: Constants.SignIn.backgroundFadeDuration)
+                    .delay(Constants.SignIn.backgroundFadeDelay),
                     value: animateElements
                 )
 
@@ -95,7 +63,7 @@ struct SignInView: View {
 
                 loginButton
 
-                Spacer(minLength: spacerMinLength)
+                Spacer(minLength: Constants.SignIn.spacerMinLength)
 
                 skipButton
             }
@@ -110,7 +78,7 @@ struct SignInView: View {
                     animateElements = true
                 }
             } else {
-                withAnimation(.easeIn(duration: initialFadeDuration)) {
+                withAnimation(.easeIn(duration: Constants.SignIn.initialFadeDuration)) {
                     animateElements = true
                 }
             }
@@ -131,8 +99,8 @@ struct SignInView: View {
         }
         .opacity(animateElements ? 1 : 0)
         .animation(
-            .easeIn(duration: contentFadeDuration)
-                .delay(contentFadeDelay),
+            .easeIn(duration: Constants.SignIn.contentFadeDuration)
+            .delay(Constants.SignIn.contentFadeDelay),
             value: animateElements
         )
     }
@@ -180,48 +148,48 @@ struct SignInView: View {
             Text("Log in")
                 .font(Constants.Fonts.h2)
                 .foregroundColor(Constants.Colors.black)
-                .padding(.horizontal, buttonHorizontalPadding)
-                .padding(.vertical, buttonVerticalPadding)
+                .padding(.horizontal, Constants.SignIn.buttonHorizontalPadding)
+                .padding(.vertical, Constants.SignIn.buttonVerticalPadding)
                 .background(Constants.Colors.yellow)
-                .cornerRadius(buttonCornerRadius)
+                .cornerRadius(Constants.SignIn.buttonCornerRadius)
                 .upliftShadow(Constants.Shadows.smallLight)
         }
         .opacity(animateElements ? 1 : 0)
         .animation(
-            .easeIn(duration: contentFadeDuration)
-                .delay(contentFadeDelay),
+            .easeIn(duration: Constants.SignIn.contentFadeDuration)
+            .delay(Constants.SignIn.contentFadeDelay),
             value: animateElements
         )
     }
 
     private var cardsView: some View {
-        VStack(spacing: cardSpacing) {
+        VStack(spacing: Constants.SignIn.cardSpacing) {
             createGoalsView
                 .opacity(animateElements ? 1 : 0)
-                .offset(y: animateElements ? 0 : cardYOffset)
+                .offset(y: animateElements ? 0 : Constants.SignIn.cardYOffset)
                 .animation(
-                    .spring(duration: contentFadeDuration)
-                        .delay(firstCardDelay),
+                    .spring(duration: Constants.SignIn.contentFadeDuration)
+                    .delay(Constants.SignIn.firstCardDelay),
                     value: animateElements
                 )
             trackGoalsView
                 .opacity(animateElements ? 1 : 0)
-                .offset(y: animateElements ? 0 : cardYOffset)
+                .offset(y: animateElements ? 0 : Constants.SignIn.cardYOffset)
                 .animation(
-                    .spring(duration: contentFadeDuration)
-                        .delay(secondCardDelay),
+                    .spring(duration: Constants.SignIn.contentFadeDuration)
+                    .delay(Constants.SignIn.secondCardDelay),
                     value: animateElements
                 )
             workoutHistoryView
                 .opacity(animateElements ? 1 : 0)
-                .offset(y: animateElements ? 0 : cardYOffset)
+                .offset(y: animateElements ? 0 : Constants.SignIn.cardYOffset)
                 .animation(
-                    .spring(duration: contentFadeDuration)
-                        .delay(thirdCardDelay),
+                    .spring(duration: Constants.SignIn.contentFadeDuration)
+                    .delay(Constants.SignIn.thirdCardDelay),
                     value: animateElements
                 )
         }
-        .padding(.horizontal, cardsHorizontalPadding)
+        .padding(.horizontal, Constants.SignIn.cardsHorizontalPadding)
     }
 
     private var createGoalsView: some View {
@@ -234,9 +202,9 @@ struct SignInView: View {
 
             Spacer()
         }
-        .padding(cardPadding)
+        .padding(Constants.SignIn.cardPadding)
         .background(.white)
-        .cornerRadius(cardCornerRadius)
+        .cornerRadius(Constants.SignIn.cardCornerRadius)
         .upliftShadow(Constants.Shadows.smallLight)
     }
 
@@ -250,9 +218,9 @@ struct SignInView: View {
 
             Spacer()
         }
-        .padding(cardPadding)
+        .padding(Constants.SignIn.cardPadding)
         .background(.white)
-        .cornerRadius(cardCornerRadius)
+        .cornerRadius(Constants.SignIn.cardCornerRadius)
         .upliftShadow(Constants.Shadows.smallLight)
     }
 
@@ -266,9 +234,9 @@ struct SignInView: View {
 
             Spacer()
         }
-        .padding(cardPadding)
+        .padding(Constants.SignIn.cardPadding)
         .background(.white)
-        .cornerRadius(cardCornerRadius)
+        .cornerRadius(Constants.SignIn.cardCornerRadius)
         .upliftShadow(Constants.Shadows.smallLight)
     }
 
@@ -278,27 +246,27 @@ struct SignInView: View {
             Text("Find what uplifts you.")
                 .font(Constants.Fonts.h1)
                 .foregroundStyle(Constants.Colors.black)
-                .padding(.top, headerTopPadding)
+                .padding(.top, Constants.SignIn.headerTopPadding)
                 .opacity(animateElements ? 1 : 0)
                 .animation(
-                    .easeIn(duration: contentFadeDuration)
-                        .delay(contentFadeDelay),
+                    .easeIn(duration: Constants.SignIn.contentFadeDuration)
+                    .delay(Constants.SignIn.contentFadeDelay),
                     value: animateElements
                 )
 
             Text("Log in to:")
                 .font(Constants.Fonts.h2)
                 .foregroundStyle(Constants.Colors.black)
-                .padding(.top, loginLabelTopPadding)
+                .padding(.top, Constants.SignIn.loginLabelTopPadding)
                 .opacity(animateElements ? 1 : 0)
                 .animation(
-                    .easeIn(duration: contentFadeDuration)
-                        .delay(contentFadeDelay),
+                    .easeIn(duration: Constants.SignIn.contentFadeDuration)
+                    .delay(Constants.SignIn.contentFadeDelay),
                     value: animateElements
                 )
 
             cardsView
-                .padding(.top, cardsTopPadding)
+                .padding(.top, Constants.SignIn.cardsTopPadding)
 
             Spacer()
         }
@@ -332,7 +300,7 @@ struct SignInView: View {
             )
             .animation(
                 .easeInOut(
-                    duration: viewModel.transitionDuration
+                    duration: Constants.IntroAnimation.transitionDuration
                 ),
                 value: viewModel.isTransitioningToSignIn
             )
@@ -349,13 +317,13 @@ struct SignInView: View {
         )
         .animation(
             .easeOut(
-                duration: entranceDuration
+                duration: Constants.IntroAnimation.entranceDuration
             ),
             value: viewModel.introLogoEntered
         )
         .animation(
             .smooth(
-                duration: viewModel.transitionDuration
+                duration: Constants.IntroAnimation.transitionDuration
             ),
             value: viewModel.isTransitioningToSignIn
         )

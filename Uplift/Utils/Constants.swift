@@ -239,4 +239,62 @@ struct Constants {
         /// User chose "Skip" on sign-in and uses the app without an account until they log in.
         static let skippedLogin = "skippedLogin"
     }
+
+    /// Constants used in IntroAnimation
+    enum IntroAnimation {
+        static let entranceDuration: Double = 1.0
+        static let entranceDelay: Double = 0.1
+
+        static let mountainFrontYOffset: CGFloat = 50
+
+        static let appDevLogoWidth: CGFloat = 164
+        static let appDevLogoHeight: CGFloat = 24
+        static let appDevLogoVerticalPositionMultiplier: CGFloat = 1.2
+
+        static let introDuration: Double = 1.5
+        static let transitionDuration: Double = 0.35
+    }
+
+    /// Constants used in SignIn
+    enum SignIn {
+        static let backgroundTrailingPadding: CGFloat = 51
+
+        static let backgroundFadeDuration: Double = 1
+        static let backgroundFadeDelay: Double = 1
+        static let contentFadeDuration: Double = 1
+        static let contentFadeDelay: Double = 2
+        static let initialFadeDuration: Double = 0.3
+
+        static let cardSpacing: CGFloat = 12
+        static let cardYOffset: CGFloat = 200
+        static let firstCardDelay: Double = 2.5
+        static let secondCardDelay: Double = 3
+        static let thirdCardDelay: Double = 3.5
+        static let cardsHorizontalPadding: CGFloat = 76
+
+        static let buttonHorizontalPadding: CGFloat = 46
+        static let buttonVerticalPadding: CGFloat = 12
+        static let buttonCornerRadius: CGFloat = 38
+
+        static let cardPadding: CGFloat = 12
+        static let cardCornerRadius: CGFloat = 8
+
+        static let headerTopPadding: CGFloat = 212
+        static let loginLabelTopPadding: CGFloat = 89
+        static let cardsTopPadding: CGFloat = 24
+
+        static let spacerMinLength: CGFloat = 16
+
+        static let transitionedLogoWidth: CGFloat = 130
+        static let transitionedLogoHeight: CGFloat = 115
+
+        static let enteredLogoWidth: CGFloat = 173.14737
+        static let enteredLogoHeight: CGFloat = 152.79259
+
+        static let transitionedLogoTopPadding: CGFloat = 10
+        static let transitionedLogoYOffset: CGFloat = 15
+        static let enteredLogoYOffset: CGFloat = 160
+        static let hiddenLogoYOffset: CGFloat = 900
+
+    }
 }
