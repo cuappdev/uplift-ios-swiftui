@@ -4,8 +4,7 @@ struct IntroAnimationView: View {
 
     // MARK: - Properties
 
-    @State private var hasEntered = false
-    @State private var isFadingOut = false
+    @StateObject private var viewModel = IntroAnimationViewModel()
 
     var onTransition: (() -> Void)?
     var onFinished: (() -> Void)?
@@ -24,8 +23,8 @@ struct IntroAnimationView: View {
                            .frame(height: geo.size.height)
                            .frame(maxWidth: .infinity)
                            .clipped()
-                           .offset(y: hasEntered ? 0 : geo.size.height)
-                           .animation(.easeOut(duration: Constants.IntroAnimation.entranceDuration), value: hasEntered)
+                           .offset(y: viewModel.hasEntered ? 0 : geo.size.height)
+                           .animation(.easeOut(duration: Constants.IntroAnimation.entranceDuration), value: viewModel.hasEntered)
 
                        Image("mountain_front")
                            .resizable()
@@ -33,23 +32,27 @@ struct IntroAnimationView: View {
                            .frame(height: geo.size.height)
                            .frame(maxWidth: .infinity)
                            .clipped()
-                           .offset(y: hasEntered ? 50 : geo.size.height)
+                           .offset(y: viewModel.hasEntered ? 50 : geo.size.height)
                            .animation(
                                .easeOut(duration: Constants.IntroAnimation.entranceDuration).delay(Constants.IntroAnimation.entranceDelay),
-                               value: hasEntered
+                               value: viewModel.hasEntered
                            )
 
                        appDevLogo(in: geo)
                    }
-                   .opacity(isFadingOut ? 0 : 1)
-                   .animation(.easeInOut(duration: Constants.IntroAnimation.transitionDuration), value: isFadingOut)
+                   .opacity(viewModel.isFadingOut ? 0 : 1)
+                   .animation(.easeInOut(duration: Constants.IntroAnimation.transitionDuration), value: viewModel.isFadingOut)
                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                    .clipped()
                }
                .frame(maxWidth: .infinity, maxHeight: .infinity)
                .ignoresSafeArea()
                .task {
-                   await startAnimation(for: geo.size.height)
+                   await viewModel.startAnimation(
+                       for: geo.size.height,
+                       onTransition: onTransition,
+                       onFinished: onFinished
+                   )
                }
            }
        }
@@ -62,8 +65,8 @@ struct IntroAnimationView: View {
             .scaledToFill()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .clipped()
-            .opacity(hasEntered && !isFadingOut ? 1 : 0)
-            .animation(.easeInOut(duration: Constants.IntroAnimation.transitionDuration), value: isFadingOut)
+            .opacity(viewModel.hasEntered && !viewModel.isFadingOut ? 1 : 0)
+            .animation(.easeInOut(duration: Constants.IntroAnimation.transitionDuration), value: viewModel.isFadingOut)
     }
 
     private func appDevLogo(in geo: GeometryProxy) -> some View {
@@ -75,47 +78,11 @@ struct IntroAnimationView: View {
                 x: geo.size.width / 2,
                 y: geo.size.height * 1.2
             )
-            .offset(y: appDevLogoYOffset(for: geo.size.height))
+            .offset(y: viewModel.appDevLogoYOffset(for: geo.size.height))
             .animation(
                 .easeOut(duration: Constants.IntroAnimation.entranceDuration).delay(Constants.IntroAnimation.entranceDelay),
-                value: hasEntered
+                value: viewModel.hasEntered
             )
-    }
-
-    // MARK: - Helpers
-
-    private func mountainYOffset(for height: CGFloat) -> CGFloat {
-        hasEntered ? 0 : height
-    }
-
-    // for appdev logo
-    private func appDevLogoYOffset(for height: CGFloat) -> CGFloat {
-        hasEntered ? 0 : height
-    }
-
-    @MainActor
-    private func startAnimation(for height: CGFloat) async {
-        guard height > 0 else { return }
-
-        hasEntered = true
-
-        try? await Task.sleep(
-            for: .seconds(Constants.IntroAnimation.introDuration)
-        )
-
-        withAnimation(
-            .smooth(duration: Constants.IntroAnimation.transitionDuration)
-        ) {
-            isFadingOut = true
-        }
-
-        onTransition?()
-
-        try? await Task.sleep(
-            for: .seconds(Constants.IntroAnimation.transitionDuration)
-        )
-
-        onFinished?()
     }
 
 }

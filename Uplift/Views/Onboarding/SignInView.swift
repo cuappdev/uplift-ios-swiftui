@@ -18,9 +18,9 @@ struct SignInView: View {
     @State private var animateElements: Bool = false
     @State private var showIntro = !SignInView.hasShownIntro
 
+    @StateObject private var animationViewModel = SignInAnimationViewModel()
+
     static var hasShownIntro = false
-    @State private var introLogoEntered = false
-    @State private var isTransitioningToSignIn = false
 
     // MARK: - UI
 
@@ -30,7 +30,7 @@ struct SignInView: View {
 
             if showIntro {
                 IntroAnimationView(
-                    onTransition: transitionToSignIn,
+                    onTransition: animationViewModel.transitionToSignIn,
                     onFinished: finishIntro
                 )
             }
@@ -39,7 +39,9 @@ struct SignInView: View {
 
         }
         .task {
-            await startIntroLogoAnimation()
+            await animationViewModel.startIntroLogoAnimation(
+                showIntro: showIntro
+            )
         }
     }
 
@@ -246,83 +248,59 @@ struct SignInView: View {
                 Image("logo_sunset")
                     .resizable()
                     .scaledToFit()
-                    .opacity(isTransitioningToSignIn ? 0 : 1)
+                    .opacity(
+                        animationViewModel.isTransitioningToSignIn
+                            ? 0
+                            : 1
+                    )
 
                 Constants.Images.logo
                     .resizable()
                     .scaledToFit()
-                    .opacity(isTransitioningToSignIn ? 1 : 0)
+                    .opacity(
+                        animationViewModel.isTransitioningToSignIn
+                            ? 1
+                            : 0
+                    )
             }
             .frame(
-                width: mainLogoSize.width,
-                height: mainLogoSize.height
+                width: animationViewModel.mainLogoSize.width,
+                height: animationViewModel.mainLogoSize.height
             )
             .animation(
-                .easeInOut(duration: Constants.IntroAnimation.transitionDuration),
-                value: isTransitioningToSignIn
+                .easeInOut(
+                    duration: Constants.IntroAnimation.transitionDuration
+                ),
+                value: animationViewModel.isTransitioningToSignIn
             )
 
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(.top, mainLogoTopPadding)
-        .offset(y: mainLogoYOffset)
-        .animation(.easeOut(duration: 1.0), value: introLogoEntered)
-        .animation(.smooth(duration: Constants.IntroAnimation.transitionDuration), value: isTransitioningToSignIn)
-    }
-
-    // MARK: - Helpers
-
-    // logo properties
-    private var mainLogoSize: CGSize {
-        isTransitioningToSignIn
-            ? CGSize(width: 130, height: 115)
-            : CGSize(width: 173.14737, height: 152.79259)
-    }
-
-    private var logoWidth: CGFloat {
-        isTransitioningToSignIn ? 130 : 173.14737
-    }
-
-    private var logoHeight: CGFloat {
-        isTransitioningToSignIn ? 115 : 152.79259
-    }
-
-    private var mainLogoTopPadding: CGFloat {
-        isTransitioningToSignIn ? 10 : 0
-    }
-
-    private var mainLogoYOffset: CGFloat {
-        if isTransitioningToSignIn {
-            return 15
-        }
-
-        if introLogoEntered {
-            return 160
-        }
-
-        return 900
-    }
-
-    // IntroAnimationView helpers
-    private func transitionToSignIn() {
-        withAnimation(.smooth(duration: Constants.IntroAnimation.transitionDuration)) {
-            isTransitioningToSignIn = true
-        }
+        .padding(
+            .top,
+            animationViewModel.mainLogoTopPadding
+        )
+        .offset(
+            y: animationViewModel.mainLogoYOffset
+        )
+        .animation(
+            .easeOut(
+                duration: Constants.IntroAnimation.entranceDuration
+            ),
+            value: animationViewModel.introLogoEntered
+        )
+        .animation(
+            .smooth(
+                duration: Constants.IntroAnimation.transitionDuration
+            ),
+            value: animationViewModel.isTransitioningToSignIn
+        )
     }
 
     private func finishIntro() {
         SignInView.hasShownIntro = true
         showIntro = false
-    }
-
-    @MainActor
-    private func startIntroLogoAnimation() async {
-        guard showIntro else { return }
-
-        await Task.yield()
-
-        introLogoEntered = true
     }
 }
 
