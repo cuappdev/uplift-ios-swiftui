@@ -245,11 +245,9 @@ struct Constants {
         static let entranceDuration: Double = 1.0
         static let entranceDelay: Double = 0.1
 
-        static let mountainFrontYOffset: CGFloat = 50
-
         static let appDevLogoWidth: CGFloat = 164
         static let appDevLogoHeight: CGFloat = 24
-        static let appDevLogoVerticalPositionMultiplier: CGFloat = 1.2
+        static let appDevLogoPadding: Double = 50.0
 
         static let introDuration: Double = 1.5
         static let transitionDuration: Double = 0.35

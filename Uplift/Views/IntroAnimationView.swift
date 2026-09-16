@@ -20,7 +20,6 @@ struct IntroAnimationView: View {
                    Constants.Images.mountainBack
                        .resizable()
                        .scaledToFill()
-                       .frame(height: geo.size.height)
                        .frame(maxWidth: .infinity)
                        .clipped()
                        .offset(
@@ -36,11 +35,10 @@ struct IntroAnimationView: View {
                    Constants.Images.mountainFront
                        .resizable()
                        .scaledToFill()
-                       .frame(height: geo.size.height)
                        .frame(maxWidth: .infinity)
                        .clipped()
                        .offset(
-                        y: viewModel.hasEntered ? Constants.IntroAnimation.mountainFrontYOffset : geo.size.height
+                        y: viewModel.hasEntered ? 0 : geo.size.height
                        )
                        .animation(
                            .easeOut(
@@ -87,11 +85,6 @@ struct IntroAnimationView: View {
     }
 
     private func appDevLogo(in geo: GeometryProxy) -> some View {
-//        Image("appdev_logo_white")
-//            .resizable()
-//            .scaledToFit()
-//            .frame(width: 164, height: 24)
-//            .background(.red)
         Constants.Images.appDevLogoWhite
             .resizable()
             .scaledToFit()
@@ -107,6 +100,7 @@ struct IntroAnimationView: View {
                 .delay(Constants.IntroAnimation.entranceDelay),
                 value: viewModel.hasEntered
             )
+            .padding(Constants.IntroAnimation.appDevLogoPadding)
     }
 
 }

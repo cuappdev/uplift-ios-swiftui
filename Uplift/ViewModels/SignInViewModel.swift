@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+@MainActor
 final class SignInAnimationViewModel: ObservableObject {
 
     // MARK: - Phase
@@ -73,7 +74,6 @@ final class SignInAnimationViewModel: ObservableObject {
 
     // MARK: - Animation
 
-    @MainActor
     func startIntroLogoAnimation() async {
         guard phase == .hidden else { return }
 
@@ -82,7 +82,6 @@ final class SignInAnimationViewModel: ObservableObject {
         phase = .entered
     }
 
-    @MainActor
     func transitionToSignIn() {
         withAnimation(
             .smooth(duration: Constants.IntroAnimation.transitionDuration)
@@ -91,7 +90,6 @@ final class SignInAnimationViewModel: ObservableObject {
         }
     }
 
-    @MainActor
     func finish() {
         phase = .finished
     }

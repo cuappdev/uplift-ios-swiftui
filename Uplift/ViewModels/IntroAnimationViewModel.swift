@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+@MainActor
 final class IntroAnimationViewModel: ObservableObject {
 
     // MARK: - Properties
@@ -23,7 +24,6 @@ final class IntroAnimationViewModel: ObservableObject {
 
     // MARK: - Animation
 
-    @MainActor
     func startAnimation(
         for height: CGFloat,
         onTransition: (() -> Void)?,
