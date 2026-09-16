@@ -32,11 +32,14 @@ class LocationManager: NSObject, ObservableObject {
 
     @Published var userLocation: CLLocation?
 
+    @Published private(set) var authorizationStatus: CLAuthorizationStatus
+
     private let manager = CLLocationManager()
 
     // MARK: - Functions
 
     override init() {
+        authorizationStatus = manager.authorizationStatus
         super.init()
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
@@ -82,11 +85,16 @@ extension LocationManager: LocationManaging {
     var userLocationPublisher: AnyPublisher<CLLocation?, Never> {
         $userLocation.eraseToAnyPublisher()
     }
+
+    var authorizationStatusPublisher: AnyPublisher<CLAuthorizationStatus, Never> {
+        $authorizationStatus.eraseToAnyPublisher()
+    }
 }
 
 extension LocationManager: CLLocationManagerDelegate {
 
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        authorizationStatus = manager.authorizationStatus
 #if DEBUG
         switch manager.authorizationStatus {
         case .notDetermined:
