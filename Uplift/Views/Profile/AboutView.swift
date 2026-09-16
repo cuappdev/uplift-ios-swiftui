@@ -11,12 +11,7 @@ import SwiftUI
 struct AboutView: View {
     @Environment(\.dismiss) private var dismiss
 
-    private let memberColumns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
         GridItem(.flexible())
-    ]
-
     var body: some View {
         VStack {
             header
@@ -28,22 +23,27 @@ struct AboutView: View {
         .toolbar(.hidden, for: .navigationBar)
         .navigationBarHidden(true)
         .safeAreaInset(edge: .top) {
-            HStack {
-                Button {
-                    dismiss()
-                } label: {
-                    Constants.Images.arrowLeft
-                        .resizable()
-                        .scaledToFit()
-                        .foregroundStyle(Constants.Colors.black)
-                        .frame(width: 16, height: 16)
-                }
-                .buttonStyle(.plain)
-                Spacer()
-            }
-            .padding(.horizontal, 16)
-            .padding(.top, 8)
+            backButton
         }
+
+    }
+
+    private var backButton: some View {
+        HStack {
+            Button {
+                dismiss()
+            } label: {
+                Constants.Images.arrowLeft
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundStyle(Constants.Colors.black)
+                    .frame(width: 16, height: 16)
+            }
+            .buttonStyle(.plain)
+            Spacer()
+        }
+        .padding(.horizontal, 16)
+        .padding(.top, 8)
     }
 
     private var header: some View {
@@ -83,34 +83,12 @@ struct AboutView: View {
                     .font(Constants.Fonts.h1)
                     .padding(.top, 8)
 
-                Text("Spring 2026")
-                    .foregroundStyle(Constants.Colors.black)
-                    .multilineTextAlignment(.center)
-                    .font(Constants.Fonts.h2)
-                    .padding(.top, 8)
-
-                LazyVGrid(columns: memberColumns, spacing: 40) {
-                    ForEach(Member.sp26members) { member in
-                        VStack {
-                            Image(member.imageName)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 56, height: 56)
-
-                            Text(member.name)
-                                .font(Constants.Fonts.h2)
-
-                            Text(member.role)
-                                .foregroundStyle(Constants.Colors.gray04)
-                                .font(Constants.Fonts.labelSemibold)
-                        }
-
-                    }
-                }
+                MembersGridView(title: "Fall 2026", members: Member.fa26members)
+                MembersGridView(title: "Spring 2026", members: Member.sp26members)
             }
+            .padding(.bottom, 32)
         }
     }
-
 }
 #Preview {
     AboutView()

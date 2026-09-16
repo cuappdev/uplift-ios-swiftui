@@ -14,6 +14,18 @@ struct Member: Identifiable {
     let role: String
     let imageName: String
 
+    static let fa26members: [Member] = [
+        Member(name: "Nina", role: "Pod Lead", imageName: "member_nina"),
+        Member(name: "Wendy", role: "APL", imageName: "member_wendy"),
+        Member(name: "Katie", role: "Design", imageName: "member_katie"),
+        Member(name: "Kaylee", role: "iOS", imageName: "member_kaylee"),
+        Member(name: "Anatoli", role: "iOS", imageName: "member_anatoli"),
+        Member(name: "Wyatt", role: "Backend", imageName: "member_wyatt"),
+        Member(name: "Tran", role: "Backend", imageName: "member_tran"),
+        Member(name: "Melissa", role: "Android", imageName: "member_melissa"),
+        Member(name: "Connie", role: "Android", imageName: "member_connie")
+    ]
+
     static let sp26members: [Member] = [
         Member(name: "Angela", role: "Pod Lead", imageName: "member_angela"),
         Member(name: "Enzo", role: "APL", imageName: "member_enzo"),
