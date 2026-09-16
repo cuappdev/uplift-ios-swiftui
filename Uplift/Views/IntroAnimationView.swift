@@ -87,6 +87,11 @@ struct IntroAnimationView: View {
     }
 
     private func appDevLogo(in geo: GeometryProxy) -> some View {
+//        Image("appdev_logo_white")
+//            .resizable()
+//            .scaledToFit()
+//            .frame(width: 164, height: 24)
+//            .background(.red)
         Constants.Images.appDevLogoWhite
             .resizable()
             .scaledToFit()
@@ -94,11 +99,7 @@ struct IntroAnimationView: View {
                 width: Constants.IntroAnimation.appDevLogoWidth,
                 height: Constants.IntroAnimation.appDevLogoHeight
             )
-            .position(
-                x: geo.size.width / 2,
-                y: geo.size.height * Constants.IntroAnimation.appDevLogoVerticalPositionMultiplier
-            )
-            .offset(y: viewModel.appDevLogoYOffset(for: geo.size.height))
+            .opacity(viewModel.hasEntered ? 1 : 0)
             .animation(
                 .easeOut(
                     duration: Constants.IntroAnimation.entranceDuration
