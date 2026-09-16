@@ -11,7 +11,6 @@ import SwiftUI
 struct AboutView: View {
     @Environment(\.dismiss) private var dismiss
 
-        GridItem(.flexible())
     var body: some View {
         VStack {
             header
