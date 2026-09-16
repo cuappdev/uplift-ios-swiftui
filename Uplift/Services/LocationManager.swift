@@ -34,6 +34,8 @@ class LocationManager: NSObject, ObservableObject {
 
     @Published private(set) var authorizationStatus: CLAuthorizationStatus
 
+    private let regionEnteredSubject = PassthroughSubject<String, Never>()
+
     private let manager = CLLocationManager()
 
     // MARK: - Functions
@@ -89,6 +91,10 @@ extension LocationManager: LocationManaging {
     var authorizationStatusPublisher: AnyPublisher<CLAuthorizationStatus, Never> {
         $authorizationStatus.eraseToAnyPublisher()
     }
+
+    var regionEnteredPublisher: AnyPublisher<String, Never> {
+        regionEnteredSubject.eraseToAnyPublisher()
+    }
 }
 
 extension LocationManager: CLLocationManagerDelegate {
@@ -122,6 +128,20 @@ extension LocationManager: CLLocationManagerDelegate {
         Logger.services.error("Error requesting location: \(error)")
     }
 
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        Logger.services.info("Entered region \(region.identifier)")
+        regionEnteredSubject.send(region.identifier)
+    }
+
+    func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
+        if state == .inside {
+            regionEnteredSubject.send(region.identifier)
+        }
+    }
+
+    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
+        Logger.services.error("Region monitoring failed for \(region?.identifier ?? "unknown"): \(error)")
+    }
 }
 
 class MockLocationManager: NSObject, ObservableObject {
