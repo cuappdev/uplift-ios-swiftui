@@ -35,6 +35,8 @@ class LocationManager: NSObject, ObservableObject {
     @Published private(set) var authorizationStatus: CLAuthorizationStatus
 
     private let regionEnteredSubject = PassthroughSubject<String, Never>()
+    
+    private let regionExitedSubject = PassthroughSubject<String, Never>()
 
     private let manager = CLLocationManager()
 
@@ -50,6 +52,30 @@ class LocationManager: NSObject, ObservableObject {
 
     func requestLocation() {
         manager.requestWhenInUseAuthorization()
+    }
+    
+    func requestAlwaysAuthorization() {
+        manager.requestAlwaysAuthorization()
+    }
+    
+    func stopMonitoringAllRegions() {
+        for region in manager.monitoredRegions {
+            manager.stopMonitoring(for: region)
+        }
+    }
+    
+    func startMonitoring(regions: [CLCircularRegion]) {
+        guard CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) else {
+            Logger.services.error("Region monitoring is not available on this device")
+            return
+        }
+
+        stopMonitoringAllRegions()
+
+        for region in regions {
+            manager.startMonitoring(for: region)
+            manager.requestState(for: region)
+        }
     }
 
     /**
@@ -95,6 +121,10 @@ extension LocationManager: LocationManaging {
     var regionEnteredPublisher: AnyPublisher<String, Never> {
         regionEnteredSubject.eraseToAnyPublisher()
     }
+    
+    var regionExitedPublisher: AnyPublisher<String, Never> {
+        regionExitedSubject.eraseToAnyPublisher()
+    }
 }
 
 extension LocationManager: CLLocationManagerDelegate {
@@ -131,6 +161,11 @@ extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         Logger.services.info("Entered region \(region.identifier)")
         regionEnteredSubject.send(region.identifier)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        Logger.services.info("Exited region \(region.identifier)")
+        regionExitedSubject.send(region.identifier)
     }
 
     func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
