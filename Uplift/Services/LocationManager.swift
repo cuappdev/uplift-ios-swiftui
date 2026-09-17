@@ -15,12 +15,26 @@ protocol LocationManaging {
     var userLocation: CLLocation? { get }
 
     var userLocationPublisher: AnyPublisher<CLLocation?, Never> { get }
+    
+    var authorizationStatus: CLAuthorizationStatus { get }
+
+    var authorizationStatusPublisher: AnyPublisher<CLAuthorizationStatus, Never> { get }
+
+    var regionEnteredPublisher: AnyPublisher<String, Never> { get }
+
+    var regionExitedPublisher: AnyPublisher<String, Never> { get }
 
     func requestLocation()
 
     func distanceToCoordinates(latitude: Double, longitude: Double) -> String
 
     func distanceToCoordinatesTwo(latitude: Double, longitude: Double) -> String
+    
+    func requestAlwaysAuthorization()
+
+    func startMonitoring(regions: [CLCircularRegion])
+
+    func stopMonitoringAllRegions()
 }
 
 /// Manage a user's location.
@@ -182,6 +196,14 @@ extension LocationManager: CLLocationManagerDelegate {
 class MockLocationManager: NSObject, ObservableObject {
 
     @Published var userLocation: CLLocation?
+    
+    @Published var authorizationStatus: CLAuthorizationStatus = .authorizedAlways
+
+    private let regionEnteredSubject = PassthroughSubject<String, Never>()
+
+    private let regionExitedSubject = PassthroughSubject<String, Never>()
+
+    private(set) var monitoredRegions: [CLCircularRegion] = []
 
     func requestLocation() {
         // Do Nothing
@@ -216,5 +238,37 @@ class MockLocationManager: NSObject, ObservableObject {
 extension MockLocationManager: LocationManaging {
     var userLocationPublisher: AnyPublisher<CLLocation?, Never> {
         $userLocation.eraseToAnyPublisher()
+    }
+    
+    var authorizationStatusPublisher: AnyPublisher<CLAuthorizationStatus, Never> {
+        $authorizationStatus.eraseToAnyPublisher()
+    }
+    
+    var regionEnteredPublisher: AnyPublisher<String, Never> {
+        regionEnteredSubject.eraseToAnyPublisher()
+    }
+    
+    var regionExitedPublisher: AnyPublisher<String, Never> {
+        regionExitedSubject.eraseToAnyPublisher()
+    }
+    
+    func requestAlwaysAuthorization() {
+        // do nothing
+    }
+    
+    func startMonitoring(regions: [CLCircularRegion]) {
+        monitoredRegions = regions
+    }
+    
+    func stopMonitoringAllRegions() {
+        monitoredRegions = []
+    }
+    
+    func simulateEnter(regionId: String) {
+        regionEnteredSubject.send(regionId)
+    }
+    
+    func simulateExit(regionId: String) {
+        regionExitedSubject.send(regionId)
     }
 }
