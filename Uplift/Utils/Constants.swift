@@ -233,6 +233,16 @@ struct Constants {
 
         /// User chose "Skip" on sign-in and uses the app without an account until they log in.
         static let skippedLogin = "skippedLogin"
+
+        // Workout Check-In
+        static let checkInCooldownGym = "lastCooldownGym"
+        static let checkInCooldownTime = "lastCooldownTime"
+        static let checkInLastDate = "lastCheckInDate"
+
+        // Gym Proximity Reminders
+        static let proximityRemindersEnabled = "proximityRemindersEnabled"
+        static let proximityGymSnapshots = "proximityGymSnapshots"
+        static let proximityLastNotified = "proximityLastNotified"
     }
 
 }
