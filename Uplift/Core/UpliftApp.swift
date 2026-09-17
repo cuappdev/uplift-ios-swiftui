@@ -156,7 +156,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         // Passes the APNs token to Firebase Cloud Messaging (FCM)
         Messaging.messaging().apnsToken = deviceToken
     }
-    
+
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification,

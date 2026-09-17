@@ -15,7 +15,7 @@ protocol LocationManaging {
     var userLocation: CLLocation? { get }
 
     var userLocationPublisher: AnyPublisher<CLLocation?, Never> { get }
-    
+
     var authorizationStatus: CLAuthorizationStatus { get }
 
     var authorizationStatusPublisher: AnyPublisher<CLAuthorizationStatus, Never> { get }
@@ -29,7 +29,7 @@ protocol LocationManaging {
     func distanceToCoordinates(latitude: Double, longitude: Double) -> String
 
     func distanceToCoordinatesTwo(latitude: Double, longitude: Double) -> String
-    
+
     func requestAlwaysAuthorization()
 
     func startMonitoring(regions: [CLCircularRegion])
@@ -49,7 +49,7 @@ class LocationManager: NSObject, ObservableObject {
     @Published private(set) var authorizationStatus: CLAuthorizationStatus
 
     private let regionEnteredSubject = PassthroughSubject<String, Never>()
-    
+
     private let regionExitedSubject = PassthroughSubject<String, Never>()
 
     private let manager = CLLocationManager()
@@ -67,17 +67,17 @@ class LocationManager: NSObject, ObservableObject {
     func requestLocation() {
         manager.requestWhenInUseAuthorization()
     }
-    
+
     func requestAlwaysAuthorization() {
         manager.requestAlwaysAuthorization()
     }
-    
+
     func stopMonitoringAllRegions() {
         for region in manager.monitoredRegions {
             manager.stopMonitoring(for: region)
         }
     }
-    
+
     func startMonitoring(regions: [CLCircularRegion]) {
         guard CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) else {
             Logger.services.error("Region monitoring is not available on this device")
@@ -135,7 +135,7 @@ extension LocationManager: LocationManaging {
     var regionEnteredPublisher: AnyPublisher<String, Never> {
         regionEnteredSubject.eraseToAnyPublisher()
     }
-    
+
     var regionExitedPublisher: AnyPublisher<String, Never> {
         regionExitedSubject.eraseToAnyPublisher()
     }
@@ -176,7 +176,7 @@ extension LocationManager: CLLocationManagerDelegate {
         Logger.services.info("Entered region \(region.identifier)")
         regionEnteredSubject.send(region.identifier)
     }
-    
+
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         Logger.services.info("Exited region \(region.identifier)")
         regionExitedSubject.send(region.identifier)
@@ -196,7 +196,7 @@ extension LocationManager: CLLocationManagerDelegate {
 class MockLocationManager: NSObject, ObservableObject {
 
     @Published var userLocation: CLLocation?
-    
+
     @Published var authorizationStatus: CLAuthorizationStatus = .authorizedAlways
 
     private let regionEnteredSubject = PassthroughSubject<String, Never>()
@@ -239,35 +239,35 @@ extension MockLocationManager: LocationManaging {
     var userLocationPublisher: AnyPublisher<CLLocation?, Never> {
         $userLocation.eraseToAnyPublisher()
     }
-    
+
     var authorizationStatusPublisher: AnyPublisher<CLAuthorizationStatus, Never> {
         $authorizationStatus.eraseToAnyPublisher()
     }
-    
+
     var regionEnteredPublisher: AnyPublisher<String, Never> {
         regionEnteredSubject.eraseToAnyPublisher()
     }
-    
+
     var regionExitedPublisher: AnyPublisher<String, Never> {
         regionExitedSubject.eraseToAnyPublisher()
     }
-    
+
     func requestAlwaysAuthorization() {
         // do nothing
     }
-    
+
     func startMonitoring(regions: [CLCircularRegion]) {
         monitoredRegions = regions
     }
-    
+
     func stopMonitoringAllRegions() {
         monitoredRegions = []
     }
-    
+
     func simulateEnter(regionId: String) {
         regionEnteredSubject.send(regionId)
     }
-    
+
     func simulateExit(regionId: String) {
         regionExitedSubject.send(regionId)
     }
