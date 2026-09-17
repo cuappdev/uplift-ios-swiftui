@@ -43,18 +43,24 @@ final class NotificationScheduler: NotificationScheduling {
     }
 }
 
+struct ScheduledNotification: Equatable {
+    let id: String
+    let title: String
+    let body: String
+    let delay: TimeInterval
+}
+
 final class MockNotificationScheduler: NotificationScheduling {
 
     // MARK: - Properties
 
-    private(set) var scheduled: [(id: String, title: String, body: String, delay: TimeInterval)] = []
-
+    private(set) var scheduled: [ScheduledNotification] = []
     private(set) var cancelled: [String] = []
 
     // MARK: - Functions
 
     func schedule(id: String, title: String, body: String, delay: TimeInterval) {
-        scheduled.append((id, title, body, delay))
+        scheduled.append(ScheduledNotification(id: id, title: title, body: body, delay: delay))
     }
 
     func cancel(id: String) {
