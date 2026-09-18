@@ -162,7 +162,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-        if notification.request.identifier.hasPrefix("gymProximity.") {
+        if notification.request.identifier.hasPrefix(Constants.NotificationIds.proximityPrefix) {
             completionHandler([.banner, .sound])
         } else {
             completionHandler([])

@@ -28,7 +28,7 @@ final class NotificationScheduler: NotificationScheduling {
         content.body = body
         content.sound = .default
 
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: delay, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: max(delay, 1), repeats: false)
         let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
 
         UNUserNotificationCenter.current().add(request) { error in
