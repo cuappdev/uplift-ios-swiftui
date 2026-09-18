@@ -76,7 +76,7 @@ final class GymProximityManager: ObservableObject {
 
     // MARK: - Functions
 
-    /// fetch the gyms & register one geofence per each of the gyms
+    /// fetch gyms, save snapshots & register one geofence per gym
     func refreshRegions() async {
         guard isEnabled else { return }
 
