@@ -175,6 +175,10 @@ struct Constants {
         static let profileEmpty = Image("profile_empty")
     }
 
+    enum NotificationIds {
+        static let proximityPrefix = "gymProximity."
+    }
+
     /// Padding amounts used in Uplift.
     enum Padding {
         static let classDetailSessionsHorizontal: CGFloat = 16
@@ -242,7 +246,7 @@ struct Constants {
         // Gym Proximity Reminders
         static let proximityRemindersEnabled = "proximityRemindersEnabled"
         static let proximityGymSnapshots = "proximityGymSnapshots"
-        static let proximityLastNotified = "proximityLastNotified"
+        static let proximityLastArmed = "proximityLastArmed"
     }
 
 }

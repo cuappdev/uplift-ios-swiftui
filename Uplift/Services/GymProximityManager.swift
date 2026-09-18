@@ -12,6 +12,7 @@ import Foundation
 import OSLog
 
 /// notifies the user when they arrive at a gym
+@MainActor
 final class GymProximityManager: ObservableObject {
     // MARK: - Properties
 
@@ -22,23 +23,23 @@ final class GymProximityManager: ObservableObject {
     /// radius of each gym's region
     private let regionRadius: CLLocationDistance = 100
 
-    /// how long the user must stay inside a region before the notification fires.
-    private let dwellTime: TimeInterval = 5 * 60
-
-    private let notificationIdPrefix = "gymProximity."
-
-    /// min time between notifications for the same gym
-    private let cooldown: TimeInterval = 4 * 60 * 60
+    private let rules = GymProximityRules()
 
     /// gyms saved to disk at refresh, read on background wake
     private var snapshots: [String: GymSnapshot] = [:]
 
     private let defaults: UserDefaults
     private let now: () -> Date
+    private let fetchGyms: () async throws -> [Gym]
 
     private let locationManager: LocationManaging
     private let scheduler: NotificationScheduling
     private var cancellables = Set<AnyCancellable>()
+
+    private var lastArmedTimes: [String: Double] {
+        get { defaults.dictionary(forKey: Constants.UserDefaultsKeys.proximityLastArmed) as? [String: Double] ?? [:] }
+        set { defaults.set(newValue, forKey: Constants.UserDefaultsKeys.proximityLastArmed) }
+    }
 
     // MARK: - Init
 
@@ -46,27 +47,34 @@ final class GymProximityManager: ObservableObject {
         locationManager: LocationManaging = LocationManager.shared,
         scheduler: NotificationScheduling = NotificationScheduler(),
         defaults: UserDefaults = .standard,
-        now: @escaping () -> Date = Date.init
+        now: @escaping () -> Date = Date.init,
+        fetchGyms: @escaping () async throws -> [Gym] = { try await GymCache.shared.fetchGyms() }
     ) {
         self.locationManager = locationManager
         self.scheduler = scheduler
         self.defaults = defaults
         self.now = now
+        self.fetchGyms = fetchGyms
         snapshots = loadSnapshots()
 
         locationManager.regionEnteredPublisher
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] gymId in
                 self?.handleEntered(gymId: gymId)
             }
             .store(in: &cancellables)
 
         locationManager.regionExitedPublisher
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] gymId in
                 self?.handleExited(gymId: gymId)
             }
             .store(in: &cancellables)
 
         locationManager.authorizationStatusPublisher
+            .removeDuplicates()
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
                 guard status == .authorizedAlways else { return }
                 Task { await self?.refreshRegions() }
@@ -81,83 +89,88 @@ final class GymProximityManager: ObservableObject {
         guard isEnabled else { return }
 
         do {
-            let gyms = try await GymCache.shared.fetchGyms()
+            let gyms = try await fetchGyms()
             saveSnapshots(gyms.map { GymSnapshot(from: $0) })
         } catch {
             Logger.services.error("Could not fetch gyms, using saved snapshots: \(error)")
         }
 
-        let regions = snapshots.values.map { gym in
-            let region = CLCircularRegion(
-                center: CLLocationCoordinate2D(latitude: gym.latitude, longitude: gym.longitude),
-                radius: regionRadius,
-                identifier: gym.id
-            )
-            region.notifyOnEntry = true
-            region.notifyOnExit = true
-            return region
-        }
+        guard locationManager.authorizationStatus == .authorizedAlways else { return }
 
+        let regions = snapshots.values.map(region(for:))
         Logger.services.info("Registering \(regions.count) gym regions")
         locationManager.startMonitoring(regions: regions)
     }
 
-    private func handleEntered(gymId: String) {
-        guard isEnabled, let gym = snapshots[gymId] else {
-            return
-        }
+    func handleEntered(gymId: String) {
+        guard isEnabled, let gym = snapshots[gymId] else { return }
 
-        guard !hasCheckedInToday(), !notifiedRecently(gymId: gymId) else {
-            return
-        }
-
-        guard gym.hoursAreStale(at: now()) || gym.isFitnessCenterOpen(at: now()) else {
-            return
-        }
-
-        Logger.services.info("Arming proximity notification for \(gym.name)")
-
-        scheduler.schedule(
-            id: notificationIdPrefix + gymId,
-            title: "You're near \(gym.name)",
-            body: "Ready to get a workout in?",
-            delay: dwellTime
+        let decision = rules.decision(
+            for: gym,
+            lastArmed: lastArmed(gymId: gymId),
+            checkedInToday: hasCheckedInToday(),
+            now: now()
         )
-        recordNotified(gymId: gymId)
+
+        switch decision {
+        case .arm:
+            Logger.services.info("Arming proximity notification for \(gym.name)")
+            scheduler.schedule(
+                id: Constants.NotificationIds.proximityPrefix + gymId,
+                title: "You're near \(gym.name)",
+                body: "Ready to get a workout in?",
+                delay: rules.dwell
+            )
+            lastArmedTimes[gymId] = now().timeIntervalSince1970
+        case .skip(let reason):
+            Logger.services.info("Skipping proximity notification for \(gym.name): \(String(describing: reason))")
+        }
     }
 
-    private func handleExited(gymId: String) {
+    func handleExited(gymId: String) {
         Logger.services.info("Cancelling proximity notification for \(gymId)")
-        scheduler.cancel(id: notificationIdPrefix + gymId)
+        scheduler.cancel(id: Constants.NotificationIds.proximityPrefix + gymId)
+
+        if let armedAt = lastArmed(gymId: gymId), rules.bannerIsPending(armedAt: armedAt, now: now()) {
+            lastArmedTimes[gymId] = nil
+        }
+    }
+
+    private func region(for gym: GymSnapshot) -> CLCircularRegion {
+        let region = CLCircularRegion(
+            center: CLLocationCoordinate2D(latitude: gym.latitude, longitude: gym.longitude),
+            radius: regionRadius,
+            identifier: gym.id
+        )
+        region.notifyOnEntry = true
+        region.notifyOnExit = true
+        return region
     }
 
     private func hasCheckedInToday() -> Bool {
-        guard let last = defaults.object(forKey: Constants.UserDefaultsKeys.checkInLastDate) as? Date else { return false }
+        let last = defaults.object(forKey: Constants.UserDefaultsKeys.checkInLastDate) as? Date
+        guard let last else { return false }
         return Calendar.current.isDate(last, inSameDayAs: now())
     }
 
-    private func notifiedRecently(gymId: String) -> Bool {
-        let all = defaults.dictionary(forKey: Constants.UserDefaultsKeys.proximityLastNotified) as? [String: Double] ?? [:]
-        guard let last = all[gymId] else { return false }
-        return now().timeIntervalSince1970 - last < cooldown
-    }
-
-    private func recordNotified(gymId: String) {
-        var all = defaults.dictionary(forKey: Constants.UserDefaultsKeys.proximityLastNotified) as? [String: Double] ?? [:]
-        all[gymId] = now().timeIntervalSince1970
-        defaults.set(all, forKey: Constants.UserDefaultsKeys.proximityLastNotified)
+    private func lastArmed(gymId: String) -> Date? {
+        lastArmedTimes[gymId].map { Date(timeIntervalSince1970: $0) }
     }
 
     private func loadSnapshots() -> [String: GymSnapshot] {
         guard let data = defaults.data(forKey: Constants.UserDefaultsKeys.proximityGymSnapshots),
               let gyms = try? JSONDecoder().decode([GymSnapshot].self, from: data) else { return [:] }
-        return Dictionary(uniqueKeysWithValues: gyms.map { ($0.id, $0) })
+        return indexed(gyms)
     }
 
     private func saveSnapshots(_ gyms: [GymSnapshot]) {
         guard let data = try? JSONEncoder().encode(gyms) else { return }
         defaults.set(data, forKey: Constants.UserDefaultsKeys.proximityGymSnapshots)
-        snapshots = Dictionary(uniqueKeysWithValues: gyms.map { ($0.id, $0) })
+        snapshots = indexed(gyms)
+    }
+
+    private func indexed(_ gyms: [GymSnapshot]) -> [String: GymSnapshot] {
+        Dictionary(gyms.map { ($0.id, $0) }, uniquingKeysWith: { _, latest in latest })
     }
 
 }
