@@ -88,7 +88,6 @@ class LocationManager: NSObject, ObservableObject {
 
         for region in regions {
             manager.startMonitoring(for: region)
-            manager.requestState(for: region)
         }
     }
 
@@ -180,12 +179,6 @@ extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         Logger.services.info("Exited region \(region.identifier)")
         regionExitedSubject.send(region.identifier)
-    }
-
-    func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
-        if state == .inside {
-            regionEnteredSubject.send(region.identifier)
-        }
     }
 
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
