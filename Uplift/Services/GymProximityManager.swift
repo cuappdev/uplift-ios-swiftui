@@ -18,7 +18,7 @@ final class GymProximityManager: ObservableObject {
 
     static let shared = GymProximityManager()
 
-    @Published private(set) var isEnabled = true
+    @Published private(set) var isEnabled: Bool
 
     /// radius of each gym's region
     private let regionRadius: CLLocationDistance = 100
@@ -55,6 +55,7 @@ final class GymProximityManager: ObservableObject {
         self.defaults = defaults
         self.now = now
         self.fetchGyms = fetchGyms
+        isEnabled = defaults.bool(forKey: Constants.UserDefaultsKeys.proximityRemindersEnabled)
         snapshots = loadSnapshots()
 
         locationManager.regionEnteredPublisher
@@ -76,8 +77,12 @@ final class GymProximityManager: ObservableObject {
             .dropFirst()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] status in
-                guard status == .authorizedAlways else { return }
-                Task { await self?.refreshRegions() }
+                guard let self else { return }
+                if status == .authorizedAlways {
+                    Task { await self.refreshRegions() }
+                } else {
+                    self.locationManager.stopMonitoringAllRegions()
+                }
             }
             .store(in: &cancellables)
     }
@@ -100,6 +105,20 @@ final class GymProximityManager: ObservableObject {
         let regions = snapshots.values.map(region(for:))
         Logger.services.info("Registering \(regions.count) gym regions")
         locationManager.startMonitoring(regions: regions)
+    }
+
+    func enable() async {
+        setEnabled(true)
+        locationManager.requestAlwaysAuthorization()
+        await refreshRegions()
+    }
+
+    func disable() {
+        setEnabled(false)
+        for gymId in snapshots.keys {
+            scheduler.cancel(id: Constants.NotificationIds.proximityPrefix + gymId)
+        }
+        locationManager.stopMonitoringAllRegions()
     }
 
     func handleEntered(gymId: String) {
@@ -145,6 +164,11 @@ final class GymProximityManager: ObservableObject {
         region.notifyOnEntry = true
         region.notifyOnExit = true
         return region
+    }
+
+    private func setEnabled(_ enabled: Bool) {
+        isEnabled = enabled
+        defaults.set(enabled, forKey: Constants.UserDefaultsKeys.proximityRemindersEnabled)
     }
 
     private func hasCheckedInToday() -> Bool {
