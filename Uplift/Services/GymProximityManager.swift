@@ -32,6 +32,7 @@ final class GymProximityManager: ObservableObject {
     private let defaults: UserDefaults
     private let now: () -> Date
     private let fetchGyms: () async throws -> [Gym]
+    private let isSignedIn: () -> Bool
 
     private let locationManager: LocationManaging
     private let scheduler: NotificationScheduling
@@ -49,13 +50,15 @@ final class GymProximityManager: ObservableObject {
         scheduler: NotificationScheduling = NotificationScheduler(),
         defaults: UserDefaults = .standard,
         now: @escaping () -> Date = Date.init,
-        fetchGyms: @escaping () async throws -> [Gym] = { try await GymCache.shared.fetchGyms() }
+        fetchGyms: @escaping () async throws -> [Gym] = { try await GymCache.shared.fetchGyms() },
+        isSignedIn: @escaping () -> Bool = { UserSessionManager.shared.accessToken != nil }
     ) {
         self.locationManager = locationManager
         self.scheduler = scheduler
         self.defaults = defaults
         self.now = now
         self.fetchGyms = fetchGyms
+        self.isSignedIn = isSignedIn
         isEnabled = defaults.bool(forKey: Constants.UserDefaultsKeys.proximityRemindersEnabled)
         snapshots = loadSnapshots()
 
@@ -126,7 +129,7 @@ final class GymProximityManager: ObservableObject {
 
     /// Arm a banner for this gym unless the rules say otherwise.
     func handleEntered(gymId: String) {
-        guard isEnabled, let gym = snapshots[gymId] else { return }
+        guard isEnabled, isSignedIn(), let gym = snapshots[gymId] else { return }
 
         let decision = rules.decision(
             for: gym,
@@ -141,7 +144,7 @@ final class GymProximityManager: ObservableObject {
             scheduler.schedule(
                 id: Constants.NotificationIds.proximityPrefix + gymId,
                 title: "You're near \(gym.name)",
-                body: "Ready to get a workout in? 💪",
+                body: "Check in to log your workout 💪",
                 delay: rules.dwell
             )
             lastArmedTimes[gymId] = now().timeIntervalSince1970
