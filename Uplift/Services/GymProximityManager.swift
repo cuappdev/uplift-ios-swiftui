@@ -141,7 +141,7 @@ final class GymProximityManager: ObservableObject {
             scheduler.schedule(
                 id: Constants.NotificationIds.proximityPrefix + gymId,
                 title: "You're near \(gym.name)",
-                body: "Ready to get a workout in?",
+                body: "Ready to get a workout in? 💪",
                 delay: rules.dwell
             )
             lastArmedTimes[gymId] = now().timeIntervalSince1970
