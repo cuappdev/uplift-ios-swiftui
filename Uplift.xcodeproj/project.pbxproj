@@ -163,6 +163,7 @@
 		C066B2C2305C61BE006613E2 /* GymProximityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2C1305C61BD006613E2 /* GymProximityManager.swift */; };
 		C066B2C4305D6FEE006613E2 /* GymSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2C3305D6FEB006613E2 /* GymSnapshot.swift */; };
 		C066B2C6305DBC79006613E2 /* GymProximityRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2C5305DBC72006613E2 /* GymProximityRules.swift */; };
+		C066B2C830607844006613E2 /* GymProximityRulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2C730607842006613E2 /* GymProximityRulesTests.swift */; };
 		C07CFEB42F6B5478005830D3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07CFEB32F6B546D005830D3 /* SettingsView.swift */; };
 		C0CB14922F709DA100E23E69 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB14912F709D9D00E23E69 /* AboutView.swift */; };
 		C0CB14942F70A2C800E23E69 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB14932F70A2C100E23E69 /* Member.swift */; };
@@ -329,6 +330,7 @@
 		C066B2C1305C61BD006613E2 /* GymProximityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymProximityManager.swift; sourceTree = "<group>"; };
 		C066B2C3305D6FEB006613E2 /* GymSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymSnapshot.swift; sourceTree = "<group>"; };
 		C066B2C5305DBC72006613E2 /* GymProximityRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymProximityRules.swift; sourceTree = "<group>"; };
+		C066B2C730607842006613E2 /* GymProximityRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymProximityRulesTests.swift; sourceTree = "<group>"; };
 		C07CFEB32F6B546D005830D3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C0CB14912F709D9D00E23E69 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		C0CB14932F70A2C100E23E69 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
@@ -555,6 +557,7 @@
 		2E15F4EC2B39255B00414BEC /* UpliftTests */ = {
 			isa = PBXGroup;
 			children = (
+				C066B2C730607842006613E2 /* GymProximityRulesTests.swift */,
 				293A209F2F46606E0012C74C /* LocationTests.swift */,
 				2E15F4ED2B39255B00414BEC /* UpliftTests.swift */,
 			);
@@ -946,6 +949,7 @@
 			files = (
 				293A20A02F4660700012C74C /* LocationTests.swift in Sources */,
 				2E15F4EE2B39255B00414BEC /* UpliftTests.swift in Sources */,
+				C066B2C830607844006613E2 /* GymProximityRulesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
