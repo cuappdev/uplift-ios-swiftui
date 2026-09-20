@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// The decisions behind gym proximity banners
+/// The decisions behind gym proximity banners.
 struct GymProximityRules {
 
     // MARK: - Properties

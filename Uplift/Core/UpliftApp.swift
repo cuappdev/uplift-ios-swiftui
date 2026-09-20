@@ -109,11 +109,14 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
         FirebaseApp.configure()
+
+        // Create the proximity manager early so its location delegate exists before iOS delivers a region event
         _ = GymProximityManager.shared
         if launchOptions?[.location] != nil {
             Logger.services.info("App launched for a location event")
         }
         Task { await GymProximityManager.shared.refreshRegions() }
+
         GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
             if error != nil || user == nil {
                 // TODO: - Show the app's signed-out state.

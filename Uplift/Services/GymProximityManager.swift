@@ -11,21 +11,22 @@ import CoreLocation
 import Foundation
 import OSLog
 
-/// notifies the user when they arrive at a gym
+/// Notifies the user when they arrive at a gym.
 @MainActor
 final class GymProximityManager: ObservableObject {
+
     // MARK: - Properties
 
     static let shared = GymProximityManager()
 
     @Published private(set) var isEnabled: Bool
 
-    /// radius of each gym's region
+    /// Radius of each gym's region. iOS gets unreliable under ~100 m.
     private let regionRadius: CLLocationDistance = 100
 
     private let rules = GymProximityRules()
 
-    /// gyms saved to disk at refresh, read on background wake
+    /// Gyms saved to disk at refresh, read on background wake.
     private var snapshots: [String: GymSnapshot] = [:]
 
     private let defaults: UserDefaults
@@ -89,7 +90,7 @@ final class GymProximityManager: ObservableObject {
 
     // MARK: - Functions
 
-    /// fetch gyms, save snapshots & register one geofence per gym
+    /// Fetch gyms, save snapshots, and register one geofence per gym.
     func refreshRegions() async {
         guard isEnabled else { return }
 
@@ -107,12 +108,14 @@ final class GymProximityManager: ObservableObject {
         locationManager.startMonitoring(regions: regions)
     }
 
+    /// Turn the feature on and register regions once permission allows.
     func enable() async {
         setEnabled(true)
         locationManager.requestAlwaysAuthorization()
         await refreshRegions()
     }
 
+    /// Turn the feature off, cancel pending banners, and stop monitoring.
     func disable() {
         setEnabled(false)
         for gymId in snapshots.keys {
@@ -121,6 +124,7 @@ final class GymProximityManager: ObservableObject {
         locationManager.stopMonitoringAllRegions()
     }
 
+    /// Arm a banner for this gym unless the rules say otherwise.
     func handleEntered(gymId: String) {
         guard isEnabled, let gym = snapshots[gymId] else { return }
 
@@ -146,6 +150,7 @@ final class GymProximityManager: ObservableObject {
         }
     }
 
+    /// Cancel the pending banner, and forget the arm if it never fired.
     func handleExited(gymId: String) {
         Logger.services.info("Cancelling proximity notification for \(gymId)")
         scheduler.cancel(id: Constants.NotificationIds.proximityPrefix + gymId)

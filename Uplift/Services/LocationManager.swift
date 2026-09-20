@@ -246,7 +246,7 @@ extension MockLocationManager: LocationManaging {
     }
 
     func requestAlwaysAuthorization() {
-        // do nothing
+        // Do Nothing
     }
 
     func startMonitoring(regions: [CLCircularRegion]) {

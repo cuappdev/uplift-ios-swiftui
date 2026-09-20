@@ -18,7 +18,7 @@ struct HoursSnapshot: Codable, Hashable {
 
     // MARK: - Functions
 
-    /// Initializes `HoursSnapshot` with an `OpenHours` type
+    /// Initializes `HoursSnapshot` with an `OpenHours` type.
     init(from hours: OpenHours) {
         self.endTime = hours.endTime
         self.startTime = hours.startTime
@@ -43,7 +43,7 @@ struct GymSnapshot: Codable, Hashable {
 
     // MARK: - Functions
 
-    /// Initializes `GymSnapshot` with a `Gym` type
+    /// Initializes `GymSnapshot` with a `Gym` type.
     init(from gym: Gym) {
         self.fitnessCenterHours = gym.fitnessCenters.flatMap(\.hours).map(HoursSnapshot.init(from:))
         self.id = gym.id
@@ -66,6 +66,7 @@ struct GymSnapshot: Codable, Hashable {
         fitnessCenterHours.allSatisfy { $0.endTime < date }
     }
 
+    /// Whether any fitness center at this gym is open at the given time.
     func isFitnessCenterOpen(at date: Date = Date()) -> Bool {
         fitnessCenterHours.contains { $0.startTime <= date && date < $0.endTime }
     }

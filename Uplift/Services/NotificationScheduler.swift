@@ -10,6 +10,7 @@ import Foundation
 import OSLog
 import UserNotifications
 
+/// Something that can schedule and cancel local notifications.
 protocol NotificationScheduling {
 
     func schedule(id: String, title: String, body: String, delay: TimeInterval)
@@ -43,6 +44,7 @@ final class NotificationScheduler: NotificationScheduling {
     }
 }
 
+/// A notification recorded by the mock scheduler.
 struct ScheduledNotification: Equatable {
     let id: String
     let title: String
@@ -50,6 +52,7 @@ struct ScheduledNotification: Equatable {
     let delay: TimeInterval
 }
 
+/// Records notifications instead of showing them. Used in tests.
 final class MockNotificationScheduler: NotificationScheduling {
 
     // MARK: - Properties

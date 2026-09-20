@@ -180,6 +180,7 @@ struct Constants {
         static let logoSunset = Image("logo_sunset")
     }
 
+    /// Notification identifiers used in Uplift.
     enum NotificationIds {
         static let proximityPrefix = "gymProximity."
     }
