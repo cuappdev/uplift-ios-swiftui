@@ -128,7 +128,8 @@ extension WorkoutCheckInView {
 
         /// Check if the view is in 2 hour cooldown for pressing the close button
         func checkCooldown(gym: String) {
-            let lastDate = UserDefaults.standard.object(forKey: Constants.UserDefaultsKeys.checkInCooldownTime) as? Foundation.Date
+            let lastDate = UserDefaults.standard
+                .object(forKey: Constants.UserDefaultsKeys.checkInCooldownTime) as? Foundation.Date
             let lastGym = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.checkInCooldownGym)
 
             if lastGym != gym {
@@ -150,7 +151,8 @@ extension WorkoutCheckInView {
 
         /// Check if the view is in daily cooldown for already checking in to a gym
         func checkDailyCooldown() {
-            let lastDate = UserDefaults.standard.object(forKey: Constants.UserDefaultsKeys.checkInLastDate) as? Foundation.Date
+            let lastDate = UserDefaults.standard
+                .object(forKey: Constants.UserDefaultsKeys.checkInLastDate) as? Foundation.Date
 
             if let lastDate {
                 let today = Calendar.current.startOfDay(for: Date())
@@ -173,7 +175,10 @@ extension WorkoutCheckInView {
 
         /// Start daily cooldown for checking in to a gym
         func startDailyCooldown() {
-            UserDefaults.standard.set(Calendar.current.startOfDay(for: Date()), forKey: Constants.UserDefaultsKeys.checkInLastDate)
+            UserDefaults.standard.set(
+                Calendar.current.startOfDay(for: Date()),
+                forKey: Constants.UserDefaultsKeys.checkInLastDate
+            )
             isDailyCooldownActive = true
         }
 

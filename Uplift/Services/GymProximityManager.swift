@@ -100,7 +100,7 @@ final class GymProximityManager: ObservableObject {
             Logger.services.error("Could not fetch gyms, using saved snapshots: \(error)")
         }
 
-        guard locationManager.authorizationStatus == .authorizedAlways else { return }
+        guard isEnabled, locationManager.authorizationStatus == .authorizedAlways else { return }
 
         let regions = snapshots.values.map(region(for:))
         Logger.services.info("Registering \(regions.count) gym regions")
