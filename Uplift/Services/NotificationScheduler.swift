@@ -1,0 +1,72 @@
+//
+//  NotificationScheduler.swift
+//  Uplift
+//
+//  Created by Anatoli Monsalve on 9/17/26.
+//  Copyright © 2026 Cornell AppDev. All rights reserved.
+//
+
+import Foundation
+import OSLog
+import UserNotifications
+
+/// Something that can schedule and cancel local notifications.
+protocol NotificationScheduling {
+
+    func schedule(id: String, title: String, body: String, delay: TimeInterval)
+
+    func cancel(id: String)
+}
+
+/// Schedules and cancels local notifications.
+final class NotificationScheduler: NotificationScheduling {
+
+    // MARK: - Functions
+
+    func schedule(id: String, title: String, body: String, delay: TimeInterval) {
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+        content.sound = .default
+
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: max(delay, 1), repeats: false)
+        let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
+
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error {
+                Logger.services.error("Failed to schedule notification \(id): \(error)")
+            }
+        }
+    }
+
+    func cancel(id: String) {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
+    }
+}
+
+/// A notification recorded by the mock scheduler.
+struct ScheduledNotification: Equatable {
+    let id: String
+    let title: String
+    let body: String
+    let delay: TimeInterval
+}
+
+/// Records notifications instead of showing them. Used in tests.
+final class MockNotificationScheduler: NotificationScheduling {
+
+    // MARK: - Properties
+
+    private(set) var scheduled: [ScheduledNotification] = []
+    private(set) var cancelled: [String] = []
+
+    // MARK: - Functions
+
+    func schedule(id: String, title: String, body: String, delay: TimeInterval) {
+        scheduled.append(ScheduledNotification(id: id, title: title, body: body, delay: delay))
+    }
+
+    func cancel(id: String) {
+        cancelled.append(id)
+    }
+}

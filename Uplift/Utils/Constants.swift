@@ -180,6 +180,11 @@ struct Constants {
         static let logoSunset = Image("logo_sunset")
     }
 
+    /// Notification identifiers used in Uplift.
+    enum NotificationIds {
+        static let proximityPrefix = "gymProximity."
+    }
+
     /// Padding amounts used in Uplift.
     enum Padding {
         static let classDetailSessionsHorizontal: CGFloat = 16
@@ -238,6 +243,16 @@ struct Constants {
 
         /// User chose "Skip" on sign-in and uses the app without an account until they log in.
         static let skippedLogin = "skippedLogin"
+
+        // Workout Check-In
+        static let checkInCooldownGym = "lastCooldownGym"
+        static let checkInCooldownTime = "lastCooldownTime"
+        static let checkInLastDate = "lastCheckInDate"
+
+        // Gym Proximity Reminders
+        static let proximityRemindersEnabled = "proximityRemindersEnabled"
+        static let proximityGymSnapshots = "proximityGymSnapshots"
+        static let proximityLastArmed = "proximityLastArmed"
     }
 
     /// Constants used in IntroAnimation
