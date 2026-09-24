@@ -66,7 +66,7 @@ struct UpliftApp: App {
         UserSessionManager.shared.restorePreviousSession { result in
             DispatchQueue.main.async {
                 switch result {
-                case .success:
+                case .success, .offline:
                     self.mainViewModel.isSkipped = false
                     self.mainViewModel.showMainView = true
                     self.mainViewModel.showSignInView = false
