@@ -331,10 +331,7 @@ struct SetGoalsView: View {
                 ) { result in
                     switch result {
                     case .success:
-                        withAnimation {
-                            mainViewModel.showSetGoalsView = false
-                            mainViewModel.showMainView = true
-                        }
+                        mainViewModel.sessionState = .signedIn
                     case .failure(let error):
                         Logger.data.critical("Error in SetGoalsView: \(error.localizedDescription)")
                     }

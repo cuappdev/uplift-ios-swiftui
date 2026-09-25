@@ -17,6 +17,8 @@ enum SessionRestoreResult {
     case success
     case needsSignIn
     case needsProfileCreation
+    /// backend never answered (no wifi, timeout, etc) so we keep the keychain tokens
+    case offline
     case error(String)
 }
 
@@ -172,44 +174,30 @@ class UserSessionManager: ObservableObject {
                 return
             }
 
-            if let error = error {
-                Logger.data.critical("Failed to restore Google Sign-In: \(error.localizedDescription)")
-                completion(.needsSignIn)
-                return
+            // google only gives us the display name, the keychain netID is what decides if theres a session
+            if let error {
+                Logger.data.log("Google restore failed, using keychain session: \(error.localizedDescription)")
             }
 
-            guard let user = user else {
-                Logger.data.critical("No previous Google Sign-In session found")
-                completion(.needsSignIn)
-                return
+            if let user {
+                self.displayName = user.profile?.name
             }
 
-            Logger.data.log("Restored Google Sign-In session for user: \(user.profile?.email ?? "Unknown")")
-
-            self.displayName = user.profile?.name
-
-            // If we have a netID in keychain, try to restore backend session
-            if let netID = self.netID {
-                self.loginUser(netId: netID) { result in
-                    switch result {
-                    case .success:
-                        Logger.data.log("Successfully restored backend session")
-                        completion(.success)
-
-                    case .failure(let error):
-                        if let graphqlError = error as? GraphQLErrorWrapper,
-                           graphqlError.msg.contains("No user with those credentials") {
-                            Logger.data.critical("No backend user exists. Needs profile creation.")
-                            completion(.needsProfileCreation)
-                        } else {
-                            Logger.data.critical("Failed backend login: \(error.localizedDescription)")
-                            completion(.needsSignIn)
-                        }
-                    }
-                }
-            } else {
+            guard let netID = self.netID else {
                 Logger.data.critical("No netID found in Keychain. Needs sign-in.")
                 completion(.needsSignIn)
+                return
+            }
+
+            self.loginUser(netId: netID) { result in
+                switch result {
+                case .success:
+                    Logger.data.log("Successfully restored backend session")
+                    completion(.success)
+                case .failure(let error):
+                    Logger.data.critical("Failed backend login: \(error.localizedDescription)")
+                    completion(self.restoreResult(for: error))
+                }
             }
         }
     }
@@ -229,6 +217,16 @@ class UserSessionManager: ObservableObject {
         defaults.removeObject(forKey: "lastCooldownGym")
         defaults.removeObject(forKey: "lastCooldownTime")
         defaults.removeObject(forKey: "lastCheckInDate")
+    }
+
+    // MARK: - Helpers
+
+    /// figures out what a failed restore login means, only a graphql error counts as the backend actually answering
+    private func restoreResult(for error: Error) -> SessionRestoreResult {
+        guard let graphQLError = error as? GraphQLErrorWrapper else {
+            return accessToken != nil ? .offline : .needsSignIn
+        }
+        return graphQLError.msg.contains("No user with those credentials") ? .needsProfileCreation : .needsSignIn
     }
 
 }
