@@ -17,6 +17,17 @@ extension MainView {
     @MainActor
     class ViewModel: ObservableObject {
 
+        // MARK: - Session State
+
+        enum SessionState {
+            case restoring
+            case signedOut
+            case guest
+            case creatingProfile
+            case settingGoals
+            case signedIn
+        }
+
         // MARK: - Properties
 
         @Published var userId: Int?
@@ -27,36 +38,46 @@ extension MainView {
         @Published var popUpGiveaway: Bool = false
         @Published var profileImage: UIImage?
         @Published var didClickSubmit: Bool = false
-        @Published var showSetGoalsView = false
-        @Published var showCreateProfileView = false
         @Published var showGiveawayErrorAlert: Bool = false
-        @Published var showMainView: Bool = false
-        @Published var showSignInView: Bool = true
         @Published var submitSuccessful: Bool = false
         @Published var showWorkoutCheckIn: Bool = true
 
-        /// True when the user tapped Skip on sign-in; persisted so relaunch stays on main with a guest profile tab.
-        @Published var isSkipped: Bool = false {
+        @Published var sessionState: SessionState {
             didSet {
-                UserDefaults.standard.set(isSkipped, forKey: Constants.UserDefaultsKeys.skippedLogin)
+                defaults.set(sessionState == .guest, forKey: Constants.UserDefaultsKeys.skippedLogin)
             }
         }
 
+        /// true when the user tapped skip on sign-in
+        var isSkipped: Bool {
+            sessionState == .guest
+        }
+
+        private let defaults: UserDefaults
         private var queryBag = Set<AnyCancellable>()
 
-        init() {
-            let skipped = UserDefaults.standard.bool(forKey: Constants.UserDefaultsKeys.skippedLogin)
-            isSkipped = skipped
-            if skipped {
-                showSignInView = false
-                showMainView = true
-            }
+        init(defaults: UserDefaults = .standard) {
+            self.defaults = defaults
+            sessionState = defaults.bool(forKey: Constants.UserDefaultsKeys.skippedLogin) ? .guest : .restoring
         }
 
         /// Clears draft onboarding data that must not carry across sessions (e.g. after log out or account deletion).
         func resetOnboardingDraftState() {
             profileImage = nil
             userId = nil
+        }
+
+        /// sets the session state from the restore result
+        func apply(_ result: SessionRestoreResult) {
+            switch result {
+            case .success, .offline:
+                sessionState = .signedIn
+            case .needsSignIn, .needsProfileCreation:
+                sessionState = isSkipped ? .guest : .signedOut
+            case .error(let message):
+                Logger.data.critical("Session restore error: \(message)")
+                sessionState = isSkipped ? .guest : .signedOut
+            }
         }
 
         // MARK: - Constants
@@ -82,10 +103,7 @@ extension MainView {
                     switch result {
                     case .success:
                         Logger.data.log("Successfully logged in after creating user")
-                        self.isSkipped = false
-                        self.showMainView = true
-                        self.showCreateProfileView = false
-                        self.showSignInView = false
+                        self.sessionState = .signedIn
 
                         UserSessionManager.shared.email = self.email
                         completion()
@@ -93,9 +111,7 @@ extension MainView {
                         if let graphqlError = error as? GraphQLErrorWrapper,
                            graphqlError.msg.contains("No user with those credentials") {
                             Logger.data.critical("No user found, show onboarding flow or retry")
-                            self.showMainView = false
-                            self.showCreateProfileView = false
-                            self.showSignInView = true
+                            self.sessionState = .signedOut
                         } else {
                             Logger.data.critical("Unexpected login error: \(error.localizedDescription)")
                         }

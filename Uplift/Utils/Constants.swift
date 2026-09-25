@@ -268,6 +268,12 @@ struct Constants {
         static let transitionDuration: Double = 0.35
     }
 
+    /// Constants used in SessionLoadingView
+    enum SessionLoading {
+        static let minimumDuration: TimeInterval = 1.0
+        static let fadeDuration: Double = 0.3
+    }
+
     /// Constants used in SignIn
     enum SignIn {
         static let backgroundTrailingPadding: CGFloat = 51

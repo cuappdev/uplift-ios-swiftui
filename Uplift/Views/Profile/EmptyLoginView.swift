@@ -143,11 +143,7 @@ struct EmptyLoginView: View {
                     case .success:
                         Task {
                             await MainActor.run {
-                                mainViewModel.isSkipped = false
-                                mainViewModel.showSignInView = false
-                                mainViewModel.showCreateProfileView = false
-                                mainViewModel.showSetGoalsView = false
-                                mainViewModel.showMainView = true
+                                mainViewModel.sessionState = .signedIn
                             }
                         }
                         UserSessionManager.shared.email = email
@@ -157,11 +153,7 @@ struct EmptyLoginView: View {
                            graphqlError.msg.contains("No user with those credentials") {
                             Task {
                                 await MainActor.run {
-                                    mainViewModel.isSkipped = false
-                                    mainViewModel.showSignInView = false
-                                    mainViewModel.showSetGoalsView = false
-                                    mainViewModel.showMainView = false
-                                    mainViewModel.showCreateProfileView = true
+                                    mainViewModel.sessionState = .creatingProfile
                                 }
                             }
                         } else {
