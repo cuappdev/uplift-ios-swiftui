@@ -274,11 +274,8 @@ struct Constants {
         static let fadeDuration: Double = 0.3
 
         static let logoSize: CGFloat = 128
+        static let spinnerOffset: CGFloat = 96
         static let appDevLogoBottomPadding: CGFloat = 64
-
-        static let bobOffset: CGFloat = -8
-        static let bobDuration: Double = 0.5
-        static let bobStartDelay: Duration = .milliseconds(300)
     }
 
     /// Constants used in SignIn

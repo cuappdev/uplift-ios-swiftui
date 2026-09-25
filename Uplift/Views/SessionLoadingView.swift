@@ -11,10 +11,6 @@ import SwiftUI
 /// loading screen shown while the previous session is restored
 struct SessionLoadingView: View {
 
-    // MARK: - Properties
-
-    @State private var isAnimating = false
-
     // MARK: - UI
 
     var body: some View {
@@ -23,17 +19,11 @@ struct SessionLoadingView: View {
 
             logo
 
+            spinner
+
             appDevLogo
         }
         .ignoresSafeArea()
-        .task {
-            try? await Task.sleep(for: Constants.SessionLoading.bobStartDelay)
-            withAnimation(
-                .easeInOut(duration: Constants.SessionLoading.bobDuration).repeatForever(autoreverses: true)
-            ) {
-                isAnimating = true
-            }
-        }
     }
 
     private var logo: some View {
@@ -44,7 +34,12 @@ struct SessionLoadingView: View {
                 width: Constants.SessionLoading.logoSize,
                 height: Constants.SessionLoading.logoSize
             )
-            .offset(y: isAnimating ? Constants.SessionLoading.bobOffset : 0)
+    }
+
+    private var spinner: some View {
+        ProgressView()
+            .progressViewStyle(CircularProgressViewStyle(tint: Constants.Colors.gray03))
+            .offset(y: Constants.SessionLoading.spinnerOffset)
     }
 
     private var appDevLogo: some View {
