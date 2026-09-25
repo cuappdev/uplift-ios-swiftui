@@ -108,7 +108,7 @@ struct Constants {
         static let abdominals = Image("abdominals")
         static let agreementsChecker = Image("agreements_checker")
         static let agreementsUnchecked = Image("agreements_unchecked")
-        static let appdevLogo = Image("appdev-logo")
+        static let appdevLogo = Image("appdev_logo")
         static let arm = Image("arm")
         static let arrowLeft = Image("arrow_left")
         static let arrowLeftLight = Image("arrow_left_light")
@@ -272,6 +272,13 @@ struct Constants {
     enum SessionLoading {
         static let minimumDuration: TimeInterval = 1.0
         static let fadeDuration: Double = 0.3
+
+        static let logoSize: CGFloat = 128
+        static let appDevLogoBottomPadding: CGFloat = 64
+
+        static let bobOffset: CGFloat = -8
+        static let bobDuration: Double = 0.5
+        static let bobStartDelay: Duration = .milliseconds(300)
     }
 
     /// Constants used in SignIn

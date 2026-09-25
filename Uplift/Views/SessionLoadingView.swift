@@ -19,78 +19,41 @@ struct SessionLoadingView: View {
 
     var body: some View {
         ZStack {
-            background
-            mountains
-            appDevLogo
+            Constants.Colors.white
+
             logo
+
+            appDevLogo
         }
         .ignoresSafeArea()
-        .onAppear {
-            isAnimating = true
-        }
-    }
-
-    private var background: some View {
-        Constants.Images.introBackground
-            .resizable()
-            .scaledToFill()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .clipped()
-    }
-
-    private var mountains: some View {
-        ZStack(alignment: .bottom) {
-            Constants.Images.mountainBack
-                .resizable()
-                .scaledToFill()
-                .frame(maxWidth: .infinity)
-                .clipped()
-
-            Constants.Images.mountainFront
-                .resizable()
-                .scaledToFill()
-                .frame(maxWidth: .infinity)
-                .clipped()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .scaleEffect(1.2, anchor: .bottom)
-        .offset(y: 40)
-    }
-
-    private var appDevLogo: some View {
-        VStack {
-            Spacer()
-
-            Constants.Images.appDevLogoWhite
-                .resizable()
-                .scaledToFit()
-                .frame(
-                    width: Constants.IntroAnimation.appDevLogoWidth,
-                    height: Constants.IntroAnimation.appDevLogoHeight
-                )
-                .padding(.bottom, 60)
+        .task {
+            try? await Task.sleep(for: Constants.SessionLoading.bobStartDelay)
+            withAnimation(
+                .easeInOut(duration: Constants.SessionLoading.bobDuration).repeatForever(autoreverses: true)
+            ) {
+                isAnimating = true
+            }
         }
     }
 
     private var logo: some View {
-        VStack {
-            Constants.Images.logoSunset
-                .resizable()
-                .scaledToFit()
-                .frame(
-                    width: Constants.SignIn.enteredLogoWidth,
-                    height: Constants.SignIn.enteredLogoHeight
-                )
-                .offset(y: isAnimating ? -8 : 8)
-                .animation(
-                    .easeInOut(duration: 0.5).repeatForever(autoreverses: true),
-                    value: isAnimating
-                )
+        Constants.Images.logo
+            .resizable()
+            .scaledToFit()
+            .frame(
+                width: Constants.SessionLoading.logoSize,
+                height: Constants.SessionLoading.logoSize
+            )
+            .offset(y: isAnimating ? Constants.SessionLoading.bobOffset : 0)
+    }
 
-            Spacer()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .offset(y: Constants.SignIn.enteredLogoYOffset)
+    private var appDevLogo: some View {
+        Constants.Images.appdevLogo
+            .resizable()
+            .scaledToFit()
+            .frame(height: Constants.IntroAnimation.appDevLogoHeight)
+            .padding(.bottom, Constants.SessionLoading.appDevLogoBottomPadding)
+            .frame(maxHeight: .infinity, alignment: .bottom)
     }
 
 }
