@@ -111,6 +111,28 @@ struct SettingsView: View {
 
             DividerLine()
 
+            NavigationLink {
+                RemindersView()
+            } label: {
+                HStack {
+                    Image(systemName: "bell")
+                        .foregroundStyle(Constants.Colors.black)
+                        .frame(width: 24, alignment: .center)
+
+                    Text("Reminders")
+                        .font(Constants.Fonts.bodyNormal)
+                        .foregroundStyle(Constants.Colors.black)
+
+                    Spacer()
+
+                    Constants.Images.chevronRight
+                        .frame(width: 24, alignment: .center)
+                }
+            }
+            .buttonStyle(.plain)
+
+            DividerLine()
+
             Button {
                 onLogout()
             } label: {
