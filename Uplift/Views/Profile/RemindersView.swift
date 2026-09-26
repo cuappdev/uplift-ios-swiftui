@@ -25,11 +25,15 @@ struct RemindersView: View {
             }
             .ignoresSafeArea(.all, edges: .top)
             .navigationBarBackButtonHidden(true)
-            .toolbarBackground(.hidden, for: .navigationBar)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+            .toolbar(.hidden, for: .navigationBar)
+            .safeAreaInset(edge: .top) {
+                HStack {
                     NavBackButton(color: Constants.Colors.black, dismiss: dismiss)
+
+                    Spacer()
                 }
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
             }
             .background(Constants.Colors.white)
         }
