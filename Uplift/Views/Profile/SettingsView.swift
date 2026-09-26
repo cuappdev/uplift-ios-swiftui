@@ -15,7 +15,6 @@ struct SettingsView: View {
     @EnvironmentObject private var tabBarProp: TabBarProperty
     let onBack: () -> Void
     let onFinishedReporting: () -> Void
-    let onReminders: () -> Void
     let onLogout: () -> Void
     let onDeleteAccount: () -> Void
 
@@ -177,7 +176,6 @@ struct SettingsView: View {
     SettingsView(
         onBack: {},
         onFinishedReporting: {},
-        onReminders: {},
         onLogout: {},
         onDeleteAccount: {}
     )
