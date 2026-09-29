@@ -63,7 +63,13 @@ struct RemindersView: View {
             NavigationLink {
                 CapacityRemindersView()
             } label: {
-                capacityReminders
+                reminderRow(icon: Constants.Images.capacity, title: "Capacity Reminders")
+            }
+
+            NavigationLink {
+                CheckInRemindersView()
+            } label: {
+                reminderRow(icon: Image(systemName: "location"), title: "Check-In Reminders")
             }
 
             Spacer()
@@ -71,13 +77,15 @@ struct RemindersView: View {
         .padding(.horizontal, 24)
     }
 
-    private var capacityReminders: some View {
+    private func reminderRow(icon: Image, title: String) -> some View {
         VStack {
             HStack {
                 HStack(spacing: 8) {
-                    Constants.Images.capacity
+                    icon
+                        .foregroundStyle(Constants.Colors.black)
+                        .frame(width: 24, height: 24)
 
-                    Text("Capacity Reminders")
+                    Text(title)
                         .foregroundStyle(Constants.Colors.black)
                         .font(Constants.Fonts.f2)
                 }
