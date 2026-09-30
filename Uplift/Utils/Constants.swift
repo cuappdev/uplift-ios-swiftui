@@ -361,7 +361,7 @@ struct Constants {
         // TODO: Change hardcoded giveaway ID if needed
         static let giveawayID: Int = 1
     }
-    
+
     enum WeeklyWorkoutTracker {
         static let weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
         static let animationDuration: Double = 0.5
@@ -371,12 +371,12 @@ struct Constants {
         static let spacing: CGFloat = 26.5
         static let verticalSpacing: CGFloat = 2
     }
-    
+
     enum Profile {
         static let radius = 125
         static let circleRadius = 3.0
     }
-    
+
     enum WorkoutCheckIn {
         static let threshold: Double = 0.05
         static let cooldownDuration: TimeInterval = 2*60*60
