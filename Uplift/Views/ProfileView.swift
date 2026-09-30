@@ -20,7 +20,6 @@ struct ProfileView: View {
     @State private var showSettings = false
     @State private var showImagePicker = false
     @State private var profileItem: PhotosPickerItem?
-    private let radius = 125
 
     // MARK: - UI
     var body: some View {
@@ -287,7 +286,7 @@ struct ProfileView: View {
                 profileTopSection
                 goalView
                 historyView
-                    .padding(.bottom, CGFloat(radius))
+                    .padding(.bottom, CGFloat(Constants.Profile.radius))
             }
             .padding(.horizontal, Constants.Padding.homeHorizontal)
             .padding(.top, 24)
@@ -302,7 +301,7 @@ struct ProfileView: View {
                         .fill(Constants.Colors.white)
                         .shadow(
                             color: .gray.opacity(0.5),
-                            radius: 3,
+                            radius: Constants.Profile.circleRadius,
                             x: 0,
                             y: 1
                         )
@@ -358,7 +357,7 @@ struct ProfileView: View {
         } label: {
             Circle()
                 .fill(Constants.Colors.white)
-                .shadow(color: .gray.opacity(0.5), radius: 3, x: 0, y: 1)
+                .shadow(color: .gray.opacity(0.5), radius: Constants.Profile.circleRadius, x: 0, y: 1)
                 .frame(width: 32, height: 32)
                 .overlay {
                     Image(systemName: "camera.fill")
@@ -390,7 +389,7 @@ struct ProfileView: View {
                         .foregroundColor(Constants.Colors.gray03)
                 }
 
-                VStack(spacing: CGFloat(-radius) + 16) {
+                VStack(spacing: CGFloat(-Constants.Profile.radius) + 16) {
                     WorkoutProgressArc(viewModel: viewModel)
                     WeeklyWorkoutTrackerView(viewModel: viewModel)
                 }

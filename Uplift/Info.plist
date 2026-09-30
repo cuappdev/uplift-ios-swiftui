@@ -6,8 +6,6 @@
 	<string>$(ANNOUNCEMENTS_COMMON_PATH)</string>
 	<key>ANNOUNCEMENTS_HOST</key>
 	<string>$(ANNOUNCEMENTS_HOST)</string>
-	<key>UIUserInterfaceStyle</key>
-	<string>Light</string>
 	<key>ANNOUNCEMENTS_PATH</key>
 	<string>$(ANNOUNCEMENTS_PATH)</string>
 	<key>ANNOUNCEMENTS_SCHEME</key>
@@ -33,6 +31,14 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.535667993262-iqe8kam2jkbpaq0vl0ee7484jev8p7i0</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.482433483257-iln6m9p2tab6a632i8ek57qgojg00u4s</string>
 			</array>
 		</dict>
 	</array>

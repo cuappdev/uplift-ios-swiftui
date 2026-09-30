@@ -16,26 +16,18 @@ struct WeeklyWorkoutTrackerView: View {
     @State private var animationProgress: [Double] = Array(repeating: 0, count: 7)
     @State private var workoutDays: [Bool] = [false, false, false, false, false, false, false]
 
-    private let weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-    private let animationDuration: Double = 0.5
-    private let delayBetweenDays: Double = 0.3
-    private let circleSize: CGFloat = 24
-    private let lineWidth: CGFloat = 2
-    private let spacing: CGFloat = 26.5
-    private let verticalSpacing: CGFloat = 2
-
     // MARK: - UI
 
     var body: some View {
         VStack {
-            VStack(alignment: .center, spacing: verticalSpacing) {
+            VStack(alignment: .center, spacing: Constants.WeeklyWorkoutTracker.verticalSpacing) {
                 // Weekday abbreviations
-                HStack(spacing: spacing) {
-                    ForEach(weekdays.indices, id: \.self) { index in
-                        Text(weekdays[index])
+                HStack(spacing: Constants.WeeklyWorkoutTracker.spacing) {
+                    ForEach(Constants.WeeklyWorkoutTracker.weekdays.indices, id: \.self) { index in
+                        Text(Constants.WeeklyWorkoutTracker.weekdays[index])
                             .font(Constants.Fonts.labelSemibold)
                             .foregroundColor(Constants.Colors.black)
-                            .frame(width: circleSize)
+                            .frame(width: Constants.WeeklyWorkoutTracker.circleSize)
                             .lineLimit(1)
                             .minimumScaleFactor(0.82)
                     }
@@ -48,30 +40,30 @@ struct WeeklyWorkoutTrackerView: View {
                             HStack(spacing: 0) {
                                 Circle()
                                     .fill(Color.clear)
-                                    .frame(width: circleSize)
+                                    .frame(width: Constants.WeeklyWorkoutTracker.circleSize)
 
                                 Rectangle()
                                     .fill(Color.gray.opacity(0.3))
-                                    .frame(width: spacing, height: lineWidth)
+                                    .frame(width: Constants.WeeklyWorkoutTracker.spacing, height: Constants.WeeklyWorkoutTracker.lineWidth)
                             }
                         }
 
                         Circle()
                             .fill(Color.clear)
-                            .frame(width: circleSize)
+                            .frame(width: Constants.WeeklyWorkoutTracker.circleSize)
                     }
 
-                    HStack(spacing: spacing) {
-                        ForEach(weekdays.indices, id: \.self) { index in
+                    HStack(spacing: Constants.WeeklyWorkoutTracker.spacing) {
+                        ForEach(Constants.WeeklyWorkoutTracker.weekdays.indices, id: \.self) { index in
                             ZStack {
                                 Circle()
                                     .fill(Color(.systemGray6))
-                                    .frame(width: circleSize, height: circleSize)
+                                    .frame(width: Constants.WeeklyWorkoutTracker.circleSize, height: Constants.WeeklyWorkoutTracker.circleSize)
 
                                 if workoutDays[index] {
                                     Circle()
                                         .fill(Constants.Colors.yellow)
-                                        .frame(width: circleSize, height: circleSize)
+                                        .frame(width: Constants.WeeklyWorkoutTracker.circleSize, height: Constants.WeeklyWorkoutTracker.circleSize)
                                         .scaleEffect(animationProgress[index])
                                         .opacity(animationProgress[index])
                                 }
@@ -89,12 +81,12 @@ struct WeeklyWorkoutTrackerView: View {
                 }
 
                 // Date numbers for current week
-                HStack(spacing: spacing) {
+                HStack(spacing: Constants.WeeklyWorkoutTracker.spacing) {
                     ForEach(viewModel.weekDates.indices, id: \.self) { index in
                         let day = Calendar.current.component(.day, from: viewModel.weekDates[index])
                         Text("\(day)")
                             .font(Constants.Fonts.labelNormal)
-                            .frame(width: circleSize, height: 20)
+                            .frame(width: Constants.WeeklyWorkoutTracker.circleSize, height: 20)
                             .foregroundColor(Constants.Colors.black)
                     }
                 }
@@ -155,11 +147,11 @@ struct WeeklyWorkoutTrackerView: View {
 
     /// Animates workout day indicators sequentially left to right
     private func animateWorkouts() async {
-        for index in weekdays.indices where workoutDays[index] {
-            try? await Task.sleep(for: .seconds(delayBetweenDays))
+        for index in Constants.WeeklyWorkoutTracker.weekdays.indices where workoutDays[index] {
+            try? await Task.sleep(for: .seconds(Constants.WeeklyWorkoutTracker.delayBetweenDays))
 
             await MainActor.run {
-                withAnimation(.easeIn(duration: animationDuration)) {
+                withAnimation(.easeIn(duration: Constants.WeeklyWorkoutTracker.animationDuration)) {
                     animationProgress[index] = 1.0
                 }
             }
