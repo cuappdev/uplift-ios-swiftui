@@ -108,7 +108,7 @@ struct Constants {
         static let abdominals = Image("abdominals")
         static let agreementsChecker = Image("agreements_checker")
         static let agreementsUnchecked = Image("agreements_unchecked")
-        static let appdevLogo = Image("appdev-logo")
+        static let appdevLogo = Image("appdev_logo")
         static let arm = Image("arm")
         static let arrowLeft = Image("arrow_left")
         static let arrowLeftLight = Image("arrow_left_light")
@@ -266,6 +266,16 @@ struct Constants {
 
         static let introDuration: Double = 1.5
         static let transitionDuration: Double = 0.35
+    }
+
+    /// Constants used in SessionLoadingView
+    enum SessionLoading {
+        static let minimumDuration: TimeInterval = 1.0
+        static let fadeDuration: Double = 0.3
+
+        static let logoSize: CGFloat = 128
+        static let spinnerOffset: CGFloat = 96
+        static let appDevLogoBottomPadding: CGFloat = 64
     }
 
     /// Constants used in SignIn

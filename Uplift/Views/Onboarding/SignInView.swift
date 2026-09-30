@@ -87,11 +87,7 @@ struct SignInView: View {
 
     private var skipButton: some View {
         Button {
-            withAnimation(.easeIn) {
-                mainViewModel.isSkipped = true
-                mainViewModel.showSignInView = false
-                mainViewModel.showMainView = true
-            }
+            mainViewModel.sessionState = .guest
         } label: {
             Text("Skip")
                 .font(Constants.Fonts.bodyNormal)
@@ -117,10 +113,7 @@ struct SignInView: View {
                     case .success:
                         Task {
                             await MainActor.run {
-                                mainViewModel.isSkipped = false
-                                mainViewModel.showSignInView = false
-                                mainViewModel.showCreateProfileView = false
-                                mainViewModel.showMainView = true
+                                mainViewModel.sessionState = .signedIn
                             }
                         }
 
@@ -132,10 +125,7 @@ struct SignInView: View {
 
                             Task {
                                 await MainActor.run {
-                                    mainViewModel.isSkipped = false
-                                    mainViewModel.showSignInView = false
-                                    mainViewModel.showSetGoalsView = false
-                                    mainViewModel.showCreateProfileView = true
+                                    mainViewModel.sessionState = .creatingProfile
                                 }
                             }
                         } else {
