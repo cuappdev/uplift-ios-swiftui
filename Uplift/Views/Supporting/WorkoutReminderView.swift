@@ -19,12 +19,21 @@ struct WorkoutReminderView: View {
     let isAllDay: Bool
     let selectedDays: [DayOfWeek]
     let time: String
+    let onUpdate: (WorkoutReminder) -> Void
 
     // MARK: - UI
 
     var body: some View {
         if isEditable {
-            WorkoutReminderEditView(inEditMode: $isEditable, isNew: false)
+            WorkoutReminderEditView(
+                inEditMode: $isEditable,
+                isNew: false,
+                onUpdate: onUpdate, reminder: WorkoutReminder(
+                    selectedDays: selectedDays,
+                    isAllDay: isAllDay,
+                    time: time
+                )
+            )
         } else {
             displayReminder
         }

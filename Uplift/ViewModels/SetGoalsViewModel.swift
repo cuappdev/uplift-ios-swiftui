@@ -22,12 +22,7 @@ extension SetGoalsView {
         @Published var showWarningModal = false
         @Published var showErrorModal = false
         @Published var sliderWorkoutGoal = 1.0
-        @Published var reminders: [WorkoutReminder] = [
-            WorkoutReminder(selectedDays: [DayOfWeek.saturday, DayOfWeek.monday], isAllDay: true, time: ""),
-            WorkoutReminder(selectedDays: [DayOfWeek.monday], isAllDay: true, time: ""),
-            WorkoutReminder(selectedDays: [DayOfWeek.sunday, DayOfWeek.saturday], isAllDay: true, time: ""),
-            WorkoutReminder(selectedDays: [DayOfWeek.monday, DayOfWeek.tuesday, DayOfWeek.wednesday, DayOfWeek.thursday, DayOfWeek.friday], isAllDay: true, time: "")
-        ]
+        @Published var reminders: [WorkoutReminder] = []
         var currWorkoutGoal = 1
 
         private var queryBag = Set<AnyCancellable>()

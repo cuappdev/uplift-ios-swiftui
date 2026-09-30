@@ -156,23 +156,25 @@ struct SetGoalsView: View {
     }
 
     private var content: some View {
-        VStack(spacing: 40) {
-            workoutDays
-            // TODO: Workout reminders feature is archived for now
-//                workoutReminders
+        ScrollView {
+            VStack(spacing: 40) {
+                workoutDays
+                // TODO: Workout reminders feature is archived for now
+                workoutReminders
 
-            if !isOnboarding {
-                if inSavedState {
-                    savedLabel
-                } else {
-                    saveButton
+                if !isOnboarding {
+                    if inSavedState {
+                        savedLabel
+                    } else {
+                        saveButton
+                    }
                 }
-            }
 
-            Spacer()
+                Spacer()
 
-            if isOnboarding {
-                nextButton
+                if isOnboarding {
+                    nextButton
+                }
             }
         }
     }
@@ -265,7 +267,13 @@ struct SetGoalsView: View {
                 Spacer()
             }
 
-            showNewReminder ? WorkoutReminderEditView(inEditMode: $showNewReminder, isNew: false) : nil
+            showNewReminder ? WorkoutReminderEditView(
+                inEditMode: $showNewReminder,
+                isNew: true,
+                onCreate: { reminder in
+                    viewModel.reminders.append(reminder)
+                }
+            ) : nil
         }
     }
 
@@ -276,7 +284,11 @@ struct SetGoalsView: View {
                     isAllDay: reminder.isAllDay,
                     selectedDays: reminder.selectedDays,
                     time: reminder.time
-                )
+                ) { updatedReminder in
+                    if let index = viewModel.reminders.firstIndex(of: reminder) {
+                        viewModel.reminders[index] = updatedReminder
+                    }
+                }
             }
         }
     }

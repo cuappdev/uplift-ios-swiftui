@@ -111,6 +111,29 @@ struct SettingsView: View {
 
             DividerLine()
 
+            //DEBUG SO I CAN PREVIEW GOALS
+            NavigationLink {
+                SetGoalsView(isOnboarding: false)
+            } label: {
+                HStack {
+                    Image(systemName: "hammer.fill")
+                        .frame(width: 24, alignment: .center)
+
+                    Text("Goals DEBUG")
+                        .font(Constants.Fonts.bodyNormal)
+                        .foregroundStyle(Constants.Colors.black)
+
+                    Spacer()
+
+                    Constants.Images.chevronRight
+                        .frame(width: 24, alignment: .center)
+                }
+            }
+            .buttonStyle(.plain)
+
+            DividerLine()
+            //DEBUG SO I CAN PREVIEW GOALS
+
             Button {
                 onLogout()
             } label: {
@@ -148,6 +171,7 @@ struct SettingsView: View {
         .padding(.top, 24)
         .padding(.horizontal, 24)
         .background(Constants.Colors.white)
+
     }
 }
 
