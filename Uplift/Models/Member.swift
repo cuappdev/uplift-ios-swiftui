@@ -41,3 +41,15 @@ struct Member: Identifiable {
         Member(name: "Wendy", role: "Marketing", imageName: "member_wendy")
     ]
 }
+
+enum Semester: String, CaseIterable {
+    case fa26 = "Fall 2026"
+    case sp26 = "Spring 2026"
+
+    var members: [Member] {
+        switch self {
+        case .fa26: Member.fa26members
+        case .sp26: Member.sp26members
+        }
+    }
+}

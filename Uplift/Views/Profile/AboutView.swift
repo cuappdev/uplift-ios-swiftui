@@ -11,6 +11,11 @@ import SwiftUI
 struct AboutView: View {
     @Environment(\.dismiss) private var dismiss
 
+    @State private var selectedSemester = allSemesters
+    @State private var semesterIsExpanded = false
+
+    private static let allSemesters = "All Semesters"
+
     var body: some View {
         VStack {
             header
@@ -82,11 +87,39 @@ struct AboutView: View {
                     .font(Constants.Fonts.h1)
                     .padding(.top, 8)
 
-                MembersGridView(title: "Fall 2026", members: Member.fa26members)
-                MembersGridView(title: "Spring 2026", members: Member.sp26members)
+                semesterSection
+
+                ForEach(visibleSemesters, id: \.self) { semester in
+                    MembersGridView(title: semester.rawValue, members: semester.members)
+                }
             }
             .padding(.bottom, 32)
         }
+    }
+
+    private var semesterSection: some View {
+        VStack(spacing: 16) {
+            HStack {
+                Text("Semester")
+                    .foregroundStyle(Constants.Colors.black)
+                    .font(Constants.Fonts.h2)
+
+                Spacer()
+            }
+
+            Dropdown(
+                displayError: .constant(false),
+                isExpanded: $semesterIsExpanded,
+                selectedOption: $selectedSemester,
+                options: [Self.allSemesters] + Semester.allCases.map(\.rawValue)
+            )
+        }
+        .padding(.horizontal, Constants.Padding.reportHorizontal)
+        .padding(.top, 24)
+    }
+
+    private var visibleSemesters: [Semester] {
+        Semester.allCases.filter { selectedSemester == Self.allSemesters || $0.rawValue == selectedSemester }
     }
 }
 #Preview {
