@@ -146,10 +146,7 @@ struct CreateProfileView: View {
 
     private var getStartedButton: some View {
         Button {
-            withAnimation(.easeIn) {
-                mainViewModel.showCreateProfileView = false
-                mainViewModel.showSetGoalsView = true
-            }
+            mainViewModel.sessionState = .settingGoals
         } label: {
             Text("Get started")
                 .font(Constants.Fonts.h2)

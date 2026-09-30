@@ -64,11 +64,7 @@ struct ProfileView: View {
                         withAnimation(.easeIn(duration: 0.1)) {
                             tabBarProp.hidden = false
                         }
-                        mainViewModel.isSkipped = false
-                        mainViewModel.showMainView = false
-                        mainViewModel.showSignInView = true
-                        mainViewModel.showCreateProfileView = false
-                        mainViewModel.showSetGoalsView = false
+                        mainViewModel.sessionState = .signedOut
                     },
                     onDeleteAccount: {
                         viewModel.showDeleteAccountAlert = true
@@ -128,11 +124,7 @@ struct ProfileView: View {
                 withAnimation(.easeIn(duration: 0.1)) {
                     tabBarProp.hidden = false
                 }
-                mainViewModel.isSkipped = false
-                mainViewModel.showMainView = false
-                mainViewModel.showSignInView = true
-                mainViewModel.showCreateProfileView = false
-                mainViewModel.showSetGoalsView = false
+                mainViewModel.sessionState = .signedOut
                 dismissDeleteAccountModal()
             }
         }
@@ -246,9 +238,7 @@ struct ProfileView: View {
                 UserSessionManager.shared.logout()
                 mainViewModel.resetOnboardingDraftState()
                 viewModel.showSettingsSheet = false
-                mainViewModel.isSkipped = false
-                mainViewModel.showMainView = false
-                mainViewModel.showSignInView = true
+                mainViewModel.sessionState = .signedOut
             } label: {
                 Text("Log Out")
                     .font(Constants.Fonts.bodyNormal)
