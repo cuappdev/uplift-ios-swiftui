@@ -57,9 +57,6 @@ struct ProfileView: View {
                     onFinishedReporting: {
                         showSettings = false
                     },
-                    onReminders: {
-                        // TODO: Notifications about uplift
-                    },
                     onLogout: {
                         UserSessionManager.shared.logout()
                         mainViewModel.resetOnboardingDraftState()
