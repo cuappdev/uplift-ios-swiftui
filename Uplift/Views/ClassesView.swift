@@ -16,6 +16,7 @@ struct ClassesView: View {
     @EnvironmentObject var tabBarProp: TabBarProperty
     @StateObject private var viewModel = ViewModel()
     @State private var weeks: [Int] = [0, 1, 2]     // Integers represent the number of weeks from the current week
+    @State private var showFilter = false
 
     // MARK: - UI
 
@@ -26,6 +27,9 @@ struct ClassesView: View {
                 scrollContent
             }
             .background(Constants.Colors.white)
+            .overlay(alignment: .bottom) {
+                filterButton
+            }
         }
         .onAppear {
             viewModel.fetchAllClasses()
@@ -208,6 +212,30 @@ struct ClassesView: View {
             }
             .padding(.horizontal, 16)
         }
+    }
+
+    private var filterButton: some View {
+        Button {
+            showFilter = true
+        } label: {
+            Text("APPLY FILTER")
+                .font(Constants.Fonts.h3)
+                .foregroundStyle(Constants.Colors.black)
+                .padding(
+                    EdgeInsets(
+                        top: 13,
+                        leading: 34,
+                        bottom: 14,
+                        trailing: 28
+                    )
+                )
+                .background(
+                    Capsule()
+                        .fill(Constants.Colors.white)
+                        .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
+                )
+        }
+        .padding(.bottom, 20)
     }
 }
 

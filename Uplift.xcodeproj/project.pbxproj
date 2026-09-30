@@ -847,8 +847,8 @@
 				2EC3EE642B3C000E00E927BF /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				63001AD42CC9A6B20082AFFA /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
-				29F24AB62EA9865500111048 /* XCLocalSwiftPackageReference "UpliftAPI" */,
 				13446DED2ECDF7BA00EED573 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
+				26D5807830648019008168B4 /* XCLocalSwiftPackageReference "UpliftAPI" */,
 			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
 			projectDirPath = "";
@@ -1372,7 +1372,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		29F24AB62EA9865500111048 /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
+		26D5807830648019008168B4 /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = UpliftAPI;
 		};
