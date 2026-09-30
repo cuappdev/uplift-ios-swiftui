@@ -80,11 +80,6 @@ extension MainView {
             }
         }
 
-        // MARK: - Constants
-
-        // TODO: Change hardcoded giveaway ID if needed
-        private let giveawayID: Int = 1
-
         // MARK: - Requests
 
         /**
@@ -164,7 +159,7 @@ extension MainView {
         /// Enters a user to a giveaway in the backend.
         private func enterGiveawayRequest() {
             Network.client.mutationPublisher(
-                mutation: EnterGiveawayMutation(giveawayId: giveawayID, userNetId: netID)
+                mutation: EnterGiveawayMutation(giveawayId: Constants.MainView.giveawayID, userNetId: netID)
             )
             .sink { [weak self] completion in
                 guard let self else { return }
@@ -181,7 +176,7 @@ extension MainView {
                     self.submitSuccessful = true
                 }
 #if DEBUG
-                Logger.data.log("NetID \(netID) has entered giveaway ID \(giveawayID)")
+                Logger.data.log("NetID \(netID) has entered giveaway ID \(Constants.MainView.giveawayID)")
 #endif
             }
             .store(in: &queryBag)

@@ -22,11 +22,6 @@ struct FitnessCenterView: View {
     @State private var chartLabelSize = CGSize.zero
     @State private var chartSize = CGSize.zero
 
-    // MARK: - Constants
-
-    private let vertPadding: CGFloat = 16
-    private let barWidth = 18
-
     // MARK: - UI
 
     var body: some View {
@@ -79,7 +74,7 @@ struct FitnessCenterView: View {
                 .foregroundStyle(Constants.Colors.gray04)
                 .font(Constants.Fonts.labelLight)
         }
-        .padding(.vertical, vertPadding)
+        .padding(.vertical, Constants.FitnessCenter.vertPadding)
     }
 
     private var hoursSection: some View {
@@ -111,7 +106,7 @@ struct FitnessCenterView: View {
                 Spacer()
             }
         }
-        .padding(.vertical, vertPadding)
+        .padding(.vertical, Constants.FitnessCenter.vertPadding)
     }
 
     private var expandedHours: some View {
@@ -234,7 +229,7 @@ struct FitnessCenterView: View {
                     }
                 }
             }
-            .padding(.horizontal, CGFloat(barWidth) / 2)
+            .padding(.horizontal, CGFloat(Constants.FitnessCenter.barWidth) / 2)
             .chartYAxis(.hidden)
             .chartOverlay(alignment: .top) { chart in
                 HStack(spacing: 4) {
@@ -258,19 +253,19 @@ struct FitnessCenterView: View {
                     }
                 }
                 .position(
-                    x: CGFloat(barWidth / 2) + (
+                    x: CGFloat(Constants.FitnessCenter.barWidth / 2) + (
                         chart.position(forX: convertHourToDate(viewModel.currentHour)) ?? 0
                     )
                 )
                 .offset(
                     x: calculateChartOffset(
-                        barWidth / 2 + Int(chart.position(forX: convertHourToDate(viewModel.currentHour)) ?? 0)
+                        Constants.FitnessCenter.barWidth / 2 + Int(chart.position(forX: convertHourToDate(viewModel.currentHour)) ?? 0)
                     )
                 )
                 .opacity(viewModel.popularTimesIsAnimating ? 1 : 0)
             }
         }
-        .padding(.vertical, vertPadding)
+        .padding(.vertical, Constants.FitnessCenter.vertPadding)
         .animation(.easeOut(duration: 0.6), value: viewModel.popularTimesIsAnimating)
     }
 
@@ -311,7 +306,7 @@ struct FitnessCenterView: View {
                 }
             }
         }
-        .padding(.vertical, vertPadding)
+        .padding(.vertical, Constants.FitnessCenter.vertPadding)
     }
 
     private var equipmentSection: some View {
@@ -328,7 +323,7 @@ struct FitnessCenterView: View {
                 }
             }
         }
-        .padding(.vertical, vertPadding)
+        .padding(.vertical, Constants.FitnessCenter.vertPadding)
     }
 
     // MARK: - Supporting

@@ -30,8 +30,6 @@ extension WorkoutCheckInView {
         @Published var isCheckingIn = false
         @Published var trigger: Int = 0
 
-        private let threshold: Double = 0.05
-        private let cooldownDuration: TimeInterval = 2*60*60
         private let locationManager: LocationManaging
         private var queryBag = Set<AnyCancellable>()
 
@@ -107,7 +105,7 @@ extension WorkoutCheckInView {
                     continue
                 }
 
-                if distanceNumeric <= threshold, case .open = gym.status {
+                if distanceNumeric <= Constants.WorkoutCheckIn.threshold, case .open = gym.status {
                     let time = Date().timeStringTrailingZeros
                     let gymName = gym.name
                     currentNearestGym = gym.name
@@ -139,7 +137,7 @@ extension WorkoutCheckInView {
 
             if let lastDate {
                 let passed = Date().timeIntervalSince(lastDate)
-                if passed < cooldownDuration {
+                if passed < Constants.WorkoutCheckIn.cooldownDuration {
                     isCooldownActive = true
                 } else {
                     isCooldownActive = false
