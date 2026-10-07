@@ -79,6 +79,20 @@ struct GymProximityRulesTests {
         #expect(decision == .arm)
     }
 
+    @Test("no saved hours counts as closed so it skips")
+    func noHoursSkips() {
+        // break week or renovation, nothing to be stale about so the gym is just closed
+        let gym = GymSnapshot(
+            id: "teagle",
+            name: "Teagle",
+            latitude: 42.4459926380709,
+            longitude: -76.47915389837931,
+            fitnessCenterHours: []
+        )
+        let decision = rules.decision(for: gym, lastArmed: nil, checkedInToday: false, now: now)
+        #expect(decision == .skip(.closed))
+    }
+
     @Test("banner armed 1 min ago is still pending")
     func bannerPendingInsideDwell() {
         #expect(rules.bannerIsPending(armedAt: now - 60, now: now))
