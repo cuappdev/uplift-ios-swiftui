@@ -135,6 +135,7 @@ final class GymProximityManager: ObservableObject {
             for: gym,
             lastArmed: lastArmed(gymId: gymId),
             checkedInToday: hasCheckedInToday(),
+            dismissedAt: dismissedAt(for: gym),
             now: now()
         )
 
@@ -188,6 +189,12 @@ final class GymProximityManager: ObservableObject {
         let last = defaults.object(forKey: Constants.UserDefaultsKeys.checkInLastDate) as? Date
         guard let last else { return false }
         return Calendar.current.isDate(last, inSameDayAs: now())
+    }
+
+    /// When the user last closed the check-in pop-up for this gym.
+    private func dismissedAt(for gym: GymSnapshot) -> Date? {
+        guard defaults.string(forKey: Constants.UserDefaultsKeys.checkInCooldownGym) == gym.name else { return nil }
+        return defaults.object(forKey: Constants.UserDefaultsKeys.checkInCooldownTime) as? Date
     }
 
     private func lastArmed(gymId: String) -> Date? {

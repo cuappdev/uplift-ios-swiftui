@@ -15,11 +15,12 @@ struct GymProximityRulesTests {
     /**
      dwell: 5 min, how long you have to stay before the banner fires
      cooldown: 4 hours, min time between banners for the same gym
+     dismissCooldown: 2 hours, how long after closing the pop-up before a banner for that gym can fire
 
      now is a fixed date so nothing depends on the real clock
      each gym has one fitness center hours block placed relative to now
      */
-    private let rules = GymProximityRules(dwell: 5 * 60, cooldown: 4 * 60 * 60)
+    private let rules = GymProximityRules(dwell: 5 * 60, cooldown: 4 * 60 * 60, dismissCooldown: 2 * 60 * 60)
     private let now = Date(timeIntervalSince1970: 1_800_000_000)
 
     private func teagle(openFrom start: TimeInterval, to end: TimeInterval) -> GymSnapshot {
@@ -60,6 +61,32 @@ struct GymProximityRulesTests {
         // 4 hours & 1 second ago
         let lastArmed = now - (4 * 60 * 60 + 1)
         let decision = rules.decision(for: gym, lastArmed: lastArmed, checkedInToday: false, now: now)
+        #expect(decision == .arm)
+    }
+
+    @Test("closed the pop-up 1 hour ago skips")
+    func insideDismissCooldownSkips() {
+        let gym = teagle(openFrom: -3600, to: 3600)
+        let decision = rules.decision(
+            for: gym,
+            lastArmed: nil,
+            checkedInToday: false,
+            dismissedAt: now - 3600,
+            now: now
+        )
+        #expect(decision == .skip(.dismissed))
+    }
+
+    @Test("closed the pop-up 3 hours ago arms")
+    func pastDismissCooldownArms() {
+        let gym = teagle(openFrom: -3600, to: 3600)
+        let decision = rules.decision(
+            for: gym,
+            lastArmed: nil,
+            checkedInToday: false,
+            dismissedAt: now - 3 * 3600,
+            now: now
+        )
         #expect(decision == .arm)
     }
 

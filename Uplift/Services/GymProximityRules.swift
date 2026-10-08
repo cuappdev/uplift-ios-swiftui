@@ -16,6 +16,9 @@ struct GymProximityRules {
     /// Minimum time between banners for the same gym.
     let cooldown: TimeInterval
 
+    /// How long after the user closes the check-in pop-up before a banner for that gym can fire.
+    let dismissCooldown: TimeInterval
+
     /// How long the user must stay inside a region before the banner fires.
     let dwell: TimeInterval
 
@@ -28,13 +31,19 @@ struct GymProximityRules {
             case checkedInToday
             case closed
             case coolingDown
+            case dismissed
         }
     }
 
     // MARK: - Functions
 
-    init(dwell: TimeInterval = 5 * 60, cooldown: TimeInterval = 4 * 60 * 60) {
+    init(
+        dwell: TimeInterval = 5 * 60,
+        cooldown: TimeInterval = 4 * 60 * 60,
+        dismissCooldown: TimeInterval = 2 * 60 * 60
+    ) {
         self.cooldown = cooldown
+        self.dismissCooldown = dismissCooldown
         self.dwell = dwell
     }
 
@@ -44,8 +53,15 @@ struct GymProximityRules {
     }
 
     /// What to do when the user enters `gym`.
-    func decision(for gym: GymSnapshot, lastArmed: Date?, checkedInToday: Bool, now: Date) -> Decision {
+    func decision(
+        for gym: GymSnapshot,
+        lastArmed: Date?,
+        checkedInToday: Bool,
+        dismissedAt: Date? = nil,
+        now: Date
+    ) -> Decision {
         if checkedInToday { return .skip(.checkedInToday) }
+        if let dismissedAt, now.timeIntervalSince(dismissedAt) < dismissCooldown { return .skip(.dismissed) }
         if let lastArmed, now.timeIntervalSince(lastArmed) < cooldown { return .skip(.coolingDown) }
         if !gym.hoursAreStale(at: now), !gym.isFitnessCenterOpen(at: now) { return .skip(.closed) }
         return .arm
