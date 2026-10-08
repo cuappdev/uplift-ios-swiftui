@@ -171,6 +171,11 @@ extension WorkoutCheckInView {
             UserDefaults.standard.set(Foundation.Date(), forKey: Constants.UserDefaultsKeys.checkInCooldownTime)
             UserDefaults.standard.set(gym, forKey: Constants.UserDefaultsKeys.checkInCooldownGym)
             isCooldownActive = true
+
+            // the pop-up is gone so the banner shouldn't follow it
+            if let gymId = gyms.first(where: { $0.name == gym })?.id {
+                GymProximityManager.shared.cancelPendingBanner(gymId: gymId)
+            }
         }
 
         /// Start daily cooldown for checking in to a gym
@@ -197,6 +202,7 @@ extension WorkoutCheckInView {
             isCheckingIn = true
             defer { isCheckingIn = false }
 
+            let gymId = gym.id
             await withCheckedContinuation { continuation in
                 var cancellable: AnyCancellable?
                 cancellable = Network.client.mutationPublisher(
@@ -223,6 +229,7 @@ extension WorkoutCheckInView {
                     Logger.data.info("Successfully logged workout")
                     self?.isCheckedIn = true
                     self?.startDailyCooldown()
+                    GymProximityManager.shared.cancelPendingBanner(gymId: gymId)
                 }
             }
         }

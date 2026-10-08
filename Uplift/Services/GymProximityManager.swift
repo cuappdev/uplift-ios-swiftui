@@ -153,9 +153,14 @@ final class GymProximityManager: ObservableObject {
         }
     }
 
-    /// Cancel the pending banner, and forget the arm if it never fired.
+    /// Cancel the pending banner when the user leaves.
     func handleExited(gymId: String) {
         Logger.services.info("Cancelling proximity notification for \(gymId)")
+        cancelPendingBanner(gymId: gymId)
+    }
+
+    /// Cancel the pending banner, and forget the arm if it never fired.
+    func cancelPendingBanner(gymId: String) {
         scheduler.cancel(id: Constants.NotificationIds.proximityPrefix + gymId)
 
         if let armedAt = lastArmed(gymId: gymId), rules.bannerIsPending(armedAt: armedAt, now: now()) {
