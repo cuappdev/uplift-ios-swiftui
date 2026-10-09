@@ -142,13 +142,22 @@ final class GymProximityManager: ObservableObject {
         switch decision {
         case .arm:
             Logger.services.info("Arming proximity notification for \(gym.name)")
-            scheduler.schedule(
-                id: Constants.NotificationIds.proximityPrefix + gymId,
-                title: "You're near \(gym.name)",
-                body: "Check in to log your workout 💪",
-                delay: rules.dwell
-            )
-            lastArmedTimes[gymId] = now().timeIntervalSince1970
+            let armedAt = now()
+            lastArmedTimes[gymId] = armedAt.timeIntervalSince1970
+            Task {
+                do {
+                    try await scheduler.schedule(
+                        id: Constants.NotificationIds.proximityPrefix + gymId,
+                        title: "You're near \(gym.name)",
+                        body: "Check in to log your workout 💪",
+                        delay: rules.dwell
+                    )
+                } catch {
+                    Logger.services.error("Could not schedule proximity notification for \(gym.name): \(error)")
+                    // only drop this arm, a newer one may have replaced it
+                    if lastArmedTimes[gymId] == armedAt.timeIntervalSince1970 { lastArmedTimes[gymId] = nil }
+                }
+            }
         case .skip(let reason):
             Logger.services.info("Skipping proximity notification for \(gym.name): \(String(describing: reason))")
         }
