@@ -61,10 +61,21 @@ extension MainView {
             sessionState = defaults.bool(forKey: Constants.UserDefaultsKeys.skippedLogin) ? .guest : .restoring
         }
 
+        // MARK: - Session
+
         /// Clears draft onboarding data that must not carry across sessions (e.g. after log out or account deletion).
         func resetOnboardingDraftState() {
             profileImage = nil
             userId = nil
+        }
+
+        /// Clears the session and everything tied to it so the next account starts clean.
+        func didLogout() {
+            UserSessionManager.shared.logout()
+            UserSessionManager.shared.clearWorkoutCheckInCooldown()
+            GymProximityManager.shared.disable()
+            resetOnboardingDraftState()
+            sessionState = .signedOut
         }
 
         /// sets the session state from the restore result
