@@ -129,7 +129,15 @@ final class GymProximityManager: ObservableObject {
 
     /// Arm a banner for this gym unless the rules say otherwise.
     func handleEntered(gymId: String) {
-        guard isEnabled, isSignedIn(), let gym = snapshots[gymId] else { return }
+        guard isEnabled, isSignedIn() else {
+            Logger.services.info("Ignoring region entry for \(gymId), reminders off or signed out")
+            return
+        }
+
+        guard let gym = snapshots[gymId] else {
+            Logger.services.info("Ignoring region entry for unknown gym \(gymId)")
+            return
+        }
 
         let decision = rules.decision(
             for: gym,
