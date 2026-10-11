@@ -180,6 +180,12 @@ struct Constants {
         static let logoSunset = Image("logo_sunset")
     }
 
+    /// Constants used in networking.
+    enum Networking {
+        /// Seconds with no data before a request gives up, so a dead network fails fast instead of hanging.
+        static let requestTimeout: TimeInterval = 15
+    }
+
     /// Notification identifiers used in Uplift.
     enum NotificationIds {
         static let proximityPrefix = "gymProximity."
