@@ -84,6 +84,9 @@ extension MainView {
             case .success, .offline:
                 sessionState = .signedIn
             case .needsSignIn, .needsProfileCreation:
+                // the backend rejected the keychain session so the tokens are dead,
+                // drop them or the geofences think we're signed in
+                UserSessionManager.shared.logout()
                 sessionState = isSkipped ? .guest : .signedOut
             case .error(let message):
                 Logger.data.critical("Session restore error: \(message)")
