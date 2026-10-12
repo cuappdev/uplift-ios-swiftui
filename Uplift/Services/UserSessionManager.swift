@@ -32,6 +32,10 @@ class UserSessionManager: ObservableObject {
 
     private var queryBag = Set<AnyCancellable>()
 
+    /// Everyone waiting on the refresh that's already in flight.
+    private var pendingRefreshCompletions: [(Result<Void, Error>) -> Void] = []
+    private var isRefreshing = false
+
     @Published var displayName: String? {
         didSet {
             if let displayName {
@@ -140,6 +144,11 @@ class UserSessionManager: ObservableObject {
     /// Refreshes the user's access token. If completion provided, result is used in the case that the server
     /// returns a token-expired error.
     func refreshAccessToken(completion: ((Result<Void, Error>) -> Void)?) {
+        if let completion { pendingRefreshCompletions.append(completion) }
+        // one refresh at a time, apollo calls back on main so this needs no lock
+        guard !isRefreshing else { return }
+        isRefreshing = true
+
         Network.client.mutationPublisher(
             mutation: RefreshAccessTokenMutation(),
             publishResultToStore: false,
@@ -148,20 +157,21 @@ class UserSessionManager: ObservableObject {
         .map { result -> String? in
             result.data?.refreshAccessToken?.newAccessToken
         }
-        .sink { result in
+        .sink { [weak self] result in
+            guard let self else { return }
             if case let .failure(error) = result {
                 Logger.data.critical("Error in refreshAccessToken: \(error)")
-                completion?(.failure(error))
+                self.finishRefresh(.failure(error))
             }
         } receiveValue: { [weak self] newAccessToken in
             guard let self else { return }
             if let newAccessToken {
                 self.accessToken = newAccessToken
                 Logger.data.log("Refreshed Access Token: \(newAccessToken)")
-                completion?(.success(()))
+                self.finishRefresh(.success(()))
                 // Interceptor may retry the original request when this completion succeeds
             } else {
-                completion?(.failure(GraphQLErrorWrapper(msg: "Missing new access token")))
+                self.finishRefresh(.failure(GraphQLErrorWrapper(msg: "Missing new access token")))
             }
         }
         .store(in: &queryBag)
@@ -227,6 +237,13 @@ class UserSessionManager: ObservableObject {
             return accessToken != nil ? .offline : .needsSignIn
         }
         return graphQLError.msg.contains("No user with those credentials") ? .needsProfileCreation : .needsSignIn
+    }
+
+    private func finishRefresh(_ result: Result<Void, Error>) {
+        isRefreshing = false
+        let completions = pendingRefreshCompletions
+        pendingRefreshCompletions = []
+        completions.forEach { $0(result) }
     }
 
 }
