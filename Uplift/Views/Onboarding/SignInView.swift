@@ -16,12 +16,25 @@ struct SignInView: View {
     @EnvironmentObject var mainViewModel: MainView.ViewModel
     @StateObject private var loginViewModel = LoginViewModel()
     @State private var animateElements: Bool = false
+    @State private var dontShowAgain: Bool = false
 
     static var hasShownIntro = false
 
     @StateObject private var viewModel = SignInAnimationViewModel(
         hasShownIntro: SignInView.hasShownIntro
     )
+
+    private var isCompactHeight: Bool {
+        UIScreen.main.bounds.height < Constants.SignIn.compactHeight
+    }
+
+    private var headerTopPadding: CGFloat {
+        isCompactHeight ? Constants.SignIn.headerTopPaddingCompact : Constants.SignIn.headerTopPadding
+    }
+
+    private var loginLabelTopPadding: CGFloat {
+        isCompactHeight ? Constants.SignIn.loginLabelTopPaddingCompact : Constants.SignIn.loginLabelTopPadding
+    }
 
     // MARK: - UI
 
@@ -63,9 +76,13 @@ struct SignInView: View {
 
                 loginButton
 
-                Spacer(minLength: Constants.SignIn.spacerMinLength)
-
                 skipButton
+                    .padding(.top, Constants.SignIn.skipTopPadding)
+
+                dontShowAgainToggle
+                    .padding(.top, Constants.SignIn.checkboxTopPadding)
+
+                Spacer(minLength: Constants.SignIn.spacerMinLength)
             }
         }
         .background(Color.white)
@@ -90,9 +107,36 @@ struct SignInView: View {
             mainViewModel.sessionState = .guest
         } label: {
             Text("Skip")
-                .font(Constants.Fonts.bodyNormal)
-                .foregroundColor(Constants.Colors.gray04)
+                .font(Constants.Fonts.h2)
+                .foregroundColor(Constants.Colors.black)
+                .padding(.horizontal, Constants.SignIn.buttonHorizontalPadding)
+                .padding(.vertical, Constants.SignIn.buttonVerticalPadding)
+                .background(Constants.Colors.white)
+                .cornerRadius(Constants.SignIn.buttonCornerRadius)
+                .upliftShadow(Constants.Shadows.smallLight)
         }
+        .opacity(animateElements ? 1 : 0)
+        .animation(
+            .easeIn(duration: Constants.SignIn.contentFadeDuration)
+            .delay(Constants.SignIn.contentFadeDelay),
+            value: animateElements
+        )
+    }
+
+    private var dontShowAgainToggle: some View {
+        Button {
+            dontShowAgain.toggle()
+        } label: {
+            HStack(spacing: Constants.SignIn.checkboxSpacing) {
+                dontShowAgain ? Constants.Images.checkboxFilled : Constants.Images.checkboxEmpty
+
+                Text("Don't show this again")
+                    .foregroundStyle(Constants.Colors.black)
+                    .font(Constants.Fonts.bodyBold)
+            }
+        }
+        .buttonStyle(.plain)
+        .accessibilityValue(dontShowAgain ? "Checked" : "Unchecked")
         .opacity(animateElements ? 1 : 0)
         .animation(
             .easeIn(duration: Constants.SignIn.contentFadeDuration)
@@ -236,7 +280,7 @@ struct SignInView: View {
             Text("Find what uplifts you.")
                 .font(Constants.Fonts.h1)
                 .foregroundStyle(Constants.Colors.black)
-                .padding(.top, Constants.SignIn.headerTopPadding)
+                .padding(.top, headerTopPadding)
                 .opacity(animateElements ? 1 : 0)
                 .animation(
                     .easeIn(duration: Constants.SignIn.contentFadeDuration)
@@ -247,7 +291,7 @@ struct SignInView: View {
             Text("Log in to:")
                 .font(Constants.Fonts.h2)
                 .foregroundStyle(Constants.Colors.black)
-                .padding(.top, Constants.SignIn.loginLabelTopPadding)
+                .padding(.top, loginLabelTopPadding)
                 .opacity(animateElements ? 1 : 0)
                 .animation(
                     .easeIn(duration: Constants.SignIn.contentFadeDuration)

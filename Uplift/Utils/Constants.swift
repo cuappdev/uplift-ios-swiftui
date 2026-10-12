@@ -304,6 +304,10 @@ struct Constants {
         static let buttonHorizontalPadding: CGFloat = 46
         static let buttonVerticalPadding: CGFloat = 12
         static let buttonCornerRadius: CGFloat = 38
+        static let skipTopPadding: CGFloat = 12
+
+        static let checkboxTopPadding: CGFloat = 16
+        static let checkboxSpacing: CGFloat = 8
 
         static let cardPadding: CGFloat = 12
         static let cardCornerRadius: CGFloat = 8
@@ -311,6 +315,11 @@ struct Constants {
         static let headerTopPadding: CGFloat = 212
         static let loginLabelTopPadding: CGFloat = 89
         static let cardsTopPadding: CGFloat = 24
+
+        // iPhone SE sized screens, the full header spacing pushes the checkbox off the bottom
+        static let compactHeight: CGFloat = 700
+        static let headerTopPaddingCompact: CGFloat = 160
+        static let loginLabelTopPaddingCompact: CGFloat = 48
 
         static let spacerMinLength: CGFloat = 16
 
