@@ -247,7 +247,7 @@ struct Constants {
         // Capacity Reminder Tutorial
         static let capacityTutorial = "hasSeenTutorial"
 
-        /// User chose "Skip" on sign-in and uses the app without an account until they log in.
+        /// User checked "Don't show this again" on sign-in, so they go straight to guest mode on launch.
         static let skippedLogin = "skippedLogin"
 
         // Workout Check-In

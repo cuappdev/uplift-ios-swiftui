@@ -44,7 +44,9 @@ extension MainView {
 
         @Published var sessionState: SessionState {
             didSet {
-                defaults.set(sessionState == .guest, forKey: Constants.UserDefaultsKeys.skippedLogin)
+                if sessionState != .guest {
+                    defaults.set(false, forKey: Constants.UserDefaultsKeys.skippedLogin)
+                }
             }
         }
 
@@ -76,6 +78,12 @@ extension MainView {
             GymProximityManager.shared.disable()
             resetOnboardingDraftState()
             sessionState = .signedOut
+        }
+
+        /// Enters guest mode, remembering it across launches only when the user asked not to see sign-in again.
+        func didSkip(remember: Bool) {
+            sessionState = .guest
+            defaults.set(remember, forKey: Constants.UserDefaultsKeys.skippedLogin)
         }
 
         /// sets the session state from the restore result

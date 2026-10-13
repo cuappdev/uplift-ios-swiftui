@@ -104,7 +104,7 @@ struct SignInView: View {
 
     private var skipButton: some View {
         Button {
-            mainViewModel.sessionState = .guest
+            mainViewModel.didSkip(remember: dontShowAgain)
         } label: {
             Text("Skip")
                 .font(Constants.Fonts.h2)
