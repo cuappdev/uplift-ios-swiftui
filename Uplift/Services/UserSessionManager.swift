@@ -178,6 +178,9 @@ class UserSessionManager: ObservableObject {
     }
 
     func restorePreviousSession(completion: @escaping (SessionRestoreResult) -> Void) {
+        // a locked-phone background launch caches nil at init, so read again now & re-save under the new accessibility
+        reloadFromKeychain()
+
         GIDSignIn.sharedInstance.restorePreviousSignIn { [weak self] user, error in
             guard let self = self else {
                 completion(.error("Session manager deallocated"))
@@ -244,6 +247,15 @@ class UserSessionManager: ObservableObject {
         let completions = pendingRefreshCompletions
         pendingRefreshCompletions = []
         completions.forEach { $0(result) }
+    }
+
+    private func reloadFromKeychain() {
+        // only take real values, assigning nil would delete an item that's just unreadable while locked
+        if let value = KeychainManager.shared.get(forKey: "displayName") { displayName = value }
+        if let value = KeychainManager.shared.get(forKey: "netID") { netID = value }
+        if let value = KeychainManager.shared.get(forKey: "accessToken") { accessToken = value }
+        if let value = KeychainManager.shared.get(forKey: "refreshToken") { refreshToken = value }
+        if let value = KeychainManager.shared.get(forKey: "email") { email = value }
     }
 
 }
