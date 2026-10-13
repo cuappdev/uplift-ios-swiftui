@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import OSLog
 import Security
 
 class KeychainManager {
@@ -37,7 +38,10 @@ class KeychainManager {
             kSecAttrAccessible: kSecAttrAccessibleAfterFirstUnlock,
             kSecValueData: data
         ] as CFDictionary
-        SecItemAdd(addQuery, nil)
+        let status = SecItemAdd(addQuery, nil)
+        if status != errSecSuccess {
+            Logger.services.error("Keychain save failed for \(key): \(status)")
+        }
     }
 
     func get(forKey key: String) -> String? {
@@ -65,6 +69,9 @@ class KeychainManager {
             kSecClass: kSecClassGenericPassword,
             kSecAttrAccount: key
         ] as CFDictionary
-        SecItemDelete(query)
+        let status = SecItemDelete(query)
+        if status != errSecSuccess, status != errSecItemNotFound {
+            Logger.services.error("Keychain delete failed for \(key): \(status)")
+        }
     }
 }
