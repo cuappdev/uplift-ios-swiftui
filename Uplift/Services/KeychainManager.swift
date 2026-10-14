@@ -39,6 +39,7 @@ class KeychainManager {
             kSecValueData: data
         ] as CFDictionary
         let status = SecItemAdd(addQuery, nil)
+
         if status != errSecSuccess {
             Logger.services.error("Keychain save failed for \(key): \(status)")
         }
@@ -70,6 +71,7 @@ class KeychainManager {
             kSecAttrAccount: key
         ] as CFDictionary
         let status = SecItemDelete(query)
+
         if status != errSecSuccess, status != errSecItemNotFound {
             Logger.services.error("Keychain delete failed for \(key): \(status)")
         }

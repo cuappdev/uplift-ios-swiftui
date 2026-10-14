@@ -131,8 +131,8 @@ struct SignInView: View {
                 dontShowAgain ? Constants.Images.checkboxFilled : Constants.Images.checkboxEmpty
 
                 Text("Don't show this again")
-                    .foregroundStyle(Constants.Colors.black)
                     .font(Constants.Fonts.bodyBold)
+                    .foregroundStyle(Constants.Colors.black)
             }
         }
         .buttonStyle(.plain)

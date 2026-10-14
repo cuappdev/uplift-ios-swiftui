@@ -31,7 +31,7 @@ extension WorkoutCheckInView {
         @Published var trigger: Int = 0
 
         private let threshold: Double = 0.05
-        private let cooldownDuration: TimeInterval = 2*60*60
+        private let cooldownDuration: TimeInterval = Constants.WorkoutCheckIn.dismissCooldown
         private let locationManager: LocationManaging
         private var queryBag = Set<AnyCancellable>()
 

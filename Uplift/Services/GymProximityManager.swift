@@ -143,8 +143,8 @@ final class GymProximityManager: ObservableObject {
             for: gym,
             lastArmed: lastArmed(gymId: gymId),
             checkedInToday: hasCheckedInToday(),
-            dismissedAt: dismissedAt(for: gym),
-            now: now()
+            now: now(),
+            dismissedAt: dismissedAt(for: gym)
         )
 
         switch decision {
@@ -154,16 +154,22 @@ final class GymProximityManager: ObservableObject {
             lastArmedTimes[gymId] = armedAt.timeIntervalSince1970
             Task {
                 do {
-                    try await scheduler.schedule(
+                    try await self.scheduler.schedule(
                         id: Constants.NotificationIds.proximityPrefix + gymId,
                         title: "You're near \(gym.name)",
                         body: "Check in to log your workout 💪",
-                        delay: rules.dwell
+                        delay: self.rules.dwell
                     )
+                    // cancelled or disabled while the add was in flight, so pull it back
+                    if !self.isEnabled || self.lastArmedTimes[gymId] != armedAt.timeIntervalSince1970 {
+                        self.scheduler.cancel(id: Constants.NotificationIds.proximityPrefix + gymId)
+                    }
                 } catch {
                     Logger.services.error("Could not schedule proximity notification for \(gym.name): \(error)")
                     // only drop this arm, a newer one may have replaced it
-                    if lastArmedTimes[gymId] == armedAt.timeIntervalSince1970 { lastArmedTimes[gymId] = nil }
+                    if self.lastArmedTimes[gymId] == armedAt.timeIntervalSince1970 {
+                        self.lastArmedTimes[gymId] = nil
+                    }
                 }
             }
         case .skip(let reason):

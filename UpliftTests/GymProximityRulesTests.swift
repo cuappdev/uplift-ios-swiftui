@@ -71,8 +71,8 @@ struct GymProximityRulesTests {
             for: gym,
             lastArmed: nil,
             checkedInToday: false,
-            dismissedAt: now - 3600,
-            now: now
+            now: now,
+            dismissedAt: now - 3600
         )
         #expect(decision == .skip(.dismissed))
     }
@@ -84,8 +84,8 @@ struct GymProximityRulesTests {
             for: gym,
             lastArmed: nil,
             checkedInToday: false,
-            dismissedAt: now - 3 * 3600,
-            now: now
+            now: now,
+            dismissedAt: now - 3 * 3600
         )
         #expect(decision == .arm)
     }

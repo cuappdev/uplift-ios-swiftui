@@ -316,7 +316,8 @@ struct Constants {
         static let loginLabelTopPadding: CGFloat = 89
         static let cardsTopPadding: CGFloat = 24
 
-        // iPhone SE sized screens, the full header spacing pushes the checkbox off the bottom
+        // Compact Height
+        /// Screens shorter than this (iPhone SE) use the compact header spacing so the checkbox stays on screen.
         static let compactHeight: CGFloat = 700
         static let headerTopPaddingCompact: CGFloat = 160
         static let loginLabelTopPaddingCompact: CGFloat = 48
@@ -334,5 +335,11 @@ struct Constants {
         static let enteredLogoYOffset: CGFloat = 160
         static let hiddenLogoYOffset: CGFloat = 900
 
+    }
+
+    /// Constants used in workout check-in.
+    enum WorkoutCheckIn {
+        /// How long the check-in pop-up stays hidden after the user closes it.
+        static let dismissCooldown: TimeInterval = 2 * 60 * 60
     }
 }

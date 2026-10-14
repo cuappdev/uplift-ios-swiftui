@@ -79,7 +79,7 @@ actor ClassesCache {
                 }
                 cancellable?.cancel()
             } receiveValue: { gymFields in
-                // a 200 with null data completes without a value, resume here or the continuation hangs
+                // A 200 with null data completes without a value, resume here or the continuation hangs
                 guard let gymFields else {
                     continuation.resume(throwing: GraphQLErrorWrapper(msg: "GetAllGyms returned no data"))
                     cancellable?.cancel()

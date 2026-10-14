@@ -42,7 +42,7 @@ class AuthorizationInterceptor: ApolloInterceptor {
             interceptor: self
         ) { [weak self] result in
             guard let self else { return }
-            // don't refresh again when the refresh call itself expired
+            // Don't refresh again when the refresh call itself expired
             switch result {
             case .failure(let error):
                 // Request fails with no GraphQL payload

@@ -227,9 +227,9 @@ class UserSessionManager: ObservableObject {
     /// Clears workout check-in cooldown state stored in `UserDefaults`.
     func clearWorkoutCheckInCooldown() {
         let defaults = UserDefaults.standard
-        defaults.removeObject(forKey: "lastCooldownGym")
-        defaults.removeObject(forKey: "lastCooldownTime")
-        defaults.removeObject(forKey: "lastCheckInDate")
+        defaults.removeObject(forKey: Constants.UserDefaultsKeys.checkInCooldownGym)
+        defaults.removeObject(forKey: Constants.UserDefaultsKeys.checkInCooldownTime)
+        defaults.removeObject(forKey: Constants.UserDefaultsKeys.checkInLastDate)
     }
 
     // MARK: - Helpers
@@ -239,7 +239,9 @@ class UserSessionManager: ObservableObject {
         guard let graphQLError = error as? GraphQLErrorWrapper else {
             return accessToken != nil ? .offline : .needsSignIn
         }
-        return graphQLError.msg.contains("No user with those credentials") ? .needsProfileCreation : .needsSignIn
+        if graphQLError.msg.contains("No user with those credentials") { return .needsProfileCreation }
+        // any other graphql error is the backend misbehaving not a rejection, so keep the session
+        return .error(graphQLError.msg)
     }
 
     private func finishRefresh(_ result: Result<Void, Error>) {

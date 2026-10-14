@@ -40,7 +40,7 @@ struct GymProximityRules {
     init(
         dwell: TimeInterval = 5 * 60,
         cooldown: TimeInterval = 4 * 60 * 60,
-        dismissCooldown: TimeInterval = 2 * 60 * 60
+        dismissCooldown: TimeInterval = Constants.WorkoutCheckIn.dismissCooldown
     ) {
         self.cooldown = cooldown
         self.dismissCooldown = dismissCooldown
@@ -57,8 +57,8 @@ struct GymProximityRules {
         for gym: GymSnapshot,
         lastArmed: Date?,
         checkedInToday: Bool,
-        dismissedAt: Date? = nil,
-        now: Date
+        now: Date,
+        dismissedAt: Date? = nil
     ) -> Decision {
         if checkedInToday { return .skip(.checkedInToday) }
         if let dismissedAt, now.timeIntervalSince(dismissedAt) < dismissCooldown { return .skip(.dismissed) }

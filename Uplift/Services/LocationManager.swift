@@ -54,6 +54,9 @@ class LocationManager: NSObject, ObservableObject {
 
     private let manager = CLLocationManager()
 
+    /// Regions we asked the state of right after registering them.
+    private var pendingStateRequests = Set<String>()
+
     // MARK: - Functions
 
     override init() {
@@ -86,10 +89,8 @@ class LocationManager: NSObject, ObservableObject {
 
         stopMonitoringAllRegions()
 
-        // ios only fires didEnterRegion on a boundary crossing, so ask where we already are
         for region in regions {
             manager.startMonitoring(for: region)
-            manager.requestState(for: region)
         }
     }
 
@@ -183,8 +184,15 @@ extension LocationManager: CLLocationManagerDelegate {
         regionExitedSubject.send(region.identifier)
     }
 
+    func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
+        // iOS only fires didEnterRegion on a boundary crossing, so ask where we already are
+        pendingStateRequests.insert(region.identifier)
+        manager.requestState(for: region)
+    }
+
     func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
-        guard state == .inside else { return }
+        // iOS also reports state on every crossing, only count the answer to our request so a real entry isn't doubled
+        guard pendingStateRequests.remove(region.identifier) != nil, state == .inside else { return }
         Logger.services.info("Already inside region \(region.identifier)")
         regionEnteredSubject.send(region.identifier)
     }
