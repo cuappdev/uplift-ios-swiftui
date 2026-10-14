@@ -11,6 +11,7 @@
 		135EEBAA2EC7E60B0051AD5B /* WorkoutCheckInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135EEBA92EC7E5F70051AD5B /* WorkoutCheckInViewModel.swift */; };
 		135EEBAC2EC9175B0051AD5B /* WorkoutCheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135EEBAB2EC917520051AD5B /* WorkoutCheckInView.swift */; };
 		2639EBF730802DBC0068F280 /* ToggleSelectionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2639EBF630802D9C0068F280 /* ToggleSelectionRow.swift */; };
+		2639EBFB308031080068F280 /* CheckboxDropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2639EBFA308030F90068F280 /* CheckboxDropdown.swift */; };
 		26525EED3076DBBE0003309F /* ClassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26525EEC3076DBBA0003309F /* ClassFilter.swift */; };
 		26525EF13076E1BA0003309F /* Set+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26525EF03076E1B30003309F /* Set+Extension.swift */; };
 		26525EF33076ED8E0003309F /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26525EF23076ED800003309F /* RangeSlider.swift */; };
@@ -189,6 +190,7 @@
 		135EEBA92EC7E5F70051AD5B /* WorkoutCheckInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCheckInViewModel.swift; sourceTree = "<group>"; };
 		135EEBAB2EC917520051AD5B /* WorkoutCheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCheckInView.swift; sourceTree = "<group>"; };
 		2639EBF630802D9C0068F280 /* ToggleSelectionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleSelectionRow.swift; sourceTree = "<group>"; };
+		2639EBFA308030F90068F280 /* CheckboxDropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxDropdown.swift; sourceTree = "<group>"; };
 		26525EEC3076DBBA0003309F /* ClassFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassFilter.swift; sourceTree = "<group>"; };
 		26525EF03076E1B30003309F /* Set+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Set+Extension.swift"; sourceTree = "<group>"; };
 		26525EF23076ED800003309F /* RangeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
@@ -579,6 +581,7 @@
 		2E15F50A2B3A0AF700414BEC /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
+				2639EBFA308030F90068F280 /* CheckboxDropdown.swift */,
 				2639EBF630802D9C0068F280 /* ToggleSelectionRow.swift */,
 				26525EF23076ED800003309F /* RangeSlider.swift */,
 				29C2EC1B2F95653200A7F6E2 /* DeleteAccountModal.swift */,
@@ -1089,6 +1092,7 @@
 				C066B2C4305D6FEE006613E2 /* GymSnapshot.swift in Sources */,
 				89C34AA12CA66E9C00C579A5 /* CapacityRemindersViewModel.swift in Sources */,
 				2E39D8282B3B726D00AD238B /* GymTabType.swift in Sources */,
+				2639EBFB308031080068F280 /* CheckboxDropdown.swift in Sources */,
 				2E2748CB2BCD37810023882E /* GiveawayPopup.swift in Sources */,
 				2E15F4DE2B3912C700414BEC /* Facility.swift in Sources */,
 				2E6785C22B3A5CE000DD3ADA /* GymDetailViewModel.swift in Sources */,

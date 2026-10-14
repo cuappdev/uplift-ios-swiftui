@@ -26,7 +26,7 @@ struct ToggleSelectionRow: View {
                     if index > 0 {
                         Rectangle()
                             .fill(Constants.Colors.gray01)
-                            .frame(width: 1, height: 24)
+                            .frame(width: 3, height: 28)
                     }
 
                     chip(for: option)
@@ -46,7 +46,6 @@ struct ToggleSelectionRow: View {
                     .font(isSelected ? Constants.Fonts.bodySemibold : Constants.Fonts.bodyLight)
                     .foregroundStyle(Constants.Colors.black)
 
-                // Always reserve space so the row doesn't shift when toggled
                 Circle()
                     .fill(Constants.Colors.yellow)
                     .frame(width: 6, height: 6)
@@ -60,10 +59,10 @@ struct ToggleSelectionRow: View {
 }
 
 #Preview {
-    ToggleChipRowPreview()
+    ToggleSelectionRowPreview()
 }
 
-private struct ToggleChipRowPreview: View {
+private struct ToggleSelectionRowPreview: View {
 
     @State private var selection: Set<String> = ["Noyes"]
 
