@@ -156,8 +156,13 @@ struct WorkoutReminderEditView: View {
                     .font(Constants.Fonts.h3)
             }
             .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
-            .background(Constants.Colors.black)
+            .background(
+                viewModel.selectedDays.isEmpty
+                    ? Constants.Colors.gray03
+                    : Constants.Colors.black
+            )
         }
+        .disabled(viewModel.selectedDays.isEmpty)
         .cornerRadius(38)
         .upliftShadow(Constants.Shadows.smallLight)
     }

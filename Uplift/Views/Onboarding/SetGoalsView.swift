@@ -77,6 +77,11 @@ struct SetGoalsView: View {
             viewModel.sliderWorkoutGoal = Double(user.workoutGoal ?? 1)
             viewModel.currWorkoutGoal = user.workoutGoal ?? 1
         }
+        .onChange(of: viewModel.reminders) { _ in
+            if viewModel.hasUnsavedChanges {
+                inSavedState = false
+            }
+        }
         .showModal($viewModel.showWarningModal) {
             GoalSettingWarningModal(
                 onContinue: {
