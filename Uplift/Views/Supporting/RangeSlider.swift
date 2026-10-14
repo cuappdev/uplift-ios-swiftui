@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+/// A slider with two thumbs used to select a range of values. 
 struct RangeSlider: View {
 
     // MARK: - Properties

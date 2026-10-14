@@ -9,7 +9,7 @@
 import Foundation
 
 extension Set {
-    
+
     /// Inserts the element if it is not in this set, otherwise removes it.
     mutating func toggle(_ element: Element) {
         if contains(element) {
