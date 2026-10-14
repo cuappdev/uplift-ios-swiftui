@@ -301,7 +301,7 @@ struct Constants {
         static let thirdCardDelay: Double = 3.5
         static let cardsHorizontalPadding: CGFloat = 76
 
-        static let buttonHorizontalPadding: CGFloat = 46
+        static let buttonWidth: CGFloat = 192
         static let buttonVerticalPadding: CGFloat = 12
         static let buttonCornerRadius: CGFloat = 38
         static let skipTopPadding: CGFloat = 12

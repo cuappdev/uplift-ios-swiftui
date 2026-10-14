@@ -74,13 +74,16 @@ struct SignInView: View {
             VStack {
                 signInHeader
 
-                loginButton
+                // checkbox lines up with the left edge of the buttons
+                VStack(alignment: .leading) {
+                    loginButton
 
-                skipButton
-                    .padding(.top, Constants.SignIn.skipTopPadding)
+                    skipButton
+                        .padding(.top, Constants.SignIn.skipTopPadding)
 
-                dontShowAgainToggle
-                    .padding(.top, Constants.SignIn.checkboxTopPadding)
+                    dontShowAgainToggle
+                        .padding(.top, Constants.SignIn.checkboxTopPadding)
+                }
 
                 Spacer(minLength: Constants.SignIn.spacerMinLength)
             }
@@ -109,7 +112,7 @@ struct SignInView: View {
             Text("Skip")
                 .font(Constants.Fonts.h2)
                 .foregroundColor(Constants.Colors.black)
-                .padding(.horizontal, Constants.SignIn.buttonHorizontalPadding)
+                .frame(width: Constants.SignIn.buttonWidth)
                 .padding(.vertical, Constants.SignIn.buttonVerticalPadding)
                 .background(Constants.Colors.white)
                 .cornerRadius(Constants.SignIn.buttonCornerRadius)
@@ -182,7 +185,7 @@ struct SignInView: View {
             Text("Log in")
                 .font(Constants.Fonts.h2)
                 .foregroundColor(Constants.Colors.black)
-                .padding(.horizontal, Constants.SignIn.buttonHorizontalPadding)
+                .frame(width: Constants.SignIn.buttonWidth)
                 .padding(.vertical, Constants.SignIn.buttonVerticalPadding)
                 .background(Constants.Colors.yellow)
                 .cornerRadius(Constants.SignIn.buttonCornerRadius)
