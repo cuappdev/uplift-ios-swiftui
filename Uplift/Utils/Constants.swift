@@ -180,6 +180,12 @@ struct Constants {
         static let logoSunset = Image("logo_sunset")
     }
 
+    /// Constants used in networking.
+    enum Networking {
+        /// Seconds with no data before a request gives up, so a dead network fails fast instead of hanging.
+        static let requestTimeout: TimeInterval = 15
+    }
+
     /// Notification identifiers used in Uplift.
     enum NotificationIds {
         static let proximityPrefix = "gymProximity."
@@ -241,7 +247,7 @@ struct Constants {
         // Capacity Reminder Tutorial
         static let capacityTutorial = "hasSeenTutorial"
 
-        /// User chose "Skip" on sign-in and uses the app without an account until they log in.
+        /// User checked "Don't show this again" on sign-in, so they go straight to guest mode on launch.
         static let skippedLogin = "skippedLogin"
 
         // Workout Check-In
@@ -295,9 +301,13 @@ struct Constants {
         static let thirdCardDelay: Double = 3.5
         static let cardsHorizontalPadding: CGFloat = 76
 
-        static let buttonHorizontalPadding: CGFloat = 46
+        static let buttonWidth: CGFloat = 192
         static let buttonVerticalPadding: CGFloat = 12
         static let buttonCornerRadius: CGFloat = 38
+        static let skipTopPadding: CGFloat = 12
+
+        static let checkboxTopPadding: CGFloat = 16
+        static let checkboxSpacing: CGFloat = 8
 
         static let cardPadding: CGFloat = 12
         static let cardCornerRadius: CGFloat = 8
@@ -305,6 +315,12 @@ struct Constants {
         static let headerTopPadding: CGFloat = 212
         static let loginLabelTopPadding: CGFloat = 89
         static let cardsTopPadding: CGFloat = 24
+
+        // Compact Height
+        /// Screens shorter than this (iPhone SE) use the compact header spacing so the checkbox stays on screen.
+        static let compactHeight: CGFloat = 700
+        static let headerTopPaddingCompact: CGFloat = 160
+        static let loginLabelTopPaddingCompact: CGFloat = 48
 
         static let spacerMinLength: CGFloat = 16
 
@@ -319,5 +335,11 @@ struct Constants {
         static let enteredLogoYOffset: CGFloat = 160
         static let hiddenLogoYOffset: CGFloat = 900
 
+    }
+
+    /// Constants used in workout check-in.
+    enum WorkoutCheckIn {
+        /// How long the check-in pop-up stays hidden after the user closes it.
+        static let dismissCooldown: TimeInterval = 2 * 60 * 60
     }
 }

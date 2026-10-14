@@ -115,14 +115,11 @@ struct FitnessCenterView: View {
     }
 
     private var expandedHours: some View {
-        VStack(spacing: 8) {
+        VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 8) {
                 Constants.Images.clock
 
                 expandHoursButton
-
-                // Fix alignment issues
-                viewModel.fitnessCenterHours.first != "Closed" ? Spacer() : nil
             }
 
             if viewModel.expandHours {
@@ -135,14 +132,11 @@ struct FitnessCenterView: View {
                         Text(viewModel.fitnessCenterHours[index])
                             .font(Constants.Fonts.f2Regular)
                             .frame(minWidth: 84, alignment: .leading)
-
-                        // Fix alignment issues
-                        viewModel.fitnessCenterHours.first != "Closed" ? Spacer() : nil
                     }
                 }
             }
         }
-        .frame(width: 232)
+        .frame(width: 232, alignment: .leading)
         .foregroundStyle(Constants.Colors.black)
     }
 
