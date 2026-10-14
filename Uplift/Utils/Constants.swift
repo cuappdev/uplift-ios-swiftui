@@ -183,6 +183,7 @@ struct Constants {
     /// Notification identifiers used in Uplift.
     enum NotificationIds {
         static let proximityPrefix = "gymProximity."
+        static let reminderPrefix = "workoutReminder."
     }
 
     /// Padding amounts used in Uplift.
