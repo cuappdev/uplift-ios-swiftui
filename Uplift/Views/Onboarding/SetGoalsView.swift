@@ -72,6 +72,7 @@ struct SetGoalsView: View {
             }
         }
         .onAppear {
+            viewModel.loadReminders()
             guard !isOnboarding, let user = user else { return }
             viewModel.sliderWorkoutGoal = Double(user.workoutGoal ?? 1)
             viewModel.currWorkoutGoal = user.workoutGoal ?? 1
@@ -79,6 +80,8 @@ struct SetGoalsView: View {
         .showModal($viewModel.showWarningModal) {
             GoalSettingWarningModal(
                 onContinue: {
+                    viewModel.saveReminders()
+
                     if let user = user, let userId = Int(user.id) {
                         viewModel.setWorkoutGoal(
                             userId: userId,
@@ -302,7 +305,10 @@ struct SetGoalsView: View {
     private var saveButton: some View {
         Button {
             withAnimation {
-                if isGoalChangeLocked {
+                if viewModel.isWorkoutGoal {
+                    viewModel.saveReminders()
+                    inSavedState = true
+                } else if isGoalChangeLocked {
                     viewModel.showErrorModal = true
                 } else {
                     viewModel.showWarningModal = true
@@ -314,11 +320,11 @@ struct SetGoalsView: View {
                 .foregroundColor(Constants.Colors.white)
                 .padding(.horizontal, 32)
                 .padding(.vertical, 12)
-                .background(viewModel.isWorkoutGoal ? Constants.Colors.gray03 : Constants.Colors.black)
+                .background(viewModel.hasUnsavedChanges ? Constants.Colors.black : Constants.Colors.gray03)
                 .cornerRadius(30)
                 .upliftShadow(Constants.Shadows.smallLight)
         }
-        .disabled(viewModel.isWorkoutGoal)
+        .disabled(!viewModel.hasUnsavedChanges)
     }
 
     private var savedLabel: some View {

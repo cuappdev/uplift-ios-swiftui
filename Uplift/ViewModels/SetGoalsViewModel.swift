@@ -27,6 +27,10 @@ extension SetGoalsView {
 
         private var queryBag = Set<AnyCancellable>()
 
+        var hasUnsavedChanges: Bool {
+            !isWorkoutGoal || haveRemindersChanged
+        }
+
         // MARK: - Helpers
 
         /// Whether the workout goal slider is the same as the existing workout goal.
@@ -91,5 +95,38 @@ extension SetGoalsView {
             .store(in: &queryBag)
         }
 
+        func saveReminders() {
+            do {
+                let encoder = JSONEncoder()
+                let remindersJson = try encoder.encode(reminders)
+
+                UserDefaults.standard.set(remindersJson, forKey: "workoutReminders")
+            } catch {
+                print("Error encoding JSON: \(error)")
+            }
+        }
+
+        func loadReminders() {
+            guard let data = UserDefaults.standard.data(forKey: "workoutReminders") else {
+                reminders = []
+                return
+            }
+
+            do {
+                reminders = try JSONDecoder().decode([WorkoutReminder].self, from: data)
+            } catch {
+                print("Error decoding reminders: \(error)")
+            }
+        }
+
+        var haveRemindersChanged: Bool {
+            guard let data = UserDefaults.standard.data(forKey: "workoutReminders"),
+                  let savedReminders = try? JSONDecoder().decode([WorkoutReminder].self, from: data)
+            else {
+                return !reminders.isEmpty
+            }
+
+            return reminders != savedReminders
+        }
     }
 }

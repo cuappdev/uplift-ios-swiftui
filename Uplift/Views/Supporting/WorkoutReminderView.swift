@@ -86,7 +86,7 @@ struct WorkoutReminderView: View {
 }
 
 // TODO: Temporary Reminder model
-struct WorkoutReminder: Hashable {
+struct WorkoutReminder: Hashable, Codable {
     let selectedDays: [DayOfWeek]
     let isAllDay: Bool
     let time: String
