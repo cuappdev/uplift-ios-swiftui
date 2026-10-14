@@ -30,9 +30,11 @@ class KeychainManager {
         ] as CFDictionary
         SecItemDelete(query)
 
+        // readable on a locked phone so background wakes (gym reminders) can see the session
         let addQuery = [
             kSecClass: kSecClassGenericPassword,
             kSecAttrAccount: key,
+            kSecAttrAccessible: kSecAttrAccessibleAfterFirstUnlock,
             kSecValueData: data
         ] as CFDictionary
         SecItemAdd(addQuery, nil)
