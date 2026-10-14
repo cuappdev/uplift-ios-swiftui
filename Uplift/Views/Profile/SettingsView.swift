@@ -155,7 +155,6 @@ struct SettingsView: View {
             DividerLine()
             //DEBUG SO I CAN PREVIEW GOALS
 
-
             Button {
                 onLogout()
             } label: {

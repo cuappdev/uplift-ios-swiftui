@@ -19,6 +19,7 @@ struct WorkoutReminderEditView: View {
     let isNew: Bool
     let onCreate: (WorkoutReminder) -> Void
     let onUpdate: (WorkoutReminder) -> Void
+    let onDelete: () -> Void
     let reminder: WorkoutReminder?
 
     @State private var isSettingTime = false
@@ -31,12 +32,14 @@ struct WorkoutReminderEditView: View {
         isNew: Bool,
         onCreate: @escaping (WorkoutReminder) -> Void = { _ in },
         onUpdate: @escaping (WorkoutReminder) -> Void = { _ in },
+        onDelete: @escaping () -> Void = {},
         reminder: WorkoutReminder? = nil
     ) {
         self._inEditMode = inEditMode
         self.isNew = isNew
         self.onCreate = onCreate
         self.onUpdate = onUpdate
+        self.onDelete = onDelete
         self.reminder = reminder
     }
 
@@ -102,8 +105,7 @@ struct WorkoutReminderEditView: View {
                 }
             } else {
                 // If this is an existing reminder, delete the reminder
-                // TODO: Implement deleting reminders
-
+                onDelete()
                 withAnimation {
                     inEditMode = false
                 }

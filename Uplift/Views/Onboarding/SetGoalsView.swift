@@ -283,12 +283,18 @@ struct SetGoalsView: View {
                 WorkoutReminderView(
                     isAllDay: reminder.isAllDay,
                     selectedDays: reminder.selectedDays,
-                    time: reminder.time
-                ) { updatedReminder in
-                    if let index = viewModel.reminders.firstIndex(of: reminder) {
-                        viewModel.reminders[index] = updatedReminder
+                    time: reminder.time,
+                    onUpdate: { updatedReminder in
+                        if let index = viewModel.reminders.firstIndex(of: reminder) {
+                            viewModel.reminders[index] = updatedReminder
+                        }
+                    },
+                    onDelete: {
+                        if let index = viewModel.reminders.firstIndex(of: reminder) {
+                            viewModel.reminders.remove(at: index)
+                        }
                     }
-                }
+                )
             }
         }
     }

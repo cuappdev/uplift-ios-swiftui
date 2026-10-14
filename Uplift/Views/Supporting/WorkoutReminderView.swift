@@ -20,6 +20,7 @@ struct WorkoutReminderView: View {
     let selectedDays: [DayOfWeek]
     let time: String
     let onUpdate: (WorkoutReminder) -> Void
+    let onDelete: () -> Void
 
     // MARK: - UI
 
@@ -28,7 +29,9 @@ struct WorkoutReminderView: View {
             WorkoutReminderEditView(
                 inEditMode: $isEditable,
                 isNew: false,
-                onUpdate: onUpdate, reminder: WorkoutReminder(
+                onUpdate: onUpdate,
+                onDelete: onDelete,
+                reminder: WorkoutReminder(
                     selectedDays: selectedDays,
                     isAllDay: isAllDay,
                     time: time
