@@ -14,7 +14,7 @@ struct WorkoutReminderView: View {
     // MARK: - Properties
 
     @StateObject private var viewModel = ViewModel()
-    @State private var isEditable = false
+    @Binding var editingReminder: WorkoutReminder?
     @State private var isOn = true
     let isAllDay: Bool
     let selectedDays: [DayOfWeek]
@@ -22,12 +22,31 @@ struct WorkoutReminderView: View {
     let onUpdate: (WorkoutReminder) -> Void
     let onDelete: () -> Void
 
+    private var isEditable: Binding<Bool> {
+        Binding(
+            get: {
+                editingReminder == WorkoutReminder(
+                    selectedDays: selectedDays,
+                    isAllDay: isAllDay,
+                    time: time
+                )
+            },
+            set: { newValue in
+                if !newValue {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        editingReminder = nil
+                    }
+                }
+            }
+        )
+    }
+
     // MARK: - UI
 
     var body: some View {
-        if isEditable {
+        if isEditable.wrappedValue {
             WorkoutReminderEditView(
-                inEditMode: $isEditable,
+                inEditMode: isEditable,
                 isNew: false,
                 onUpdate: onUpdate,
                 onDelete: onDelete,
@@ -79,7 +98,13 @@ struct WorkoutReminderView: View {
         )
         .upliftShadow(Constants.Shadows.smallLight)
         .onTapGesture {
-            isEditable = true
+            withAnimation(.easeInOut(duration: 0.3)) {
+                    editingReminder = WorkoutReminder(
+                        selectedDays: selectedDays,
+                        isAllDay: isAllDay,
+                        time: time
+                    )
+            }
         }
     }
 

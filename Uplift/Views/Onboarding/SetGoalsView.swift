@@ -23,6 +23,7 @@ struct SetGoalsView: View {
     @State private var isEveryDay = false
     @State private var isSettingTime = false
     @State private var showNewReminder = false
+    @State private var editingReminder: WorkoutReminder?
     @State private var inSavedState = false
 
     private var isGoalChangeLocked: Bool {
@@ -271,13 +272,21 @@ struct SetGoalsView: View {
                 } label: {
                     Constants.Images.addCircle
                         .renderingMode(.template)
-                        .foregroundStyle(showNewReminder ? Constants.Colors.gray01 : Constants.Colors.black)
+                        .foregroundStyle(
+                            (showNewReminder || editingReminder != nil)
+                                ? Constants.Colors.gray01
+                                : Constants.Colors.black
+                        )
 
                     Text("New Reminder")
-                        .foregroundStyle(showNewReminder ? Constants.Colors.gray01 : Constants.Colors.black)
+                        .foregroundStyle(
+                            (showNewReminder || editingReminder != nil)
+                                ? Constants.Colors.gray01
+                                : Constants.Colors.black
+                        )
                         .font(Constants.Fonts.f2)
                 }
-                .disabled(showNewReminder)
+                .disabled(showNewReminder || editingReminder != nil)
 
                 Spacer()
             }
@@ -295,21 +304,28 @@ struct SetGoalsView: View {
     private var reminders: some View {
         VStack(spacing: 24) {
             ForEach(viewModel.reminders, id: \.self) { reminder in
-                WorkoutReminderView(
-                    isAllDay: reminder.isAllDay,
-                    selectedDays: reminder.selectedDays,
-                    time: reminder.time,
-                    onUpdate: { updatedReminder in
-                        if let index = viewModel.reminders.firstIndex(of: reminder) {
-                            viewModel.reminders[index] = updatedReminder
+                if editingReminder == nil || editingReminder == reminder {
+                    WorkoutReminderView(
+                        editingReminder: $editingReminder,
+                        isAllDay: reminder.isAllDay,
+                        selectedDays: reminder.selectedDays,
+                        time: reminder.time,
+                        onUpdate: { updatedReminder in
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                if let index = viewModel.reminders.firstIndex(of: reminder) {
+                                    viewModel.reminders[index] = updatedReminder
+                                }
+                            }
+                        },
+                        onDelete: {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                if let index = viewModel.reminders.firstIndex(of: reminder) {
+                                    viewModel.reminders.remove(at: index)
+                                }
+                            }
                         }
-                    },
-                    onDelete: {
-                        if let index = viewModel.reminders.firstIndex(of: reminder) {
-                            viewModel.reminders.remove(at: index)
-                        }
-                    }
-                )
+                    )
+                }
             }
         }
     }
