@@ -60,6 +60,13 @@ struct RemindersView: View {
 
     private var content: some View {
         VStack {
+
+            NavigationLink {
+                SetGoalsView(isOnboarding: false)
+            } label: {
+                reminderRow(icon: Constants.Images.gymSimple, title: "Workout Reminders")
+            }
+
             NavigationLink {
                 CapacityRemindersView()
             } label: {

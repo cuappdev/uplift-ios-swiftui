@@ -110,28 +110,6 @@ struct SettingsView: View {
 
             DividerLine()
 
-            // DEBUG SO I CAN PREVIEW GOALS
-            NavigationLink {
-                SetGoalsView(isOnboarding: false)
-            } label: {
-                HStack {
-                    Image(systemName: "hammer.fill")
-                        .frame(width: 24, alignment: .center)
-
-                    Text("Goals DEBUG")
-                        .font(Constants.Fonts.bodyNormal)
-                        .foregroundStyle(Constants.Colors.black)
-
-                    Spacer()
-
-                    Constants.Images.chevronRight
-                        .frame(width: 24, alignment: .center)
-                }
-            }
-            .buttonStyle(.plain)
-
-            DividerLine()
-
             NavigationLink {
                 RemindersView()
             } label: {
