@@ -30,5 +30,26 @@ extension WorkoutReminderEditView {
             selectedDays = isEveryDay ? DayOfWeek.sortedDaysOfWeek() : []
         }
 
+        func loadReminder(_ reminder: WorkoutReminder) {
+            selectedDays = reminder.selectedDays
+
+            if !reminder.isAllDay {
+                let components = reminder.time.split(separator: " ")
+                guard components.count == 2 else { return }
+
+                let timeComponents = components[0].split(separator: ":")
+                guard timeComponents.count == 2,
+                      let hour = Int(timeComponents[0]),
+                      let minutes = Int(timeComponents[1])
+                else {
+                    return
+                }
+
+                self.hour = hour
+                self.minutes = minutes
+                timeSuffix = String(components[1])
+            }
+        }
+
     }
 }

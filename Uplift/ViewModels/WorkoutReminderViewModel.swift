@@ -32,12 +32,5 @@ extension WorkoutReminderView {
             return days.map { $0.dayOfWeekAbbreviation() }.sorted().joined(separator: " ")
         }
 
-        /// Converts the given `time` to a string.
-        func timeToString(_ time: String) -> String {
-            // TODO: Fix after figuring out time object in backend
-//            "3:00 PM"
-            time //rn im not sure if this function is necessary
-        }
-
     }
 }

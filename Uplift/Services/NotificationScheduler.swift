@@ -8,6 +8,7 @@
 
 import Foundation
 import UserNotifications
+import OSLog
 
 /// Something that can schedule and cancel local notifications.
 protocol NotificationScheduling {

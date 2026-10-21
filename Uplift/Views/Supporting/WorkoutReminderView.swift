@@ -64,7 +64,7 @@ struct WorkoutReminderView: View {
             }
 
             HStack {
-                Text(isAllDay ? "All-Day" : viewModel.timeToString(time))
+                Text(isAllDay ? "All-Day" : time)
                     .foregroundStyle(isOn ? Constants.Colors.black : Constants.Colors.gray03)
                     .font(Constants.Fonts.bodyBold)
                     .padding(.leading, 16)

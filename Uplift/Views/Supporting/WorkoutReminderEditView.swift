@@ -78,8 +78,13 @@ struct WorkoutReminderEditView: View {
             )
             .upliftShadow(Constants.Shadows.smallLight)
             .onAppear {
-                if !isNew {
-                    loadReminder()
+                if !isNew, let reminder {
+                    viewModel.loadReminder(reminder)
+
+                    withAnimation {
+                        isEveryDay = reminder.selectedDays.count == 7
+                        isSettingTime = !reminder.isAllDay
+                    }
                 }
             }
 
@@ -134,7 +139,7 @@ struct WorkoutReminderEditView: View {
                     viewModel.timeSuffix
                 )
 
-            let newReminder = WorkoutReminder(selectedDays: viewModel.selectedDays, isAllDay: !isSettingTime, time: isSettingTime ? time : "")
+            let newReminder = WorkoutReminder(selectedDays: viewModel.selectedDays, isAllDay: !isSettingTime, time: isSettingTime ? time : "9:00 AM")
 
             if isNew {
                 // If this is a new reminder, add this new reminder
@@ -262,35 +267,6 @@ struct WorkoutReminderEditView: View {
                     .labelsHidden()
                 }
             ) : nil
-        }
-    }
-
-    //TODO: MOVE INTO THE VIEWMODEL
-    // for when you click on an existing reminder so you can edit it
-    private func loadReminder() {
-        guard let reminder else { return }
-
-        viewModel.selectedDays = reminder.selectedDays
-        isEveryDay = reminder.selectedDays.count == 7
-        isSettingTime = !reminder.isAllDay
-
-        if !reminder.isAllDay {
-            let components = reminder.time.split(separator: " ")
-
-            guard components.count == 2 else { return }
-
-            let timeComponents = components[0].split(separator: ":")
-
-            guard timeComponents.count == 2,
-                  let hour = Int(timeComponents[0]),
-                  let minutes = Int(timeComponents[1])
-            else {
-                return
-            }
-
-            viewModel.hour = hour
-            viewModel.minutes = minutes
-            viewModel.timeSuffix = String(components[1])
         }
     }
 }

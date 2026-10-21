@@ -167,7 +167,6 @@ struct SetGoalsView: View {
         ScrollView {
             VStack(spacing: 40) {
                 workoutDays
-                // TODO: Workout reminders feature is archived for now
                 workoutReminders
 
                 if !isOnboarding {
