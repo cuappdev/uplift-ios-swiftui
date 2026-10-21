@@ -51,5 +51,21 @@ extension WorkoutReminderEditView {
             }
         }
 
+        func makeReminder(isSettingTime: Bool, isEnabled: Bool) -> WorkoutReminder {
+            let time = String(
+                format: "%d:%02d %@",
+                hour,
+                minutes,
+                timeSuffix
+            )
+
+            return WorkoutReminder(
+                selectedDays: selectedDays,
+                isAllDay: !isSettingTime,
+                time: isSettingTime ? time : "9:00 AM",
+                isEnabled: isEnabled
+            )
+        }
+
     }
 }

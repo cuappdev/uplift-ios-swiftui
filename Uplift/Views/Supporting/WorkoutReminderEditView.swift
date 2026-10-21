@@ -14,7 +14,6 @@ struct WorkoutReminderEditView: View {
     // MARK: - Properties
 
     @StateObject private var viewModel = ViewModel()
-    @State private var isEveryDay = false
 
     let isNew: Bool
     let onCreate: (WorkoutReminder) -> Void
@@ -24,6 +23,10 @@ struct WorkoutReminderEditView: View {
 
     @State private var isSettingTime = false
     @Binding var inEditMode: Bool
+
+    private var isEveryDay: Bool {
+        viewModel.selectedDays.count == 7
+    }
 
     // MARK: - Initalizer
 
@@ -53,8 +56,7 @@ struct WorkoutReminderEditView: View {
 
                     Button {
                         withAnimation {
-                            isEveryDay.toggle()
-                            viewModel.setEveryDay(isEveryDay)
+                            viewModel.setEveryDay(!isEveryDay)
                         }
                     } label: {
                         HStack(spacing: 12) {
@@ -80,11 +82,7 @@ struct WorkoutReminderEditView: View {
             .onAppear {
                 if !isNew, let reminder {
                     viewModel.loadReminder(reminder)
-
-                    withAnimation {
-                        isEveryDay = reminder.selectedDays.count == 7
-                        isSettingTime = !reminder.isAllDay
-                    }
+                    isSettingTime = !reminder.isAllDay
                 }
             }
 
@@ -103,7 +101,7 @@ struct WorkoutReminderEditView: View {
         Button {
             if isNew {
                 // If this is a new reminder, clear and reset
-                isEveryDay = false
+                viewModel.setEveryDay(false)
                 isSettingTime = false
                 withAnimation {
                     inEditMode = false
@@ -132,14 +130,11 @@ struct WorkoutReminderEditView: View {
 
     private var doneButton: some View {
         Button {
-            let time = String(
-                    format: "%d:%02d %@",
-                    viewModel.hour,
-                    viewModel.minutes,
-                    viewModel.timeSuffix
-                )
 
-            let newReminder = WorkoutReminder(selectedDays: viewModel.selectedDays, isAllDay: !isSettingTime, time: isSettingTime ? time : "9:00 AM")
+            let newReminder = viewModel.makeReminder(
+                isSettingTime: isSettingTime,
+                isEnabled: reminder?.isEnabled ?? true
+            )
 
             if isNew {
                 // If this is a new reminder, add this new reminder

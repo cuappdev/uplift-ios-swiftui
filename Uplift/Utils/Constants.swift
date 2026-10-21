@@ -401,4 +401,12 @@ struct Constants {
         static let cooldownDuration: TimeInterval = 2*60*60
         static let dismissCooldown: TimeInterval = 2 * 60 * 60
     }
+
+    enum Goals {
+        static let animationDuration = 0.3
+    }
+
+    enum WorkoutReminders {
+
+    }
 }

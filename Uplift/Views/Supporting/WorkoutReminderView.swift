@@ -15,7 +15,10 @@ struct WorkoutReminderView: View {
 
     @StateObject private var viewModel = ViewModel()
     @Binding var editingReminder: WorkoutReminder?
-    @State private var isOn = true
+
+    let isEnabled: Bool
+    let onToggle: (Bool) -> Void
+
     let isAllDay: Bool
     let selectedDays: [DayOfWeek]
     let time: String
@@ -66,7 +69,7 @@ struct WorkoutReminderView: View {
             HStack {
                 VStack {
                     Text(viewModel.daysToString(selectedDays))
-                        .foregroundStyle(isOn ? Constants.Colors.black : Constants.Colors.gray03)
+                        .foregroundStyle(isEnabled ? Constants.Colors.black : Constants.Colors.gray03)
                         .font(Constants.Fonts.reminder)
                 }
                 .padding(EdgeInsets(top: 8, leading: 14, bottom: 8, trailing: 14))
@@ -77,14 +80,20 @@ struct WorkoutReminderView: View {
 
                 Spacer()
 
-                Toggle("", isOn: $isOn.animation())
-                    .tint(Constants.Colors.yellow)
-                    .labelsHidden()
+                Toggle(
+                    "",
+                    isOn: Binding(
+                        get: { isEnabled },
+                        set: { onToggle($0) }
+                    ).animation()
+                )
+                .tint(Constants.Colors.yellow)
+                .labelsHidden()
             }
 
             HStack {
                 Text(isAllDay ? "All-Day" : time)
-                    .foregroundStyle(isOn ? Constants.Colors.black : Constants.Colors.gray03)
+                    .foregroundStyle(isEnabled ? Constants.Colors.black : Constants.Colors.gray03)
                     .font(Constants.Fonts.bodyBold)
                     .padding(.leading, 16)
 
@@ -108,11 +117,4 @@ struct WorkoutReminderView: View {
         }
     }
 
-}
-
-// TODO: Temporary Reminder model
-struct WorkoutReminder: Hashable, Codable {
-    let selectedDays: [DayOfWeek]
-    let isAllDay: Bool
-    let time: String
 }

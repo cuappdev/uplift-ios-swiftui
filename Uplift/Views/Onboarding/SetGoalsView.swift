@@ -20,8 +20,6 @@ struct SetGoalsView: View {
     @EnvironmentObject var mainViewModel: MainView.ViewModel
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = ViewModel()
-    @State private var isEveryDay = false
-    @State private var isSettingTime = false
     @State private var showNewReminder = false
     @State private var editingReminder: WorkoutReminder?
     @State private var inSavedState = false
@@ -95,7 +93,7 @@ struct SetGoalsView: View {
                         ) { result in
                             switch result {
                             case .success:
-                                withAnimation(.easeInOut(duration: 0.3)) {
+                                withAnimation(.easeInOut(duration: Constants.Goals.animationDuration)) {
                                     inSavedState = true
                                     viewModel.currWorkoutGoal = Int(viewModel.sliderWorkoutGoal)
                                 }
@@ -106,12 +104,12 @@ struct SetGoalsView: View {
                     } else {
                         Logger.data.error("Error in SetGoalsView: Failed to save workout goal because `user.id` was invalid (not an Int).")
                     }
-                    withAnimation(.easeInOut(duration: 0.3)) {
+                    withAnimation(.easeInOut(duration: Constants.Goals.animationDuration)) {
                         viewModel.showWarningModal = false
                     }
                 },
                 onCancel: {
-                    withAnimation(.easeInOut(duration: 0.3)) {
+                    withAnimation(.easeInOut(duration: Constants.Goals.animationDuration)) {
                         viewModel.showWarningModal = false
                     }
                 }
@@ -120,7 +118,7 @@ struct SetGoalsView: View {
         .showModal($viewModel.showErrorModal) {
             GoalSettingErrorModal(
                 onCancel: {
-                    withAnimation(.easeInOut(duration: 0.3)) {
+                    withAnimation(.easeInOut(duration: Constants.Goals.animationDuration)) {
                         viewModel.showErrorModal = false
                     }
                 },
@@ -307,18 +305,22 @@ struct SetGoalsView: View {
                 if editingReminder == nil || editingReminder == reminder {
                     WorkoutReminderView(
                         editingReminder: $editingReminder,
+                        isEnabled: reminder.isEnabled,
+                        onToggle: { isEnabled in
+                            viewModel.toggleReminder(reminder, isEnabled: isEnabled)
+                        },
                         isAllDay: reminder.isAllDay,
                         selectedDays: reminder.selectedDays,
                         time: reminder.time,
                         onUpdate: { updatedReminder in
-                            withAnimation(.easeInOut(duration: 0.3)) {
+                            withAnimation(.easeInOut(duration: Constants.Goals.animationDuration)) {
                                 if let index = viewModel.reminders.firstIndex(of: reminder) {
                                     viewModel.reminders[index] = updatedReminder
                                 }
                             }
                         },
                         onDelete: {
-                            withAnimation(.easeInOut(duration: 0.3)) {
+                            withAnimation(.easeInOut(duration: Constants.Goals.animationDuration)) {
                                 if let index = viewModel.reminders.firstIndex(of: reminder) {
                                     viewModel.reminders.remove(at: index)
                                 }

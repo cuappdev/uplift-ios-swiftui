@@ -163,6 +163,14 @@ extension SetGoalsView {
             }
         }
 
+        func toggleReminder(_ reminder: WorkoutReminder, isEnabled: Bool) {
+            guard let index = reminders.firstIndex(of: reminder) else {
+                return
+            }
+
+            reminders[index].isEnabled = isEnabled
+        }
+
         var haveRemindersChanged: Bool {
             guard let data = UserDefaults.standard.data(forKey: "workoutReminders"),
                   let savedReminders = try? JSONDecoder().decode([WorkoutReminder].self, from: data)
@@ -177,7 +185,8 @@ extension SetGoalsView {
             var scheduledIds: [String] = []
 
             for (index, reminder) in reminders.enumerated() {
-                guard let time = reminderTime(reminder) else {
+                guard reminder.isEnabled,
+                      let time = reminderTime(reminder) else {
                     continue
                 }
 

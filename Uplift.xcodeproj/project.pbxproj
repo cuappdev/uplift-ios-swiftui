@@ -107,6 +107,7 @@
 		2EF1A2582B129EEB007A299F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1A2572B129EEB007A299F /* Network.swift */; };
 		52A30D3A3053B7E3002AE86C /* IntroAnimationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A30D393053B7DF002AE86C /* IntroAnimationViewModel.swift */; };
 		52A30D3C3053B9B8002AE86C /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A30D3B3053B9B4002AE86C /* SignInViewModel.swift */; };
+		52B0584E308978800011E20D /* WorkoutReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B0584D3089787D0011E20D /* WorkoutReminder.swift */; };
 		63001AD62CC9ACFF0082AFFA /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63001AD52CC9ACFF0082AFFA /* LoginViewModel.swift */; };
 		63001AD82CC9AD970082AFFA /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 63001AD72CC9AD970082AFFA /* GoogleSignIn */; };
 		63001ADA2CC9AD980082AFFA /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 63001AD92CC9AD970082AFFA /* GoogleSignInSwift */; };
@@ -275,6 +276,7 @@
 		2EF1A2572B129EEB007A299F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		52A30D393053B7DF002AE86C /* IntroAnimationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAnimationViewModel.swift; sourceTree = "<group>"; };
 		52A30D3B3053B9B4002AE86C /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		52B0584D3089787D0011E20D /* WorkoutReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutReminder.swift; sourceTree = "<group>"; };
 		63001AD52CC9ACFF0082AFFA /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		6329A4452C964D0800D30A2F /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		6329A4472CA0F89D00D30A2F /* CreateProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileView.swift; sourceTree = "<group>"; };
@@ -395,6 +397,7 @@
 		2E090EC62B12FB9F00BAE982 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				52B0584D3089787D0011E20D /* WorkoutReminder.swift */,
 				C066B2C3305D6FEB006613E2 /* GymSnapshot.swift */,
 				C0CB14932F70A2C100E23E69 /* Member.swift */,
 				2922846F2F59461B00809ED4 /* WorkoutGoalHistory.swift */,
@@ -1031,6 +1034,7 @@
 				898890152CD6C7B400E594A0 /* WorkoutReminderEditView.swift in Sources */,
 				C066B2C6305DBC79006613E2 /* GymProximityRules.swift in Sources */,
 				898890132CD6C77E00E594A0 /* WorkoutReminderEditViewModel.swift in Sources */,
+				52B0584E308978800011E20D /* WorkoutReminder.swift in Sources */,
 				2E3D6C202B1285D200B51BB2 /* UpliftEnvironment.swift in Sources */,
 				89EA50D32F90955800B1A177 /* UIImage+Extension.swift in Sources */,
 				89507A9B2F36493100FB0757 /* SetGoalsView.swift in Sources */,
