@@ -252,6 +252,14 @@ struct SetGoalsView: View {
 
             !showNewReminder ? reminders : nil
         }
+        .padding(
+            EdgeInsets(
+                top: Constants.Padding.goalsVertical,
+                leading: Constants.Padding.goalsHorizontal,
+                bottom: Constants.Padding.goalsVertical,
+                trailing: Constants.Padding.goalsHorizontal
+            )
+        )
     }
 
     private var newReminder: some View {
