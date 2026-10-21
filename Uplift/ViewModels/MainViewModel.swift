@@ -44,7 +44,9 @@ extension MainView {
 
         @Published var sessionState: SessionState {
             didSet {
-                defaults.set(sessionState == .guest, forKey: Constants.UserDefaultsKeys.skippedLogin)
+                if sessionState != .guest {
+                    defaults.set(false, forKey: Constants.UserDefaultsKeys.skippedLogin)
+                }
             }
         }
 
@@ -61,10 +63,27 @@ extension MainView {
             sessionState = defaults.bool(forKey: Constants.UserDefaultsKeys.skippedLogin) ? .guest : .restoring
         }
 
+        // MARK: - Session
+
         /// Clears draft onboarding data that must not carry across sessions (e.g. after log out or account deletion).
         func resetOnboardingDraftState() {
             profileImage = nil
             userId = nil
+        }
+
+        /// Clears the session and everything tied to it so the next account starts clean.
+        func didLogout() {
+            UserSessionManager.shared.logout()
+            UserSessionManager.shared.clearWorkoutCheckInCooldown()
+            GymProximityManager.shared.disable()
+            resetOnboardingDraftState()
+            sessionState = .signedOut
+        }
+
+        /// Enters guest mode, remembering it across launches only when the user asked not to see sign-in again.
+        func didSkip(remember: Bool) {
+            sessionState = .guest
+            defaults.set(remember, forKey: Constants.UserDefaultsKeys.skippedLogin)
         }
 
         /// sets the session state from the restore result
@@ -73,6 +92,9 @@ extension MainView {
             case .success, .offline:
                 sessionState = .signedIn
             case .needsSignIn, .needsProfileCreation:
+                // the backend rejected the keychain session so the tokens are dead,
+                // drop them or the geofences think we're signed in
+                UserSessionManager.shared.logout()
                 sessionState = isSkipped ? .guest : .signedOut
             case .error(let message):
                 Logger.data.critical("Session restore error: \(message)")
