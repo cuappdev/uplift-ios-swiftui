@@ -10,6 +10,12 @@
 		13446DEF2ECDFA4F00EED573 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 13446DEE2ECDFA4F00EED573 /* ConfettiSwiftUI */; };
 		135EEBAA2EC7E60B0051AD5B /* WorkoutCheckInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135EEBA92EC7E5F70051AD5B /* WorkoutCheckInViewModel.swift */; };
 		135EEBAC2EC9175B0051AD5B /* WorkoutCheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135EEBAB2EC917520051AD5B /* WorkoutCheckInView.swift */; };
+		2639EBF730802DBC0068F280 /* ToggleSelectionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2639EBF630802D9C0068F280 /* ToggleSelectionRow.swift */; };
+		2639EBFB308031080068F280 /* CheckboxDropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2639EBFA308030F90068F280 /* CheckboxDropdown.swift */; };
+		26525EED3076DBBE0003309F /* ClassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26525EEC3076DBBA0003309F /* ClassFilter.swift */; };
+		26525EF13076E1BA0003309F /* Set+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26525EF03076E1B30003309F /* Set+Extension.swift */; };
+		26525EF33076ED8E0003309F /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26525EF23076ED800003309F /* RangeSlider.swift */; };
+		26C82C4F306CD882001BDB99 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C82C4E306CD880001BDB99 /* FilterView.swift */; };
 		29055F802E7E3E6E00E9A730 /* UnsavedChangesModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29055F7F2E7E3E6500E9A730 /* UnsavedChangesModal.swift */; };
 		29055FC62E849E2A00E9A730 /* LoadingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29055FC52E849E2600E9A730 /* LoadingModifier.swift */; };
 		292284702F59461F00809ED4 /* WorkoutGoalHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2922846F2F59461B00809ED4 /* WorkoutGoalHistory.swift */; };
@@ -186,6 +192,12 @@
 /* Begin PBXFileReference section */
 		135EEBA92EC7E5F70051AD5B /* WorkoutCheckInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCheckInViewModel.swift; sourceTree = "<group>"; };
 		135EEBAB2EC917520051AD5B /* WorkoutCheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCheckInView.swift; sourceTree = "<group>"; };
+		2639EBF630802D9C0068F280 /* ToggleSelectionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleSelectionRow.swift; sourceTree = "<group>"; };
+		2639EBFA308030F90068F280 /* CheckboxDropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxDropdown.swift; sourceTree = "<group>"; };
+		26525EEC3076DBBA0003309F /* ClassFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassFilter.swift; sourceTree = "<group>"; };
+		26525EF03076E1B30003309F /* Set+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Set+Extension.swift"; sourceTree = "<group>"; };
+		26525EF23076ED800003309F /* RangeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
+		26C82C4E306CD880001BDB99 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		29055F7F2E7E3E6500E9A730 /* UnsavedChangesModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsavedChangesModal.swift; sourceTree = "<group>"; };
 		29055FC52E849E2600E9A730 /* LoadingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingModifier.swift; sourceTree = "<group>"; };
 		2922846F2F59461B00809ED4 /* WorkoutGoalHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutGoalHistory.swift; sourceTree = "<group>"; };
@@ -395,6 +407,7 @@
 		2E090EC62B12FB9F00BAE982 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				26525EEC3076DBBA0003309F /* ClassFilter.swift */,
 				C066B2C3305D6FEB006613E2 /* GymSnapshot.swift */,
 				C0CB14932F70A2C100E23E69 /* Member.swift */,
 				2922846F2F59461B00809ED4 /* WorkoutGoalHistory.swift */,
@@ -541,6 +554,7 @@
 		2E090ED42B13096700BAE982 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				26525EF03076E1B30003309F /* Set+Extension.swift */,
 				89EA50D22F90954C00B1A177 /* UIImage+Extension.swift */,
 				2E15F4E52B391E5300414BEC /* Array+Extension.swift */,
 				2E15F4F82B3950F800414BEC /* Date+Extension.swift */,
@@ -575,6 +589,9 @@
 		2E15F50A2B3A0AF700414BEC /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
+				2639EBFA308030F90068F280 /* CheckboxDropdown.swift */,
+				2639EBF630802D9C0068F280 /* ToggleSelectionRow.swift */,
+				26525EF23076ED800003309F /* RangeSlider.swift */,
 				29C2EC1B2F95653200A7F6E2 /* DeleteAccountModal.swift */,
 				2923EF462E98369900D3FC1D /* CapacityTutorialModal.swift */,
 				29055F7F2E7E3E6500E9A730 /* UnsavedChangesModal.swift */,
@@ -749,6 +766,7 @@
 		89C8658B2BB4778400758337 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				26C82C4E306CD880001BDB99 /* FilterView.swift */,
 				89C8658C2BB4779C00758337 /* ClassCell.swift */,
 				896500DB2BB4D33500D822AB /* ClassDetailView.swift */,
 				8996FEDF2BDF351800F13C67 /* NextSessionCell.swift */,
@@ -856,8 +874,8 @@
 				2EC3EE642B3C000E00E927BF /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				2E45B23E2B4E361100FB83B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				63001AD42CC9A6B20082AFFA /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
-				29F24AB62EA9865500111048 /* XCLocalSwiftPackageReference "UpliftAPI" */,
 				13446DED2ECDF7BA00EED573 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
+				26D5807830648019008168B4 /* XCLocalSwiftPackageReference "UpliftAPI" */,
 			);
 			productRefGroup = 2E8FE38D2B1278B700B3DC6A /* Products */;
 			projectDirPath = "";
@@ -984,6 +1002,7 @@
 				2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */,
 				893AD9152D59569600C0817B /* MuscleCategoryView.swift in Sources */,
 				135EEBAC2EC9175B0051AD5B /* WorkoutCheckInView.swift in Sources */,
+				26C82C4F306CD882001BDB99 /* FilterView.swift in Sources */,
 				89C8658D2BB4779C00758337 /* ClassCell.swift in Sources */,
 				298EBA502E8E5335000441BA /* CustomLoadingView.swift in Sources */,
 				2CFFEC542DBED07600EE26F8 /* KeychainManager.swift in Sources */,
@@ -1031,6 +1050,7 @@
 				898890152CD6C7B400E594A0 /* WorkoutReminderEditView.swift in Sources */,
 				C066B2C6305DBC79006613E2 /* GymProximityRules.swift in Sources */,
 				898890132CD6C77E00E594A0 /* WorkoutReminderEditViewModel.swift in Sources */,
+				26525EF13076E1BA0003309F /* Set+Extension.swift in Sources */,
 				2E3D6C202B1285D200B51BB2 /* UpliftEnvironment.swift in Sources */,
 				89EA50D32F90955800B1A177 /* UIImage+Extension.swift in Sources */,
 				89507A9B2F36493100FB0757 /* SetGoalsView.swift in Sources */,
@@ -1042,6 +1062,7 @@
 				2E15F5022B396EC500414BEC /* ShadowModifier.swift in Sources */,
 				29C2EC1C2F95653500A7F6E2 /* DeleteAccountModal.swift in Sources */,
 				2E15F4DA2B39102A00414BEC /* Capacity.swift in Sources */,
+				26525EF33076ED8E0003309F /* RangeSlider.swift in Sources */,
 				2ED53DCF2B3E06DC00FBDEAB /* Logger.swift in Sources */,
 				2E15F4E62B391E5300414BEC /* Array+Extension.swift in Sources */,
 				895BDA012F58CBD60086BA81 /* TriangleTwoSideBorder.swift in Sources */,
@@ -1067,6 +1088,7 @@
 				2E15F5042B39E54700414BEC /* LocationManager.swift in Sources */,
 				C066B2CA3065F0F6006613E2 /* SessionLoadingView.swift in Sources */,
 				89E833432F4FB26A0080AC46 /* WorkoutHistoryViewModel.swift in Sources */,
+				2639EBF730802DBC0068F280 /* ToggleSelectionRow.swift in Sources */,
 				892478202CCCB9DF0086F335 /* ReportViewModel.swift in Sources */,
 				893F6CA02F3AEDEC00CD6647 /* NetworkInterceptorProvider.swift in Sources */,
 				89A652F92D02B00000277A16 /* CapacityRemindersView.swift in Sources */,
@@ -1078,9 +1100,11 @@
 				89EA50D12F90812E00B1A177 /* GoalSettingErrorModal.swift in Sources */,
 				2E15F4DC2B39117300414BEC /* OpenHours.swift in Sources */,
 				2E090ED62B13121600BAE982 /* Constants.swift in Sources */,
+				26525EED3076DBBE0003309F /* ClassFilter.swift in Sources */,
 				C066B2C4305D6FEE006613E2 /* GymSnapshot.swift in Sources */,
 				89C34AA12CA66E9C00C579A5 /* CapacityRemindersViewModel.swift in Sources */,
 				2E39D8282B3B726D00AD238B /* GymTabType.swift in Sources */,
+				2639EBFB308031080068F280 /* CheckboxDropdown.swift in Sources */,
 				2E2748CB2BCD37810023882E /* GiveawayPopup.swift in Sources */,
 				2E15F4DE2B3912C700414BEC /* Facility.swift in Sources */,
 				2E6785C22B3A5CE000DD3ADA /* GymDetailViewModel.swift in Sources */,
@@ -1384,7 +1408,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		29F24AB62EA9865500111048 /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
+		26D5807830648019008168B4 /* XCLocalSwiftPackageReference "UpliftAPI" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = UpliftAPI;
 		};
