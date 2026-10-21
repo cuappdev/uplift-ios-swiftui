@@ -30,6 +30,9 @@ struct ClassesView: View {
             .overlay(alignment: .bottom) {
                 filterButton
             }
+            .sheet(isPresented: $showFilter) {
+                FilterView(filter: $viewModel.filter)
+            }
         }
         .onAppear {
             viewModel.fetchAllClasses()
@@ -231,9 +234,10 @@ struct ClassesView: View {
                 )
                 .background(
                     Capsule()
-                        .fill(Constants.Colors.white)
+                        .fill(viewModel.filter.isActive ? Constants.Colors.yellow : Constants.Colors.white)
                         .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
                 )
+                .animation(.easeInOut(duration: 0.2), value: viewModel.filter.isActive)
         }
         .padding(.bottom, 20)
     }

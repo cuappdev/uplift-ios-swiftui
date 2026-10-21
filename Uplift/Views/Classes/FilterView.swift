@@ -17,7 +17,7 @@ struct FilterView: View {
 
     // Placeholder data, will connect from view model later
     private let fitnessCenters = ["Noyes", "Helen Newman", "Teagle", "Appel"]
-    private let classTypes = ["Spinning", "Barre", "H.I.I.T."]
+    private let classTypes = ["Spinning", "Barre", "H.I.I.T.", "Yoga", "Zumba", "Pilates", "Muscle Pump", "Cycling"]
     private let instructors = ["Emily", "Lauren", "Mia"]
 
     // MARK: - UI
@@ -31,9 +31,19 @@ struct FilterView: View {
                     DividerLine()
                     startTimeSection
                     DividerLine()
-                    dropdownSection()
+                    CheckboxDropdown(
+                        title: "CLASS TYPE",
+                        showAllTitle: "Show All Class types",
+                        options: classTypes,
+                        selection: $filter.classTypes
+                    )
                     DividerLine()
-                    dropdownSection()
+                    CheckboxDropdown(
+                        title: "INSTRUCTOR",
+                        showAllTitle: "Show All Instructors",
+                        options: instructors,
+                        selection: $filter.instructors
+                    )
                     DividerLine()
                 }
             }
@@ -58,15 +68,18 @@ struct FilterView: View {
     }
 
     private var fitnessCenterSection: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 15) {
             Text("FITNESS CENTER")
                 .font(Constants.Fonts.h4)
                 .foregroundStyle(Constants.Colors.gray04)
+                .padding(.horizontal, 16)
+
+            ToggleSelectionRow(options: fitnessCenters, selection: $filter.centers)
 
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 16)
-        .padding(.vertical, 24)
+        .padding(.top, 24)
+        .padding(.bottom, 6)
     }
 
     private var startTimeSection: some View {
@@ -79,14 +92,17 @@ struct FilterView: View {
             .font(Constants.Fonts.h4)
             .foregroundStyle(Constants.Colors.gray04)
 
+            RangeSlider(
+                lower: $filter.startHour,
+                upper: $filter.endHour,
+                bounds: ClassFilter.hourBounds,
+                step: 0.5,
+                minGap: 1
+            )
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 16)
         .padding(.vertical, 24)
-    }
-
-    private func dropdownSection() -> some View {
-        Text("dropdown")
     }
 
     // MARK: - Helpers
@@ -100,5 +116,15 @@ struct FilterView: View {
 }
 
 #Preview {
-    FilterView(filter: .constant(ClassFilter()))
+    FilterViewPreview()
+}
+
+private struct FilterViewPreview: View {
+
+    @State private var filter = ClassFilter()
+
+    var body: some View {
+        FilterView(filter: $filter)
+    }
+
 }

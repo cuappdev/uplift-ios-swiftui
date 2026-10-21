@@ -26,7 +26,7 @@ struct ToggleSelectionRow: View {
                     if index > 0 {
                         Rectangle()
                             .fill(Constants.Colors.gray01)
-                            .frame(width: 3, height: 28)
+                            .frame(width: 1, height: 28)
                     }
 
                     chip(for: option)

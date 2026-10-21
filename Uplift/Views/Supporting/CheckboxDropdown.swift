@@ -11,34 +11,53 @@ import SwiftUI
 /// An expandable section that lets the user select multiple options using checkboxes.
 struct CheckboxDropdown: View {
 
-   // MARK: - Properties
+    // MARK: - Properties
 
-   let title: String
-   let options: [String]
+    let title: String
+    // The text of the button that reveals every option (e.g. "Show All Class Types")
+    let showAllTitle: String
+    // The options to display in order
+    let options: [String]
+    // The number of options shown befoer the user chooses to show all of them
+    var collapsedCount: Int = 3
 
-   @Binding var selection: Set<String>
-   @State private var isExpanded = false
+    @Binding var selection: Set<String>
+    @State private var isExpanded = false
+    @State private var showsAll = false
 
-   // MARK: - UI
+    private var hasHiddenOptions: Bool {
+        options.count > collapsedCount
+    }
+    private var visibleOptions: [String] {
+        showsAll ? options : Array(options.prefix(collapsedCount))
+    }
 
-   var body: some View {
+    // MARK: - UI
+
+    var body: some View {
        VStack(alignment: .leading, spacing: 16) {
            header
 
            if isExpanded {
-               ForEach(options, id: \.self) { option in
-                   optionRow(for: option)
+               optionRows
+
+               if hasHiddenOptions && !showsAll {
+                   showAllButton
                }
            }
        }
        .padding(.horizontal, 16)
        .padding(.vertical, 24)
-   }
+    }
 
-   private var header: some View {
+    private var header: some View {
        Button {
            withAnimation {
                isExpanded.toggle()
+
+               if !isExpanded {
+                   showsAll = false
+               }
            }
        } label: {
            HStack(spacing: 6) {
@@ -64,7 +83,28 @@ struct CheckboxDropdown: View {
            }
        }
        .buttonStyle(.plain)
-   }
+    }
+
+    private var showAllButton: some View {
+        Button {
+            withAnimation {
+                showsAll = true
+            }
+        } label: {
+            Text(showAllTitle)
+                .font(Constants.Fonts.labelNormal)
+                .foregroundStyle(Constants.Colors.gray02)
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var optionRows: some View {
+        VStack(alignment: .leading) {
+            ForEach(visibleOptions, id: \.self) { option in
+                optionRow(for: option)
+            }
+        }
+    }
 
     private func optionRow(for option: String) -> some View {
         Button {
@@ -102,14 +142,14 @@ struct CheckboxDropdown: View {
 
 private struct CheckboxDropdownPreview: View {
 
-   @State private var selection: Set<String> = ["Barre"]
+    @State private var selection: Set<String> = ["Barre"]
 
-   var body: some View {
-       CheckboxDropdown(
-           title: "CLASS TYPE",
-           options: ["Spinning", "Barre", "H.I.I.T."],
-           selection: $selection
-       )
-   }
-
+    var body: some View {
+        CheckboxDropdown(
+            title: "CLASS TYPE",
+            showAllTitle: "Show All Class Types",
+            options: ["Spinning", "Barre", "H.I.I.T.", "Yoga", "Zumba", "Pilates", "Muscle Pump", "Cycling"],
+            selection: $selection
+        )
+    }
 }
