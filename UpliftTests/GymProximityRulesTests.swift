@@ -15,11 +15,12 @@ struct GymProximityRulesTests {
     /**
      dwell: 5 min, how long you have to stay before the banner fires
      cooldown: 4 hours, min time between banners for the same gym
+     dismissCooldown: 2 hours, how long after closing the pop-up before a banner for that gym can fire
 
      now is a fixed date so nothing depends on the real clock
      each gym has one fitness center hours block placed relative to now
      */
-    private let rules = GymProximityRules(dwell: 5 * 60, cooldown: 4 * 60 * 60)
+    private let rules = GymProximityRules(dwell: 5 * 60, cooldown: 4 * 60 * 60, dismissCooldown: 2 * 60 * 60)
     private let now = Date(timeIntervalSince1970: 1_800_000_000)
 
     private func teagle(openFrom start: TimeInterval, to end: TimeInterval) -> GymSnapshot {
@@ -63,6 +64,32 @@ struct GymProximityRulesTests {
         #expect(decision == .arm)
     }
 
+    @Test("closed the pop-up 1 hour ago skips")
+    func insideDismissCooldownSkips() {
+        let gym = teagle(openFrom: -3600, to: 3600)
+        let decision = rules.decision(
+            for: gym,
+            lastArmed: nil,
+            checkedInToday: false,
+            now: now,
+            dismissedAt: now - 3600
+        )
+        #expect(decision == .skip(.dismissed))
+    }
+
+    @Test("closed the pop-up 3 hours ago arms")
+    func pastDismissCooldownArms() {
+        let gym = teagle(openFrom: -3600, to: 3600)
+        let decision = rules.decision(
+            for: gym,
+            lastArmed: nil,
+            checkedInToday: false,
+            now: now,
+            dismissedAt: now - 3 * 3600
+        )
+        #expect(decision == .arm)
+    }
+
     @Test("closed gym with current hours skips")
     func closedGymSkips() {
         // opens in 1 hour so the hours are current but its closed rn
@@ -77,6 +104,20 @@ struct GymProximityRulesTests {
         let gym = teagle(openFrom: -7200, to: -3600)
         let decision = rules.decision(for: gym, lastArmed: nil, checkedInToday: false, now: now)
         #expect(decision == .arm)
+    }
+
+    @Test("no saved hours counts as closed so it skips")
+    func noHoursSkips() {
+        // break week or renovation, nothing to be stale about so the gym is just closed
+        let gym = GymSnapshot(
+            id: "teagle",
+            name: "Teagle",
+            latitude: 42.4459926380709,
+            longitude: -76.47915389837931,
+            fitnessCenterHours: []
+        )
+        let decision = rules.decision(for: gym, lastArmed: nil, checkedInToday: false, now: now)
+        #expect(decision == .skip(.closed))
     }
 
     @Test("banner armed 1 min ago is still pending")

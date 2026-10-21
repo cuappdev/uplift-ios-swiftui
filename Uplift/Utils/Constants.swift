@@ -133,7 +133,7 @@ struct Constants {
         static let chest = Image("chest")
         static let clock = Image("clock")
         static let clockOutlined = Image("clock_outlined")
-        static let close = Image("close")
+        static let close =  Image("close")
         static let crossThin = Image("cross_thin")
         static let cross = Image("cross")
         static let deleteLogo = Image("delete_logo")
@@ -178,6 +178,12 @@ struct Constants {
         static let mountainFront = Image("mountain_front")
         static let appDevLogoWhite = Image("appdev_logo_white")
         static let logoSunset = Image("logo_sunset")
+    }
+
+    /// Constants used in networking.
+    enum Networking {
+        /// Seconds with no data before a request gives up, so a dead network fails fast instead of hanging.
+        static let requestTimeout: TimeInterval = 15
     }
 
     /// Notification identifiers used in Uplift.
@@ -242,7 +248,7 @@ struct Constants {
         // Capacity Reminder Tutorial
         static let capacityTutorial = "hasSeenTutorial"
 
-        /// User chose "Skip" on sign-in and uses the app without an account until they log in.
+        /// User checked "Don't show this again" on sign-in, so they go straight to guest mode on launch.
         static let skippedLogin = "skippedLogin"
 
         // Workout Check-In
@@ -296,9 +302,13 @@ struct Constants {
         static let thirdCardDelay: Double = 3.5
         static let cardsHorizontalPadding: CGFloat = 76
 
-        static let buttonHorizontalPadding: CGFloat = 46
+        static let buttonWidth: CGFloat = 192
         static let buttonVerticalPadding: CGFloat = 12
         static let buttonCornerRadius: CGFloat = 38
+        static let skipTopPadding: CGFloat = 12
+
+        static let checkboxTopPadding: CGFloat = 16
+        static let checkboxSpacing: CGFloat = 8
 
         static let cardPadding: CGFloat = 12
         static let cardCornerRadius: CGFloat = 8
@@ -306,6 +316,12 @@ struct Constants {
         static let headerTopPadding: CGFloat = 212
         static let loginLabelTopPadding: CGFloat = 89
         static let cardsTopPadding: CGFloat = 24
+
+        // Compact Height
+        /// Screens shorter than this (iPhone SE) use the compact header spacing so the checkbox stays on screen.
+        static let compactHeight: CGFloat = 700
+        static let headerTopPaddingCompact: CGFloat = 160
+        static let loginLabelTopPaddingCompact: CGFloat = 48
 
         static let spacerMinLength: CGFloat = 16
 
@@ -320,5 +336,69 @@ struct Constants {
         static let enteredLogoYOffset: CGFloat = 160
         static let hiddenLogoYOffset: CGFloat = 900
 
+    }
+
+    enum ClassDetail {
+        static let textPadding = EdgeInsets(
+            top: Padding.classDetailSpacing,
+            leading: Padding.classDetailTextHorizontal,
+            bottom: Padding.classDetailSpacing,
+            trailing: Constants.Padding.classDetailTextHorizontal
+        )
+
+        static let sessionsPadding = EdgeInsets(
+            top: Padding.classDetailSpacing,
+            leading: Padding.classDetailSessionsHorizontal,
+            bottom: Padding.classDetailSpacing,
+            trailing: Padding.classDetailSessionsHorizontal
+        )
+    }
+
+    enum FitnessCenter {
+        static let vertPadding: CGFloat = 16
+        static let barWidth = 18
+    }
+
+    enum GymDetail {
+        static let padding = EdgeInsets(
+            top: Constants.Padding.gymDetailSpacing,
+            leading: Constants.Padding.gymDetailHorizontal,
+            bottom: Constants.Padding.gymDetailSpacing,
+            trailing: Constants.Padding.gymDetailHorizontal
+        )
+    }
+
+    enum HomeGymCell {
+        static let notBusyText: String = "Not Busy"
+        static let slightlyBusyText: String = "Slightly Busy"
+        static let veryBusyText: String = "Very Busy"
+    }
+
+    enum MainView {
+        // TODO: Change hardcoded giveaway ID if needed
+        static let giveawayID: Int = 1
+    }
+
+    enum WeeklyWorkoutTracker {
+        static let weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+        static let animationDuration: Double = 0.5
+        static let delayBetweenDays: Double = 0.3
+        static let circleSize: CGFloat = 24
+        static let lineWidth: CGFloat = 2
+        static let spacing: CGFloat = 26.5
+        static let verticalSpacing: CGFloat = 2
+    }
+
+    enum Profile {
+        static let radius = 125
+        static let circleRadius = 3.0
+    }
+
+    /// Constants used in workout check-in.
+    enum WorkoutCheckIn {
+        /// How long the check-in pop-up stays hidden after the user closes it.
+        static let threshold: Double = 0.05
+        static let cooldownDuration: TimeInterval = 2*60*60
+        static let dismissCooldown: TimeInterval = 2 * 60 * 60
     }
 }

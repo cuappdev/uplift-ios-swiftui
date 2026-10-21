@@ -18,22 +18,6 @@ struct ClassDetailView: View {
     private let topViewId: String = "topId"
     @ObservedObject var viewModel: ClassesView.ViewModel
 
-    // MARK: - Constants
-
-    let textPadding = EdgeInsets(
-        top: Constants.Padding.classDetailSpacing,
-        leading: Constants.Padding.classDetailTextHorizontal,
-        bottom: Constants.Padding.classDetailSpacing,
-        trailing: Constants.Padding.classDetailTextHorizontal
-    )
-
-    let sessionsPadding = EdgeInsets(
-        top: Constants.Padding.classDetailSpacing,
-        leading: Constants.Padding.classDetailSessionsHorizontal,
-        bottom: Constants.Padding.classDetailSpacing,
-        trailing: Constants.Padding.classDetailSessionsHorizontal
-    )
-
     // MARK: - UI
 
     var body: some View {
@@ -171,7 +155,7 @@ struct ClassDetailView: View {
 //                }
 //            }
         }
-        .padding(textPadding)
+        .padding(Constants.ClassDetail.textPadding)
     }
 
     private var functionSection: some View {
@@ -186,7 +170,7 @@ struct ClassDetailView: View {
                 .foregroundStyle(Constants.Colors.black)
                 .multilineTextAlignment(.center)
         }
-        .padding(textPadding)
+        .padding(Constants.ClassDetail.textPadding)
     }
 
     private var preparationSection: some View {
@@ -201,7 +185,7 @@ struct ClassDetailView: View {
                 .foregroundStyle(Constants.Colors.black)
                 .multilineTextAlignment(.center)
         }
-        .padding(textPadding)
+        .padding(Constants.ClassDetail.textPadding)
     }
 
     private var descriptionSection: some View {
@@ -209,7 +193,7 @@ struct ClassDetailView: View {
             .font(Constants.Fonts.bodyLight)
             .foregroundStyle(Constants.Colors.black)
             .multilineTextAlignment(.center)
-            .padding(textPadding)
+            .padding(Constants.ClassDetail.textPadding)
     }
 
     private func nextSessionsSection(_ reader: ScrollViewProxy) -> some View {
@@ -241,7 +225,7 @@ struct ClassDetailView: View {
                 }
             }
         }
-        .padding(sessionsPadding)
+        .padding(Constants.ClassDetail.sessionsPadding)
     }
 
 }
