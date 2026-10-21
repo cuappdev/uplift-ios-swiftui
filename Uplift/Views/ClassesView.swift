@@ -239,7 +239,7 @@ struct ClassesView: View {
                 )
                 .animation(.easeInOut(duration: 0.2), value: viewModel.filter.isActive)
         }
-        .padding(.bottom, 20)
+        .padding(.bottom, Constants.Padding.tabBarHeight + 16)
     }
 }
 
