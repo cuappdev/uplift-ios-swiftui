@@ -57,21 +57,12 @@ struct ProfileView: View {
                     onFinishedReporting: {
                         showSettings = false
                     },
-                    onReminders: {
-                        // TODO: Notifications about uplift
-                    },
                     onLogout: {
-                        UserSessionManager.shared.logout()
-                        mainViewModel.resetOnboardingDraftState()
+                        mainViewModel.didLogout()
                         showSettings = false
                         withAnimation(.easeIn(duration: 0.1)) {
                             tabBarProp.hidden = false
                         }
-                        mainViewModel.isSkipped = false
-                        mainViewModel.showMainView = false
-                        mainViewModel.showSignInView = true
-                        mainViewModel.showCreateProfileView = false
-                        mainViewModel.showSetGoalsView = false
                     },
                     onDeleteAccount: {
                         viewModel.showDeleteAccountAlert = true
@@ -125,17 +116,12 @@ struct ProfileView: View {
         viewModel.deleteAccount { success in
             guard success else { return }
             Task { @MainActor in
-                mainViewModel.resetOnboardingDraftState()
+                mainViewModel.didLogout()
                 showSettings = false
                 viewModel.showSettingsSheet = false
                 withAnimation(.easeIn(duration: 0.1)) {
                     tabBarProp.hidden = false
                 }
-                mainViewModel.isSkipped = false
-                mainViewModel.showMainView = false
-                mainViewModel.showSignInView = true
-                mainViewModel.showCreateProfileView = false
-                mainViewModel.showSetGoalsView = false
                 dismissDeleteAccountModal()
             }
         }
@@ -249,9 +235,7 @@ struct ProfileView: View {
                 UserSessionManager.shared.logout()
                 mainViewModel.resetOnboardingDraftState()
                 viewModel.showSettingsSheet = false
-                mainViewModel.isSkipped = false
-                mainViewModel.showMainView = false
-                mainViewModel.showSignInView = true
+                mainViewModel.sessionState = .signedOut
             } label: {
                 Text("Log Out")
                     .font(Constants.Fonts.bodyNormal)

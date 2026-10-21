@@ -17,6 +17,8 @@ enum SessionRestoreResult {
     case success
     case needsSignIn
     case needsProfileCreation
+    /// backend never answered (no wifi, timeout, etc) so we keep the keychain tokens
+    case offline
     case error(String)
 }
 
@@ -29,6 +31,10 @@ class UserSessionManager: ObservableObject {
     // MARK: - Properties
 
     private var queryBag = Set<AnyCancellable>()
+
+    /// Everyone waiting on the refresh that's already in flight.
+    private var pendingRefreshCompletions: [(Result<Void, Error>) -> Void] = []
+    private var isRefreshing = false
 
     @Published var displayName: String? {
         didSet {
@@ -138,6 +144,11 @@ class UserSessionManager: ObservableObject {
     /// Refreshes the user's access token. If completion provided, result is used in the case that the server
     /// returns a token-expired error.
     func refreshAccessToken(completion: ((Result<Void, Error>) -> Void)?) {
+        if let completion { pendingRefreshCompletions.append(completion) }
+        // one refresh at a time, apollo calls back on main so this needs no lock
+        guard !isRefreshing else { return }
+        isRefreshing = true
+
         Network.client.mutationPublisher(
             mutation: RefreshAccessTokenMutation(),
             publishResultToStore: false,
@@ -146,70 +157,60 @@ class UserSessionManager: ObservableObject {
         .map { result -> String? in
             result.data?.refreshAccessToken?.newAccessToken
         }
-        .sink { result in
+        .sink { [weak self] result in
+            guard let self else { return }
             if case let .failure(error) = result {
                 Logger.data.critical("Error in refreshAccessToken: \(error)")
-                completion?(.failure(error))
+                self.finishRefresh(.failure(error))
             }
         } receiveValue: { [weak self] newAccessToken in
             guard let self else { return }
             if let newAccessToken {
                 self.accessToken = newAccessToken
                 Logger.data.log("Refreshed Access Token: \(newAccessToken)")
-                completion?(.success(()))
+                self.finishRefresh(.success(()))
                 // Interceptor may retry the original request when this completion succeeds
             } else {
-                completion?(.failure(GraphQLErrorWrapper(msg: "Missing new access token")))
+                self.finishRefresh(.failure(GraphQLErrorWrapper(msg: "Missing new access token")))
             }
         }
         .store(in: &queryBag)
     }
 
     func restorePreviousSession(completion: @escaping (SessionRestoreResult) -> Void) {
+        // a locked-phone background launch caches nil at init, so read again now & re-save under the new accessibility
+        reloadFromKeychain()
+
         GIDSignIn.sharedInstance.restorePreviousSignIn { [weak self] user, error in
             guard let self = self else {
                 completion(.error("Session manager deallocated"))
                 return
             }
 
-            if let error = error {
-                Logger.data.critical("Failed to restore Google Sign-In: \(error.localizedDescription)")
-                completion(.needsSignIn)
-                return
+            // google only gives us the display name, the keychain netID is what decides if theres a session
+            if let error {
+                Logger.data.log("Google restore failed, using keychain session: \(error.localizedDescription)")
             }
 
-            guard let user = user else {
-                Logger.data.critical("No previous Google Sign-In session found")
-                completion(.needsSignIn)
-                return
+            if let user {
+                self.displayName = user.profile?.name
             }
 
-            Logger.data.log("Restored Google Sign-In session for user: \(user.profile?.email ?? "Unknown")")
-
-            self.displayName = user.profile?.name
-
-            // If we have a netID in keychain, try to restore backend session
-            if let netID = self.netID {
-                self.loginUser(netId: netID) { result in
-                    switch result {
-                    case .success:
-                        Logger.data.log("Successfully restored backend session")
-                        completion(.success)
-
-                    case .failure(let error):
-                        if let graphqlError = error as? GraphQLErrorWrapper,
-                           graphqlError.msg.contains("No user with those credentials") {
-                            Logger.data.critical("No backend user exists. Needs profile creation.")
-                            completion(.needsProfileCreation)
-                        } else {
-                            Logger.data.critical("Failed backend login: \(error.localizedDescription)")
-                            completion(.needsSignIn)
-                        }
-                    }
-                }
-            } else {
+            guard let netID = self.netID else {
                 Logger.data.critical("No netID found in Keychain. Needs sign-in.")
                 completion(.needsSignIn)
+                return
+            }
+
+            self.loginUser(netId: netID) { result in
+                switch result {
+                case .success:
+                    Logger.data.log("Successfully restored backend session")
+                    completion(.success)
+                case .failure(let error):
+                    Logger.data.critical("Failed backend login: \(error.localizedDescription)")
+                    completion(self.restoreResult(for: error))
+                }
             }
         }
     }
@@ -226,9 +227,37 @@ class UserSessionManager: ObservableObject {
     /// Clears workout check-in cooldown state stored in `UserDefaults`.
     func clearWorkoutCheckInCooldown() {
         let defaults = UserDefaults.standard
-        defaults.removeObject(forKey: "lastCooldownGym")
-        defaults.removeObject(forKey: "lastCooldownTime")
-        defaults.removeObject(forKey: "lastCheckInDate")
+        defaults.removeObject(forKey: Constants.UserDefaultsKeys.checkInCooldownGym)
+        defaults.removeObject(forKey: Constants.UserDefaultsKeys.checkInCooldownTime)
+        defaults.removeObject(forKey: Constants.UserDefaultsKeys.checkInLastDate)
+    }
+
+    // MARK: - Helpers
+
+    /// figures out what a failed restore login means, only a graphql error counts as the backend actually answering
+    private func restoreResult(for error: Error) -> SessionRestoreResult {
+        guard let graphQLError = error as? GraphQLErrorWrapper else {
+            return accessToken != nil ? .offline : .needsSignIn
+        }
+        if graphQLError.msg.contains("No user with those credentials") { return .needsProfileCreation }
+        // any other graphql error is the backend misbehaving not a rejection, so keep the session
+        return .error(graphQLError.msg)
+    }
+
+    private func finishRefresh(_ result: Result<Void, Error>) {
+        isRefreshing = false
+        let completions = pendingRefreshCompletions
+        pendingRefreshCompletions = []
+        completions.forEach { $0(result) }
+    }
+
+    private func reloadFromKeychain() {
+        // only take real values, assigning nil would delete an item that's just unreadable while locked
+        if let value = KeychainManager.shared.get(forKey: "displayName") { displayName = value }
+        if let value = KeychainManager.shared.get(forKey: "netID") { netID = value }
+        if let value = KeychainManager.shared.get(forKey: "accessToken") { accessToken = value }
+        if let value = KeychainManager.shared.get(forKey: "refreshToken") { refreshToken = value }
+        if let value = KeychainManager.shared.get(forKey: "email") { email = value }
     }
 
 }

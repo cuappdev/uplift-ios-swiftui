@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import OSLog
 import Security
 
 class KeychainManager {
@@ -30,12 +31,18 @@ class KeychainManager {
         ] as CFDictionary
         SecItemDelete(query)
 
+        // readable on a locked phone so background wakes (gym reminders) can see the session
         let addQuery = [
             kSecClass: kSecClassGenericPassword,
             kSecAttrAccount: key,
+            kSecAttrAccessible: kSecAttrAccessibleAfterFirstUnlock,
             kSecValueData: data
         ] as CFDictionary
-        SecItemAdd(addQuery, nil)
+        let status = SecItemAdd(addQuery, nil)
+
+        if status != errSecSuccess {
+            Logger.services.error("Keychain save failed for \(key): \(status)")
+        }
     }
 
     func get(forKey key: String) -> String? {
@@ -63,6 +70,10 @@ class KeychainManager {
             kSecClass: kSecClassGenericPassword,
             kSecAttrAccount: key
         ] as CFDictionary
-        SecItemDelete(query)
+        let status = SecItemDelete(query)
+
+        if status != errSecSuccess, status != errSecItemNotFound {
+            Logger.services.error("Keychain delete failed for \(key): \(status)")
+        }
     }
 }

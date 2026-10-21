@@ -75,13 +75,20 @@ actor GymCache {
                 query: GetAllGymsQuery(),
                 cachePolicy: .fetchIgnoringCacheCompletely
             )
-            .compactMap { $0.data?.gyms?.compactMap(\.?.fragments.gymFields) }
+            .map { $0.data?.gyms?.compactMap(\.?.fragments.gymFields) }
             .sink { completion in
                 if case let .failure(error) = completion {
                     continuation.resume(throwing: error)
                 }
                 cancellable?.cancel()
             } receiveValue: { gymFields in
+                // A 200 with null data completes without a value, resume here or the continuation hangs
+                guard let gymFields else {
+                    continuation.resume(throwing: GraphQLErrorWrapper(msg: "GetAllGyms returned no data"))
+                    cancellable?.cancel()
+                    return
+                }
+
                 let gyms = [Gym](gymFields)
                 continuation.resume(returning: gyms)
                 cancellable?.cancel()
