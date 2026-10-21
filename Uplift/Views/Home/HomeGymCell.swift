@@ -17,12 +17,6 @@ struct HomeGymCell: View {
 
     @ObservedObject private var locationManager: LocationManager = .shared
 
-    // MARK: - Constants
-
-    private let notBusyText: String = "Not Busy"
-    private let slightlyBusyText: String = "Slightly Busy"
-    private let veryBusyText: String = "Very Busy"
-
     // MARK: - UI
 
     var body: some View {
@@ -126,17 +120,17 @@ struct HomeGymCell: View {
             } else {
                 switch gym.fitnessCenters.first?.capacity?.status {
                 case .notBusy(let double):
-                    Text(notBusyText)
+                    Text(Constants.HomeGymCell.notBusyText)
                         .foregroundStyle(Constants.Colors.open)
 
                     percentFullText(double)
                 case .slightlyBusy(let double):
-                    Text(slightlyBusyText)
+                    Text(Constants.HomeGymCell.slightlyBusyText)
                         .foregroundStyle(Constants.Colors.orange)
 
                     percentFullText(double)
                 case .veryBusy(let double):
-                    Text(veryBusyText)
+                    Text(Constants.HomeGymCell.veryBusyText)
                         .foregroundStyle(Constants.Colors.closed)
 
                     percentFullText(double)
@@ -157,13 +151,13 @@ struct HomeGymCell: View {
     private var teagleCapacityView: some View {
         switch gym.highestCapacityFC()?.capacity?.status {
         case .notBusy:
-            Text(notBusyText)
+            Text(Constants.HomeGymCell.notBusyText)
                 .foregroundStyle(Constants.Colors.open)
         case .slightlyBusy:
-            Text(slightlyBusyText)
+            Text(Constants.HomeGymCell.slightlyBusyText)
                 .foregroundStyle(Constants.Colors.orange)
         case .veryBusy:
-            Text(veryBusyText)
+            Text(Constants.HomeGymCell.veryBusyText)
                 .foregroundStyle(Constants.Colors.closed)
         case nil:
             EmptyView()

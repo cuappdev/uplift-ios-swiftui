@@ -21,15 +21,6 @@ struct GymDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = ViewModel()
 
-    // MARK: - Constants
-
-    let padding = EdgeInsets(
-        top: Constants.Padding.gymDetailSpacing,
-        leading: Constants.Padding.gymDetailHorizontal,
-        bottom: Constants.Padding.gymDetailSpacing,
-        trailing: Constants.Padding.gymDetailHorizontal
-    )
-
     // MARK: - UI
 
     var body: some View {
@@ -183,7 +174,7 @@ struct GymDetailView: View {
         ) { amenity in
             amenitiesCell(for: amenity)
         }
-        .padding(padding)
+        .padding(Constants.GymDetail.padding)
     }
 
     private func amenitiesCell(for amenity: AmenityType) -> some View {
