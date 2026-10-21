@@ -129,33 +129,62 @@ final class GymProximityManager: ObservableObject {
 
     /// Arm a banner for this gym unless the rules say otherwise.
     func handleEntered(gymId: String) {
-        guard isEnabled, isSignedIn(), let gym = snapshots[gymId] else { return }
+        guard isEnabled, isSignedIn() else {
+            Logger.services.info("Ignoring region entry for \(gymId), reminders off or signed out")
+            return
+        }
+
+        guard let gym = snapshots[gymId] else {
+            Logger.services.info("Ignoring region entry for unknown gym \(gymId)")
+            return
+        }
 
         let decision = rules.decision(
             for: gym,
             lastArmed: lastArmed(gymId: gymId),
             checkedInToday: hasCheckedInToday(),
-            now: now()
+            now: now(),
+            dismissedAt: dismissedAt(for: gym)
         )
 
         switch decision {
         case .arm:
             Logger.services.info("Arming proximity notification for \(gym.name)")
-            scheduler.schedule(
-                id: Constants.NotificationIds.proximityPrefix + gymId,
-                title: "You're near \(gym.name)",
-                body: "Check in to log your workout 💪",
-                delay: rules.dwell
-            )
-            lastArmedTimes[gymId] = now().timeIntervalSince1970
+            let armedAt = now()
+            lastArmedTimes[gymId] = armedAt.timeIntervalSince1970
+            Task {
+                do {
+                    try await self.scheduler.schedule(
+                        id: Constants.NotificationIds.proximityPrefix + gymId,
+                        title: "You're near \(gym.name)",
+                        body: "Check in to log your workout 💪",
+                        delay: self.rules.dwell
+                    )
+                    // cancelled or disabled while the add was in flight, so pull it back
+                    if !self.isEnabled || self.lastArmedTimes[gymId] != armedAt.timeIntervalSince1970 {
+                        self.scheduler.cancel(id: Constants.NotificationIds.proximityPrefix + gymId)
+                    }
+                } catch {
+                    Logger.services.error("Could not schedule proximity notification for \(gym.name): \(error)")
+                    // only drop this arm, a newer one may have replaced it
+                    if self.lastArmedTimes[gymId] == armedAt.timeIntervalSince1970 {
+                        self.lastArmedTimes[gymId] = nil
+                    }
+                }
+            }
         case .skip(let reason):
             Logger.services.info("Skipping proximity notification for \(gym.name): \(String(describing: reason))")
         }
     }
 
-    /// Cancel the pending banner, and forget the arm if it never fired.
+    /// Cancel the pending banner when the user leaves.
     func handleExited(gymId: String) {
         Logger.services.info("Cancelling proximity notification for \(gymId)")
+        cancelPendingBanner(gymId: gymId)
+    }
+
+    /// Cancel the pending banner, and forget the arm if it never fired.
+    func cancelPendingBanner(gymId: String) {
         scheduler.cancel(id: Constants.NotificationIds.proximityPrefix + gymId)
 
         if let armedAt = lastArmed(gymId: gymId), rules.bannerIsPending(armedAt: armedAt, now: now()) {
@@ -183,6 +212,12 @@ final class GymProximityManager: ObservableObject {
         let last = defaults.object(forKey: Constants.UserDefaultsKeys.checkInLastDate) as? Date
         guard let last else { return false }
         return Calendar.current.isDate(last, inSameDayAs: now())
+    }
+
+    /// When the user last closed the check-in pop-up for this gym.
+    private func dismissedAt(for gym: GymSnapshot) -> Date? {
+        guard defaults.string(forKey: Constants.UserDefaultsKeys.checkInCooldownGym) == gym.name else { return nil }
+        return defaults.object(forKey: Constants.UserDefaultsKeys.checkInCooldownTime) as? Date
     }
 
     private func lastArmed(gymId: String) -> Date? {

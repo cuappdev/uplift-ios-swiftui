@@ -14,7 +14,9 @@ final class Network {
 
     /// The Apollo client.
     static let client: ApolloClient = {
-        let client = URLSessionClient()
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = Constants.Networking.requestTimeout
+        let client = URLSessionClient(sessionConfiguration: configuration)
         let cache = InMemoryNormalizedCache()
         let store = ApolloStore(cache: cache)
 

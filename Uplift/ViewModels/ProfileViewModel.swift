@@ -178,7 +178,7 @@ extension ProfileView {
             .store(in: &queryBag)
         }
 
-        /// Runs `DeleteUser` before `logout()` so the GraphQL request still sends `Authorization`.
+        /// Deletes the backend user. Callers log out on success, so the request still sends `Authorization`.
         func deleteAccount(onComplete: @escaping (Bool) -> Void = { _ in }) {
             let rawIdDescription = user.map { String(describing: $0.id) } ?? "nil"
             guard let idString = user?.id, let userId = Int(idString) else {
@@ -203,8 +203,6 @@ extension ProfileView {
                     cancellable = nil
                 } receiveValue: { [weak self] _ in
                     Logger.data.info("Successfully deleted account")
-                    UserSessionManager.shared.clearWorkoutCheckInCooldown()
-                    UserSessionManager.shared.logout()
                     self?.showSettingsSheet = false
                     self?.user = nil
                     self?.workouts = []

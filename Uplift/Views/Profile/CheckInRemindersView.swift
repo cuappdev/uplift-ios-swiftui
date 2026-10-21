@@ -49,7 +49,7 @@ struct CheckInRemindersView: View {
             HStack {
                 Spacer()
 
-                Text("Check-In Reminders")
+                Text("Workout Reminders")
                     .foregroundStyle(Constants.Colors.black)
                     .font(Constants.Fonts.h2)
 
@@ -103,7 +103,7 @@ struct CheckInRemindersView: View {
 
     private var locationNote: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Set location to Always in Settings so Uplift can tell when you get to a gym")
+            Text("\"Always\" location access is required for check-in reminders")
                 .foregroundStyle(Constants.Colors.closed)
                 .font(Constants.Fonts.labelNormal)
 
@@ -112,9 +112,10 @@ struct CheckInRemindersView: View {
                     openURL(url)
                 }
             } label: {
-                Text("Open Settings")
+                Text("Go to Settings")
                     .foregroundStyle(Constants.Colors.black)
-                    .font(Constants.Fonts.h4)
+                    .font(Constants.Fonts.bodyNormal)
+                    .underline()
             }
         }
     }

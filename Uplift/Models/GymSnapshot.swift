@@ -60,10 +60,10 @@ struct GymSnapshot: Codable, Hashable {
         self.name = name
     }
 
-    /// True when every saved hours block has already ended,
+    /// True when there are saved hours blocks and every one has already ended,
     /// meaning that this snapshot is too old to answer whether the gym is open.
     func hoursAreStale(at date: Date = Date()) -> Bool {
-        fitnessCenterHours.allSatisfy { $0.endTime < date }
+        !fitnessCenterHours.isEmpty && fitnessCenterHours.allSatisfy { $0.endTime < date }
     }
 
     /// Whether any fitness center at this gym is open at the given time.
