@@ -33,14 +33,6 @@
 				<string>com.googleusercontent.apps.535667993262-iqe8kam2jkbpaq0vl0ee7484jev8p7i0</string>
 			</array>
 		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.482433483257-iln6m9p2tab6a632i8ek57qgojg00u4s</string>
-			</array>
-		</dict>
 	</array>
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<false/>
