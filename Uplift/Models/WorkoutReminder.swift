@@ -5,23 +5,27 @@
 //  Created by Kaylee Ulep on 10/21/26.
 //  Copyright © 2026 Cornell AppDev. All rights reserved.
 //
+import Foundation
 
-struct WorkoutReminder: Hashable, Codable {
+struct WorkoutReminder: Identifiable, Hashable, Codable {
+    let id: UUID
     let selectedDays: [DayOfWeek]
     let isAllDay: Bool
     let time: String
     var isEnabled: Bool = true
 
     enum CodingKeys: String, CodingKey {
-        case selectedDays, isAllDay, time, isEnabled
+        case id, selectedDays, isAllDay, time, isEnabled
     }
 
     init(
+        id: UUID = UUID(),
         selectedDays: [DayOfWeek],
         isAllDay: Bool,
         time: String,
         isEnabled: Bool = true
     ) {
+        self.id = id
         self.selectedDays = selectedDays
         self.isAllDay = isAllDay
         self.time = time
@@ -30,6 +34,7 @@ struct WorkoutReminder: Hashable, Codable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
         selectedDays = try container.decode([DayOfWeek].self, forKey: .selectedDays)
         isAllDay = try container.decode(Bool.self, forKey: .isAllDay)
         time = try container.decode(String.self, forKey: .time)

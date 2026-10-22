@@ -16,23 +16,16 @@ struct WorkoutReminderView: View {
     @StateObject private var viewModel = ViewModel()
     @Binding var editingReminder: WorkoutReminder?
 
-    let isEnabled: Bool
     let onToggle: (Bool) -> Void
+    let reminder: WorkoutReminder
 
-    let isAllDay: Bool
-    let selectedDays: [DayOfWeek]
-    let time: String
     let onUpdate: (WorkoutReminder) -> Void
     let onDelete: () -> Void
 
     private var isEditable: Binding<Bool> {
         Binding(
             get: {
-                editingReminder == WorkoutReminder(
-                    selectedDays: selectedDays,
-                    isAllDay: isAllDay,
-                    time: time
-                )
+                editingReminder?.id == reminder.id
             },
             set: { newValue in
                 if !newValue {
@@ -53,11 +46,7 @@ struct WorkoutReminderView: View {
                 isNew: false,
                 onUpdate: onUpdate,
                 onDelete: onDelete,
-                reminder: WorkoutReminder(
-                    selectedDays: selectedDays,
-                    isAllDay: isAllDay,
-                    time: time
-                )
+                reminder: reminder
             )
         } else {
             displayReminder
@@ -68,8 +57,8 @@ struct WorkoutReminderView: View {
         VStack(spacing: 16) {
             HStack {
                 VStack {
-                    Text(viewModel.daysToString(selectedDays))
-                        .foregroundStyle(isEnabled ? Constants.Colors.black : Constants.Colors.gray03)
+                    Text(viewModel.daysToString(reminder.selectedDays))
+                        .foregroundStyle(reminder.isEnabled ? Constants.Colors.black : Constants.Colors.gray03)
                         .font(Constants.Fonts.reminder)
                 }
                 .padding(EdgeInsets(top: 8, leading: 14, bottom: 8, trailing: 14))
@@ -83,7 +72,7 @@ struct WorkoutReminderView: View {
                 Toggle(
                     "",
                     isOn: Binding(
-                        get: { isEnabled },
+                        get: { reminder.isEnabled },
                         set: { onToggle($0) }
                     ).animation()
                 )
@@ -92,8 +81,8 @@ struct WorkoutReminderView: View {
             }
 
             HStack {
-                Text(isAllDay ? "All-Day" : time)
-                    .foregroundStyle(isEnabled ? Constants.Colors.black : Constants.Colors.gray03)
+                Text(reminder.isAllDay ? "All-Day" : reminder.time)
+                    .foregroundStyle(reminder.isEnabled ? Constants.Colors.black : Constants.Colors.gray03)
                     .font(Constants.Fonts.bodyBold)
                     .padding(.leading, 16)
 
@@ -107,12 +96,8 @@ struct WorkoutReminderView: View {
         )
         .upliftShadow(Constants.Shadows.smallLight)
         .onTapGesture {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                    editingReminder = WorkoutReminder(
-                        selectedDays: selectedDays,
-                        isAllDay: isAllDay,
-                        time: time
-                    )
+            withAnimation(.easeInOut(duration: Constants.Goals.animationDuration)) {
+                editingReminder = reminder
             }
         }
     }

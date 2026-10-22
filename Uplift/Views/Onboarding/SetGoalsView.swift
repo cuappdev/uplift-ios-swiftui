@@ -301,27 +301,24 @@ struct SetGoalsView: View {
 
     private var reminders: some View {
         VStack(spacing: 24) {
-            ForEach(viewModel.reminders, id: \.self) { reminder in
-                if editingReminder == nil || editingReminder == reminder {
+            ForEach(viewModel.reminders) { reminder in
+                if editingReminder == nil || editingReminder?.id == reminder.id {
                     WorkoutReminderView(
                         editingReminder: $editingReminder,
-                        isEnabled: reminder.isEnabled,
                         onToggle: { isEnabled in
                             viewModel.toggleReminder(reminder, isEnabled: isEnabled)
                         },
-                        isAllDay: reminder.isAllDay,
-                        selectedDays: reminder.selectedDays,
-                        time: reminder.time,
+                        reminder: reminder,
                         onUpdate: { updatedReminder in
                             withAnimation(.easeInOut(duration: Constants.Goals.animationDuration)) {
-                                if let index = viewModel.reminders.firstIndex(of: reminder) {
+                                if let index = viewModel.reminders.firstIndex(where: { $0.id == reminder.id }) {
                                     viewModel.reminders[index] = updatedReminder
                                 }
                             }
                         },
                         onDelete: {
                             withAnimation(.easeInOut(duration: Constants.Goals.animationDuration)) {
-                                if let index = viewModel.reminders.firstIndex(of: reminder) {
+                                if let index = viewModel.reminders.firstIndex(where: { $0.id == reminder.id }) {
                                     viewModel.reminders.remove(at: index)
                                 }
                             }

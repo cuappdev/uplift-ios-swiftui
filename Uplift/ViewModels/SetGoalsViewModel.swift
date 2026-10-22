@@ -164,11 +164,11 @@ extension SetGoalsView {
         }
 
         func toggleReminder(_ reminder: WorkoutReminder, isEnabled: Bool) {
-            guard let index = reminders.firstIndex(of: reminder) else {
-                return
-            }
+            guard let index = reminders.firstIndex(where: { $0.id == reminder.id }) else {
+                   return
+               }
 
-            reminders[index].isEnabled = isEnabled
+               reminders[index].isEnabled = isEnabled
         }
 
         var haveRemindersChanged: Bool {
