@@ -136,6 +136,22 @@ extension SetGoalsView {
             .store(in: &queryBag)
         }
 
+        func addReminder(_ reminder: WorkoutReminder) {
+            reminders.append(reminder)
+        }
+
+        func updateReminder(_ updatedReminder: WorkoutReminder) {
+            guard let index = reminders.firstIndex(where: { $0.id == updatedReminder.id }) else {
+                return
+            }
+
+            reminders[index] = updatedReminder
+        }
+
+        func deleteReminder(_ reminder: WorkoutReminder) {
+            reminders.removeAll { $0.id == reminder.id }
+        }
+
         func saveReminders() {
             do {
                 let encoder = JSONEncoder()
@@ -151,13 +167,22 @@ extension SetGoalsView {
         }
 
         func loadReminders() {
-            guard let data = UserDefaults.standard.data(forKey: "workoutReminders") else {
+            let key = "workoutReminders"
+
+            guard let data = UserDefaults.standard.data(forKey: key) else {
                 reminders = []
                 return
             }
 
             do {
                 reminders = try JSONDecoder().decode([WorkoutReminder].self, from: data)
+
+                // Persist generated UUIDs for older reminders.
+                if let savedJSON = try JSONSerialization.jsonObject(with: data) as? [[String: Any]],
+                   savedJSON.contains(where: { $0["id"] == nil }) {
+                    let updatedData = try JSONEncoder().encode(reminders)
+                    UserDefaults.standard.set(updatedData, forKey: key)
+                }
             } catch {
                 print("Error decoding reminders: \(error)")
             }

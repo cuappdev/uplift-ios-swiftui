@@ -133,7 +133,8 @@ struct WorkoutReminderEditView: View {
 
             let newReminder = viewModel.makeReminder(
                 isSettingTime: isSettingTime,
-                isEnabled: reminder?.isEnabled ?? true
+                isEnabled: reminder?.isEnabled ?? true,
+                id: reminder?.id ?? UUID()
             )
 
             if isNew {
