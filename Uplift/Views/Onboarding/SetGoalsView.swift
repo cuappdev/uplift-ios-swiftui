@@ -20,8 +20,6 @@ struct SetGoalsView: View {
     @EnvironmentObject var mainViewModel: MainView.ViewModel
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = ViewModel()
-    @State private var showNewReminder = false
-    @State private var editingReminder: WorkoutReminder?
     @State private var inSavedState = false
 
     private var isGoalChangeLocked: Bool {
@@ -71,20 +69,16 @@ struct SetGoalsView: View {
             }
         }
         .onAppear {
-            viewModel.loadReminders()
             guard !isOnboarding, let user = user else { return }
             viewModel.sliderWorkoutGoal = Double(user.workoutGoal ?? 1)
             viewModel.currWorkoutGoal = user.workoutGoal ?? 1
         }
-        .onChange(of: viewModel.reminders) { _ in
-            if viewModel.hasUnsavedChanges {
-                inSavedState = false
-            }
+        .onChange(of: viewModel.sliderWorkoutGoal) { _ in
+            inSavedState = false
         }
         .showModal($viewModel.showWarningModal) {
             GoalSettingWarningModal(
                 onContinue: {
-                    viewModel.saveReminders()
 
                     if let user = user, let userId = Int(user.id) {
                         viewModel.setWorkoutGoal(
@@ -166,7 +160,6 @@ struct SetGoalsView: View {
         ScrollView {
             VStack(spacing: 40) {
                 workoutDays
-                workoutReminders
 
                 if !isOnboarding {
                     if inSavedState {
@@ -226,116 +219,10 @@ struct SetGoalsView: View {
         )
     }
 
-    private var workoutReminders: some View {
-        VStack(spacing: 24) {
-            VStack(spacing: 12) {
-                HStack {
-                    Text("WORKOUT REMINDERS")
-                        .foregroundStyle(Constants.Colors.black)
-                        .font(Constants.Fonts.h2)
-
-                    Spacer()
-                }
-
-                HStack {
-                    Text("Get reminders on workout days to stay on track!")
-                        .foregroundStyle(Constants.Colors.gray04)
-                        .font(Constants.Fonts.f3)
-
-                    Spacer()
-                }
-            }
-
-            newReminder
-
-            !showNewReminder ? reminders : nil
-        }
-        .padding(
-            EdgeInsets(
-                top: Constants.Padding.goalsVertical,
-                leading: Constants.Padding.goalsHorizontal,
-                bottom: Constants.Padding.goalsVertical,
-                trailing: Constants.Padding.goalsHorizontal
-            )
-        )
-    }
-
-    private var newReminder: some View {
-        VStack(spacing: 16) {
-            HStack(spacing: 8) {
-                Button {
-                    withAnimation {
-                        showNewReminder.toggle()
-                    }
-                } label: {
-                    Constants.Images.addCircle
-                        .renderingMode(.template)
-                        .foregroundStyle(
-                            (showNewReminder || editingReminder != nil)
-                                ? Constants.Colors.gray01
-                                : Constants.Colors.black
-                        )
-
-                    Text("New Reminder")
-                        .foregroundStyle(
-                            (showNewReminder || editingReminder != nil)
-                                ? Constants.Colors.gray01
-                                : Constants.Colors.black
-                        )
-                        .font(Constants.Fonts.f2)
-                }
-                .disabled(showNewReminder || editingReminder != nil)
-
-                Spacer()
-            }
-
-            showNewReminder ? WorkoutReminderEditView(
-                inEditMode: $showNewReminder,
-                isNew: true,
-                onCreate: { reminder in
-                    viewModel.reminders.append(reminder)
-                }
-            ) : nil
-        }
-    }
-
-    private var reminders: some View {
-        VStack(spacing: 24) {
-            ForEach(viewModel.reminders) { reminder in
-                if editingReminder == nil || editingReminder?.id == reminder.id {
-                    WorkoutReminderView(
-                        editingReminder: $editingReminder,
-                        onToggle: { isEnabled in
-                            viewModel.toggleReminder(reminder, isEnabled: isEnabled)
-                        },
-                        reminder: reminder,
-                        onUpdate: { updatedReminder in
-                            withAnimation(.easeInOut(duration: Constants.Goals.animationDuration)) {
-                                if let index = viewModel.reminders.firstIndex(where: { $0.id == reminder.id }) {
-                                    viewModel.reminders[index] = updatedReminder
-                                }
-                            }
-                        },
-                        onDelete: {
-                            withAnimation(.easeInOut(duration: Constants.Goals.animationDuration)) {
-                                if let index = viewModel.reminders.firstIndex(where: { $0.id == reminder.id }) {
-                                    viewModel.reminders.remove(at: index)
-                                }
-                            }
-                        }
-                    )
-                }
-            }
-        }
-    }
-
     private var saveButton: some View {
         Button {
             withAnimation {
-                if viewModel.isWorkoutGoal {
-                    viewModel.saveReminders()
-                    inSavedState = true
-                } else if isGoalChangeLocked {
+                if isGoalChangeLocked {
                     viewModel.showErrorModal = true
                 } else {
                     viewModel.showWarningModal = true

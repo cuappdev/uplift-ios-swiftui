@@ -13,12 +13,10 @@ struct WorkoutReminderView: View {
 
     // MARK: - Properties
 
-    @StateObject private var viewModel = ViewModel()
     @Binding var editingReminder: WorkoutReminder?
 
-    let onToggle: (Bool) -> Void
     let reminder: WorkoutReminder
-
+    let onToggle: (Bool) -> Void
     let onUpdate: (WorkoutReminder) -> Void
     let onDelete: () -> Void
 
@@ -57,7 +55,7 @@ struct WorkoutReminderView: View {
         VStack(spacing: 16) {
             HStack {
                 VStack {
-                    Text(viewModel.daysToString(reminder.selectedDays))
+                    Text(reminder.daysText)
                         .foregroundStyle(reminder.isEnabled ? Constants.Colors.black : Constants.Colors.gray03)
                         .font(Constants.Fonts.reminder)
                 }

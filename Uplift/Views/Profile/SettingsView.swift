@@ -131,7 +131,6 @@ struct SettingsView: View {
             .buttonStyle(.plain)
 
             DividerLine()
-            //DEBUG SO I CAN PREVIEW GOALS
 
             Button {
                 onLogout()

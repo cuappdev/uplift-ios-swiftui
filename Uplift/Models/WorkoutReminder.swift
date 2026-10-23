@@ -14,6 +14,27 @@ struct WorkoutReminder: Identifiable, Hashable, Codable {
     let time: String
     var isEnabled: Bool = true
 
+    var daysText: String {
+        if selectedDays.count == 7 {
+            return "Every Day"
+        } else if selectedDays.count == 1 {
+            return selectedDays.first?.dayOfWeekComplete() ?? ""
+        } else if selectedDays.count == 2 &&
+                    selectedDays.contains(.saturday) &&
+                    selectedDays.contains(.sunday) {
+            return "Weekends"
+        } else if selectedDays.count == 5 &&
+                    !selectedDays.contains(.saturday) &&
+                    !selectedDays.contains(.sunday) {
+            return "Weekdays"
+        }
+
+        return selectedDays
+            .map { $0.dayOfWeekAbbreviation() }
+            .sorted()
+            .joined(separator: " ")
+    }
+
     enum CodingKeys: String, CodingKey {
         case id, selectedDays, isAllDay, time, isEnabled
     }
