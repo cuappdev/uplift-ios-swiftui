@@ -1,15 +1,15 @@
 //
-//  WorkoutReminderView.swift
+//  WorkoutReminderCardView.swift
 //  Uplift
 //
-//  Created by Caitlyn Jin on 11/1/24.
-//  Copyright © 2024 Cornell AppDev. All rights reserved.
+//  Created by Kaylee Ulep on 10/23/26.
+//  Copyright © 2026 Cornell AppDev. All rights reserved.
 //
 
 import SwiftUI
 
 /// A view representing a workout reminder.
-struct WorkoutReminderView: View {
+struct WorkoutReminderCardView: View {
 
     // MARK: - Properties
 
@@ -20,7 +20,7 @@ struct WorkoutReminderView: View {
     let onUpdate: (WorkoutReminder) -> Void
     let onDelete: () -> Void
 
-    private var isEditable: Binding<Bool> {
+    private var isEditing: Binding<Bool> {
         Binding(
             get: {
                 editingReminder?.id == reminder.id
@@ -38,9 +38,9 @@ struct WorkoutReminderView: View {
     // MARK: - UI
 
     var body: some View {
-        if isEditable.wrappedValue {
+        if isEditing.wrappedValue {
             WorkoutReminderEditView(
-                inEditMode: isEditable,
+                inEditMode: isEditing,
                 isNew: false,
                 onUpdate: onUpdate,
                 onDelete: onDelete,
@@ -54,16 +54,14 @@ struct WorkoutReminderView: View {
     private var displayReminder: some View {
         VStack(spacing: 16) {
             HStack {
-                VStack {
-                    Text(reminder.daysText)
-                        .foregroundStyle(reminder.isEnabled ? Constants.Colors.black : Constants.Colors.gray03)
-                        .font(Constants.Fonts.reminder)
-                }
-                .padding(EdgeInsets(top: 8, leading: 14, bottom: 8, trailing: 14))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(Constants.Colors.gray01, lineWidth: 1)
-                )
+                Text(reminder.daysText)
+                    .foregroundStyle(reminder.isEnabled ? Constants.Colors.black : Constants.Colors.gray03)
+                    .font(Constants.Fonts.reminder)
+                    .padding(EdgeInsets(top: 8, leading: 14, bottom: 8, trailing: 14))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Constants.Colors.gray01, lineWidth: 1)
+                    )
 
                 Spacer()
 

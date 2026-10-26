@@ -109,6 +109,7 @@
 		52A30D3C3053B9B8002AE86C /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A30D3B3053B9B4002AE86C /* SignInViewModel.swift */; };
 		52B0584E308978800011E20D /* WorkoutReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B0584D3089787D0011E20D /* WorkoutReminder.swift */; };
 		52B05850308BA3E00011E20D /* WorkoutRemindersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B0584F308BA3DB0011E20D /* WorkoutRemindersView.swift */; };
+		52D07DE5308BB8340003A5F0 /* WorkoutReminderCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D07DE4308BB82F0003A5F0 /* WorkoutReminderCardView.swift */; };
 		63001AD62CC9ACFF0082AFFA /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63001AD52CC9ACFF0082AFFA /* LoginViewModel.swift */; };
 		63001AD82CC9AD970082AFFA /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 63001AD72CC9AD970082AFFA /* GoogleSignIn */; };
 		63001ADA2CC9AD980082AFFA /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 63001AD92CC9AD970082AFFA /* GoogleSignInSwift */; };
@@ -140,9 +141,7 @@
 		896500DC2BB4D33500D822AB /* ClassDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896500DB2BB4D33500D822AB /* ClassDetailView.swift */; };
 		897703662BA2028D00F9992F /* ClassesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897703652BA2028D00F9992F /* ClassesViewModel.swift */; };
 		8983A9A62CFEA077008E84DB /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 8983A9A52CFEA077008E84DB /* UpliftAPI */; };
-		898890022CD5D6B800E594A0 /* WorkoutReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890012CD5D6B800E594A0 /* WorkoutReminderView.swift */; };
 		898890042CD6784600E594A0 /* WorkoutReminderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890032CD6784000E594A0 /* WorkoutReminderViewModel.swift */; };
-		898890132CD6C77E00E594A0 /* WorkoutReminderEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890122CD6C77800E594A0 /* WorkoutReminderEditViewModel.swift */; };
 		898890152CD6C7B400E594A0 /* WorkoutReminderEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890142CD6C7B400E594A0 /* WorkoutReminderEditView.swift */; };
 		898890DA2CDC326200E594A0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898890D92CDC326200E594A0 /* User.swift */; };
 		8992674A2CC03E8D00E5741E /* Dropdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899267492CC03E8D00E5741E /* Dropdown.swift */; };
@@ -279,6 +278,7 @@
 		52A30D3B3053B9B4002AE86C /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		52B0584D3089787D0011E20D /* WorkoutReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutReminder.swift; sourceTree = "<group>"; };
 		52B0584F308BA3DB0011E20D /* WorkoutRemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRemindersView.swift; sourceTree = "<group>"; };
+		52D07DE4308BB82F0003A5F0 /* WorkoutReminderCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutReminderCardView.swift; sourceTree = "<group>"; };
 		63001AD52CC9ACFF0082AFFA /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		6329A4452C964D0800D30A2F /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		6329A4472CA0F89D00D30A2F /* CreateProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileView.swift; sourceTree = "<group>"; };
@@ -307,14 +307,12 @@
 		896145B02CCC9F5700F07789 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		896500DB2BB4D33500D822AB /* ClassDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassDetailView.swift; sourceTree = "<group>"; };
 		897703652BA2028D00F9992F /* ClassesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesViewModel.swift; sourceTree = "<group>"; };
-		898890012CD5D6B800E594A0 /* WorkoutReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutReminderView.swift; sourceTree = "<group>"; };
 		898890032CD6784000E594A0 /* WorkoutReminderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutReminderViewModel.swift; sourceTree = "<group>"; };
 		898890052CD6AE2D00E594A0 /* CapacityRemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapacityRemindersView.swift; sourceTree = "<group>"; };
 		898890062CD6AE2D00E594A0 /* RemindersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersView.swift; sourceTree = "<group>"; };
 		898890072CD6AE2D00E594A0 /* ReportSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportSuccessView.swift; sourceTree = "<group>"; };
 		898890082CD6AE2D00E594A0 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
 		898890092CD6AE2D00E594A0 /* SetGoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGoalsView.swift; sourceTree = "<group>"; };
-		898890122CD6C77800E594A0 /* WorkoutReminderEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutReminderEditViewModel.swift; sourceTree = "<group>"; };
 		898890142CD6C7B400E594A0 /* WorkoutReminderEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutReminderEditView.swift; sourceTree = "<group>"; };
 		898890D92CDC326200E594A0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		899267492CC03E8D00E5741E /* Dropdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dropdown.swift; sourceTree = "<group>"; };
@@ -503,7 +501,6 @@
 				2E2748CE2BCD4D1F0023882E /* MainViewModel.swift */,
 				296A2DAD2D7A805300EF042F /* ProfileViewModel.swift */,
 				898890032CD6784000E594A0 /* WorkoutReminderViewModel.swift */,
-				898890122CD6C77800E594A0 /* WorkoutReminderEditViewModel.swift */,
 				8924781F2CCCB9DA0086F335 /* ReportViewModel.swift */,
 				89E833422F4FB2650080AC46 /* WorkoutHistoryViewModel.swift */,
 			);
@@ -580,6 +577,7 @@
 		2E15F50A2B3A0AF700414BEC /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
+				52D07DE4308BB82F0003A5F0 /* WorkoutReminderCardView.swift */,
 				29C2EC1B2F95653200A7F6E2 /* DeleteAccountModal.swift */,
 				2923EF462E98369900D3FC1D /* CapacityTutorialModal.swift */,
 				29055F7F2E7E3E6500E9A730 /* UnsavedChangesModal.swift */,
@@ -595,7 +593,6 @@
 				2E3DC2412BCD2EDF0063B369 /* Giveaway */,
 				2E39D81B2B3B5F3700AD238B /* NavBackButton.swift */,
 				2E39D8252B3B6C6500AD238B /* SlidingTabBarView.swift */,
-				898890012CD5D6B800E594A0 /* WorkoutReminderView.swift */,
 				898890142CD6C7B400E594A0 /* WorkoutReminderEditView.swift */,
 			);
 			path = Supporting;
@@ -1034,10 +1031,9 @@
 				2E39D82C2B3BB35000AD238B /* FacilityExpandedViewModel.swift in Sources */,
 				8928C2932F71DCE900FA18BB /* GoalSettingWarningModal.swift in Sources */,
 				8992674A2CC03E8D00E5741E /* Dropdown.swift in Sources */,
-				898890022CD5D6B800E594A0 /* WorkoutReminderView.swift in Sources */,
+				52D07DE5308BB8340003A5F0 /* WorkoutReminderCardView.swift in Sources */,
 				898890152CD6C7B400E594A0 /* WorkoutReminderEditView.swift in Sources */,
 				C066B2C6305DBC79006613E2 /* GymProximityRules.swift in Sources */,
-				898890132CD6C77E00E594A0 /* WorkoutReminderEditViewModel.swift in Sources */,
 				52B0584E308978800011E20D /* WorkoutReminder.swift in Sources */,
 				2E3D6C202B1285D200B51BB2 /* UpliftEnvironment.swift in Sources */,
 				89EA50D32F90955800B1A177 /* UIImage+Extension.swift in Sources */,

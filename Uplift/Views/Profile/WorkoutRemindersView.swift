@@ -45,7 +45,7 @@ struct WorkoutRemindersView: View {
             viewModel.loadReminders()
         }
         .onChange(of: viewModel.reminders) { _ in
-            if viewModel.haveRemindersChanged {
+            if viewModel.hasUnsavedChanges {
                 inSavedState = false
             }
         }
@@ -84,6 +84,8 @@ struct WorkoutRemindersView: View {
         }
     }
 
+    // MARK: - Workout Reminders
+
     private var workoutReminders: some View {
         VStack(spacing: 24) {
             VStack(spacing: 12) {
@@ -107,7 +109,7 @@ struct WorkoutRemindersView: View {
             newReminder
 
             if !showNewReminder {
-                reminders
+                reminderList
             }
         }
         .padding(
@@ -161,13 +163,13 @@ struct WorkoutRemindersView: View {
         }
     }
 
-    private var reminders: some View {
+    private var reminderList: some View {
         VStack(spacing: 24) {
             ForEach(viewModel.reminders) { reminder in
                 if editingReminder == nil ||
                     editingReminder?.id == reminder.id {
 
-                    WorkoutReminderView(
+                    WorkoutReminderCardView(
                         editingReminder: $editingReminder,
                         reminder: reminder,
                         onToggle: { isEnabled in
@@ -201,6 +203,8 @@ struct WorkoutRemindersView: View {
         }
     }
 
+    // MARK: - Save Changes
+
     private var saveButton: some View {
         Button {
             withAnimation {
@@ -214,14 +218,14 @@ struct WorkoutRemindersView: View {
                 .padding(.horizontal, 32)
                 .padding(.vertical, 12)
                 .background(
-                    viewModel.haveRemindersChanged
+                    viewModel.hasUnsavedChanges
                         ? Constants.Colors.black
                         : Constants.Colors.gray03
                 )
                 .cornerRadius(30)
                 .upliftShadow(Constants.Shadows.smallLight)
         }
-        .disabled(!viewModel.haveRemindersChanged)
+        .disabled(!viewModel.hasUnsavedChanges)
     }
 
     private var savedLabel: some View {

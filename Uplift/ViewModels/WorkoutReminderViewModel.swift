@@ -21,10 +21,12 @@ class WorkoutReminderViewModel: ObservableObject {
 
     // MARK: - Reminder Management
 
+    /// Adds a new workout reminder.
     func addReminder(_ reminder: WorkoutReminder) {
         reminders.append(reminder)
     }
 
+    /// Updates an existing workout reminder with the same ID.
     func updateReminder(_ updatedReminder: WorkoutReminder) {
         guard let index = reminders.firstIndex(where: { $0.id == updatedReminder.id }) else {
             return
@@ -33,10 +35,12 @@ class WorkoutReminderViewModel: ObservableObject {
         reminders[index] = updatedReminder
     }
 
+    /// Deletes a workout reminder.
     func deleteReminder(_ reminder: WorkoutReminder) {
         reminders.removeAll { $0.id == reminder.id }
     }
 
+    /// Enables or disables a workout reminder. (Unused)
     func toggleReminder(_ reminder: WorkoutReminder, isEnabled: Bool) {
         guard let index = reminders.firstIndex(where: { $0.id == reminder.id }) else {
                return
@@ -47,7 +51,8 @@ class WorkoutReminderViewModel: ObservableObject {
 
     // MARK: - Persistence
 
-    var haveRemindersChanged: Bool {
+    /// Whether the current reminders differ from the saved reminders.
+    var hasUnsavedChanges: Bool {
         guard let data = UserDefaults.standard.data(forKey: "workoutReminders"),
               let savedReminders = try? JSONDecoder().decode([WorkoutReminder].self, from: data)
         else {
@@ -57,6 +62,7 @@ class WorkoutReminderViewModel: ObservableObject {
         return reminders != savedReminders
     }
 
+    /// Saves workout reminders to UserDefaults and updates their scheduled notifications.
     func saveReminders() {
         do {
             let encoder = JSONEncoder()
@@ -71,6 +77,7 @@ class WorkoutReminderViewModel: ObservableObject {
         }
     }
 
+    /// Loads saved workout reminders from UserDefaults.
     func loadReminders() {
         let key = "workoutReminders"
 
@@ -81,13 +88,6 @@ class WorkoutReminderViewModel: ObservableObject {
 
         do {
             reminders = try JSONDecoder().decode([WorkoutReminder].self, from: data)
-
-            // Persist generated UUIDs for older reminders.
-            if let savedJSON = try JSONSerialization.jsonObject(with: data) as? [[String: Any]],
-               savedJSON.contains(where: { $0["id"] == nil }) {
-                let updatedData = try JSONEncoder().encode(reminders)
-                UserDefaults.standard.set(updatedData, forKey: key)
-            }
         } catch {
             print("Error decoding reminders: \(error)")
         }
@@ -95,6 +95,7 @@ class WorkoutReminderViewModel: ObservableObject {
 
     // MARK: - Notifications Scheduling
 
+    /// Schedules weekly notifications for all enabled workout reminders.
     func scheduleWorkoutReminders() {
         var scheduledIds: [String] = []
 
@@ -123,6 +124,7 @@ class WorkoutReminderViewModel: ObservableObject {
         UserDefaults.standard.set(scheduledIds, forKey: notificationIdsKey)
     }
 
+    /// Cancels all previously scheduled workout reminder notifications.
     func cancelWorkoutReminders() {
         let ids = UserDefaults.standard.stringArray(forKey: notificationIdsKey) ?? []
 
@@ -135,6 +137,8 @@ class WorkoutReminderViewModel: ObservableObject {
 
     // MARK: - Helpers
 
+    /// Converts a workout reminder's time into 24-hour components for notification scheduling.
+    /// Returns 9:00 AM for all-day reminders or nil if the time is invalid.
     func reminderTime(_ reminder: WorkoutReminder) -> (hour: Int, minute: Int)? {
         if reminder.isAllDay {
             return (9, 0)
@@ -163,4 +167,74 @@ class WorkoutReminderViewModel: ObservableObject {
         return (hour24, minute)
     }
 
+}
+
+// MARK: - Workout Reminder Edit ViewModel
+extension WorkoutReminderEditView {
+
+    /// The ViewModel for creating and editing workout reminders.
+    @MainActor
+    class ViewModel: ObservableObject {
+
+        // MARK: - Properties
+
+        @Published var hour: Int = 1
+        @Published var minutes: Int = 0
+        @Published var selectedDays: [DayOfWeek] = []
+        @Published var timeSuffix: String = "AM"
+
+        // MARK: - Helpers
+
+        /// Sets the `selectedDays` to include every day of the week if `isEveryDay` is true, otherwise it is set to be
+        /// empty.
+        func setEveryDay(_ isEveryDay: Bool) {
+            selectedDays = isEveryDay ? DayOfWeek.sortedDaysOfWeek() : []
+        }
+
+        /// Populates the editing fields with an existing reminder's values.
+        func loadReminder(_ reminder: WorkoutReminder) {
+            selectedDays = reminder.selectedDays
+
+            if !reminder.isAllDay {
+                let components = reminder.time.split(separator: " ")
+                guard components.count == 2 else { return }
+
+                let timeComponents = components[0].split(separator: ":")
+                guard timeComponents.count == 2,
+                      let hour = Int(timeComponents[0]),
+                      let minutes = Int(timeComponents[1])
+                else {
+                    return
+                }
+
+                self.hour = hour
+                self.minutes = minutes
+                timeSuffix = String(components[1])
+            }
+        }
+
+        /// Creates a workout reminder using the current editing fields.
+        /// Preserves the provided ID and enabled state.
+        func makeReminder(
+            isSettingTime: Bool,
+            isEnabled: Bool,
+            id: UUID
+        ) -> WorkoutReminder {
+            let time = String(
+                format: "%d:%02d %@",
+                hour,
+                minutes,
+                timeSuffix
+            )
+
+            return WorkoutReminder(
+                id: id,
+                selectedDays: selectedDays,
+                isAllDay: !isSettingTime,
+                time: isSettingTime ? time : "9:00 AM",
+                isEnabled: isEnabled
+            )
+        }
+
+    }
 }
