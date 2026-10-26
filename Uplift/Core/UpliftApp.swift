@@ -27,31 +27,29 @@ struct UpliftApp: App {
         WindowGroup {
             NavigationStack {
                 ZStack {
-                    (mainViewModel.showSignInView) ? (
+                    switch mainViewModel.sessionState {
+                    case .restoring:
+                        SessionLoadingView()
+                    case .signedOut:
                         SignInView()
-                            .environmentObject(mainViewModel)
-                            .onOpenURL { url in
-                                GIDSignIn.sharedInstance.handle(url)
-                            }
-                    ) : nil
-
-                    (mainViewModel.showSetGoalsView) ? (
-                        SetGoalsView(isOnboarding: true)
-                            .environmentObject(mainViewModel)
-                    ) : nil
-
-                    (mainViewModel.showCreateProfileView) ? (
+                    case .creatingProfile:
                         CreateProfileView()
-                            .environmentObject(mainViewModel)
-                    ) : nil
-
-                    (mainViewModel.showMainView) ? (
+                    case .settingGoals:
+                        SetGoalsView(isOnboarding: true)
+                    case .guest, .signedIn:
                         MainView()
-                            .environmentObject(mainViewModel)
                             .onAppear {
                                 LocationManager.shared.requestLocation()
                             }
-                    ) : nil
+                    }
+                }
+                .animation(
+                    .easeInOut(duration: Constants.SessionLoading.fadeDuration),
+                    value: mainViewModel.sessionState
+                )
+                .environmentObject(mainViewModel)
+                .onOpenURL { url in
+                    GIDSignIn.sharedInstance.handle(url)
                 }
             }
             .onAppear {
@@ -63,41 +61,12 @@ struct UpliftApp: App {
     // MARK: Restore Previous Sign-in
 
     private func restoreUserSession() {
+        let start = Date()
         UserSessionManager.shared.restorePreviousSession { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success:
-                    self.mainViewModel.isSkipped = false
-                    self.mainViewModel.showMainView = true
-                    self.mainViewModel.showSignInView = false
-                    self.mainViewModel.showCreateProfileView = false
-                case .needsSignIn:
-                    if self.mainViewModel.isSkipped {
-                        self.mainViewModel.showSignInView = false
-                        self.mainViewModel.showCreateProfileView = false
-                        self.mainViewModel.showMainView = true
-                    } else {
-                        self.mainViewModel.showSignInView = true
-                        self.mainViewModel.showCreateProfileView = false
-                        self.mainViewModel.showMainView = false
-                    }
-                case .needsProfileCreation:
-                    self.mainViewModel.isSkipped = false
-                    self.mainViewModel.showSignInView = false
-                    self.mainViewModel.showSetGoalsView = true
-                    self.mainViewModel.showMainView = false
-                case .error(let message):
-                    Logger.data.critical("Session restore error: \(message)")
-                    if self.mainViewModel.isSkipped {
-                        self.mainViewModel.showSignInView = false
-                        self.mainViewModel.showCreateProfileView = false
-                        self.mainViewModel.showMainView = true
-                    } else {
-                        self.mainViewModel.showSignInView = true
-                        self.mainViewModel.showCreateProfileView = false
-                        self.mainViewModel.showMainView = false
-                    }
-                }
+            let elapsed = Date().timeIntervalSince(start)
+            let delay = max(0, Constants.SessionLoading.minimumDuration - elapsed)
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                mainViewModel.apply(result)
             }
         }
     }
@@ -109,6 +78,13 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
         FirebaseApp.configure()
+
+        // Create the proximity manager early so its location delegate exists before iOS delivers a region event
+        _ = GymProximityManager.shared
+        if launchOptions?[.location] != nil {
+            Logger.services.info("App launched for a location event")
+        }
+        Task { await GymProximityManager.shared.refreshRegions() }
 
         GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
             if error != nil || user == nil {
@@ -151,6 +127,18 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 
         // Passes the APNs token to Firebase Cloud Messaging (FCM)
         Messaging.messaging().apnsToken = deviceToken
+    }
+
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        if notification.request.identifier.hasPrefix(Constants.NotificationIds.proximityPrefix) {
+            completionHandler([.banner, .sound])
+        } else {
+            completionHandler([])
+        }
     }
 }
 

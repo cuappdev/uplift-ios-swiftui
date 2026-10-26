@@ -54,16 +54,14 @@ struct CustomLoadingView: View {
 
     private var spinningSpinner: some View {
         Constants.Images.spokes
-            .resizable()
-            .aspectRatio(contentMode: .fit)
+            .resizable().scaledToFit()
             .frame(width: 175, height: 175)
             .rotationEffect(.degrees(rotation))
     }
 
     private var bobbingLogo: some View {
         Constants.Images.logoTransparent
-            .resizable()
-            .aspectRatio(contentMode: .fit)
+            .resizable().scaledToFit()
             .frame(width: 200, height: 176)
             .shadow(color: .orange.opacity(0.5), radius: 20)
             .offset(y: isAnimating ? -8 : 8)

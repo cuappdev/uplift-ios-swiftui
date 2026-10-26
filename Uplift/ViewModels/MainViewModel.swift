@@ -17,6 +17,17 @@ extension MainView {
     @MainActor
     class ViewModel: ObservableObject {
 
+        // MARK: - Session State
+
+        enum SessionState {
+            case restoring
+            case signedOut
+            case guest
+            case creatingProfile
+            case settingGoals
+            case signedIn
+        }
+
         // MARK: - Properties
 
         @Published var userId: Int?
@@ -27,31 +38,32 @@ extension MainView {
         @Published var popUpGiveaway: Bool = false
         @Published var profileImage: UIImage?
         @Published var didClickSubmit: Bool = false
-        @Published var showSetGoalsView = false
-        @Published var showCreateProfileView = false
         @Published var showGiveawayErrorAlert: Bool = false
-        @Published var showMainView: Bool = false
-        @Published var showSignInView: Bool = true
         @Published var submitSuccessful: Bool = false
         @Published var showWorkoutCheckIn: Bool = true
 
-        /// True when the user tapped Skip on sign-in; persisted so relaunch stays on main with a guest profile tab.
-        @Published var isSkipped: Bool = false {
+        @Published var sessionState: SessionState {
             didSet {
-                UserDefaults.standard.set(isSkipped, forKey: Constants.UserDefaultsKeys.skippedLogin)
+                if sessionState != .guest {
+                    defaults.set(false, forKey: Constants.UserDefaultsKeys.skippedLogin)
+                }
             }
         }
 
+        /// true when the user tapped skip on sign-in
+        var isSkipped: Bool {
+            sessionState == .guest
+        }
+
+        private let defaults: UserDefaults
         private var queryBag = Set<AnyCancellable>()
 
-        init() {
-            let skipped = UserDefaults.standard.bool(forKey: Constants.UserDefaultsKeys.skippedLogin)
-            isSkipped = skipped
-            if skipped {
-                showSignInView = false
-                showMainView = true
-            }
+        init(defaults: UserDefaults = .standard) {
+            self.defaults = defaults
+            sessionState = defaults.bool(forKey: Constants.UserDefaultsKeys.skippedLogin) ? .guest : .restoring
         }
+
+        // MARK: - Session
 
         /// Clears draft onboarding data that must not carry across sessions (e.g. after log out or account deletion).
         func resetOnboardingDraftState() {
@@ -59,10 +71,36 @@ extension MainView {
             userId = nil
         }
 
-        // MARK: - Constants
+        /// Clears the session and everything tied to it so the next account starts clean.
+        func didLogout() {
+            UserSessionManager.shared.logout()
+            UserSessionManager.shared.clearWorkoutCheckInCooldown()
+            GymProximityManager.shared.disable()
+            resetOnboardingDraftState()
+            sessionState = .signedOut
+        }
 
-        // TODO: Change hardcoded giveaway ID if needed
-        private let giveawayID: Int = 1
+        /// Enters guest mode, remembering it across launches only when the user asked not to see sign-in again.
+        func didSkip(remember: Bool) {
+            sessionState = .guest
+            defaults.set(remember, forKey: Constants.UserDefaultsKeys.skippedLogin)
+        }
+
+        /// sets the session state from the restore result
+        func apply(_ result: SessionRestoreResult) {
+            switch result {
+            case .success, .offline:
+                sessionState = .signedIn
+            case .needsSignIn, .needsProfileCreation:
+                // the backend rejected the keychain session so the tokens are dead,
+                // drop them or the geofences think we're signed in
+                UserSessionManager.shared.logout()
+                sessionState = isSkipped ? .guest : .signedOut
+            case .error(let message):
+                Logger.data.critical("Session restore error: \(message)")
+                sessionState = isSkipped ? .guest : .signedOut
+            }
+        }
 
         // MARK: - Requests
 
@@ -82,10 +120,7 @@ extension MainView {
                     switch result {
                     case .success:
                         Logger.data.log("Successfully logged in after creating user")
-                        self.isSkipped = false
-                        self.showMainView = true
-                        self.showCreateProfileView = false
-                        self.showSignInView = false
+                        self.sessionState = .signedIn
 
                         UserSessionManager.shared.email = self.email
                         completion()
@@ -93,9 +128,7 @@ extension MainView {
                         if let graphqlError = error as? GraphQLErrorWrapper,
                            graphqlError.msg.contains("No user with those credentials") {
                             Logger.data.critical("No user found, show onboarding flow or retry")
-                            self.showMainView = false
-                            self.showCreateProfileView = false
-                            self.showSignInView = true
+                            self.sessionState = .signedOut
                         } else {
                             Logger.data.critical("Unexpected login error: \(error.localizedDescription)")
                         }
@@ -148,7 +181,7 @@ extension MainView {
         /// Enters a user to a giveaway in the backend.
         private func enterGiveawayRequest() {
             Network.client.mutationPublisher(
-                mutation: EnterGiveawayMutation(giveawayId: giveawayID, userNetId: netID)
+                mutation: EnterGiveawayMutation(giveawayId: Constants.MainView.giveawayID, userNetId: netID)
             )
             .sink { [weak self] completion in
                 guard let self else { return }
@@ -165,7 +198,7 @@ extension MainView {
                     self.submitSuccessful = true
                 }
 #if DEBUG
-                Logger.data.log("NetID \(netID) has entered giveaway ID \(giveawayID)")
+                Logger.data.log("NetID \(netID) has entered giveaway ID \(Constants.MainView.giveawayID)")
 #endif
             }
             .store(in: &queryBag)

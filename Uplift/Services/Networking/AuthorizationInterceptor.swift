@@ -42,17 +42,18 @@ class AuthorizationInterceptor: ApolloInterceptor {
             interceptor: self
         ) { [weak self] result in
             guard let self else { return }
+            // Don't refresh again when the refresh call itself expired
             switch result {
             case .failure(let error):
                 // Request fails with no GraphQL payload
-                if self.isTokenExpiredError(error) {
+                if !isRefresh, self.isTokenExpiredError(error) {
                     self.refreshTokenAndRetry(chain: chain, request: request, completion: completion)
                 } else {
                     completion(result)
                 }
             case .success(let graphQLResult):
                 // Parsing succeeds, still possible to have a GraphQL-level error
-                if let firstError = graphQLResult.errors?.first,
+                if !isRefresh, let firstError = graphQLResult.errors?.first,
                    firstError.localizedDescription.lowercased().contains("signature has expired") {
                     self.refreshTokenAndRetry(chain: chain, request: request, completion: completion)
                     return

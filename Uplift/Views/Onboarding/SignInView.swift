@@ -16,51 +16,136 @@ struct SignInView: View {
     @EnvironmentObject var mainViewModel: MainView.ViewModel
     @StateObject private var loginViewModel = LoginViewModel()
     @State private var animateElements: Bool = false
+    @State private var dontShowAgain: Bool = false
+
+    static var hasShownIntro = false
+
+    @StateObject private var viewModel = SignInAnimationViewModel(
+        hasShownIntro: SignInView.hasShownIntro
+    )
+
+    private var isCompactHeight: Bool {
+        UIScreen.main.bounds.height < Constants.SignIn.compactHeight
+    }
+
+    private var headerTopPadding: CGFloat {
+        isCompactHeight ? Constants.SignIn.headerTopPaddingCompact : Constants.SignIn.headerTopPadding
+    }
+
+    private var loginLabelTopPadding: CGFloat {
+        isCompactHeight ? Constants.SignIn.loginLabelTopPaddingCompact : Constants.SignIn.loginLabelTopPadding
+    }
 
     // MARK: - UI
 
     var body: some View {
+        ZStack {
+            signInContent
+
+            if viewModel.showIntro {
+                IntroAnimationView(
+                    onTransition: viewModel.transitionToSignIn,
+                    onFinished: finishIntro
+                )
+            }
+
+            mainLogo
+
+        }
+        .task {
+            await viewModel.startIntroLogoAnimation()
+        }
+    }
+
+    private var signInContent: some View {
         ZStack(alignment: .top) {
             Constants.Images.backgroundEllipse
                 .resizable()
                 .scaledToFit()
-                .padding(.trailing, 51)
+                .padding(.trailing, Constants.SignIn.backgroundTrailingPadding)
                 .ignoresSafeArea(edges: .top)
                 .opacity(animateElements ? 1 : 0)
-                .animation(.easeIn(duration: 1).delay(1), value: animateElements)
+                .animation(
+                    .easeIn(duration: Constants.SignIn.backgroundFadeDuration)
+                    .delay(Constants.SignIn.backgroundFadeDelay),
+                    value: animateElements
+                )
 
             VStack {
                 signInHeader
 
-                loginButton
+                // checkbox lines up with the left edge of the buttons
+                VStack(alignment: .leading) {
+                    loginButton
 
-                Spacer(minLength: 16)
+                    skipButton
+                        .padding(.top, Constants.SignIn.skipTopPadding)
 
-                skipButton
+                    dontShowAgainToggle
+                        .padding(.top, Constants.SignIn.checkboxTopPadding)
+                }
+
+                Spacer(minLength: Constants.SignIn.spacerMinLength)
             }
         }
         .background(Color.white)
         .onAppear {
-            withAnimation(.easeIn(duration: 0.3)) {
-                animateElements = true
+            if viewModel.showIntro {
+                var transaction = Transaction()
+                transaction.disablesAnimations = true
+
+                withTransaction(transaction) {
+                    animateElements = true
+                }
+            } else {
+                withAnimation(.easeIn(duration: Constants.SignIn.initialFadeDuration)) {
+                    animateElements = true
+                }
             }
         }
     }
 
     private var skipButton: some View {
         Button {
-            withAnimation(.easeIn) {
-                mainViewModel.isSkipped = true
-                mainViewModel.showSignInView = false
-                mainViewModel.showMainView = true
-            }
+            mainViewModel.didSkip(remember: dontShowAgain)
         } label: {
             Text("Skip")
-                .font(Constants.Fonts.bodyNormal)
-                .foregroundColor(Constants.Colors.gray04)
+                .font(Constants.Fonts.h2)
+                .foregroundColor(Constants.Colors.black)
+                .frame(width: Constants.SignIn.buttonWidth)
+                .padding(.vertical, Constants.SignIn.buttonVerticalPadding)
+                .background(Constants.Colors.white)
+                .cornerRadius(Constants.SignIn.buttonCornerRadius)
+                .upliftShadow(Constants.Shadows.smallLight)
         }
         .opacity(animateElements ? 1 : 0)
-        .animation(.easeIn(duration: 1).delay(2), value: animateElements)
+        .animation(
+            .easeIn(duration: Constants.SignIn.contentFadeDuration)
+            .delay(Constants.SignIn.contentFadeDelay),
+            value: animateElements
+        )
+    }
+
+    private var dontShowAgainToggle: some View {
+        Button {
+            dontShowAgain.toggle()
+        } label: {
+            HStack(spacing: Constants.SignIn.checkboxSpacing) {
+                dontShowAgain ? Constants.Images.checkboxFilled : Constants.Images.checkboxEmpty
+
+                Text("Don't show this again")
+                    .font(Constants.Fonts.bodyBold)
+                    .foregroundStyle(Constants.Colors.black)
+            }
+        }
+        .buttonStyle(.plain)
+        .accessibilityValue(dontShowAgain ? "Checked" : "Unchecked")
+        .opacity(animateElements ? 1 : 0)
+        .animation(
+            .easeIn(duration: Constants.SignIn.contentFadeDuration)
+            .delay(Constants.SignIn.contentFadeDelay),
+            value: animateElements
+        )
     }
 
     private var loginButton: some View {
@@ -75,10 +160,7 @@ struct SignInView: View {
                     case .success:
                         Task {
                             await MainActor.run {
-                                mainViewModel.isSkipped = false
-                                mainViewModel.showSignInView = false
-                                mainViewModel.showCreateProfileView = false
-                                mainViewModel.showMainView = true
+                                mainViewModel.sessionState = .signedIn
                             }
                         }
 
@@ -90,10 +172,7 @@ struct SignInView: View {
 
                             Task {
                                 await MainActor.run {
-                                    mainViewModel.isSkipped = false
-                                    mainViewModel.showSignInView = false
-                                    mainViewModel.showSetGoalsView = false
-                                    mainViewModel.showCreateProfileView = true
+                                    mainViewModel.sessionState = .creatingProfile
                                 }
                             }
                         } else {
@@ -106,32 +185,48 @@ struct SignInView: View {
             Text("Log in")
                 .font(Constants.Fonts.h2)
                 .foregroundColor(Constants.Colors.black)
-                .padding(.horizontal, 46)
-                .padding(.vertical, 12)
+                .frame(width: Constants.SignIn.buttonWidth)
+                .padding(.vertical, Constants.SignIn.buttonVerticalPadding)
                 .background(Constants.Colors.yellow)
-                .cornerRadius(38)
+                .cornerRadius(Constants.SignIn.buttonCornerRadius)
                 .upliftShadow(Constants.Shadows.smallLight)
         }
         .opacity(animateElements ? 1 : 0)
-        .animation(.easeIn(duration: 1).delay(2), value: animateElements)
+        .animation(
+            .easeIn(duration: Constants.SignIn.contentFadeDuration)
+            .delay(Constants.SignIn.contentFadeDelay),
+            value: animateElements
+        )
     }
 
     private var cardsView: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: Constants.SignIn.cardSpacing) {
             createGoalsView
                 .opacity(animateElements ? 1 : 0)
-                .offset(y: animateElements ? 0 : 200)
-                .animation(.spring(duration: 1).delay(2.5), value: animateElements)
+                .offset(y: animateElements ? 0 : Constants.SignIn.cardYOffset)
+                .animation(
+                    .spring(duration: Constants.SignIn.contentFadeDuration)
+                    .delay(Constants.SignIn.firstCardDelay),
+                    value: animateElements
+                )
             trackGoalsView
                 .opacity(animateElements ? 1 : 0)
-                .offset(y: animateElements ? 0 : 200)
-                .animation(.spring(duration: 1).delay(3), value: animateElements)
+                .offset(y: animateElements ? 0 : Constants.SignIn.cardYOffset)
+                .animation(
+                    .spring(duration: Constants.SignIn.contentFadeDuration)
+                    .delay(Constants.SignIn.secondCardDelay),
+                    value: animateElements
+                )
             workoutHistoryView
                 .opacity(animateElements ? 1 : 0)
-                .offset(y: animateElements ? 0 : 200)
-                .animation(.spring(duration: 1).delay(3.5), value: animateElements)
+                .offset(y: animateElements ? 0 : Constants.SignIn.cardYOffset)
+                .animation(
+                    .spring(duration: Constants.SignIn.contentFadeDuration)
+                    .delay(Constants.SignIn.thirdCardDelay),
+                    value: animateElements
+                )
         }
-        .padding(.horizontal, 76)
+        .padding(.horizontal, Constants.SignIn.cardsHorizontalPadding)
     }
 
     private var createGoalsView: some View {
@@ -144,9 +239,9 @@ struct SignInView: View {
 
             Spacer()
         }
-        .padding(12)
+        .padding(Constants.SignIn.cardPadding)
         .background(.white)
-        .cornerRadius(8)
+        .cornerRadius(Constants.SignIn.cardCornerRadius)
         .upliftShadow(Constants.Shadows.smallLight)
     }
 
@@ -160,9 +255,9 @@ struct SignInView: View {
 
             Spacer()
         }
-        .padding(12)
+        .padding(Constants.SignIn.cardPadding)
         .background(.white)
-        .cornerRadius(8)
+        .cornerRadius(Constants.SignIn.cardCornerRadius)
         .upliftShadow(Constants.Shadows.smallLight)
     }
 
@@ -176,42 +271,104 @@ struct SignInView: View {
 
             Spacer()
         }
-        .padding(12)
+        .padding(Constants.SignIn.cardPadding)
         .background(.white)
-        .cornerRadius(8)
+        .cornerRadius(Constants.SignIn.cardCornerRadius)
         .upliftShadow(Constants.Shadows.smallLight)
     }
 
     private var signInHeader: some View {
         VStack {
-            Constants.Images.logo
-                .resizable()
-                .frame(width: 130, height: 115)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-                .padding(32)
-                .padding(.top, 60)
-                .offset(y: animateElements ? 0 : 200)
-                .animation(.smooth(duration: 2), value: animateElements)
 
             Text("Find what uplifts you.")
                 .font(Constants.Fonts.h1)
                 .foregroundStyle(Constants.Colors.black)
-                .padding(.top, 62)
+                .padding(.top, headerTopPadding)
                 .opacity(animateElements ? 1 : 0)
-                .animation(.easeIn(duration: 1).delay(2), value: animateElements)
+                .animation(
+                    .easeIn(duration: Constants.SignIn.contentFadeDuration)
+                    .delay(Constants.SignIn.contentFadeDelay),
+                    value: animateElements
+                )
 
             Text("Log in to:")
                 .font(Constants.Fonts.h2)
                 .foregroundStyle(Constants.Colors.black)
-                .padding(.top, 89)
+                .padding(.top, loginLabelTopPadding)
                 .opacity(animateElements ? 1 : 0)
-                .animation(.easeIn(duration: 1).delay(2), value: animateElements)
+                .animation(
+                    .easeIn(duration: Constants.SignIn.contentFadeDuration)
+                    .delay(Constants.SignIn.contentFadeDelay),
+                    value: animateElements
+                )
 
             cardsView
-                .padding(.top, 24)
+                .padding(.top, Constants.SignIn.cardsTopPadding)
 
             Spacer()
         }
+        .frame(maxWidth: .infinity)
+    }
+
+    private var mainLogo: some View {
+        VStack {
+            ZStack {
+                Constants.Images.logoSunset
+                    .resizable()
+                    .scaledToFit()
+                    .opacity(
+                        viewModel.isTransitioningToSignIn
+                            ? 0
+                            : 1
+                    )
+
+                Constants.Images.logo
+                    .resizable()
+                    .scaledToFit()
+                    .opacity(
+                        viewModel.isTransitioningToSignIn
+                            ? 1
+                            : 0
+                    )
+            }
+            .frame(
+                width: viewModel.mainLogoSize.width,
+                height: viewModel.mainLogoSize.height
+            )
+            .animation(
+                .easeInOut(
+                    duration: Constants.IntroAnimation.transitionDuration
+                ),
+                value: viewModel.isTransitioningToSignIn
+            )
+
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(
+            .top,
+            viewModel.mainLogoTopPadding
+        )
+        .offset(
+            y: viewModel.mainLogoYOffset
+        )
+        .animation(
+            .easeOut(
+                duration: Constants.IntroAnimation.entranceDuration
+            ),
+            value: viewModel.introLogoEntered
+        )
+        .animation(
+            .smooth(
+                duration: Constants.IntroAnimation.transitionDuration
+            ),
+            value: viewModel.isTransitioningToSignIn
+        )
+    }
+
+    private func finishIntro() {
+        SignInView.hasShownIntro = true
+        viewModel.finish()
     }
 }
 

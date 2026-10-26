@@ -30,11 +30,6 @@ extension WorkoutCheckInView {
         @Published var isCheckingIn = false
         @Published var trigger: Int = 0
 
-        private let threshold: Double = 0.05
-        private let cooldownDuration: TimeInterval = 2*60*60
-        private let cooldownLastGymKey = "lastCooldownGym"
-        private let cooldownKey = "lastCooldownTime"
-        private let dailyCooldownKey = "lastCheckInDate"
         private let locationManager: LocationManaging
         private var queryBag = Set<AnyCancellable>()
 
@@ -110,7 +105,7 @@ extension WorkoutCheckInView {
                     continue
                 }
 
-                if distanceNumeric <= threshold, case .open = gym.status {
+                if distanceNumeric <= Constants.WorkoutCheckIn.threshold, case .open = gym.status {
                     let time = Date().timeStringTrailingZeros
                     let gymName = gym.name
                     currentNearestGym = gym.name
@@ -131,8 +126,9 @@ extension WorkoutCheckInView {
 
         /// Check if the view is in 2 hour cooldown for pressing the close button
         func checkCooldown(gym: String) {
-            let lastDate = UserDefaults.standard.object(forKey: cooldownKey) as? Foundation.Date
-            let lastGym = UserDefaults.standard.string(forKey: cooldownLastGymKey)
+            let lastDate = UserDefaults.standard
+                .object(forKey: Constants.UserDefaultsKeys.checkInCooldownTime) as? Foundation.Date
+            let lastGym = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.checkInCooldownGym)
 
             if lastGym != gym {
                 isCooldownActive = false
@@ -141,7 +137,7 @@ extension WorkoutCheckInView {
 
             if let lastDate {
                 let passed = Date().timeIntervalSince(lastDate)
-                if passed < cooldownDuration {
+                if passed < Constants.WorkoutCheckIn.cooldownDuration {
                     isCooldownActive = true
                 } else {
                     isCooldownActive = false
@@ -153,7 +149,8 @@ extension WorkoutCheckInView {
 
         /// Check if the view is in daily cooldown for already checking in to a gym
         func checkDailyCooldown() {
-            let lastDate = UserDefaults.standard.object(forKey: dailyCooldownKey) as? Foundation.Date
+            let lastDate = UserDefaults.standard
+                .object(forKey: Constants.UserDefaultsKeys.checkInLastDate) as? Foundation.Date
 
             if let lastDate {
                 let today = Calendar.current.startOfDay(for: Date())
@@ -169,14 +166,22 @@ extension WorkoutCheckInView {
 
         /// Start 2 hour cooldown for pressing close button
         func startCooldown(gym: String) {
-            UserDefaults.standard.set(Foundation.Date(), forKey: cooldownKey)
-            UserDefaults.standard.set(gym, forKey: cooldownLastGymKey)
+            UserDefaults.standard.set(Foundation.Date(), forKey: Constants.UserDefaultsKeys.checkInCooldownTime)
+            UserDefaults.standard.set(gym, forKey: Constants.UserDefaultsKeys.checkInCooldownGym)
             isCooldownActive = true
+
+            // the pop-up is gone so the banner shouldn't follow it
+            if let gymId = gyms.first(where: { $0.name == gym })?.id {
+                GymProximityManager.shared.cancelPendingBanner(gymId: gymId)
+            }
         }
 
         /// Start daily cooldown for checking in to a gym
         func startDailyCooldown() {
-            UserDefaults.standard.set(Calendar.current.startOfDay(for: Date()), forKey: dailyCooldownKey)
+            UserDefaults.standard.set(
+                Calendar.current.startOfDay(for: Date()),
+                forKey: Constants.UserDefaultsKeys.checkInLastDate
+            )
             isDailyCooldownActive = true
         }
 
@@ -195,6 +200,7 @@ extension WorkoutCheckInView {
             isCheckingIn = true
             defer { isCheckingIn = false }
 
+            let gymId = gym.id
             await withCheckedContinuation { continuation in
                 var cancellable: AnyCancellable?
                 cancellable = Network.client.mutationPublisher(
@@ -221,6 +227,7 @@ extension WorkoutCheckInView {
                     Logger.data.info("Successfully logged workout")
                     self?.isCheckedIn = true
                     self?.startDailyCooldown()
+                    GymProximityManager.shared.cancelPendingBanner(gymId: gymId)
                 }
             }
         }
