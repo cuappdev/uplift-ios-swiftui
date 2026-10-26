@@ -6,10 +6,12 @@
       "scale" : "1x"
     },
     {
+      "filename" : "member_kaylee@2x.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "member_kaylee@3x.jpg",
       "idiom" : "universal",
       "scale" : "3x"
     }
