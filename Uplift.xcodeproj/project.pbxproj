@@ -105,6 +105,7 @@
 		2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E12B12EDB6008E0299 /* Apollo */; };
 		2EE5F3E42B12EDB6008E0299 /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E32B12EDB6008E0299 /* ApolloAPI */; };
 		2EF1A2582B129EEB007A299F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1A2572B129EEB007A299F /* Network.swift */; };
+		5293F75A308FE40500843882 /* WorkoutReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5293F759308FE40100843882 /* WorkoutReminderTests.swift */; };
 		52A30D3A3053B7E3002AE86C /* IntroAnimationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A30D393053B7DF002AE86C /* IntroAnimationViewModel.swift */; };
 		52A30D3C3053B9B8002AE86C /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A30D3B3053B9B4002AE86C /* SignInViewModel.swift */; };
 		52B0584E308978800011E20D /* WorkoutReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B0584D3089787D0011E20D /* WorkoutReminder.swift */; };
@@ -274,6 +275,7 @@
 		2EE0C7CA2B12D6EE000D3BF6 /* Gym.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gym.graphql; sourceTree = "<group>"; };
 		2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientProtocol.swift; sourceTree = "<group>"; };
 		2EF1A2572B129EEB007A299F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		5293F759308FE40100843882 /* WorkoutReminderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutReminderTests.swift; sourceTree = "<group>"; };
 		52A30D393053B7DF002AE86C /* IntroAnimationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAnimationViewModel.swift; sourceTree = "<group>"; };
 		52A30D3B3053B9B4002AE86C /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		52B0584D3089787D0011E20D /* WorkoutReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutReminder.swift; sourceTree = "<group>"; };
@@ -567,6 +569,7 @@
 		2E15F4EC2B39255B00414BEC /* UpliftTests */ = {
 			isa = PBXGroup;
 			children = (
+				5293F759308FE40100843882 /* WorkoutReminderTests.swift */,
 				C066B2C730607842006613E2 /* GymProximityRulesTests.swift */,
 				293A209F2F46606E0012C74C /* LocationTests.swift */,
 				2E15F4ED2B39255B00414BEC /* UpliftTests.swift */,
@@ -960,6 +963,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				293A20A02F4660700012C74C /* LocationTests.swift in Sources */,
+				5293F75A308FE40500843882 /* WorkoutReminderTests.swift in Sources */,
 				2E15F4EE2B39255B00414BEC /* UpliftTests.swift in Sources */,
 				C066B2C830607844006613E2 /* GymProximityRulesTests.swift in Sources */,
 			);

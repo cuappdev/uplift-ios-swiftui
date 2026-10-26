@@ -16,7 +16,12 @@ class WorkoutReminderViewModel: ObservableObject {
     // MARK: - Properties
     @Published var reminders: [WorkoutReminder] = []
 
-    private let notificationScheduler: NotificationScheduling = NotificationScheduler()
+    private let notificationScheduler: NotificationScheduling
+
+    init(notificationScheduler: NotificationScheduling = NotificationScheduler()) {
+        self.notificationScheduler = notificationScheduler
+    }
+
     private let notificationIdsKey = "workoutReminderNotificationIds"
 
     // MARK: - Reminder Management
