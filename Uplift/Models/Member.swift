@@ -18,12 +18,15 @@ struct Member: Identifiable {
         Member(name: "Nina", role: "Pod Lead", imageName: "member_nina"),
         Member(name: "Wendy", role: "APL", imageName: "member_wendy"),
         Member(name: "Katie", role: "Design", imageName: "member_katie"),
+        Member(name: "Zoe", role: "Design", imageName: "member_zoe"),
         Member(name: "Kaylee", role: "iOS", imageName: "member_kaylee"),
         Member(name: "Anatoli", role: "iOS", imageName: "member_anatoli"),
+        Member(name: "Sandy", role: "iOS", imageName: "member_sandy"),
         Member(name: "Wyatt", role: "Backend", imageName: "member_wyatt"),
         Member(name: "Tran", role: "Backend", imageName: "member_tran"),
         Member(name: "Melissa", role: "Android", imageName: "member_melissa"),
-        Member(name: "Connie", role: "Android", imageName: "member_connie")
+        Member(name: "Connie", role: "Android", imageName: "member_connie"),
+        Member(name: "Cinnie", role: "Android", imageName: "member_cinnie")
     ]
 
     static let sp26members: [Member] = [
