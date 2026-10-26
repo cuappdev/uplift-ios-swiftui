@@ -27,7 +27,7 @@ struct WorkoutReminderCardView: View {
             },
             set: { newValue in
                 if !newValue {
-                    withAnimation(.easeInOut(duration: 0.3)) {
+                    withAnimation(.easeInOut(duration: Constants.Goals.animationDuration)) {
                         editingReminder = nil
                     }
                 }
@@ -52,42 +52,38 @@ struct WorkoutReminderCardView: View {
     }
 
     private var displayReminder: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: Constants.WorkoutReminders.cardSpacing) {
             HStack {
                 Text(reminder.daysText)
                     .foregroundStyle(reminder.isEnabled ? Constants.Colors.black : Constants.Colors.gray03)
                     .font(Constants.Fonts.reminder)
-                    .padding(EdgeInsets(top: 8, leading: 14, bottom: 8, trailing: 14))
+                    .padding(.vertical, Constants.WorkoutReminders.dayLabelVerticalPadding)
+                    .padding(.horizontal, Constants.WorkoutReminders.dayLabelHorizontalPadding)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Constants.Colors.gray01, lineWidth: 1)
+                        RoundedRectangle(cornerRadius: Constants.WorkoutReminders.dayLabelCornerRadius)
+                            .stroke(
+                                Constants.Colors.gray01,
+                                lineWidth: Constants.WorkoutReminders.dayLabelBorderWidth
+                            )
                     )
 
                 Spacer()
 
-                Toggle(
-                    "",
-                    isOn: Binding(
-                        get: { reminder.isEnabled },
-                        set: { onToggle($0) }
-                    ).animation()
-                )
-                .tint(Constants.Colors.yellow)
-                .labelsHidden()
+                // Existing toggle
             }
 
             HStack {
                 Text(reminder.isAllDay ? "All-Day" : reminder.time)
                     .foregroundStyle(reminder.isEnabled ? Constants.Colors.black : Constants.Colors.gray03)
                     .font(Constants.Fonts.bodyBold)
-                    .padding(.leading, 16)
+                    .padding(.leading, Constants.WorkoutReminders.reminderTimeLeadingPadding)
 
                 Spacer()
             }
         }
-        .padding(20)
+        .padding(Constants.WorkoutReminders.cardPadding)
         .background(
-            RoundedRectangle(cornerRadius: 20)
+            RoundedRectangle(cornerRadius: Constants.WorkoutReminders.cardCornerRadius)
                 .fill(Constants.Colors.white)
         )
         .upliftShadow(Constants.Shadows.smallLight)

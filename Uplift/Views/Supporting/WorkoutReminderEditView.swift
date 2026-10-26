@@ -49,9 +49,9 @@ struct WorkoutReminderEditView: View {
     // MARK: - UI
 
     var body: some View {
-        VStack(spacing: 24) {
-            VStack(spacing: 28) {
-                VStack(spacing: 16) {
+        VStack(spacing: Constants.WorkoutReminders.editorSpacing) {
+            VStack(spacing: Constants.WorkoutReminders.editorContentSpacing) {
+                VStack(spacing: Constants.WorkoutReminders.editorDaysSpacing) {
                     reminderDays
 
                     Button {
@@ -59,7 +59,7 @@ struct WorkoutReminderEditView: View {
                             viewModel.setEveryDay(!isEveryDay)
                         }
                     } label: {
-                        HStack(spacing: 12) {
+                        HStack(spacing: Constants.WorkoutReminders.everyDaySpacing) {
                             isEveryDay ? Constants.Images.checkboxFilled : Constants.Images.checkboxEmpty
 
                             Text("Every Day")
@@ -73,9 +73,9 @@ struct WorkoutReminderEditView: View {
 
                 setTime
             }
-            .padding(20)
+            .padding(Constants.WorkoutReminders.cardPadding)
             .background(
-                RoundedRectangle(cornerRadius: 20)
+                RoundedRectangle(cornerRadius: Constants.WorkoutReminders.cardCornerRadius)
                     .fill(Constants.Colors.white)
             )
             .upliftShadow(Constants.Shadows.smallLight)
@@ -86,7 +86,7 @@ struct WorkoutReminderEditView: View {
                 }
             }
 
-            HStack(spacing: 8) {
+            HStack(spacing: Constants.WorkoutReminders.editorButtonSpacing) {
                 Spacer()
 
                 deleteButton
@@ -97,6 +97,7 @@ struct WorkoutReminderEditView: View {
         }
     }
 
+    // MARK: - Action Buttons
     private var deleteButton: some View {
         Button {
             if isNew {
@@ -114,17 +115,18 @@ struct WorkoutReminderEditView: View {
                 }
             }
         } label: {
-            HStack(spacing: 8) {
+            HStack(spacing: Constants.WorkoutReminders.editorButtonSpacing) {
                 Constants.Images.trash
 
                 Text("Delete")
                     .foregroundStyle(Constants.Colors.black)
                     .font(Constants.Fonts.h3)
             }
-            .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+            .padding(.vertical, Constants.WorkoutReminders.editorButtonVerticalPadding)
+            .padding(.horizontal, Constants.WorkoutReminders.editorButtonHorizontalPadding)
             .background(Constants.Colors.white)
         }
-        .cornerRadius(38)
+        .cornerRadius(Constants.WorkoutReminders.editorButtonCornerRadius)
         .upliftShadow(Constants.Shadows.smallLight)
     }
 
@@ -149,14 +151,15 @@ struct WorkoutReminderEditView: View {
                 inEditMode = false
             }
         } label: {
-            HStack(spacing: 8) {
+            HStack(spacing: Constants.WorkoutReminders.editorButtonSpacing) {
                 Constants.Images.check
 
                 Text("Done")
                     .foregroundStyle(Constants.Colors.white)
                     .font(Constants.Fonts.h3)
             }
-            .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+            .padding(.vertical, Constants.WorkoutReminders.editorButtonVerticalPadding)
+            .padding(.horizontal, Constants.WorkoutReminders.editorButtonHorizontalPadding)
             .background(
                 viewModel.selectedDays.isEmpty
                     ? Constants.Colors.gray03
@@ -164,15 +167,16 @@ struct WorkoutReminderEditView: View {
             )
         }
         .disabled(viewModel.selectedDays.isEmpty)
-        .cornerRadius(38)
+        .cornerRadius(Constants.WorkoutReminders.editorButtonCornerRadius)
         .upliftShadow(Constants.Shadows.smallLight)
     }
 
+    // MARK: - Reminder Configuration
     private var reminderDays: some View {
         HStack {
             ForEach(DayOfWeek.sortedDaysOfWeek(start: .monday), id: \.self) { day in
                 Text(day.dayOfWeekAbbreviation())
-                    .frame(width: 32, height: 32)
+                    .frame(width: Constants.WorkoutReminders.dayCircleSize, height: Constants.WorkoutReminders.dayCircleSize)
                     .background {
                         Circle()
                             .fill(viewModel.selectedDays.contains(day)
@@ -195,8 +199,8 @@ struct WorkoutReminderEditView: View {
     }
 
     private var setTime: some View {
-        VStack(spacing: 28) {
-            HStack(spacing: 16) {
+        VStack(spacing: Constants.WorkoutReminders.editorContentSpacing) {
+            HStack(spacing: Constants.WorkoutReminders.setTimeSpacing) {
                 Text("Set Time")
                     .foregroundStyle(Constants.Colors.gray04)
                     .font(Constants.Fonts.h3)
@@ -224,30 +228,31 @@ struct WorkoutReminderEditView: View {
                                 .background(Constants.Colors.white)
                         }
                     }
-                    .frame(width: 68, height: 118)
+                    .frame(width: Constants.WorkoutReminders.timePickerWidth, height: Constants.WorkoutReminders.timePickerHeight)
                     .pickerStyle(.wheel)
                     .labelsHidden()
                     .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Constants.Colors.gray01, lineWidth: 1)
+                        RoundedRectangle(cornerRadius: Constants.WorkoutReminders.timePickerCornerRadius)
+                            .stroke(Constants.Colors.gray01, lineWidth: Constants.WorkoutReminders.timePickerBorderWidth)
                     )
 
                     Picker("", selection: $viewModel.minutes) {
-                        ForEach(0...55, id: \.self) { hour in
-                            hour % 5 == 0 ? (
-                                Text(String(format: "%02d", hour))
-                                    .foregroundStyle(Constants.Colors.black)
-                                    .font(Constants.Fonts.picker)
-                                    .background(Constants.Colors.white)
-                            ) : nil
+                        ForEach(
+                            Array(stride(from: 0, through: 55, by: Constants.WorkoutReminders.minuteInterval)),
+                            id: \.self
+                        ) { minute in
+                            Text(String(format: "%02d", minute))
+                                .foregroundStyle(Constants.Colors.black)
+                                .font(Constants.Fonts.picker)
+                                .background(Constants.Colors.white)
                         }
                     }
-                    .frame(width: 68, height: 118)
+                    .frame(width: Constants.WorkoutReminders.timePickerWidth, height: Constants.WorkoutReminders.timePickerHeight)
                     .pickerStyle(.wheel)
                     .labelsHidden()
                     .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Constants.Colors.gray01, lineWidth: 1)
+                        RoundedRectangle(cornerRadius: Constants.WorkoutReminders.timePickerCornerRadius)
+                            .stroke(Constants.Colors.gray01, lineWidth: Constants.WorkoutReminders.timePickerBorderWidth)
                     )
 
                     Picker("", selection: $viewModel.timeSuffix) {
@@ -258,7 +263,7 @@ struct WorkoutReminderEditView: View {
                                 .background(Constants.Colors.white)
                         }
                     }
-                    .frame(width: 56, height: 118)
+                    .frame(width: Constants.WorkoutReminders.timePickerWidth, height: Constants.WorkoutReminders.timePickerHeight)
                     .pickerStyle(.wheel)
                     .labelsHidden()
                 }

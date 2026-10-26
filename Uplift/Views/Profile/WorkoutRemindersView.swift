@@ -37,8 +37,8 @@ struct WorkoutRemindersView: View {
 
                 Spacer()
             }
-            .padding(.horizontal, 16)
-            .padding(.top, 8)
+            .padding(.horizontal, Constants.WorkoutReminders.backButtonHorizontalPadding)
+            .padding(.top, Constants.WorkoutReminders.backButtonTopPadding)
         }
         .background(Constants.Colors.white)
         .onAppear {
@@ -65,14 +65,14 @@ struct WorkoutRemindersView: View {
                 Spacer()
             }
         }
-        .padding(.bottom, 8)
+        .padding(.bottom, Constants.WorkoutReminders.headerBottomPadding)
         .background(Constants.Colors.lightGray)
-        .frame(height: 96)
+        .frame(height: Constants.WorkoutReminders.headerHeight)
     }
 
     private var content: some View {
         ScrollView {
-            VStack(spacing: 32) {
+            VStack(spacing: Constants.WorkoutReminders.contentSpacing) {
                 workoutReminders
 
                 if inSavedState {
@@ -87,8 +87,8 @@ struct WorkoutRemindersView: View {
     // MARK: - Workout Reminders
 
     private var workoutReminders: some View {
-        VStack(spacing: 24) {
-            VStack(spacing: 12) {
+        VStack(spacing: Constants.WorkoutReminders.sectionSpacing) {
+            VStack(spacing: Constants.WorkoutReminders.headingSpacing) {
                 HStack {
                     Text("WORKOUT REMINDERS")
                         .foregroundStyle(Constants.Colors.black)
@@ -123,8 +123,8 @@ struct WorkoutRemindersView: View {
     }
 
     private var newReminder: some View {
-        VStack(spacing: 16) {
-            HStack(spacing: 8) {
+        VStack(spacing: Constants.WorkoutReminders.newReminderSpacing) {
+            HStack(spacing: Constants.WorkoutReminders.newReminderButtonSpacing) {
                 Button {
                     withAnimation {
                         showNewReminder.toggle()
@@ -164,7 +164,7 @@ struct WorkoutRemindersView: View {
     }
 
     private var reminderList: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: Constants.WorkoutReminders.sectionSpacing) {
             ForEach(viewModel.reminders) { reminder in
                 if editingReminder == nil ||
                     editingReminder?.id == reminder.id {
@@ -215,33 +215,33 @@ struct WorkoutRemindersView: View {
             Text("Save Changes")
                 .font(Constants.Fonts.h3)
                 .foregroundStyle(Constants.Colors.white)
-                .padding(.horizontal, 32)
-                .padding(.vertical, 12)
+                .padding(.horizontal, Constants.WorkoutReminders.saveButtonHorizontalPadding)
+                .padding(.vertical, Constants.WorkoutReminders.saveButtonVerticalPadding)
                 .background(
                     viewModel.hasUnsavedChanges
                         ? Constants.Colors.black
                         : Constants.Colors.gray03
                 )
-                .cornerRadius(30)
+                .cornerRadius(Constants.WorkoutReminders.saveButtonCornerRadius)
                 .upliftShadow(Constants.Shadows.smallLight)
         }
         .disabled(!viewModel.hasUnsavedChanges)
     }
 
     private var savedLabel: some View {
-        HStack(spacing: 8) {
+        HStack(spacing: Constants.WorkoutReminders.savedLabelSpacing) {
             Image(systemName: "checkmark")
                 .resizable()
-                .frame(width: 12, height: 12)
+                .frame(width: Constants.WorkoutReminders.savedIconSize, height: Constants.WorkoutReminders.savedIconSize)
 
             Text("Saved")
                 .font(Constants.Fonts.h3)
         }
         .foregroundStyle(Constants.Colors.white)
-        .padding(.horizontal, 32)
-        .padding(.vertical, 12)
+        .padding(.horizontal, Constants.WorkoutReminders.saveButtonHorizontalPadding)
+        .padding(.vertical, Constants.WorkoutReminders.saveButtonVerticalPadding)
         .background(Constants.Colors.gray03)
-        .cornerRadius(30)
+        .cornerRadius(Constants.WorkoutReminders.saveButtonCornerRadius)
         .upliftShadow(Constants.Shadows.smallLight)
     }
 }
