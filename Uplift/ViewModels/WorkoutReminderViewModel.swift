@@ -23,8 +23,6 @@ class WorkoutReminderViewModel: ObservableObject {
         self.notificationScheduler = notificationScheduler
     }
 
-    private let notificationIdsKey = "workoutReminderNotificationIds"
-
     // MARK: - Reminder Management
 
     /// Adds a new workout reminder.
@@ -59,7 +57,7 @@ class WorkoutReminderViewModel: ObservableObject {
 
     /// Whether the current reminders differ from the saved reminders.
     var hasUnsavedChanges: Bool {
-        guard let data = UserDefaults.standard.data(forKey: "workoutReminders"),
+        guard let data = UserDefaults.standard.data(forKey: Constants.UserDefaultsKeys.workoutReminders),
               let savedReminders = try? JSONDecoder().decode([WorkoutReminder].self, from: data)
         else {
             return !reminders.isEmpty
@@ -74,7 +72,7 @@ class WorkoutReminderViewModel: ObservableObject {
             let encoder = JSONEncoder()
             let remindersJson = try encoder.encode(reminders)
 
-            UserDefaults.standard.set(remindersJson, forKey: "workoutReminders")
+            UserDefaults.standard.set(remindersJson, forKey: Constants.UserDefaultsKeys.workoutReminders)
 
             cancelWorkoutReminders()
             scheduleWorkoutReminders()
@@ -85,9 +83,7 @@ class WorkoutReminderViewModel: ObservableObject {
 
     /// Loads saved workout reminders from UserDefaults.
     func loadReminders() {
-        let key = "workoutReminders"
-
-        guard let data = UserDefaults.standard.data(forKey: key) else {
+        guard let data = UserDefaults.standard.data(forKey: Constants.UserDefaultsKeys.workoutReminders) else {
             reminders = []
             return
         }
@@ -127,25 +123,25 @@ class WorkoutReminderViewModel: ObservableObject {
             }
         }
 
-        UserDefaults.standard.set(scheduledIds, forKey: notificationIdsKey)
+        UserDefaults.standard.set(scheduledIds, forKey: Constants.UserDefaultsKeys.workoutReminderNotificationIds)
     }
 
     /// Cancels all previously scheduled workout reminder notifications.
     func cancelWorkoutReminders() {
-        let ids = UserDefaults.standard.stringArray(forKey: notificationIdsKey) ?? []
+        let ids = UserDefaults.standard.stringArray(forKey: Constants.UserDefaultsKeys.workoutReminderNotificationIds) ?? []
 
         for id in ids {
             notificationScheduler.cancel(id: id)
         }
 
-        UserDefaults.standard.removeObject(forKey: notificationIdsKey)
+        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.workoutReminderNotificationIds)
     }
 
     /// Clears all previously scheduled workout reminder notifications.
     func clearWorkoutReminders() {
         cancelWorkoutReminders()
-        UserDefaults.standard.removeObject(forKey: "workoutReminders")
-        UserDefaults.standard.removeObject(forKey: "workoutReminderNotificationIds")
+        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.workoutReminders)
+        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.workoutReminderNotificationIds)
     }
 
     // MARK: - Helpers

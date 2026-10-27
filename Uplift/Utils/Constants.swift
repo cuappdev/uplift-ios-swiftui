@@ -260,6 +260,10 @@ struct Constants {
         static let proximityRemindersEnabled = "proximityRemindersEnabled"
         static let proximityGymSnapshots = "proximityGymSnapshots"
         static let proximityLastArmed = "proximityLastArmed"
+        
+        // Workout Reminders
+        static let workoutReminders = "workoutReminders"
+        static let workoutReminderNotificationIds = "workoutReminderNotificationIds"
     }
 
     /// Constants used in IntroAnimation
@@ -459,6 +463,5 @@ struct Constants {
         static let timePickerBorderWidth: CGFloat = 1
 
         static let minuteInterval = 5
-
     }
 }
