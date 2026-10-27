@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import OSLog
 
 /// The ViewModel for Workout Reminder views.
 @MainActor
@@ -78,7 +79,7 @@ class WorkoutReminderViewModel: ObservableObject {
             cancelWorkoutReminders()
             scheduleWorkoutReminders()
         } catch {
-            print("Error encoding JSON: \(error)")
+            Logger.data.error("Error encoding JSON: \(error)")
         }
     }
 

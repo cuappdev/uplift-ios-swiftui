@@ -29,9 +29,9 @@ struct WorkoutReminder: Identifiable, Hashable, Codable {
             return "Weekdays"
         }
 
-        return selectedDays
+        return DayOfWeek.sortedDaysOfWeek(start: .monday)
+            .filter { selectedDays.contains($0) }
             .map { $0.dayOfWeekAbbreviation() }
-            .sorted()
             .joined(separator: " ")
     }
 
