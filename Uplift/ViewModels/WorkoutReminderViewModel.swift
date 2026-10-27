@@ -141,6 +141,13 @@ class WorkoutReminderViewModel: ObservableObject {
         UserDefaults.standard.removeObject(forKey: notificationIdsKey)
     }
 
+    /// Clears all previously scheduled workout reminder notifications.
+    func clearWorkoutReminders() {
+        cancelWorkoutReminders()
+        UserDefaults.standard.removeObject(forKey: "workoutReminders")
+        UserDefaults.standard.removeObject(forKey: "workoutReminderNotificationIds")
+    }
+
     // MARK: - Helpers
 
     /// Converts a workout reminder's time into 24-hour components for notification scheduling.
