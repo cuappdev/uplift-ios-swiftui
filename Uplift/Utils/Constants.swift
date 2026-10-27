@@ -260,7 +260,7 @@ struct Constants {
         static let proximityRemindersEnabled = "proximityRemindersEnabled"
         static let proximityGymSnapshots = "proximityGymSnapshots"
         static let proximityLastArmed = "proximityLastArmed"
-        
+
         // Workout Reminders
         static let workoutReminders = "workoutReminders"
         static let workoutReminderNotificationIds = "workoutReminderNotificationIds"

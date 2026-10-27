@@ -44,11 +44,6 @@ struct WorkoutRemindersView: View {
         .onAppear {
             viewModel.loadReminders()
         }
-        .onChange(of: viewModel.reminders) { _ in
-            if viewModel.hasUnsavedChanges {
-                inSavedState = false
-            }
-        }
     }
 
     private var header: some View {
@@ -74,12 +69,6 @@ struct WorkoutRemindersView: View {
         ScrollView {
             VStack(spacing: Constants.WorkoutReminders.contentSpacing) {
                 workoutReminders
-
-                if inSavedState {
-                    savedLabel
-                } else {
-                    saveButton
-                }
             }
         }
     }
@@ -134,15 +123,15 @@ struct WorkoutRemindersView: View {
                         .renderingMode(.template)
                         .foregroundStyle(
                             (showNewReminder || editingReminder != nil)
-                                ? Constants.Colors.gray01
-                                : Constants.Colors.black
+                            ? Constants.Colors.gray01
+                            : Constants.Colors.black
                         )
 
                     Text("New Reminder")
                         .foregroundStyle(
                             (showNewReminder || editingReminder != nil)
-                                ? Constants.Colors.gray01
-                                : Constants.Colors.black
+                            ? Constants.Colors.gray01
+                            : Constants.Colors.black
                         )
                         .font(Constants.Fonts.f2)
                 }
@@ -201,47 +190,5 @@ struct WorkoutRemindersView: View {
                 }
             }
         }
-    }
-
-    // MARK: - Save Changes
-
-    private var saveButton: some View {
-        Button {
-            withAnimation {
-                viewModel.saveReminders()
-                inSavedState = true
-            }
-        } label: {
-            Text("Save Changes")
-                .font(Constants.Fonts.h3)
-                .foregroundStyle(Constants.Colors.white)
-                .padding(.horizontal, Constants.WorkoutReminders.saveButtonHorizontalPadding)
-                .padding(.vertical, Constants.WorkoutReminders.saveButtonVerticalPadding)
-                .background(
-                    viewModel.hasUnsavedChanges
-                        ? Constants.Colors.black
-                        : Constants.Colors.gray03
-                )
-                .cornerRadius(Constants.WorkoutReminders.saveButtonCornerRadius)
-                .upliftShadow(Constants.Shadows.smallLight)
-        }
-        .disabled(!viewModel.hasUnsavedChanges)
-    }
-
-    private var savedLabel: some View {
-        HStack(spacing: Constants.WorkoutReminders.savedLabelSpacing) {
-            Image(systemName: "checkmark")
-                .resizable()
-                .frame(width: Constants.WorkoutReminders.savedIconSize, height: Constants.WorkoutReminders.savedIconSize)
-
-            Text("Saved")
-                .font(Constants.Fonts.h3)
-        }
-        .foregroundStyle(Constants.Colors.white)
-        .padding(.horizontal, Constants.WorkoutReminders.saveButtonHorizontalPadding)
-        .padding(.vertical, Constants.WorkoutReminders.saveButtonVerticalPadding)
-        .background(Constants.Colors.gray03)
-        .cornerRadius(Constants.WorkoutReminders.saveButtonCornerRadius)
-        .upliftShadow(Constants.Shadows.smallLight)
     }
 }
