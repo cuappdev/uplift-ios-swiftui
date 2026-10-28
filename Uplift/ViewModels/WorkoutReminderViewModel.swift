@@ -19,9 +19,15 @@ class WorkoutReminderViewModel: ObservableObject {
 
     private let notificationScheduler: NotificationScheduling
 
-    init(notificationScheduler: NotificationScheduling = NotificationScheduler()) {
+    init(
+        notificationScheduler: NotificationScheduling = NotificationScheduler(),
+        userDefaults: UserDefaults = .standard
+    ) {
         self.notificationScheduler = notificationScheduler
+        self.userDefaults = userDefaults
     }
+
+    private let userDefaults: UserDefaults
 
     // MARK: - Reminder Management
 
@@ -73,7 +79,7 @@ class WorkoutReminderViewModel: ObservableObject {
             let encoder = JSONEncoder()
             let remindersJson = try encoder.encode(reminders)
 
-            UserDefaults.standard.set(remindersJson, forKey: Constants.UserDefaultsKeys.workoutReminders)
+            userDefaults.set(remindersJson, forKey: Constants.UserDefaultsKeys.workoutReminders)
 
         } catch {
             Logger.data.error("Error encoding JSON: \(error)")
@@ -82,7 +88,7 @@ class WorkoutReminderViewModel: ObservableObject {
 
     /// Loads saved workout reminders from UserDefaults.
     func loadReminders() {
-        guard let data = UserDefaults.standard.data(forKey: Constants.UserDefaultsKeys.workoutReminders) else {
+        guard let data = userDefaults.data(forKey: Constants.UserDefaultsKeys.workoutReminders) else {
             reminders = []
             return
         }
@@ -103,7 +109,7 @@ class WorkoutReminderViewModel: ObservableObject {
             return
         }
 
-        var scheduledIds = UserDefaults.standard.stringArray(
+        var scheduledIds = userDefaults.stringArray(
             forKey: Constants.UserDefaultsKeys.workoutReminderNotificationIds
         ) ?? []
 
@@ -124,7 +130,7 @@ class WorkoutReminderViewModel: ObservableObject {
             }
         }
 
-        UserDefaults.standard.set(
+        userDefaults.set(
             scheduledIds,
             forKey: Constants.UserDefaultsKeys.workoutReminderNotificationIds
         )
@@ -142,13 +148,13 @@ class WorkoutReminderViewModel: ObservableObject {
             notificationScheduler.cancel(id: id)
         }
 
-        let scheduledIds = UserDefaults.standard.stringArray(
+        let scheduledIds = userDefaults.stringArray(
             forKey: Constants.UserDefaultsKeys.workoutReminderNotificationIds
         ) ?? []
 
         let remainingIds = scheduledIds.filter { !idsToCancel.contains($0) }
 
-        UserDefaults.standard.set(
+        userDefaults.set(
             remainingIds,
             forKey: Constants.UserDefaultsKeys.workoutReminderNotificationIds
         )
@@ -156,7 +162,7 @@ class WorkoutReminderViewModel: ObservableObject {
 
     /// Clears all previously scheduled workout reminder notifications.
     func clearWorkoutReminders() {
-        let ids = UserDefaults.standard.stringArray(
+        let ids = userDefaults.stringArray(
             forKey: Constants.UserDefaultsKeys.workoutReminderNotificationIds
         ) ?? []
 
@@ -164,10 +170,10 @@ class WorkoutReminderViewModel: ObservableObject {
             notificationScheduler.cancel(id: id)
         }
 
-        UserDefaults.standard.removeObject(
+        userDefaults.removeObject(
             forKey: Constants.UserDefaultsKeys.workoutReminders
         )
-        UserDefaults.standard.removeObject(
+        userDefaults.removeObject(
             forKey: Constants.UserDefaultsKeys.workoutReminderNotificationIds
         )
 

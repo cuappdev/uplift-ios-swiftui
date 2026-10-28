@@ -13,6 +13,12 @@ import Testing
 @MainActor
 struct WorkoutReminderTests {
 
+    private struct TestDependencies {
+        let viewModel: WorkoutReminderViewModel
+        let scheduler: MockNotificationScheduler
+        let defaults: UserDefaults
+    }
+
     private func makeReminder(
         id: UUID = UUID(),
         days: [DayOfWeek] = [.monday],
@@ -27,11 +33,31 @@ struct WorkoutReminderTests {
         )
     }
 
+    private func makeViewModel() -> TestDependencies {
+        let mockScheduler = MockNotificationScheduler()
+        let testDefaults = UserDefaults(
+            suiteName: "WorkoutReminderTests.\(UUID().uuidString)"
+        )!
+
+        let viewModel = WorkoutReminderViewModel(
+            notificationScheduler: mockScheduler,
+            userDefaults: testDefaults
+        )
+
+        return TestDependencies(
+            viewModel: viewModel,
+            scheduler: mockScheduler,
+            defaults: testDefaults
+        )
+    }
+
     // MARK: - Reminder Management
 
     @Test("Adding a reminder updates the list")
     func addReminder() {
-        let viewModel = WorkoutReminderViewModel()
+        let dependencies = makeViewModel()
+        let viewModel = dependencies.viewModel
+
         let reminder = makeReminder()
 
         viewModel.addReminder(reminder)
@@ -41,7 +67,9 @@ struct WorkoutReminderTests {
 
     @Test("Deleting a reminder removes it")
     func deleteReminder() {
-        let viewModel = WorkoutReminderViewModel()
+        let dependencies = makeViewModel()
+        let viewModel = dependencies.viewModel
+
         let reminder = makeReminder()
         viewModel.addReminder(reminder)
 
@@ -52,7 +80,9 @@ struct WorkoutReminderTests {
 
     @Test("Editing selected days replaces the old days")
     func editSelectedDays() {
-        let viewModel = WorkoutReminderViewModel()
+        let dependencies = makeViewModel()
+        let viewModel = dependencies.viewModel
+
         let original = makeReminder(days: [.monday])
         viewModel.addReminder(original)
 
@@ -64,7 +94,9 @@ struct WorkoutReminderTests {
 
     @Test("Editing a reminder can add additional days")
     func addSelectedDays() {
-        let viewModel = WorkoutReminderViewModel()
+        let dependencies = makeViewModel()
+        let viewModel = dependencies.viewModel
+
         let original = makeReminder(days: [.monday])
         viewModel.addReminder(original)
 
@@ -76,7 +108,9 @@ struct WorkoutReminderTests {
 
     @Test("Editing an all-day reminder can set a specific time")
     func allDayToSpecificTime() {
-        let viewModel = WorkoutReminderViewModel()
+        let dependencies = makeViewModel()
+        let viewModel = dependencies.viewModel
+
         let original = makeReminder()
         viewModel.addReminder(original)
 
@@ -90,7 +124,9 @@ struct WorkoutReminderTests {
 
     @Test("Editing a timed reminder can switch to all-day")
     func specificTimeToAllDay() {
-        let viewModel = WorkoutReminderViewModel()
+        let dependencies = makeViewModel()
+        let viewModel = dependencies.viewModel
+
         let original = makeReminder(isAllDay: false, time: "6:15 PM")
         viewModel.addReminder(original)
 
@@ -104,7 +140,9 @@ struct WorkoutReminderTests {
 
     @Test("Editing a timed reminder can change its time")
     func changeSpecificTime() {
-        let viewModel = WorkoutReminderViewModel()
+        let dependencies = makeViewModel()
+        let viewModel = dependencies.viewModel
+
         let original = makeReminder(isAllDay: false, time: "7:00 AM")
         viewModel.addReminder(original)
 
@@ -118,7 +156,9 @@ struct WorkoutReminderTests {
 
     @Test("Reminders with identical settings have separate identities")
     func identicalRemindersCanCoexist() {
-        let viewModel = WorkoutReminderViewModel()
+        let dependencies = makeViewModel()
+        let viewModel = dependencies.viewModel
+
         let first = makeReminder()
         let second = makeReminder()
 
@@ -133,7 +173,9 @@ struct WorkoutReminderTests {
 
     @Test("Deleting one identical reminder preserves the other")
     func deleteOnlyMatchingIdentity() {
-        let viewModel = WorkoutReminderViewModel()
+        let dependencies = makeViewModel()
+        let viewModel = dependencies.viewModel
+
         let first = makeReminder()
         let second = makeReminder()
         viewModel.addReminder(first)
@@ -146,7 +188,9 @@ struct WorkoutReminderTests {
 
     @Test("Editing one identical reminder preserves the other")
     func updateOnlyMatchingIdentity() {
-        let viewModel = WorkoutReminderViewModel()
+        let dependencies = makeViewModel()
+        let viewModel = dependencies.viewModel
+
         let first = makeReminder()
         let second = makeReminder()
         viewModel.addReminder(first)
@@ -160,7 +204,9 @@ struct WorkoutReminderTests {
 
     @Test("Updating a missing reminder leaves existing reminders unchanged")
     func updateMissingReminder() {
-        let viewModel = WorkoutReminderViewModel()
+        let dependencies = makeViewModel()
+        let viewModel = dependencies.viewModel
+
         let existing = makeReminder()
         viewModel.addReminder(existing)
 
@@ -173,7 +219,9 @@ struct WorkoutReminderTests {
 
     @Test("Midnight converts to hour zero")
     func midnight() {
-        let viewModel = WorkoutReminderViewModel()
+        let dependencies = makeViewModel()
+        let viewModel = dependencies.viewModel
+
         let time = viewModel.reminderTime(makeReminder(isAllDay: false, time: "12:00 AM"))
         #expect(time?.hour == 0)
         #expect(time?.minute == 0)
@@ -181,7 +229,9 @@ struct WorkoutReminderTests {
 
     @Test("Noon converts to hour twelve")
     func noon() {
-        let viewModel = WorkoutReminderViewModel()
+        let dependencies = makeViewModel()
+        let viewModel = dependencies.viewModel
+
         let time = viewModel.reminderTime(makeReminder(isAllDay: false, time: "12:00 PM"))
         #expect(time?.hour == 12)
         #expect(time?.minute == 0)
@@ -189,14 +239,17 @@ struct WorkoutReminderTests {
 
     @Test("Invalid time strings are rejected")
     func invalidTime() {
-        let viewModel = WorkoutReminderViewModel()
+        let dependencies = makeViewModel()
+        let viewModel = dependencies.viewModel
+
         #expect(viewModel.reminderTime(makeReminder(isAllDay: false, time: "25:99 PM")) == nil)
     }
 
     @Test("Saving a reminder schedules notifications for all selected days")
     func schedulesNotificationsForSelectedDays() {
-        let mockScheduler = MockNotificationScheduler()
-        let viewModel = WorkoutReminderViewModel(notificationScheduler: mockScheduler)
+        let dependencies = makeViewModel()
+        let viewModel = dependencies.viewModel
+        let mockScheduler = dependencies.scheduler
 
         let reminder = WorkoutReminder(
             selectedDays: [.monday, .wednesday, .friday],
@@ -218,15 +271,19 @@ struct WorkoutReminderTests {
 
         #expect(scheduledDays == expectedDays)
     }
-    
+
     @Test("Adding a reminder automatically persists it")
     func addReminderPersists() {
-        let viewModel = WorkoutReminderViewModel()
+        let dependencies = makeViewModel()
+        let viewModel = dependencies.viewModel
+        let mockScheduler = dependencies.scheduler
+        let testDefaults = dependencies.defaults
+
         let reminder = makeReminder()
 
         viewModel.addReminder(reminder)
 
-        let data = UserDefaults.standard.data(
+        let data = testDefaults.data(
             forKey: Constants.UserDefaultsKeys.workoutReminders
         )
 
@@ -237,11 +294,12 @@ struct WorkoutReminderTests {
             #expect(savedReminders == [reminder])
         }
     }
-    
+
     @Test("Editing reminder days cancels old notifications and schedules new ones")
     func updateReminderNotifications() {
-        let mockScheduler = MockNotificationScheduler()
-        let viewModel = WorkoutReminderViewModel(notificationScheduler: mockScheduler)
+        let dependencies = makeViewModel()
+        let viewModel = dependencies.viewModel
+        let mockScheduler = dependencies.scheduler
 
         let original = makeReminder(days: [.monday])
         viewModel.addReminder(original)
@@ -254,11 +312,12 @@ struct WorkoutReminderTests {
         #expect(mockScheduler.cancelled.contains(mondayId))
         #expect(mockScheduler.scheduledWeekly.last?.weekday == DayOfWeek.wednesday.rawValue)
     }
-    
+
     @Test("Deleting a reminder cancels its scheduled notifications")
     func deleteReminderNotifications() {
-        let mockScheduler = MockNotificationScheduler()
-        let viewModel = WorkoutReminderViewModel(notificationScheduler: mockScheduler)
+        let dependencies = makeViewModel()
+        let viewModel = dependencies.viewModel
+        let mockScheduler = dependencies.scheduler
 
         let reminder = makeReminder(days: [.monday, .friday])
         viewModel.addReminder(reminder)
@@ -270,11 +329,12 @@ struct WorkoutReminderTests {
         #expect(mockScheduler.cancelled.contains(mondayId))
         #expect(mockScheduler.cancelled.contains(fridayId))
     }
-    
+
     @Test("Editing one reminder preserves another reminder's notifications")
     func updateOnlyOneReminderNotifications() {
-        let mockScheduler = MockNotificationScheduler()
-        let viewModel = WorkoutReminderViewModel(notificationScheduler: mockScheduler)
+        let dependencies = makeViewModel()
+        let viewModel = dependencies.viewModel
+        let mockScheduler = dependencies.scheduler
 
         let first = makeReminder(days: [.monday])
         let second = makeReminder(days: [.friday])
@@ -290,4 +350,3 @@ struct WorkoutReminderTests {
         #expect(!mockScheduler.cancelled.contains(secondId))
     }
 }
-
