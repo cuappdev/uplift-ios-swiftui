@@ -82,8 +82,8 @@ struct WeeklyWorkoutTrackerView: View {
 
                 // Date numbers for current week
                 HStack(spacing: Constants.WeeklyWorkoutTracker.spacing) {
-                    ForEach(viewModel.weekDates.indices, id: \.self) { index in
-                        let day = Calendar.current.component(.day, from: viewModel.weekDates[index])
+                    ForEach(Date.now.daysOfWeek, id: \.self) { date in
+                        let day = Calendar.current.component(.day, from: date)
                         Text("\(day)")
                             .font(Constants.Fonts.labelNormal)
                             .frame(width: Constants.WeeklyWorkoutTracker.circleSize, height: 20)
@@ -114,7 +114,7 @@ struct WeeklyWorkoutTrackerView: View {
                 }
             }
         }
-        .onChange(of: viewModel.currentWeekWorkouts) { _ in
+        .onChange(of: viewModel.weeklyProgress) { _ in
             determineWorkoutDays()
             Task {
                 await animateWorkouts()
@@ -126,22 +126,7 @@ struct WeeklyWorkoutTrackerView: View {
 
     /// Determines which days of the current week have completed workouts
     private func determineWorkoutDays() {
-        let parser = ISO8601DateFormatter()
-        parser.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        let calendar = Calendar.current
-
-        // Try both with and without fractional seconds
-        let workoutDates = viewModel.workouts.compactMap { workout -> Date? in
-            if let date = parser.date(from: workout.workoutTime) { return date }
-            let fallback = ISO8601DateFormatter()
-            fallback.formatOptions = [.withInternetDateTime]
-            return fallback.date(from: workout.workoutTime)
-        }
-
-        workoutDays = viewModel.weekDates.map { weekDate in
-            workoutDates.contains { calendar.isDate($0, inSameDayAs: weekDate) }
-        }
-
+        workoutDays = Date.now.daysOfWeek.map(viewModel.weeklyProgress.hasGymDay)
         animationProgress = Array(repeating: 0, count: 7)
     }
 

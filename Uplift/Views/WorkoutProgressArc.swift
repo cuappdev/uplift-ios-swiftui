@@ -61,11 +61,11 @@ struct WorkoutProgressArc: View {
             VStack(spacing: 8) {
                 // Value
                 HStack(alignment: .lastTextBaseline, spacing: 2) {
-                    Text("\(viewModel.currentWeekWorkouts)")
+                    Text("\(viewModel.weeklyProgress.gymDays.count)")
                         .font(Constants.Fonts.p1)
                         .foregroundColor(.black)
 
-                    Text("/ \(viewModel.user?.workoutGoal ?? 5)")
+                    Text("/ \(viewModel.weeklyProgress.goal)")
                         .font(Constants.Fonts.h1)
                         .foregroundColor(.gray)
                         .padding(.leading, 2)
@@ -82,7 +82,7 @@ struct WorkoutProgressArc: View {
         .onAppear {
             animateProgress()
         }
-        .onChange(of: viewModel.currentWeekWorkouts) { _ in
+        .onChange(of: viewModel.weeklyProgress) { _ in
             animateProgress()
         }
     }
@@ -90,9 +90,7 @@ struct WorkoutProgressArc: View {
     // MARK: - Helpers
 
     private func animateProgress() {
-        let goal = Double(viewModel.user?.workoutGoal ?? 5)
-        let completed = Double(viewModel.currentWeekWorkouts)
-        let progress = min(completed / goal, 1.0)
+        let progress = viewModel.weeklyProgress.fraction
         let finalRotation = 180 * progress
 
         withAnimation(.easeOut(duration: 1.5)) {

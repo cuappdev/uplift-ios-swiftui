@@ -25,7 +25,6 @@ extension ProfileView {
         @Published var profileImage: UIImage?
         @Published var showSettingsSheet = false
         @Published var showDeleteAccountAlert = false
-        @Published var currentWeekWorkouts: Int = 0
 
         // MARK: - Computed Properties
 
@@ -37,33 +36,8 @@ extension ProfileView {
             user?.activeStreak ?? 0
         }
 
-        var workoutGoal: Int {
-            user?.workoutGoal ?? 1
-        }
-
-        var weekDates: [Foundation.Date] {
-            let calendar = Calendar.current
-            let today = Foundation.Date()
-            let startOfWeek = startOfWeek(for: today)
-
-            return (0..<7).compactMap {
-                calendar.date(byAdding: .day, value: $0, to: startOfWeek)
-            }
-        }
-
-        var workoutsThisWeek: [Workout] {
-            let calendar = Calendar.current
-            let today = Foundation.Date()
-
-            let start = startOfWeek(for: today)
-            let end = calendar.date(byAdding: .day, value: 7, to: start)!
-
-            return workouts.filter { workout in
-                guard let date = ISO8601DateFormatter().date(from: workout.workoutTime) else {
-                    return false
-                }
-                return date >= start && date < end
-            }
+        var weeklyProgress: WeeklyProgress {
+            WeeklyProgress(workouts: workouts, goal: user?.workoutGoal)
         }
 
         /// Returns the user profile image's URL from the encoded image given.
@@ -78,14 +52,7 @@ extension ProfileView {
 
         /// The most recent workouts sorted by newest first.
         var recentWorkouts: [Workout] {
-            workouts
-                .compactMap { workout -> (Workout, Foundation.Date)? in
-                    guard let date = WorkoutTimeFormatter.isoToDate(workout.workoutTime) else { return nil }
-                    return (workout, date)
-                }
-                .sorted { $0.1 > $1.1 }
-                .prefix(5)
-                .map(\.0)
+            Array(workouts.sorted { ($0.date ?? .distantPast) > ($1.date ?? .distantPast) }.prefix(5))
         }
 
         // MARK: - Requests
@@ -137,7 +104,6 @@ extension ProfileView {
 
                     self.user = User(from: userFields.fragments.userFields)
                     self.workouts = self.user?.workoutHistory ?? []
-                    self.currentWeekWorkouts = self.workoutsThisWeek.count
 
                     if !didResume {
                         didResume = true
@@ -208,16 +174,6 @@ extension ProfileView {
                     self?.workouts = []
                     onComplete(true)
                 }
-        }
-
-        // MARK: - Helpers
-
-        private func startOfWeek(for date: Foundation.Date) -> Foundation.Date {
-            let calendar = Calendar.current
-            let startOfDay = calendar.startOfDay(for: date)
-            let weekday = calendar.component(.weekday, from: startOfDay)
-            let daysFromMonday = (weekday + 5) % 7
-            return calendar.date(byAdding: .day, value: -daysFromMonday, to: startOfDay) ?? startOfDay
         }
 
     }

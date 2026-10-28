@@ -35,14 +35,9 @@ extension WorkoutHistoryView {
         private var workoutsWithDates: [(Workout, Foundation.Date)] {
             guard let workouts else { return [] }
 
-            let sortedWorkouts = workouts
-                .compactMap { workout -> (Workout, Foundation.Date)? in
-                    guard let date = WorkoutTimeFormatter.isoToDate(workout.workoutTime) else { return nil }
-                    return (workout, date)  // allow sorting by date
-                }
-                .sorted { $0.1 > $1.1 } // sort by newest first
-
-            return sortedWorkouts
+            return workouts
+                .compactMap { workout in workout.date.map { (workout, $0) } }
+                .sorted { $0.1 > $1.1 }
         }
 
         /// Workouts grouped by day (start of day) in ascending calendar day order.
