@@ -11,7 +11,7 @@ import Testing
 @testable import Uplift
 
 @MainActor
-struct WorkoutReminderViewModelTests {
+struct WorkoutReminderTests {
 
     private func makeReminder(
         id: UUID = UUID(),
@@ -205,7 +205,6 @@ struct WorkoutReminderViewModelTests {
         )
 
         viewModel.addReminder(reminder)
-        viewModel.scheduleWorkoutReminders()
 
         #expect(mockScheduler.scheduledWeekly.count == 3)
 
@@ -219,4 +218,76 @@ struct WorkoutReminderViewModelTests {
 
         #expect(scheduledDays == expectedDays)
     }
+    
+    @Test("Adding a reminder automatically persists it")
+    func addReminderPersists() {
+        let viewModel = WorkoutReminderViewModel()
+        let reminder = makeReminder()
+
+        viewModel.addReminder(reminder)
+
+        let data = UserDefaults.standard.data(
+            forKey: Constants.UserDefaultsKeys.workoutReminders
+        )
+
+        #expect(data != nil)
+
+        if let data {
+            let savedReminders = try? JSONDecoder().decode([WorkoutReminder].self, from: data)
+            #expect(savedReminders == [reminder])
+        }
+    }
+    
+    @Test("Editing reminder days cancels old notifications and schedules new ones")
+    func updateReminderNotifications() {
+        let mockScheduler = MockNotificationScheduler()
+        let viewModel = WorkoutReminderViewModel(notificationScheduler: mockScheduler)
+
+        let original = makeReminder(days: [.monday])
+        viewModel.addReminder(original)
+
+        let updated = makeReminder(id: original.id, days: [.wednesday])
+        viewModel.updateReminder(updated)
+
+        let mondayId = "workoutReminder.\(original.id.uuidString)-\(DayOfWeek.monday.rawValue)"
+
+        #expect(mockScheduler.cancelled.contains(mondayId))
+        #expect(mockScheduler.scheduledWeekly.last?.weekday == DayOfWeek.wednesday.rawValue)
+    }
+    
+    @Test("Deleting a reminder cancels its scheduled notifications")
+    func deleteReminderNotifications() {
+        let mockScheduler = MockNotificationScheduler()
+        let viewModel = WorkoutReminderViewModel(notificationScheduler: mockScheduler)
+
+        let reminder = makeReminder(days: [.monday, .friday])
+        viewModel.addReminder(reminder)
+        viewModel.deleteReminder(reminder)
+
+        let mondayId = "workoutReminder.\(reminder.id.uuidString)-\(DayOfWeek.monday.rawValue)"
+        let fridayId = "workoutReminder.\(reminder.id.uuidString)-\(DayOfWeek.friday.rawValue)"
+
+        #expect(mockScheduler.cancelled.contains(mondayId))
+        #expect(mockScheduler.cancelled.contains(fridayId))
+    }
+    
+    @Test("Editing one reminder preserves another reminder's notifications")
+    func updateOnlyOneReminderNotifications() {
+        let mockScheduler = MockNotificationScheduler()
+        let viewModel = WorkoutReminderViewModel(notificationScheduler: mockScheduler)
+
+        let first = makeReminder(days: [.monday])
+        let second = makeReminder(days: [.friday])
+
+        viewModel.addReminder(first)
+        viewModel.addReminder(second)
+
+        let updated = makeReminder(id: first.id, days: [.wednesday])
+        viewModel.updateReminder(updated)
+
+        let secondId = "workoutReminder.\(second.id.uuidString)-\(DayOfWeek.friday.rawValue)"
+
+        #expect(!mockScheduler.cancelled.contains(secondId))
+    }
 }
+
