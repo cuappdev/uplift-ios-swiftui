@@ -23,6 +23,8 @@ struct Workout: Hashable {
     /// The time of this workout.
     let workoutTime: String
 
+    let date: Date?
+
     let facilityId: Int
 
     let gymName: String
@@ -35,6 +37,7 @@ struct Workout: Hashable {
         self.id = workout.id
         self.userId = workout.userId
         self.workoutTime = workout.workoutTime
+        self.date = WorkoutTimeFormatter.isoToDate(workout.workoutTime)
         self.facilityId = workout.facilityId
         self.gymName = workout.gymName
     }
@@ -49,6 +52,7 @@ struct Workout: Hashable {
         self.id = id
         self.userId = userId
         self.workoutTime = workoutTime
+        self.date = WorkoutTimeFormatter.isoToDate(workoutTime)
         self.facilityId = facilityId
         self.gymName = gymName
     }

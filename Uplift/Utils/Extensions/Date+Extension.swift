@@ -83,6 +83,17 @@ extension Date {
         return dateFormatter.string(from: self)
     }
 
+    var startOfWeek: Date {
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: self)
+        let daysFromMonday = (calendar.component(.weekday, from: startOfDay) + 5) % 7
+        return calendar.date(byAdding: .day, value: -daysFromMonday, to: startOfDay) ?? startOfDay
+    }
+
+    var daysOfWeek: [Date] {
+        (0..<7).compactMap { Calendar.current.date(byAdding: .day, value: $0, to: startOfWeek) }
+    }
+
     /// Returns the `DayOfWeek` for this date.
     func getDayOfWeek() -> DayOfWeek {
         DayOfWeek(rawValue: Calendar.current.dateComponents([.weekday], from: self).weekday!)!
@@ -106,11 +117,21 @@ extension Date {
 
 enum WorkoutTimeFormatter {
 
-    /// Returns the `Date` object from the given workout time in ISO 18601 with timezone format from backend.
+    private static let isoFormatter: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime]
+        return formatter
+    }()
+
+    private static let isoFractionalFormatter: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        return formatter
+    }()
+
+    /// Returns the `Date` object from the given workout time in ISO 8601 with timezone format from backend.
     static func isoToDate(_ workoutTime: String) -> Date? {
-        let iso = ISO8601DateFormatter()
-        iso.formatOptions = [.withInternetDateTime, .withTimeZone]
-        return iso.date(from: workoutTime)
+        isoFractionalFormatter.date(from: workoutTime) ?? isoFormatter.date(from: workoutTime)
     }
 
     /// Formats the workout time from backend (ISO 8601 with timezone) as `MMM d • h:mm a` in local time.
