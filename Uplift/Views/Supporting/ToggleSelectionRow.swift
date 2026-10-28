@@ -22,16 +22,11 @@ struct ToggleSelectionRow: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 0) {
-                ForEach(Array(options.enumerated()), id: \.element) { index, option in
-                    if index > 0 {
-                        Rectangle()
-                            .fill(Constants.Colors.gray01)
-                            .frame(width: 1, height: 28)
-                    }
-
+                ForEach(Array(options.enumerated()), id: \.element) { _, option in
                     chip(for: option)
                 }
             }
+            .padding(.horizontal, 16)
         }
     }
 
@@ -41,21 +36,23 @@ struct ToggleSelectionRow: View {
         return Button {
             selection.toggle(option)
         } label: {
-            VStack(spacing: 6) {
-                Text(option)
-                    .font(isSelected ? Constants.Fonts.bodySemibold : Constants.Fonts.bodyLight)
-                    .foregroundStyle(Constants.Colors.black)
-
-                Circle()
-                    .fill(Constants.Colors.yellow)
-                    .frame(width: 6, height: 6)
-                    .opacity(isSelected ? 1 : 0)
-            }
-            .padding(.horizontal, 16)
+            Text(option)
+                .font(Constants.Fonts.labelSemibold)
+                .foregroundStyle(Constants.Colors.black)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(
+                    Capsule()
+                        .fill(isSelected ? Constants.Colors.yellow : Constants.Colors.white)
+                )
+                .overlay(
+                    Capsule()
+                        .strokeBorder(isSelected ? Color.clear : Constants.Colors.gray04, lineWidth: 1)
+                )
         }
         .buttonStyle(.plain)
+        .padding(.horizontal, 11.33/2)
     }
-
 }
 
 #Preview {
