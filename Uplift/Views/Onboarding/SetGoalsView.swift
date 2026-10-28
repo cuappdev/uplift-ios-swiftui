@@ -20,9 +20,6 @@ struct SetGoalsView: View {
     @EnvironmentObject var mainViewModel: MainView.ViewModel
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = ViewModel()
-    @State private var isEveryDay = false
-    @State private var isSettingTime = false
-    @State private var showNewReminder = false
     @State private var inSavedState = false
 
     private var isGoalChangeLocked: Bool {
@@ -76,9 +73,13 @@ struct SetGoalsView: View {
             viewModel.sliderWorkoutGoal = Double(user.workoutGoal ?? 1)
             viewModel.currWorkoutGoal = user.workoutGoal ?? 1
         }
+        .onChange(of: viewModel.sliderWorkoutGoal) { _ in
+            inSavedState = false
+        }
         .showModal($viewModel.showWarningModal) {
             GoalSettingWarningModal(
                 onContinue: {
+
                     if let user = user, let userId = Int(user.id) {
                         viewModel.setWorkoutGoal(
                             userId: userId,
@@ -86,7 +87,7 @@ struct SetGoalsView: View {
                         ) { result in
                             switch result {
                             case .success:
-                                withAnimation(.easeInOut(duration: 0.3)) {
+                                withAnimation(.easeInOut(duration: Constants.Goals.animationDuration)) {
                                     inSavedState = true
                                     viewModel.currWorkoutGoal = Int(viewModel.sliderWorkoutGoal)
                                 }
@@ -97,12 +98,12 @@ struct SetGoalsView: View {
                     } else {
                         Logger.data.error("Error in SetGoalsView: Failed to save workout goal because `user.id` was invalid (not an Int).")
                     }
-                    withAnimation(.easeInOut(duration: 0.3)) {
+                    withAnimation(.easeInOut(duration: Constants.Goals.animationDuration)) {
                         viewModel.showWarningModal = false
                     }
                 },
                 onCancel: {
-                    withAnimation(.easeInOut(duration: 0.3)) {
+                    withAnimation(.easeInOut(duration: Constants.Goals.animationDuration)) {
                         viewModel.showWarningModal = false
                     }
                 }
@@ -111,7 +112,7 @@ struct SetGoalsView: View {
         .showModal($viewModel.showErrorModal) {
             GoalSettingErrorModal(
                 onCancel: {
-                    withAnimation(.easeInOut(duration: 0.3)) {
+                    withAnimation(.easeInOut(duration: Constants.Goals.animationDuration)) {
                         viewModel.showErrorModal = false
                     }
                 },
@@ -156,23 +157,23 @@ struct SetGoalsView: View {
     }
 
     private var content: some View {
-        VStack(spacing: 40) {
-            workoutDays
-            // TODO: Workout reminders feature is archived for now
-//                workoutReminders
+        ScrollView {
+            VStack(spacing: 40) {
+                workoutDays
 
-            if !isOnboarding {
-                if inSavedState {
-                    savedLabel
-                } else {
-                    saveButton
+                if !isOnboarding {
+                    if inSavedState {
+                        savedLabel
+                    } else {
+                        saveButton
+                    }
                 }
-            }
 
-            Spacer()
+                Spacer()
 
-            if isOnboarding {
-                nextButton
+                if isOnboarding {
+                    nextButton
+                }
             }
         }
     }
@@ -218,69 +219,6 @@ struct SetGoalsView: View {
         )
     }
 
-    private var workoutReminders: some View {
-        VStack(spacing: 24) {
-            VStack(spacing: 12) {
-                HStack {
-                    Text("WORKOUT REMINDERS")
-                        .foregroundStyle(Constants.Colors.black)
-                        .font(Constants.Fonts.h2)
-
-                    Spacer()
-                }
-
-                HStack {
-                    Text("Get reminders on workout days to stay on track!")
-                        .foregroundStyle(Constants.Colors.gray04)
-                        .font(Constants.Fonts.f3)
-
-                    Spacer()
-                }
-            }
-
-            newReminder
-
-            !showNewReminder ? reminders : nil
-        }
-    }
-
-    private var newReminder: some View {
-        VStack(spacing: 16) {
-            HStack(spacing: 8) {
-                Button {
-                    withAnimation {
-                        showNewReminder.toggle()
-                    }
-                } label: {
-                    Constants.Images.addCircle
-                        .renderingMode(.template)
-                        .foregroundStyle(showNewReminder ? Constants.Colors.gray01 : Constants.Colors.black)
-
-                    Text("New Reminder")
-                        .foregroundStyle(showNewReminder ? Constants.Colors.gray01 : Constants.Colors.black)
-                        .font(Constants.Fonts.f2)
-                }
-                .disabled(showNewReminder)
-
-                Spacer()
-            }
-
-            showNewReminder ? WorkoutReminderEditView(inEditMode: $showNewReminder, isNew: false) : nil
-        }
-    }
-
-    private var reminders: some View {
-        VStack(spacing: 24) {
-            ForEach(viewModel.reminders, id: \.self) { reminder in
-                WorkoutReminderView(
-                    isAllDay: reminder.isAllDay,
-                    selectedDays: reminder.selectedDays,
-                    time: reminder.time
-                )
-            }
-        }
-    }
-
     private var saveButton: some View {
         Button {
             withAnimation {
@@ -296,11 +234,11 @@ struct SetGoalsView: View {
                 .foregroundColor(Constants.Colors.white)
                 .padding(.horizontal, 32)
                 .padding(.vertical, 12)
-                .background(viewModel.isWorkoutGoal ? Constants.Colors.gray03 : Constants.Colors.black)
+                .background(viewModel.hasUnsavedChanges ? Constants.Colors.black : Constants.Colors.gray03)
                 .cornerRadius(30)
                 .upliftShadow(Constants.Shadows.smallLight)
         }
-        .disabled(viewModel.isWorkoutGoal)
+        .disabled(!viewModel.hasUnsavedChanges)
     }
 
     private var savedLabel: some View {

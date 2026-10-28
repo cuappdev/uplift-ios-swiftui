@@ -189,6 +189,7 @@ struct Constants {
     /// Notification identifiers used in Uplift.
     enum NotificationIds {
         static let proximityPrefix = "gymProximity."
+        static let reminderPrefix = "workoutReminder."
     }
 
     /// Padding amounts used in Uplift.
@@ -259,6 +260,10 @@ struct Constants {
         static let proximityRemindersEnabled = "proximityRemindersEnabled"
         static let proximityGymSnapshots = "proximityGymSnapshots"
         static let proximityLastArmed = "proximityLastArmed"
+
+        // Workout Reminders
+        static let workoutReminders = "workoutReminders"
+        static let workoutReminderNotificationIds = "workoutReminderNotificationIds"
     }
 
     /// Constants used in IntroAnimation
@@ -399,5 +404,64 @@ struct Constants {
         static let threshold: Double = 0.05
         static let cooldownDuration: TimeInterval = 2*60*60
         static let dismissCooldown: TimeInterval = 2 * 60 * 60
+    }
+
+    enum Goals {
+        static let animationDuration = 0.3
+    }
+
+    enum WorkoutReminders {
+        static let headerHeight: CGFloat = 96
+        static let headerBottomPadding: CGFloat = 8
+        static let backButtonHorizontalPadding: CGFloat = 16
+        static let backButtonTopPadding: CGFloat = 8
+
+        static let contentSpacing: CGFloat = 32
+        static let sectionSpacing: CGFloat = 24
+        static let headingSpacing: CGFloat = 12
+        static let newReminderSpacing: CGFloat = 16
+        static let newReminderButtonSpacing: CGFloat = 8
+
+        static let saveButtonHorizontalPadding: CGFloat = 32
+        static let saveButtonVerticalPadding: CGFloat = 12
+        static let saveButtonCornerRadius: CGFloat = 30
+        static let savedIconSize: CGFloat = 12
+        static let savedLabelSpacing: CGFloat = 8
+
+        // Workout Reminder Card
+
+        static let cardSpacing: CGFloat = 16
+        static let cardPadding: CGFloat = 20
+        static let cardCornerRadius: CGFloat = 20
+
+        static let dayLabelVerticalPadding: CGFloat = 8
+        static let dayLabelHorizontalPadding: CGFloat = 14
+        static let dayLabelCornerRadius: CGFloat = 8
+        static let dayLabelBorderWidth: CGFloat = 1
+
+        static let reminderTimeLeadingPadding: CGFloat = 16
+
+        // Workout Reminder Editor
+
+        static let editorSpacing: CGFloat = 24
+        static let editorContentSpacing: CGFloat = 28
+        static let editorDaysSpacing: CGFloat = 16
+        static let everyDaySpacing: CGFloat = 12
+
+        static let editorButtonSpacing: CGFloat = 8
+        static let editorButtonVerticalPadding: CGFloat = 10
+        static let editorButtonHorizontalPadding: CGFloat = 20
+        static let editorButtonCornerRadius: CGFloat = 38
+
+        static let dayCircleSize: CGFloat = 32
+
+        static let setTimeSpacing: CGFloat = 16
+        static let timePickerWidth: CGFloat = 68
+        static let timeSuffixPickerWidth: CGFloat = 56
+        static let timePickerHeight: CGFloat = 118
+        static let timePickerCornerRadius: CGFloat = 8
+        static let timePickerBorderWidth: CGFloat = 1
+
+        static let minuteInterval = 5
     }
 }
