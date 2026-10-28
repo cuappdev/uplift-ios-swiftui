@@ -106,6 +106,7 @@
 		2EE5F3E42B12EDB6008E0299 /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E32B12EDB6008E0299 /* ApolloAPI */; };
 		2EF1A2582B129EEB007A299F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1A2572B129EEB007A299F /* Network.swift */; };
 		5293F75A308FE40500843882 /* WorkoutReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5293F759308FE40100843882 /* WorkoutReminderTests.swift */; };
+		528B032F3092AC96005D2321 /* WorkoutSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B032E3092AC8E005D2321 /* WorkoutSummaryView.swift */; };
 		52A30D3A3053B7E3002AE86C /* IntroAnimationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A30D393053B7DF002AE86C /* IntroAnimationViewModel.swift */; };
 		52A30D3C3053B9B8002AE86C /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A30D3B3053B9B4002AE86C /* SignInViewModel.swift */; };
 		52B0584E308978800011E20D /* WorkoutReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B0584D3089787D0011E20D /* WorkoutReminder.swift */; };
@@ -277,6 +278,7 @@
 		2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientProtocol.swift; sourceTree = "<group>"; };
 		2EF1A2572B129EEB007A299F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		5293F759308FE40100843882 /* WorkoutReminderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutReminderTests.swift; sourceTree = "<group>"; };
+		528B032E3092AC8E005D2321 /* WorkoutSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSummaryView.swift; sourceTree = "<group>"; };
 		52A30D393053B7DF002AE86C /* IntroAnimationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAnimationViewModel.swift; sourceTree = "<group>"; };
 		52A30D3B3053B9B4002AE86C /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		52B0584D3089787D0011E20D /* WorkoutReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutReminder.swift; sourceTree = "<group>"; };
@@ -470,6 +472,7 @@
 		2E090ED02B1308C900BAE982 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				528B032E3092AC8E005D2321 /* WorkoutSummaryView.swift */,
 				C066B2C93065F0F5006613E2 /* SessionLoadingView.swift */,
 				C0DED3022F70ACAD00E43983 /* IntroAnimationView.swift */,
 				294CC21C2D7E34D000EF6487 /* WeeklyWorkoutTrackerView.swift */,
@@ -984,6 +987,7 @@
 				6329A4462C964D0800D30A2F /* SignInView.swift in Sources */,
 				2E39D81C2B3B5F3700AD238B /* NavBackButton.swift in Sources */,
 				2E15F4E02B39143700414BEC /* Gym.swift in Sources */,
+				528B032F3092AC96005D2321 /* WorkoutSummaryView.swift in Sources */,
 				2E39D8242B3B66FD00AD238B /* FitnessCenterViewModel.swift in Sources */,
 				2E6785C42B3A780600DD3ADA /* DayOfWeek.swift in Sources */,
 				2E6785BE2B3A513000DD3ADA /* SemiCircleShape.swift in Sources */,
