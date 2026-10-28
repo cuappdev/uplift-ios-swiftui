@@ -41,6 +41,16 @@ struct Constants {
         // Others
         static let dropdownSelectColor = Color(red: 202/255, green: 214/255, blue: 224/255)
         static let giveawayBgColor = Color(red: 34/255, green: 36/255, blue: 42/255)
+
+        // Streaks
+        static let streakBrown = Color(red: 78/255, green: 52/255, blue: 28/255)
+        static let streakCircleCenter = Color(red: 255/255, green: 238/255, blue: 140/255)
+        static let streakCircleEdge = Color(red: 250/255, green: 168/255, blue: 56/255)
+        static let streakNumber = Color(red: 226/255, green: 112/255, blue: 14/255)
+        static let streakSkyBlue = Color(red: 186/255, green: 220/255, blue: 250/255)
+        static let streakSkyBlueCenter = Color(red: 245/255, green: 240/255, blue: 216/255)
+        static let streakSkyGold = Color(red: 214/255, green: 146/255, blue: 34/255)
+        static let streakSkyGoldCenter = Color(red: 248/255, green: 226/255, blue: 164/255)
     }
 
     /// Facility names in Uplift.
@@ -167,6 +177,7 @@ struct Constants {
         static let shower = Image("shower")
         static let trash = Image("trash")
         static let spokes = Image("spokes")
+        static let streakMountain = Image("streak_mountain")
         static let vertEllipsis = Image("vert_ellipsis")
         static let warning = Image("warning")
         static let whistleOutline = Image("whistle_outline")
@@ -391,6 +402,14 @@ struct Constants {
     enum Profile {
         static let radius = 125
         static let circleRadius = 3.0
+    }
+
+    enum Streaks {
+        static let badgeSize: CGFloat = 136
+        static let circleMaxSize: CGFloat = 120
+        static let circleMinSize: CGFloat = 28
+        static let glowRadius: CGFloat = 12
+        static let maxGoal = 7
     }
 
     /// Constants used in workout check-in.

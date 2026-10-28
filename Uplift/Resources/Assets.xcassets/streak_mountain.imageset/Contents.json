@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "streak_mountain.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
