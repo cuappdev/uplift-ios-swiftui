@@ -165,6 +165,7 @@ struct Constants {
         static let replay = Image("replay")
         static let shoulder = Image("shoulder")
         static let shower = Image("shower")
+        static let startWorkout = Image("start_workout")
         static let trash = Image("trash")
         static let spokes = Image("spokes")
         static let vertEllipsis = Image("vert_ellipsis")
