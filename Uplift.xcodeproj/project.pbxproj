@@ -165,6 +165,7 @@
 		C066B2C0305C5F63006613E2 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2BF305C5F61006613E2 /* NotificationScheduler.swift */; };
 		C066B2C2305C61BE006613E2 /* GymProximityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2C1305C61BD006613E2 /* GymProximityManager.swift */; };
 		C066B2C4305D6FEE006613E2 /* GymSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2C3305D6FEB006613E2 /* GymSnapshot.swift */; };
+		C066B2D43070A10100AA0001 /* ActiveWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2D23070A10000AA0001 /* ActiveWorkout.swift */; };
 		C066B2C6305DBC79006613E2 /* GymProximityRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2C5305DBC72006613E2 /* GymProximityRules.swift */; };
 		C066B2C830607844006613E2 /* GymProximityRulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2C730607842006613E2 /* GymProximityRulesTests.swift */; };
 		C066B2CA3065F0F6006613E2 /* SessionLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2C93065F0F5006613E2 /* SessionLoadingView.swift */; };
@@ -338,6 +339,7 @@
 		C066B2BF305C5F61006613E2 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
 		C066B2C1305C61BD006613E2 /* GymProximityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymProximityManager.swift; sourceTree = "<group>"; };
 		C066B2C3305D6FEB006613E2 /* GymSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymSnapshot.swift; sourceTree = "<group>"; };
+		C066B2D23070A10000AA0001 /* ActiveWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveWorkout.swift; sourceTree = "<group>"; };
 		C066B2C5305DBC72006613E2 /* GymProximityRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymProximityRules.swift; sourceTree = "<group>"; };
 		C066B2C730607842006613E2 /* GymProximityRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymProximityRulesTests.swift; sourceTree = "<group>"; };
 		C066B2C93065F0F5006613E2 /* SessionLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionLoadingView.swift; sourceTree = "<group>"; };
@@ -403,6 +405,7 @@
 			children = (
 				52B0584D3089787D0011E20D /* WorkoutReminder.swift */,
 				C066B2C3305D6FEB006613E2 /* GymSnapshot.swift */,
+				C066B2D23070A10000AA0001 /* ActiveWorkout.swift */,
 				C0CB14932F70A2C100E23E69 /* Member.swift */,
 				2922846F2F59461B00809ED4 /* WorkoutGoalHistory.swift */,
 				298EBA4D2E8E5048000441BA /* GymIdentifier.swift */,
@@ -1091,6 +1094,7 @@
 				2E15F4DC2B39117300414BEC /* OpenHours.swift in Sources */,
 				2E090ED62B13121600BAE982 /* Constants.swift in Sources */,
 				C066B2C4305D6FEE006613E2 /* GymSnapshot.swift in Sources */,
+				C066B2D43070A10100AA0001 /* ActiveWorkout.swift in Sources */,
 				89C34AA12CA66E9C00C579A5 /* CapacityRemindersViewModel.swift in Sources */,
 				2E39D8282B3B726D00AD238B /* GymTabType.swift in Sources */,
 				2E2748CB2BCD37810023882E /* GiveawayPopup.swift in Sources */,

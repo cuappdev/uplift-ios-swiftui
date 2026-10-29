@@ -265,6 +265,13 @@ struct Constants {
         // Workout Reminders
         static let workoutReminders = "workoutReminders"
         static let workoutReminderNotificationIds = "workoutReminderNotificationIds"
+
+        static let activeWorkout = "activeWorkout"
+    }
+
+    /// Constants used for a workout in progress
+    enum WorkoutInProgress {
+        static let maxDuration: TimeInterval = 4 * 60 * 60
     }
 
     /// Constants used in IntroAnimation
