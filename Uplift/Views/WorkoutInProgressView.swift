@@ -57,14 +57,14 @@ struct WorkoutInProgressView: View {
     @ViewBuilder
     private var content: some View {
         if let workout = viewModel.activeWorkout {
-            VStack(spacing: 165) {
+            VStack(spacing: 0) {
                 subtitle
 
-                VStack(spacing: 70) {
-                    timer(for: workout)
+                timer(for: workout)
+                    .padding(.top, 165)
 
-                    buttons
-                }
+                buttons
+                    .padding(.top, 70)
             }
         }
     }
@@ -86,9 +86,7 @@ struct WorkoutInProgressView: View {
                 .minimumScaleFactor(0.5)
                 .padding(.horizontal, 30)
                 .onChange(of: context.date) { date in
-                    if workout.isFinished(at: date) {
-                        viewModel.finish()
-                    }
+                    viewModel.finishIfExpired(at: date)
                 }
         }
     }
@@ -113,6 +111,7 @@ struct WorkoutInProgressView: View {
                 showDiscardAlert = true
             }
         }
+        .padding(.horizontal, 24)
         .alert("Discard workout?", isPresented: $showDiscardAlert) {
             Button("Discard", role: .destructive) {
                 viewModel.discard()
@@ -120,7 +119,6 @@ struct WorkoutInProgressView: View {
 
             Button("Cancel", role: .cancel) {}
         }
-        .padding(.horizontal, 24)
     }
 
     // MARK: - Supporting

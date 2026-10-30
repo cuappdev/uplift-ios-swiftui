@@ -21,7 +21,12 @@ extension WorkoutInProgressView {
             }
         }
 
-        @Published var isExpanded = false
+        @Published private var expanded = false
+
+        var isExpanded: Bool {
+            get { expanded && activeWorkout != nil }
+            set { expanded = newValue }
+        }
 
         private let defaults: UserDefaults
 
@@ -41,7 +46,7 @@ extension WorkoutInProgressView {
         // MARK: - Functions
 
         func start(gym: Gym?, workoutId: String?) {
-            defer { isExpanded = true }
+            defer { expanded = true }
             guard activeWorkout == nil else { return }
 
             var closeTime: Date?
@@ -56,13 +61,18 @@ extension WorkoutInProgressView {
         func finish() -> ActiveWorkout? {
             let workout = activeWorkout
             activeWorkout = nil
-            isExpanded = false
+            expanded = false
             return workout
+        }
+
+        func finishIfExpired(at now: Date) {
+            guard let activeWorkout, activeWorkout.isFinished(at: now) else { return }
+            finish()
         }
 
         func discard() {
             activeWorkout = nil
-            isExpanded = false
+            expanded = false
         }
 
         // MARK: - Helpers
