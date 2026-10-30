@@ -67,6 +67,12 @@ extension WorkoutInProgressView {
 
         // MARK: - Helpers
 
+        var subtitleText: String {
+            guard let activeWorkout else { return "" }
+            let date = activeWorkout.startDate.formatted(.dateTime.month(.abbreviated).day())
+            return [activeWorkout.gymName, date].compactMap { $0 }.joined(separator: " · ")
+        }
+
         func timerText(at now: Date) -> String {
             let total = elapsedSeconds(at: now)
             return String(format: "%02d : %02d : %02d", total / 3600, total % 3600 / 60, total % 60)
