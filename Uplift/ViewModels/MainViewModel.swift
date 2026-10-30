@@ -77,6 +77,7 @@ extension MainView {
             UserSessionManager.shared.clearWorkoutCheckInCooldown()
             GymProximityManager.shared.disable()
             WorkoutReminderViewModel().clearWorkoutReminders()
+            WorkoutInProgressView.ViewModel().discard()
             resetOnboardingDraftState()
             sessionState = .signedOut
         }

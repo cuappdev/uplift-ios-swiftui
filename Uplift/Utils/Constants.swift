@@ -212,6 +212,12 @@ struct Constants {
 
     /// Shadows used in Uplift's design system.
     enum Shadows {
+        static let mediumDark = ShadowConfig(
+            color: Constants.Colors.black.opacity(0.25),
+            radius: 12.5,
+            x: 0,
+            y: 0
+        )
         static let normalDark = ShadowConfig(
             color: Constants.Colors.black,
             radius: 14,
@@ -271,7 +277,10 @@ struct Constants {
 
     /// Constants used for a workout in progress
     enum WorkoutInProgress {
+        static let cardId = "workoutCard"
         static let maxDuration: TimeInterval = 4 * 60 * 60
+        static let title = "Workout In Progress"
+        static let titleId = "workoutTitle"
     }
 
     /// Constants used in IntroAnimation

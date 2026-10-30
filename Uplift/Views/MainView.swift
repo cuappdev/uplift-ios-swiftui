@@ -16,6 +16,8 @@ struct MainView: View {
     @StateObject private var profileViewModel = ProfileView.ViewModel() // NOTE: We only need to drill this to few screens so using @StateObject & @ObservedObject pattern
     @StateObject private var homeViewModel = HomeView.ViewModel() // NOTE: We only need to drill this to few screens so using @StateObject & @ObservedObject pattern
     @State private var selectedTab: Screen = .home
+    @StateObject private var workoutViewModel = WorkoutInProgressView.ViewModel()
+    @Namespace private var workoutNamespace
     @StateObject var tabBarProp = TabBarProperty()
 
     // MARK: - UI
@@ -42,20 +44,38 @@ struct MainView: View {
                 }
             }
             .overlay(alignment: .bottom) {
-                VStack {
-                    if !viewModel.isSkipped {
-                        WorkoutCheckInView(
-                            profileViewModel: profileViewModel,
-                            homeViewModel: homeViewModel
-                        )
-                        .environmentObject(viewModel) // MainViewModel
-                        .padding(.bottom, 13)
-                        .padding(.horizontal, 10)
-                        .opacity(viewModel.showWorkoutCheckIn ? 1 : 0)
-                        .allowsHitTesting(viewModel.showWorkoutCheckIn)
+                ZStack(alignment: .bottom) {
+                    if workoutViewModel.isExpanded {
+                        WorkoutInProgressView(viewModel: workoutViewModel, namespace: workoutNamespace)
+                            .transition(.hideOnRemoval)
                     }
 
-                    !tabBarProp.hidden ? tabBar.transition(.move(edge: .bottom)) : nil
+                    VStack {
+                        if !viewModel.isSkipped {
+                            WorkoutCheckInView(
+                                profileViewModel: profileViewModel,
+                                homeViewModel: homeViewModel
+                            )
+                            .environmentObject(viewModel) // MainViewModel
+                            .padding(.bottom, 13)
+                            .padding(.horizontal, 10)
+                            .opacity(showsWorkoutCheckIn ? 1 : 0)
+                            .allowsHitTesting(showsWorkoutCheckIn)
+                        }
+
+                        VStack(spacing: 0) {
+                            if !viewModel.isSkipped && !tabBarProp.hidden && workoutViewModel.showsMinimizedBar {
+                                MinimizedWorkoutBar(viewModel: workoutViewModel, namespace: workoutNamespace)
+                                    .transition(.hideOnRemoval)
+                                    .zIndex(1)
+                            }
+
+                            if !tabBarProp.hidden && !workoutViewModel.isExpanded {
+                                tabBar
+                                    .transition(.move(edge: .bottom))
+                            }
+                        }
+                    }
                 }
             }
 
@@ -83,11 +103,16 @@ struct MainView: View {
             }
         }
         .background(Color.white)
+        .animation(.spring(response: 0.45, dampingFraction: 0.88), value: workoutViewModel.isExpanded)
         .onChange(of: viewModel.didClickSubmit) { didClickSubmit in
             if didClickSubmit {
                 viewModel.enterGiveaway()
             }
         }
+    }
+
+    private var showsWorkoutCheckIn: Bool {
+        viewModel.showWorkoutCheckIn && !workoutViewModel.isExpanded
     }
 
     private var tabBar: some View {

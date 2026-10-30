@@ -13,7 +13,10 @@ struct WorkoutInProgressView: View {
     // MARK: - Properties
 
     @ObservedObject var viewModel: ViewModel
+    @State private var isContentVisible = false
     @State private var showDiscardAlert = false
+
+    let namespace: Namespace.ID
 
     // MARK: - UI
 
@@ -21,19 +24,34 @@ struct WorkoutInProgressView: View {
         VStack(spacing: 0) {
             header
 
-            DividerLine()
+            Group {
+                DividerLine()
 
-            content
+                content
+            }
+            .opacity(isContentVisible ? 1 : 0)
         }
-        .frame(maxHeight: .infinity, alignment: .top)
-        .background(Constants.Colors.white)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .background {
+            UnevenRoundedRectangle(topLeadingRadius: 20, topTrailingRadius: 20)
+                .fill(Constants.Colors.white)
+                .ignoresSafeArea()
+                .matchedGeometryEffect(id: Constants.WorkoutInProgress.cardId, in: namespace)
+        }
+        .accessibilityAddTraits(.isModal)
+        .onAppear {
+            withAnimation(.easeOut(duration: 0.25).delay(0.15)) {
+                isContentVisible = true
+            }
+        }
     }
 
     private var header: some View {
         ZStack {
-            Text("In Progress")
+            Text(Constants.WorkoutInProgress.title)
                 .font(Constants.Fonts.h2)
                 .foregroundStyle(Constants.Colors.black)
+                .matchedGeometryEffect(id: Constants.WorkoutInProgress.titleId, in: namespace)
 
             HStack {
                 Button {
@@ -46,6 +64,7 @@ struct WorkoutInProgressView: View {
                         .frame(width: 16, height: 16)
                         .foregroundStyle(Constants.Colors.black)
                 }
+                .opacity(isContentVisible ? 1 : 0)
 
                 Spacer()
             }
@@ -154,8 +173,10 @@ struct WorkoutInProgressView: View {
 
 }
 
+@available(iOS 17.0, *)
 #Preview {
+    @Previewable @Namespace var namespace
     let viewModel = WorkoutInProgressView.ViewModel(defaults: UserDefaults(suiteName: "preview") ?? .standard)
     viewModel.start(gym: nil, workoutId: nil)
-    return WorkoutInProgressView(viewModel: viewModel)
+    return WorkoutInProgressView(viewModel: viewModel, namespace: namespace)
 }

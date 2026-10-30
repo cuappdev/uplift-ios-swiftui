@@ -77,6 +77,10 @@ extension WorkoutInProgressView {
 
         // MARK: - Helpers
 
+        var showsMinimizedBar: Bool {
+            activeWorkout != nil && !isExpanded
+        }
+
         var subtitleText: String {
             guard let activeWorkout else { return "" }
             let date = activeWorkout.startDate.formatted(.dateTime.month(.abbreviated).day())
