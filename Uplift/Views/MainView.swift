@@ -44,40 +44,7 @@ struct MainView: View {
                 }
             }
             .overlay(alignment: .bottom) {
-                ZStack(alignment: .bottom) {
-                    VStack {
-                        if !viewModel.isSkipped {
-                            WorkoutCheckInView(
-                                profileViewModel: profileViewModel,
-                                homeViewModel: homeViewModel,
-                                workoutViewModel: workoutViewModel
-                            )
-                            .environmentObject(viewModel) // MainViewModel
-                            .padding(.bottom, 13)
-                            .padding(.horizontal, 10)
-                            .opacity(showsWorkoutCheckIn ? 1 : 0)
-                            .allowsHitTesting(showsWorkoutCheckIn)
-                        }
-
-                        VStack(spacing: 0) {
-                            if !viewModel.isSkipped && !tabBarProp.hidden && workoutViewModel.showsMinimizedBar {
-                                MinimizedWorkoutBar(viewModel: workoutViewModel, namespace: workoutNamespace)
-                                    .transition(.hideOnRemoval)
-                                    .zIndex(1)
-                            }
-
-                            if !tabBarProp.hidden {
-                                tabBar
-                            }
-                        }
-                    }
-
-                    if workoutViewModel.isExpanded {
-                        WorkoutInProgressView(viewModel: workoutViewModel, namespace: workoutNamespace)
-                            .ignoresSafeArea(edges: .bottom)
-                            .transition(.hideOnRemoval)
-                    }
-                }
+                bottomOverlay
             }
 
             if viewModel.popUpGiveaway {
@@ -104,7 +71,7 @@ struct MainView: View {
             }
         }
         .background(Color.white)
-        .animation(.spring(response: 0.45, dampingFraction: 0.88), value: workoutViewModel.isExpanded)
+        .animation(Constants.WorkoutInProgress.expandAnimation, value: workoutViewModel.isExpanded)
         .showModal($workoutViewModel.showsQuickStart) {
             QuickStartWorkoutModal(onStart: startQuickStart, onDismiss: dismissQuickStart)
         }
@@ -115,22 +82,40 @@ struct MainView: View {
         }
     }
 
-    private var showsWorkoutCheckIn: Bool {
-        viewModel.showWorkoutCheckIn && !workoutViewModel.isExpanded
-    }
+    private var bottomOverlay: some View {
+        ZStack(alignment: .bottom) {
+            VStack {
+                if !viewModel.isSkipped {
+                    WorkoutCheckInView(
+                        profileViewModel: profileViewModel,
+                        homeViewModel: homeViewModel,
+                        workoutViewModel: workoutViewModel
+                    )
+                    .environmentObject(viewModel) // MainViewModel
+                    .padding(.bottom, 13)
+                    .padding(.horizontal, 10)
+                    .opacity(showsWorkoutCheckIn ? 1 : 0)
+                    .allowsHitTesting(showsWorkoutCheckIn)
+                }
 
-    private func startQuickStart() {
-        DispatchQueue.main.async {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                workoutViewModel.quickStart()
+                if !tabBarProp.hidden {
+                    VStack(spacing: 0) {
+                        if showsWorkoutBar {
+                            MinimizedWorkoutBar(viewModel: workoutViewModel, namespace: workoutNamespace)
+                                .transition(.hideOnRemoval)
+                                .zIndex(1)
+                        }
+
+                        tabBar
+                    }
+                    .transition(.move(edge: .bottom))
+                }
             }
-        }
-    }
 
-    private func dismissQuickStart() {
-        DispatchQueue.main.async {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                workoutViewModel.showsQuickStart = false
+            if workoutViewModel.isExpanded {
+                WorkoutInProgressView(viewModel: workoutViewModel, namespace: workoutNamespace)
+                    .ignoresSafeArea(edges: .bottom)
+                    .transition(.hideOnRemoval)
             }
         }
     }
@@ -200,6 +185,35 @@ struct MainView: View {
                 .font(Constants.Fonts.h3)
         }
         .foregroundStyle(Constants.Colors.black)
+    }
+
+    // MARK: - Helpers
+
+    private var showsWorkoutBar: Bool {
+        !viewModel.isSkipped && workoutViewModel.showsMinimizedBar
+    }
+
+    private var showsWorkoutCheckIn: Bool {
+        viewModel.showWorkoutCheckIn && !workoutViewModel.isExpanded
+    }
+
+    private func startQuickStart() {
+        Task {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                workoutViewModel.quickStart()
+            }
+
+            try? await Task.sleep(for: .seconds(Constants.WorkoutInProgress.expandDelay))
+            workoutViewModel.isExpanded = true
+        }
+    }
+
+    private func dismissQuickStart() {
+        Task {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                workoutViewModel.showsQuickStart = false
+            }
+        }
     }
 
 }

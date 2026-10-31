@@ -272,12 +272,17 @@ struct Constants {
         static let workoutReminders = "workoutReminders"
         static let workoutReminderNotificationIds = "workoutReminderNotificationIds"
 
+        // Workout In Progress
         static let activeWorkout = "activeWorkout"
     }
 
     /// Constants used for a workout in progress
     enum WorkoutInProgress {
         static let cardId = "workoutCard"
+        static let cardShape = UnevenRoundedRectangle(topLeadingRadius: 20, topTrailingRadius: 20)
+        static let contentFadeDelay: Double = 0.15
+        static let contentFadeDuration: Double = 0.25
+        static let expandAnimation = Animation.spring(response: 0.45, dampingFraction: 0.88)
         static let expandDelay: TimeInterval = 0.25
         static let maxDuration: TimeInterval = 4 * 60 * 60
         static let quickStartDelay: TimeInterval = 1.5

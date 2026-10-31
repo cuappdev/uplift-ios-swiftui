@@ -139,16 +139,7 @@ struct WorkoutCheckInView: View {
                 }
                 await viewModel.handleCheckIn(user: profileViewModel.user)
                 await profileViewModel.fetchUserProfile()
-
-                guard viewModel.isCheckedIn else { return }
-                try? await Task.sleep(for: .seconds(Constants.WorkoutInProgress.quickStartDelay))
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    mainViewModel.showWorkoutCheckIn = false
-                }
-                workoutViewModel.offerQuickStart(
-                    gym: viewModel.checkedInGym,
-                    workoutId: viewModel.loggedWorkoutId
-                )
+                await offerQuickStart()
             }
         } label: {
             Text("Check In?")
@@ -178,6 +169,19 @@ struct WorkoutCheckInView: View {
                 viewModel.startCooldown(gym: gym)
             }
         }
+    }
+
+    private func offerQuickStart() async {
+        guard viewModel.isCheckedIn else { return }
+        try? await Task.sleep(for: .seconds(Constants.WorkoutInProgress.quickStartDelay))
+
+        withAnimation(.easeInOut(duration: 0.3)) {
+            mainViewModel.showWorkoutCheckIn = false
+        }
+        workoutViewModel.offerQuickStart(
+            gym: viewModel.checkedInGym,
+            workoutId: viewModel.loggedWorkoutId
+        )
     }
 }
 

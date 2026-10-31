@@ -13,7 +13,6 @@ struct WorkoutInProgressView: View {
     // MARK: - Properties
 
     @ObservedObject var viewModel: ViewModel
-    @State private var isContentVisible = false
     @State private var isSlidingAway = false
     @State private var showDiscardAlert = false
 
@@ -30,23 +29,19 @@ struct WorkoutInProgressView: View {
 
                 content
             }
-            .opacity(isContentVisible ? 1 : 0)
+            .fadeInOnAppear()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .contentShape(Rectangle())
         .background {
-            UnevenRoundedRectangle(topLeadingRadius: 20, topTrailingRadius: 20)
+            Constants.WorkoutInProgress.cardShape
                 .fill(Constants.Colors.white)
                 .ignoresSafeArea()
                 .matchedGeometryEffect(id: Constants.WorkoutInProgress.cardId, in: namespace)
         }
         .offset(y: isSlidingAway ? UIScreen.main.bounds.height : 0)
+        .allowsHitTesting(!isSlidingAway)
         .accessibilityAddTraits(.isModal)
-        .onAppear {
-            withAnimation(.easeOut(duration: 0.25).delay(0.15)) {
-                isContentVisible = true
-            }
-        }
     }
 
     private var header: some View {
@@ -67,7 +62,7 @@ struct WorkoutInProgressView: View {
                         .frame(width: 16, height: 16)
                         .foregroundStyle(Constants.Colors.black)
                 }
-                .opacity(isContentVisible ? 1 : 0)
+                .fadeInOnAppear()
 
                 Spacer()
             }
@@ -149,19 +144,6 @@ struct WorkoutInProgressView: View {
 
     // MARK: - Supporting
 
-    private func slideAway(then end: @escaping () -> Void) {
-        let duration = Constants.WorkoutInProgress.slideAwayDuration
-        withAnimation(.easeIn(duration: duration)) {
-            isSlidingAway = true
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
-            var transaction = Transaction()
-            transaction.disablesAnimations = true
-            withTransaction(transaction, end)
-        }
-    }
-
     private func actionButton(
         icon: Image,
         title: String,
@@ -188,6 +170,22 @@ struct WorkoutInProgressView: View {
                     .fill(background)
                     .upliftShadow(Constants.Shadows.smallLight)
             )
+        }
+    }
+
+    // MARK: - Helpers
+
+    private func slideAway(then end: @escaping () -> Void) {
+        Task {
+            let duration = Constants.WorkoutInProgress.slideAwayDuration
+            withAnimation(.easeIn(duration: duration)) {
+                isSlidingAway = true
+            }
+
+            try? await Task.sleep(for: .seconds(duration))
+            var transaction = Transaction()
+            transaction.disablesAnimations = true
+            withTransaction(transaction, end)
         }
     }
 

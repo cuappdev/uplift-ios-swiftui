@@ -63,6 +63,7 @@
 		2E2932C62BA2B9B5008445CE /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E2932C52BA2B9B5008445CE /* UpliftAPI */; };
 		2E3838412BB7536700AE15DC /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 2E3838402BB7536700AE15DC /* PrivacyInfo.xcprivacy */; };
 		2E39D8162B3B3AD600AD238B /* ScaleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D8152B3B3AD600AD238B /* ScaleButtonStyle.swift */; };
+		C066B2EE3070F10100AA0001 /* FadeInOnAppearModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2EC3070F10000AA0001 /* FadeInOnAppearModifier.swift */; };
 		C066B2E63070D10100AA0001 /* HideOnRemovalModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2E43070D10000AA0001 /* HideOnRemovalModifier.swift */; };
 		2E39D81C2B3B5F3700AD238B /* NavBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D81B2B3B5F3700AD238B /* NavBackButton.swift */; };
 		2E39D81E2B3B610200AD238B /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D81D2B3B610200AD238B /* UINavigationController+Extension.swift */; };
@@ -244,6 +245,7 @@
 		2E2748CE2BCD4D1F0023882E /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		2E3838402BB7536700AE15DC /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		2E39D8152B3B3AD600AD238B /* ScaleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleButtonStyle.swift; sourceTree = "<group>"; };
+		C066B2EC3070F10000AA0001 /* FadeInOnAppearModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeInOnAppearModifier.swift; sourceTree = "<group>"; };
 		C066B2E43070D10000AA0001 /* HideOnRemovalModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideOnRemovalModifier.swift; sourceTree = "<group>"; };
 		2E39D81B2B3B5F3700AD238B /* NavBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBackButton.swift; sourceTree = "<group>"; };
 		2E39D81D2B3B610200AD238B /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
@@ -635,6 +637,7 @@
 				298EBA492E8DD241000441BA /* ModalModifier.swift */,
 				29055FC52E849E2600E9A730 /* LoadingModifier.swift */,
 				2E6785BF2B3A5CA300DD3ADA /* Haptics.swift */,
+				C066B2EC3070F10000AA0001 /* FadeInOnAppearModifier.swift */,
 				C066B2E43070D10000AA0001 /* HideOnRemovalModifier.swift */,
 				2E39D8152B3B3AD600AD238B /* ScaleButtonStyle.swift */,
 				2E6785BD2B3A513000DD3ADA /* SemiCircleShape.swift */,
@@ -1017,6 +1020,7 @@
 				29055F802E7E3E6E00E9A730 /* UnsavedChangesModal.swift in Sources */,
 				2E39D8162B3B3AD600AD238B /* ScaleButtonStyle.swift in Sources */,
 				C066B2E63070D10100AA0001 /* HideOnRemovalModifier.swift in Sources */,
+				C066B2EE3070F10100AA0001 /* FadeInOnAppearModifier.swift in Sources */,
 				C0CB14922F709DA100E23E69 /* AboutView.swift in Sources */,
 				2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */,
 				893AD9152D59569600C0817B /* MuscleCategoryView.swift in Sources */,

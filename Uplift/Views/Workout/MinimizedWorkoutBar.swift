@@ -13,7 +13,6 @@ struct MinimizedWorkoutBar: View {
     // MARK: - Properties
 
     @ObservedObject var viewModel: WorkoutInProgressView.ViewModel
-    @State private var isContentVisible = false
 
     let namespace: Namespace.ID
 
@@ -26,7 +25,7 @@ struct MinimizedWorkoutBar: View {
             ZStack {
                 HStack {
                     chevron
-                        .opacity(isContentVisible ? 1 : 0)
+                        .fadeInOnAppear()
 
                     Spacer()
                 }
@@ -38,18 +37,13 @@ struct MinimizedWorkoutBar: View {
             .background(card)
         }
         .buttonStyle(.plain)
-        .onAppear {
-            withAnimation(.easeOut(duration: 0.2).delay(0.15)) {
-                isContentVisible = true
-            }
-        }
     }
 
     private var card: some View {
-        UnevenRoundedRectangle(topLeadingRadius: 20, topTrailingRadius: 20)
+        Constants.WorkoutInProgress.cardShape
             .fill(Constants.Colors.white)
             .overlay {
-                UnevenRoundedRectangle(topLeadingRadius: 20, topTrailingRadius: 20)
+                Constants.WorkoutInProgress.cardShape
                     .strokeBorder(Constants.Colors.gray01, lineWidth: 1)
                     .mask {
                         Rectangle()
@@ -85,7 +79,7 @@ struct MinimizedWorkoutBar: View {
                         viewModel.finishIfExpired(at: date)
                     }
             }
-            .opacity(isContentVisible ? 1 : 0)
+            .fadeInOnAppear()
         }
     }
 
