@@ -32,6 +32,7 @@ struct WorkoutInProgressView: View {
             .opacity(isContentVisible ? 1 : 0)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .contentShape(Rectangle())
         .background {
             UnevenRoundedRectangle(topLeadingRadius: 20, topTrailingRadius: 20)
                 .fill(Constants.Colors.white)

@@ -45,11 +45,6 @@ struct MainView: View {
             }
             .overlay(alignment: .bottom) {
                 ZStack(alignment: .bottom) {
-                    if workoutViewModel.isExpanded {
-                        WorkoutInProgressView(viewModel: workoutViewModel, namespace: workoutNamespace)
-                            .transition(.hideOnRemoval)
-                    }
-
                     VStack {
                         if !viewModel.isSkipped {
                             WorkoutCheckInView(
@@ -71,11 +66,16 @@ struct MainView: View {
                                     .zIndex(1)
                             }
 
-                            if !tabBarProp.hidden && !workoutViewModel.isExpanded {
+                            if !tabBarProp.hidden {
                                 tabBar
-                                    .transition(.move(edge: .bottom))
                             }
                         }
+                    }
+
+                    if workoutViewModel.isExpanded {
+                        WorkoutInProgressView(viewModel: workoutViewModel, namespace: workoutNamespace)
+                            .ignoresSafeArea(edges: .bottom)
+                            .transition(.hideOnRemoval)
                     }
                 }
             }
@@ -106,14 +106,7 @@ struct MainView: View {
         .background(Color.white)
         .animation(.spring(response: 0.45, dampingFraction: 0.88), value: workoutViewModel.isExpanded)
         .showModal($workoutViewModel.showsQuickStart) {
-            QuickStartWorkoutModal(
-                onStart: {
-                    workoutViewModel.quickStart()
-                },
-                onDismiss: {
-                    workoutViewModel.showsQuickStart = false
-                }
-            )
+            QuickStartWorkoutModal(onStart: startQuickStart, onDismiss: dismissQuickStart)
         }
         .onChange(of: viewModel.didClickSubmit) { didClickSubmit in
             if didClickSubmit {
@@ -124,6 +117,22 @@ struct MainView: View {
 
     private var showsWorkoutCheckIn: Bool {
         viewModel.showWorkoutCheckIn && !workoutViewModel.isExpanded
+    }
+
+    private func startQuickStart() {
+        DispatchQueue.main.async {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                workoutViewModel.quickStart()
+            }
+        }
+    }
+
+    private func dismissQuickStart() {
+        DispatchQueue.main.async {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                workoutViewModel.showsQuickStart = false
+            }
+        }
     }
 
     private var tabBar: some View {
