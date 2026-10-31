@@ -14,6 +14,7 @@ struct WorkoutInProgressView: View {
 
     @ObservedObject var viewModel: ViewModel
     @State private var isContentVisible = false
+    @State private var isSlidingAway = false
     @State private var showDiscardAlert = false
 
     let namespace: Namespace.ID
@@ -39,6 +40,7 @@ struct WorkoutInProgressView: View {
                 .ignoresSafeArea()
                 .matchedGeometryEffect(id: Constants.WorkoutInProgress.cardId, in: namespace)
         }
+        .offset(y: isSlidingAway ? UIScreen.main.bounds.height : 0)
         .accessibilityAddTraits(.isModal)
         .onAppear {
             withAnimation(.easeOut(duration: 0.25).delay(0.15)) {
@@ -119,7 +121,9 @@ struct WorkoutInProgressView: View {
                 textColor: Constants.Colors.black,
                 background: Constants.Colors.yellow
             ) {
-                viewModel.finish()
+                slideAway {
+                    viewModel.finish()
+                }
             }
 
             actionButton(
@@ -134,7 +138,9 @@ struct WorkoutInProgressView: View {
         .padding(.horizontal, 24)
         .alert("Discard workout?", isPresented: $showDiscardAlert) {
             Button("Discard", role: .destructive) {
-                viewModel.discard()
+                slideAway {
+                    viewModel.discard()
+                }
             }
 
             Button("Cancel", role: .cancel) {}
@@ -142,6 +148,19 @@ struct WorkoutInProgressView: View {
     }
 
     // MARK: - Supporting
+
+    private func slideAway(then end: @escaping () -> Void) {
+        let duration = Constants.WorkoutInProgress.slideAwayDuration
+        withAnimation(.easeIn(duration: duration)) {
+            isSlidingAway = true
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
+            var transaction = Transaction()
+            transaction.disablesAnimations = true
+            withTransaction(transaction, end)
+        }
+    }
 
     private func actionButton(
         icon: Image,
