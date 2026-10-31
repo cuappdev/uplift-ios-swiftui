@@ -54,7 +54,8 @@ struct MainView: View {
                         if !viewModel.isSkipped {
                             WorkoutCheckInView(
                                 profileViewModel: profileViewModel,
-                                homeViewModel: homeViewModel
+                                homeViewModel: homeViewModel,
+                                workoutViewModel: workoutViewModel
                             )
                             .environmentObject(viewModel) // MainViewModel
                             .padding(.bottom, 13)
@@ -104,6 +105,16 @@ struct MainView: View {
         }
         .background(Color.white)
         .animation(.spring(response: 0.45, dampingFraction: 0.88), value: workoutViewModel.isExpanded)
+        .showModal($workoutViewModel.showsQuickStart) {
+            QuickStartWorkoutModal(
+                onStart: {
+                    workoutViewModel.quickStart()
+                },
+                onDismiss: {
+                    workoutViewModel.showsQuickStart = false
+                }
+            )
+        }
         .onChange(of: viewModel.didClickSubmit) { didClickSubmit in
             if didClickSubmit {
                 viewModel.enterGiveaway()

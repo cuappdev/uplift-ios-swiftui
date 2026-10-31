@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		13446DEF2ECDFA4F00EED573 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 13446DEE2ECDFA4F00EED573 /* ConfettiSwiftUI */; };
 		135EEBAA2EC7E60B0051AD5B /* WorkoutCheckInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135EEBA92EC7E5F70051AD5B /* WorkoutCheckInViewModel.swift */; };
+		C066B2EA3070E10100AA0001 /* QuickStartWorkoutModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2E83070E10000AA0001 /* QuickStartWorkoutModal.swift */; };
 		135EEBAC2EC9175B0051AD5B /* WorkoutCheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135EEBAB2EC917520051AD5B /* WorkoutCheckInView.swift */; };
 		29055F802E7E3E6E00E9A730 /* UnsavedChangesModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29055F7F2E7E3E6500E9A730 /* UnsavedChangesModal.swift */; };
 		29055FC62E849E2A00E9A730 /* LoadingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29055FC52E849E2600E9A730 /* LoadingModifier.swift */; };
@@ -193,6 +194,7 @@
 
 /* Begin PBXFileReference section */
 		135EEBA92EC7E5F70051AD5B /* WorkoutCheckInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCheckInViewModel.swift; sourceTree = "<group>"; };
+		C066B2E83070E10000AA0001 /* QuickStartWorkoutModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStartWorkoutModal.swift; sourceTree = "<group>"; };
 		135EEBAB2EC917520051AD5B /* WorkoutCheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCheckInView.swift; sourceTree = "<group>"; };
 		29055F7F2E7E3E6500E9A730 /* UnsavedChangesModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsavedChangesModal.swift; sourceTree = "<group>"; };
 		29055FC52E849E2600E9A730 /* LoadingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingModifier.swift; sourceTree = "<group>"; };
@@ -581,6 +583,7 @@
 		2E1105C02B13D11E00119F5B /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				C066B2E83070E10000AA0001 /* QuickStartWorkoutModal.swift */,
 				135EEBAB2EC917520051AD5B /* WorkoutCheckInView.swift */,
 				2E39D8292B3B9F3D00AD238B /* FacilityExpandedView.swift */,
 				2E39D81F2B3B623B00AD238B /* FitnessCenterView.swift */,
@@ -1018,6 +1021,7 @@
 				2E6785B92B3A425E00DD3ADA /* GymDetailView.swift in Sources */,
 				893AD9152D59569600C0817B /* MuscleCategoryView.swift in Sources */,
 				135EEBAC2EC9175B0051AD5B /* WorkoutCheckInView.swift in Sources */,
+				C066B2EA3070E10100AA0001 /* QuickStartWorkoutModal.swift in Sources */,
 				89C8658D2BB4779C00758337 /* ClassCell.swift in Sources */,
 				298EBA502E8E5335000441BA /* CustomLoadingView.swift in Sources */,
 				2CFFEC542DBED07600EE26F8 /* KeychainManager.swift in Sources */,

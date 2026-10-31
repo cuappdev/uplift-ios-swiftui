@@ -96,6 +96,5 @@ struct MinimizedWorkoutBar: View {
     @Previewable @Namespace var namespace
     let viewModel = WorkoutInProgressView.ViewModel(defaults: UserDefaults(suiteName: "preview") ?? .standard)
     viewModel.start(gym: nil, workoutId: nil)
-    viewModel.isExpanded = false
     return MinimizedWorkoutBar(viewModel: viewModel, namespace: namespace)
 }

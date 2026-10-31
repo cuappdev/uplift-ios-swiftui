@@ -15,6 +15,7 @@ struct WorkoutCheckInView: View {
     @EnvironmentObject var mainViewModel: MainView.ViewModel
     @ObservedObject var profileViewModel: ProfileView.ViewModel
     @ObservedObject var homeViewModel: HomeView.ViewModel
+    @ObservedObject var workoutViewModel: WorkoutInProgressView.ViewModel
     @StateObject private var viewModel = ViewModel()
 
     var body: some View {
@@ -138,6 +139,13 @@ struct WorkoutCheckInView: View {
                 }
                 await viewModel.handleCheckIn(user: profileViewModel.user)
                 await profileViewModel.fetchUserProfile()
+
+                guard viewModel.isCheckedIn else { return }
+                try? await Task.sleep(for: .seconds(Constants.WorkoutInProgress.quickStartDelay))
+                workoutViewModel.offerQuickStart(
+                    gym: viewModel.checkedInGym,
+                    workoutId: viewModel.loggedWorkoutId
+                )
             }
         } label: {
             Text("Check In?")
@@ -173,6 +181,7 @@ struct WorkoutCheckInView: View {
 #Preview {
     WorkoutCheckInView(
         profileViewModel: ProfileView.ViewModel(),
-        homeViewModel: HomeView.ViewModel()
+        homeViewModel: HomeView.ViewModel(),
+        workoutViewModel: WorkoutInProgressView.ViewModel()
     )
 }

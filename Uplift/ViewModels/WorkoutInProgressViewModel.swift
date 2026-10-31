@@ -22,6 +22,7 @@ extension WorkoutInProgressView {
         }
 
         @Published private var expanded = false
+        @Published var showsQuickStart = false
 
         var isExpanded: Bool {
             get { expanded && activeWorkout != nil }
@@ -29,6 +30,8 @@ extension WorkoutInProgressView {
         }
 
         private let defaults: UserDefaults
+        private var quickStartGym: Gym?
+        private var quickStartWorkoutId: String?
 
         init(defaults: UserDefaults = .standard) {
             self.defaults = defaults
@@ -46,8 +49,10 @@ extension WorkoutInProgressView {
         // MARK: - Functions
 
         func start(gym: Gym?, workoutId: String?) {
-            defer { expanded = true }
-            guard activeWorkout == nil else { return }
+            guard activeWorkout == nil else {
+                expanded = true
+                return
+            }
 
             var closeTime: Date?
             if case .open(let time) = gym?.determineStatus() {
@@ -55,6 +60,23 @@ extension WorkoutInProgressView {
             }
 
             activeWorkout = ActiveWorkout(gymName: gym?.name, closeTime: closeTime, workoutId: workoutId)
+
+            Task { [weak self] in
+                try? await Task.sleep(for: .seconds(Constants.WorkoutInProgress.expandDelay))
+                self?.expanded = true
+            }
+        }
+
+        func offerQuickStart(gym: Gym?, workoutId: String?) {
+            guard activeWorkout == nil else { return }
+            quickStartGym = gym
+            quickStartWorkoutId = workoutId
+            showsQuickStart = true
+        }
+
+        func quickStart() {
+            showsQuickStart = false
+            start(gym: quickStartGym, workoutId: quickStartWorkoutId)
         }
 
         @discardableResult

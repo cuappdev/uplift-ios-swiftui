@@ -278,7 +278,9 @@ struct Constants {
     /// Constants used for a workout in progress
     enum WorkoutInProgress {
         static let cardId = "workoutCard"
+        static let expandDelay: TimeInterval = 0.35
         static let maxDuration: TimeInterval = 4 * 60 * 60
+        static let quickStartDelay: TimeInterval = 1.5
         static let title = "Workout In Progress"
         static let titleId = "workoutTitle"
     }
