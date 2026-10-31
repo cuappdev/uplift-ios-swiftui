@@ -142,6 +142,9 @@ struct WorkoutCheckInView: View {
 
                 guard viewModel.isCheckedIn else { return }
                 try? await Task.sleep(for: .seconds(Constants.WorkoutInProgress.quickStartDelay))
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    mainViewModel.showWorkoutCheckIn = false
+                }
                 workoutViewModel.offerQuickStart(
                     gym: viewModel.checkedInGym,
                     workoutId: viewModel.loggedWorkoutId
