@@ -18,7 +18,7 @@ struct QuickStartWorkoutModal: View {
     // MARK: - UI
 
     var body: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 24) {
             Text("Quick Start Your Workout")
                 .font(Constants.Fonts.h2)
                 .multilineTextAlignment(.center)
@@ -37,7 +37,8 @@ struct QuickStartWorkoutModal: View {
                         .font(Constants.Fonts.h3)
                         .foregroundStyle(Constants.Colors.black)
                 }
-                .frame(width: 217, height: 44)
+                .frame(maxWidth: .infinity)
+                .frame(height: 41)
                 .background(
                     Capsule()
                         .fill(Constants.Colors.yellow)
@@ -50,11 +51,11 @@ struct QuickStartWorkoutModal: View {
             } label: {
                 Text("Maybe later")
                     .font(Constants.Fonts.h3)
-                    .foregroundStyle(Constants.Colors.gray04)
+                    .foregroundStyle(Constants.Colors.gray03)
             }
         }
-        .padding(.vertical, 24)
-        .frame(width: 249)
+        .padding(25)
+        .frame(width: 300)
     }
 
 }

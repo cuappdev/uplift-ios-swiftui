@@ -122,7 +122,7 @@ struct WorkoutInProgressView: View {
             }
 
             actionButton(
-                icon: Constants.Images.cross,
+                icon: Constants.Images.crossThin,
                 title: "Discard Workout",
                 textColor: Constants.Colors.gray04,
                 background: Constants.Colors.gray01
@@ -157,14 +157,15 @@ struct WorkoutInProgressView: View {
                     .renderingMode(.template)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 16, height: 16)
+                    .frame(width: 24, height: 24)
+                    .foregroundStyle(Constants.Colors.black)
 
                 Text(title)
                     .font(Constants.Fonts.h3)
+                    .foregroundStyle(textColor)
             }
-            .foregroundStyle(textColor)
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 12)
+            .frame(height: 41)
             .background(
                 Capsule()
                     .fill(background)
