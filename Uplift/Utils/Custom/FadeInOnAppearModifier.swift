@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+/// A view modifier that fades a view in when it appears.
 struct FadeInOnAppearModifier: ViewModifier {
 
     @State private var isVisible = false

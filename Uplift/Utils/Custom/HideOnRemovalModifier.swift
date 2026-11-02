@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+/// A view modifier that hides a view right away when it is removed.
 struct HideOnRemovalModifier: ViewModifier, Animatable {
 
     var visibility: Double
