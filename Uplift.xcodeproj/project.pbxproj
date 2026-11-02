@@ -170,6 +170,7 @@
 		C066B2C4305D6FEE006613E2 /* GymSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2C3305D6FEB006613E2 /* GymSnapshot.swift */; };
 		C066B2D43070A10100AA0001 /* ActiveWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2D23070A10000AA0001 /* ActiveWorkout.swift */; };
 		C066B2C6305DBC79006613E2 /* GymProximityRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2C5305DBC72006613E2 /* GymProximityRules.swift */; };
+		C066B2F23071010100AA0001 /* WorkoutInProgressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2F03071010000AA0001 /* WorkoutInProgressTests.swift */; };
 		C066B2C830607844006613E2 /* GymProximityRulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2C730607842006613E2 /* GymProximityRulesTests.swift */; };
 		C066B2CA3065F0F6006613E2 /* SessionLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2C93065F0F5006613E2 /* SessionLoadingView.swift */; };
 		C066B2DC3070B10300AA0001 /* WorkoutInProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2DA3070B10200AA0001 /* WorkoutInProgressView.swift */; };
@@ -350,6 +351,7 @@
 		C066B2C3305D6FEB006613E2 /* GymSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymSnapshot.swift; sourceTree = "<group>"; };
 		C066B2D23070A10000AA0001 /* ActiveWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveWorkout.swift; sourceTree = "<group>"; };
 		C066B2C5305DBC72006613E2 /* GymProximityRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymProximityRules.swift; sourceTree = "<group>"; };
+		C066B2F03071010000AA0001 /* WorkoutInProgressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutInProgressTests.swift; sourceTree = "<group>"; };
 		C066B2C730607842006613E2 /* GymProximityRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymProximityRulesTests.swift; sourceTree = "<group>"; };
 		C066B2C93065F0F5006613E2 /* SessionLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionLoadingView.swift; sourceTree = "<group>"; };
 		C066B2DA3070B10200AA0001 /* WorkoutInProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutInProgressView.swift; sourceTree = "<group>"; };
@@ -599,6 +601,7 @@
 			isa = PBXGroup;
 			children = (
 				5293F759308FE40100843882 /* WorkoutReminderTests.swift */,
+				C066B2F03071010000AA0001 /* WorkoutInProgressTests.swift */,
 				C066B2C730607842006613E2 /* GymProximityRulesTests.swift */,
 				293A209F2F46606E0012C74C /* LocationTests.swift */,
 				2E15F4ED2B39255B00414BEC /* UpliftTests.swift */,
@@ -998,6 +1001,7 @@
 				5293F75A308FE40500843882 /* WorkoutReminderTests.swift in Sources */,
 				2E15F4EE2B39255B00414BEC /* UpliftTests.swift in Sources */,
 				C066B2C830607844006613E2 /* GymProximityRulesTests.swift in Sources */,
+				C066B2F23071010100AA0001 /* WorkoutInProgressTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

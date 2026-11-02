@@ -30,16 +30,18 @@ extension WorkoutInProgressView {
         }
 
         private let defaults: UserDefaults
+        private let now: () -> Date
         private var quickStartGym: Gym?
         private var quickStartWorkoutId: String?
 
-        init(defaults: UserDefaults = .standard) {
+        init(defaults: UserDefaults = .standard, now: @escaping () -> Date = Date.init) {
             self.defaults = defaults
+            self.now = now
 
             let data = defaults.data(forKey: Constants.UserDefaultsKeys.activeWorkout)
             let workout = data.flatMap { try? JSONDecoder().decode(ActiveWorkout.self, from: $0) }
 
-            if let workout, !workout.isFinished(at: .now) {
+            if let workout, !workout.isFinished(at: now()) {
                 activeWorkout = workout
             } else {
                 defaults.removeObject(forKey: Constants.UserDefaultsKeys.activeWorkout)
@@ -52,11 +54,16 @@ extension WorkoutInProgressView {
             guard activeWorkout == nil else { return }
 
             var closeTime: Date?
-            if case .open(let time) = gym?.determineStatus() {
+            if case .open(let time) = gym?.determineStatus(currentTime: now()) {
                 closeTime = time
             }
 
-            activeWorkout = ActiveWorkout(gymName: gym?.name, closeTime: closeTime, workoutId: workoutId)
+            activeWorkout = ActiveWorkout(
+                gymName: gym?.name,
+                closeTime: closeTime,
+                workoutId: workoutId,
+                startDate: now()
+            )
         }
 
         func offerQuickStart(gym: Gym?, workoutId: String?) {
