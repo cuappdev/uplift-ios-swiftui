@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0EF9F4FC70854DA79FB6F9D6 /* FriendsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B2CD5C5B445FE9C52CED5 /* FriendsTests.swift */; };
+		B5CCA989A9784ECEA7175562 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC51F807984FD18DFA83DA /* FriendsView.swift */; };
+		5AA43B5D54FB4CF194D927FA /* FriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC158937A46240E786D1F9AC /* FriendsViewModel.swift */; };
 		214E58F5F4294A439312683D /* Friendship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6985561442924666BE123D4F /* Friendship.swift */; };
 		DBF787F9F9C849959D4F0950 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949A8DE48E784F47B63719C2 /* Friend.swift */; };
 		7165B3F8B5154203A8A099A5 /* Friend.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 766E3E5C7AC2403B987CE9A9 /* Friend.graphql */; };
@@ -190,6 +193,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		125B2CD5C5B445FE9C52CED5 /* FriendsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTests.swift; sourceTree = "<group>"; };
+		D3BC51F807984FD18DFA83DA /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
+		EC158937A46240E786D1F9AC /* FriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewModel.swift; sourceTree = "<group>"; };
 		6985561442924666BE123D4F /* Friendship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friendship.swift; sourceTree = "<group>"; };
 		949A8DE48E784F47B63719C2 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		766E3E5C7AC2403B987CE9A9 /* Friend.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Friend.graphql; sourceTree = "<group>"; };
@@ -487,6 +493,7 @@
 				2E8FE3912B1278B700B3DC6A /* HomeView.swift */,
 				2E15F5052B39F81B00414BEC /* MainView.swift */,
 				899B186C2CA5FAFB00FAC061 /* ProfileView.swift */,
+				D3BC51F807984FD18DFA83DA /* FriendsView.swift */,
 				89C8658B2BB4778400758337 /* Classes */,
 				2E1105C02B13D11E00119F5B /* Home */,
 				89A652F82D02B00000277A16 /* Profile */,
@@ -503,6 +510,7 @@
 				52A30D393053B7DF002AE86C /* IntroAnimationViewModel.swift */,
 				293A20A12F467CED0012C74C /* SetGoalsViewModel.swift */,
 				135EEBA92EC7E5F70051AD5B /* WorkoutCheckInViewModel.swift */,
+				EC158937A46240E786D1F9AC /* FriendsViewModel.swift */,
 				89C34AA02CA66E9000C579A5 /* CapacityRemindersViewModel.swift */,
 				63001AD52CC9ACFF0082AFFA /* LoginViewModel.swift */,
 				897703652BA2028D00F9992F /* ClassesViewModel.swift */,
@@ -581,6 +589,7 @@
 			isa = PBXGroup;
 			children = (
 				5293F759308FE40100843882 /* WorkoutReminderTests.swift */,
+				125B2CD5C5B445FE9C52CED5 /* FriendsTests.swift */,
 				C066B2C730607842006613E2 /* GymProximityRulesTests.swift */,
 				293A209F2F46606E0012C74C /* LocationTests.swift */,
 				2E15F4ED2B39255B00414BEC /* UpliftTests.swift */,
@@ -977,6 +986,7 @@
 			files = (
 				293A20A02F4660700012C74C /* LocationTests.swift in Sources */,
 				5293F75A308FE40500843882 /* WorkoutReminderTests.swift in Sources */,
+				0EF9F4FC70854DA79FB6F9D6 /* FriendsTests.swift in Sources */,
 				2E15F4EE2B39255B00414BEC /* UpliftTests.swift in Sources */,
 				C066B2C830607844006613E2 /* GymProximityRulesTests.swift in Sources */,
 			);
@@ -1030,6 +1040,7 @@
 				52A30D3C3053B9B8002AE86C /* SignInViewModel.swift in Sources */,
 				C07CFEB42F6B5478005830D3 /* SettingsView.swift in Sources */,
 				135EEBAA2EC7E60B0051AD5B /* WorkoutCheckInViewModel.swift in Sources */,
+				5AA43B5D54FB4CF194D927FA /* FriendsViewModel.swift in Sources */,
 				2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */,
 				292284702F59461F00809ED4 /* WorkoutGoalHistory.swift in Sources */,
 				2E15F5062B39F81B00414BEC /* MainView.swift in Sources */,
@@ -1082,6 +1093,7 @@
 				2EE5F3C82B12E094008E0299 /* ApolloClientProtocol.swift in Sources */,
 				2E39D8262B3B6C6500AD238B /* SlidingTabBarView.swift in Sources */,
 				899B186D2CA5FAFB00FAC061 /* ProfileView.swift in Sources */,
+				B5CCA989A9784ECEA7175562 /* FriendsView.swift in Sources */,
 				89599A502BD4B4B600DA44DE /* FitnessClassInstance.swift in Sources */,
 				C03A4C81305AEB5A009B22AC /* MembersGridView.swift in Sources */,
 				2E1105C42B13D1B000119F5B /* DummyData.swift in Sources */,

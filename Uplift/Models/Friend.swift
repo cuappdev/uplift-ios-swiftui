@@ -27,4 +27,16 @@ struct Friend: Hashable, Identifiable {
         self.netId = friend.netId
     }
 
+    init(
+        id: ID,
+        encodedImage: String?,
+        name: String,
+        netId: String
+    ) {
+        self.id = id
+        self.encodedImage = encodedImage
+        self.name = name
+        self.netId = netId
+    }
+
 }

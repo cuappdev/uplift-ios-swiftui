@@ -31,4 +31,20 @@ struct Friendship: Hashable, Identifiable {
         self.user = friendship.user.map { Friend(from: $0.fragments.friendFields) }
     }
 
+    init(
+        id: ID,
+        acceptedAt: DateTime?,
+        createdAt: DateTime?,
+        friend: Friend?,
+        isAccepted: Bool,
+        user: Friend?
+    ) {
+        self.id = id
+        self.acceptedAt = acceptedAt
+        self.createdAt = createdAt
+        self.friend = friend
+        self.isAccepted = isAccepted
+        self.user = user
+    }
+
 }
