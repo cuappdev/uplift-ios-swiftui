@@ -11,11 +11,10 @@ import SwiftUI
 struct AboutView: View {
     @Environment(\.dismiss) private var dismiss
 
-    private let memberColumns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+    @State private var selectedSemester = allSemesters
+    @State private var semesterIsExpanded = false
+
+    private static let allSemesters = "All Semesters"
 
     var body: some View {
         VStack {
@@ -28,22 +27,27 @@ struct AboutView: View {
         .toolbar(.hidden, for: .navigationBar)
         .navigationBarHidden(true)
         .safeAreaInset(edge: .top) {
-            HStack {
-                Button {
-                    dismiss()
-                } label: {
-                    Constants.Images.arrowLeft
-                        .resizable()
-                        .scaledToFit()
-                        .foregroundStyle(Constants.Colors.black)
-                        .frame(width: 16, height: 16)
-                }
-                .buttonStyle(.plain)
-                Spacer()
-            }
-            .padding(.horizontal, 16)
-            .padding(.top, 8)
+            backButton
         }
+
+    }
+
+    private var backButton: some View {
+        HStack {
+            Button {
+                dismiss()
+            } label: {
+                Constants.Images.arrowLeft
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundStyle(Constants.Colors.black)
+                    .frame(width: 16, height: 16)
+            }
+            .buttonStyle(.plain)
+            Spacer()
+        }
+        .padding(.horizontal, 16)
+        .padding(.top, 8)
     }
 
     private var header: some View {
@@ -83,34 +87,40 @@ struct AboutView: View {
                     .font(Constants.Fonts.h1)
                     .padding(.top, 8)
 
-                Text("Spring 2026")
-                    .foregroundStyle(Constants.Colors.black)
-                    .multilineTextAlignment(.center)
-                    .font(Constants.Fonts.h2)
-                    .padding(.top, 8)
+                semesterSection
 
-                LazyVGrid(columns: memberColumns, spacing: 40) {
-                    ForEach(Member.sp26members) { member in
-                        VStack {
-                            Image(member.imageName)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 56, height: 56)
-
-                            Text(member.name)
-                                .font(Constants.Fonts.h2)
-
-                            Text(member.role)
-                                .foregroundStyle(Constants.Colors.gray04)
-                                .font(Constants.Fonts.labelSemibold)
-                        }
-
-                    }
+                ForEach(visibleSemesters, id: \.self) { semester in
+                    MembersGridView(title: semester.rawValue, members: semester.members)
                 }
             }
+            .padding(.bottom, 32)
         }
     }
 
+    private var semesterSection: some View {
+        VStack(spacing: 16) {
+            HStack {
+                Text("Semester")
+                    .foregroundStyle(Constants.Colors.black)
+                    .font(Constants.Fonts.h2)
+
+                Spacer()
+            }
+
+            Dropdown(
+                displayError: .constant(false),
+                isExpanded: $semesterIsExpanded,
+                selectedOption: $selectedSemester,
+                options: [Self.allSemesters] + Semester.allCases.map(\.rawValue)
+            )
+        }
+        .padding(.horizontal, Constants.Padding.reportHorizontal)
+        .padding(.top, 24)
+    }
+
+    private var visibleSemesters: [Semester] {
+        Semester.allCases.filter { selectedSemester == Self.allSemesters || $0.rawValue == selectedSemester }
+    }
 }
 #Preview {
     AboutView()
