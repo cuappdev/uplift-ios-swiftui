@@ -22,6 +22,7 @@ extension ClassesView {
         @Published var classes: [FitnessClassInstance]?
         @Published var selectedDay: DayOfWeek = Date.now.getDayOfWeek()
         @Published var weeksFromCurr: Int = 0    // e.g. 1 for next week
+        @Published var filter = ClassFilter()
 
         private var queryBag = Set<AnyCancellable>()
 
