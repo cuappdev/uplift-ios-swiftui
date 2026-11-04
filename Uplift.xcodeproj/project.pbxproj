@@ -108,8 +108,9 @@
 		2EE5F3E22B12EDB6008E0299 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E12B12EDB6008E0299 /* Apollo */; };
 		2EE5F3E42B12EDB6008E0299 /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2EE5F3E32B12EDB6008E0299 /* ApolloAPI */; };
 		2EF1A2582B129EEB007A299F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1A2572B129EEB007A299F /* Network.swift */; };
-		5293F75A308FE40500843882 /* WorkoutReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5293F759308FE40100843882 /* WorkoutReminderTests.swift */; };
+		521C70743092AF2700FC2812 /* SaveButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521C70733092AF2400FC2812 /* SaveButtonView.swift */; };
 		528B032F3092AC96005D2321 /* WorkoutSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528B032E3092AC8E005D2321 /* WorkoutSummaryView.swift */; };
+		5293F75A308FE40500843882 /* WorkoutReminderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5293F759308FE40100843882 /* WorkoutReminderTests.swift */; };
 		52A30D3A3053B7E3002AE86C /* IntroAnimationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A30D393053B7DF002AE86C /* IntroAnimationViewModel.swift */; };
 		52A30D3C3053B9B8002AE86C /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A30D3B3053B9B4002AE86C /* SignInViewModel.swift */; };
 		52B0584E308978800011E20D /* WorkoutReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B0584D3089787D0011E20D /* WorkoutReminder.swift */; };
@@ -288,8 +289,9 @@
 		2EE0C7CA2B12D6EE000D3BF6 /* Gym.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Gym.graphql; sourceTree = "<group>"; };
 		2EE5F3C72B12E094008E0299 /* ApolloClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientProtocol.swift; sourceTree = "<group>"; };
 		2EF1A2572B129EEB007A299F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
-		5293F759308FE40100843882 /* WorkoutReminderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutReminderTests.swift; sourceTree = "<group>"; };
+		521C70733092AF2400FC2812 /* SaveButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveButtonView.swift; sourceTree = "<group>"; };
 		528B032E3092AC8E005D2321 /* WorkoutSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSummaryView.swift; sourceTree = "<group>"; };
+		5293F759308FE40100843882 /* WorkoutReminderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutReminderTests.swift; sourceTree = "<group>"; };
 		52A30D393053B7DF002AE86C /* IntroAnimationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAnimationViewModel.swift; sourceTree = "<group>"; };
 		52A30D3B3053B9B4002AE86C /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		52B0584D3089787D0011E20D /* WorkoutReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutReminder.swift; sourceTree = "<group>"; };
@@ -615,6 +617,7 @@
 		2E15F50A2B3A0AF700414BEC /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
+				521C70733092AF2400FC2812 /* SaveButtonView.swift */,
 				52D07DE4308BB82F0003A5F0 /* WorkoutReminderCardView.swift */,
 				29C2EC1B2F95653200A7F6E2 /* DeleteAccountModal.swift */,
 				2923EF462E98369900D3FC1D /* CapacityTutorialModal.swift */,
@@ -1059,6 +1062,7 @@
 				2E15F50C2B3A0B2100414BEC /* CapacityCircleView.swift in Sources */,
 				2E090EC52B12EF2600BAE982 /* Publishers.swift in Sources */,
 				52A30D3C3053B9B8002AE86C /* SignInViewModel.swift in Sources */,
+				521C70743092AF2700FC2812 /* SaveButtonView.swift in Sources */,
 				C07CFEB42F6B5478005830D3 /* SettingsView.swift in Sources */,
 				135EEBAA2EC7E60B0051AD5B /* WorkoutCheckInViewModel.swift in Sources */,
 				2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */,
