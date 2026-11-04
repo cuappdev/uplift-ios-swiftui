@@ -16,6 +16,8 @@ struct MainView: View {
     @StateObject private var profileViewModel = ProfileView.ViewModel() // NOTE: We only need to drill this to few screens so using @StateObject & @ObservedObject pattern
     @StateObject private var homeViewModel = HomeView.ViewModel() // NOTE: We only need to drill this to few screens so using @StateObject & @ObservedObject pattern
     @State private var selectedTab: Screen = .home
+    @StateObject private var workoutViewModel = WorkoutInProgressView.ViewModel()
+    @Namespace private var workoutNamespace
     @StateObject var tabBarProp = TabBarProperty()
 
     // MARK: - UI
@@ -42,21 +44,7 @@ struct MainView: View {
                 }
             }
             .overlay(alignment: .bottom) {
-                VStack {
-                    if !viewModel.isSkipped {
-                        WorkoutCheckInView(
-                            profileViewModel: profileViewModel,
-                            homeViewModel: homeViewModel
-                        )
-                        .environmentObject(viewModel) // MainViewModel
-                        .padding(.bottom, 13)
-                        .padding(.horizontal, 10)
-                        .opacity(viewModel.showWorkoutCheckIn ? 1 : 0)
-                        .allowsHitTesting(viewModel.showWorkoutCheckIn)
-                    }
-
-                    !tabBarProp.hidden ? tabBar.transition(.move(edge: .bottom)) : nil
-                }
+                bottomOverlay
             }
 
             if viewModel.popUpGiveaway {
@@ -83,9 +71,51 @@ struct MainView: View {
             }
         }
         .background(Color.white)
+        .animation(Constants.WorkoutInProgress.expandAnimation, value: workoutViewModel.isExpanded)
+        .showModal($workoutViewModel.showsQuickStart) {
+            QuickStartWorkoutModal(onStart: startQuickStart, onDismiss: dismissQuickStart)
+        }
         .onChange(of: viewModel.didClickSubmit) { didClickSubmit in
             if didClickSubmit {
                 viewModel.enterGiveaway()
+            }
+        }
+    }
+
+    private var bottomOverlay: some View {
+        ZStack(alignment: .bottom) {
+            VStack {
+                if !viewModel.isSkipped {
+                    WorkoutCheckInView(
+                        profileViewModel: profileViewModel,
+                        homeViewModel: homeViewModel,
+                        workoutViewModel: workoutViewModel
+                    )
+                    .environmentObject(viewModel) // MainViewModel
+                    .padding(.bottom, 13)
+                    .padding(.horizontal, 10)
+                    .opacity(showsWorkoutCheckIn ? 1 : 0)
+                    .allowsHitTesting(showsWorkoutCheckIn)
+                }
+
+                if !tabBarProp.hidden {
+                    VStack(spacing: 0) {
+                        if showsWorkoutBar {
+                            MinimizedWorkoutBar(viewModel: workoutViewModel, namespace: workoutNamespace)
+                                .transition(.hideOnRemoval)
+                                .zIndex(1)
+                        }
+
+                        tabBar
+                    }
+                    .transition(.move(edge: .bottom))
+                }
+            }
+
+            if workoutViewModel.isExpanded {
+                WorkoutInProgressView(viewModel: workoutViewModel, namespace: workoutNamespace)
+                    .ignoresSafeArea(edges: .bottom)
+                    .transition(.hideOnRemoval)
             }
         }
     }
@@ -155,6 +185,35 @@ struct MainView: View {
                 .font(Constants.Fonts.h3)
         }
         .foregroundStyle(Constants.Colors.black)
+    }
+
+    // MARK: - Helpers
+
+    private var showsWorkoutBar: Bool {
+        !viewModel.isSkipped && workoutViewModel.showsMinimizedBar
+    }
+
+    private var showsWorkoutCheckIn: Bool {
+        viewModel.showWorkoutCheckIn && !workoutViewModel.isExpanded
+    }
+
+    private func startQuickStart() {
+        Task {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                workoutViewModel.quickStart()
+            }
+
+            try? await Task.sleep(for: .seconds(Constants.WorkoutInProgress.expandDelay))
+            workoutViewModel.isExpanded = true
+        }
+    }
+
+    private func dismissQuickStart() {
+        Task {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                workoutViewModel.showsQuickStart = false
+            }
+        }
     }
 
 }
