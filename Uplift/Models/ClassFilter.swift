@@ -17,15 +17,15 @@ struct ClassFilter: Hashable {
     var centers: Set<String> = []
 
     /// The earliest start time selected as an hour in 24-hour time.
-    var startHour: Double = ClassFilter.hourBounds.lowerBound
+    var startHour: Double = Constants.Filter.hourBounds.lowerBound
 
     /// The latest end time selected as an hour in 24-hour time.
-    var endHour: Double = ClassFilter.hourBounds.upperBound
+    var endHour: Double = Constants.Filter.hourBounds.upperBound
 
     /// The names of the class types selected. An empty set means all class types.
     var classTypes: Set<String> = []
 
-    /// The names of the instructors selected. An empty set means all instructors
+    /// The names of the instructors selected. An empty set means all instructors.
     var instructors: Set<String> = []
 
     /// Whether any filter option differs from the default.
@@ -34,9 +34,6 @@ struct ClassFilter: Hashable {
     }
 
     // MARK: - Constants
-
-    /// The range of hours the start time slider can select from.
-    static let hourBounds: ClosedRange<Double> = 6...22
 
     /// A filter with no options selected
     static let `default` = ClassFilter()

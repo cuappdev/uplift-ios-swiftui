@@ -404,4 +404,8 @@ struct Constants {
         static let cooldownDuration: TimeInterval = 2*60*60
         static let dismissCooldown: TimeInterval = 2 * 60 * 60
     }
+
+    enum Filter {
+        static let hourBounds: ClosedRange<Double> = 6...22
+    }
 }

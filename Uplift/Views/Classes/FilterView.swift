@@ -101,7 +101,7 @@ struct FilterView: View {
             RangeSlider(
                 lower: $filter.startHour,
                 upper: $filter.endHour,
-                bounds: ClassFilter.hourBounds,
+                bounds: Constants.Filter.hourBounds,
                 step: 0.5,
                 minGap: 1
             )

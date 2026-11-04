@@ -72,23 +72,3 @@ struct RangeSlider: View {
             .overlay(Circle().stroke(Constants.Colors.gray01, lineWidth: 1))
     }
 }
-
-#Preview {
-    RangeSliderPreview()
-}
-
-private struct RangeSliderPreview: View {
-
-    @State private var lower: Double = 6
-    @State private var upper: Double = 22
-
-    var body: some View {
-        VStack(alignment: .leading) {
-            // Text used to check values 
-            Text("\(lower, specifier: "%.1f") - \(upper, specifier: "%.1f")")
-            RangeSlider(lower: $lower, upper: $upper, bounds: 6...22, step: 0.5, minGap: 1)
-        }
-        .padding(16)
-    }
-
-}
