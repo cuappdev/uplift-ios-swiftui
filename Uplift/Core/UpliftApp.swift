@@ -134,7 +134,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-        if notification.request.identifier.hasPrefix(Constants.NotificationIds.proximityPrefix) {
+        if notification.request.identifier.hasPrefix(Constants.NotificationIds.proximityPrefix)
+            || notification.request.identifier.hasPrefix(Constants.NotificationIds.reminderPrefix) {
             completionHandler([.banner, .sound])
         } else {
             completionHandler([])
