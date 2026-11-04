@@ -15,23 +15,29 @@ struct RangeSlider: View {
 
     @Binding var lower: Double
     @Binding var upper: Double
-
-    let bounds: ClosedRange<Double>
-    var step: Double
-    var minGap: Double
-
-    @State private var lowerDragStart: Double?
-    @State private var upperDragStart: Double?
+    @StateObject private var viewModel: ViewModel
 
     private let thumbSize: CGFloat = 24
     private let trackHeight: CGFloat = 6
+
+    init(
+        lower: Binding<Double>,
+        upper: Binding<Double>,
+        bounds: ClosedRange<Double>,
+        step: Double,
+        minGap: Double
+    ) {
+        _lower = lower
+        _upper = upper
+        _viewModel = StateObject(wrappedValue: ViewModel(bounds: bounds, step: step, minGap: minGap))
+    }
 
     // MARK: - UI
     var body: some View {
         GeometryReader { geo in
             let trackWidth = geo.size.width - thumbSize
-            let lowerX = position(for: lower, trackWidth: trackWidth)
-            let upperX = position(for: upper, trackWidth: trackWidth)
+            let lowerX = viewModel.position(for: lower, trackWidth: trackWidth)
+            let upperX = viewModel.position(for: upper, trackWidth: trackWidth)
 
             ZStack(alignment: .leading) {
                 // Full track
@@ -48,11 +54,11 @@ struct RangeSlider: View {
 
                 thumb
                     .offset(x: lowerX)
-                    .gesture(lowerDrag(trackWidth: trackWidth))
+                    .gesture(viewModel.lowerDrag(trackWidth: trackWidth, lower: $lower, upper: $upper))
 
                 thumb
                     .offset(x: upperX)
-                    .gesture(upperDrag(trackWidth: trackWidth))
+                    .gesture(viewModel.upperDrag(trackWidth: trackWidth, lower: $lower, upper: $upper))
             }
         }
         .frame(height: thumbSize)
@@ -65,61 +71,6 @@ struct RangeSlider: View {
             .shadow(color: Color.black.opacity(0.25), radius: 3, x: 0, y: 2)
             .overlay(Circle().stroke(Constants.Colors.gray01, lineWidth: 1))
     }
-
-    // MARK: - Gestures
-
-    private func lowerDrag(trackWidth: CGFloat) -> some Gesture {
-        DragGesture()
-            .onChanged { value in
-                let start = lowerDragStart ?? lower
-                lowerDragStart = start
-                let proposed = start + valueChange(for: value.translation.width, trackWidth: trackWidth)
-                lower = clamped(snapped(proposed), to: bounds.lowerBound...(upper - minGap))
-            }
-            .onEnded { _ in
-                lowerDragStart = nil
-            }
-    }
-
-    private func upperDrag(trackWidth: CGFloat) -> some Gesture {
-        DragGesture()
-            .onChanged { value in
-                let start = upperDragStart ?? upper
-                upperDragStart = start
-                let proposed = start + valueChange(for: value.translation.width, trackWidth: trackWidth)
-                upper = clamped(snapped(proposed), to: (lower + minGap)...bounds.upperBound)
-            }
-            .onEnded { _ in
-                upperDragStart = nil
-            }
-    }
-
-    // MARK: - Helpers
-
-    /// Returns the x offset of a thumb for the given value.
-    private func position(for value: Double, trackWidth: Double) -> Double {
-        let span = bounds.upperBound - bounds.lowerBound
-        guard span > 0 else { return 0 }
-        return ((value - bounds.lowerBound) / span) * trackWidth
-    }
-
-    /// Returns how much the value changes for a horizontal drag distance
-    private func valueChange(for translation: CGFloat, trackWidth: CGFloat) -> Double {
-        guard trackWidth > 0 else { return 0 }
-        let span = bounds.upperBound - bounds.lowerBound
-        return Double(translation / trackWidth) * span
-    }
-
-    /// Returns the value rounded to the nearest step.
-    private func snapped(_ value: Double) -> Double {
-        (value / step).rounded() * step
-    }
-
-    /// Returns the value limited to the given range
-    private func clamped(_ value: Double, to range: ClosedRange<Double>) -> Double {
-        min(max(value, range.lowerBound), range.upperBound)
-    }
-
 }
 
 #Preview {

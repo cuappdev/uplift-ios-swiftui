@@ -21,7 +21,7 @@ struct ToggleSelectionRow: View {
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 0) {
+            HStack(spacing: 11.33) {
                 ForEach(Array(options.enumerated()), id: \.element) { _, option in
                     chip(for: option)
                 }
@@ -38,37 +38,18 @@ struct ToggleSelectionRow: View {
         } label: {
             Text(option)
                 .font(Constants.Fonts.labelSemibold)
-                .foregroundStyle(Constants.Colors.black)
+                .foregroundStyle(Constants.Colors.gray04)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
                 .background(
-                    Capsule()
+                    RoundedRectangle(cornerRadius: 8)
                         .fill(isSelected ? Constants.Colors.yellow : Constants.Colors.white)
                 )
                 .overlay(
-                    Capsule()
+                    RoundedRectangle(cornerRadius: 8)
                         .strokeBorder(isSelected ? Color.clear : Constants.Colors.gray04, lineWidth: 1)
                 )
         }
         .buttonStyle(.plain)
-        .padding(.horizontal, 11.33/2)
     }
-}
-
-#Preview {
-    ToggleSelectionRowPreview()
-}
-
-private struct ToggleSelectionRowPreview: View {
-
-    @State private var selection: Set<String> = ["Noyes"]
-
-    var body: some View {
-        ToggleSelectionRow(
-            options: ["Noyes", "Helen Newman", "Teagle", "Appel"],
-            selection: $selection
-        )
-        .padding(16)
-    }
-
 }

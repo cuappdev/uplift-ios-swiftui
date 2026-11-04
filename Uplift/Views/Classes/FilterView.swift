@@ -28,22 +28,29 @@ struct FilterView: View {
             ScrollView {
                 VStack {
                     fitnessCenterSection
+
                     DividerLine()
+
                     startTimeSection
+
                     DividerLine()
+
                     CheckboxDropdown(
                         title: "CLASS TYPE",
                         showAllTitle: "Show All Class types",
                         options: classTypes,
                         selection: $filter.classTypes
                     )
+
                     DividerLine()
+
                     CheckboxDropdown(
                         title: "INSTRUCTOR",
                         showAllTitle: "Show All Instructors",
                         options: instructors,
                         selection: $filter.instructors
                     )
+
                     DividerLine()
                 }
             }
@@ -61,25 +68,24 @@ struct FilterView: View {
             Button("Done") { dismiss() }
         }
         .foregroundStyle(Constants.Colors.black)
-        .padding(.top, 46)
-        .padding(.horizontal, 16)
-        .padding(.bottom, 18)
+        .padding(.top, Constants.Padding.filterTopBarTop)
+        .padding(.horizontal, Constants.Padding.filterHorizontal)
+        .padding(.bottom, Constants.Padding.filterTopBarBottom)
         .background(Constants.Colors.gray01)
     }
 
     private var fitnessCenterSection: some View {
-        VStack(alignment: .leading, spacing: 15) {
+        VStack(alignment: .leading) {
             Text("FITNESS CENTER")
                 .font(Constants.Fonts.h4)
                 .foregroundStyle(Constants.Colors.gray04)
-                .padding(.horizontal, 16)
+                .padding(.horizontal, Constants.Padding.filterHorizontal)
 
             ToggleSelectionRow(options: fitnessCenters, selection: $filter.centers)
 
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.top, 24)
-        .padding(.bottom, 6)
+        .padding(.vertical, Constants.Padding.filterVertical)
     }
 
     private var startTimeSection: some View {
@@ -101,8 +107,8 @@ struct FilterView: View {
             )
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 16)
-        .padding(.vertical, 24)
+        .padding(.horizontal, Constants.Padding.filterHorizontal)
+        .padding(.vertical, Constants.Padding.filterVertical)
     }
 
     // MARK: - Helpers
@@ -113,18 +119,4 @@ struct FilterView: View {
         let display = h % 12 == 0 ? 12 : h % 12
         return String(format: "%d:%02d %@", display, m, h >= 12 ? "PM" : "AM")
     }
-}
-
-#Preview {
-    FilterViewPreview()
-}
-
-private struct FilterViewPreview: View {
-
-    @State private var filter = ClassFilter()
-
-    var body: some View {
-        FilterView(filter: $filter)
-    }
-
 }

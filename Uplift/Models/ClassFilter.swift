@@ -13,14 +13,14 @@ struct ClassFilter: Hashable {
 
     // MARK: - Properties
 
-    /// The names of the fitenss centers selected. An empty set means all fitness centers. 
+    /// The names of the fitnss centers selected. An empty set means all fitness centers.
     var centers: Set<String> = []
 
     /// The earliest start time selected as an hour in 24-hour time.
-    var startHour: Double = ClassFilter.defaultStartHour
+    var startHour: Double = ClassFilter.hourBounds.lowerBound
 
     /// The latest end time selected as an hour in 24-hour time.
-    var endHour: Double = ClassFilter.defaultEndHour
+    var endHour: Double = ClassFilter.hourBounds.upperBound
 
     /// The names of the class types selected. An empty set means all class types.
     var classTypes: Set<String> = []
@@ -35,14 +35,8 @@ struct ClassFilter: Hashable {
 
     // MARK: - Constants
 
-    /// The earliest hour a class can start.
-    static let defaultStartHour: Double = 6
-
-    /// The latest hour a class can end.
-    static let defaultEndHour: Double = 22
-
     /// The range of hours the start time slider can select from.
-    static let hourBounds: ClosedRange<Double> = defaultStartHour...defaultEndHour
+    static let hourBounds: ClosedRange<Double> = 6...22
 
     /// A filter with no options selected
     static let `default` = ClassFilter()

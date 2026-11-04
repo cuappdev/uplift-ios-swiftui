@@ -14,9 +14,7 @@ struct CheckboxDropdown: View {
     // MARK: - Properties
 
     let title: String
-    // The text of the button that reveals every option (e.g. "Show All Class Types")
     let showAllTitle: String
-    // The options to display in order
     let options: [String]
     // The number of options shown befoer the user chooses to show all of them
     var collapsedCount: Int = 3
@@ -134,22 +132,4 @@ struct CheckboxDropdown: View {
             .frame(width: 14, height: 14)
     }
 
-}
-
-#Preview {
-    CheckboxDropdownPreview()
-}
-
-private struct CheckboxDropdownPreview: View {
-
-    @State private var selection: Set<String> = ["Barre"]
-
-    var body: some View {
-        CheckboxDropdown(
-            title: "CLASS TYPE",
-            showAllTitle: "Show All Class Types",
-            options: ["Spinning", "Barre", "H.I.I.T.", "Yoga", "Zumba", "Pilates", "Muscle Pump", "Cycling"],
-            selection: $selection
-        )
-    }
 }

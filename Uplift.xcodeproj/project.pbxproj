@@ -15,6 +15,7 @@
 		26525EED3076DBBE0003309F /* ClassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26525EEC3076DBBA0003309F /* ClassFilter.swift */; };
 		26525EF13076E1BA0003309F /* Set+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26525EF03076E1B30003309F /* Set+Extension.swift */; };
 		26525EF33076ED8E0003309F /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26525EF23076ED800003309F /* RangeSlider.swift */; };
+		266D5D273092A9A400E21D1B /* RangesliderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266D5D263092A99C00E21D1B /* RangesliderViewModel.swift */; };
 		26C82C4F306CD882001BDB99 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C82C4E306CD880001BDB99 /* FilterView.swift */; };
 		29055F802E7E3E6E00E9A730 /* UnsavedChangesModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29055F7F2E7E3E6500E9A730 /* UnsavedChangesModal.swift */; };
 		29055FC62E849E2A00E9A730 /* LoadingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29055FC52E849E2600E9A730 /* LoadingModifier.swift */; };
@@ -197,6 +198,7 @@
 		26525EEC3076DBBA0003309F /* ClassFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassFilter.swift; sourceTree = "<group>"; };
 		26525EF03076E1B30003309F /* Set+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Set+Extension.swift"; sourceTree = "<group>"; };
 		26525EF23076ED800003309F /* RangeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
+		266D5D263092A99C00E21D1B /* RangesliderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangesliderViewModel.swift; sourceTree = "<group>"; };
 		26C82C4E306CD880001BDB99 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		29055F7F2E7E3E6500E9A730 /* UnsavedChangesModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsavedChangesModal.swift; sourceTree = "<group>"; };
 		29055FC52E849E2600E9A730 /* LoadingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingModifier.swift; sourceTree = "<group>"; };
@@ -496,6 +498,7 @@
 		2E090ED12B1308D500BAE982 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				266D5D263092A99C00E21D1B /* RangesliderViewModel.swift */,
 				C066B2CD30681A8B006613E2 /* CheckInRemindersViewModel.swift */,
 				52A30D3B3053B9B4002AE86C /* SignInViewModel.swift */,
 				52A30D393053B7DF002AE86C /* IntroAnimationViewModel.swift */,
@@ -1013,6 +1016,7 @@
 				89599A4E2BD4B39B00DA44DE /* FitnessClass.swift in Sources */,
 				52A30D3A3053B7E3002AE86C /* IntroAnimationViewModel.swift in Sources */,
 				2E15F5122B3A3D0000414BEC /* TriangleShape.swift in Sources */,
+				266D5D273092A9A400E21D1B /* RangesliderViewModel.swift in Sources */,
 				C066B2D030681B2E006613E2 /* CheckInRemindersView.swift in Sources */,
 				293A20A22F467CF00012C74C /* SetGoalsViewModel.swift in Sources */,
 				8940D4EE2CE3E60200F4A4A4 /* Workout.swift in Sources */,
