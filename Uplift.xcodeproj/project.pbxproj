@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		214E58F5F4294A439312683D /* Friendship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6985561442924666BE123D4F /* Friendship.swift */; };
+		DBF787F9F9C849959D4F0950 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949A8DE48E784F47B63719C2 /* Friend.swift */; };
+		7165B3F8B5154203A8A099A5 /* Friend.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 766E3E5C7AC2403B987CE9A9 /* Friend.graphql */; };
 		13446DEF2ECDFA4F00EED573 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 13446DEE2ECDFA4F00EED573 /* ConfettiSwiftUI */; };
 		135EEBAA2EC7E60B0051AD5B /* WorkoutCheckInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135EEBA92EC7E5F70051AD5B /* WorkoutCheckInViewModel.swift */; };
 		135EEBAC2EC9175B0051AD5B /* WorkoutCheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135EEBAB2EC917520051AD5B /* WorkoutCheckInView.swift */; };
@@ -187,6 +190,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6985561442924666BE123D4F /* Friendship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friendship.swift; sourceTree = "<group>"; };
+		949A8DE48E784F47B63719C2 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
+		766E3E5C7AC2403B987CE9A9 /* Friend.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Friend.graphql; sourceTree = "<group>"; };
 		135EEBA92EC7E5F70051AD5B /* WorkoutCheckInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCheckInViewModel.swift; sourceTree = "<group>"; };
 		135EEBAB2EC917520051AD5B /* WorkoutCheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCheckInView.swift; sourceTree = "<group>"; };
 		29055F7F2E7E3E6500E9A730 /* UnsavedChangesModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsavedChangesModal.swift; sourceTree = "<group>"; };
@@ -402,6 +408,8 @@
 			isa = PBXGroup;
 			children = (
 				52B0584D3089787D0011E20D /* WorkoutReminder.swift */,
+				6985561442924666BE123D4F /* Friendship.swift */,
+				949A8DE48E784F47B63719C2 /* Friend.swift */,
 				C066B2C3305D6FEB006613E2 /* GymSnapshot.swift */,
 				C0CB14932F70A2C100E23E69 /* Member.swift */,
 				2922846F2F59461B00809ED4 /* WorkoutGoalHistory.swift */,
@@ -527,6 +535,7 @@
 				2EE0C7CA2B12D6EE000D3BF6 /* Gym.graphql */,
 				2E2748CC2BCD4C300023882E /* User.graphql */,
 				8940D4EF2CE3E8F400F4A4A4 /* Workout.graphql */,
+				766E3E5C7AC2403B987CE9A9 /* Friend.graphql */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -902,6 +911,7 @@
 				2E3838412BB7536700AE15DC /* PrivacyInfo.xcprivacy in Resources */,
 				292284782F59F86B00809ED4 /* WorkoutGoalHistory.graphql in Resources */,
 				8940D4F02CE3E8FE00F4A4A4 /* Workout.graphql in Resources */,
+				7165B3F8B5154203A8A099A5 /* Friend.graphql in Resources */,
 				2EB090B92B131CA80039EB3B /* Montserrat-SemiBold.ttf in Resources */,
 				2922847A2F59F89A00809ED4 /* Authentication.graphql in Resources */,
 				2EB090B42B131CA40039EB3B /* BebasNeue-Regular.ttf in Resources */,
@@ -1042,6 +1052,8 @@
 				898890152CD6C7B400E594A0 /* WorkoutReminderEditView.swift in Sources */,
 				C066B2C6305DBC79006613E2 /* GymProximityRules.swift in Sources */,
 				52B0584E308978800011E20D /* WorkoutReminder.swift in Sources */,
+				214E58F5F4294A439312683D /* Friendship.swift in Sources */,
+				DBF787F9F9C849959D4F0950 /* Friend.swift in Sources */,
 				2E3D6C202B1285D200B51BB2 /* UpliftEnvironment.swift in Sources */,
 				89EA50D32F90955800B1A177 /* UIImage+Extension.swift in Sources */,
 				89507A9B2F36493100FB0757 /* SetGoalsView.swift in Sources */,
