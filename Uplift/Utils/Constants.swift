@@ -468,12 +468,16 @@ struct Constants {
 
     enum Friends {
         static let avatarSize: CGFloat = 46
+        static let buttonHorizontalPadding: CGFloat = 12
+        static let buttonVerticalPadding: CGFloat = 6
         static let contentVerticalPadding: CGFloat = 24
         static let headerBottomPadding: CGFloat = 10
         static let headerHeight: CGFloat = 96
         static let iconSize: CGFloat = 20
         static let labelSpacing: CGFloat = 4
         static let rowSpacing: CGFloat = 12
+        static let searchCornerRadius: CGFloat = 8
+        static let searchPadding: CGFloat = 12
         static let sectionSpacing: CGFloat = 20
     }
 }

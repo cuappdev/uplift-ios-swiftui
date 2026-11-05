@@ -79,4 +79,14 @@ struct FriendsTests {
         #expect(viewModel.updates.map(\.id) == ["3", "1"])
     }
 
+    @Test("time ago handles timestamps with and without a timezone")
+    func formatsTimeAgo() {
+        let viewModel = FriendsView.ViewModel()
+
+        #expect(viewModel.timeAgo(nil).isEmpty)
+        #expect(viewModel.timeAgo("not a date").isEmpty)
+        #expect(!viewModel.timeAgo("2026-11-03T12:00:00+00:00").isEmpty)
+        #expect(!viewModel.timeAgo("2026-11-03T12:00:00.123456").isEmpty)
+    }
+
 }

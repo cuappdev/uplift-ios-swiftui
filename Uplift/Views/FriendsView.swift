@@ -82,6 +82,14 @@ struct FriendsView: View {
     }
 
     private var friendRequestsRow: some View {
+        NavigationLink {
+            AddFriendsView(viewModel: viewModel)
+        } label: {
+            friendRequestsLabel
+        }
+    }
+
+    private var friendRequestsLabel: some View {
         HStack(spacing: Constants.Friends.rowSpacing) {
             Constants.Images.friend
                 .resizable()

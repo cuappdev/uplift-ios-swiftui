@@ -139,6 +139,8 @@ struct ProfileView: View {
 
                 Spacer()
 
+                addFriendsButton
+
                 settingsButton
             }
         }
@@ -150,6 +152,19 @@ struct ProfileView: View {
         )
         .ignoresSafeArea(.all)
         .frame(height: 64)
+    }
+
+    private var addFriendsButton: some View {
+        NavigationLink {
+            AddFriendsView(viewModel: friendsViewModel)
+        } label: {
+            Constants.Images.friend
+                .resizable()
+                .scaledToFit()
+                .frame(width: 24, height: 24)
+                .foregroundStyle(Constants.Colors.black)
+        }
+        .padding(.trailing, 16)
     }
 
     private var settingsButton: some View {

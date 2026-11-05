@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1F0C0DE4B5A4D6E8F901234 /* AddFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E1D0CF5C6B4E7F90A12345 /* AddFriendsView.swift */; };
 		A4014F77827D46F593C5C709 /* FriendAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A5EA8C110C4375A9E08DE3 /* FriendAvatar.swift */; };
 		0EF9F4FC70854DA79FB6F9D6 /* FriendsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B2CD5C5B445FE9C52CED5 /* FriendsTests.swift */; };
 		B5CCA989A9784ECEA7175562 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC51F807984FD18DFA83DA /* FriendsView.swift */; };
@@ -194,6 +195,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B2E1D0CF5C6B4E7F90A12345 /* AddFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendsView.swift; sourceTree = "<group>"; };
 		66A5EA8C110C4375A9E08DE3 /* FriendAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAvatar.swift; sourceTree = "<group>"; };
 		125B2CD5C5B445FE9C52CED5 /* FriendsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTests.swift; sourceTree = "<group>"; };
 		D3BC51F807984FD18DFA83DA /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
@@ -408,6 +410,7 @@
 		7970AE16018F44AF8C7739E6 /* Friends */ = {
 			isa = PBXGroup;
 			children = (
+				B2E1D0CF5C6B4E7F90A12345 /* AddFriendsView.swift */,
 				66A5EA8C110C4375A9E08DE3 /* FriendAvatar.swift */,
 			);
 			path = Friends;
@@ -1106,6 +1109,7 @@
 				899B186D2CA5FAFB00FAC061 /* ProfileView.swift in Sources */,
 				B5CCA989A9784ECEA7175562 /* FriendsView.swift in Sources */,
 				A4014F77827D46F593C5C709 /* FriendAvatar.swift in Sources */,
+				A1F0C0DE4B5A4D6E8F901234 /* AddFriendsView.swift in Sources */,
 				89599A502BD4B4B600DA44DE /* FitnessClassInstance.swift in Sources */,
 				C03A4C81305AEB5A009B22AC /* MembersGridView.swift in Sources */,
 				2E1105C42B13D1B000119F5B /* DummyData.swift in Sources */,

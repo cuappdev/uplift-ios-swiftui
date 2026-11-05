@@ -21,6 +21,7 @@ extension FriendsView {
         @Published private(set) var friends: [Friend] = []
         @Published private(set) var requests: [Friendship] = []
         @Published private(set) var updates: [Friendship] = []
+        @Published var searchText = ""
 
         private var queryBag = Set<AnyCancellable>()
         private var userId: Int?
@@ -106,6 +107,23 @@ extension FriendsView {
             updates = sent
                 .filter(\.isAccepted)
                 .sorted { ($0.acceptedAt ?? "") > ($1.acceptedAt ?? "") }
+        }
+
+        func timeAgo(_ dateTime: DateTime?) -> String {
+            guard let dateTime, let date = date(from: dateTime) else { return "" }
+            return date.formatted(.relative(presentation: .numeric, unitsStyle: .abbreviated))
+        }
+
+        private func date(from dateTime: DateTime) -> Foundation.Date? {
+            if let date = WorkoutTimeFormatter.isoToDate(dateTime) {
+                return date
+            }
+
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "en_US_POSIX")
+            formatter.timeZone = TimeZone(identifier: "UTC")
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            return formatter.date(from: String(dateTime.prefix(19)))
         }
 
         private func sortedByName(_ friends: [Friend]) -> [Friend] {
