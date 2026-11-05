@@ -144,6 +144,7 @@ struct Constants {
         static let profileSolid = Image("profile_solid")
         static let pencil = Image("pencil")
         static let elevator = Image("elevator")
+        static let friend = Image("friend")
         static let greenCheckCircle = Image("green_check_circle")
         static let greenTea = Image("green_tea")
         static let giveawayModalBackground = Image("giveaway_modal_bg")
@@ -463,5 +464,16 @@ struct Constants {
         static let timePickerBorderWidth: CGFloat = 1
 
         static let minuteInterval = 5
+    }
+
+    enum Friends {
+        static let avatarSize: CGFloat = 46
+        static let contentVerticalPadding: CGFloat = 24
+        static let headerBottomPadding: CGFloat = 10
+        static let headerHeight: CGFloat = 96
+        static let iconSize: CGFloat = 20
+        static let labelSpacing: CGFloat = 4
+        static let rowSpacing: CGFloat = 12
+        static let sectionSpacing: CGFloat = 20
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A4014F77827D46F593C5C709 /* FriendAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A5EA8C110C4375A9E08DE3 /* FriendAvatar.swift */; };
 		0EF9F4FC70854DA79FB6F9D6 /* FriendsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B2CD5C5B445FE9C52CED5 /* FriendsTests.swift */; };
 		B5CCA989A9784ECEA7175562 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC51F807984FD18DFA83DA /* FriendsView.swift */; };
 		5AA43B5D54FB4CF194D927FA /* FriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC158937A46240E786D1F9AC /* FriendsViewModel.swift */; };
@@ -193,6 +194,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		66A5EA8C110C4375A9E08DE3 /* FriendAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAvatar.swift; sourceTree = "<group>"; };
 		125B2CD5C5B445FE9C52CED5 /* FriendsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTests.swift; sourceTree = "<group>"; };
 		D3BC51F807984FD18DFA83DA /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		EC158937A46240E786D1F9AC /* FriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewModel.swift; sourceTree = "<group>"; };
@@ -403,6 +405,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7970AE16018F44AF8C7739E6 /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				66A5EA8C110C4375A9E08DE3 /* FriendAvatar.swift */,
+			);
+			path = Friends;
+			sourceTree = "<group>";
+		};
 		1E73905287F565F00258C43E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -494,6 +504,7 @@
 				2E15F5052B39F81B00414BEC /* MainView.swift */,
 				899B186C2CA5FAFB00FAC061 /* ProfileView.swift */,
 				D3BC51F807984FD18DFA83DA /* FriendsView.swift */,
+				7970AE16018F44AF8C7739E6 /* Friends */,
 				89C8658B2BB4778400758337 /* Classes */,
 				2E1105C02B13D11E00119F5B /* Home */,
 				89A652F82D02B00000277A16 /* Profile */,
@@ -1094,6 +1105,7 @@
 				2E39D8262B3B6C6500AD238B /* SlidingTabBarView.swift in Sources */,
 				899B186D2CA5FAFB00FAC061 /* ProfileView.swift in Sources */,
 				B5CCA989A9784ECEA7175562 /* FriendsView.swift in Sources */,
+				A4014F77827D46F593C5C709 /* FriendAvatar.swift in Sources */,
 				89599A502BD4B4B600DA44DE /* FitnessClassInstance.swift in Sources */,
 				C03A4C81305AEB5A009B22AC /* MembersGridView.swift in Sources */,
 				2E1105C42B13D1B000119F5B /* DummyData.swift in Sources */,

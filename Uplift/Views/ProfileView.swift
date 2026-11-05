@@ -17,6 +17,7 @@ struct ProfileView: View {
     @ObservedObject var viewModel: ViewModel
     @EnvironmentObject var mainViewModel: MainView.ViewModel
     @EnvironmentObject var tabBarProp: TabBarProperty
+    @StateObject private var friendsViewModel = FriendsView.ViewModel()
     @State private var showSettings = false
     @State private var showImagePicker = false
     @State private var profileItem: PhotosPickerItem?
@@ -91,6 +92,7 @@ struct ProfileView: View {
             Task {
                 await viewModel.fetchUserProfile()
             }
+            friendsViewModel.fetchFriends()
         }
         .showModal($viewModel.showDeleteAccountAlert) {
             DeleteAccountModal(
@@ -306,7 +308,7 @@ struct ProfileView: View {
                     .font(Constants.Fonts.h1)
                     .foregroundStyle(Constants.Colors.black)
 
-                HStack(spacing: 36) {
+                HStack(spacing: 24) {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("\(viewModel.totalGymDays)")
                             .font(Constants.Fonts.h2)
@@ -327,12 +329,30 @@ struct ProfileView: View {
                             .font(Constants.Fonts.labelMedium)
                             .foregroundStyle(Constants.Colors.gray04)
                     }
+
+                    friendsCount
                 }
             }
 
             Spacer(minLength: 0)
         }
         .padding(.horizontal, 2)
+    }
+
+    private var friendsCount: some View {
+        NavigationLink {
+            FriendsView(viewModel: friendsViewModel)
+        } label: {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("\(friendsViewModel.friends.count)")
+                    .font(Constants.Fonts.h2)
+                    .foregroundStyle(Constants.Colors.black)
+
+                Text("Friends")
+                    .font(Constants.Fonts.labelMedium)
+                    .foregroundStyle(Constants.Colors.gray04)
+            }
+        }
     }
 
     private var cameraMiniButton: some View {
