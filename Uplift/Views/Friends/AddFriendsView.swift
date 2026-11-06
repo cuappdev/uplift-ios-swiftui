@@ -14,6 +14,7 @@ struct AddFriendsView: View {
 
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: FriendsView.ViewModel
+    @FocusState private var isSearchFocused: Bool
 
     // MARK: - UI
 
@@ -67,9 +68,13 @@ struct AddFriendsView: View {
             VStack(alignment: .leading, spacing: Constants.Friends.sectionSpacing) {
                 searchBar
 
-                requestsSection
+                if let result = viewModel.searchResult {
+                    searchResultRow(result)
+                } else {
+                    requestsSection
 
-                updatesSection
+                    updatesSection
+                }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, Constants.Padding.homeHorizontal)
@@ -78,6 +83,23 @@ struct AddFriendsView: View {
     }
 
     private var searchBar: some View {
+        HStack(spacing: Constants.Friends.rowSpacing) {
+            searchField
+
+            if isSearchFocused || !viewModel.searchText.isEmpty {
+                Button {
+                    viewModel.clearSearch()
+                    isSearchFocused = false
+                } label: {
+                    Text("Cancel")
+                        .foregroundStyle(Constants.Colors.black)
+                        .font(Constants.Fonts.f3)
+                }
+            }
+        }
+    }
+
+    private var searchField: some View {
         HStack(spacing: Constants.Friends.rowSpacing) {
             Image(systemName: "magnifyingglass")
                 .foregroundStyle(Constants.Colors.gray04)
@@ -93,6 +115,11 @@ struct AddFriendsView: View {
             .font(Constants.Fonts.f3)
             .textInputAutocapitalization(.never)
             .autocorrectionDisabled()
+            .submitLabel(.search)
+            .focused($isSearchFocused)
+            .onSubmit {
+                viewModel.search()
+            }
         }
         .padding(Constants.Friends.searchPadding)
         .background(
@@ -171,13 +198,62 @@ struct AddFriendsView: View {
         }
     }
 
-    private func actionLabel(_ title: String, background: Color) -> some View {
-        Text(title)
-            .foregroundStyle(Constants.Colors.black)
-            .font(Constants.Fonts.labelSemibold)
-            .padding(.horizontal, Constants.Friends.buttonHorizontalPadding)
-            .padding(.vertical, Constants.Friends.buttonVerticalPadding)
-            .background(Capsule().fill(background))
+    private func searchResultRow(_ friend: Friend) -> some View {
+        HStack(spacing: Constants.Friends.rowSpacing) {
+            FriendAvatar(friend: friend)
+
+            VStack(alignment: .leading, spacing: Constants.Friends.labelSpacing) {
+                Text(friend.name)
+                    .foregroundStyle(Constants.Colors.black)
+                    .font(Constants.Fonts.h3)
+                    .lineLimit(1)
+
+                Text(friend.netId)
+                    .foregroundStyle(Constants.Colors.gray04)
+                    .font(Constants.Fonts.labelMedium)
+            }
+
+            Spacer()
+
+            requestButton(for: friend)
+        }
+    }
+
+    @ViewBuilder
+    private func requestButton(for friend: Friend) -> some View {
+        switch viewModel.status(of: friend) {
+        case .available:
+            Button {
+                viewModel.sendRequest(to: friend)
+            } label: {
+                actionLabel("Request", background: Constants.Colors.yellow)
+            }
+        case .friends:
+            actionLabel("Friends", background: Constants.Colors.gray01)
+        case .incoming:
+            Button {
+                viewModel.acceptRequest(from: friend)
+            } label: {
+                actionLabel("Accept", background: Constants.Colors.yellow)
+            }
+        case .requested:
+            actionLabel("Requested", background: Constants.Colors.gray01, icon: Image(systemName: "checkmark"))
+        case .yourself:
+            EmptyView()
+        }
+    }
+
+    private func actionLabel(_ title: String, background: Color, icon: Image? = nil) -> some View {
+        HStack(spacing: Constants.Friends.labelSpacing) {
+            icon
+
+            Text(title)
+        }
+        .foregroundStyle(Constants.Colors.black)
+        .font(Constants.Fonts.labelSemibold)
+        .padding(.horizontal, Constants.Friends.buttonHorizontalPadding)
+        .padding(.vertical, Constants.Friends.buttonVerticalPadding)
+        .background(Capsule().fill(background))
     }
 
     @ViewBuilder

@@ -89,4 +89,30 @@ struct FriendsTests {
         #expect(!viewModel.timeAgo("2026-11-03T12:00:00.123456").isEmpty)
     }
 
+    @Test("search results show the right request status")
+    func requestStatus() {
+        let viewModel = FriendsView.ViewModel()
+        let pending = Friendship(
+            id: "1",
+            acceptedAt: nil,
+            createdAt: nil,
+            friend: makeFriend("Rohan"),
+            isAccepted: false,
+            user: makeFriend("Me")
+        )
+
+        viewModel.load(
+            friends: [makeFriend("Angela")],
+            sent: [pending],
+            received: [makeFriendship(id: "2", isAccepted: false)],
+            userId: 7
+        )
+
+        #expect(viewModel.status(of: makeFriend("Angela")) == .friends)
+        #expect(viewModel.status(of: makeFriend("Sender 2")) == .incoming)
+        #expect(viewModel.status(of: makeFriend("Rohan")) == .requested)
+        #expect(viewModel.status(of: makeFriend("Caitlyn")) == .available)
+        #expect(viewModel.status(of: Friend(id: "7", encodedImage: nil, name: "Me", netId: "me1")) == .yourself)
+    }
+
 }
