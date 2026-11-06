@@ -24,16 +24,24 @@ extension FriendsView {
             case yourself
         }
 
+        enum SearchState {
+            case failed
+            case found(Friend)
+            case idle
+            case loading
+            case notFound
+        }
+
         // MARK: - Properties
 
         @Published private(set) var friends: [Friend] = []
         @Published private(set) var requests: [Friendship] = []
         @Published private(set) var updates: [Friendship] = []
-        @Published private(set) var searchResult: Friend?
+        @Published private(set) var searchState: SearchState = .idle
         @Published var searchText = "" {
             didSet {
                 if searchText != oldValue {
-                    searchResult = nil
+                    searchState = .idle
                 }
             }
         }
@@ -77,17 +85,20 @@ extension FriendsView {
             let netId = searchText.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
             guard !netId.isEmpty else { return }
 
+            searchState = .loading
             Network.client.queryPublisher(
                 query: SearchUserByNetIdQuery(netId: .some(netId)),
                 cachePolicy: .fetchIgnoringCacheCompletely
             )
-            .compactMap { $0.data?.getUserByNetId?.compactMap { $0 }.first }
-            .sink { completion in
+            .map { $0.data?.getUserByNetId?.compactMap { $0 }.first }
+            .sink { [weak self] completion in
                 if case let .failure(error) = completion {
-                    Logger.data.critical("Error in FriendsViewModel.search: \(error)")
+                    Logger.data.error("Error in FriendsViewModel.search: \(error)")
+                    // The backend reports an unknown netid as a GraphQL error
+                    self?.searchState = error is GraphQLErrorWrapper ? .notFound : .failed
                 }
             } receiveValue: { [weak self] user in
-                self?.searchResult = Friend(from: user.fragments.friendFields)
+                self?.searchState = user.map { .found(Friend(from: $0.fragments.friendFields)) } ?? .notFound
             }
             .store(in: &queryBag)
         }

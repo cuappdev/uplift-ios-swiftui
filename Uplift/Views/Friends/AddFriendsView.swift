@@ -68,13 +68,7 @@ struct AddFriendsView: View {
             VStack(alignment: .leading, spacing: Constants.Friends.sectionSpacing) {
                 searchBar
 
-                if let result = viewModel.searchResult {
-                    searchResultRow(result)
-                } else {
-                    requestsSection
-
-                    updatesSection
-                }
+                searchContent
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, Constants.Padding.homeHorizontal)
@@ -126,6 +120,21 @@ struct AddFriendsView: View {
             RoundedRectangle(cornerRadius: Constants.Friends.searchCornerRadius)
                 .foregroundStyle(Constants.Colors.gray01)
         )
+    }
+
+    @ViewBuilder
+    private var searchContent: some View {
+        switch viewModel.searchState {
+        case .found(let friend):
+            searchResultRow(friend)
+        case .loading:
+            ProgressView()
+                .frame(maxWidth: .infinity)
+        case .failed, .idle, .notFound:
+            requestsSection
+
+            updatesSection
+        }
     }
 
     private var requestsSection: some View {
