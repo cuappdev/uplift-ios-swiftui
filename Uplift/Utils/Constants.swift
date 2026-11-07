@@ -474,6 +474,8 @@ struct Constants {
         static let headerBottomPadding: CGFloat = 10
         static let headerHeight: CGFloat = 96
         static let iconSize: CGFloat = 20
+        // swiftlint:disable:next line_length
+        static let inviteMessage = "Add me as a friend on Uplift! https://apps.apple.com/us/app/uplift-cornell-fitness/id1439374374"
         static let labelSpacing: CGFloat = 4
         static let rowSpacing: CGFloat = 12
         static let searchCornerRadius: CGFloat = 8

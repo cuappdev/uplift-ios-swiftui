@@ -127,14 +127,41 @@ struct AddFriendsView: View {
         switch viewModel.searchState {
         case .found(let friend):
             searchResultRow(friend)
-        case .loading:
-            ProgressView()
-                .frame(maxWidth: .infinity)
-        case .failed, .idle, .notFound:
+        case .failed:
+            emptyLabel("Something went wrong. Please try again.")
+        case .idle:
             requestsSection
 
             updatesSection
+        case .loading:
+            ProgressView()
+                .frame(maxWidth: .infinity)
+        case .notFound:
+            notFoundView
         }
+    }
+
+    private var notFoundView: some View {
+        VStack(spacing: Constants.Friends.rowSpacing) {
+            Text("No users found")
+                .foregroundStyle(Constants.Colors.black)
+                .font(Constants.Fonts.h3)
+
+            Text("\(viewModel.searchText) isn't on Uplift yet. Invite them to join!")
+                .foregroundStyle(Constants.Colors.gray04)
+                .font(Constants.Fonts.bodyMedium)
+                .multilineTextAlignment(.center)
+
+            ShareLink(item: Constants.Friends.inviteMessage) {
+                actionLabel(
+                    "Invite",
+                    background: Constants.Colors.yellow,
+                    icon: Image(systemName: "square.and.arrow.up")
+                )
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.top, Constants.Friends.sectionSpacing)
     }
 
     private var requestsSection: some View {
