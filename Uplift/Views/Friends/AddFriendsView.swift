@@ -12,55 +12,17 @@ struct AddFriendsView: View {
 
     // MARK: - Properties
 
-    @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: FriendsView.ViewModel
     @FocusState private var isSearchFocused: Bool
 
     // MARK: - UI
 
     var body: some View {
-        VStack(spacing: 0) {
-            header
-            content
-        }
-        .ignoresSafeArea(.all, edges: .top)
-        .background(Constants.Colors.white)
-        .navigationBarBackButtonHidden(true)
-        .toolbarBackground(.hidden, for: .navigationBar)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                backButton
+        content
+            .pushedScreen(title: "Add Friends")
+            .onAppear {
+                viewModel.fetchFriends()
             }
-        }
-        .onAppear {
-            viewModel.fetchFriends()
-        }
-    }
-
-    private var backButton: some View {
-        Button {
-            dismiss()
-        } label: {
-            Constants.Images.arrowLeftLight
-                .resizable()
-                .scaledToFill()
-                .foregroundStyle(Constants.Colors.black)
-                .frame(width: 24, height: 24)
-        }
-    }
-
-    private var header: some View {
-        VStack {
-            Spacer()
-
-            Text("Add Friends")
-                .foregroundStyle(Constants.Colors.black)
-                .font(Constants.Fonts.h2)
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.bottom, Constants.Friends.headerBottomPadding)
-        .frame(height: Constants.Friends.headerHeight)
-        .background(Constants.Colors.lightGray)
     }
 
     private var content: some View {

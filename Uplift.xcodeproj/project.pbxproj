@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A1F0C0DE4B5A4D6E8F901234 /* AddFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E1D0CF5C6B4E7F90A12345 /* AddFriendsView.swift */; };
+		C3F2E1D06D7C4F8091B23456 /* PushedScreenModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A3F2E17E8D4091A2C34567 /* PushedScreenModifier.swift */; };
 		A4014F77827D46F593C5C709 /* FriendAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A5EA8C110C4375A9E08DE3 /* FriendAvatar.swift */; };
 		0EF9F4FC70854DA79FB6F9D6 /* FriendsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B2CD5C5B445FE9C52CED5 /* FriendsTests.swift */; };
 		B5CCA989A9784ECEA7175562 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC51F807984FD18DFA83DA /* FriendsView.swift */; };
@@ -196,6 +197,7 @@
 
 /* Begin PBXFileReference section */
 		B2E1D0CF5C6B4E7F90A12345 /* AddFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendsView.swift; sourceTree = "<group>"; };
+		D4A3F2E17E8D4091A2C34567 /* PushedScreenModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushedScreenModifier.swift; sourceTree = "<group>"; };
 		66A5EA8C110C4375A9E08DE3 /* FriendAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAvatar.swift; sourceTree = "<group>"; };
 		125B2CD5C5B445FE9C52CED5 /* FriendsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTests.swift; sourceTree = "<group>"; };
 		D3BC51F807984FD18DFA83DA /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
@@ -644,6 +646,7 @@
 				2E6785BF2B3A5CA300DD3ADA /* Haptics.swift */,
 				2E39D8152B3B3AD600AD238B /* ScaleButtonStyle.swift */,
 				2E6785BD2B3A513000DD3ADA /* SemiCircleShape.swift */,
+				D4A3F2E17E8D4091A2C34567 /* PushedScreenModifier.swift */,
 				2E15F5012B396EC500414BEC /* ShadowModifier.swift */,
 				2E5726C62B4A63AE00D3DB36 /* ShimmerModifier.swift */,
 				2EB161C82BBC9C3100493B71 /* StretchyModifier.swift */,
@@ -1109,6 +1112,7 @@
 				899B186D2CA5FAFB00FAC061 /* ProfileView.swift in Sources */,
 				B5CCA989A9784ECEA7175562 /* FriendsView.swift in Sources */,
 				A4014F77827D46F593C5C709 /* FriendAvatar.swift in Sources */,
+				C3F2E1D06D7C4F8091B23456 /* PushedScreenModifier.swift in Sources */,
 				A1F0C0DE4B5A4D6E8F901234 /* AddFriendsView.swift in Sources */,
 				89599A502BD4B4B600DA44DE /* FitnessClassInstance.swift in Sources */,
 				C03A4C81305AEB5A009B22AC /* MembersGridView.swift in Sources */,
