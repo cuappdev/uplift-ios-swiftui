@@ -25,13 +25,30 @@ struct PushedScreenModifier: ViewModifier {
         }
         .ignoresSafeArea(.all, edges: .top)
         .background(Constants.Colors.white)
-        .navigationBarBackButtonHidden(true)
-        .toolbarBackground(.hidden, for: .navigationBar)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                backButton
+        .toolbar(.hidden, for: .navigationBar)
+    }
+
+    private var header: some View {
+        VStack {
+            Spacer()
+
+            ZStack {
+                Text(title)
+                    .foregroundStyle(Constants.Colors.black)
+                    .font(Constants.Fonts.h2)
+
+                HStack {
+                    backButton
+
+                    Spacer()
+                }
             }
         }
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, Constants.Padding.homeHorizontal)
+        .padding(.bottom, Constants.PushedScreen.headerBottomPadding)
+        .frame(height: Constants.PushedScreen.headerHeight)
+        .background(Constants.Colors.lightGray)
     }
 
     private var backButton: some View {
@@ -44,20 +61,6 @@ struct PushedScreenModifier: ViewModifier {
                 .foregroundStyle(Constants.Colors.black)
                 .frame(width: 24, height: 24)
         }
-    }
-
-    private var header: some View {
-        VStack {
-            Spacer()
-
-            Text(title)
-                .foregroundStyle(Constants.Colors.black)
-                .font(Constants.Fonts.h2)
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.bottom, Constants.PushedScreen.headerBottomPadding)
-        .frame(height: Constants.PushedScreen.headerHeight)
-        .background(Constants.Colors.lightGray)
     }
 
 }
