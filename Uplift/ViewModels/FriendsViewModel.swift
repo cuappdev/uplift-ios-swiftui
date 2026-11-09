@@ -49,6 +49,7 @@ extension FriendsView {
 
         @Published private var busyIds = Set<Friend.ID>()
         @Published private var pendingIds = Set<Friend.ID>()
+        private var fetchCancellable: AnyCancellable?
         private var queryBag = Set<AnyCancellable>()
         private var searchCancellable: AnyCancellable?
         private var userId: Int?
@@ -58,7 +59,7 @@ extension FriendsView {
         func fetchFriends() {
             guard let netId = UserSessionManager.shared.netID else { return }
 
-            Network.client.queryPublisher(
+            fetchCancellable = Network.client.queryPublisher(
                 query: GetFriendsQuery(netId: .some(netId)),
                 cachePolicy: .fetchIgnoringCacheCompletely
             )
@@ -81,7 +82,6 @@ extension FriendsView {
                     userId: Int(user.id)
                 )
             }
-            .store(in: &queryBag)
         }
 
         func search() {
@@ -121,6 +121,7 @@ extension FriendsView {
                 guard let self, result.data?.addFriend != nil else { return }
 
                 pendingIds.insert(friend.id)
+                fetchFriends()
             }
             .store(in: &queryBag)
         }
@@ -148,6 +149,7 @@ extension FriendsView {
 
                 requests.removeAll { $0.id == request.id }
                 friends = sortedByName(friends + [sender])
+                fetchFriends()
             }
             .store(in: &queryBag)
         }
@@ -169,6 +171,7 @@ extension FriendsView {
                 guard let self, result.data?.removeFriend?.success == true else { return }
 
                 requests.removeAll { $0.id == request.id }
+                fetchFriends()
             }
             .store(in: &queryBag)
         }
