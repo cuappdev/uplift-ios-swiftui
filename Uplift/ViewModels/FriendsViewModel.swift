@@ -46,6 +46,7 @@ extension FriendsView {
             }
         }
 
+        @Published private var busyIds = Set<Friend.ID>()
         @Published private var pendingIds = Set<Friend.ID>()
         private var queryBag = Set<AnyCancellable>()
         private var userId: Int?
@@ -104,12 +105,14 @@ extension FriendsView {
         }
 
         func sendRequest(to friend: Friend) {
-            guard let userId, let friendId = Int(friend.id) else { return }
+            guard let userId, let friendId = Int(friend.id), !isBusy(friend) else { return }
 
+            busyIds.insert(friend.id)
             Network.client.mutationPublisher(
                 mutation: AddFriendMutation(friendId: friendId, userId: userId)
             )
-            .sink { completion in
+            .sink { [weak self] completion in
+                self?.busyIds.remove(friend.id)
                 if case let .failure(error) = completion {
                     Logger.data.critical("Error in FriendsViewModel.sendRequest: \(error)")
                 }
@@ -127,12 +130,15 @@ extension FriendsView {
         }
 
         func accept(_ request: Friendship) {
-            guard let friendshipId = Int(request.id) else { return }
+            guard let friendshipId = Int(request.id),
+                  let sender = request.user, !isBusy(sender) else { return }
 
+            busyIds.insert(sender.id)
             Network.client.mutationPublisher(
                 mutation: AcceptFriendRequestMutation(friendshipId: friendshipId)
             )
-            .sink { completion in
+            .sink { [weak self] completion in
+                self?.busyIds.remove(sender.id)
                 if case let .failure(error) = completion {
                     Logger.data.critical("Error in FriendsViewModel.accept: \(error)")
                 }
@@ -140,21 +146,21 @@ extension FriendsView {
                 guard let self, result.data?.acceptFriendRequest != nil else { return }
 
                 requests.removeAll { $0.id == request.id }
-                if let sender = request.user {
-                    friends = sortedByName(friends + [sender])
-                }
+                friends = sortedByName(friends + [sender])
             }
             .store(in: &queryBag)
         }
 
         func decline(_ request: Friendship) {
-            guard let userId,
-                  let senderId = request.user.flatMap({ Int($0.id) }) else { return }
+            guard let userId, let sender = request.user,
+                  let senderId = Int(sender.id), !isBusy(sender) else { return }
 
+            busyIds.insert(sender.id)
             Network.client.mutationPublisher(
                 mutation: RemoveFriendMutation(friendId: senderId, userId: userId)
             )
-            .sink { completion in
+            .sink { [weak self] completion in
+                self?.busyIds.remove(sender.id)
                 if case let .failure(error) = completion {
                     Logger.data.critical("Error in FriendsViewModel.decline: \(error)")
                 }
@@ -191,6 +197,10 @@ extension FriendsView {
                 return .requested
             }
             return .available
+        }
+
+        func isBusy(_ friend: Friend) -> Bool {
+            busyIds.contains(friend.id)
         }
 
         func clearSearch() {

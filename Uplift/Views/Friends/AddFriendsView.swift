@@ -193,6 +193,7 @@ struct AddFriendsView: View {
                     actionLabel("Decline", background: Constants.Colors.gray01)
                 }
             }
+            .disabled(viewModel.isBusy(sender))
         }
     }
 
@@ -226,6 +227,7 @@ struct AddFriendsView: View {
             } label: {
                 actionLabel("Request", background: Constants.Colors.yellow)
             }
+            .disabled(viewModel.isBusy(friend))
         case .friends:
             actionLabel("Friends", background: Constants.Colors.gray01)
         case .incoming:
@@ -234,6 +236,7 @@ struct AddFriendsView: View {
             } label: {
                 actionLabel("Accept", background: Constants.Colors.yellow)
             }
+            .disabled(viewModel.isBusy(friend))
         case .requested:
             actionLabel("Requested", background: Constants.Colors.gray01, icon: Image(systemName: "checkmark"))
         case .yourself:
