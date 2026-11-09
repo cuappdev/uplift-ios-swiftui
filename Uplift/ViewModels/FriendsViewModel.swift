@@ -41,6 +41,7 @@ extension FriendsView {
         @Published var searchText = "" {
             didSet {
                 if searchText != oldValue {
+                    searchCancellable?.cancel()
                     searchState = .idle
                 }
             }
@@ -49,6 +50,7 @@ extension FriendsView {
         @Published private var busyIds = Set<Friend.ID>()
         @Published private var pendingIds = Set<Friend.ID>()
         private var queryBag = Set<AnyCancellable>()
+        private var searchCancellable: AnyCancellable?
         private var userId: Int?
 
         // MARK: - Requests
@@ -87,7 +89,7 @@ extension FriendsView {
             guard !netId.isEmpty else { return }
 
             searchState = .loading
-            Network.client.queryPublisher(
+            searchCancellable = Network.client.queryPublisher(
                 query: SearchUserByNetIdQuery(netId: .some(netId)),
                 cachePolicy: .fetchIgnoringCacheCompletely
             )
@@ -101,7 +103,6 @@ extension FriendsView {
             } receiveValue: { [weak self] user in
                 self?.searchState = user.map { .found(Friend(from: $0.fragments.friendFields)) } ?? .notFound
             }
-            .store(in: &queryBag)
         }
 
         func sendRequest(to friend: Friend) {

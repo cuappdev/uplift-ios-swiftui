@@ -23,6 +23,9 @@ struct AddFriendsView: View {
             .onAppear {
                 viewModel.fetchFriends()
             }
+            .onDisappear {
+                viewModel.clearSearch()
+            }
     }
 
     private var content: some View {
