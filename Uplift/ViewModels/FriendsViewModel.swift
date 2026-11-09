@@ -198,20 +198,7 @@ extension FriendsView {
         }
 
         func timeAgo(_ dateTime: DateTime?) -> String {
-            guard let dateTime, let date = date(from: dateTime) else { return "" }
-            return date.formatted(.relative(presentation: .numeric, unitsStyle: .abbreviated))
-        }
-
-        private func date(from dateTime: DateTime) -> Foundation.Date? {
-            if let date = WorkoutTimeFormatter.isoToDate(dateTime) {
-                return date
-            }
-
-            let formatter = DateFormatter()
-            formatter.locale = Locale(identifier: "en_US_POSIX")
-            formatter.timeZone = TimeZone(identifier: "UTC")
-            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-            return formatter.date(from: String(dateTime.prefix(19)))
+            dateTime.flatMap(Foundation.Date.fromBackend)?.timeAgo ?? ""
         }
 
         private func sortedByName(_ friends: [Friend]) -> [Friend] {

@@ -6,6 +6,7 @@
 //  Copyright © 2026 Cornell AppDev. All rights reserved.
 //
 
+import Foundation
 import Testing
 @testable import Uplift
 
@@ -87,6 +88,15 @@ struct FriendsTests {
         #expect(viewModel.timeAgo("not a date").isEmpty)
         #expect(!viewModel.timeAgo("2026-11-03T12:00:00+00:00").isEmpty)
         #expect(!viewModel.timeAgo("2026-11-03T12:00:00.123456").isEmpty)
+    }
+
+    @Test("backend dates without a timezone are read as UTC")
+    func parsesBackendDates() {
+        let withZone = Date.fromBackend("2026-11-03T12:00:00+00:00")
+
+        #expect(withZone != nil)
+        #expect(Date.fromBackend("2026-11-03T12:00:00.123456") == withZone)
+        #expect(Date.fromBackend("not a date") == nil)
     }
 
     @Test("search results show the right request status")

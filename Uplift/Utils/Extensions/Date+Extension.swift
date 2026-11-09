@@ -102,6 +102,24 @@ extension Date {
         formatter.dateFormat = format
         return formatter.date(from: dateString)
     }
+
+    var timeAgo: String {
+        formatted(.relative(presentation: .numeric, unitsStyle: .abbreviated))
+    }
+
+    // Some backend timestamps have no timezone, so those are read as UTC
+    static func fromBackend(_ dateTime: String) -> Date? {
+        WorkoutTimeFormatter.isoToDate(dateTime) ?? utcFormatter.date(from: String(dateTime.prefix(19)))
+    }
+
+    private static let utcFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(identifier: "UTC")
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        return formatter
+    }()
+
 }
 
 enum WorkoutTimeFormatter {
