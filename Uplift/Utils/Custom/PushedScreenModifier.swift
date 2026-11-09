@@ -59,7 +59,7 @@ struct PushedScreenModifier: ViewModifier {
                 .resizable()
                 .scaledToFill()
                 .foregroundStyle(Constants.Colors.black)
-                .frame(width: 24, height: 24)
+                .frame(width: Constants.PushedScreen.backButtonSize, height: Constants.PushedScreen.backButtonSize)
         }
     }
 

@@ -118,9 +118,13 @@ extension FriendsView {
                     Logger.data.critical("Error in FriendsViewModel.sendRequest: \(error)")
                 }
             } receiveValue: { [weak self] result in
-                guard let self, result.data?.addFriend != nil else { return }
+                guard let self, let friendship = result.data?.addFriend else { return }
 
-                pendingIds.insert(friend.id)
+                if friendship.isAccepted == true {
+                    friends = sortedByName(friends + [friend])
+                } else {
+                    pendingIds.insert(friend.id)
+                }
                 fetchFriends()
             }
             .store(in: &queryBag)

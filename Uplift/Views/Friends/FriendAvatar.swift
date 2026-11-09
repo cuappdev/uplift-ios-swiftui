@@ -19,7 +19,7 @@ struct FriendAvatar: View {
 
     var body: some View {
         Group {
-            if let imageURL {
+            if let imageURL = friend.imageURL {
                 KFImage(imageURL)
                     .placeholder { placeholder }
                     .resizable()
@@ -35,15 +35,6 @@ struct FriendAvatar: View {
     private var placeholder: some View {
         Circle()
             .fill(Constants.Colors.gray02)
-    }
-
-    // MARK: - Helpers
-
-    private var imageURL: URL? {
-        guard let url = friend.encodedImage.flatMap(URL.init(string:)),
-              let scheme = url.scheme?.lowercased(),
-              scheme == "http" || scheme == "https" else { return nil }
-        return url
     }
 
 }

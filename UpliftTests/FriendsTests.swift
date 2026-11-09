@@ -99,6 +99,16 @@ struct FriendsTests {
         #expect(Date.fromBackend("not a date") == nil)
     }
 
+    @Test("friend image url only accepts web links")
+    func imageURL() {
+        let photo = Friend(id: "1", encodedImage: "https://example.com/a.png", name: "A", netId: "a1")
+        let encoded = Friend(id: "2", encodedImage: "iVBORw0KGgo", name: "B", netId: "b1")
+
+        #expect(photo.imageURL?.absoluteString == "https://example.com/a.png")
+        #expect(encoded.imageURL == nil)
+        #expect(makeFriend("C").imageURL == nil)
+    }
+
     @Test("search results show the right request status")
     func requestStatus() {
         let viewModel = FriendsView.ViewModel()

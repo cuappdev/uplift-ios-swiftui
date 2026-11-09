@@ -18,6 +18,13 @@ struct Friend: Hashable, Identifiable {
     let name: String
     let netId: String
 
+    var imageURL: URL? {
+        guard let url = encodedImage.flatMap(URL.init(string:)),
+              let scheme = url.scheme?.lowercased(),
+              scheme == "http" || scheme == "https" else { return nil }
+        return url
+    }
+
     // MARK: - Functions
 
     init(from friend: FriendFields) {

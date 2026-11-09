@@ -467,6 +467,7 @@ struct Constants {
     }
 
     enum PushedScreen {
+        static let backButtonSize: CGFloat = 24
         static let headerBottomPadding: CGFloat = 10
         static let headerHeight: CGFloat = 96
     }
