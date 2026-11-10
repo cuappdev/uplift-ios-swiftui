@@ -18,6 +18,8 @@ struct ProfileView: View {
     @EnvironmentObject var mainViewModel: MainView.ViewModel
     @EnvironmentObject var tabBarProp: TabBarProperty
     @StateObject private var friendsViewModel = FriendsView.ViewModel()
+    @State private var showAddFriends = false
+    @State private var showFriends = false
     @State private var showSettings = false
     @State private var showImagePicker = false
     @State private var profileItem: PhotosPickerItem?
@@ -44,6 +46,19 @@ struct ProfileView: View {
 
                     viewModel.profileImage = image
                     viewModel.editProfileImage()
+                }
+            }
+            .navigationDestination(isPresented: $showAddFriends) {
+                AddFriendsView(viewModel: friendsViewModel)
+            }
+            .navigationDestination(isPresented: $showFriends) {
+                FriendsView(viewModel: friendsViewModel)
+            }
+            .onChange(of: showAddFriends || showFriends) { isShowing in
+                if !isShowing {
+                    withAnimation(.easeIn(duration: 0.1)) {
+                        tabBarProp.hidden = false
+                    }
                 }
             }
             .navigationDestination(isPresented: $showSettings) {
@@ -103,6 +118,12 @@ struct ProfileView: View {
         }
     }
 
+    private func hideTabBar() {
+        withAnimation(.easeIn(duration: 0.1)) {
+            tabBarProp.hidden = true
+        }
+    }
+
     private func dismissDeleteAccountModal() {
         // Dismiss on the next runloop tick to prevent the tap from
         // "falling through" to the Settings row underneath.
@@ -155,8 +176,9 @@ struct ProfileView: View {
     }
 
     private var addFriendsButton: some View {
-        NavigationLink {
-            AddFriendsView(viewModel: friendsViewModel)
+        Button {
+            showAddFriends = true
+            hideTabBar()
         } label: {
             Constants.Images.friend
                 .resizable()
@@ -355,8 +377,9 @@ struct ProfileView: View {
     }
 
     private var friendsCount: some View {
-        NavigationLink {
-            FriendsView(viewModel: friendsViewModel)
+        Button {
+            showFriends = true
+            hideTabBar()
         } label: {
             VStack(alignment: .leading, spacing: 4) {
                 Text("\(friendsViewModel.friends.count)")

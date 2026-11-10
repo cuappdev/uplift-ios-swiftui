@@ -195,7 +195,7 @@ extension FriendsView {
         }
 
         func status(of friend: Friend) -> RequestStatus {
-            if friend.id == userId.map(String.init) {
+            if friend.id == userId.map(String.init) || friend.netId == UserSessionManager.shared.netID {
                 return .yourself
             } else if friends.contains(where: { $0.id == friend.id }) {
                 return .friends
