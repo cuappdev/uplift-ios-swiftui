@@ -88,12 +88,13 @@ struct FriendsTests {
         #expect(viewModel.timeAgo("not a date").isEmpty)
     }
 
-    @Test("backend dates without a timezone are read as UTC")
+    @Test("backend dates parse with offsets and fractional seconds, and default to UTC")
     func parsesBackendDates() {
         let withZone = Date.fromBackend("2026-11-03T12:00:00+00:00")
 
         #expect(withZone != nil)
         #expect(Date.fromBackend("2026-11-03T12:00:00.123456") == withZone)
+        #expect(Date.fromBackend("2026-11-03T07:00:00.500000-05:00") == withZone?.addingTimeInterval(0.5))
         #expect(Date.fromBackend("not a date") == nil)
     }
 

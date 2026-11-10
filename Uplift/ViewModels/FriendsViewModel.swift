@@ -116,6 +116,7 @@ extension FriendsView {
                 self?.busyIds.remove(friend.id)
                 if case let .failure(error) = completion {
                     Logger.data.critical("Error in FriendsViewModel.sendRequest: \(error)")
+                    self?.fetchFriends()
                 }
             } receiveValue: { [weak self] result in
                 guard let self, let friendship = result.data?.addFriend else { return }
@@ -147,12 +148,15 @@ extension FriendsView {
                 self?.busyIds.remove(sender.id)
                 if case let .failure(error) = completion {
                     Logger.data.critical("Error in FriendsViewModel.accept: \(error)")
+                    self?.fetchFriends()
                 }
             } receiveValue: { [weak self] result in
                 guard let self, result.data?.acceptFriendRequest != nil else { return }
 
                 requests.removeAll { $0.id == request.id }
-                friends = sortedByName(friends + [sender])
+                if !friends.contains(where: { $0.id == sender.id }) {
+                    friends = sortedByName(friends + [sender])
+                }
                 fetchFriends()
             }
             .store(in: &queryBag)
@@ -170,6 +174,7 @@ extension FriendsView {
                 self?.busyIds.remove(sender.id)
                 if case let .failure(error) = completion {
                     Logger.data.critical("Error in FriendsViewModel.decline: \(error)")
+                    self?.fetchFriends()
                 }
             } receiveValue: { [weak self] result in
                 guard let self, result.data?.removeFriend?.success == true else { return }
@@ -188,10 +193,10 @@ extension FriendsView {
             pendingIds = Set(sent.filter { !$0.isAccepted }.compactMap { $0.friend?.id })
             requests = received
                 .filter { !$0.isAccepted }
-                .sorted { ($0.createdAt ?? "") > ($1.createdAt ?? "") }
+                .sorted { date($0.createdAt) > date($1.createdAt) }
             updates = sent
                 .filter(\.isAccepted)
-                .sorted { ($0.acceptedAt ?? "") > ($1.acceptedAt ?? "") }
+                .sorted { date($0.acceptedAt) > date($1.acceptedAt) }
         }
 
         func status(of friend: Friend) -> RequestStatus {
@@ -217,6 +222,10 @@ extension FriendsView {
 
         func timeAgo(_ dateTime: DateTime?) -> String {
             dateTime.flatMap(Foundation.Date.fromBackend)?.timeAgo ?? ""
+        }
+
+        private func date(_ dateTime: DateTime?) -> Foundation.Date {
+            dateTime.flatMap(Foundation.Date.fromBackend) ?? .distantPast
         }
 
         private func sortedByName(_ friends: [Friend]) -> [Friend] {

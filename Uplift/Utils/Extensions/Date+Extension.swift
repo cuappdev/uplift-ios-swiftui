@@ -109,8 +109,16 @@ extension Date {
 
     // Some backend timestamps have no timezone, so those are read as UTC
     static func fromBackend(_ dateTime: String) -> Date? {
-        WorkoutTimeFormatter.isoToDate(dateTime) ?? utcFormatter.date(from: String(dateTime.prefix(19)))
+        WorkoutTimeFormatter.isoToDate(dateTime)
+            ?? fractionalFormatter.date(from: dateTime)
+            ?? utcFormatter.date(from: String(dateTime.prefix(19)))
     }
+
+    private static let fractionalFormatter: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        return formatter
+    }()
 
     private static let utcFormatter: DateFormatter = {
         let formatter = DateFormatter()
