@@ -29,6 +29,8 @@ extension WorkoutCheckInView {
         /// Whether a check-in request is in flight.
         @Published var isCheckingIn = false
         @Published var trigger: Int = 0
+        @Published private(set) var loggedWorkoutId: String?
+        private(set) var checkedInGym: Gym?
 
         private let locationManager: LocationManaging
         private var queryBag = Set<AnyCancellable>()
@@ -219,12 +221,14 @@ extension WorkoutCheckInView {
                     continuation.resume()
                     _ = cancellable
                 } receiveValue: { [weak self] result in
-                    guard result.data?.logWorkout != nil else {
+                    guard let workout = result.data?.logWorkout else {
                         Logger.data.critical("Error in WorkoutCheckInViewModel: logWorkout returned no data")
                         return
                     }
 
                     Logger.data.info("Successfully logged workout")
+                    self?.loggedWorkoutId = workout.id
+                    self?.checkedInGym = gym
                     self?.isCheckedIn = true
                     self?.startDailyCooldown()
                     GymProximityManager.shared.cancelPendingBanner(gymId: gymId)
