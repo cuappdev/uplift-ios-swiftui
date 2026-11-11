@@ -66,6 +66,7 @@ extension ClassesView {
 
             return classes
                 .filter { toDate($0.startTime)?.isSameDay(selectedDate) == true }
+                .filter { matchesFilter($0)}
                 .sorted {
                     guard let lhsDate = toDate($0.startTime),
                           let rhsDate = toDate($1.startTime) else { return false }
@@ -130,7 +131,40 @@ extension ClassesView {
             guard let classes = classes,
                   let thisDate = determineDayOfMonth(weekday, weeksFromCurr) else { return false }
 
-            return classes.contains { toDate($0.startTime)?.isSameDay(thisDate) == true }
+            return classes.contains { toDate($0.startTime)?.isSameDay(thisDate) == true && matchesFilter($0)}
+        }
+
+        /// Determines whether the class instance passes every option selected in the filter. An empty selection for a cateogy does not exclude any classes.
+        private func matchesFilter(_ classInstance: FitnessClassInstance) -> Bool {
+            if !filter.centers.isEmpty,
+               !filter.centers.contains(where: { classInstance.location.localizedCaseInsensitiveContains($0) }) {
+                return false
+            }
+
+            if !filter.classTypes.isEmpty,
+               !filter.classTypes.contains(classInstance.fitnessClass?.name ?? "") {
+                return false
+            }
+
+            if !filter.instructors.isEmpty,
+               !filter.instructors.contains(classInstance.instructor) {
+                return false
+            }
+
+            guard let startDate = toDate(classInstance.startTime) else { return false }
+            return matchesStartTime(startDate)
+        }
+
+        /// Determines whether the date's time of day falls within the filter's start time range.
+        /// A handle at the end of the slider means there is no limit on that side.
+        private func matchesStartTime(_ date: Foundation.Date) -> Bool {
+            let components = Calendar.current.dateComponents([.hour, .minute], from: date)
+            let hour = Double(components.hour ?? 0) + Double(components.minute ?? 0) / 60
+            let bounds = Constants.Filter.hourBounds
+
+            let isAfterStart = filter.startHour <= bounds.lowerBound || hour >= filter.startHour
+            let isBeforeEnd = filter.endHour >= bounds.upperBound || hour <= filter.endHour
+            return isAfterStart && isBeforeEnd
         }
 
     }
