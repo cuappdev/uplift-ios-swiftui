@@ -1,0 +1,58 @@
+fragment friendFields on User {
+  id
+  name
+  netId
+  encodedImage
+}
+
+fragment friendshipFields on Friendship {
+  id
+  isAccepted
+  createdAt
+  acceptedAt
+  user {
+    ...friendFields
+  }
+  friend {
+    ...friendFields
+  }
+}
+
+query GetFriends($netId: String) {
+  getUserByNetId(netId: $netId) {
+    id
+    friends {
+      ...friendFields
+    }
+    friendRequestsSent {
+      ...friendshipFields
+    }
+    friendRequestsReceived {
+      ...friendshipFields
+    }
+  }
+}
+
+query SearchUserByNetId($netId: String) {
+  getUserByNetId(netId: $netId) {
+    ...friendFields
+  }
+}
+
+mutation AddFriend($friendId: Int!, $userId: Int!) {
+  addFriend(friendId: $friendId, userId: $userId) {
+    ...friendshipFields
+  }
+}
+
+mutation AcceptFriendRequest($friendshipId: Int!) {
+  acceptFriendRequest(friendshipId: $friendshipId) {
+    ...friendshipFields
+  }
+}
+
+mutation RemoveFriend($friendId: Int!, $userId: Int!) {
+  removeFriend(friendId: $friendId, userId: $userId) {
+    success
+  }
+}

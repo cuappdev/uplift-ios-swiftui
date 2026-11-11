@@ -144,6 +144,7 @@ struct Constants {
         static let profileSolid = Image("profile_solid")
         static let pencil = Image("pencil")
         static let elevator = Image("elevator")
+        static let friend = Image("friend")
         static let greenCheckCircle = Image("green_check_circle")
         static let greenTea = Image("green_tea")
         static let giveawayModalBackground = Image("giveaway_modal_bg")
@@ -463,5 +464,26 @@ struct Constants {
         static let timePickerBorderWidth: CGFloat = 1
 
         static let minuteInterval = 5
+    }
+
+    enum PushedScreen {
+        static let backButtonSize: CGFloat = 24
+        static let headerBottomPadding: CGFloat = 10
+        static let headerHeight: CGFloat = 96
+    }
+
+    enum Friends {
+        static let avatarSize: CGFloat = 46
+        static let buttonHorizontalPadding: CGFloat = 12
+        static let buttonVerticalPadding: CGFloat = 6
+        static let contentVerticalPadding: CGFloat = 24
+        static let iconSize: CGFloat = 20
+        // swiftlint:disable:next line_length
+        static let inviteMessage = "Add me as a friend on Uplift! https://apps.apple.com/us/app/uplift-cornell-fitness/id1439374374"
+        static let labelSpacing: CGFloat = 4
+        static let rowSpacing: CGFloat = 12
+        static let searchCornerRadius: CGFloat = 8
+        static let searchPadding: CGFloat = 12
+        static let sectionSpacing: CGFloat = 20
     }
 }

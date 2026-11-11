@@ -17,6 +17,9 @@ struct ProfileView: View {
     @ObservedObject var viewModel: ViewModel
     @EnvironmentObject var mainViewModel: MainView.ViewModel
     @EnvironmentObject var tabBarProp: TabBarProperty
+    @StateObject private var friendsViewModel = FriendsView.ViewModel()
+    @State private var showAddFriends = false
+    @State private var showFriends = false
     @State private var showSettings = false
     @State private var showImagePicker = false
     @State private var profileItem: PhotosPickerItem?
@@ -43,6 +46,19 @@ struct ProfileView: View {
 
                     viewModel.profileImage = image
                     viewModel.editProfileImage()
+                }
+            }
+            .navigationDestination(isPresented: $showAddFriends) {
+                AddFriendsView(viewModel: friendsViewModel)
+            }
+            .navigationDestination(isPresented: $showFriends) {
+                FriendsView(viewModel: friendsViewModel)
+            }
+            .onChange(of: showAddFriends || showFriends) { isShowing in
+                if !isShowing {
+                    withAnimation(.easeIn(duration: 0.1)) {
+                        tabBarProp.hidden = false
+                    }
                 }
             }
             .navigationDestination(isPresented: $showSettings) {
@@ -91,6 +107,7 @@ struct ProfileView: View {
             Task {
                 await viewModel.fetchUserProfile()
             }
+            friendsViewModel.fetchFriends()
         }
         .showModal($viewModel.showDeleteAccountAlert) {
             DeleteAccountModal(
@@ -98,6 +115,12 @@ struct ProfileView: View {
                 onBack: dismissDeleteAccountModal,
                 onClose: dismissDeleteAccountModal
             )
+        }
+    }
+
+    private func hideTabBar() {
+        withAnimation(.easeIn(duration: 0.1)) {
+            tabBarProp.hidden = true
         }
     }
 
@@ -137,6 +160,8 @@ struct ProfileView: View {
 
                 Spacer()
 
+                addFriendsButton
+
                 settingsButton
             }
         }
@@ -148,6 +173,20 @@ struct ProfileView: View {
         )
         .ignoresSafeArea(.all)
         .frame(height: 64)
+    }
+
+    private var addFriendsButton: some View {
+        Button {
+            showAddFriends = true
+            hideTabBar()
+        } label: {
+            Constants.Images.friend
+                .resizable()
+                .scaledToFit()
+                .frame(width: 24, height: 24)
+                .foregroundStyle(Constants.Colors.black)
+        }
+        .padding(.trailing, 16)
     }
 
     private var settingsButton: some View {
@@ -306,7 +345,7 @@ struct ProfileView: View {
                     .font(Constants.Fonts.h1)
                     .foregroundStyle(Constants.Colors.black)
 
-                HStack(spacing: 36) {
+                HStack(spacing: 24) {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("\(viewModel.totalGymDays)")
                             .font(Constants.Fonts.h2)
@@ -327,12 +366,31 @@ struct ProfileView: View {
                             .font(Constants.Fonts.labelMedium)
                             .foregroundStyle(Constants.Colors.gray04)
                     }
+
+                    friendsCount
                 }
             }
 
             Spacer(minLength: 0)
         }
         .padding(.horizontal, 2)
+    }
+
+    private var friendsCount: some View {
+        Button {
+            showFriends = true
+            hideTabBar()
+        } label: {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("\(friendsViewModel.friends.count)")
+                    .font(Constants.Fonts.h2)
+                    .foregroundStyle(Constants.Colors.black)
+
+                Text("Friends")
+                    .font(Constants.Fonts.labelMedium)
+                    .foregroundStyle(Constants.Colors.gray04)
+            }
+        }
     }
 
     private var cameraMiniButton: some View {
