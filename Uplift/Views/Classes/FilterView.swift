@@ -14,11 +14,11 @@ struct FilterView: View {
 
     @Environment(\.dismiss) private var dismiss
     @Binding var filter: ClassFilter
+    let classTypes: [String]
+    let instructors: [String]
 
     // Placeholder data, will connect from view model later
     private let fitnessCenters = ["Noyes", "Helen Newman", "Teagle", "Appel"]
-    private let classTypes = ["Spinning", "Barre", "H.I.I.T.", "Yoga", "Zumba", "Pilates", "Muscle Pump", "Cycling"]
-    private let instructors = ["Emily", "Lauren", "Mia"]
 
     // MARK: - UI
 

@@ -74,6 +74,18 @@ extension ClassesView {
                 }
         }
 
+        /// The unique class names, sorted alphabetically.
+        var classTypes: [String] {
+            let names = classes?.compactMap { $0.fitnessClass?.name }.filter { !$0.isEmpty } ?? []
+            return Set(names).sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
+        }
+
+        /// The unique instructors, sorted alphabetically.
+        var instructors: [String] {
+            let names = classes?.map(\.instructor).filter { !$0.isEmpty } ?? []
+            return Set(names).sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
+        }
+
         /// The array of next sessions for this class.
         func nextSessions(classInstance: FitnessClassInstance) -> [FitnessClassInstance] {
             guard let classes = classes,

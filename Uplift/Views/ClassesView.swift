@@ -31,7 +31,11 @@ struct ClassesView: View {
                 filterButton
             }
             .sheet(isPresented: $showFilter) {
-                FilterView(filter: $viewModel.filter)
+                FilterView(
+                    filter: $viewModel.filter,
+                    classTypes: viewModel.classTypes,
+                    instructors: viewModel.instructors
+                )
             }
         }
         .onAppear {
