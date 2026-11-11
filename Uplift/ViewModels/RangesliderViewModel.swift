@@ -18,9 +18,6 @@ extension RangeSlider {
         let step: Double
         let minGap: Double
 
-        private var lowerDragStart: Double?
-        private var upperDragStart: Double?
-
         // MARK: - Functions
 
         init(bounds: ClosedRange<Double>, step: Double, minGap: Double) {
@@ -36,51 +33,57 @@ extension RangeSlider {
             return CGFloat((value - bounds.lowerBound) / span) * trackWidth
         }
 
-        /// Returns the new lower value after the lower thumb has been dragged by the given distance.
-        func lowerValue(dragTranslation: CGFloat, trackWidth: CGFloat, lower: Double, upper: Double) -> Double {
-            let start = lowerDragStart ?? lower
-            lowerDragStart = start
+        /// Returns the new lower value after the lower thumb has been dragged by the given distance from 'start'.
+        func lowerValue(dragTranslation: CGFloat, trackWidth: CGFloat, start: Double, upper: Double) -> Double {
             let proposed = start + valueChange(for: dragTranslation, trackWidth: trackWidth)
             return clamped(snapped(proposed), min: bounds.lowerBound, max: upper - minGap)
         }
 
-        /// Returns the new upper value after the upper thumb has been dragged by the given distance.
-        func upperValue(dragTranslation: CGFloat, trackWidth: CGFloat, lower: Double, upper: Double) -> Double {
-            let start = upperDragStart ?? upper
-            upperDragStart = start
+        /// Returns the new upper value after the upper thumb has been dragged by the given distance from 'start'.
+        func upperValue(dragTranslation: CGFloat, trackWidth: CGFloat, lower: Double, start: Double) -> Double {
             let proposed = start + valueChange(for: dragTranslation, trackWidth: trackWidth)
             return clamped(snapped(proposed), min: lower + minGap, max: bounds.upperBound)
         }
 
         /// Returns the gesture that moves the lower thumb, writing the new value into `lower`.
-        func lowerDrag(trackWidth: CGFloat, lower: Binding<Double>, upper: Binding<Double>) -> some Gesture {
+        func lowerDrag(
+            trackWidth: CGFloat,
+            start: GestureState<Double?>,
+            lower: Binding<Double>,
+            upper: Binding<Double>
+        ) -> some Gesture {
             DragGesture()
+                .updating(start) { _, state, _ in
+                    state = state ?? lower.wrappedValue
+                }
                 .onChanged { [self] value in
                     lower.wrappedValue = lowerValue(
                         dragTranslation: value.translation.width,
                         trackWidth: trackWidth,
-                        lower: lower.wrappedValue,
+                        start: start.wrappedValue ?? lower.wrappedValue,
                         upper: upper.wrappedValue
                     )
-                }
-                .onEnded { [self] _ in
-                    lowerDragStart = nil
                 }
         }
 
         /// Returns the gesture that moves the upper thumb, writing the new value into `upper`.
-        func upperDrag(trackWidth: CGFloat, lower: Binding<Double>, upper: Binding<Double>) -> some Gesture {
+        func upperDrag(
+            trackWidth: CGFloat,
+            start: GestureState<Double?>,
+            lower: Binding<Double>,
+            upper: Binding<Double>
+        ) -> some Gesture {
             DragGesture()
+                .updating(start) { _, state, _ in
+                    state = state ?? upper.wrappedValue
+                }
                 .onChanged { [self] value in
                     upper.wrappedValue = upperValue(
                         dragTranslation: value.translation.width,
                         trackWidth: trackWidth,
                         lower: lower.wrappedValue,
-                        upper: upper.wrappedValue
+                        start: start.wrappedValue ?? upper.wrappedValue
                     )
-                }
-                .onEnded { [self] _ in
-                    upperDragStart = nil
                 }
         }
 

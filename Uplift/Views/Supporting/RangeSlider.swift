@@ -17,6 +17,9 @@ struct RangeSlider: View {
     @Binding var upper: Double
     @StateObject private var viewModel: ViewModel
 
+    @GestureState private var lowerDragStart: Double?
+    @GestureState private var upperDragStart: Double?
+
     private let thumbSize: CGFloat = 24
     private let trackHeight: CGFloat = 6
 
@@ -54,11 +57,19 @@ struct RangeSlider: View {
 
                 thumb
                     .offset(x: lowerX)
-                    .gesture(viewModel.lowerDrag(trackWidth: trackWidth, lower: $lower, upper: $upper))
+                    .gesture(viewModel.lowerDrag(
+                        trackWidth: trackWidth,
+                        start: $lowerDragStart,
+                        lower: $lower,
+                        upper: $upper))
 
                 thumb
                     .offset(x: upperX)
-                    .gesture(viewModel.upperDrag(trackWidth: trackWidth, lower: $lower, upper: $upper))
+                    .gesture(viewModel.upperDrag(
+                        trackWidth: trackWidth,
+                        start: $upperDragStart,
+                        lower: $lower,
+                        upper: $upper))
             }
         }
         .frame(height: thumbSize)

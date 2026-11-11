@@ -151,21 +151,28 @@ extension ClassesView {
                 return false
             }
 
+            return matchesTime(classInstance)
+        }
+
+        /// Determines whether the whole class, from start to end, falls within the filter's time range.
+        private func matchesTime(_ classInstance: FitnessClassInstance) -> Bool {
             guard let startDate = toDate(classInstance.startTime) else { return false }
-            return matchesStartTime(startDate)
-        }
 
-        /// Determines whether the date's time of day falls within the filter's start time range.
-        /// A handle at the end of the slider means there is no limit on that side.
-        private func matchesStartTime(_ date: Foundation.Date) -> Bool {
-            let components = Calendar.current.dateComponents([.hour, .minute], from: date)
-            let hour = Double(components.hour ?? 0) + Double(components.minute ?? 0) / 60
+            let startHour = hourOfDay(startDate)
+            let endHour = toDate(classInstance.endTime).map {
+                startHour + $0.timeIntervalSince(startDate) / 3600
+            } ?? startHour   // no end time, so fall back to the start
+
             let bounds = Constants.Filter.hourBounds
-
-            let isAfterStart = filter.startHour <= bounds.lowerBound || hour >= filter.startHour
-            let isBeforeEnd = filter.endHour >= bounds.upperBound || hour <= filter.endHour
-            return isAfterStart && isBeforeEnd
+            let startsInRange = filter.startHour <= bounds.lowerBound || startHour >= filter.startHour
+            let endsInRange = filter.endHour >= bounds.upperBound || endHour <= filter.endHour
+            return startsInRange && endsInRange
         }
 
+        /// Returns the time of day as an hour in 24-hour time (e.g. 6:30 AM is 6.5).
+        private func hourOfDay(_ date: Foundation.Date) -> Double {
+            let components = Calendar.current.dateComponents([.hour, .minute], from: date)
+            return Double(components.hour ?? 0) + Double(components.minute ?? 0) / 60
+        }
     }
 }

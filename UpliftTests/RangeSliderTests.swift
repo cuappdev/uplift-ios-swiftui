@@ -40,47 +40,37 @@ struct RangeSliderViewModelTests {
 
     @Test("Lower thumb snaps to the nearest step")
     func lowerSnapsToStep() {
-        let value = viewModel.lowerValue(dragTranslation: 28, trackWidth: trackWidth, lower: 6, upper: 22)
+        let value = viewModel.lowerValue(dragTranslation: 28, trackWidth: trackWidth, start: 6, upper: 22)
         #expect(value == 7.5)
     }
 
     @Test("Lower thumb stops 1 hour before the upper thumb")
     func lowerStopsAtMinGap() {
-        let value = viewModel.lowerValue(dragTranslation: 320, trackWidth: trackWidth, lower: 6, upper: 8)
+        let value = viewModel.lowerValue(dragTranslation: 320, trackWidth: trackWidth, start: 6, upper: 8)
         #expect(value == 7)
     }
 
     @Test("Lower thumb cannot go below the bounds")
     func lowerStopsAtLowerBound() {
-        let value = viewModel.lowerValue(dragTranslation: -100, trackWidth: trackWidth, lower: 8, upper: 22)
+        let value = viewModel.lowerValue(dragTranslation: -100, trackWidth: trackWidth, start: 8, upper: 22)
         #expect(value == 6)
     }
 
     @Test("Upper thumb stops 1 hour after the lower thumb")
     func upperStopsAtMinGap() {
-        let value = viewModel.upperValue(dragTranslation: -320, trackWidth: trackWidth, lower: 20, upper: 22)
+        let value = viewModel.upperValue(dragTranslation: -320, trackWidth: trackWidth, lower: 20, start: 22)
         #expect(value == 21)
     }
 
     @Test("Upper thumb cannot go above the bounds")
     func upperStopsAtUpperBound() {
-        let value = viewModel.upperValue(dragTranslation: 200, trackWidth: trackWidth, lower: 6, upper: 20)
+        let value = viewModel.upperValue(dragTranslation: 200, trackWidth: trackWidth, lower: 6, start: 20)
         #expect(value == 22)
-    }
-
-    @Test("A drag measures from where it started and does not stack up")
-    func dragUsesStartValue() {
-        let first = viewModel.lowerValue(dragTranslation: 40, trackWidth: trackWidth, lower: 6, upper: 22)
-        #expect(first == 8)
-
-        // same drag keeps reporting the total distance, the thumb is at 8 now but it should not move to 10
-        let second = viewModel.lowerValue(dragTranslation: 40, trackWidth: trackWidth, lower: first, upper: 22)
-        #expect(second == 8)
     }
 
     @Test("Thumbs closer than the minimum gap stay put instead of crashing")
     func narrowGapDoesNotCrash() {
-        let value = viewModel.lowerValue(dragTranslation: 20, trackWidth: trackWidth, lower: 6, upper: 6.5)
+        let value = viewModel.lowerValue(dragTranslation: 20, trackWidth: trackWidth, start: 6, upper: 6.5)
         #expect(value == 6)
     }
 

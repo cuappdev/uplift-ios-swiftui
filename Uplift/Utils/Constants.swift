@@ -413,7 +413,7 @@ struct Constants {
     enum Filter {
         static let hourBounds: ClosedRange<Double> = 6...22
     }
-    
+
     enum Goals {
         static let animationDuration = 0.3
     }

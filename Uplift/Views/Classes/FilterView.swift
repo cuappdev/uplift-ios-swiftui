@@ -91,7 +91,7 @@ struct FilterView: View {
     private var startTimeSection: some View {
         VStack {
             HStack {
-                Text("START TIME")
+                Text("CLASS TIME")
                 Spacer()
                 Text("\(formatted(filter.startHour)) - \(formatted(filter.endHour))")
             }
