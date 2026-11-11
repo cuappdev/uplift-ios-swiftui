@@ -57,7 +57,10 @@ extension FriendsView {
         // MARK: - Requests
 
         func fetchFriends() {
-            guard let netId = UserSessionManager.shared.netID else { return }
+            guard let netId = UserSessionManager.shared.netID else {
+                Logger.data.critical("FriendsViewModel.fetchFriends: No netID found in session")
+                return
+            }
 
             fetchCancellable = Network.client.queryPublisher(
                 query: GetFriendsQuery(netId: .some(netId)),
