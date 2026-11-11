@@ -37,3 +37,8 @@ struct ActiveWorkout: Codable, Hashable {
     }
 
 }
+
+struct FinishedWorkout {
+    let workout: ActiveWorkout
+    let endDate: Date
+}

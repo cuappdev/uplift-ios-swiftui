@@ -9,18 +9,53 @@ import SwiftUI
 
 struct WorkoutSummaryView: View {
     // MARK: - Properties
+    let activeWorkout: ActiveWorkout
+    let endDate: Date
+
     @Environment(\.dismiss) private var dismiss
 
-    @State private var isEditing = false
-
-    @State private var title = "MEOW"
+    @State private var isEditing: Bool
+    @State private var title = "Workout Title"
     @State private var description = ""
     @State private var satisfaction = 0.0
 
     //dummy
-    private let location = "Helen Newman Hall"
-    private let duration = "45 min 15 sec"
-    private let date = "29 Mar 2024, 6:00pm - 6:45pm"
+//    private let location = "Helen Newman Hall"
+//    private let duration = "45 min 15 sec"
+//    private let date = "29 Mar 2024, 6:00pm - 6:45pm"
+
+    private var location: String {
+        activeWorkout.gymName ?? "Unknown location"
+    }
+
+    private var duration: String {
+        let seconds = Int(activeWorkout.elapsed(at: endDate))
+        let hours = seconds / 3600
+        let minutes = (seconds % 3600) / 60
+        let remainingSeconds = seconds % 60
+
+        if hours > 0 {
+            return "\(hours) hr \(minutes) min \(remainingSeconds) sec"
+        }
+
+        return "\(minutes) min \(remainingSeconds) sec"
+    }
+
+    private var date: String {
+        let day = activeWorkout.startDate.formatted(
+            .dateTime.day().month(.abbreviated).year()
+        )
+
+        let start = activeWorkout.startDate.formatted(
+            .dateTime.hour().minute()
+        )
+
+        let end = endDate.formatted(
+            .dateTime.hour().minute()
+        )
+
+        return "\(day), \(start) - \(end)"
+    }
 
     private let satisfactionLabels = [
         "Off day",
@@ -43,6 +78,18 @@ struct WorkoutSummaryView: View {
                 .foregroundStyle(Constants.Colors.black)
         }
         .font(Constants.Fonts.f2Regular)
+    }
+    
+    // MARK: - Init
+    
+    init(
+        activeWorkout: ActiveWorkout,
+        endDate: Date,
+        isEditing: Bool = false
+    ) {
+        self.activeWorkout = activeWorkout
+        self.endDate = endDate
+        _isEditing = State(initialValue: isEditing)
     }
 
     // MARK: - UI
@@ -278,5 +325,13 @@ struct WorkoutSummaryView: View {
 }
 
 #Preview {
-    WorkoutSummaryView()
+    WorkoutSummaryView(
+        activeWorkout: ActiveWorkout(
+            gymName: "Helen Newman Hall",
+            closeTime: nil,
+            workoutId: nil,
+            startDate: Date().addingTimeInterval(-2715)
+        ),
+        endDate: .now
+    )
 }

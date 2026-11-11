@@ -75,6 +75,20 @@ struct MainView: View {
         .showModal($workoutViewModel.showsQuickStart) {
             QuickStartWorkoutModal(onStart: startQuickStart, onDismiss: dismissQuickStart)
         }
+        .sheet(
+            isPresented: Binding(
+                get: { workoutViewModel.finishedWorkout != nil },
+                set: { if !$0 { workoutViewModel.clearFinishedWorkout() } }
+            )
+        ) {
+            if let finished = workoutViewModel.finishedWorkout {
+                WorkoutSummaryView(
+                    activeWorkout: finished.workout,
+                    endDate: finished.endDate,
+                    isEditing: true
+                )
+            }
+        }
         .onChange(of: viewModel.didClickSubmit) { didClickSubmit in
             if didClickSubmit {
                 viewModel.enterGiveaway()

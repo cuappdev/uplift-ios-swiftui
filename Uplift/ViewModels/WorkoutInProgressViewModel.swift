@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension WorkoutInProgressView {
 
@@ -20,9 +21,12 @@ extension WorkoutInProgressView {
                 saveActiveWorkout()
             }
         }
+        
+        @Published private(set) var finishedWorkout: FinishedWorkout?
 
         @Published private var expanded = false
         @Published var showsQuickStart = false
+        
 
         var isExpanded: Bool {
             get { expanded && activeWorkout != nil }
@@ -80,9 +84,18 @@ extension WorkoutInProgressView {
 
         @discardableResult
         func finish() -> ActiveWorkout? {
-            let workout = activeWorkout
+            guard let workout = activeWorkout else {
+                return nil
+            }
+
+            finishedWorkout = FinishedWorkout(
+                workout: workout,
+                endDate: min(now(), workout.autoEndDate)
+            )
+
             activeWorkout = nil
             expanded = false
+
             return workout
         }
 
@@ -94,6 +107,10 @@ extension WorkoutInProgressView {
         func discard() {
             activeWorkout = nil
             expanded = false
+        }
+        
+        func clearFinishedWorkout() {
+            finishedWorkout = nil
         }
 
         // MARK: - Helpers
