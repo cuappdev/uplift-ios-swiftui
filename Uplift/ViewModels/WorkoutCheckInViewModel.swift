@@ -30,6 +30,7 @@ extension WorkoutCheckInView {
         @Published var isCheckingIn = false
         @Published var trigger: Int = 0
         @Published private(set) var loggedWorkoutId: String?
+        private(set) var checkedInGym: Gym?
 
         private let locationManager: LocationManaging
         private var queryBag = Set<AnyCancellable>()
@@ -123,10 +124,6 @@ extension WorkoutCheckInView {
 
             nearestGymText = "Finding gyms nearby..."
             visibility?(false)
-        }
-
-        var checkedInGym: Gym? {
-            gyms.first { $0.name == currentNearestGym }
         }
 
         /// Check if the view is in 2 hour cooldown for pressing the close button
@@ -231,6 +228,7 @@ extension WorkoutCheckInView {
 
                     Logger.data.info("Successfully logged workout")
                     self?.loggedWorkoutId = workout.id
+                    self?.checkedInGym = gym
                     self?.isCheckedIn = true
                     self?.startDailyCooldown()
                     GymProximityManager.shared.cancelPendingBanner(gymId: gymId)

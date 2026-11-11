@@ -78,6 +78,9 @@ struct MinimizedWorkoutBar: View {
                     .onChange(of: context.date) { date in
                         viewModel.finishIfExpired(at: date)
                     }
+                    .onAppear {
+                        viewModel.finishIfExpired(at: context.date)
+                    }
             }
             .fadeInOnAppear()
         }
