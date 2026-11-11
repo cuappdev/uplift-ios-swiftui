@@ -207,6 +207,10 @@ struct Constants {
         static let reportHorizontal: CGFloat = 16
         static let reportVertical: CGFloat = 24
         static let tabBarHeight: CGFloat = 64
+        static let filterHorizontal: CGFloat = 16
+        static let filterTopBarTop: CGFloat = 46
+        static let filterTopBarBottom: CGFloat = 18
+        static let filterVertical: CGFloat = 24
     }
 
     /// Shadows used in Uplift's design system.
@@ -404,6 +408,10 @@ struct Constants {
         static let threshold: Double = 0.05
         static let cooldownDuration: TimeInterval = 2*60*60
         static let dismissCooldown: TimeInterval = 2 * 60 * 60
+    }
+
+    enum Filter {
+        static let hourBounds: ClosedRange<Double> = 6...22
     }
 
     enum Goals {

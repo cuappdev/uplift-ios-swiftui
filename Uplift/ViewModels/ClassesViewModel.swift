@@ -22,6 +22,7 @@ extension ClassesView {
         @Published var classes: [FitnessClassInstance]?
         @Published var selectedDay: DayOfWeek = Date.now.getDayOfWeek()
         @Published var weeksFromCurr: Int = 0    // e.g. 1 for next week
+        @Published var filter = ClassFilter()
 
         private var queryBag = Set<AnyCancellable>()
 
@@ -65,11 +66,24 @@ extension ClassesView {
 
             return classes
                 .filter { toDate($0.startTime)?.isSameDay(selectedDate) == true }
+                .filter { matchesFilter($0)}
                 .sorted {
                     guard let lhsDate = toDate($0.startTime),
                           let rhsDate = toDate($1.startTime) else { return false }
                     return lhsDate < rhsDate
                 }
+        }
+
+        /// The unique class names, sorted alphabetically.
+        var classTypes: [String] {
+            let names = classes?.compactMap { $0.fitnessClass?.name }.filter { !$0.isEmpty } ?? []
+            return Set(names).sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
+        }
+
+        /// The unique instructors, sorted alphabetically.
+        var instructors: [String] {
+            let names = classes?.map(\.instructor).filter { !$0.isEmpty } ?? []
+            return Set(names).sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
         }
 
         /// The array of next sessions for this class.
@@ -129,8 +143,48 @@ extension ClassesView {
             guard let classes = classes,
                   let thisDate = determineDayOfMonth(weekday, weeksFromCurr) else { return false }
 
-            return classes.contains { toDate($0.startTime)?.isSameDay(thisDate) == true }
+            return classes.contains { toDate($0.startTime)?.isSameDay(thisDate) == true && matchesFilter($0)}
         }
 
+        /// Determines whether the class instance passes every option selected in the filter. An empty selection for a cateogy does not exclude any classes.
+        private func matchesFilter(_ classInstance: FitnessClassInstance) -> Bool {
+            if !filter.centers.isEmpty,
+               !filter.centers.contains(where: { classInstance.location.localizedCaseInsensitiveContains($0) }) {
+                return false
+            }
+
+            if !filter.classTypes.isEmpty,
+               !filter.classTypes.contains(classInstance.fitnessClass?.name ?? "") {
+                return false
+            }
+
+            if !filter.instructors.isEmpty,
+               !filter.instructors.contains(classInstance.instructor) {
+                return false
+            }
+
+            return matchesTime(classInstance)
+        }
+
+        /// Determines whether the whole class, from start to end, falls within the filter's time range.
+        private func matchesTime(_ classInstance: FitnessClassInstance) -> Bool {
+            guard let startDate = toDate(classInstance.startTime) else { return false }
+
+            let startHour = hourOfDay(startDate)
+            let endHour = toDate(classInstance.endTime).map {
+                startHour + $0.timeIntervalSince(startDate) / 3600
+            } ?? startHour   // no end time, so fall back to the start
+
+            let bounds = Constants.Filter.hourBounds
+            let startsInRange = filter.startHour <= bounds.lowerBound || startHour >= filter.startHour
+            let endsInRange = filter.endHour >= bounds.upperBound || endHour <= filter.endHour
+            return startsInRange && endsInRange
+        }
+
+        /// Returns the time of day as an hour in 24-hour time (e.g. 6:30 AM is 6.5).
+        private func hourOfDay(_ date: Foundation.Date) -> Double {
+            let components = Calendar.current.dateComponents([.hour, .minute], from: date)
+            return Double(components.hour ?? 0) + Double(components.minute ?? 0) / 60
+        }
     }
 }
