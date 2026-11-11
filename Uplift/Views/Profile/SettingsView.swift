@@ -169,6 +169,7 @@ struct SettingsView: View {
         .padding(.top, 24)
         .padding(.horizontal, 24)
         .background(Constants.Colors.white)
+
     }
 }
 

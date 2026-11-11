@@ -9,7 +9,7 @@
 import Foundation
 
 /// An enumeration representing the day of the week.
-enum DayOfWeek: Int {
+enum DayOfWeek: Int, Codable {
     case sunday = 1
     case monday = 2
     case tuesday = 3
