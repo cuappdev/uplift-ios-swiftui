@@ -165,6 +165,7 @@ struct Constants {
         static let replay = Image("replay")
         static let shoulder = Image("shoulder")
         static let shower = Image("shower")
+        static let startWorkout = Image("start_workout")
         static let trash = Image("trash")
         static let spokes = Image("spokes")
         static let vertEllipsis = Image("vert_ellipsis")
@@ -211,6 +212,12 @@ struct Constants {
 
     /// Shadows used in Uplift's design system.
     enum Shadows {
+        static let mediumDark = ShadowConfig(
+            color: Constants.Colors.black.opacity(0.25),
+            radius: 12.5,
+            x: 0,
+            y: 0
+        )
         static let normalDark = ShadowConfig(
             color: Constants.Colors.black,
             radius: 14,
@@ -264,6 +271,24 @@ struct Constants {
         // Workout Reminders
         static let workoutReminders = "workoutReminders"
         static let workoutReminderNotificationIds = "workoutReminderNotificationIds"
+
+        // Workout In Progress
+        static let activeWorkout = "activeWorkout"
+    }
+
+    /// Constants used for a workout in progress
+    enum WorkoutInProgress {
+        static let cardId = "workoutCard"
+        static let cardShape = UnevenRoundedRectangle(topLeadingRadius: 20, topTrailingRadius: 20)
+        static let contentFadeDelay: Double = 0.15
+        static let contentFadeDuration: Double = 0.25
+        static let expandAnimation = Animation.spring(response: 0.45, dampingFraction: 0.88)
+        static let expandDelay: TimeInterval = 0.25
+        static let maxDuration: TimeInterval = 4 * 60 * 60
+        static let quickStartDelay: TimeInterval = 1.5
+        static let slideAwayDuration: TimeInterval = 0.3
+        static let title = "Workout In Progress"
+        static let titleId = "workoutTitle"
     }
 
     /// Constants used in IntroAnimation
