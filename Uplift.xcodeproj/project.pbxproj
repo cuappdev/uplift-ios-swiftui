@@ -17,6 +17,7 @@
 		214E58F5F4294A439312683D /* Friendship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6985561442924666BE123D4F /* Friendship.swift */; };
 		DBF787F9F9C849959D4F0950 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949A8DE48E784F47B63719C2 /* Friend.swift */; };
 		ECA00988FF3F4706A7B59A31 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B84D9EB0FC470BB2EB5D0F /* Badge.swift */; };
+		32AF507E68574D7F9EF7D9FD /* BadgeStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247475FFCBBF40B4AFC69D34 /* BadgeStats.swift */; };
 		7165B3F8B5154203A8A099A5 /* Friend.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 766E3E5C7AC2403B987CE9A9 /* Friend.graphql */; };
 		13446DEF2ECDFA4F00EED573 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 13446DEE2ECDFA4F00EED573 /* ConfettiSwiftUI */; };
 		135EEBAA2EC7E60B0051AD5B /* WorkoutCheckInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135EEBA92EC7E5F70051AD5B /* WorkoutCheckInViewModel.swift */; };
@@ -216,6 +217,7 @@
 		6985561442924666BE123D4F /* Friendship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friendship.swift; sourceTree = "<group>"; };
 		949A8DE48E784F47B63719C2 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		53B84D9EB0FC470BB2EB5D0F /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
+		247475FFCBBF40B4AFC69D34 /* BadgeStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeStats.swift; sourceTree = "<group>"; };
 		766E3E5C7AC2403B987CE9A9 /* Friend.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Friend.graphql; sourceTree = "<group>"; };
 		135EEBA92EC7E5F70051AD5B /* WorkoutCheckInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCheckInViewModel.swift; sourceTree = "<group>"; };
 		C066B2E83070E10000AA0001 /* QuickStartWorkoutModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickStartWorkoutModal.swift; sourceTree = "<group>"; };
@@ -452,6 +454,7 @@
 				6985561442924666BE123D4F /* Friendship.swift */,
 				949A8DE48E784F47B63719C2 /* Friend.swift */,
 				53B84D9EB0FC470BB2EB5D0F /* Badge.swift */,
+				247475FFCBBF40B4AFC69D34 /* BadgeStats.swift */,
 				C066B2C3305D6FEB006613E2 /* GymSnapshot.swift */,
 				C066B2D23070A10000AA0001 /* ActiveWorkout.swift */,
 				C0CB14932F70A2C100E23E69 /* Member.swift */,
@@ -1127,6 +1130,7 @@
 				214E58F5F4294A439312683D /* Friendship.swift in Sources */,
 				DBF787F9F9C849959D4F0950 /* Friend.swift in Sources */,
 				ECA00988FF3F4706A7B59A31 /* Badge.swift in Sources */,
+				32AF507E68574D7F9EF7D9FD /* BadgeStats.swift in Sources */,
 				2E3D6C202B1285D200B51BB2 /* UpliftEnvironment.swift in Sources */,
 				89EA50D32F90955800B1A177 /* UIImage+Extension.swift in Sources */,
 				89507A9B2F36493100FB0757 /* SetGoalsView.swift in Sources */,

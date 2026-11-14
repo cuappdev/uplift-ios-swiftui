@@ -12,55 +12,66 @@ struct Badge: Hashable, Identifiable {
 
     // MARK: - Types
 
+    enum Art: Hashable {
+        case flame(level: Int)
+        case gem(level: Int)
+        case symbol(String)
+        case wreath(level: Int)
+    }
+
     enum Category: String, CaseIterable {
         case workouts = "Workouts"
         case streaks = "Streaks"
         case friends = "Friends"
     }
 
-    enum Art: Hashable {
-        case flame(level: Int)
-        case gem(level: Int)
-        case wreath(level: Int)
-    }
-
     // MARK: - Properties
 
     let art: Art
     let category: Category
+    let detail: String
     let goal: Int
     let id: String
     let isLegendary: Bool
-    let number: Int
+    let isSecret: Bool
+    let metric: BadgeStats.Metric
+    let number: Int?
     let title: String
+
+    // MARK: - Init
+
+    init(
+        art: Art,
+        category: Category,
+        detail: String,
+        goal: Int,
+        id: String,
+        isLegendary: Bool = false,
+        isSecret: Bool = false,
+        metric: BadgeStats.Metric,
+        number: Int? = nil,
+        title: String
+    ) {
+        self.art = art
+        self.category = category
+        self.detail = detail
+        self.goal = goal
+        self.id = id
+        self.isLegendary = isLegendary
+        self.isSecret = isSecret
+        self.metric = metric
+        self.number = number
+        self.title = title
+    }
 
     // MARK: - Functions
 
     func progress(in stats: BadgeStats) -> Int {
-        min(stats.value(for: category), goal)
+        min(stats.value(for: metric), goal)
     }
 
     func isEarned(in stats: BadgeStats) -> Bool {
-        stats.value(for: category) >= goal
-    }
-
-}
-
-struct BadgeStats: Hashable {
-
-    let friendCount: Int
-    let gymDays: Int
-    let longestStreakWeeks: Int
-
-    func value(for category: Badge.Category) -> Int {
-        switch category {
-        case .workouts:
-            gymDays
-        case .streaks:
-            longestStreakWeeks
-        case .friends:
-            friendCount
-        }
+        stats.value(for: metric) >= goal
     }
 
 }
@@ -75,9 +86,11 @@ extension Badge {
         Badge(
             art: .gem(level: goal < 20 ? 1 : goal < 30 ? 2 : goal < 40 ? 3 : 4),
             category: .workouts,
+            detail: "Check in at the gym on \(goal) different days.",
             goal: goal,
             id: "workouts-\(goal)",
             isLegendary: goal >= 50,
+            metric: .gymDays,
             number: goal,
             title: "\(goal) Workouts"
         )
@@ -90,9 +103,11 @@ extension Badge {
         return Badge(
             art: .flame(level: isMonths ? 2 : 1),
             category: .streaks,
+            detail: "Hit your weekly goal \(weeks) week\(weeks == 1 ? "" : "s") in a row.",
             goal: weeks,
             id: "streaks-\(weeks)",
             isLegendary: weeks >= 26,
+            metric: .longestStreakWeeks,
             number: number,
             title: "\(number) \(unit)\(number == 1 ? "" : "s")"
         )
@@ -102,9 +117,11 @@ extension Badge {
         Badge(
             art: .wreath(level: goal < 20 ? 1 : goal < 40 ? 2 : 3),
             category: .friends,
+            detail: "Add \(goal) friend\(goal == 1 ? "" : "s") on Uplift.",
             goal: goal,
             id: "friends-\(goal)",
             isLegendary: goal >= 50,
+            metric: .friends,
             number: goal,
             title: "\(goal) Friend\(goal == 1 ? "" : "s")"
         )
