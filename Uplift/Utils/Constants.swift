@@ -162,6 +162,7 @@ struct Constants {
         static let logoWhite = Image("logo_white")
         static let parking = Image("parking")
         static let pool = Image("pool")
+        static let prSeal = Image("pr_seal")
         static let reportLogo = Image("report_logo")
         static let replay = Image("replay")
         static let shoulder = Image("shoulder")
