@@ -23,6 +23,7 @@ struct Badge: Hashable, Identifiable {
         case workouts = "Workouts"
         case streaks = "Streaks"
         case friends = "Friends"
+        case special = "Special"
     }
 
     // MARK: - Properties
@@ -80,7 +81,7 @@ struct Badge: Hashable, Identifiable {
 
 extension Badge {
 
-    static let all = workouts + streaks + friends
+    static let all = workouts + streaks + friends + special
 
     private static let workouts = [3, 7, 10, 15, 20, 30, 40, 50, 75, 100].map { goal in
         Badge(
@@ -126,5 +127,76 @@ extension Badge {
             title: "\(goal) Friend\(goal == 1 ? "" : "s")"
         )
     }
+
+    private static let special = [
+        Badge(
+            art: .symbol("star.circle.fill"),
+            category: .special,
+            detail: "Joined Uplift during its first semester.",
+            goal: 1,
+            id: "special-founding",
+            isLegendary: true,
+            metric: .foundingMember,
+            title: "Founding Member"
+        ),
+        Badge(
+            art: .symbol("map.fill"),
+            category: .special,
+            detail: "Check in at all \(Constants.Badges.gymCount) campus gyms.",
+            goal: Constants.Badges.gymCount,
+            id: "special-explorer",
+            metric: .gymsVisited,
+            title: "Gym Explorer"
+        ),
+        Badge(
+            art: .symbol("house.fill"),
+            category: .special,
+            detail: "Check in at the same gym \(Constants.Badges.regularVisits) times.",
+            goal: Constants.Badges.regularVisits,
+            id: "special-regular",
+            metric: .topGymVisits,
+            title: "Regular"
+        ),
+        Badge(
+            art: .symbol("sunrise.fill"),
+            category: .special,
+            detail: "Check in before \(Constants.Badges.earlyCheckInHour) AM.",
+            goal: 1,
+            id: "special-early-bird",
+            isSecret: true,
+            metric: .earlyCheckIns,
+            title: "Early Bird"
+        ),
+        Badge(
+            art: .symbol("moon.stars.fill"),
+            category: .special,
+            detail: "Check in after \(Constants.Badges.lateCheckInHour - 12) PM.",
+            goal: 1,
+            id: "special-night-owl",
+            isSecret: true,
+            metric: .lateCheckIns,
+            title: "Night Owl"
+        ),
+        Badge(
+            art: .symbol("figure.strengthtraining.traditional"),
+            category: .special,
+            detail: "Check in on a Saturday and the Sunday after it.",
+            goal: 1,
+            id: "special-weekend-warrior",
+            isSecret: true,
+            metric: .fullWeekends,
+            title: "Weekend Warrior"
+        ),
+        Badge(
+            art: .symbol("arrow.uturn.up.circle.fill"),
+            category: .special,
+            detail: "Come back to the gym after \(Constants.Badges.comebackGapDays) days away.",
+            goal: 1,
+            id: "special-comeback",
+            isSecret: true,
+            metric: .comebacks,
+            title: "Comeback"
+        )
+    ]
 
 }

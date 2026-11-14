@@ -6,6 +6,7 @@
 //  Copyright © 2026 Cornell AppDev. All rights reserved.
 //
 
+import Foundation
 import Testing
 @testable import Uplift
 
@@ -39,6 +40,47 @@ struct BadgeTests {
         let stats = BadgeStats(friendCount: 0, gymDays: 50, longestStreakWeeks: 0)
 
         #expect(threeWorkouts.progress(in: stats) == 3)
+    }
+
+    @Test func countsSpecialCheckIns() throws {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = try #require(TimeZone(identifier: "America/New_York"))
+
+        func checkIn(_ day: Int, _ hour: Int, _ gym: String) throws -> BadgeStats.CheckIn {
+            let date = try #require(calendar.date(from: DateComponents(year: 2026, month: 11, day: day, hour: hour)))
+            return BadgeStats.CheckIn(date: date, gymName: gym)
+        }
+
+        let stats = BadgeStats(
+            friendCount: 0,
+            gymDays: 0,
+            longestStreakWeeks: 0,
+            checkIns: [
+                try checkIn(7, 6, "Teagle"),
+                try checkIn(8, 22, "Noyes"),
+                try checkIn(28, 12, "Noyes")
+            ],
+            calendar: calendar
+        )
+
+        #expect(stats.earlyCheckIns == 1)
+        #expect(stats.lateCheckIns == 1)
+        #expect(stats.fullWeekends == 1)
+        #expect(stats.gymsVisited == 2)
+        #expect(stats.topGymVisits == 2)
+        #expect(stats.comebacks == 1)
+    }
+
+    @Test func earnsFoundingMemberOnlyWhenFlagged() throws {
+        let founding = try #require(badge("special-founding"))
+
+        #expect(!founding.isEarned(in: BadgeStats(friendCount: 0, gymDays: 0, longestStreakWeeks: 0)))
+        #expect(founding.isEarned(in: BadgeStats(
+            friendCount: 0,
+            gymDays: 0,
+            longestStreakWeeks: 0,
+            isFoundingMember: true
+        )))
     }
 
     @Test func labelsLongStreaksInMonths() throws {

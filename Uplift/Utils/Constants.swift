@@ -512,4 +512,18 @@ struct Constants {
         static let searchPadding: CGFloat = 12
         static let sectionSpacing: CGFloat = 20
     }
+
+    enum Badges {
+        static let comebackGapDays = 14
+        static let earlyCheckInHour = 7
+        static let foundingDeadline = DateComponents(
+            calendar: .current,
+            year: 2027,
+            month: 1,
+            day: 1
+        ).date ?? .distantPast
+        static let gymCount = 4
+        static let lateCheckInHour = 21
+        static let regularVisits = 10
+    }
 }
