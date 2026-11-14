@@ -48,8 +48,6 @@ extension WorkoutInProgressView {
             }
         }
 
-        // MARK: - Functions
-
         func start(gym: Gym?, workoutId: String?) {
             guard activeWorkout == nil else { return }
 
@@ -95,8 +93,6 @@ extension WorkoutInProgressView {
             activeWorkout = nil
             expanded = false
         }
-
-        // MARK: - Helpers
 
         var showsMinimizedBar: Bool {
             activeWorkout != nil && !isExpanded

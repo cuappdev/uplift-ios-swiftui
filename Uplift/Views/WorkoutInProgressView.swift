@@ -191,11 +191,3 @@ struct WorkoutInProgressView: View {
     }
 
 }
-
-@available(iOS 17.0, *)
-#Preview {
-    @Previewable @Namespace var namespace
-    let viewModel = WorkoutInProgressView.ViewModel(defaults: UserDefaults(suiteName: "preview") ?? .standard)
-    viewModel.start(gym: nil, workoutId: nil)
-    return WorkoutInProgressView(viewModel: viewModel, namespace: namespace)
-}
