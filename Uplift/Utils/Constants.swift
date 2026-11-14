@@ -526,5 +526,15 @@ struct Constants {
         static let gymCount = 4
         static let lateCheckInHour = 21
         static let regularVisits = 10
+
+        static let artSize: CGFloat = 56
+        static let lockedOpacity = 0.4
+        static let ringWidth: CGFloat = 3
+        static let symbolScale = 0.45
+        static let titleSpacing: CGFloat = 6
+
+        static func numberFont(for size: CGFloat) -> Font {
+            .custom("Montserrat-Bold", size: size * 0.26)
+        }
     }
 }

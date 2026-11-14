@@ -81,6 +81,7 @@
 		2E39D81E2B3B610200AD238B /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D81D2B3B610200AD238B /* UINavigationController+Extension.swift */; };
 		2E39D8202B3B623B00AD238B /* FitnessCenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D81F2B3B623B00AD238B /* FitnessCenterView.swift */; };
 		2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D8212B3B631200AD238B /* DividerLine.swift */; };
+		B811F229C4BE4175BD69D35C /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B754FA667994DA9BB334F3D /* BadgeView.swift */; };
 		2E39D8242B3B66FD00AD238B /* FitnessCenterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D8232B3B66FD00AD238B /* FitnessCenterViewModel.swift */; };
 		2E39D8262B3B6C6500AD238B /* SlidingTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D8252B3B6C6500AD238B /* SlidingTabBarView.swift */; };
 		2E39D8282B3B726D00AD238B /* GymTabType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D8272B3B726D00AD238B /* GymTabType.swift */; };
@@ -276,6 +277,7 @@
 		2E39D81D2B3B610200AD238B /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		2E39D81F2B3B623B00AD238B /* FitnessCenterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessCenterView.swift; sourceTree = "<group>"; };
 		2E39D8212B3B631200AD238B /* DividerLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerLine.swift; sourceTree = "<group>"; };
+		1B754FA667994DA9BB334F3D /* BadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeView.swift; sourceTree = "<group>"; };
 		2E39D8232B3B66FD00AD238B /* FitnessCenterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessCenterViewModel.swift; sourceTree = "<group>"; };
 		2E39D8252B3B6C6500AD238B /* SlidingTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingTabBarView.swift; sourceTree = "<group>"; };
 		2E39D8272B3B726D00AD238B /* GymTabType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymTabType.swift; sourceTree = "<group>"; };
@@ -667,6 +669,7 @@
 				893AD9142D59569600C0817B /* MuscleCategoryView.swift */,
 				893AD9162D595DC300C0817B /* MuscleGroupView.swift */,
 				2E39D8212B3B631200AD238B /* DividerLine.swift */,
+				1B754FA667994DA9BB334F3D /* BadgeView.swift */,
 				899267492CC03E8D00E5741E /* Dropdown.swift */,
 				2E3DC2412BCD2EDF0063B369 /* Giveaway */,
 				2E39D81B2B3B5F3700AD238B /* NavBackButton.swift */,
@@ -1106,6 +1109,7 @@
 				135EEBAA2EC7E60B0051AD5B /* WorkoutCheckInViewModel.swift in Sources */,
 				5AA43B5D54FB4CF194D927FA /* FriendsViewModel.swift in Sources */,
 				2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */,
+				B811F229C4BE4175BD69D35C /* BadgeView.swift in Sources */,
 				292284702F59461F00809ED4 /* WorkoutGoalHistory.swift in Sources */,
 				2E15F5062B39F81B00414BEC /* MainView.swift in Sources */,
 				89E833412F4F93AE0080AC46 /* WorkoutHistoryView.swift in Sources */,
