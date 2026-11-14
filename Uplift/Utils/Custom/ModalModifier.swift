@@ -38,6 +38,7 @@ struct ModalModifier<ModalContent: View>: ViewModifier {
                     .transition(.scale.combined(with: .opacity))
                 }
                 .transition(.opacity)
+                .zIndex(1)
             }
         }
         .animation(.easeInOut, value: showModal)
