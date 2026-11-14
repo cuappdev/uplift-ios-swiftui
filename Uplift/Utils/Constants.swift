@@ -397,6 +397,7 @@ struct Constants {
     enum Profile {
         static let radius = 125
         static let circleRadius = 3.0
+        static let statSpacing: CGFloat = 24
     }
 
     /// Constants used in workout check-in.

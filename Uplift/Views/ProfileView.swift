@@ -345,7 +345,7 @@ struct ProfileView: View {
                     .font(Constants.Fonts.h1)
                     .foregroundStyle(Constants.Colors.black)
 
-                HStack(spacing: 24) {
+                HStack(spacing: Constants.Profile.statSpacing) {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("\(viewModel.totalGymDays)")
                             .font(Constants.Fonts.h2)
