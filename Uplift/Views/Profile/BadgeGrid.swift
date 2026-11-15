@@ -14,6 +14,7 @@ struct BadgeGrid: View {
 
     let badges: [Badge]
     @ObservedObject var viewModel: AchievementsView.ViewModel
+    let onSelect: (Badge) -> Void
 
     // MARK: - UI
 
@@ -23,11 +24,16 @@ struct BadgeGrid: View {
             spacing: Constants.Badges.gridSpacing
         ) {
             ForEach(badges) { badge in
-                BadgeView(
-                    badge: badge,
-                    isEarned: viewModel.isEarned(badge),
-                    progress: viewModel.progress(of: badge)
-                )
+                Button {
+                    onSelect(badge)
+                } label: {
+                    BadgeView(
+                        badge: badge,
+                        isEarned: viewModel.isEarned(badge),
+                        progress: viewModel.progress(of: badge)
+                    )
+                }
+                .buttonStyle(ScaleButtonStyle())
             }
         }
     }

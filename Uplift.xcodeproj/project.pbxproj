@@ -178,6 +178,7 @@
 		89E833412F4F93AE0080AC46 /* WorkoutHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E833402F4F93AE0080AC46 /* WorkoutHistoryView.swift */; };
 		200DC2EE6C1C4E68B0F52394 /* AchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9895C62A05AA4B15A097CAAC /* AchievementsView.swift */; };
 		FCA2E2022AB8484FA32AE065 /* BadgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC448464CBDE475BB375BECE /* BadgesView.swift */; };
+		944319E46CA54E06922C7165 /* BadgeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464067922C4F457EB692C3A5 /* BadgeDetailView.swift */; };
 		B17F93D14B3542B3B7BCD97E /* BadgeGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A088351D774DC8A8086433 /* BadgeGrid.swift */; };
 		89E833432F4FB26A0080AC46 /* WorkoutHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E833422F4FB2650080AC46 /* WorkoutHistoryViewModel.swift */; };
 		89EA50D12F90812E00B1A177 /* GoalSettingErrorModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89EA50D02F90812E00B1A177 /* GoalSettingErrorModal.swift */; };
@@ -377,6 +378,7 @@
 		89E833402F4F93AE0080AC46 /* WorkoutHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryView.swift; sourceTree = "<group>"; };
 		9895C62A05AA4B15A097CAAC /* AchievementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsView.swift; sourceTree = "<group>"; };
 		BC448464CBDE475BB375BECE /* BadgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesView.swift; sourceTree = "<group>"; };
+		464067922C4F457EB692C3A5 /* BadgeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeDetailView.swift; sourceTree = "<group>"; };
 		E5A088351D774DC8A8086433 /* BadgeGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeGrid.swift; sourceTree = "<group>"; };
 		89E833422F4FB2650080AC46 /* WorkoutHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryViewModel.swift; sourceTree = "<group>"; };
 		89EA50D02F90812E00B1A177 /* GoalSettingErrorModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalSettingErrorModal.swift; sourceTree = "<group>"; };
@@ -844,6 +846,7 @@
 				89E833402F4F93AE0080AC46 /* WorkoutHistoryView.swift */,
 				9895C62A05AA4B15A097CAAC /* AchievementsView.swift */,
 				BC448464CBDE475BB375BECE /* BadgesView.swift */,
+				464067922C4F457EB692C3A5 /* BadgeDetailView.swift */,
 				E5A088351D774DC8A8086433 /* BadgeGrid.swift */,
 			);
 			path = Profile;
@@ -1132,6 +1135,7 @@
 				89E833412F4F93AE0080AC46 /* WorkoutHistoryView.swift in Sources */,
 				200DC2EE6C1C4E68B0F52394 /* AchievementsView.swift in Sources */,
 				FCA2E2022AB8484FA32AE065 /* BadgesView.swift in Sources */,
+				944319E46CA54E06922C7165 /* BadgeDetailView.swift in Sources */,
 				B17F93D14B3542B3B7BCD97E /* BadgeGrid.swift in Sources */,
 				29EAC6CD2EC6DA740027E88E /* ClassesCache.swift in Sources */,
 				893AD9132D59468000C0817B /* DropDownArrow.swift in Sources */,

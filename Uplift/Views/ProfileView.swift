@@ -24,6 +24,7 @@ struct ProfileView: View {
     @EnvironmentObject var tabBarProp: TabBarProperty
     @StateObject private var achievementsViewModel = AchievementsView.ViewModel()
     @StateObject private var friendsViewModel = FriendsView.ViewModel()
+    @State private var selectedBadge: Badge?
     @State private var selectedTab = Tab.workouts
     @State private var showAddFriends = false
     @State private var showBadges = false
@@ -119,6 +120,12 @@ struct ProfileView: View {
                 await viewModel.fetchUserProfile()
             }
             friendsViewModel.fetchFriends()
+        }
+        .badgeDetail($selectedBadge, viewModel: achievementsViewModel)
+        .onChange(of: selectedBadge) { badge in
+            withAnimation(.easeIn(duration: 0.1)) {
+                tabBarProp.hidden = badge != nil
+            }
         }
         .onReceive(viewModel.$user) { user in
             achievementsViewModel.update(user: user, friendCount: friendsViewModel.friends.count)
@@ -332,10 +339,18 @@ struct ProfileView: View {
                     historyView
                         .padding(.bottom, CGFloat(Constants.Profile.radius))
                 case .achievements:
-                    AchievementsView(viewModel: achievementsViewModel) {
-                        showBadges = true
-                        hideTabBar()
-                    }
+                    AchievementsView(
+                        viewModel: achievementsViewModel,
+                        onShowAllBadges: {
+                            showBadges = true
+                            hideTabBar()
+                        },
+                        onSelectBadge: { badge in
+                            withAnimation {
+                                selectedBadge = badge
+                            }
+                        }
+                    )
                     .padding(.bottom, CGFloat(Constants.Profile.radius))
                 }
             }

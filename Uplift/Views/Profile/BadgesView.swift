@@ -13,6 +13,7 @@ struct BadgesView: View {
     // MARK: - Properties
 
     @ObservedObject var viewModel: AchievementsView.ViewModel
+    @State private var selectedBadge: Badge?
 
     // MARK: - UI
 
@@ -44,6 +45,7 @@ struct BadgesView: View {
             .padding(.vertical, Constants.Friends.contentVerticalPadding)
         }
         .pushedScreen(title: "My Badges")
+        .badgeDetail($selectedBadge, viewModel: viewModel)
     }
 
     private func section(title: String, count: String, badges: [Badge]) -> some View {
@@ -52,7 +54,11 @@ struct BadgesView: View {
                 .font(Constants.Fonts.h2)
                 .foregroundStyle(Constants.Colors.black)
 
-            BadgeGrid(badges: badges, viewModel: viewModel)
+            BadgeGrid(badges: badges, viewModel: viewModel) { badge in
+                withAnimation {
+                    selectedBadge = badge
+                }
+            }
         }
     }
 

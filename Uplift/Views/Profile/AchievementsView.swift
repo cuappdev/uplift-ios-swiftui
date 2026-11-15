@@ -14,6 +14,7 @@ struct AchievementsView: View {
 
     @ObservedObject var viewModel: ViewModel
     let onShowAllBadges: () -> Void
+    let onSelectBadge: (Badge) -> Void
 
     // MARK: - UI
 
@@ -28,7 +29,7 @@ struct AchievementsView: View {
                     .font(Constants.Fonts.bodyNormal)
                     .foregroundStyle(Constants.Colors.gray04)
             } else {
-                BadgeGrid(badges: viewModel.displayedBadges, viewModel: viewModel)
+                BadgeGrid(badges: viewModel.displayedBadges, viewModel: viewModel, onSelect: onSelectBadge)
             }
 
             nextBadgeCard

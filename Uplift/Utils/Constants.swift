@@ -546,6 +546,17 @@ struct Constants {
         }
     }
 
+    enum BadgeDetail {
+        static let artSize: CGFloat = 150
+        static let backdropOpacity = 0.75
+        static let glowOpacity = 0.45
+        static let glowSize: CGFloat = 280
+        static let horizontalPadding: CGFloat = 40
+        static let spacing: CGFloat = 28
+        static let spinDegrees: Double = 540
+        static let textOffset: CGFloat = 12
+    }
+
     enum Achievements {
         static let cardCornerRadius: CGFloat = 12
         static let cardPadding: CGFloat = 12

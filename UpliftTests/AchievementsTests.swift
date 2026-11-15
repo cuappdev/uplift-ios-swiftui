@@ -79,6 +79,18 @@ struct AchievementsTests {
         #expect(later.earnedDate(of: oneWeek) == earnedOn)
     }
 
+    @Test func summarizesLockedAndSecretBadges() throws {
+        let viewModel = makeViewModel(now: .distantFuture)
+        viewModel.update(user: makeUser(gymDays: 7, streakWeeks: 0), friendCount: 0)
+
+        let tenWorkouts = try #require(Badge.all.first { $0.id == "workouts-10" })
+        let nightOwl = try #require(Badge.all.first { $0.id == "special-night-owl" })
+
+        #expect(viewModel.summary(of: tenWorkouts) == "7/10")
+        #expect(viewModel.summary(of: nightOwl) == "Secret badge")
+        #expect(viewModel.detail(of: nightOwl) != nightOwl.detail)
+    }
+
     @Test func clearsStatsWithoutUser() {
         let viewModel = makeViewModel(now: .distantFuture)
         viewModel.update(user: makeUser(gymDays: 10, streakWeeks: 0), friendCount: 0)

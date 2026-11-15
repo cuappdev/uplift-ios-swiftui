@@ -96,6 +96,17 @@ extension AchievementsView {
             return stats.achievedDate(for: badge.metric, goal: badge.goal) ?? recordedDates[badge.id]
         }
 
+        func summary(of badge: Badge) -> String {
+            if let date = earnedDate(of: badge) {
+                return "Earned \(date.formatted(date: .long, time: .omitted))"
+            }
+            return badge.isSecret ? "Secret badge" : "\(badge.progress(in: stats))/\(badge.goal)"
+        }
+
+        func detail(of badge: Badge) -> String {
+            badge.isSecret && !isEarned(badge) ? "Keep checking in to discover this one." : badge.detail
+        }
+
         private func recordUndatedBadges() {
             let undated = earnedBadges.filter { earnedDate(of: $0) == nil }
             guard !undated.isEmpty else { return }
