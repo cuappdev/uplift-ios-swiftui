@@ -67,6 +67,18 @@ struct AchievementsTests {
         #expect(later.stats.isFoundingMember)
     }
 
+    @Test func recordsDateForBadgesWithoutHistory() throws {
+        let earnedOn = Date(timeIntervalSince1970: 1_800_000_000)
+        let viewModel = makeViewModel(now: earnedOn)
+        viewModel.update(user: makeUser(gymDays: 0, streakWeeks: 1), friendCount: 0)
+
+        let later = AchievementsView.ViewModel(defaults: defaults, now: { .distantFuture })
+        later.update(user: makeUser(gymDays: 0, streakWeeks: 1), friendCount: 0)
+
+        let oneWeek = try #require(Badge.all.first { $0.id == "streaks-1" })
+        #expect(later.earnedDate(of: oneWeek) == earnedOn)
+    }
+
     @Test func clearsStatsWithoutUser() {
         let viewModel = makeViewModel(now: .distantFuture)
         viewModel.update(user: makeUser(gymDays: 10, streakWeeks: 0), friendCount: 0)

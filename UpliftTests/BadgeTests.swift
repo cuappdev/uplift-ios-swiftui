@@ -69,6 +69,10 @@ struct BadgeTests {
         #expect(stats.gymsVisited == 2)
         #expect(stats.topGymVisits == 2)
         #expect(stats.comebacks == 1)
+        #expect(stats.achievedDate(for: .gymsVisited, goal: 2) == (try checkIn(8, 22, "Noyes")).date)
+        let thirdDay = calendar.startOfDay(for: try checkIn(28, 12, "Noyes").date)
+        #expect(stats.achievedDate(for: .gymDays, goal: 3) == thirdDay)
+        #expect(stats.achievedDate(for: .gymDays, goal: 4) == nil)
     }
 
     @Test func earnsFoundingMemberOnlyWhenFlagged() throws {

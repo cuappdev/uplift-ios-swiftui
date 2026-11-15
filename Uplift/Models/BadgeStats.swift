@@ -32,16 +32,19 @@ struct BadgeStats: Hashable {
 
     // MARK: - Properties
 
-    let comebacks: Int
-    let earlyCheckIns: Int
     let friendCount: Int
-    let fullWeekends: Int
     let gymDays: Int
-    let gymsVisited: Int
     let isFoundingMember: Bool
-    let lateCheckIns: Int
     let longestStreakWeeks: Int
-    let topGymVisits: Int
+
+    private let milestones: [Metric: [Date]]
+
+    var comebacks: Int { milestones[.comebacks]?.count ?? 0 }
+    var earlyCheckIns: Int { milestones[.earlyCheckIns]?.count ?? 0 }
+    var fullWeekends: Int { milestones[.fullWeekends]?.count ?? 0 }
+    var gymsVisited: Int { milestones[.gymsVisited]?.count ?? 0 }
+    var lateCheckIns: Int { milestones[.lateCheckIns]?.count ?? 0 }
+    var topGymVisits: Int { milestones[.topGymVisits]?.count ?? 0 }
 
     // MARK: - Init
 
@@ -58,29 +61,55 @@ struct BadgeStats: Hashable {
         self.longestStreakWeeks = longestStreakWeeks
         self.isFoundingMember = isFoundingMember
 
-        let hours = checkIns.map { calendar.component(.hour, from: $0.date) }
-        earlyCheckIns = hours.filter { $0 < Constants.Badges.earlyCheckInHour }.count
-        lateCheckIns = hours.filter { $0 >= Constants.Badges.lateCheckInHour }.count
+        let sorted = checkIns.sorted { $0.date < $1.date }
+        let days = Array(Set(sorted.map { calendar.startOfDay(for: $0.date) })).sorted()
+        let daySet = Set(days)
 
-        let visitsByGym = Dictionary(grouping: checkIns, by: \.gymName)
-        gymsVisited = visitsByGym.count
-        topGymVisits = visitsByGym.values.map(\.count).max() ?? 0
+        var gymsSeen = Set<String>()
+        var visitsByGym: [String: Int] = [:]
+        var mostVisits = 0
+        var gymsVisitedDates: [Date] = []
+        var topGymDates: [Date] = []
+        for checkIn in sorted {
+            if gymsSeen.insert(checkIn.gymName).inserted {
+                gymsVisitedDates.append(checkIn.date)
+            }
+            visitsByGym[checkIn.gymName, default: 0] += 1
+            if let visits = visitsByGym[checkIn.gymName], visits > mostVisits {
+                mostVisits = visits
+                topGymDates.append(checkIn.date)
+            }
+        }
 
-        let days = Set(checkIns.map { calendar.startOfDay(for: $0.date) })
-        fullWeekends = days.filter { day in
-            guard calendar.component(.weekday, from: day) == 7,
-                  let sunday = calendar.date(byAdding: .day, value: 1, to: day) else { return false }
-            return days.contains(sunday)
-        }.count
-
-        let sortedDays = days.sorted()
-        comebacks = zip(sortedDays, sortedDays.dropFirst()).filter { previous, next in
-            let gap = calendar.dateComponents([.day], from: previous, to: next).day ?? 0
-            return gap >= Constants.Badges.comebackGapDays
-        }.count
+        milestones = [
+            .comebacks: zip(days, days.dropFirst()).compactMap { previous, next in
+                let gap = calendar.dateComponents([.day], from: previous, to: next).day ?? 0
+                return gap >= Constants.Badges.comebackGapDays ? next : nil
+            },
+            .earlyCheckIns: sorted
+                .filter { calendar.component(.hour, from: $0.date) < Constants.Badges.earlyCheckInHour }
+                .map(\.date),
+            .fullWeekends: days.compactMap { day in
+                guard calendar.component(.weekday, from: day) == 1,
+                      let saturday = calendar.date(byAdding: .day, value: -1, to: day),
+                      daySet.contains(saturday) else { return nil }
+                return day
+            },
+            .gymDays: days,
+            .gymsVisited: gymsVisitedDates,
+            .lateCheckIns: sorted
+                .filter { calendar.component(.hour, from: $0.date) >= Constants.Badges.lateCheckInHour }
+                .map(\.date),
+            .topGymVisits: topGymDates
+        ]
     }
 
     // MARK: - Functions
+
+    func achievedDate(for metric: Metric, goal: Int) -> Date? {
+        guard let dates = milestones[metric], goal > 0, goal <= dates.count else { return nil }
+        return dates[goal - 1]
+    }
 
     func value(for metric: Metric) -> Int {
         switch metric {

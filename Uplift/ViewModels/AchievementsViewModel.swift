@@ -16,6 +16,7 @@ extension AchievementsView {
         // MARK: - Properties
 
         @Published private(set) var stats = BadgeStats(friendCount: 0, gymDays: 0, longestStreakWeeks: 0)
+        @Published private var recordedDates: [String: Date] = [:]
 
         private let defaults: UserDefaults
         private let now: () -> Date
@@ -23,6 +24,8 @@ extension AchievementsView {
         init(defaults: UserDefaults = .standard, now: @escaping () -> Date = Date.init) {
             self.defaults = defaults
             self.now = now
+            let saved = defaults.dictionary(forKey: Constants.UserDefaultsKeys.badgeEarnedDates)
+            recordedDates = saved as? [String: Date] ?? [:]
         }
 
         var earnedBadges: [Badge] {
@@ -65,6 +68,7 @@ extension AchievementsView {
                 },
                 isFoundingMember: defaults.bool(forKey: Constants.UserDefaultsKeys.foundingMember)
             )
+            recordUndatedBadges()
         }
 
         func badges(in category: Badge.Category) -> [Badge] {
@@ -85,6 +89,19 @@ extension AchievementsView {
 
         func remaining(for badge: Badge) -> Int {
             badge.goal - badge.progress(in: stats)
+        }
+
+        func earnedDate(of badge: Badge) -> Date? {
+            guard isEarned(badge) else { return nil }
+            return stats.achievedDate(for: badge.metric, goal: badge.goal) ?? recordedDates[badge.id]
+        }
+
+        private func recordUndatedBadges() {
+            let undated = earnedBadges.filter { earnedDate(of: $0) == nil }
+            guard !undated.isEmpty else { return }
+
+            undated.forEach { recordedDates[$0.id] = now() }
+            defaults.set(recordedDates, forKey: Constants.UserDefaultsKeys.badgeEarnedDates)
         }
 
         private func tier(of badge: Badge) -> Int {
