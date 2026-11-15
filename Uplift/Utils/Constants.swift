@@ -281,6 +281,9 @@ struct Constants {
         static let badgeEarnedDates = "badgeEarnedDates"
         static let foundingMember = "foundingMember"
         static let seenBadges = "seenBadges"
+
+        // Personal Records
+        static let personalRecords = "personalRecords"
     }
 
     /// Constants used for a workout in progress
@@ -608,6 +611,10 @@ struct Constants {
     }
 
     enum PersonalRecords {
+        static let emptyIconSize: CGFloat = 40
+        static let rowIconSize: CGFloat = 36
+        static let rowPadding: CGFloat = 8
+
         static let onePlate: Double = 135
         static let twoPlates: Double = 225
         static let threePlates: Double = 315

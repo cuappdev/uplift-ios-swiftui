@@ -17,6 +17,7 @@
 		B5CCA989A9784ECEA7175562 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC51F807984FD18DFA83DA /* FriendsView.swift */; };
 		5AA43B5D54FB4CF194D927FA /* FriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC158937A46240E786D1F9AC /* FriendsViewModel.swift */; };
 		C94726B04C234C79AAFDE87B /* AchievementsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C874D29CF441F28971ABAA /* AchievementsViewModel.swift */; };
+		61E1DA4E5B154FA49EABA6FA /* PersonalRecordsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FED55E578C45B795DE8A27 /* PersonalRecordsViewModel.swift */; };
 		214E58F5F4294A439312683D /* Friendship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6985561442924666BE123D4F /* Friendship.swift */; };
 		DBF787F9F9C849959D4F0950 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949A8DE48E784F47B63719C2 /* Friend.swift */; };
 		ECA00988FF3F4706A7B59A31 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B84D9EB0FC470BB2EB5D0F /* Badge.swift */; };
@@ -183,6 +184,7 @@
 		89E833412F4F93AE0080AC46 /* WorkoutHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E833402F4F93AE0080AC46 /* WorkoutHistoryView.swift */; };
 		200DC2EE6C1C4E68B0F52394 /* AchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9895C62A05AA4B15A097CAAC /* AchievementsView.swift */; };
 		FCA2E2022AB8484FA32AE065 /* BadgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC448464CBDE475BB375BECE /* BadgesView.swift */; };
+		03374607A5A3452AB2FD6889 /* PersonalRecordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBCF8B0AC7E4A1491EA54D0 /* PersonalRecordsView.swift */; };
 		944319E46CA54E06922C7165 /* BadgeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464067922C4F457EB692C3A5 /* BadgeDetailView.swift */; };
 		3DAA719150EA4069896F25B9 /* BadgeShareCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE40C2AB66C4C09B698420A /* BadgeShareCard.swift */; };
 		B17F93D14B3542B3B7BCD97E /* BadgeGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A088351D774DC8A8086433 /* BadgeGrid.swift */; };
@@ -230,6 +232,7 @@
 		D3BC51F807984FD18DFA83DA /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		EC158937A46240E786D1F9AC /* FriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewModel.swift; sourceTree = "<group>"; };
 		F8C874D29CF441F28971ABAA /* AchievementsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsViewModel.swift; sourceTree = "<group>"; };
+		B3FED55E578C45B795DE8A27 /* PersonalRecordsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalRecordsViewModel.swift; sourceTree = "<group>"; };
 		6985561442924666BE123D4F /* Friendship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friendship.swift; sourceTree = "<group>"; };
 		949A8DE48E784F47B63719C2 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		53B84D9EB0FC470BB2EB5D0F /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
@@ -389,6 +392,7 @@
 		89E833402F4F93AE0080AC46 /* WorkoutHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryView.swift; sourceTree = "<group>"; };
 		9895C62A05AA4B15A097CAAC /* AchievementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsView.swift; sourceTree = "<group>"; };
 		BC448464CBDE475BB375BECE /* BadgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesView.swift; sourceTree = "<group>"; };
+		3DBCF8B0AC7E4A1491EA54D0 /* PersonalRecordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalRecordsView.swift; sourceTree = "<group>"; };
 		464067922C4F457EB692C3A5 /* BadgeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeDetailView.swift; sourceTree = "<group>"; };
 		4DE40C2AB66C4C09B698420A /* BadgeShareCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeShareCard.swift; sourceTree = "<group>"; };
 		E5A088351D774DC8A8086433 /* BadgeGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeGrid.swift; sourceTree = "<group>"; };
@@ -584,6 +588,7 @@
 				135EEBA92EC7E5F70051AD5B /* WorkoutCheckInViewModel.swift */,
 				EC158937A46240E786D1F9AC /* FriendsViewModel.swift */,
 				F8C874D29CF441F28971ABAA /* AchievementsViewModel.swift */,
+				B3FED55E578C45B795DE8A27 /* PersonalRecordsViewModel.swift */,
 				89C34AA02CA66E9000C579A5 /* CapacityRemindersViewModel.swift */,
 				63001AD52CC9ACFF0082AFFA /* LoginViewModel.swift */,
 				897703652BA2028D00F9992F /* ClassesViewModel.swift */,
@@ -863,6 +868,7 @@
 				89E833402F4F93AE0080AC46 /* WorkoutHistoryView.swift */,
 				9895C62A05AA4B15A097CAAC /* AchievementsView.swift */,
 				BC448464CBDE475BB375BECE /* BadgesView.swift */,
+				3DBCF8B0AC7E4A1491EA54D0 /* PersonalRecordsView.swift */,
 				464067922C4F457EB692C3A5 /* BadgeDetailView.swift */,
 				4DE40C2AB66C4C09B698420A /* BadgeShareCard.swift */,
 				E5A088351D774DC8A8086433 /* BadgeGrid.swift */,
@@ -1149,6 +1155,7 @@
 				135EEBAA2EC7E60B0051AD5B /* WorkoutCheckInViewModel.swift in Sources */,
 				5AA43B5D54FB4CF194D927FA /* FriendsViewModel.swift in Sources */,
 				C94726B04C234C79AAFDE87B /* AchievementsViewModel.swift in Sources */,
+				61E1DA4E5B154FA49EABA6FA /* PersonalRecordsViewModel.swift in Sources */,
 				2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */,
 				B811F229C4BE4175BD69D35C /* BadgeView.swift in Sources */,
 				292284702F59461F00809ED4 /* WorkoutGoalHistory.swift in Sources */,
@@ -1156,6 +1163,7 @@
 				89E833412F4F93AE0080AC46 /* WorkoutHistoryView.swift in Sources */,
 				200DC2EE6C1C4E68B0F52394 /* AchievementsView.swift in Sources */,
 				FCA2E2022AB8484FA32AE065 /* BadgesView.swift in Sources */,
+				03374607A5A3452AB2FD6889 /* PersonalRecordsView.swift in Sources */,
 				944319E46CA54E06922C7165 /* BadgeDetailView.swift in Sources */,
 				3DAA719150EA4069896F25B9 /* BadgeShareCard.swift in Sources */,
 				B17F93D14B3542B3B7BCD97E /* BadgeGrid.swift in Sources */,

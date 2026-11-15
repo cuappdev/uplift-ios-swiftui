@@ -44,4 +44,19 @@ struct PersonalRecordTests {
         #expect(record.history.map(\.weight) == [275, 315])
     }
 
+    @MainActor @Test func logsNewRecordsAndPersistsThem() throws {
+        let defaults = try #require(UserDefaults(suiteName: UUID().uuidString))
+        let viewModel = PersonalRecordsView.ViewModel(defaults: defaults)
+
+        #expect(viewModel.log(lift: "Bench Press", weight: 185, reps: 5))
+        #expect(!viewModel.log(lift: "bench press ", weight: 165, reps: 5))
+        #expect(viewModel.log(lift: "Bench Press", weight: 205, reps: 1))
+        #expect(!viewModel.log(lift: "Squat", weight: 0, reps: 5))
+
+        let reloaded = PersonalRecordsView.ViewModel(defaults: defaults)
+        #expect(reloaded.records.count == 1)
+        #expect(reloaded.records.first?.entries.count == 3)
+        #expect(reloaded.records.first?.best?.weight == 205)
+    }
+
 }
