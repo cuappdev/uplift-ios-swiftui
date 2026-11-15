@@ -13,12 +13,40 @@ struct PersonalRecordsView: View {
     // MARK: - Properties
 
     @ObservedObject var viewModel: ViewModel
+    @State private var editorLift = ""
+    @State private var showsEditor = false
 
     // MARK: - UI
 
     var body: some View {
-        content
-            .pushedScreen(title: "My PRs")
+        VStack(spacing: 0) {
+            content
+            logButton
+        }
+        .pushedScreen(title: "My PRs")
+        .sheet(isPresented: $showsEditor) {
+            PersonalRecordEditor(viewModel: viewModel, lift: editorLift)
+        }
+    }
+
+    private var logButton: some View {
+        Button {
+            openEditor(lift: "")
+        } label: {
+            Label("Log a PR", systemImage: "plus")
+                .font(Constants.Fonts.h2)
+                .foregroundStyle(Constants.Colors.black)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, Constants.PersonalRecords.saveVerticalPadding)
+                .background(Constants.Colors.yellow)
+                .clipShape(Capsule())
+        }
+        .padding(Constants.Padding.homeHorizontal)
+    }
+
+    private func openEditor(lift: String) {
+        editorLift = lift
+        showsEditor = true
     }
 
     @ViewBuilder
@@ -28,15 +56,19 @@ struct PersonalRecordsView: View {
         } else {
             List {
                 ForEach(viewModel.records) { record in
-                    recordRow(record)
-                        .listRowSeparator(.hidden)
-                        .swipeActions {
-                            Button(role: .destructive) {
-                                viewModel.delete(record)
-                            } label: {
-                                Label("Delete", systemImage: "trash")
-                            }
+                    Button {
+                        openEditor(lift: record.lift)
+                    } label: {
+                        recordRow(record)
+                    }
+                    .listRowSeparator(.hidden)
+                    .swipeActions {
+                        Button(role: .destructive) {
+                            viewModel.delete(record)
+                        } label: {
+                            Label("Delete", systemImage: "trash")
                         }
+                    }
                 }
             }
             .listStyle(.plain)
