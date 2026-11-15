@@ -16,7 +16,7 @@ struct MainView: View {
     @StateObject private var profileViewModel = ProfileView.ViewModel() // NOTE: We only need to drill this to few screens so using @StateObject & @ObservedObject pattern
     @StateObject private var homeViewModel = HomeView.ViewModel() // NOTE: We only need to drill this to few screens so using @StateObject & @ObservedObject pattern
     @State private var selectedTab: Screen = .home
-    @StateObject private var workoutViewModel = WorkoutInProgressView.ViewModel()
+    @ObservedObject var workoutViewModel: WorkoutInProgressView.ViewModel
     @Namespace private var workoutNamespace
     @StateObject var tabBarProp = TabBarProperty()
 
@@ -234,5 +234,6 @@ final class TabBarProperty: ObservableObject {
 }
 
 #Preview {
-    MainView()
+    MainView(workoutViewModel: WorkoutInProgressView.ViewModel())
+        .environmentObject(MainView.ViewModel())
 }

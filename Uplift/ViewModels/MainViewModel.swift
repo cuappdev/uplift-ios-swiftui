@@ -55,11 +55,14 @@ extension MainView {
             sessionState == .guest
         }
 
+        let workoutViewModel: WorkoutInProgressView.ViewModel
+
         private let defaults: UserDefaults
         private var queryBag = Set<AnyCancellable>()
 
         init(defaults: UserDefaults = .standard) {
             self.defaults = defaults
+            workoutViewModel = WorkoutInProgressView.ViewModel(defaults: defaults)
             sessionState = defaults.bool(forKey: Constants.UserDefaultsKeys.skippedLogin) ? .guest : .restoring
         }
 
@@ -77,7 +80,7 @@ extension MainView {
             UserSessionManager.shared.clearWorkoutCheckInCooldown()
             GymProximityManager.shared.disable()
             WorkoutReminderViewModel().clearWorkoutReminders()
-            WorkoutInProgressView.ViewModel().discard()
+            workoutViewModel.discard()
             resetOnboardingDraftState()
             sessionState = .signedOut
         }
@@ -97,7 +100,7 @@ extension MainView {
                 // the backend rejected the keychain session so the tokens are dead,
                 // drop them or the geofences think we're signed in
                 UserSessionManager.shared.logout()
-                WorkoutInProgressView.ViewModel().discard()
+                workoutViewModel.discard()
                 sessionState = isSkipped ? .guest : .signedOut
             case .error(let message):
                 Logger.data.critical("Session restore error: \(message)")

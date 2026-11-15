@@ -37,7 +37,7 @@ struct UpliftApp: App {
                     case .settingGoals:
                         SetGoalsView(isOnboarding: true)
                     case .guest, .signedIn:
-                        MainView()
+                        MainView(workoutViewModel: mainViewModel.workoutViewModel)
                             .onAppear {
                                 LocationManager.shared.requestLocation()
                             }
