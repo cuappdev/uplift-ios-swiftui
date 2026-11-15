@@ -13,12 +13,20 @@ import PhotosUI
 /// The main view for the Profile page.
 struct ProfileView: View {
 
+    private enum Tab: Hashable {
+        case achievements
+        case workouts
+    }
+
     // MARK: - Properties
     @ObservedObject var viewModel: ViewModel
     @EnvironmentObject var mainViewModel: MainView.ViewModel
     @EnvironmentObject var tabBarProp: TabBarProperty
+    @StateObject private var achievementsViewModel = AchievementsView.ViewModel()
     @StateObject private var friendsViewModel = FriendsView.ViewModel()
+    @State private var selectedTab = Tab.workouts
     @State private var showAddFriends = false
+    @State private var showBadges = false
     @State private var showFriends = false
     @State private var showSettings = false
     @State private var showImagePicker = false
@@ -54,7 +62,10 @@ struct ProfileView: View {
             .navigationDestination(isPresented: $showFriends) {
                 FriendsView(viewModel: friendsViewModel)
             }
-            .onChange(of: showAddFriends || showFriends) { isShowing in
+            .navigationDestination(isPresented: $showBadges) {
+                BadgesView(viewModel: achievementsViewModel)
+            }
+            .onChange(of: showAddFriends || showFriends || showBadges) { isShowing in
                 if !isShowing {
                     withAnimation(.easeIn(duration: 0.1)) {
                         tabBarProp.hidden = false
@@ -108,6 +119,12 @@ struct ProfileView: View {
                 await viewModel.fetchUserProfile()
             }
             friendsViewModel.fetchFriends()
+        }
+        .onReceive(viewModel.$user) { user in
+            achievementsViewModel.update(user: user, friendCount: friendsViewModel.friends.count)
+        }
+        .onReceive(friendsViewModel.$friends) { friends in
+            achievementsViewModel.update(user: viewModel.user, friendCount: friends.count)
         }
         .showModal($viewModel.showDeleteAccountAlert) {
             DeleteAccountModal(
@@ -307,13 +324,35 @@ struct ProfileView: View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 24) {
                 profileTopSection
-                goalView
-                historyView
+                profileTabs
+
+                switch selectedTab {
+                case .workouts:
+                    goalView
+                    historyView
+                        .padding(.bottom, CGFloat(Constants.Profile.radius))
+                case .achievements:
+                    AchievementsView(viewModel: achievementsViewModel) {
+                        showBadges = true
+                        hideTabBar()
+                    }
                     .padding(.bottom, CGFloat(Constants.Profile.radius))
+                }
             }
             .padding(.horizontal, Constants.Padding.homeHorizontal)
             .padding(.top, 24)
         }
+    }
+
+    private var profileTabs: some View {
+        SlidingTabBarView(
+            config: SlidingTabBarView.TabBarConfig(),
+            items: [
+                SlidingTabBarView.Item(tab: Tab.workouts, title: "WORKOUTS"),
+                SlidingTabBarView.Item(tab: Tab.achievements, title: "ACHIEVEMENTS")
+            ],
+            selectedTab: $selectedTab
+        )
     }
 
     private var profileTopSection: some View {

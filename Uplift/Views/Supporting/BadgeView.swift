@@ -34,8 +34,9 @@ struct BadgeView: View {
                 Text(isHidden ? "???" : badge.title)
                     .font(Constants.Fonts.labelNormal)
                     .foregroundStyle(isEarned ? Constants.Colors.black : Constants.Colors.gray03)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.8)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
         .accessibilityElement(children: .ignore)
