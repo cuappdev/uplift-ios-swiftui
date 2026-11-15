@@ -279,6 +279,7 @@ struct Constants {
 
     /// Constants used for a workout in progress
     enum WorkoutInProgress {
+        static let activityLingerDuration: TimeInterval = 2 * 60
         static let cardId = "workoutCard"
         static let cardShape = UnevenRoundedRectangle(topLeadingRadius: 20, topTrailingRadius: 20)
         static let contentFadeDelay: Double = 0.15
