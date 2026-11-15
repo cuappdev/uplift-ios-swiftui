@@ -606,4 +606,10 @@ struct Constants {
         static let pageSpacing: CGFloat = 28
         static let sectionSpacing: CGFloat = 16
     }
+
+    enum PersonalRecords {
+        static let onePlate: Double = 135
+        static let twoPlates: Double = 225
+        static let threePlates: Double = 315
+    }
 }
