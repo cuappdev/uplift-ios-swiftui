@@ -550,12 +550,26 @@ struct Constants {
     enum BadgeDetail {
         static let artSize: CGFloat = 150
         static let backdropOpacity = 0.75
+        static let bannerTracking: CGFloat = 2
         static let glowOpacity = 0.45
         static let glowSize: CGFloat = 280
         static let horizontalPadding: CGFloat = 40
         static let spacing: CGFloat = 28
         static let spinDegrees: Double = 540
         static let textOffset: CGFloat = 12
+    }
+
+    enum Confetti {
+        static let colors = [
+            Constants.Colors.yellow,
+            Constants.Colors.orange,
+            Constants.Colors.lightYellow,
+            Constants.Colors.turquoise,
+            Constants.Colors.white
+        ]
+        static let count = 80
+        static let duration: TimeInterval = 2.4
+        static let gravity: Double = 900
     }
 
     enum Holographic {

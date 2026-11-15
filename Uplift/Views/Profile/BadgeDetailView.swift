@@ -14,6 +14,7 @@ struct BadgeDetailView: View {
 
     let badge: Badge
     @ObservedObject var viewModel: AchievementsView.ViewModel
+    var isNew = false
     let onClose: () -> Void
 
     @StateObject private var motion = MotionManager()
@@ -41,7 +42,20 @@ struct BadgeDetailView: View {
                 .overlay(Constants.Colors.black.opacity(Constants.BadgeDetail.backdropOpacity))
                 .ignoresSafeArea()
 
+            if isNew && isRevealed {
+                ConfettiView()
+                    .ignoresSafeArea()
+            }
+
             VStack(spacing: Constants.BadgeDetail.spacing) {
+                if isNew {
+                    Text("NEW BADGE UNLOCKED")
+                        .font(Constants.Fonts.labelBold)
+                        .tracking(Constants.BadgeDetail.bannerTracking)
+                        .foregroundStyle(Constants.Colors.yellow)
+                        .opacity(showsText ? 1 : 0)
+                }
+
                 art
                     .gesture(tiltGesture)
                 text
@@ -134,10 +148,14 @@ struct BadgeDetailView: View {
 
 extension View {
 
-    func badgeDetail(_ badge: Binding<Badge?>, viewModel: AchievementsView.ViewModel) -> some View {
+    func badgeDetail(
+        _ badge: Binding<Badge?>,
+        viewModel: AchievementsView.ViewModel,
+        isNew: Bool = false
+    ) -> some View {
         overlay {
             if let selected = badge.wrappedValue {
-                BadgeDetailView(badge: selected, viewModel: viewModel) {
+                BadgeDetailView(badge: selected, viewModel: viewModel, isNew: isNew) {
                     withAnimation(.easeOut(duration: 0.2)) {
                         badge.wrappedValue = nil
                     }

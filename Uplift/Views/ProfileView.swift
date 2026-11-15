@@ -24,6 +24,7 @@ struct ProfileView: View {
     @EnvironmentObject var tabBarProp: TabBarProperty
     @StateObject private var achievementsViewModel = AchievementsView.ViewModel()
     @StateObject private var friendsViewModel = FriendsView.ViewModel()
+    @State private var celebratedBadge: Badge?
     @State private var selectedBadge: Badge?
     @State private var selectedTab = Tab.workouts
     @State private var showAddFriends = false
@@ -121,7 +122,11 @@ struct ProfileView: View {
             }
             friendsViewModel.fetchFriends()
         }
-        .badgeDetail($selectedBadge, viewModel: achievementsViewModel)
+        .badgeDetail(
+            $selectedBadge,
+            viewModel: achievementsViewModel,
+            isNew: selectedBadge != nil && selectedBadge == celebratedBadge
+        )
         .onChange(of: selectedBadge) { badge in
             withAnimation(.easeIn(duration: 0.1)) {
                 tabBarProp.hidden = badge != nil
@@ -129,9 +134,11 @@ struct ProfileView: View {
         }
         .onReceive(viewModel.$user) { user in
             achievementsViewModel.update(user: user, friendCount: friendsViewModel.friends.count)
+            celebrateUnseenBadge()
         }
         .onReceive(friendsViewModel.$friends) { friends in
             achievementsViewModel.update(user: viewModel.user, friendCount: friends.count)
+            celebrateUnseenBadge()
         }
         .showModal($viewModel.showDeleteAccountAlert) {
             DeleteAccountModal(
@@ -139,6 +146,16 @@ struct ProfileView: View {
                 onBack: dismissDeleteAccountModal,
                 onClose: dismissDeleteAccountModal
             )
+        }
+    }
+
+    private func celebrateUnseenBadge() {
+        guard selectedBadge == nil, let badge = achievementsViewModel.unseenBadge else { return }
+
+        achievementsViewModel.markSeen(badge)
+        celebratedBadge = badge
+        withAnimation {
+            selectedBadge = badge
         }
     }
 

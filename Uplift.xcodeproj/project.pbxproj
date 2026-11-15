@@ -78,6 +78,7 @@
 		2E2932C62BA2B9B5008445CE /* UpliftAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E2932C52BA2B9B5008445CE /* UpliftAPI */; };
 		2E3838412BB7536700AE15DC /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 2E3838402BB7536700AE15DC /* PrivacyInfo.xcprivacy */; };
 		2E39D8162B3B3AD600AD238B /* ScaleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39D8152B3B3AD600AD238B /* ScaleButtonStyle.swift */; };
+		C1B74A0D10114CEB8D118227 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917610958C3B442C896646B2 /* ConfettiView.swift */; };
 		1CC28638AA3C442CBFD537A0 /* HolographicModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E46F95AB684EE8AA0D1EB1 /* HolographicModifier.swift */; };
 		C066B2EE3070F10100AA0001 /* FadeInOnAppearModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2EC3070F10000AA0001 /* FadeInOnAppearModifier.swift */; };
 		C066B2E63070D10100AA0001 /* HideOnRemovalModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C066B2E43070D10000AA0001 /* HideOnRemovalModifier.swift */; };
@@ -282,6 +283,7 @@
 		2E2748CE2BCD4D1F0023882E /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		2E3838402BB7536700AE15DC /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		2E39D8152B3B3AD600AD238B /* ScaleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleButtonStyle.swift; sourceTree = "<group>"; };
+		917610958C3B442C896646B2 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
 		04E46F95AB684EE8AA0D1EB1 /* HolographicModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HolographicModifier.swift; sourceTree = "<group>"; };
 		C066B2EC3070F10000AA0001 /* FadeInOnAppearModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeInOnAppearModifier.swift; sourceTree = "<group>"; };
 		C066B2E43070D10000AA0001 /* HideOnRemovalModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideOnRemovalModifier.swift; sourceTree = "<group>"; };
@@ -708,6 +710,7 @@
 				C066B2EC3070F10000AA0001 /* FadeInOnAppearModifier.swift */,
 				C066B2E43070D10000AA0001 /* HideOnRemovalModifier.swift */,
 				2E39D8152B3B3AD600AD238B /* ScaleButtonStyle.swift */,
+				917610958C3B442C896646B2 /* ConfettiView.swift */,
 				04E46F95AB684EE8AA0D1EB1 /* HolographicModifier.swift */,
 				2E6785BD2B3A513000DD3ADA /* SemiCircleShape.swift */,
 				D4A3F2E17E8D4091A2C34567 /* PushedScreenModifier.swift */,
@@ -1098,6 +1101,7 @@
 				2E15F4FB2B39573C00414BEC /* Double+Extension.swift in Sources */,
 				29055F802E7E3E6E00E9A730 /* UnsavedChangesModal.swift in Sources */,
 				2E39D8162B3B3AD600AD238B /* ScaleButtonStyle.swift in Sources */,
+				C1B74A0D10114CEB8D118227 /* ConfettiView.swift in Sources */,
 				1CC28638AA3C442CBFD537A0 /* HolographicModifier.swift in Sources */,
 				C066B2E63070D10100AA0001 /* HideOnRemovalModifier.swift in Sources */,
 				C066B2EE3070F10100AA0001 /* FadeInOnAppearModifier.swift in Sources */,
