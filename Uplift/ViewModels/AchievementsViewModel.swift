@@ -17,6 +17,7 @@ extension AchievementsView {
 
         @Published private(set) var stats = BadgeStats(friendCount: 0, gymDays: 0, longestStreakWeeks: 0)
         @Published private var recordedDates: [String: Date] = [:]
+        @Published private var seenBadgeIds: Set<String>?
 
         private let defaults: UserDefaults
         private let now: () -> Date
@@ -26,6 +27,7 @@ extension AchievementsView {
             self.now = now
             let saved = defaults.dictionary(forKey: Constants.UserDefaultsKeys.badgeEarnedDates)
             recordedDates = saved as? [String: Date] ?? [:]
+            seenBadgeIds = defaults.stringArray(forKey: Constants.UserDefaultsKeys.seenBadges).map(Set.init)
         }
 
         var earnedBadges: [Badge] {
@@ -37,6 +39,11 @@ extension AchievementsView {
                 .sorted { tier(of: $0) > tier(of: $1) }
                 .prefix(Constants.Badges.displayedCount)
             return earnedBadges.filter(hardest.contains)
+        }
+
+        var unseenBadge: Badge? {
+            guard let seenBadgeIds else { return nil }
+            return earnedBadges.last { !seenBadgeIds.contains($0.id) }
         }
 
         var nextBadge: Badge? {
@@ -69,6 +76,13 @@ extension AchievementsView {
                 isFoundingMember: defaults.bool(forKey: Constants.UserDefaultsKeys.foundingMember)
             )
             recordUndatedBadges()
+            if seenBadgeIds == nil {
+                saveSeenBadges(Set(earnedBadges.filter { $0.metric != .foundingMember }.map(\.id)))
+            }
+        }
+
+        func markSeen(_ badge: Badge) {
+            saveSeenBadges((seenBadgeIds ?? []).union([badge.id]))
         }
 
         func badges(in category: Badge.Category) -> [Badge] {
@@ -113,6 +127,11 @@ extension AchievementsView {
 
             undated.forEach { recordedDates[$0.id] = now() }
             defaults.set(recordedDates, forKey: Constants.UserDefaultsKeys.badgeEarnedDates)
+        }
+
+        private func saveSeenBadges(_ ids: Set<String>) {
+            seenBadgeIds = ids
+            defaults.set(Array(ids), forKey: Constants.UserDefaultsKeys.seenBadges)
         }
 
         private func tier(of badge: Badge) -> Int {

@@ -91,6 +91,19 @@ struct AchievementsTests {
         #expect(viewModel.detail(of: nightOwl) != nightOwl.detail)
     }
 
+    @Test func celebratesOnlyNewBadges() throws {
+        let viewModel = makeViewModel(now: .distantPast)
+        viewModel.update(user: makeUser(gymDays: 3, streakWeeks: 0), friendCount: 0)
+
+        let founding = try #require(viewModel.unseenBadge)
+        #expect(founding.id == "special-founding")
+        viewModel.markSeen(founding)
+        #expect(viewModel.unseenBadge == nil)
+
+        viewModel.update(user: makeUser(gymDays: 7, streakWeeks: 0), friendCount: 0)
+        #expect(viewModel.unseenBadge?.id == "workouts-7")
+    }
+
     @Test func clearsStatsWithoutUser() {
         let viewModel = makeViewModel(now: .distantFuture)
         viewModel.update(user: makeUser(gymDays: 10, streakWeeks: 0), friendCount: 0)

@@ -280,6 +280,7 @@ struct Constants {
         // Badges
         static let badgeEarnedDates = "badgeEarnedDates"
         static let foundingMember = "foundingMember"
+        static let seenBadges = "seenBadges"
     }
 
     /// Constants used for a workout in progress
