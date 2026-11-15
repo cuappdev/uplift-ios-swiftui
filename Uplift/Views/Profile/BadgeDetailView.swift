@@ -16,8 +16,17 @@ struct BadgeDetailView: View {
     @ObservedObject var viewModel: AchievementsView.ViewModel
     let onClose: () -> Void
 
+    @StateObject private var motion = MotionManager()
+    @State private var dragTilt: CGSize = .zero
     @State private var isRevealed = false
     @State private var showsText = false
+
+    private var tilt: CGSize {
+        CGSize(
+            width: max(-1, min(1, motion.tilt.width + dragTilt.width)),
+            height: max(-1, min(1, motion.tilt.height + dragTilt.height))
+        )
+    }
 
     private var isEarned: Bool {
         viewModel.isEarned(badge)
@@ -31,16 +40,18 @@ struct BadgeDetailView: View {
                 .fill(.ultraThinMaterial)
                 .overlay(Constants.Colors.black.opacity(Constants.BadgeDetail.backdropOpacity))
                 .ignoresSafeArea()
-                .onTapGesture(perform: onClose)
 
             VStack(spacing: Constants.BadgeDetail.spacing) {
                 art
+                    .gesture(tiltGesture)
                 text
             }
             .padding(.horizontal, Constants.BadgeDetail.horizontalPadding)
-            .allowsHitTesting(false)
         }
+        .contentShape(Rectangle())
+        .onTapGesture(perform: onClose)
         .onAppear(perform: reveal)
+        .onDisappear(perform: motion.stop)
     }
 
     private var art: some View {
@@ -66,9 +77,25 @@ struct BadgeDetailView: View {
                 size: Constants.BadgeDetail.artSize,
                 showsTitle: false
             )
+            .holographic(tilt: isEarned ? tilt : .zero, showsSheen: isEarned && badge.isLegendary)
             .rotation3DEffect(.degrees(isRevealed ? 0 : Constants.BadgeDetail.spinDegrees), axis: (x: 0, y: 1, z: 0))
             .scaleEffect(isRevealed ? 1 : 0.2)
         }
+    }
+
+    private var tiltGesture: some Gesture {
+        DragGesture()
+            .onChanged { value in
+                dragTilt = CGSize(
+                    width: value.translation.width / Constants.Holographic.dragDistance,
+                    height: value.translation.height / Constants.Holographic.dragDistance
+                )
+            }
+            .onEnded { _ in
+                withAnimation(.spring(response: 0.5, dampingFraction: 0.5)) {
+                    dragTilt = .zero
+                }
+            }
     }
 
     private var text: some View {
@@ -91,6 +118,9 @@ struct BadgeDetailView: View {
     }
 
     private func reveal() {
+        if isEarned {
+            motion.start()
+        }
         Haptics.shared.play(isEarned ? .heavy : .light)
         withAnimation(.spring(response: 0.8, dampingFraction: 0.65)) {
             isRevealed = true

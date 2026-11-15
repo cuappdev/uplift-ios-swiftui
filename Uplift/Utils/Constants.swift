@@ -557,6 +557,21 @@ struct Constants {
         static let textOffset: CGFloat = 12
     }
 
+    enum Holographic {
+        static let dragDistance: CGFloat = 120
+        static let maxAngle = Double.pi / 6
+        static let maxRotation: Double = 18
+        static let sheenColors: [Color] = [
+            .clear,
+            Color(red: 1, green: 0.55, blue: 0.85),
+            Color(red: 1, green: 0.95, blue: 0.5),
+            Color(red: 0.5, green: 0.95, blue: 1),
+            Color(red: 0.75, green: 0.6, blue: 1),
+            .clear
+        ]
+        static let updateInterval: TimeInterval = 1 / 60
+    }
+
     enum Achievements {
         static let cardCornerRadius: CGFloat = 12
         static let cardPadding: CGFloat = 12
