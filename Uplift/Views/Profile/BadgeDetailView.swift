@@ -20,6 +20,7 @@ struct BadgeDetailView: View {
     @StateObject private var motion = MotionManager()
     @State private var dragTilt: CGSize = .zero
     @State private var isRevealed = false
+    @State private var shareImage: Image?
     @State private var showsText = false
 
     private var tilt: CGSize {
@@ -126,6 +127,22 @@ struct BadgeDetailView: View {
                 .font(Constants.Fonts.bodyNormal)
                 .foregroundStyle(Constants.Colors.gray02)
                 .multilineTextAlignment(.center)
+
+            if let shareImage {
+                ShareLink(
+                    item: shareImage,
+                    preview: SharePreview(badge.title, image: shareImage)
+                ) {
+                    Label("Share", systemImage: "square.and.arrow.up")
+                        .font(Constants.Fonts.h3)
+                        .foregroundStyle(Constants.Colors.black)
+                        .padding(.horizontal, Constants.BadgeDetail.shareHorizontalPadding)
+                        .padding(.vertical, Constants.BadgeDetail.shareVerticalPadding)
+                        .background(Constants.Colors.yellow)
+                        .clipShape(Capsule())
+                }
+                .padding(.top, Constants.BadgeDetail.shareTopPadding)
+            }
         }
         .opacity(showsText ? 1 : 0)
         .offset(y: showsText ? 0 : Constants.BadgeDetail.textOffset)
@@ -134,6 +151,7 @@ struct BadgeDetailView: View {
     private func reveal() {
         if isEarned {
             motion.start()
+            renderShareImage()
         }
         Haptics.shared.play(isEarned ? .heavy : .light)
         withAnimation(.spring(response: 0.8, dampingFraction: 0.65)) {
@@ -142,6 +160,12 @@ struct BadgeDetailView: View {
         withAnimation(.easeOut(duration: 0.4).delay(0.35)) {
             showsText = true
         }
+    }
+
+    private func renderShareImage() {
+        let renderer = ImageRenderer(content: BadgeShareCard(badge: badge, summary: viewModel.summary(of: badge)))
+        renderer.scale = Constants.ShareCard.renderScale
+        shareImage = renderer.uiImage.map(Image.init(uiImage:))
     }
 
 }

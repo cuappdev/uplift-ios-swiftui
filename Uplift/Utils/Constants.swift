@@ -554,9 +554,20 @@ struct Constants {
         static let glowOpacity = 0.45
         static let glowSize: CGFloat = 280
         static let horizontalPadding: CGFloat = 40
+        static let shareHorizontalPadding: CGFloat = 24
+        static let shareTopPadding: CGFloat = 12
+        static let shareVerticalPadding: CGFloat = 12
         static let spacing: CGFloat = 28
         static let spinDegrees: Double = 540
         static let textOffset: CGFloat = 12
+    }
+
+    enum ShareCard {
+        static let artSize: CGFloat = 200
+        static let padding: CGFloat = 40
+        static let renderScale: CGFloat = 3
+        static let size = CGSize(width: 360, height: 640)
+        static let spacing: CGFloat = 32
     }
 
     enum Confetti {
