@@ -1,0 +1,78 @@
+//
+//  AchievementsTests.swift
+//  Uplift
+//
+//  Created by Anatoli Monsalve on 11/15/26.
+//  Copyright © 2026 Cornell AppDev. All rights reserved.
+//
+
+import Foundation
+import Testing
+@testable import Uplift
+
+@MainActor
+struct AchievementsTests {
+
+    private let defaults = UserDefaults(suiteName: UUID().uuidString) ?? .standard
+
+    private func makeUser(gymDays: Int, streakWeeks: Int) -> User {
+        User(
+            id: "1",
+            email: nil,
+            name: "Test",
+            netId: "abc123",
+            workoutGoal: 3,
+            activeStreak: 0,
+            maxStreak: streakWeeks,
+            lastStreak: 0,
+            lastGoalChange: "",
+            encodedImage: nil,
+            goalHistory: nil,
+            totalGymDays: gymDays,
+            streakStart: nil,
+            workoutHistory: []
+        )
+    }
+
+    private func makeViewModel(now: Date) -> AchievementsView.ViewModel {
+        AchievementsView.ViewModel(defaults: defaults, now: { now })
+    }
+
+    @Test func displaysHardestEarnedBadges() {
+        let viewModel = makeViewModel(now: .distantFuture)
+        viewModel.update(user: makeUser(gymDays: 100, streakWeeks: 26), friendCount: 50)
+
+        let displayed = viewModel.displayedBadges.map(\.id)
+        #expect(displayed.count == Constants.Badges.displayedCount)
+        #expect(displayed.contains("workouts-100"))
+        #expect(displayed.contains("streaks-26"))
+        #expect(!displayed.contains("workouts-3"))
+    }
+
+    @Test func picksClosestBadgeAsNext() {
+        let viewModel = makeViewModel(now: .distantFuture)
+        viewModel.update(user: makeUser(gymDays: 9, streakWeeks: 0), friendCount: 0)
+
+        #expect(viewModel.nextBadge?.id == "workouts-10")
+        #expect(viewModel.nextBadge.map(viewModel.remaining) == 1)
+    }
+
+    @Test func keepsFoundingMemberAfterDeadline() {
+        let viewModel = makeViewModel(now: .distantPast)
+        viewModel.update(user: makeUser(gymDays: 0, streakWeeks: 0), friendCount: 0)
+
+        let later = AchievementsView.ViewModel(defaults: defaults, now: { .distantFuture })
+        later.update(user: makeUser(gymDays: 0, streakWeeks: 0), friendCount: 0)
+
+        #expect(later.stats.isFoundingMember)
+    }
+
+    @Test func clearsStatsWithoutUser() {
+        let viewModel = makeViewModel(now: .distantFuture)
+        viewModel.update(user: makeUser(gymDays: 10, streakWeeks: 0), friendCount: 0)
+        viewModel.update(user: nil, friendCount: 0)
+
+        #expect(viewModel.earnedBadges.isEmpty)
+    }
+
+}

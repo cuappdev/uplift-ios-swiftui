@@ -276,6 +276,9 @@ struct Constants {
 
         // Workout In Progress
         static let activeWorkout = "activeWorkout"
+
+        // Badges
+        static let foundingMember = "foundingMember"
     }
 
     /// Constants used for a workout in progress
@@ -528,6 +531,9 @@ struct Constants {
         static let regularVisits = 10
 
         static let artSize: CGFloat = 56
+        static let displayedCount = 8
+        static let gridColumns = 4
+        static let gridSpacing: CGFloat = 20
         static let lockedOpacity = 0.4
         static let ringWidth: CGFloat = 3
         static let symbolScale = 0.45
@@ -536,5 +542,13 @@ struct Constants {
         static func numberFont(for size: CGFloat) -> Font {
             .custom("Montserrat-Bold", size: size * 0.26)
         }
+    }
+
+    enum Achievements {
+        static let cardCornerRadius: CGFloat = 12
+        static let cardPadding: CGFloat = 12
+        static let cardSpacing: CGFloat = 16
+        static let nextBadgeSize: CGFloat = 36
+        static let sectionSpacing: CGFloat = 16
     }
 }
