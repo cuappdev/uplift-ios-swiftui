@@ -28,21 +28,10 @@ struct AchievementsView: View {
                     .font(Constants.Fonts.bodyNormal)
                     .foregroundStyle(Constants.Colors.gray04)
             } else {
-                badgeGrid
+                BadgeGrid(badges: viewModel.displayedBadges, viewModel: viewModel)
             }
 
             nextBadgeCard
-        }
-    }
-
-    private var badgeGrid: some View {
-        LazyVGrid(
-            columns: Array(repeating: GridItem(.flexible()), count: Constants.Badges.gridColumns),
-            spacing: Constants.Badges.gridSpacing
-        ) {
-            ForEach(viewModel.displayedBadges) { badge in
-                BadgeView(badge: badge, isEarned: true)
-            }
         }
     }
 

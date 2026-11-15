@@ -549,6 +549,7 @@ struct Constants {
         static let cardPadding: CGFloat = 12
         static let cardSpacing: CGFloat = 16
         static let nextBadgeSize: CGFloat = 36
+        static let pageSpacing: CGFloat = 28
         static let sectionSpacing: CGFloat = 16
     }
 }
