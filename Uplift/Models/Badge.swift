@@ -130,7 +130,7 @@ extension Badge {
 
     private static let special = [
         Badge(
-            art: .symbol("star.circle.fill"),
+            art: .symbol("crown.fill"),
             category: .special,
             detail: "Joined Uplift during its first semester.",
             goal: 1,
@@ -188,7 +188,7 @@ extension Badge {
             title: "Weekend Warrior"
         ),
         Badge(
-            art: .symbol("arrow.uturn.up.circle.fill"),
+            art: .symbol("arrow.uturn.up"),
             category: .special,
             detail: "Come back to the gym after \(Constants.Badges.comebackGapDays) days away.",
             goal: 1,

@@ -535,8 +535,9 @@ struct Constants {
         static let gridColumns = 4
         static let gridSpacing: CGFloat = 20
         static let lockedOpacity = 0.4
-        static let ringWidth: CGFloat = 3
-        static let symbolScale = 0.45
+        static let progressBarHeight: CGFloat = 4
+        static let progressBarScale = 0.8
+        static let symbolScale = 0.8
         static let titleSpacing: CGFloat = 6
 
         static func numberFont(for size: CGFloat) -> Font {

@@ -28,7 +28,8 @@ struct BadgeView: View {
         VStack(spacing: Constants.Badges.titleSpacing) {
             art
                 .frame(width: size, height: size)
-                .background(progressRing)
+
+            progressBar
 
             if showsTitle {
                 Text(isHidden ? "???" : badge.title)
@@ -81,28 +82,34 @@ struct BadgeView: View {
     }
 
     private func symbol(_ name: String) -> some View {
-        Circle()
-            .fill(isHidden ? Constants.Colors.gray01 : Constants.Colors.yellow)
-            .overlay {
-                Image(systemName: name)
-                    .resizable()
-                    .scaledToFit()
-                    .padding(size * (1 - Constants.Badges.symbolScale) / 2)
-                    .foregroundStyle(isHidden ? Constants.Colors.gray03 : Constants.Colors.black)
-            }
+        Image(systemName: name)
+            .resizable()
+            .scaledToFit()
+            .padding(size * (1 - Constants.Badges.symbolScale) / 2)
+            .foregroundStyle(
+                isHidden
+                    ? AnyShapeStyle(Constants.Colors.gray02)
+                    : AnyShapeStyle(LinearGradient(
+                        colors: [Constants.Colors.yellow, Constants.Colors.orange],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    ))
+            )
     }
 
     @ViewBuilder
-    private var progressRing: some View {
+    private var progressBar: some View {
         if !isEarned && progress > 0 {
-            Circle()
-                .trim(from: 0, to: progress)
-                .stroke(
-                    Constants.Colors.yellow,
-                    style: StrokeStyle(lineWidth: Constants.Badges.ringWidth, lineCap: .round)
-                )
-                .rotationEffect(.degrees(-90))
-                .padding(-Constants.Badges.ringWidth * 2)
+            Capsule()
+                .fill(Constants.Colors.gray01)
+                .overlay(alignment: .leading) {
+                    GeometryReader { proxy in
+                        Capsule()
+                            .fill(Constants.Colors.yellow)
+                            .frame(width: proxy.size.width * progress)
+                    }
+                }
+                .frame(width: size * Constants.Badges.progressBarScale, height: Constants.Badges.progressBarHeight)
         }
     }
 
