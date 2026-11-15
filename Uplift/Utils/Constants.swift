@@ -611,6 +611,30 @@ struct Constants {
     }
 
     enum PersonalRecords {
+        static let borderInset: CGFloat = 7
+        static let cardCornerRadius: CGFloat = 22
+        static let cardPadding: CGFloat = 20
+        static let cardSize = CGSize(width: 229, height: 310)
+        static let cardSpacing: CGFloat = 16
+        static let sealSize: CGFloat = 68
+        static let updateHorizontalPadding: CGFloat = 24
+        static let updateVerticalPadding: CGFloat = 8
+
+        static let blackCard = [
+            Color(red: 62 / 255, green: 62 / 255, blue: 62 / 255),
+            Color(red: 10 / 255, green: 10 / 255, blue: 10 / 255)
+        ]
+        static let goldCard = [
+            Color(red: 1, green: 199 / 255, blue: 17 / 255),
+            Color(red: 1, green: 220 / 255, blue: 104 / 255),
+            Color(red: 248 / 255, green: 243 / 255, blue: 212 / 255)
+        ]
+        static let orangeCard = [
+            Color(red: 1, green: 140 / 255, blue: 20 / 255),
+            Color(red: 1, green: 178 / 255, blue: 72 / 255),
+            Color(red: 1, green: 222 / 255, blue: 170 / 255)
+        ]
+
         static let editorSpacing: CGFloat = 16
         static let editorTopPadding: CGFloat = 12
         static let emptyIconSize: CGFloat = 40
