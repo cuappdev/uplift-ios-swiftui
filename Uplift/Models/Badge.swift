@@ -15,6 +15,8 @@ struct Badge: Hashable, Identifiable {
     enum Art: Hashable {
         case flame(level: Int)
         case gem(level: Int)
+        case muscle(MuscleCategory)
+        case seal
         case symbol(String)
         case wreath(level: Int)
     }
@@ -23,6 +25,8 @@ struct Badge: Hashable, Identifiable {
         case workouts = "Workouts"
         case streaks = "Streaks"
         case friends = "Friends"
+        case strength = "Strength"
+        case muscles = "Muscles"
         case special = "Special"
     }
 
@@ -81,7 +85,7 @@ struct Badge: Hashable, Identifiable {
 
 extension Badge {
 
-    static let all = workouts + streaks + friends + special
+    static let all = workouts + streaks + friends + strength + muscles + special
 
     private static let workouts = [3, 7, 10, 15, 20, 30, 40, 50, 75, 100].map { goal in
         Badge(
@@ -127,6 +131,103 @@ extension Badge {
             title: "\(goal) Friend\(goal == 1 ? "" : "s")"
         )
     }
+
+    private static let strength = [
+        Badge(
+            art: .symbol("trophy.fill"),
+            category: .strength,
+            detail: "Set your first personal record.",
+            goal: 1,
+            id: "strength-first-pr",
+            metric: .personalRecordsSet,
+            title: "First PR"
+        ),
+        Badge(
+            art: .symbol("bolt.fill"),
+            category: .strength,
+            detail: "Set \(Constants.Badges.prMachine) personal records.",
+            goal: Constants.Badges.prMachine,
+            id: "strength-pr-machine",
+            metric: .personalRecordsSet,
+            title: "PR Machine"
+        ),
+        Badge(
+            art: .symbol("square.stack.3d.up.fill"),
+            category: .strength,
+            detail: "Log a bench press, squat & deadlift.",
+            goal: Constants.Badges.bigThree.count,
+            id: "strength-big-three",
+            metric: .bigThreeLogged,
+            title: "Big Three"
+        )
+    ] + plateClubs + [
+        Badge(
+            art: .seal,
+            category: .strength,
+            detail: "Bench, squat & deadlift a combined \(Constants.Badges.bigThreeClub) lb.",
+            goal: Constants.Badges.bigThreeClub,
+            id: "strength-1000-club",
+            isLegendary: true,
+            metric: .bigThreeTotal,
+            number: Constants.Badges.bigThreeClub,
+            title: "1000 lb Club"
+        )
+    ]
+
+    private static let plateClubs = [
+        (1, Constants.PersonalRecords.onePlate),
+        (2, Constants.PersonalRecords.twoPlates),
+        (3, Constants.PersonalRecords.threePlates)
+    ].map { plates, weight in
+        Badge(
+            art: .seal,
+            category: .strength,
+            detail: "Lift \(Int(weight)) lb on any lift.",
+            goal: Int(weight),
+            id: "strength-plates-\(plates)",
+            isLegendary: plates == 3,
+            metric: .heaviestLift,
+            number: Int(weight),
+            title: "\(plates) Plate Club"
+        )
+    }
+
+    private static let muscles = [
+        (MuscleCategory.arm, "Gun Show", "arms"),
+        (MuscleCategory.back, "Back Attack", "back"),
+        (MuscleCategory.chest, "Chest Day", "chest"),
+        (MuscleCategory.shoulder, "Boulder Shoulders", "shoulders")
+    ].map { muscle, title, name in
+        Badge(
+            art: .muscle(muscle),
+            category: .muscles,
+            detail: "Train \(name) in \(Constants.Badges.muscleVisits) saved workouts.",
+            goal: Constants.Badges.muscleVisits,
+            id: "muscles-\(name)",
+            metric: .muscleDays(muscle),
+            title: title
+        )
+    } + [
+        Badge(
+            art: .muscle(.leg),
+            category: .muscles,
+            detail: "Train legs every week for \(Constants.Badges.legDayWeeks) weeks in a row.",
+            goal: Constants.Badges.legDayWeeks,
+            id: "muscles-leg-day",
+            metric: .legDayWeeks,
+            title: "Never Skips Leg Day"
+        ),
+        Badge(
+            art: .symbol("figure.strengthtraining.functional"),
+            category: .muscles,
+            detail: "Train arms, legs, back, chest & shoulders in one week.",
+            goal: 1,
+            id: "muscles-full-body",
+            isLegendary: true,
+            metric: .fullBodyWeeks,
+            title: "Full Body"
+        )
+    ]
 
     private static let special = [
         Badge(

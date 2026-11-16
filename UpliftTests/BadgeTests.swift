@@ -94,4 +94,57 @@ struct BadgeTests {
         #expect(try #require(badge("streaks-8")).number == 2)
     }
 
+    @Test func countsStrengthMilestonesFromRecords() {
+        func entry(_ weight: Double, day: Double) -> PersonalRecord.Entry {
+            PersonalRecord.Entry(date: Date(timeIntervalSince1970: day * 86_400), reps: 1, weight: weight)
+        }
+
+        let stats = BadgeStats(
+            friendCount: 0,
+            gymDays: 0,
+            longestStreakWeeks: 0,
+            records: [
+                PersonalRecord(
+                    lift: "Bench Press",
+                    entries: [entry(185, day: 1), entry(175, day: 2), entry(245, day: 3)]
+                ),
+                PersonalRecord(lift: "Squat", entries: [entry(315, day: 4)]),
+                PersonalRecord(lift: "Deadlift", entries: [entry(445, day: 5)])
+            ]
+        )
+
+        #expect(stats.value(for: .personalRecordsSet) == 4)
+        #expect(stats.value(for: .heaviestLift) == 445)
+        #expect(stats.value(for: .bigThreeLogged) == 3)
+        #expect(stats.value(for: .bigThreeTotal) == 1005)
+        #expect(stats.achievedDate(for: .heaviestLift, goal: 225) == entry(245, day: 3).date)
+    }
+
+    @Test func countsMuscleWeeks() throws {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = try #require(TimeZone(identifier: "America/New_York"))
+
+        func checkIn(_ day: Int, _ muscles: Set<MuscleCategory>) throws -> BadgeStats.CheckIn {
+            let date = try #require(calendar.date(from: DateComponents(year: 2026, month: 11, day: day, hour: 12)))
+            return BadgeStats.CheckIn(date: date, gymName: "Teagle", muscles: muscles)
+        }
+
+        let stats = BadgeStats(
+            friendCount: 0,
+            gymDays: 0,
+            longestStreakWeeks: 0,
+            checkIns: [
+                try checkIn(2, [.leg, .arm]),
+                try checkIn(4, [.back, .chest, .shoulder]),
+                try checkIn(10, [.leg]),
+                try checkIn(24, [.leg])
+            ],
+            calendar: calendar
+        )
+
+        #expect(stats.value(for: .muscleDays(.leg)) == 3)
+        #expect(stats.value(for: .legDayWeeks) == 2)
+        #expect(stats.value(for: .fullBodyWeeks) == 1)
+    }
+
 }

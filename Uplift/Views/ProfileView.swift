@@ -138,11 +138,27 @@ struct ProfileView: View {
             }
         }
         .onReceive(viewModel.$user) { user in
-            achievementsViewModel.update(user: user, friendCount: friendsViewModel.friends.count)
+            achievementsViewModel.update(
+                user: user,
+                friendCount: friendsViewModel.friends.count,
+                records: recordsViewModel.records
+            )
             celebrateUnseenBadge()
         }
         .onReceive(friendsViewModel.$friends) { friends in
-            achievementsViewModel.update(user: viewModel.user, friendCount: friends.count)
+            achievementsViewModel.update(
+                user: viewModel.user,
+                friendCount: friends.count,
+                records: recordsViewModel.records
+            )
+            celebrateUnseenBadge()
+        }
+        .onReceive(recordsViewModel.$records) { records in
+            achievementsViewModel.update(
+                user: viewModel.user,
+                friendCount: friendsViewModel.friends.count,
+                records: records
+            )
             celebrateUnseenBadge()
         }
         .showModal($viewModel.showDeleteAccountAlert) {
@@ -155,9 +171,8 @@ struct ProfileView: View {
     }
 
     private func celebrateUnseenBadge() {
-        guard selectedBadge == nil, let badge = achievementsViewModel.unseenBadge else { return }
+        guard selectedBadge == nil, let badge = achievementsViewModel.takeUnseenBadge() else { return }
 
-        achievementsViewModel.markSeen(badge)
         celebratedBadge = badge
         withAnimation {
             selectedBadge = badge

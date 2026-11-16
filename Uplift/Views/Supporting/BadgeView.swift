@@ -56,6 +56,10 @@ struct BadgeView: View {
                     shape("badge_flame_\(level)", numberOffset: 0.18)
                 case .gem(let level):
                     shape("badge_gem_\(level)", numberOffset: 0.06)
+                case .muscle(let muscle):
+                    gradientIcon(muscle.image.renderingMode(.template))
+                case .seal:
+                    seal
                 case .wreath(let level):
                     shape("badge_wreath_\(level)", numberOffset: 0)
                 case .symbol(let name):
@@ -81,8 +85,28 @@ struct BadgeView: View {
             }
     }
 
+    private var seal: some View {
+        Constants.Images.prSeal
+            .resizable()
+            .scaledToFit()
+            .overlay {
+                if let number = badge.number {
+                    Text("\(number)")
+                        .font(Constants.Badges.numberFont(for: size))
+                        .foregroundStyle(Constants.Colors.yellow)
+                        .minimumScaleFactor(0.5)
+                        .lineLimit(1)
+                        .padding(size * 0.2)
+                }
+            }
+    }
+
     private func symbol(_ name: String) -> some View {
-        Image(systemName: name)
+        gradientIcon(Image(systemName: name))
+    }
+
+    private func gradientIcon(_ image: Image) -> some View {
+        image
             .resizable()
             .scaledToFit()
             .padding(size * (1 - Constants.Badges.symbolScale) / 2)

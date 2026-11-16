@@ -35,15 +35,15 @@ extension AchievementsView {
         }
 
         var displayedBadges: [Badge] {
-            let hardest = earnedBadges
+            let earned = earnedBadges
+            let bestPerCategory = Badge.Category.allCases.compactMap { category in
+                earned.filter { $0.category == category }.max { tier(of: $0) < tier(of: $1) }
+            }
+            let rest = earned
+                .filter { !bestPerCategory.contains($0) }
                 .sorted { tier(of: $0) > tier(of: $1) }
-                .prefix(Constants.Badges.displayedCount)
-            return earnedBadges.filter(hardest.contains)
-        }
-
-        var unseenBadge: Badge? {
-            guard let seenBadgeIds else { return nil }
-            return earnedBadges.last { !seenBadgeIds.contains($0.id) }
+            let picked = (bestPerCategory + rest).prefix(Constants.Badges.displayedCount)
+            return earned.filter(picked.contains)
         }
 
         var nextBadge: Badge? {
@@ -54,7 +54,7 @@ extension AchievementsView {
 
         // MARK: - Functions
 
-        func update(user: User?, friendCount: Int) {
+        func update(user: User?, friendCount: Int, records: [PersonalRecord] = []) {
             guard let user else {
                 stats = BadgeStats(friendCount: 0, gymDays: 0, longestStreakWeeks: 0)
                 return
@@ -73,6 +73,7 @@ extension AchievementsView {
                         BadgeStats.CheckIn(date: $0, gymName: workout.gymName)
                     }
                 },
+                records: records,
                 isFoundingMember: defaults.bool(forKey: Constants.UserDefaultsKeys.foundingMember)
             )
             recordUndatedBadges()
@@ -81,8 +82,14 @@ extension AchievementsView {
             }
         }
 
-        func markSeen(_ badge: Badge) {
-            saveSeenBadges((seenBadgeIds ?? []).union([badge.id]))
+        func takeUnseenBadge() -> Badge? {
+            guard let seenBadgeIds else { return nil }
+
+            let unseen = earnedBadges.filter { !seenBadgeIds.contains($0.id) }
+            guard !unseen.isEmpty else { return nil }
+
+            saveSeenBadges(seenBadgeIds.union(unseen.map(\.id)))
+            return unseen.max { tier(of: $0) < tier(of: $1) }
         }
 
         func badges(in category: Badge.Category) -> [Badge] {

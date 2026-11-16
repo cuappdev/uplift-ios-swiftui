@@ -47,6 +47,7 @@ struct AchievementsTests {
         #expect(displayed.contains("workouts-100"))
         #expect(displayed.contains("streaks-26"))
         #expect(!displayed.contains("workouts-3"))
+        #expect(displayed.contains("friends-50"))
     }
 
     @Test func picksClosestBadgeAsNext() {
@@ -95,13 +96,12 @@ struct AchievementsTests {
         let viewModel = makeViewModel(now: .distantPast)
         viewModel.update(user: makeUser(gymDays: 3, streakWeeks: 0), friendCount: 0)
 
-        let founding = try #require(viewModel.unseenBadge)
-        #expect(founding.id == "special-founding")
-        viewModel.markSeen(founding)
-        #expect(viewModel.unseenBadge == nil)
+        #expect(viewModel.takeUnseenBadge()?.id == "special-founding")
+        #expect(viewModel.takeUnseenBadge() == nil)
 
-        viewModel.update(user: makeUser(gymDays: 7, streakWeeks: 0), friendCount: 0)
-        #expect(viewModel.unseenBadge?.id == "workouts-7")
+        viewModel.update(user: makeUser(gymDays: 20, streakWeeks: 0), friendCount: 0)
+        #expect(viewModel.takeUnseenBadge()?.id == "workouts-20")
+        #expect(viewModel.takeUnseenBadge() == nil)
     }
 
     @Test func clearsStatsWithoutUser() {

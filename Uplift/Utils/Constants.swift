@@ -523,7 +523,13 @@ struct Constants {
     }
 
     enum Badges {
+        static let bigThree: Set<String> = ["bench press", "squat", "deadlift"]
+        static let bigThreeClub = 1000
         static let comebackGapDays = 14
+        static let legDayWeeks = 4
+        static let muscleVisits = 10
+        static let prMachine = 10
+        static let trackedMuscles: Set<MuscleCategory> = [.arm, .back, .chest, .leg, .shoulder]
         static let earlyCheckInHour = 7
         static let foundingDeadline = DateComponents(
             calendar: .current,
