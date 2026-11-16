@@ -74,12 +74,21 @@ struct FriendsView: View {
     }
 
     private func friendRow(_ friend: Friend) -> some View {
-        HStack(spacing: Constants.Friends.rowSpacing) {
-            FriendAvatar(friend: friend)
+        NavigationLink {
+            FriendProfileView(friend: friend)
+        } label: {
+            HStack(spacing: Constants.Friends.rowSpacing) {
+                FriendAvatar(friend: friend)
 
-            Text(friend.name)
-                .foregroundStyle(Constants.Colors.black)
-                .font(Constants.Fonts.h3)
+                Text(friend.name)
+                    .foregroundStyle(Constants.Colors.black)
+                    .font(Constants.Fonts.h3)
+
+                Spacer()
+
+                Image(systemName: "chevron.right")
+                    .foregroundStyle(Constants.Colors.gray03)
+            }
         }
     }
 
