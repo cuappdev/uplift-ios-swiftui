@@ -14,6 +14,7 @@ struct FriendAvatar: View {
     // MARK: - Properties
 
     let friend: Friend
+    var size = Constants.Friends.avatarSize
 
     // MARK: - UI
 
@@ -28,7 +29,7 @@ struct FriendAvatar: View {
                 placeholder
             }
         }
-        .frame(width: Constants.Friends.avatarSize, height: Constants.Friends.avatarSize)
+        .frame(width: size, height: size)
         .clipShape(Circle())
     }
 

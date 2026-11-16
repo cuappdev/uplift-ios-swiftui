@@ -522,6 +522,12 @@ struct Constants {
         static let sectionSpacing: CGFloat = 20
     }
 
+    enum FriendProfile {
+        static let avatarSize: CGFloat = 80
+        static let headerSpacing: CGFloat = 16
+        static let sectionSpacing: CGFloat = 28
+    }
+
     enum Badges {
         static let bigThree: Set<String> = ["bench press", "squat", "deadlift"]
         static let bigThreeClub = 1000

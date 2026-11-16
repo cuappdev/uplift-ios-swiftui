@@ -10,12 +10,14 @@
 		A1F0C0DE4B5A4D6E8F901234 /* AddFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E1D0CF5C6B4E7F90A12345 /* AddFriendsView.swift */; };
 		C3F2E1D06D7C4F8091B23456 /* PushedScreenModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A3F2E17E8D4091A2C34567 /* PushedScreenModifier.swift */; };
 		A4014F77827D46F593C5C709 /* FriendAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A5EA8C110C4375A9E08DE3 /* FriendAvatar.swift */; };
+		D5AACF44930B4E5C81D49922 /* FriendProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676F7EED7BBC42F599736C88 /* FriendProfileView.swift */; };
 		0EF9F4FC70854DA79FB6F9D6 /* FriendsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B2CD5C5B445FE9C52CED5 /* FriendsTests.swift */; };
 		FC12817C8CB04538A5371D1C /* BadgeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CE5B24D78542528190C9A0 /* BadgeTests.swift */; };
 		5DF08DD48AC04B0C99FA9879 /* PersonalRecordTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB38DE607A54698B9C47743 /* PersonalRecordTests.swift */; };
 		308AFEFA6CC641CA87D9C4C1 /* AchievementsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CA3273984B4EF9B3300044 /* AchievementsTests.swift */; };
 		B5CCA989A9784ECEA7175562 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BC51F807984FD18DFA83DA /* FriendsView.swift */; };
 		5AA43B5D54FB4CF194D927FA /* FriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC158937A46240E786D1F9AC /* FriendsViewModel.swift */; };
+		5E7B6F7CA2034D60900B17CE /* FriendProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB5E7F2878F43B9A5B87455 /* FriendProfileViewModel.swift */; };
 		C94726B04C234C79AAFDE87B /* AchievementsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8C874D29CF441F28971ABAA /* AchievementsViewModel.swift */; };
 		61E1DA4E5B154FA49EABA6FA /* PersonalRecordsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FED55E578C45B795DE8A27 /* PersonalRecordsViewModel.swift */; };
 		214E58F5F4294A439312683D /* Friendship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6985561442924666BE123D4F /* Friendship.swift */; };
@@ -231,12 +233,14 @@
 		B2E1D0CF5C6B4E7F90A12345 /* AddFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendsView.swift; sourceTree = "<group>"; };
 		D4A3F2E17E8D4091A2C34567 /* PushedScreenModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushedScreenModifier.swift; sourceTree = "<group>"; };
 		66A5EA8C110C4375A9E08DE3 /* FriendAvatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendAvatar.swift; sourceTree = "<group>"; };
+		676F7EED7BBC42F599736C88 /* FriendProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfileView.swift; sourceTree = "<group>"; };
 		125B2CD5C5B445FE9C52CED5 /* FriendsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTests.swift; sourceTree = "<group>"; };
 		70CE5B24D78542528190C9A0 /* BadgeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeTests.swift; sourceTree = "<group>"; };
 		BBB38DE607A54698B9C47743 /* PersonalRecordTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalRecordTests.swift; sourceTree = "<group>"; };
 		22CA3273984B4EF9B3300044 /* AchievementsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsTests.swift; sourceTree = "<group>"; };
 		D3BC51F807984FD18DFA83DA /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		EC158937A46240E786D1F9AC /* FriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewModel.swift; sourceTree = "<group>"; };
+		1BB5E7F2878F43B9A5B87455 /* FriendProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfileViewModel.swift; sourceTree = "<group>"; };
 		F8C874D29CF441F28971ABAA /* AchievementsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsViewModel.swift; sourceTree = "<group>"; };
 		B3FED55E578C45B795DE8A27 /* PersonalRecordsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalRecordsViewModel.swift; sourceTree = "<group>"; };
 		6985561442924666BE123D4F /* Friendship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friendship.swift; sourceTree = "<group>"; };
@@ -478,6 +482,7 @@
 			children = (
 				B2E1D0CF5C6B4E7F90A12345 /* AddFriendsView.swift */,
 				66A5EA8C110C4375A9E08DE3 /* FriendAvatar.swift */,
+				676F7EED7BBC42F599736C88 /* FriendProfileView.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -600,6 +605,7 @@
 				293A20A12F467CED0012C74C /* SetGoalsViewModel.swift */,
 				135EEBA92EC7E5F70051AD5B /* WorkoutCheckInViewModel.swift */,
 				EC158937A46240E786D1F9AC /* FriendsViewModel.swift */,
+				1BB5E7F2878F43B9A5B87455 /* FriendProfileViewModel.swift */,
 				F8C874D29CF441F28971ABAA /* AchievementsViewModel.swift */,
 				B3FED55E578C45B795DE8A27 /* PersonalRecordsViewModel.swift */,
 				89C34AA02CA66E9000C579A5 /* CapacityRemindersViewModel.swift */,
@@ -1173,6 +1179,7 @@
 				C07CFEB42F6B5478005830D3 /* SettingsView.swift in Sources */,
 				135EEBAA2EC7E60B0051AD5B /* WorkoutCheckInViewModel.swift in Sources */,
 				5AA43B5D54FB4CF194D927FA /* FriendsViewModel.swift in Sources */,
+				5E7B6F7CA2034D60900B17CE /* FriendProfileViewModel.swift in Sources */,
 				C94726B04C234C79AAFDE87B /* AchievementsViewModel.swift in Sources */,
 				61E1DA4E5B154FA49EABA6FA /* PersonalRecordsViewModel.swift in Sources */,
 				2E39D8222B3B631200AD238B /* DividerLine.swift in Sources */,
@@ -1244,6 +1251,7 @@
 				899B186D2CA5FAFB00FAC061 /* ProfileView.swift in Sources */,
 				B5CCA989A9784ECEA7175562 /* FriendsView.swift in Sources */,
 				A4014F77827D46F593C5C709 /* FriendAvatar.swift in Sources */,
+				D5AACF44930B4E5C81D49922 /* FriendProfileView.swift in Sources */,
 				C3F2E1D06D7C4F8091B23456 /* PushedScreenModifier.swift in Sources */,
 				A1F0C0DE4B5A4D6E8F901234 /* AddFriendsView.swift in Sources */,
 				89599A502BD4B4B600DA44DE /* FitnessClassInstance.swift in Sources */,
