@@ -134,4 +134,30 @@ struct FriendsTests {
         #expect(viewModel.status(of: Friend(id: "7", encodedImage: nil, name: "Me", netId: "me1")) == .yourself)
     }
 
+    @Test func buildsFriendProfileStats() throws {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = try #require(TimeZone(identifier: "America/New_York"))
+        let now = try #require(calendar.date(from: DateComponents(year: 2026, month: 11, day: 13, hour: 12)))
+
+        func checkIn(_ day: Int, _ hour: Int = 12) throws -> BadgeStats.CheckIn {
+            let date = try #require(calendar.date(from: DateComponents(year: 2026, month: 11, day: day, hour: hour)))
+            return BadgeStats.CheckIn(date: date, gymName: "Noyes")
+        }
+
+        let profile = FriendProfile(
+            activeStreak: 2,
+            checkIns: [try checkIn(3), try checkIn(10), try checkIn(11, 8), try checkIn(11, 18)],
+            friend: makeFriend("Helen"),
+            friendCount: 5,
+            gymDays: 12,
+            maxStreak: 3,
+            workoutGoal: 4
+        )
+
+        #expect(profile.daysThisWeek(now: now, calendar: calendar) == 2)
+        #expect(profile.badgeStats.earnedBadges.contains { $0.id == "friends-5" })
+        #expect(profile.badgeStats.earnedBadges.contains { $0.id == "workouts-10" })
+        #expect(!profile.badgeStats.earnedBadges.contains { $0.id == "special-founding" })
+    }
+
 }

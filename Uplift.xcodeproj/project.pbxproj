@@ -20,6 +20,7 @@
 		61E1DA4E5B154FA49EABA6FA /* PersonalRecordsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FED55E578C45B795DE8A27 /* PersonalRecordsViewModel.swift */; };
 		214E58F5F4294A439312683D /* Friendship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6985561442924666BE123D4F /* Friendship.swift */; };
 		DBF787F9F9C849959D4F0950 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949A8DE48E784F47B63719C2 /* Friend.swift */; };
+		BF7DA0503A7048FE97271705 /* FriendProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B3BFF1BF0D4BE49E558645 /* FriendProfile.swift */; };
 		ECA00988FF3F4706A7B59A31 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B84D9EB0FC470BB2EB5D0F /* Badge.swift */; };
 		8C30CC155E6145B4972020E1 /* PersonalRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4B708C251D49149629FE06 /* PersonalRecord.swift */; };
 		32AF507E68574D7F9EF7D9FD /* BadgeStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247475FFCBBF40B4AFC69D34 /* BadgeStats.swift */; };
@@ -240,6 +241,7 @@
 		B3FED55E578C45B795DE8A27 /* PersonalRecordsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalRecordsViewModel.swift; sourceTree = "<group>"; };
 		6985561442924666BE123D4F /* Friendship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friendship.swift; sourceTree = "<group>"; };
 		949A8DE48E784F47B63719C2 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
+		19B3BFF1BF0D4BE49E558645 /* FriendProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfile.swift; sourceTree = "<group>"; };
 		53B84D9EB0FC470BB2EB5D0F /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
 		3A4B708C251D49149629FE06 /* PersonalRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalRecord.swift; sourceTree = "<group>"; };
 		247475FFCBBF40B4AFC69D34 /* BadgeStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeStats.swift; sourceTree = "<group>"; };
@@ -493,6 +495,7 @@
 				52B0584D3089787D0011E20D /* WorkoutReminder.swift */,
 				6985561442924666BE123D4F /* Friendship.swift */,
 				949A8DE48E784F47B63719C2 /* Friend.swift */,
+				19B3BFF1BF0D4BE49E558645 /* FriendProfile.swift */,
 				53B84D9EB0FC470BB2EB5D0F /* Badge.swift */,
 				3A4B708C251D49149629FE06 /* PersonalRecord.swift */,
 				247475FFCBBF40B4AFC69D34 /* BadgeStats.swift */,
@@ -1207,6 +1210,7 @@
 				52B0584E308978800011E20D /* WorkoutReminder.swift in Sources */,
 				214E58F5F4294A439312683D /* Friendship.swift in Sources */,
 				DBF787F9F9C849959D4F0950 /* Friend.swift in Sources */,
+				BF7DA0503A7048FE97271705 /* FriendProfile.swift in Sources */,
 				ECA00988FF3F4706A7B59A31 /* Badge.swift in Sources */,
 				8C30CC155E6145B4972020E1 /* PersonalRecord.swift in Sources */,
 				32AF507E68574D7F9EF7D9FD /* BadgeStats.swift in Sources */,

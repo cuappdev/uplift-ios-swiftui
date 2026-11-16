@@ -56,3 +56,20 @@ mutation RemoveFriend($friendId: Int!, $userId: Int!) {
     success
   }
 }
+
+query GetFriendProfile($netId: String) {
+  getUserByNetId(netId: $netId) {
+    ...friendFields
+    activeStreak
+    maxStreak
+    totalGymDays
+    workoutGoal
+    workoutHistory {
+      gymName
+      workoutTime
+    }
+    friends {
+      id
+    }
+  }
+}
