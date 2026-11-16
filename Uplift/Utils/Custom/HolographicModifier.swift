@@ -26,8 +26,9 @@ struct HolographicModifier: ViewModifier {
                         startPoint: UnitPoint(x: tilt.width - 0.5, y: tilt.height - 0.5),
                         endPoint: UnitPoint(x: tilt.width + 1.5, y: tilt.height + 1.5)
                     )
-                    .blendMode(.overlay)
                     .mask(content)
+                    .opacity(Constants.Holographic.sheenOpacity)
+                    .blendMode(.overlay)
                     .allowsHitTesting(false)
                 }
             }

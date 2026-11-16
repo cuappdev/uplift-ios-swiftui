@@ -13,8 +13,13 @@ struct AchievementsView: View {
     // MARK: - Properties
 
     @ObservedObject var viewModel: ViewModel
+    @ObservedObject var recordsViewModel: PersonalRecordsView.ViewModel
     let onShowAllBadges: () -> Void
     let onSelectBadge: (Badge) -> Void
+    let onShowRecords: () -> Void
+
+    @State private var editorLift = ""
+    @State private var showsEditor = false
 
     // MARK: - UI
 
@@ -33,6 +38,52 @@ struct AchievementsView: View {
             }
 
             nextBadgeCard
+
+            Button(action: onShowRecords) {
+                sectionHeader("My PR")
+            }
+            .padding(.top, Constants.Achievements.sectionSpacing)
+
+            if recordsViewModel.records.isEmpty {
+                emptyRecordsCard
+            } else {
+                PersonalRecordStack(viewModel: recordsViewModel) { record in
+                    editorLift = record.lift
+                    showsEditor = true
+                }
+            }
+        }
+        .sheet(isPresented: $showsEditor) {
+            PersonalRecordEditor(viewModel: recordsViewModel, lift: editorLift)
+        }
+    }
+
+    private var emptyRecordsCard: some View {
+        Button {
+            editorLift = ""
+            showsEditor = true
+        } label: {
+            HStack(spacing: Constants.Achievements.cardSpacing) {
+                Constants.Images.prSeal
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: Constants.Achievements.nextBadgeSize, height: Constants.Achievements.nextBadgeSize)
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Log your first PR")
+                        .font(Constants.Fonts.h3)
+                        .foregroundStyle(Constants.Colors.black)
+
+                    Text("Your card levels up at 135, 225 & 315 lb.")
+                        .font(Constants.Fonts.labelNormal)
+                        .foregroundStyle(Constants.Colors.gray04)
+                }
+
+                Spacer(minLength: 0)
+            }
+            .padding(Constants.Achievements.cardPadding)
+            .background(Constants.Colors.lightGray)
+            .clipShape(RoundedRectangle(cornerRadius: Constants.Achievements.cardCornerRadius))
         }
     }
 

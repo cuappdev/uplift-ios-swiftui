@@ -590,6 +590,7 @@ struct Constants {
         static let dragDistance: CGFloat = 120
         static let maxAngle = Double.pi / 6
         static let maxRotation: Double = 18
+        static let sheenOpacity = 0.8
         static let sheenColors: [Color] = [
             .clear,
             Color(red: 1, green: 0.55, blue: 0.85),
@@ -616,7 +617,13 @@ struct Constants {
         static let cardPadding: CGFloat = 20
         static let cardSize = CGSize(width: 229, height: 310)
         static let cardSpacing: CGFloat = 16
+        static let depthOffset: CGFloat = 36
+        static let depthScale: CGFloat = 0.04
+        static let dragMinimumDistance: CGFloat = 12
+        static let dragRotationDivisor: CGFloat = 25
         static let sealSize: CGFloat = 68
+        static let swipeThreshold: CGFloat = 90
+        static let visibleCards = 3
         static let updateHorizontalPadding: CGFloat = 24
         static let updateVerticalPadding: CGFloat = 8
 

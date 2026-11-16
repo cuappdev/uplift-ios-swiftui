@@ -24,11 +24,13 @@ struct ProfileView: View {
     @EnvironmentObject var tabBarProp: TabBarProperty
     @StateObject private var achievementsViewModel = AchievementsView.ViewModel()
     @StateObject private var friendsViewModel = FriendsView.ViewModel()
+    @StateObject private var recordsViewModel = PersonalRecordsView.ViewModel()
     @State private var celebratedBadge: Badge?
     @State private var selectedBadge: Badge?
     @State private var selectedTab = Tab.workouts
     @State private var showAddFriends = false
     @State private var showBadges = false
+    @State private var showRecords = false
     @State private var showFriends = false
     @State private var showSettings = false
     @State private var showImagePicker = false
@@ -67,7 +69,10 @@ struct ProfileView: View {
             .navigationDestination(isPresented: $showBadges) {
                 BadgesView(viewModel: achievementsViewModel)
             }
-            .onChange(of: showAddFriends || showFriends || showBadges) { isShowing in
+            .navigationDestination(isPresented: $showRecords) {
+                PersonalRecordsView(viewModel: recordsViewModel)
+            }
+            .onChange(of: showAddFriends || showFriends || showBadges || showRecords) { isShowing in
                 if !isShowing {
                     withAnimation(.easeIn(duration: 0.1)) {
                         tabBarProp.hidden = false
@@ -358,6 +363,7 @@ struct ProfileView: View {
                 case .achievements:
                     AchievementsView(
                         viewModel: achievementsViewModel,
+                        recordsViewModel: recordsViewModel,
                         onShowAllBadges: {
                             showBadges = true
                             hideTabBar()
@@ -366,6 +372,10 @@ struct ProfileView: View {
                             withAnimation {
                                 selectedBadge = badge
                             }
+                        },
+                        onShowRecords: {
+                            showRecords = true
+                            hideTabBar()
                         }
                     )
                     .padding(.bottom, CGFloat(Constants.Profile.radius))

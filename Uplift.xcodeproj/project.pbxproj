@@ -186,6 +186,7 @@
 		FCA2E2022AB8484FA32AE065 /* BadgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC448464CBDE475BB375BECE /* BadgesView.swift */; };
 		03374607A5A3452AB2FD6889 /* PersonalRecordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBCF8B0AC7E4A1491EA54D0 /* PersonalRecordsView.swift */; };
 		B36ED34EB0384024BE70FE91 /* PersonalRecordCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18755C0E76A0471A9717745B /* PersonalRecordCard.swift */; };
+		A9A486009E5D4D3893E2F842 /* PersonalRecordStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EB8E11BB794F148A17D50B /* PersonalRecordStack.swift */; };
 		E7493F49C695440F890847F1 /* PersonalRecordEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785ACE97495549A692F829C2 /* PersonalRecordEditor.swift */; };
 		944319E46CA54E06922C7165 /* BadgeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464067922C4F457EB692C3A5 /* BadgeDetailView.swift */; };
 		3DAA719150EA4069896F25B9 /* BadgeShareCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE40C2AB66C4C09B698420A /* BadgeShareCard.swift */; };
@@ -396,6 +397,7 @@
 		BC448464CBDE475BB375BECE /* BadgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesView.swift; sourceTree = "<group>"; };
 		3DBCF8B0AC7E4A1491EA54D0 /* PersonalRecordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalRecordsView.swift; sourceTree = "<group>"; };
 		18755C0E76A0471A9717745B /* PersonalRecordCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalRecordCard.swift; sourceTree = "<group>"; };
+		21EB8E11BB794F148A17D50B /* PersonalRecordStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalRecordStack.swift; sourceTree = "<group>"; };
 		785ACE97495549A692F829C2 /* PersonalRecordEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalRecordEditor.swift; sourceTree = "<group>"; };
 		464067922C4F457EB692C3A5 /* BadgeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeDetailView.swift; sourceTree = "<group>"; };
 		4DE40C2AB66C4C09B698420A /* BadgeShareCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeShareCard.swift; sourceTree = "<group>"; };
@@ -874,6 +876,7 @@
 				BC448464CBDE475BB375BECE /* BadgesView.swift */,
 				3DBCF8B0AC7E4A1491EA54D0 /* PersonalRecordsView.swift */,
 				18755C0E76A0471A9717745B /* PersonalRecordCard.swift */,
+				21EB8E11BB794F148A17D50B /* PersonalRecordStack.swift */,
 				785ACE97495549A692F829C2 /* PersonalRecordEditor.swift */,
 				464067922C4F457EB692C3A5 /* BadgeDetailView.swift */,
 				4DE40C2AB66C4C09B698420A /* BadgeShareCard.swift */,
@@ -1171,6 +1174,7 @@
 				FCA2E2022AB8484FA32AE065 /* BadgesView.swift in Sources */,
 				03374607A5A3452AB2FD6889 /* PersonalRecordsView.swift in Sources */,
 				B36ED34EB0384024BE70FE91 /* PersonalRecordCard.swift in Sources */,
+				A9A486009E5D4D3893E2F842 /* PersonalRecordStack.swift in Sources */,
 				E7493F49C695440F890847F1 /* PersonalRecordEditor.swift in Sources */,
 				944319E46CA54E06922C7165 /* BadgeDetailView.swift in Sources */,
 				3DAA719150EA4069896F25B9 /* BadgeShareCard.swift in Sources */,
