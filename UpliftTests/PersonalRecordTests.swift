@@ -59,4 +59,21 @@ struct PersonalRecordTests {
         #expect(reloaded.records.first?.best?.weight == 205)
     }
 
+    @MainActor @Test func describesProgressSinceFirstSet() throws {
+        let defaults = try #require(UserDefaults(suiteName: UUID().uuidString))
+        var day = 0.0
+        let viewModel = PersonalRecordsView.ViewModel(defaults: defaults) {
+            day += 1
+            return Date(timeIntervalSince1970: day * 86_400)
+        }
+
+        viewModel.log(lift: "Bench Press", weight: 185, reps: 5)
+        let single = try #require(viewModel.records.first)
+        #expect(viewModel.progressText(of: single) == "Log more sets to see your progress")
+
+        viewModel.log(lift: "Bench Press", weight: 225, reps: 1)
+        let record = try #require(viewModel.records.first)
+        #expect(viewModel.progressText(of: record).hasPrefix("+40 lb since"))
+    }
+
 }

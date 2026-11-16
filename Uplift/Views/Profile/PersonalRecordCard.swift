@@ -6,6 +6,7 @@
 //  Copyright © 2026 Cornell AppDev. All rights reserved.
 //
 
+import Charts
 import SwiftUI
 
 struct PersonalRecordCard: View {
@@ -14,8 +15,11 @@ struct PersonalRecordCard: View {
 
     let record: PersonalRecord
     let bestText: String
+    let progressText: String
     var tilt: CGSize = .zero
     let onUpdate: () -> Void
+
+    @State private var isFlipped = false
 
     private var isDark: Bool {
         record.tier == .starter
@@ -24,6 +28,27 @@ struct PersonalRecordCard: View {
     // MARK: - UI
 
     var body: some View {
+        ZStack {
+            front
+                .opacity(isFlipped ? 0 : 1)
+
+            back
+                .opacity(isFlipped ? 1 : 0)
+                .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
+        }
+        .padding(Constants.PersonalRecords.cardPadding)
+        .frame(width: Constants.PersonalRecords.cardSize.width, height: Constants.PersonalRecords.cardSize.height)
+        .background(background)
+        .rotation3DEffect(.degrees(isFlipped ? 180 : 0), axis: (x: 0, y: 1, z: 0))
+        .holographic(tilt: tilt, showsSheen: record.tier == .threePlates)
+        .onTapGesture {
+            withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
+                isFlipped.toggle()
+            }
+        }
+    }
+
+    private var front: some View {
         VStack(spacing: Constants.PersonalRecords.cardSpacing) {
             seal
 
@@ -40,10 +65,43 @@ struct PersonalRecordCard: View {
 
             updateButton
         }
-        .padding(Constants.PersonalRecords.cardPadding)
-        .frame(width: Constants.PersonalRecords.cardSize.width, height: Constants.PersonalRecords.cardSize.height)
-        .background(background)
-        .holographic(tilt: tilt, showsSheen: record.tier == .threePlates)
+    }
+
+    private var back: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(record.lift)
+                .font(Constants.Fonts.h2)
+                .foregroundStyle(textColor)
+
+            Chart(record.history, id: \.date) { entry in
+                LineMark(x: .value("Date", entry.date), y: .value("Weight", entry.weight))
+                    .interpolationMethod(.catmullRom)
+                PointMark(x: .value("Date", entry.date), y: .value("Weight", entry.weight))
+            }
+            .foregroundStyle(textColor)
+            .chartYScale(domain: .automatic(includesZero: false))
+            .chartXAxis {
+                AxisMarks(values: .automatic(desiredCount: 3)) { _ in
+                    AxisValueLabel(format: .dateTime.month(.abbreviated))
+                        .foregroundStyle(textColor)
+                }
+            }
+            .chartYAxis {
+                AxisMarks(position: .leading, values: .automatic(desiredCount: 3)) { _ in
+                    AxisGridLine()
+                    AxisValueLabel()
+                        .foregroundStyle(textColor)
+                }
+            }
+
+            Text(progressText)
+                .font(Constants.Fonts.labelBold)
+                .foregroundStyle(textColor)
+        }
+    }
+
+    private var textColor: Color {
+        isDark ? Constants.Colors.yellow : Constants.Colors.black
     }
 
     private var seal: some View {

@@ -65,6 +65,16 @@ extension PersonalRecordsView {
             return "\(best.weight.formatted()) lb / \(best.reps) rep\(best.reps == 1 ? "" : "s")"
         }
 
+        func progressText(of record: PersonalRecord) -> String {
+            guard let first = record.history.first, let best = record.best, record.entries.count > 1 else {
+                return "Log more sets to see your progress"
+            }
+
+            let gain = best.weight - first.weight
+            let since = first.date.formatted(.dateTime.month(.abbreviated).day())
+            return gain > 0 ? "+\(gain.formatted()) lb since \(since)" : "Holding strong since \(since)"
+        }
+
         private func load() {
             guard let data = defaults.data(forKey: Constants.UserDefaultsKeys.personalRecords) else { return }
 

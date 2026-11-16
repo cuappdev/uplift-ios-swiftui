@@ -44,6 +44,7 @@ struct PersonalRecordStack: View {
         return PersonalRecordCard(
             record: record,
             bestText: viewModel.bestText(of: record),
+            progressText: viewModel.progressText(of: record),
             tilt: isTop ? tilt : .zero
         ) {
             onUpdate(record)
