@@ -71,8 +71,16 @@ struct Badge: Hashable, Identifiable {
 
     // MARK: - Functions
 
+    var tier: Int {
+        Badge.all.filter { $0.category == category }.firstIndex(of: self) ?? 0
+    }
+
     func progress(in stats: BadgeStats) -> Int {
         min(stats.value(for: metric), goal)
+    }
+
+    func progressFraction(in stats: BadgeStats) -> Double {
+        Double(progress(in: stats)) / Double(goal)
     }
 
     func isEarned(in stats: BadgeStats) -> Bool {
@@ -86,6 +94,17 @@ struct Badge: Hashable, Identifiable {
 extension Badge {
 
     static let all = workouts + streaks + friends + strength + muscles + special
+
+    static func showcase(of earned: [Badge]) -> [Badge] {
+        let bestPerCategory = Category.allCases.compactMap { category in
+            earned.filter { $0.category == category }.max { $0.tier < $1.tier }
+        }
+        let rest = earned
+            .filter { !bestPerCategory.contains($0) }
+            .sorted { $0.tier > $1.tier }
+        let picked = (bestPerCategory + rest).prefix(Constants.Badges.displayedCount)
+        return earned.filter(picked.contains)
+    }
 
     private static let workouts = [3, 7, 10, 15, 20, 30, 40, 50, 75, 100].map { goal in
         Badge(

@@ -31,19 +31,11 @@ extension AchievementsView {
         }
 
         var earnedBadges: [Badge] {
-            Badge.all.filter(isEarned)
+            stats.earnedBadges
         }
 
         var displayedBadges: [Badge] {
-            let earned = earnedBadges
-            let bestPerCategory = Badge.Category.allCases.compactMap { category in
-                earned.filter { $0.category == category }.max { tier(of: $0) < tier(of: $1) }
-            }
-            let rest = earned
-                .filter { !bestPerCategory.contains($0) }
-                .sorted { tier(of: $0) > tier(of: $1) }
-            let picked = (bestPerCategory + rest).prefix(Constants.Badges.displayedCount)
-            return earned.filter(picked.contains)
+            Badge.showcase(of: earnedBadges)
         }
 
         var nextBadge: Badge? {
@@ -89,7 +81,7 @@ extension AchievementsView {
             guard !unseen.isEmpty else { return nil }
 
             saveSeenBadges(seenBadgeIds.union(unseen.map(\.id)))
-            return unseen.max { tier(of: $0) < tier(of: $1) }
+            return unseen.max { $0.tier < $1.tier }
         }
 
         func badges(in category: Badge.Category) -> [Badge] {
@@ -105,7 +97,7 @@ extension AchievementsView {
         }
 
         func progress(of badge: Badge) -> Double {
-            Double(badge.progress(in: stats)) / Double(badge.goal)
+            badge.progressFraction(in: stats)
         }
 
         func remaining(for badge: Badge) -> Int {
@@ -139,10 +131,6 @@ extension AchievementsView {
         private func saveSeenBadges(_ ids: Set<String>) {
             seenBadgeIds = ids
             defaults.set(Array(ids), forKey: Constants.UserDefaultsKeys.seenBadges)
-        }
-
-        private func tier(of badge: Badge) -> Int {
-            badges(in: badge.category).firstIndex(of: badge) ?? 0
         }
 
     }

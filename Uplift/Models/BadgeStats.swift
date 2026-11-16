@@ -86,6 +86,10 @@ struct BadgeStats: Hashable {
         liftEntries = records.flatMap(\.entries).sorted { $0.date < $1.date }
     }
 
+    var earnedBadges: [Badge] {
+        Badge.all.filter { $0.isEarned(in: self) }
+    }
+
     // MARK: - Functions
 
     func achievedDate(for metric: Metric, goal: Int) -> Date? {

@@ -54,7 +54,7 @@ struct BadgesView: View {
                 .font(Constants.Fonts.h2)
                 .foregroundStyle(Constants.Colors.black)
 
-            BadgeGrid(badges: badges, viewModel: viewModel) { badge in
+            BadgeGrid(badges: badges, stats: viewModel.stats) { badge in
                 withAnimation {
                     selectedBadge = badge
                 }

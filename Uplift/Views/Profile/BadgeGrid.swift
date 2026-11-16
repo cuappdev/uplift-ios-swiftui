@@ -13,8 +13,8 @@ struct BadgeGrid: View {
     // MARK: - Properties
 
     let badges: [Badge]
-    @ObservedObject var viewModel: AchievementsView.ViewModel
-    let onSelect: (Badge) -> Void
+    let stats: BadgeStats
+    var onSelect: ((Badge) -> Void)?
 
     // MARK: - UI
 
@@ -25,15 +25,16 @@ struct BadgeGrid: View {
         ) {
             ForEach(badges) { badge in
                 Button {
-                    onSelect(badge)
+                    onSelect?(badge)
                 } label: {
                     BadgeView(
                         badge: badge,
-                        isEarned: viewModel.isEarned(badge),
-                        progress: viewModel.progress(of: badge)
+                        isEarned: badge.isEarned(in: stats),
+                        progress: badge.progressFraction(in: stats)
                     )
                 }
                 .buttonStyle(ScaleButtonStyle())
+                .disabled(onSelect == nil)
             }
         }
     }

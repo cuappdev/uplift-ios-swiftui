@@ -33,7 +33,7 @@ struct AchievementsView: View {
                     .font(Constants.Fonts.bodyNormal)
                     .foregroundStyle(Constants.Colors.gray04)
             } else {
-                BadgeGrid(badges: viewModel.displayedBadges, viewModel: viewModel, onSelect: onSelectBadge)
+                BadgeGrid(badges: viewModel.displayedBadges, stats: viewModel.stats, onSelect: onSelectBadge)
             }
 
             nextBadgeCard
