@@ -642,11 +642,17 @@ struct Constants {
             Color(red: 1, green: 222 / 255, blue: 170 / 255)
         ]
 
-        static let editorSpacing: CGFloat = 16
-        static let editorTopPadding: CGFloat = 12
+        static let chipCornerRadius: CGFloat = 8
+        static let chipHorizontalPadding: CGFloat = 12
+        static let chipSpacing: CGFloat = 8
+        static let chipVerticalPadding: CGFloat = 8
+        static let editorSpacing: CGFloat = 24
         static let emptyIconSize: CGFloat = 40
-        static let repsWidth: CGFloat = 64
+        static let fieldSpacing: CGFloat = 12
+        static let headerPadding: CGFloat = 16
+        static let repsWidth: CGFloat = 48
         static let saveVerticalPadding: CGFloat = 14
+        static let saveWidth: CGFloat = 208
         static let stepSize: CGFloat = 36
         static let suggestedLifts = ["Bench Press", "Squat", "Deadlift", "Overhead Press", "Pull Up"]
         static let rowIconSize: CGFloat = 36

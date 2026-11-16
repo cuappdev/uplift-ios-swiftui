@@ -18,8 +18,7 @@ struct AchievementsView: View {
     let onSelectBadge: (Badge) -> Void
     let onShowRecords: () -> Void
 
-    @State private var editorLift = ""
-    @State private var showsEditor = false
+    @State private var editorRequest: PersonalRecordEditor.Request?
 
     // MARK: - UI
 
@@ -48,20 +47,18 @@ struct AchievementsView: View {
                 emptyRecordsCard
             } else {
                 PersonalRecordStack(viewModel: recordsViewModel) { record in
-                    editorLift = record.lift
-                    showsEditor = true
+                    editorRequest = PersonalRecordEditor.Request(lift: record.lift)
                 }
             }
         }
-        .sheet(isPresented: $showsEditor) {
-            PersonalRecordEditor(viewModel: recordsViewModel, lift: editorLift)
+        .fullScreenCover(item: $editorRequest) { request in
+            PersonalRecordEditor(viewModel: recordsViewModel, lift: request.lift)
         }
     }
 
     private var emptyRecordsCard: some View {
         Button {
-            editorLift = ""
-            showsEditor = true
+            editorRequest = PersonalRecordEditor.Request(lift: "")
         } label: {
             HStack(spacing: Constants.Achievements.cardSpacing) {
                 Constants.Images.prSeal

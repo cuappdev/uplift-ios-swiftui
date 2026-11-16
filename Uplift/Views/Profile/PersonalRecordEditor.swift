@@ -10,6 +10,13 @@ import SwiftUI
 
 struct PersonalRecordEditor: View {
 
+    // MARK: - Types
+
+    struct Request: Identifiable {
+        let id = UUID()
+        let lift: String
+    }
+
     // MARK: - Properties
 
     @Environment(\.dismiss) private var dismiss
@@ -30,94 +37,118 @@ struct PersonalRecordEditor: View {
     // MARK: - UI
 
     var body: some View {
-        VStack(alignment: .leading, spacing: Constants.PersonalRecords.editorSpacing) {
-            Text("Log a PR")
-                .font(Constants.Fonts.h1)
-                .foregroundStyle(Constants.Colors.black)
+        VStack(spacing: 0) {
+            header
 
-            liftField
-            suggestions
-
-            HStack(spacing: Constants.PersonalRecords.editorSpacing) {
-                weightField
-                repsStepper
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(alignment: .leading, spacing: Constants.PersonalRecords.editorSpacing) {
+                    liftSection
+                    DividerLine()
+                    weightSection
+                    repsSection
+                }
+                .padding(.horizontal, Constants.Padding.homeHorizontal)
+                .padding(.vertical, Constants.PersonalRecords.editorSpacing)
             }
-
-            Spacer(minLength: 0)
 
             saveButton
         }
-        .padding(Constants.Padding.homeHorizontal)
-        .padding(.top, Constants.PersonalRecords.editorTopPadding)
-        .presentationDetents([.medium])
+        .background(Constants.Colors.white)
     }
 
-    private var liftField: some View {
-        TextField("Lift", text: $lift)
-            .font(Constants.Fonts.f2)
-            .padding(Constants.Friends.searchPadding)
-            .background(Constants.Colors.gray00)
-            .clipShape(RoundedRectangle(cornerRadius: Constants.Friends.searchCornerRadius))
+    private var header: some View {
+        ZStack {
+            Text("Log a PR")
+                .font(Constants.Fonts.h2)
+                .foregroundStyle(Constants.Colors.black)
+
+            HStack {
+                Button {
+                    dismiss()
+                } label: {
+                    Constants.Images.chevronDown
+                        .resizable()
+                        .scaledToFit()
+                        .frame(
+                            width: Constants.PushedScreen.backButtonSize,
+                            height: Constants.PushedScreen.backButtonSize
+                        )
+                        .foregroundStyle(Constants.Colors.black)
+                }
+
+                Spacer()
+            }
+        }
+        .padding(.horizontal, Constants.Padding.homeHorizontal)
+        .padding(.vertical, Constants.PersonalRecords.headerPadding)
+        .overlay(alignment: .bottom) {
+            DividerLine()
+        }
+    }
+
+    private var liftSection: some View {
+        VStack(alignment: .leading, spacing: Constants.PersonalRecords.fieldSpacing) {
+            label("Lift")
+            underlined(TextField("Name your lift", text: $lift))
+            suggestions
+        }
     }
 
     private var suggestions: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 8) {
-                ForEach(Constants.PersonalRecords.suggestedLifts, id: \.self) { suggestion in
-                    Button(suggestion) {
-                        lift = suggestion
-                    }
-                    .font(Constants.Fonts.labelSemibold)
-                    .foregroundStyle(Constants.Colors.black)
-                    .padding(.horizontal, Constants.Friends.buttonHorizontalPadding)
-                    .padding(.vertical, Constants.Friends.buttonVerticalPadding)
-                    .background(lift == suggestion ? Constants.Colors.yellow : Constants.Colors.gray00)
-                    .clipShape(Capsule())
+        FlowLayout(spacing: Constants.PersonalRecords.chipSpacing) {
+            ForEach(Constants.PersonalRecords.suggestedLifts, id: \.self) { suggestion in
+                Button {
+                    lift = suggestion
+                } label: {
+                    Text(suggestion)
+                        .font(Constants.Fonts.bodyMedium)
+                        .foregroundStyle(Constants.Colors.black)
+                        .padding(.horizontal, Constants.PersonalRecords.chipHorizontalPadding)
+                        .padding(.vertical, Constants.PersonalRecords.chipVerticalPadding)
+                        .background(lift == suggestion ? Constants.Colors.yellow : Constants.Colors.white)
+                        .clipShape(RoundedRectangle(cornerRadius: Constants.PersonalRecords.chipCornerRadius))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: Constants.PersonalRecords.chipCornerRadius)
+                                .stroke(Constants.Colors.gray04, lineWidth: 1)
+                        )
                 }
             }
         }
     }
 
-    private var weightField: some View {
-        HStack {
-            TextField("Weight", text: $weightText)
-                .keyboardType(.decimalPad)
-                .font(Constants.Fonts.f2)
+    private var weightSection: some View {
+        VStack(alignment: .leading, spacing: Constants.PersonalRecords.fieldSpacing) {
+            label("Weight")
+            underlined(
+                HStack {
+                    TextField("0", text: $weightText)
+                        .keyboardType(.decimalPad)
 
-            Text("lb")
-                .font(Constants.Fonts.f2)
-                .foregroundStyle(Constants.Colors.gray04)
+                    Text("lb")
+                        .foregroundStyle(Constants.Colors.gray04)
+                }
+            )
         }
-        .padding(Constants.Friends.searchPadding)
-        .background(Constants.Colors.gray00)
-        .clipShape(RoundedRectangle(cornerRadius: Constants.Friends.searchCornerRadius))
     }
 
-    private var repsStepper: some View {
-        HStack(spacing: 12) {
+    private var repsSection: some View {
+        HStack {
+            label("Reps")
+
+            Spacer()
+
             stepButton("minus") {
                 reps = max(1, reps - 1)
             }
 
-            Text("\(reps) rep\(reps == 1 ? "" : "s")")
-                .font(Constants.Fonts.f2)
+            Text("\(reps)")
+                .font(Constants.Fonts.h2)
                 .monospacedDigit()
                 .frame(minWidth: Constants.PersonalRecords.repsWidth)
 
             stepButton("plus") {
                 reps += 1
             }
-        }
-    }
-
-    private func stepButton(_ symbol: String, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            Image(systemName: symbol)
-                .font(Constants.Fonts.h3)
-                .foregroundStyle(Constants.Colors.black)
-                .frame(width: Constants.PersonalRecords.stepSize, height: Constants.PersonalRecords.stepSize)
-                .background(Constants.Colors.gray00)
-                .clipShape(Circle())
         }
     }
 
@@ -130,12 +161,43 @@ struct PersonalRecordEditor: View {
             Text("Save")
                 .font(Constants.Fonts.h2)
                 .foregroundStyle(Constants.Colors.black)
-                .frame(maxWidth: .infinity)
+                .frame(width: Constants.PersonalRecords.saveWidth)
                 .padding(.vertical, Constants.PersonalRecords.saveVerticalPadding)
                 .background(canSave ? Constants.Colors.yellow : Constants.Colors.gray01)
                 .clipShape(Capsule())
+                .shadow(color: Constants.Colors.black.opacity(0.15), radius: 4, y: 2)
         }
         .disabled(!canSave)
+        .padding(.bottom, Constants.PersonalRecords.editorSpacing)
+    }
+
+    // MARK: - Supporting
+
+    private func label(_ text: String) -> some View {
+        Text(text)
+            .font(Constants.Fonts.f2Regular)
+            .foregroundStyle(Constants.Colors.gray04)
+    }
+
+    private func underlined<Content: View>(_ content: Content) -> some View {
+        content
+            .font(Constants.Fonts.f2Regular)
+            .padding(.bottom, 4)
+            .overlay(alignment: .bottom) {
+                Rectangle()
+                    .fill(Constants.Colors.gray02)
+                    .frame(height: 1)
+            }
+    }
+
+    private func stepButton(_ symbol: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Image(systemName: symbol)
+                .font(Constants.Fonts.h3)
+                .foregroundStyle(Constants.Colors.black)
+                .frame(width: Constants.PersonalRecords.stepSize, height: Constants.PersonalRecords.stepSize)
+                .overlay(Circle().stroke(Constants.Colors.gray04, lineWidth: 1))
+        }
     }
 
 }

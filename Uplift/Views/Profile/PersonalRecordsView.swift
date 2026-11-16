@@ -13,8 +13,7 @@ struct PersonalRecordsView: View {
     // MARK: - Properties
 
     @ObservedObject var viewModel: ViewModel
-    @State private var editorLift = ""
-    @State private var showsEditor = false
+    @State private var editorRequest: PersonalRecordEditor.Request?
 
     // MARK: - UI
 
@@ -24,8 +23,8 @@ struct PersonalRecordsView: View {
             logButton
         }
         .pushedScreen(title: "My PRs")
-        .sheet(isPresented: $showsEditor) {
-            PersonalRecordEditor(viewModel: viewModel, lift: editorLift)
+        .fullScreenCover(item: $editorRequest) { request in
+            PersonalRecordEditor(viewModel: viewModel, lift: request.lift)
         }
     }
 
@@ -45,8 +44,7 @@ struct PersonalRecordsView: View {
     }
 
     private func openEditor(lift: String) {
-        editorLift = lift
-        showsEditor = true
+        editorRequest = PersonalRecordEditor.Request(lift: lift)
     }
 
     @ViewBuilder
