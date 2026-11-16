@@ -17,6 +17,7 @@ struct PersonalRecordCard: View {
     let bestText: String
     let progressText: String
     var tilt: CGSize = .zero
+    var showsUpdate = true
     let onUpdate: () -> Void
 
     @State private var isFlipped = false
@@ -63,7 +64,9 @@ struct PersonalRecordCard: View {
                 .font(Constants.Fonts.f2)
                 .foregroundStyle(isDark ? Constants.Colors.gray02 : Constants.Colors.black.opacity(0.75))
 
-            updateButton
+            if showsUpdate {
+                updateButton
+            }
         }
     }
 

@@ -127,6 +127,21 @@ struct ProfileView: View {
             }
             friendsViewModel.fetchFriends()
         }
+        .overlay {
+            if let record = recordsViewModel.celebratedRecord {
+                PersonalRecordCelebration(record: record, viewModel: recordsViewModel) {
+                    withAnimation(.easeOut(duration: 0.2)) {
+                        recordsViewModel.celebratedRecord = nil
+                    }
+                }
+                .transition(.opacity)
+            }
+        }
+        .onChange(of: recordsViewModel.celebratedRecord) { record in
+            withAnimation(.easeIn(duration: 0.1)) {
+                tabBarProp.hidden = record != nil || showRecords
+            }
+        }
         .badgeDetail(
             $selectedBadge,
             viewModel: achievementsViewModel,
