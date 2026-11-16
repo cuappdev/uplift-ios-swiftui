@@ -13,6 +13,7 @@ import OSLog
 protocol WorkoutActivityManaging {
     func start(_ workout: ActiveWorkout)
     func finish(at date: Date)
+    func cancel()
 }
 
 @MainActor
@@ -29,11 +30,7 @@ class WorkoutActivityManager: WorkoutActivityManaging {
     func start(_ workout: ActiveWorkout) {
         guard #available(iOS 16.2, *), ActivityAuthorizationInfo().areActivitiesEnabled else { return }
 
-        for activity in Activity<WorkoutActivityAttributes>.activities {
-            Task {
-                await activity.end(nil, dismissalPolicy: .immediate)
-            }
-        }
+        cancel()
 
         do {
             _ = try Activity.request(
@@ -58,6 +55,16 @@ class WorkoutActivityManager: WorkoutActivityManaging {
         for activity in Activity<WorkoutActivityAttributes>.activities {
             Task {
                 await activity.end(content, dismissalPolicy: .after(dismissal))
+            }
+        }
+    }
+
+    func cancel() {
+        guard #available(iOS 16.2, *) else { return }
+
+        for activity in Activity<WorkoutActivityAttributes>.activities {
+            Task {
+                await activity.end(nil, dismissalPolicy: .immediate)
             }
         }
     }
