@@ -49,7 +49,9 @@ struct UpliftApp: App {
                 )
                 .environmentObject(mainViewModel)
                 .onOpenURL { url in
-                    GIDSignIn.sharedInstance.handle(url)
+                    if !mainViewModel.handle(url) {
+                        GIDSignIn.sharedInstance.handle(url)
+                    }
                 }
             }
             .onAppear {

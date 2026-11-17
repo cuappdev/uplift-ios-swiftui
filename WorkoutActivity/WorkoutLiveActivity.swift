@@ -20,8 +20,10 @@ struct WorkoutLiveActivity: Widget {
             WorkoutLockScreenView(context: context)
                 .activityBackgroundTint(Constants.Colors.black)
                 .activitySystemActionForegroundColor(Constants.Colors.yellow)
+                .widgetURL(Constants.WorkoutActivity.url)
         } dynamicIsland: { context in
             WorkoutDynamicIsland(context: context).island
+                .widgetURL(Constants.WorkoutActivity.url)
         }
     }
 

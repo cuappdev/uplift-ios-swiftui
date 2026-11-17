@@ -287,6 +287,7 @@ struct Constants {
         static let progressSpacing: CGFloat = 6
         static let spacing: CGFloat = 12
         static let timerWidth: CGFloat = 120
+        static let url = URL(string: "uplift://workout")
     }
 
     enum WorkoutInProgress {

@@ -97,6 +97,11 @@ extension WorkoutInProgressView {
             finish(at: now)
         }
 
+        func expandIfActive() {
+            finishIfExpired(at: now())
+            isExpanded = activeWorkout != nil
+        }
+
         func discard() {
             activeWorkout = nil
             expanded = false

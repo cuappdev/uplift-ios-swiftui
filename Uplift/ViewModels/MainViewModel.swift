@@ -85,6 +85,12 @@ extension MainView {
             sessionState = .signedOut
         }
 
+        func handle(_ url: URL) -> Bool {
+            guard url == Constants.WorkoutActivity.url else { return false }
+            workoutViewModel.expandIfActive()
+            return true
+        }
+
         /// Enters guest mode, remembering it across launches only when the user asked not to see sign-in again.
         func didSkip(remember: Bool) {
             sessionState = .guest

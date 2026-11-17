@@ -288,4 +288,15 @@ struct WorkoutInProgressTests {
         #expect(activityManager.events.isEmpty)
     }
 
+    @Test("opening from the live activity expands a running workout")
+    func expandsFromActivity() {
+        let viewModel = makeViewModel()
+        viewModel.expandIfActive()
+        #expect(!viewModel.isExpanded)
+
+        viewModel.start(gym: nil, workoutId: "1")
+        viewModel.expandIfActive()
+        #expect(viewModel.isExpanded)
+    }
+
 }
