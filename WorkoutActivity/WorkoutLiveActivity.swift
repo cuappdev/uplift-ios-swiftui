@@ -17,11 +17,7 @@ struct WorkoutLiveActivity: Widget {
 
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: WorkoutActivityAttributes.self) { context in
-            Text(timerInterval: context.attributes.startDate...context.attributes.endDate, countsDown: false)
-                .font(Constants.Fonts.h1)
-                .foregroundStyle(Constants.Colors.yellow)
-                .monospacedDigit()
-                .padding()
+            WorkoutLockScreenView(context: context)
                 .activityBackgroundTint(Constants.Colors.black)
                 .activitySystemActionForegroundColor(Constants.Colors.yellow)
         } dynamicIsland: { context in

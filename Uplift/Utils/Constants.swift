@@ -278,6 +278,13 @@ struct Constants {
     }
 
     /// Constants used for a workout in progress
+    enum WorkoutActivity {
+        static let iconSize: CGFloat = 36
+        static let padding: CGFloat = 16
+        static let spacing: CGFloat = 12
+        static let timerWidth: CGFloat = 120
+    }
+
     enum WorkoutInProgress {
         static let activityLingerDuration: TimeInterval = 2 * 60
         static let cardId = "workoutCard"
