@@ -16,23 +16,19 @@ struct WorkoutLockScreenView: View {
 
     let context: ActivityViewContext<WorkoutActivityAttributes>
 
-    private var interval: ClosedRange<Date> {
-        context.attributes.startDate...context.attributes.endDate
-    }
-
     // MARK: - UI
 
     var body: some View {
         VStack(alignment: .leading, spacing: Constants.WorkoutActivity.spacing) {
             header
-            progress
+            WorkoutActivityProgress(attributes: context.attributes)
         }
         .padding(Constants.WorkoutActivity.padding)
     }
 
     private var header: some View {
         HStack(spacing: Constants.WorkoutActivity.spacing) {
-            icon
+            WorkoutActivityIcon()
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(Constants.WorkoutInProgress.title)
@@ -49,36 +45,8 @@ struct WorkoutLockScreenView: View {
 
             Spacer(minLength: 0)
 
-            Text(timerInterval: interval, countsDown: false)
-                .font(Constants.Fonts.h1)
-                .foregroundStyle(Constants.Colors.yellow)
-                .monospacedDigit()
-                .multilineTextAlignment(.trailing)
+            WorkoutActivityTimer(attributes: context.attributes)
                 .frame(width: Constants.WorkoutActivity.timerWidth, alignment: .trailing)
-        }
-    }
-
-    private var icon: some View {
-        Image(systemName: "dumbbell.fill")
-            .font(Constants.Fonts.h3)
-            .foregroundStyle(Constants.Colors.black)
-            .frame(width: Constants.WorkoutActivity.iconSize, height: Constants.WorkoutActivity.iconSize)
-            .background(Constants.Colors.yellow)
-            .clipShape(Circle())
-    }
-
-    private var progress: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            ProgressView(timerInterval: interval, countsDown: false) {
-                EmptyView()
-            } currentValueLabel: {
-                EmptyView()
-            }
-            .tint(Constants.Colors.yellow)
-
-            Text("Ends \(context.attributes.endDate.formatted(date: .omitted, time: .shortened))")
-                .font(Constants.Fonts.labelNormal)
-                .foregroundStyle(Constants.Colors.gray03)
         }
     }
 

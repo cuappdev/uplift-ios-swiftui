@@ -195,6 +195,8 @@
 		7AFB9B3DB3DE4DB88F83FA04 /* WorkoutActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32427F5119D41B983271675 /* WorkoutActivityAttributes.swift */; };
 		B467945FC6794F71BA51B52E /* WorkoutActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32427F5119D41B983271675 /* WorkoutActivityAttributes.swift */; };
 		59D57912E7194E9099BC83BF /* WorkoutLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37CE177EE544267A5F8DEB3 /* WorkoutLiveActivity.swift */; };
+		A595F302CF3C44078AF49D6A /* WorkoutDynamicIsland.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2957B817D71245A49D92AB14 /* WorkoutDynamicIsland.swift */; };
+		A40C5B4653494E3895D4BD95 /* WorkoutActivityComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1766B10B560C476C9CCEED5F /* WorkoutActivityComponents.swift */; };
 		F30C283153F0497AA470CCB5 /* ShadowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F5012B396EC500414BEC /* ShadowModifier.swift */; };
 		023CAA90B7B34D4C84CA4E3B /* WorkoutLockScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B6EB37A81346578F336BFF /* WorkoutLockScreenView.swift */; };
 		2E21CE7D9AEA4C45828B9308 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E090ED52B13121600BAE982 /* Constants.swift */; };
@@ -415,6 +417,8 @@
 		C0DED3022F70ACAD00E43983 /* IntroAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAnimationView.swift; sourceTree = "<group>"; };
 		C32427F5119D41B983271675 /* WorkoutActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutActivityAttributes.swift; sourceTree = "<group>"; };
 		B37CE177EE544267A5F8DEB3 /* WorkoutLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutLiveActivity.swift; sourceTree = "<group>"; };
+		2957B817D71245A49D92AB14 /* WorkoutDynamicIsland.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDynamicIsland.swift; sourceTree = "<group>"; };
+		1766B10B560C476C9CCEED5F /* WorkoutActivityComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutActivityComponents.swift; sourceTree = "<group>"; };
 		97B6EB37A81346578F336BFF /* WorkoutLockScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutLockScreenView.swift; sourceTree = "<group>"; };
 		1DD603D4521D45FE95709EBB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D7BF6D796EC440880758F95 /* WorkoutActivity.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WorkoutActivity.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -884,6 +888,8 @@
 			isa = PBXGroup;
 			children = (
 				B37CE177EE544267A5F8DEB3 /* WorkoutLiveActivity.swift */,
+				2957B817D71245A49D92AB14 /* WorkoutDynamicIsland.swift */,
+				1766B10B560C476C9CCEED5F /* WorkoutActivityComponents.swift */,
 				97B6EB37A81346578F336BFF /* WorkoutLockScreenView.swift */,
 				1DD603D4521D45FE95709EBB /* Info.plist */,
 			);
@@ -1279,6 +1285,8 @@
 			files = (
 				B467945FC6794F71BA51B52E /* WorkoutActivityAttributes.swift in Sources */,
 				59D57912E7194E9099BC83BF /* WorkoutLiveActivity.swift in Sources */,
+				A595F302CF3C44078AF49D6A /* WorkoutDynamicIsland.swift in Sources */,
+				A40C5B4653494E3895D4BD95 /* WorkoutActivityComponents.swift in Sources */,
 				F30C283153F0497AA470CCB5 /* ShadowModifier.swift in Sources */,
 				023CAA90B7B34D4C84CA4E3B /* WorkoutLockScreenView.swift in Sources */,
 				2E21CE7D9AEA4C45828B9308 /* Constants.swift in Sources */,

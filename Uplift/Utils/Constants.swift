@@ -279,8 +279,12 @@ struct Constants {
 
     /// Constants used for a workout in progress
     enum WorkoutActivity {
+        static let compactIconSize: CGFloat = 24
+        static let compactTimerWidth: CGFloat = 52
+        static let iconInset: CGFloat = 0.25
         static let iconSize: CGFloat = 36
         static let padding: CGFloat = 16
+        static let progressSpacing: CGFloat = 6
         static let spacing: CGFloat = 12
         static let timerWidth: CGFloat = 120
     }

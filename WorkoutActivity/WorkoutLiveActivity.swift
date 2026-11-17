@@ -21,22 +21,7 @@ struct WorkoutLiveActivity: Widget {
                 .activityBackgroundTint(Constants.Colors.black)
                 .activitySystemActionForegroundColor(Constants.Colors.yellow)
         } dynamicIsland: { context in
-            DynamicIsland {
-                DynamicIslandExpandedRegion(.center) {
-                    Text(timerInterval: context.attributes.startDate...context.attributes.endDate, countsDown: false)
-                        .font(Constants.Fonts.h1)
-                        .foregroundStyle(Constants.Colors.yellow)
-                        .monospacedDigit()
-                }
-            } compactLeading: {
-                Image(systemName: "dumbbell.fill")
-                    .foregroundStyle(Constants.Colors.yellow)
-            } compactTrailing: {
-                EmptyView()
-            } minimal: {
-                Image(systemName: "dumbbell.fill")
-                    .foregroundStyle(Constants.Colors.yellow)
-            }
+            WorkoutDynamicIsland(context: context).island
         }
     }
 
