@@ -12,12 +12,13 @@ struct WorkoutActivityIcon: View {
 
     // MARK: - Properties
 
+    var isFinished = false
     var size = Constants.WorkoutActivity.iconSize
 
     // MARK: - UI
 
     var body: some View {
-        Image(systemName: "dumbbell.fill")
+        Image(systemName: isFinished ? "checkmark" : "dumbbell.fill")
             .resizable()
             .scaledToFit()
             .padding(size * Constants.WorkoutActivity.iconInset)
@@ -34,13 +35,20 @@ struct WorkoutActivityTimer: View {
     // MARK: - Properties
 
     let attributes: WorkoutActivityAttributes
+    let state: WorkoutActivityAttributes.ContentState
     var font = Constants.Fonts.h1
 
     // MARK: - UI
 
     var body: some View {
-        Text(timerInterval: attributes.startDate...attributes.endDate, countsDown: false)
-            .font(font)
+        Group {
+            if let finishedAt = state.finishedAt {
+                Text(attributes.durationText(finishedAt: finishedAt))
+            } else {
+                Text(timerInterval: attributes.startDate...attributes.endDate, countsDown: false)
+            }
+        }
+        .font(font)
             .foregroundStyle(Constants.Colors.yellow)
             .monospacedDigit()
             .multilineTextAlignment(.trailing)

@@ -24,4 +24,13 @@ struct WorkoutActivityAttributes: ActivityAttributes {
     let gymName: String?
     let startDate: Date
 
+    // MARK: - Functions
+
+    func durationText(finishedAt: Date) -> String {
+        let seconds = Int(max(0, min(finishedAt, endDate).timeIntervalSince(startDate)))
+        let hours = seconds / 3600
+        let minutes = seconds % 3600 / 60
+        return hours > 0 ? "\(hours) h \(minutes) min" : "\(minutes) min"
+    }
+
 }

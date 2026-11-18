@@ -299,4 +299,12 @@ struct WorkoutInProgressTests {
         #expect(viewModel.isExpanded)
     }
 
+    @Test("the finished activity shows the capped workout duration")
+    func formatsFinishedDuration() {
+        let attributes = WorkoutActivityAttributes(endDate: now + 3600, gymName: nil, startDate: now)
+
+        #expect(attributes.durationText(finishedAt: now + 25 * 60) == "25 min")
+        #expect(attributes.durationText(finishedAt: now + 2 * 3600) == "1 h 0 min")
+    }
+
 }

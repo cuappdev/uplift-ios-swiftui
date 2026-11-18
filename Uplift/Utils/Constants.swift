@@ -281,6 +281,7 @@ struct Constants {
     enum WorkoutActivity {
         static let compactIconSize: CGFloat = 24
         static let compactTimerWidth: CGFloat = 52
+        static let finishedTitle = "Workout Complete"
         static let iconInset: CGFloat = 0.25
         static let iconSize: CGFloat = 36
         static let padding: CGFloat = 16
