@@ -315,6 +315,9 @@ struct WorkoutHistoryView: View {
         .scrollIndicators(.hidden, axes: .vertical)
     }
 
+    // TODO: Make workout history cells tappable and navigate to
+    // WorkoutSummaryView in viewing mode once the backend supports
+    // retrieving saved workout summaries.
     private func historyListCell(workout: Workout) -> some View {
         VStack(spacing: 4) {
             HStack {
@@ -367,4 +370,19 @@ struct WorkoutHistoryView: View {
 enum WorkoutHistoryTab {
     case calendar
     case list
+}
+
+#Preview {
+    WorkoutSummaryView(
+        summary: WorkoutSummary(
+            activeWorkout: ActiveWorkout(
+                gymName: "Helen Newman Hall",
+                closeTime: nil,
+                workoutId: nil,
+                startDate: Date().addingTimeInterval(-2715)
+            ),
+            endDate: .now
+        ),
+        mode: .create
+    )
 }

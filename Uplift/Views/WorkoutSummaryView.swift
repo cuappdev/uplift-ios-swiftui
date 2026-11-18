@@ -9,15 +9,13 @@ import SwiftUI
 
 struct WorkoutSummaryView: View {
     // MARK: - Properties
-    let activeWorkout: ActiveWorkout
-    let endDate: Date
+//    let activeWorkout: ActiveWorkout
+//    let endDate: Date
+    let summary: WorkoutSummary
 
     @Environment(\.dismiss) private var dismiss
 
-    @State private var isEditing: Bool
-    @State private var title = "Workout Title"
-    @State private var description = ""
-    @State private var satisfaction = 0.0
+    @StateObject private var viewModel: ViewModel
 
     //dummy
 //    private let location = "Helen Newman Hall"
@@ -25,11 +23,14 @@ struct WorkoutSummaryView: View {
 //    private let date = "29 Mar 2024, 6:00pm - 6:45pm"
 
     private var location: String {
-        activeWorkout.gymName ?? "Unknown location"
+        summary.gymName ?? "Unknown location"
     }
 
     private var duration: String {
-        let seconds = Int(activeWorkout.elapsed(at: endDate))
+        let seconds = max(
+            0,
+            Int(summary.endDate.timeIntervalSince(summary.startDate))
+        )
         let hours = seconds / 3600
         let minutes = (seconds % 3600) / 60
         let remainingSeconds = seconds % 60
@@ -42,15 +43,15 @@ struct WorkoutSummaryView: View {
     }
 
     private var date: String {
-        let day = activeWorkout.startDate.formatted(
+        let day = summary.startDate.formatted(
             .dateTime.day().month(.abbreviated).year()
         )
 
-        let start = activeWorkout.startDate.formatted(
+        let start = summary.startDate.formatted(
             .dateTime.hour().minute()
         )
 
-        let end = endDate.formatted(
+        let end = summary.endDate.formatted(
             .dateTime.hour().minute()
         )
 
@@ -79,17 +80,21 @@ struct WorkoutSummaryView: View {
         }
         .font(Constants.Fonts.f2Regular)
     }
-    
+
     // MARK: - Init
-    
+
     init(
-        activeWorkout: ActiveWorkout,
-        endDate: Date,
-        isEditing: Bool = false
+        summary: WorkoutSummary,
+        mode: ViewModel.Mode = .edit
     ) {
-        self.activeWorkout = activeWorkout
-        self.endDate = endDate
-        _isEditing = State(initialValue: isEditing)
+        self.summary = summary
+
+        _viewModel = StateObject(
+            wrappedValue: ViewModel(
+                summary: summary,
+                mode: mode
+            )
+        )
     }
 
     // MARK: - UI
@@ -115,11 +120,11 @@ struct WorkoutSummaryView: View {
 
     }
 
-    // title, location, duration, date, muscle group
+    // .title, location, duration, date, muscle group
     private var informationSection: some View {
         VStack(alignment: .leading, spacing: 20) {
-            if isEditing {
-                workoutTitle
+            if viewModel.isEditing {
+                title
                     .padding(.bottom, 12)
             }
 
@@ -141,15 +146,15 @@ struct WorkoutSummaryView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
-    private var workoutTitle: some View {
+    private var title: some View {
         VStack(alignment: .leading, spacing: 4) {
-            if isEditing {
+            if viewModel.isEditing {
                 Text("Workout Title")
                     .font(Constants.Fonts.bodyNormal)
                     .foregroundStyle(Constants.Colors.black)
 
                 HStack(spacing: 8) {
-                    TextField("Name your workout", text: $title)
+                    TextField("Name your workout", text: $viewModel.title)
                         .font(Constants.Fonts.f2Regular)
                         .frame(maxWidth: 200)
 
@@ -165,39 +170,38 @@ struct WorkoutSummaryView: View {
                         .frame(height: 1)
                 }
             } else {
-                Text(title.isEmpty ? "Workout Title" : title)
+                Text(viewModel.title.isEmpty ? "Workout Title" : viewModel.title)
                     .font(Constants.Fonts.f2Regular)
                     .foregroundStyle(Constants.Colors.black)
             }
         }
     }
 
-//    private var muscleGroup: some View {
-//        
-//    }
+    // TODO: Implement muscle group selection in editing mode
+    // and display selected muscle groups in viewing mode.
 
     private var descriptionSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(isEditing ? "Description" : "Description:")
+            Text(viewModel.isEditing ? "Description" : "Description:")
                 .font(Constants.Fonts.f2Regular)
                 .foregroundStyle(Constants.Colors.gray04)
 
-            if isEditing {
+            if viewModel.isEditing {
                 TextField(
                     "How did your workout go? Leave some notes here...",
-                    text: $description,
+                    text: $viewModel.description,
                     axis: .vertical
                 )
                 .font(Constants.Fonts.bodyNormal)
                 .foregroundStyle(Constants.Colors.black)
                 .lineLimit(2...6)
             } else {
-                Text(description.isEmpty
+                Text(viewModel.description.isEmpty
                      ? "How did your workout go? Leave some notes here..."
-                     : description)
+                     : viewModel.description)
                     .font(Constants.Fonts.bodyNormal)
                     .foregroundStyle(
-                        description.isEmpty
+                        viewModel.description.isEmpty
                         ? Constants.Colors.gray03
                         : Constants.Colors.black
                     )
@@ -239,22 +243,23 @@ struct WorkoutSummaryView: View {
     //would be nice to make a save button later
     private var actionButton: some View {
         Button {
-            if isEditing {
+            if viewModel.isEditing {
                 // TODO: Save workout
-                isEditing = false
+                viewModel.isEditing = false
+
             } else {
-                isEditing = true
+                viewModel.isEditing = true
             }
         } label: {
             HStack(spacing: 8) {
-                if !isEditing {
+                if !viewModel.isEditing {
                     Constants.Images.pencil
                         .resizable()
                         .scaledToFit()
                         .frame(width: 24, height: 24)
                 }
 
-                Text(isEditing ? "Save" : "Edit")
+                Text(viewModel.isEditing ? "Save" : "Edit")
                     .font(Constants.Fonts.h2)
             }
             .foregroundStyle(Constants.Colors.black)
@@ -273,7 +278,7 @@ struct WorkoutSummaryView: View {
             HStack {
                 Spacer()
 
-                Text(isEditing ? "Save Workout" : title)
+                Text(viewModel.isEditing ? "Save Workout" : viewModel.title)
                     .foregroundStyle(Constants.Colors.black)
                     .font(Constants.Fonts.h2)
                     .lineLimit(1)
@@ -289,19 +294,19 @@ struct WorkoutSummaryView: View {
 
     private var satisfactionSection: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text(isEditing
+            Text(viewModel.isEditing
                  ? "How satisfied were you with today’s workout?"
                  : "Rating:")
                 .font(Constants.Fonts.f2Regular)
                 .foregroundStyle(Constants.Colors.gray04)
 
             Slider(
-                value: $satisfaction,
+                value: $viewModel.satisfaction,
                 in: 0...5,
                 step: 1
             )
             .tint(Constants.Colors.yellow)
-            .disabled(!isEditing)
+            .disabled(!viewModel.isEditing)
 
             HStack(spacing: 0) {
                 ForEach(0..<6, id: \.self) { index in
@@ -326,12 +331,15 @@ struct WorkoutSummaryView: View {
 
 #Preview {
     WorkoutSummaryView(
-        activeWorkout: ActiveWorkout(
-            gymName: "Helen Newman Hall",
-            closeTime: nil,
-            workoutId: nil,
-            startDate: Date().addingTimeInterval(-2715)
+        summary: WorkoutSummary(
+            activeWorkout: ActiveWorkout(
+                gymName: "Helen Newman Hall",
+                closeTime: nil,
+                workoutId: nil,
+                startDate: Date.now.addingTimeInterval(-2715)
+            ),
+            endDate: Date.now
         ),
-        endDate: .now
+        mode: .create
     )
 }

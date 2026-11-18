@@ -83,9 +83,11 @@ struct MainView: View {
         ) {
             if let finished = workoutViewModel.finishedWorkout {
                 WorkoutSummaryView(
-                    activeWorkout: finished.workout,
-                    endDate: finished.endDate,
-                    isEditing: true
+                    summary: WorkoutSummary(
+                        activeWorkout: finished.workout,
+                        endDate: finished.endDate
+                    ),
+                    mode: .create
                 )
             }
         }

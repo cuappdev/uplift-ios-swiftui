@@ -21,12 +21,11 @@ extension WorkoutInProgressView {
                 saveActiveWorkout()
             }
         }
-        
+
         @Published private(set) var finishedWorkout: FinishedWorkout?
 
         @Published private var expanded = false
         @Published var showsQuickStart = false
-        
 
         var isExpanded: Bool {
             get { expanded && activeWorkout != nil }
@@ -108,7 +107,7 @@ extension WorkoutInProgressView {
             activeWorkout = nil
             expanded = false
         }
-        
+
         func clearFinishedWorkout() {
             finishedWorkout = nil
         }
