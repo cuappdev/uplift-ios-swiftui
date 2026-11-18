@@ -22,7 +22,7 @@ struct WorkoutLockScreenView: View {
         VStack(alignment: .leading, spacing: Constants.WorkoutActivity.spacing) {
             header
 
-            if context.state.finishedAt == nil {
+            if case .active = context.phase {
                 WorkoutActivityProgress(attributes: context.attributes)
             }
         }
@@ -31,7 +31,7 @@ struct WorkoutLockScreenView: View {
 
     private var header: some View {
         HStack(spacing: Constants.WorkoutActivity.spacing) {
-            WorkoutActivityIcon(isFinished: context.state.finishedAt != nil)
+            WorkoutActivityIcon(phase: context.phase)
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
@@ -48,13 +48,18 @@ struct WorkoutLockScreenView: View {
 
             Spacer(minLength: 0)
 
-            WorkoutActivityTimer(attributes: context.attributes, state: context.state)
+            WorkoutActivityTimer(attributes: context.attributes, phase: context.phase)
                 .frame(width: Constants.WorkoutActivity.timerWidth, alignment: .trailing)
         }
     }
 
     private var title: String {
-        context.state.finishedAt == nil ? Constants.WorkoutInProgress.title : Constants.WorkoutActivity.finishedTitle
+        switch context.phase {
+        case .active:
+            Constants.WorkoutInProgress.title
+        case .finished:
+            Constants.WorkoutActivity.finishedTitle
+        }
     }
 
 }

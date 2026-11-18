@@ -18,6 +18,11 @@ struct WorkoutActivityAttributes: ActivityAttributes {
         var finishedAt: Date?
     }
 
+    enum Phase {
+        case active
+        case finished(at: Date)
+    }
+
     // MARK: - Properties
 
     let endDate: Date
