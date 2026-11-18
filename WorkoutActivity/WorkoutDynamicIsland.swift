@@ -20,13 +20,14 @@ struct WorkoutDynamicIsland {
 
     var island: DynamicIsland {
         DynamicIsland {
-            DynamicIslandExpandedRegion(.leading) {
-                WorkoutActivityIcon(phase: context.phase)
-            }
+            // the center region only spans the camera's width, so the title shares the leading region below it
+            DynamicIslandExpandedRegion(.leading, priority: 1) {
+                HStack(spacing: Constants.WorkoutActivity.spacing) {
+                    WorkoutActivityIcon(phase: context.phase)
 
-            DynamicIslandExpandedRegion(.center) {
-                WorkoutActivityTitle(gymName: context.attributes.gymName, phase: context.phase)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    WorkoutActivityTitle(gymName: context.attributes.gymName, phase: context.phase)
+                }
+                .dynamicIsland(verticalPlacement: .belowIfTooWide)
             }
 
             DynamicIslandExpandedRegion(.trailing) {
@@ -37,6 +38,7 @@ struct WorkoutDynamicIsland {
             DynamicIslandExpandedRegion(.bottom) {
                 if case .active = context.phase {
                     WorkoutActivityProgress(attributes: context.attributes)
+                        .padding(.horizontal, Constants.WorkoutActivity.islandBottomInset)
                 }
             }
         } compactLeading: {

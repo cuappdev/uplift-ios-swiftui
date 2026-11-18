@@ -288,10 +288,11 @@ struct Constants {
         static let finishedTitle = "Workout Complete"
         static let iconInset: CGFloat = 0.25
         static let iconSize: CGFloat = 36
+        static let islandBottomInset: CGFloat = 8
         static let padding: CGFloat = 16
         static let progressSpacing: CGFloat = 6
         static let spacing: CGFloat = 12
-        static let timerWidth: CGFloat = 120
+        static let timerWidth: CGFloat = 100
         static let titleSpacing: CGFloat = 2
         static let url = URL(string: "uplift://workout")
     }
