@@ -30,7 +30,13 @@ class WorkoutActivityManager: WorkoutActivityManaging {
     func start(_ workout: ActiveWorkout) {
         guard #available(iOS 16.2, *), ActivityAuthorizationInfo().areActivitiesEnabled else { return }
 
-        cancel()
+        let activities = Activity<WorkoutActivityAttributes>.activities
+        guard !activities.contains(where: { $0.attributes.startDate == workout.startDate }) else { return }
+        for activity in activities {
+            Task {
+                await activity.end(nil, dismissalPolicy: .immediate)
+            }
+        }
 
         do {
             _ = try Activity.request(
