@@ -277,7 +277,7 @@ struct Constants {
         static let activeWorkout = "activeWorkout"
     }
 
-    /// Constants used for a workout in progress
+    /// Constants used for the workout live activity
     enum WorkoutActivity {
         static let compactIconSize: CGFloat = 24
         static let compactTimerWidth: CGFloat = 52
@@ -288,9 +288,11 @@ struct Constants {
         static let progressSpacing: CGFloat = 6
         static let spacing: CGFloat = 12
         static let timerWidth: CGFloat = 120
+        static let titleSpacing: CGFloat = 2
         static let url = URL(string: "uplift://workout")
     }
 
+    /// Constants used for a workout in progress
     enum WorkoutInProgress {
         static let activityLingerDuration: TimeInterval = 2 * 60
         static let cardId = "workoutCard"

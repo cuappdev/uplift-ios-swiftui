@@ -25,7 +25,8 @@ struct WorkoutDynamicIsland {
             }
 
             DynamicIslandExpandedRegion(.center) {
-                expandedTitle
+                WorkoutActivityTitle(gymName: context.attributes.gymName, phase: context.phase)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
 
             DynamicIslandExpandedRegion(.trailing) {
@@ -47,31 +48,6 @@ struct WorkoutDynamicIsland {
             WorkoutActivityIcon(phase: context.phase, size: Constants.WorkoutActivity.compactIconSize)
         }
         .keylineTint(Constants.Colors.yellow)
-    }
-
-    private var expandedTitle: some View {
-        VStack(alignment: .leading, spacing: 2) {
-            Text(title)
-                .font(Constants.Fonts.h3)
-                .foregroundStyle(Constants.Colors.white)
-
-            if let gymName = context.attributes.gymName {
-                Text(gymName)
-                    .font(Constants.Fonts.labelNormal)
-                    .foregroundStyle(Constants.Colors.gray02)
-            }
-        }
-        .lineLimit(1)
-        .frame(maxWidth: .infinity, alignment: .leading)
-    }
-
-    private var title: String {
-        switch context.phase {
-        case .active:
-            Constants.WorkoutInProgress.title
-        case .finished:
-            Constants.WorkoutActivity.finishedTitle
-        }
     }
 
 }

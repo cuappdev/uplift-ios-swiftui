@@ -33,32 +33,12 @@ struct WorkoutLockScreenView: View {
         HStack(spacing: Constants.WorkoutActivity.spacing) {
             WorkoutActivityIcon(phase: context.phase)
 
-            VStack(alignment: .leading, spacing: 2) {
-                Text(title)
-                    .font(Constants.Fonts.h3)
-                    .foregroundStyle(Constants.Colors.white)
-
-                if let gymName = context.attributes.gymName {
-                    Text(gymName)
-                        .font(Constants.Fonts.labelNormal)
-                        .foregroundStyle(Constants.Colors.gray02)
-                        .lineLimit(1)
-                }
-            }
+            WorkoutActivityTitle(gymName: context.attributes.gymName, phase: context.phase)
 
             Spacer(minLength: 0)
 
             WorkoutActivityTimer(attributes: context.attributes, phase: context.phase)
                 .frame(width: Constants.WorkoutActivity.timerWidth, alignment: .trailing)
-        }
-    }
-
-    private var title: String {
-        switch context.phase {
-        case .active:
-            Constants.WorkoutInProgress.title
-        case .finished:
-            Constants.WorkoutActivity.finishedTitle
         }
     }
 
