@@ -53,6 +53,9 @@ extension WorkoutInProgressView {
                 defaults.removeObject(forKey: Constants.UserDefaultsKeys.activeWorkout)
                 if let workout {
                     activityManager.finish(at: workout.autoEndDate)
+                } else {
+                    // an end request can be cut off if the app is killed right after finishing
+                    activityManager.cancel()
                 }
             }
         }

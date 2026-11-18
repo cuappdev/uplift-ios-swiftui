@@ -219,13 +219,14 @@ struct WorkoutInProgressTests {
     // MARK: - Live Activity
 
     @Test("starting a workout starts its live activity")
-    func startsActivity() {
+    func startsActivity() throws {
         let activityManager = MockWorkoutActivityManager()
         let viewModel = makeViewModel(activityManager: activityManager)
 
         viewModel.start(gym: nil, workoutId: "1")
+        let workout = try #require(viewModel.activeWorkout)
 
-        #expect(activityManager.events == viewModel.activeWorkout.map { [.start($0)] })
+        #expect(activityManager.events.last == .start(workout))
     }
 
     @Test("finishing early ends the activity at the current time")
@@ -273,6 +274,14 @@ struct WorkoutInProgressTests {
         _ = makeViewModel(defaults: defaults, at: autoEndDate + 60, activityManager: activityManager)
 
         #expect(activityManager.events == [.finish(autoEndDate)])
+    }
+
+    @Test("launching without a workout ends any orphaned activity")
+    func cancelsOrphanedActivity() {
+        let activityManager = MockWorkoutActivityManager()
+        _ = makeViewModel(activityManager: activityManager)
+
+        #expect(activityManager.events == [.cancel])
     }
 
     @Test("relaunching during a workout leaves its activity running")

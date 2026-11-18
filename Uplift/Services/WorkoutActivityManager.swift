@@ -28,9 +28,7 @@ final class WorkoutActivityManager: WorkoutActivityManaging {
     func start(_ workout: ActiveWorkout) {
         guard #available(iOS 16.2, *), ActivityAuthorizationInfo().areActivitiesEnabled else { return }
 
-        let activities = Activity<WorkoutActivityAttributes>.activities
-        guard !activities.contains(where: { $0.attributes.startDate == workout.startDate }) else { return }
-        for activity in activities {
+        for activity in Activity<WorkoutActivityAttributes>.activities {
             Task {
                 await activity.end(nil, dismissalPolicy: .immediate)
             }
@@ -66,7 +64,9 @@ final class WorkoutActivityManager: WorkoutActivityManaging {
     func cancel() {
         guard #available(iOS 16.2, *) else { return }
 
-        for activity in Activity<WorkoutActivityAttributes>.activities {
+        // finished activities are left to linger so the complete state stays visible
+        let activities = Activity<WorkoutActivityAttributes>.activities
+        for activity in activities where activity.content.state.finishedAt == nil {
             Task {
                 await activity.end(nil, dismissalPolicy: .immediate)
             }
