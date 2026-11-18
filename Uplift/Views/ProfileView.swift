@@ -270,10 +270,8 @@ struct ProfileView: View {
             DividerLine()
 
             Button {
-                UserSessionManager.shared.logout()
-                mainViewModel.resetOnboardingDraftState()
                 viewModel.showSettingsSheet = false
-                mainViewModel.sessionState = .signedOut
+                mainViewModel.didLogout()
             } label: {
                 Text("Log Out")
                     .font(Constants.Fonts.bodyNormal)
