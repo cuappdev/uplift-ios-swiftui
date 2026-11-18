@@ -144,6 +144,7 @@ struct Constants {
         static let profileSolid = Image("profile_solid")
         static let pencil = Image("pencil")
         static let elevator = Image("elevator")
+        static let friend = Image("friend")
         static let greenCheckCircle = Image("green_check_circle")
         static let greenTea = Image("green_tea")
         static let giveawayModalBackground = Image("giveaway_modal_bg")
@@ -165,6 +166,7 @@ struct Constants {
         static let replay = Image("replay")
         static let shoulder = Image("shoulder")
         static let shower = Image("shower")
+        static let startWorkout = Image("start_workout")
         static let trash = Image("trash")
         static let spokes = Image("spokes")
         static let vertEllipsis = Image("vert_ellipsis")
@@ -215,6 +217,12 @@ struct Constants {
 
     /// Shadows used in Uplift's design system.
     enum Shadows {
+        static let mediumDark = ShadowConfig(
+            color: Constants.Colors.black.opacity(0.25),
+            radius: 12.5,
+            x: 0,
+            y: 0
+        )
         static let normalDark = ShadowConfig(
             color: Constants.Colors.black,
             radius: 14,
@@ -268,6 +276,24 @@ struct Constants {
         // Workout Reminders
         static let workoutReminders = "workoutReminders"
         static let workoutReminderNotificationIds = "workoutReminderNotificationIds"
+
+        // Workout In Progress
+        static let activeWorkout = "activeWorkout"
+    }
+
+    /// Constants used for a workout in progress
+    enum WorkoutInProgress {
+        static let cardId = "workoutCard"
+        static let cardShape = UnevenRoundedRectangle(topLeadingRadius: 20, topTrailingRadius: 20)
+        static let contentFadeDelay: Double = 0.15
+        static let contentFadeDuration: Double = 0.25
+        static let expandAnimation = Animation.spring(response: 0.45, dampingFraction: 0.88)
+        static let expandDelay: TimeInterval = 0.25
+        static let maxDuration: TimeInterval = 4 * 60 * 60
+        static let quickStartDelay: TimeInterval = 1.5
+        static let slideAwayDuration: TimeInterval = 0.3
+        static let title = "Workout In Progress"
+        static let titleId = "workoutTitle"
     }
 
     /// Constants used in IntroAnimation
@@ -400,6 +426,7 @@ struct Constants {
     enum Profile {
         static let radius = 125
         static let circleRadius = 3.0
+        static let statSpacing: CGFloat = 24
     }
 
     /// Constants used in workout check-in.
@@ -471,5 +498,26 @@ struct Constants {
         static let timePickerBorderWidth: CGFloat = 1
 
         static let minuteInterval = 5
+    }
+
+    enum PushedScreen {
+        static let backButtonSize: CGFloat = 24
+        static let headerBottomPadding: CGFloat = 10
+        static let headerHeight: CGFloat = 96
+    }
+
+    enum Friends {
+        static let avatarSize: CGFloat = 46
+        static let buttonHorizontalPadding: CGFloat = 12
+        static let buttonVerticalPadding: CGFloat = 6
+        static let contentVerticalPadding: CGFloat = 24
+        static let iconSize: CGFloat = 20
+        // swiftlint:disable:next line_length
+        static let inviteMessage = "Add me as a friend on Uplift! https://apps.apple.com/us/app/uplift-cornell-fitness/id1439374374"
+        static let labelSpacing: CGFloat = 4
+        static let rowSpacing: CGFloat = 12
+        static let searchCornerRadius: CGFloat = 8
+        static let searchPadding: CGFloat = 12
+        static let sectionSpacing: CGFloat = 20
     }
 }
