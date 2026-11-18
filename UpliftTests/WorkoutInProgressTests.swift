@@ -10,7 +10,6 @@ import Foundation
 import Testing
 @testable import Uplift
 
-@MainActor
 private class MockWorkoutActivityManager: WorkoutActivityManaging {
 
     enum Event: Equatable {

@@ -9,15 +9,13 @@
 import ActivityKit
 import OSLog
 
-@MainActor
 protocol WorkoutActivityManaging {
     func start(_ workout: ActiveWorkout)
     func finish(at date: Date)
     func cancel()
 }
 
-@MainActor
-class WorkoutActivityManager: WorkoutActivityManaging {
+final class WorkoutActivityManager: WorkoutActivityManaging {
 
     // MARK: - Properties
 
