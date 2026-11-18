@@ -10,6 +10,30 @@ import Foundation
 import Testing
 @testable import Uplift
 
+private class MockWorkoutActivityManager: WorkoutActivityManaging {
+
+    enum Event: Equatable {
+        case cancel
+        case finish(Date)
+        case start(ActiveWorkout)
+    }
+
+    private(set) var events: [Event] = []
+
+    func start(_ workout: ActiveWorkout) {
+        events.append(.start(workout))
+    }
+
+    func finish(at date: Date) {
+        events.append(.finish(date))
+    }
+
+    func cancel() {
+        events.append(.cancel)
+    }
+
+}
+
 @MainActor
 struct WorkoutInProgressTests {
 
@@ -22,10 +46,15 @@ struct WorkoutInProgressTests {
 
     private func makeViewModel(
         defaults: UserDefaults? = nil,
-        at date: Date? = nil
+        at date: Date? = nil,
+        activityManager: WorkoutActivityManaging? = nil
     ) -> WorkoutInProgressView.ViewModel {
         let date = date ?? now
-        return WorkoutInProgressView.ViewModel(defaults: defaults ?? makeDefaults(), now: { date })
+        return WorkoutInProgressView.ViewModel(
+            activityManager: activityManager ?? MockWorkoutActivityManager(),
+            defaults: defaults ?? makeDefaults(),
+            now: { date }
+        )
     }
 
     private func makeWorkout(closeTime: Date?) -> ActiveWorkout {
@@ -185,6 +214,105 @@ struct WorkoutInProgressTests {
         #expect(viewModel.timerText(at: now + 3725) == "01 : 02 : 05")
         #expect(viewModel.durationText(at: now + 3725) == "1 h 2 min")
         #expect(viewModel.durationText(at: now + 125) == "2 min 5 s")
+    }
+
+    // MARK: - Live Activity
+
+    @Test("starting a workout starts its live activity")
+    func startsActivity() throws {
+        let activityManager = MockWorkoutActivityManager()
+        let viewModel = makeViewModel(activityManager: activityManager)
+
+        viewModel.start(gym: nil, workoutId: "1")
+        let workout = try #require(viewModel.activeWorkout)
+
+        #expect(activityManager.events.last == .start(workout))
+    }
+
+    @Test("finishing early ends the activity at the current time")
+    func finishesActivityNow() {
+        let activityManager = MockWorkoutActivityManager()
+        let viewModel = makeViewModel(activityManager: activityManager)
+        viewModel.start(gym: nil, workoutId: "1")
+
+        viewModel.finish()
+
+        #expect(activityManager.events.last == .finish(now))
+    }
+
+    @Test("expiring ends the activity at the auto end time")
+    func finishesActivityAtAutoEnd() throws {
+        let activityManager = MockWorkoutActivityManager()
+        let viewModel = makeViewModel(activityManager: activityManager)
+        viewModel.start(gym: nil, workoutId: "1")
+        let autoEndDate = try #require(viewModel.activeWorkout?.autoEndDate)
+
+        viewModel.finishIfExpired(at: autoEndDate)
+
+        #expect(activityManager.events.last == .finish(autoEndDate))
+    }
+
+    @Test("discarding a workout cancels its activity")
+    func cancelsActivity() {
+        let activityManager = MockWorkoutActivityManager()
+        let viewModel = makeViewModel(activityManager: activityManager)
+        viewModel.start(gym: nil, workoutId: "1")
+
+        viewModel.discard()
+
+        #expect(activityManager.events.last == .cancel)
+    }
+
+    @Test("relaunching after a workout expired ends its leftover activity")
+    func endsLeftoverActivity() throws {
+        let defaults = makeDefaults()
+        let original = makeViewModel(defaults: defaults)
+        original.start(gym: nil, workoutId: "1")
+        let autoEndDate = try #require(original.activeWorkout?.autoEndDate)
+
+        let activityManager = MockWorkoutActivityManager()
+        _ = makeViewModel(defaults: defaults, at: autoEndDate + 60, activityManager: activityManager)
+
+        #expect(activityManager.events == [.finish(autoEndDate)])
+    }
+
+    @Test("launching without a workout ends any orphaned activity")
+    func cancelsOrphanedActivity() {
+        let activityManager = MockWorkoutActivityManager()
+        _ = makeViewModel(activityManager: activityManager)
+
+        #expect(activityManager.events == [.cancel])
+    }
+
+    @Test("relaunching during a workout leaves its activity running")
+    func keepsRunningActivity() {
+        let defaults = makeDefaults()
+        makeViewModel(defaults: defaults).start(gym: nil, workoutId: "1")
+
+        let activityManager = MockWorkoutActivityManager()
+        let relaunched = makeViewModel(defaults: defaults, at: now + 60, activityManager: activityManager)
+
+        #expect(relaunched.activeWorkout != nil)
+        #expect(activityManager.events.isEmpty)
+    }
+
+    @Test("opening from the live activity expands a running workout")
+    func expandsFromActivity() {
+        let viewModel = makeViewModel()
+        viewModel.expandIfActive()
+        #expect(!viewModel.isExpanded)
+
+        viewModel.start(gym: nil, workoutId: "1")
+        viewModel.expandIfActive()
+        #expect(viewModel.isExpanded)
+    }
+
+    @Test("the finished activity shows the capped workout duration")
+    func formatsFinishedDuration() {
+        let attributes = WorkoutActivityAttributes(endDate: now + 3600, gymName: nil, startDate: now)
+
+        #expect(attributes.durationText(finishedAt: now + 25 * 60) == "25 min")
+        #expect(attributes.durationText(finishedAt: now + 2 * 3600) == "1 h 0 min")
     }
 
 }

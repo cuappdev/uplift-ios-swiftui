@@ -33,7 +33,19 @@
 				<string>com.googleusercontent.apps.535667993262-iqe8kam2jkbpaq0vl0ee7484jev8p7i0</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>com.cornellappdev.uplift.ios.workout</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>uplift</string>
+			</array>
+		</dict>
 	</array>
+	<key>NSSupportsLiveActivities</key>
+	<true/>
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<false/>
 	<key>UIAppFonts</key>

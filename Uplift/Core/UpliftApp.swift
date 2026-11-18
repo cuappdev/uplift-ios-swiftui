@@ -37,7 +37,7 @@ struct UpliftApp: App {
                     case .settingGoals:
                         SetGoalsView(isOnboarding: true)
                     case .guest, .signedIn:
-                        MainView()
+                        MainView(workoutViewModel: mainViewModel.workoutViewModel)
                             .onAppear {
                                 LocationManager.shared.requestLocation()
                             }
@@ -49,7 +49,9 @@ struct UpliftApp: App {
                 )
                 .environmentObject(mainViewModel)
                 .onOpenURL { url in
-                    GIDSignIn.sharedInstance.handle(url)
+                    if !mainViewModel.handle(url) {
+                        GIDSignIn.sharedInstance.handle(url)
+                    }
                 }
             }
             .onAppear {

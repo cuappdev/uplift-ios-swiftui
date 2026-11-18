@@ -29,12 +29,18 @@ extension WorkoutInProgressView {
             set { expanded = newValue }
         }
 
+        private let activityManager: WorkoutActivityManaging
         private let defaults: UserDefaults
         private let now: () -> Date
         private var quickStartGym: Gym?
         private var quickStartWorkoutId: String?
 
-        init(defaults: UserDefaults = .standard, now: @escaping () -> Date = Date.init) {
+        init(
+            activityManager: WorkoutActivityManaging = WorkoutActivityManager.shared,
+            defaults: UserDefaults = .standard,
+            now: @escaping () -> Date = Date.init
+        ) {
+            self.activityManager = activityManager
             self.defaults = defaults
             self.now = now
 
@@ -45,6 +51,12 @@ extension WorkoutInProgressView {
                 activeWorkout = workout
             } else {
                 defaults.removeObject(forKey: Constants.UserDefaultsKeys.activeWorkout)
+                if let workout {
+                    activityManager.finish(at: workout.autoEndDate)
+                } else {
+                    // an end request can be cut off if the app is killed right after finishing
+                    activityManager.cancel()
+                }
             }
         }
 
@@ -56,12 +68,14 @@ extension WorkoutInProgressView {
                 closeTime = time
             }
 
-            activeWorkout = ActiveWorkout(
+            let workout = ActiveWorkout(
                 gymName: gym?.name,
                 closeTime: closeTime,
                 workoutId: workoutId,
                 startDate: now()
             )
+            activeWorkout = workout
+            activityManager.start(workout)
         }
 
         func offerQuickStart(gym: Gym?, workoutId: String?) {
@@ -78,20 +92,23 @@ extension WorkoutInProgressView {
 
         @discardableResult
         func finish() -> ActiveWorkout? {
-            let workout = activeWorkout
-            activeWorkout = nil
-            expanded = false
-            return workout
+            finish(at: now())
         }
 
         func finishIfExpired(at now: Date) {
             guard let activeWorkout, activeWorkout.isFinished(at: now) else { return }
-            finish()
+            finish(at: now)
+        }
+
+        func expandIfActive() {
+            finishIfExpired(at: now())
+            isExpanded = activeWorkout != nil
         }
 
         func discard() {
             activeWorkout = nil
             expanded = false
+            activityManager.cancel()
         }
 
         var showsMinimizedBar: Bool {
@@ -114,6 +131,17 @@ extension WorkoutInProgressView {
             let hours = total / 3600
             let minutes = total % 3600 / 60
             return hours > 0 ? "\(hours) h \(minutes) min" : "\(minutes) min \(total % 60) s"
+        }
+
+        @discardableResult
+        private func finish(at date: Date) -> ActiveWorkout? {
+            let workout = activeWorkout
+            activeWorkout = nil
+            expanded = false
+            if let workout {
+                activityManager.finish(at: min(date, workout.autoEndDate))
+            }
+            return workout
         }
 
         private func elapsedSeconds(at now: Date) -> Int {
